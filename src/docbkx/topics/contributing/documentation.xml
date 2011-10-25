@@ -45,12 +45,12 @@
   <section>
     <title>Getting Started (cli)</title>
 
-    <para>First you need to obtain the source of the documentation project.
-    </para>
+    <para>First you need to obtain the source of the documentation
+    project.</para>
 
     <para>Clone the repository:</para>
 
-    <para><screen>$ git clone git@github.com:jmcc0nn3ll/jetty-documentation.git</screen></para>
+    <para><screen>$ git clone git@github.com:jetty-project/jetty-documentation.git</screen></para>
 
     <para>You will now have a local directory with all of the
     jetty-documentation. Now we move on to building it.</para>
@@ -108,7 +108,7 @@ $ mvn install</screen></para>
     karma. In english that means that you would go to the url of the
     documentation in github:</para>
 
-    <para><screen>https://github.com/jmcc0nn3ll/jetty-documentation</screen></para>
+    <para><screen>https://github.com/jetty-project/jetty-documentation</screen></para>
 
     <para>When your on this page you will see a little button called 'Fork'
     which you can click and you'll suddenly be taking back to your main page

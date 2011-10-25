@@ -1,5 +1,39 @@
-target
-.settings
+# eclipse
 .classpath
 .project
+.settings
 
+# maven
+target/
+*/src/main/java/META-INF/
+
+# common junk
+*.log
+*.swp
+*.diff
+*.patch
+
+# intellij
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# Mac filesystem dust
+/.DS_Store
+
+# pmd
+.pmdruleset
+.pmd
+
+# netbeans
+/nbproject
+
+# vim
+.*.sw[a-p]
+
+# merge tooling
+*.orig
+
+# xmlmind
+.*~

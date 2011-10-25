@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section version="5.0" xmlns="http://docbook.org/ns/docbook"
+	xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
+	xmlns:ns5="http://www.w3.org/2000/svg" xmlns:ns4="http://www.w3.org/1998/Math/MathML"
+	xmlns:ns3="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
+
+  <title>Introduction</title>
+  <para>Welcome to the Jetty Documentation Wiki. Jetty is an open-source
+    project providing an HTTP server, HTTP client, and javax.servlet
+    container. This Jetty Wiki provides information about getting
+    started with Jetty, basic configuration, specific features,
+    optimization, security, JavaEE, monitoring, FAQs, help with
+    troubleshooting, and more. It includes tutorials, howtos, videos,
+    feature descriptions, and reference materials.</para>
+
+  <section>
+    <title>Proposed Usage</title>
+
+    <para>
+      <itemizedlist>
+        <listitem>
+          <para>raw content comes from developers (and the existing
+            wiki)</para>
+        </listitem>
+        <listitem>
+          <para>developers can checkout the git project and create
+            sections as features or changes to existing work, new
+            documentaiton in other words</para>
+        </listitem>
+        <listitem>
+          <para>we can make an incoming directory in the structure here
+            that developers commit new raw content to</para>
+        </listitem>
+        <listitem>
+          <para>shirley can be responsible for taking raw content and
+            organizing into the chosen structure</para>
+        </listitem>
+        <listitem>
+          <para>we can all edit and update existing documentation, but
+            new content generally goes to incoming</para>
+        </listitem>
+        <listitem>
+        </listitem>
+      </itemizedlist>
+    </para>
+
+    <para>
+      Releasing is easy
+
+      <itemizedlist>
+        <listitem>
+          <para>Note the Version section in the top toc, we have a way
+            of injecting values into the generation</para>
+        </listitem>
+        <listitem>
+          <para>on release we update the pom.xml and set the version
+            numbers, 6, 7 and 8 that the document covers</para>
+        </listitem>
+        <listitem>
+          <para>commit that and then we run normal maven release process
+          </para>
+          <para>mvn release:prepare</para>
+          <para>mvn release:perform</para>
+        </listitem>
+        <listitem>
+          <para>we can consume the documentation from maven central
+            while building out our distribution</para>
+        </listitem>
+        <listitem>
+          <para>we can also bundle up the html and deploy it to
+            download.eclipse.org/jetty/documentation</para>
+        </listitem>
+      </itemizedlist>
+    </para>
+  </section>
+</section>

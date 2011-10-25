@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.eclipse.jetty</groupId>
+  <artifactId>jetty-documentation</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <name>Docbkx Maven Quikstart Archetype</name>
+  <packaging>pom</packaging>
+     
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>com.agilejava.docbkx</groupId>
+        <artifactId>docbkx-maven-plugin</artifactId>
+        <version>2.0.13</version>
+        <executions>
+          <!-- -->
+          <execution>
+            <id>documentation identifier</id>
+            <phase>compile</phase>
+            <goals>
+              <goal>generate-xhtml</goal>
+              <goal>generate-pdf</goal>
+            </goals>
+            <configuration>
+              <!-- per execution configuration -->
+              <includes>jetty.xml</includes>
+              <!--draftMode>yes</draftMode-->
+            </configuration>
+          </execution>
+        </executions>
+        <configuration>
+          <!-- shared configuration -->
+          <generatedSourceDirectory>\${project.build.directory}/docbkx/generated</generatedSourceDirectory>
+          <xincludeSupported>true</xincludeSupported>
+          <paperType>A4</paperType>
+          <chunkedOutput>true</chunkedOutput>
+          <fop1Extensions>1</fop1Extensions>
+
+          <foCustomization>src/docbkx-stylesheet/fo/docbook.xsl</foCustomization>
+          <highlightSource>true</highlightSource>
+          <customizationParameters>
+            <!-- additional XSLT parameters-->
+            <parameter>
+              <name>key</name>
+              <value>value</value>
+            </parameter>
+          </customizationParameters>
+          <entities>
+            <entity>
+              <name>version</name>
+              <value>${project.version}</value>
+            </entity>
+          </entities>
+          <postProcess>
+             <copy todir="target/docbkx/xhtml/book">
+             <fileset dir="src/docbkx">
+                 <include name="**/*.jpg"/>
+             </fileset>
+             </copy>
+          </postProcess>
+          <generateToc>book toc,title,figure,table,example,equation</generateToc>
+        </configuration>
+        <dependencies>
+          <dependency>
+            <groupId>net.sf.docbook</groupId>
+            <artifactId>docbook-xml</artifactId>
+            <version>5.0-all</version>
+            <classifier>resources</classifier>
+            <type>zip</type>
+            <scope>runtime</scope>
+          </dependency>
+          <!--dependency>
+            <groupId>org.docbook</groupId>
+            <artifactId>docbook-xml</artifactId>
+            <version>4.4</version>
+            <scope>runtime</scope>
+          </dependency-->
+          <dependency>
+            <groupId>net.sf.xslthl</groupId>
+            <artifactId>xslthl</artifactId>
+            <version>2.0.1</version>
+            <scope>runtime</scope>
+          </dependency>
+          <dependency>
+            <groupId>net.sf.offo</groupId>
+            <artifactId>fop-hyph</artifactId>
+            <version>1.2</version>
+            <scope>runtime</scope>
+          </dependency>
+          <dependency>
+            <groupId>net.sf.docbook</groupId>
+            <artifactId>docbook-xml</artifactId>
+            <version>5.0-all</version>
+            <classifier>resources</classifier>
+            <type>zip</type>
+            <scope>runtime</scope>
+          </dependency>
+        </dependencies>
+      </plugin>
+    </plugins>
+  </build>
+
+</project>

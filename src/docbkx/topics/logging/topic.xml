@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section version="5.0" xmlns="http://docbook.org/ns/docbook"
+	xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
+	xmlns:ns5="http://www.w3.org/2000/svg" xmlns:ns4="http://www.w3.org/1998/Math/MathML"
+	xmlns:ns3="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
+	<title>Logging</title>
+
+	<para>
+		You can use Jetty with external logging frameworks, or you can
+		use default Jetty logging.
+	</para>
+
+	<para>
+		With any logging framework, all events have a name and a level.
+		The name is	a Fully Qualified Class Name (FQCN). The logging framework
+		you choose determines the level. While the meaning of the levels is
+		pretty much	the same across logging frameworks, the descriptive
+		identifiers for those levels are different.
+	</para>
+
+	<para>
+		We can even pull in another nested layer of paragraphs if we want
+	</para>
+
+	<title>Logging with External Frameworks</title>
+
+	<para>
+		You can use a logging framework other than the default Jetty Log.
+		You use SLF4J as a façade for a logging framework such as logback,
+		java.util.logging, or log4j, and all logging events stream to that
+		framework. The way you configure the framework determines what you
+		see. If, for example, you want to ignore all events below WARN level,
+		or turn on FINE/DEBUG level on org.eclipse.jetty.io.nio?, now you can.
+	</para>
+
+	<para>NOTICE: if we change logging once more for some later version, 
+	then this part that is no longer relevant can me cut and paste into 
+	the same system-properties.xml setup below used using the xinclude to the subdirectory.</para>
+
+	<para>We allow for a dynamic level of logging to be set on the command line.</para>
+  
+      <itemizedlist>
+        <listitem>
+          <para>-Dorg.eclipse.jetty.LEVEL=ERROR</para>
+          <para>this enabled a general level of ERROR logging across all of jetty</para>
+        </listitem>
+        <listitem>
+          <para>-Dorg.eclipse.jetty.sessions.LEVEL=DEBUG</para>
+          <para>this enabled a general level of DEBUG logging across all logging coming from the sessions packages.</para>
+        </listitem>
+      </itemizedlist>
+      
+    <para>NOTICE: now this a minor difference between versions so I would maybe opt to have this render
+    into a sort of wiki tip box layout and have larger changes between versions render out to this whole section difference.</para>
+	
+	<xi:include href="7.2.4-7.5.3/system-properties.xml"/>
+	<xi:include href="7.0.0-7.2.3/system-properties.xml"/>
+	<xi:include href="6/system-properties.xml"/>
+
+    <para>NOTICE: long story short, if the docs change between versions we decide if its a big change or a little change and follow
+    this procedure to capture that change.  If you really want to just do away with the old information at that point, just comment out the xi:include and 
+    it wouldn't get picked up, but the old documentation would still linger until someone decides to just delete it.</para>
+
+</section>

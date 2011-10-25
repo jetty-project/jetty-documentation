@@ -1,76 +1,122 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section version="5.0" xmlns="http://docbook.org/ns/docbook"
-	xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
-	xmlns:ns5="http://www.w3.org/2000/svg" xmlns:ns4="http://www.w3.org/1998/Math/MathML"
-	xmlns:ns3="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
-
+         xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:ns5="http://www.w3.org/2000/svg"
+         xmlns:ns4="http://www.w3.org/1998/Math/MathML"
+         xmlns:ns3="http://www.w3.org/1999/xhtml"
+         xmlns:db="http://docbook.org/ns/docbook">
   <title>Introduction</title>
+
   <para>Welcome to the Jetty Documentation Wiki. Jetty is an open-source
-    project providing an HTTP server, HTTP client, and javax.servlet
-    container. This Jetty Wiki provides information about getting
-    started with Jetty, basic configuration, specific features,
-    optimization, security, JavaEE, monitoring, FAQs, help with
-    troubleshooting, and more. It includes tutorials, howtos, videos,
-    feature descriptions, and reference materials.</para>
+  project providing an HTTP server, HTTP client, and javax.servlet container.
+  This Jetty Wiki provides information about getting started with Jetty, basic
+  configuration, specific features, optimization, security, JavaEE,
+  monitoring, FAQs, help with troubleshooting, and more. It includes
+  tutorials, howtos, videos, feature descriptions, and reference
+  materials.</para>
 
   <section>
     <title>Proposed Usage</title>
 
-    <para>
-      <itemizedlist>
-        <listitem>
-          <para>raw content comes from developers (and the existing
-            wiki)</para>
-        </listitem>
-        <listitem>
-          <para>developers can checkout the git project and create
-            sections as features or changes to existing work, new
-            documentaiton in other words</para>
-        </listitem>
-        <listitem>
-          <para>we can make an incoming directory in the structure here
-            that developers commit new raw content to</para>
-        </listitem>
-        <listitem>
-          <para>shirley can be responsible for taking raw content and
-            organizing into the chosen structure</para>
-        </listitem>
-        <listitem>
-          <para>we can all edit and update existing documentation, but
-            new content generally goes to incoming</para>
-        </listitem>
-        <listitem>
-        </listitem>
-      </itemizedlist>
-    </para>
+    <para>By following some simple conventions we can make sure that this is a
+    fairly easy and straight forward effort to port our documentation into the
+    new system.</para>
 
-    <para>
-      Releasing is easy
+    <para><itemizedlist>
+        <listitem>
+          <para>raw content comes from a variety of locations: </para>
 
-      <itemizedlist>
-        <listitem>
-          <para>Note the Version section in the top toc, we have a way
-            of injecting values into the generation</para>
+          <itemizedlist>
+            <listitem>
+              <para>developers</para>
+            </listitem>
+
+            <listitem>
+              <para>the existing wiki until all documentation is ported</para>
+            </listitem>
+
+            <listitem>
+              <para>blogs</para>
+            </listitem>
+          </itemizedlist>
         </listitem>
+
         <listitem>
-          <para>on release we update the pom.xml and set the version
-            numbers, 6, 7 and 8 that the document covers</para>
+          <para>developers can checkout the git project make simple changes to
+          any content, coordinating with Shirley as needed to avoid clashes of
+          effort</para>
         </listitem>
+
         <listitem>
-          <para>commit that and then we run normal maven release process
-          </para>
-          <para>mvn release:prepare</para>
-          <para>mvn release:perform</para>
+          <para>we will have an /incoming/ directory</para>
+
+          <itemizedlist>
+            <listitem>
+              <para> new 'sections' go here and are written in by developers,
+              this is new features, etc</para>
+            </listitem>
+          </itemizedlist>
+
+          <itemizedlist>
+            <listitem>
+              <para>once new section is ready, work with shirley on where it
+              will go and how it will be wired up</para>
+            </listitem>
+          </itemizedlist>
         </listitem>
+
         <listitem>
-          <para>we can consume the documentation from maven central
-            while building out our distribution</para>
+          <para>we can all edit and update existing documentation, but new
+          content enters through incoming with shirley as the
+          gatekeeper</para>
         </listitem>
+      </itemizedlist></para>
+  </section>
+
+  <section>
+    <title>Releasing</title>
+
+    <para><itemizedlist>
+        <listitem>
+          <para>We have a way of injecting properties into these xml files. We
+          will leverage that and update the pom.xml and set the version
+          numbers, 6, 7 and 8 that the document covers</para>
+        </listitem>
+
+        <listitem>
+          <para>commit and then we run normal maven release process,
+          documentation releases will follow a typical 1.0 release approach,
+          releasing before jetty releases so we can ship the latest version of
+          these documents</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>mvn release:prepare</para>
+            </listitem>
+
+            <listitem>
+              <para>mvn release:perform</para>
+            </listitem>
+          </itemizedlist>
+        </listitem>
+
+        <listitem>
+          <para>we can consume the documentation from maven central while
+          building out our distributions</para>
+        </listitem>
+
         <listitem>
           <para>we can also bundle up the html and deploy it to
-            download.eclipse.org/jetty/documentation</para>
+          download.eclipse.org/jetty/documentation</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>we can provide links to older releases of the
+              documentation</para>
+            </listitem>
+          </itemizedlist>
         </listitem>
-      </itemizedlist>
-    </para>
+      </itemizedlist></para>
   </section>
 </section>

@@ -53,9 +53,10 @@
             </entity>
           </entities>
           <postProcess>
-             <copy todir="target/docbkx/xhtml/book">
+             <copy todir="target/docbkx/xhtml/jetty">
              <fileset dir="src/docbkx">
                  <include name="**/*.jpg"/>
+                 <include name="**/*.gif"/>
              </fileset>
              </copy>
           </postProcess>

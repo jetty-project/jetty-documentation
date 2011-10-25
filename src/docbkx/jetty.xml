@@ -40,11 +40,18 @@
     </mediaobject>
   </figure>
 
-  <!-- Chapters are laid out in the jetty.xml but sections are pulled in via xi:included parts -->
-  <chapter id="introduction">
+   <!-- Chapters are laid out in the jetty.xml but sections are pulled in via xi:included parts -->
+   <chapter id="introduction">
     <title>Introducing Jetty</title>
       
+    <!-- By convention the entry point to each new topic is topic.xml so you know the primary entry point for each section without having to reference to top level xml document -->
     <xi:include href="topics/introduction/topic.xml"/>  
+   </chapter>
+    
+   <chapter id="logging">
+    <title>Logging with Jetty</title>
+      
+    <xi:include href="topics/logging/topic.xml"/>  
    </chapter> 
    
    <chapter id="contributing">

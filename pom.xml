@@ -4,7 +4,7 @@
   <groupId>org.eclipse.jetty</groupId>
   <artifactId>jetty-documentation</artifactId>
   <version>1.0-SNAPSHOT</version>
-  <name>Docbkx Maven Quikstart Archetype</name>
+  <name>Jetty :: Documentation</name>
   <packaging>pom</packaging>
      
   <build>
@@ -70,12 +70,6 @@
             <type>zip</type>
             <scope>runtime</scope>
           </dependency>
-          <!--dependency>
-            <groupId>org.docbook</groupId>
-            <artifactId>docbook-xml</artifactId>
-            <version>4.4</version>
-            <scope>runtime</scope>
-          </dependency-->
           <dependency>
             <groupId>net.sf.xslthl</groupId>
             <artifactId>xslthl</artifactId>

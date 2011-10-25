@@ -6,5 +6,5 @@
 	
   <xi:include href="community.xml"/>
   <xi:include href="patches.xml"/>
-  <xi:include href="book.xml"/>
+  <xi:include href="documentation.xml"/>
 </section>

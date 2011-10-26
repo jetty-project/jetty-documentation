@@ -145,4 +145,76 @@ $ mvn install</screen></para>
     and building up good community karma, you may be asked to join us as a
     commiter on the documentation.</para>
   </section>
+
+  <section>
+    <title>Conventions</title>
+
+    <para>Below is list of conventions that should be followed when
+    development documentation within this framework. These are not set in
+    stone and should be updated as we learn more.</para>
+
+    <itemizedlist>
+      <listitem>
+        <para>chapters</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>defined in jetty.xml</para>
+          </listitem>
+
+          <listitem>
+            <para>use xi:include to bring in topics</para>
+          </listitem>
+        </itemizedlist>
+      </listitem>
+
+      <listitem>
+        <para>topics</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>composed of discrete sections that can be linked into
+            chapters via xi:include as needed</para>
+          </listitem>
+
+          <listitem>
+            <para>root of topic always named topic.xml</para>
+          </listitem>
+
+          <listitem>
+            <para>can be further decomposed into xml files and linked in with
+            xi:include</para>
+          </listitem>
+
+          <listitem>
+            <para>? should topics allow linking in other topics or do we need
+            a 'category for topics?'</para>
+          </listitem>
+
+          <listitem>
+            <para>images and graphics should be linked to from within the
+            topic directory</para>
+          </listitem>
+        </itemizedlist>
+      </listitem>
+
+      <listitem>
+        <para>version differences</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>small differences should go into nested sections and use
+            titles like 'Prior to: ##' or 'In version: ##'</para>
+          </listitem>
+
+          <listitem>
+            <para>larger sections that are replaced should go into nested
+            directories and either be xi:included or simply not linked in, but
+            old content should be preserved in version specific sub
+            directories</para>
+          </listitem>
+        </itemizedlist>
+      </listitem>
+    </itemizedlist>
+  </section>
 </section>

@@ -18,7 +18,8 @@
     <para>Jetty logging looks for a slf4j jar on the classpath. If found,
     slf4j is used to control logging otherwise stderr is used. The
     org.mortbay.log.Log class is used to coordinate logging and the following
-    system parameters may be used to control logging:<table>
+    system parameters may be used to control logging:
+    <table>
         <title>Options</title>
 
         <tgroup cols="2">
@@ -52,7 +53,8 @@
             </row>
           </tbody>
         </tgroup>
-      </table></para>
+      </table>
+      </para>
   </section>
 
   <section>

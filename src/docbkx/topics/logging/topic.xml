@@ -8,8 +8,9 @@
          xmlns:db="http://docbook.org/ns/docbook">
   <title>Logging</title>
 
-  <para>You can use Jetty with external logging frameworks, or you can use
-  default Jetty logging.</para>
+  <para>Jetty has a builtin logging facade that can log to stderr or to SLF4J
+  (which in turn can log to commons-logging, Log4j, NLOG4J or Java
+  logging).</para>
 
   <para>With any logging framework, all events have a name and a level. The
   name is a Fully Qualified Class Name (FQCN). The logging framework you
@@ -17,61 +18,120 @@
   the same across logging frameworks, the descriptive identifiers for those
   levels are different.</para>
 
-  <para>We can even pull in another nested layer of paragraphs if we
-  want</para>
-
   <section>
     <title>Logging with External Frameworks</title>
 
     <para>You can use a logging framework other than the default Jetty Log.
     You use SLF4J as a façade for a logging framework such as logback,
-    java.util.logging, or log4j, and all logging events stream to that
+    java.util.logging, NLOG4J, or Log4j, and all logging events stream to that
     framework. The way you configure the framework determines what you see.
     If, for example, you want to ignore all events below WARN level, or turn
-    on FINE/DEBUG level on org.eclipse.jetty.io.nio?, now you can.</para>
+    on FINE/DEBUG level on org.eclipse.jetty.io.nio?, you can.</para>
 
-    <para>We allow for a dynamic level of logging to be set on the command
-    line.</para>
+    <para>Default Jetty Logging: Jetty 7 and Jetty 8</para>
+
+    <para>The default Jetty log has one name for all logs, using a system
+    property that turns on DEBUG and reports on predefined events that write
+    to stderr. You configure logging at startup.</para>
+
+    <para>THIS SHOULD BE A HEAD-&gt;Jetty 7.4.5 and Later</para>
+
+    <para>As of Jetty 7.4.5 Jetty allows for a dynamic level of logging that
+    you set on the command line.</para>
 
     <itemizedlist>
       <listitem>
-        <para>-Dorg.eclipse.jetty.LEVEL=ERROR</para>
-
-        <para>this enabled a general level of ERROR logging across all of
-        jetty</para>
+        <para>-Dorg.eclipse.jetty.LEVEL=ERROR–Enables a general level of ERROR
+        logging across all of jetty</para>
       </listitem>
 
       <listitem>
-        <para>-Dorg.eclipse.jetty.sessions.LEVEL=DEBUG</para>
-
-        <para>this enabled a general level of DEBUG logging across all logging
-        coming from the sessions packages.</para>
+        <para>-Dorg.eclipse.jetty.sessions.LEVEL=DEBUG–Enables a general level
+        of DEBUG logging across all logging coming from the sessions
+        packages.</para>
       </listitem>
     </itemizedlist>
 
+    <para>THIS SHOULD BE A HEAD-&gt; Jetty 7 Logging Prior to 7.4.5</para>
+
+    <para>Jetty 7 logging prior to 7.4.5 includes some system properties that
+    you can use to control filtering. For example,
+    <literal>org.eclipse.jetty.util.log.stderr.DEBUG</literal> sets the level
+    filter to DEBUG and higher, with the possible levels being IGNORE, DEBUG,
+    INFO, and WARN. By default, Jetty filters from INFO and above, showing
+    only INFO and WARN logs. With StdErrLog you always see INFO and WARN logs.
+    You can add DEBUG and/or IGNORE logs. With the exception of
+    <literal>org.eclipse.jetty.util.log.class</literal> these system
+    properties take boolean values (true or false). You set these system
+    properties when you start Jetty.</para>
+
     <section>
-      <title>Prior to: 7.4.5</title>
+      <title>System Properties for Jetty 7 Logging Prior to 7.4.5</title>
 
-      <para>The system properties used to enable debugging were:</para>
+      <para>The system properties used to enable debugging are:</para>
 
-      <itemizedlist>
-        <listitem>
-          <para>-Dorg.eclipse.jetty.util.log.DEBUG=true</para>
-        </listitem>
-      </itemizedlist>
-    </section>
+      <table>
+        <title>Logging System Properties, Jetty 7 Prior to 7.4.5</title>
 
-    <section>
-      <title>Jetty 6</title>
+        <tgroup cols="2">
+          <thead>
+            <row>
+              <entry align="center">System Property</entry>
 
-      <para>In Jetty 6, the system properties used to enable debugging
-      were:</para>
+              <entry align="center">Project</entry>
+            </row>
+          </thead>
 
-      <itemizedlist>
-        <listitem>
-          <para>-DDEBUG=true</para>
-        </listitem>
-      </itemizedlist>
+          <tbody>
+            <row>
+              <entry>org.eclipse.jetty.util.log.class&gt;</entry>
+
+              <entry>Sets the implementation class for Jetty Logging. Allows
+              you to use an external logging framework with Jetty.</entry>
+            </row>
+
+            <row>
+              <entry>org.eclipse.jetty.util.log.IGNORED</entry>
+
+              <entry rowsep="1">Shows the IGNORED logging events (ones not
+              deemed pertinent).</entry>
+            </row>
+
+            <row>
+              <entry>org.eclipse.jetty.util.log.DEBUG (deprecated)</entry>
+
+              <entry rowsep="1">Shows DEBUG events and up.</entry>
+            </row>
+
+            <row>
+              <entry>org.eclipse.jetty.util.log.stderr.DEBUG</entry>
+
+              <entry rowsep="1">Shows DEBUG events and up (for StdErrLog)
+              </entry>
+            </row>
+
+            <row>
+              <entry>org.eclipse.jetty.util.log.SOURCE (deprecated)</entry>
+
+              <entry rowsep="1">Shows the output of the log.</entry>
+            </row>
+
+            <row>
+              <entry>org.eclipse.jetty.util.log.stderr.SOURCE</entry>
+
+              <entry rowsep="1">Includes the source filename and line number
+              in the StdErrLog output.</entry>
+            </row>
+
+            <row>
+              <entry>org.eclipse.jetty.util.log.stderr.LONG</entry>
+
+              <entry rowsep="1">Uses the long form FQCN in the StdErrLog
+              output (defaults to false).</entry>
+            </row>
+          </tbody>
+        </tgroup>
+      </table>
     </section>
   </section>
 

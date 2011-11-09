@@ -49,14 +49,14 @@
     <xi:include href="topics/introduction/topic.xml"/>  
    </chapter>
     
-   <chapter id="logging">
+   <chapter id="logging"><?dbhtml filename="logging.html" ?>
     <title>Logging with Jetty</title>
       
     <xi:include href="topics/logging/topic.xml"/>  
    </chapter> 
   
 
-   <chapter id="contributing">
+   <chapter id="contributing"><?dbhtml filename="contributing.html" ?>
     <title>Contributing to Jetty</title>
       
     <xi:include href="topics/contributing/topic.xml"/>  

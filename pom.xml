@@ -20,7 +20,7 @@
             <phase>compile</phase>
             <goals>
               <goal>generate-xhtml</goal>
-              <!--goal>generate-pdf</goal-->
+              <goal>generate-pdf</goal>
             </goals>
             <configuration>
               <!-- per execution configuration -->

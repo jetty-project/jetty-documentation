@@ -3,8 +3,9 @@
       xmlns:xlink="http://www.w3.org/1999/xlink"
       xmlns:xi="http://www.w3.org/2001/XInclude"
       xmlns:db="http://docbook.org/ns/docbook">
-  <info>
+ <info>
     <title>Jetty / the book</title> 
+
     <revhistory>
       <revision>
         <revnumber>1</revnumber>
@@ -30,7 +31,7 @@
       <holder>Intalio/Webtide</holder>
     </copyright>
   </info>
-
+<!-- This causes a pdf generation err
   <figure id="fig_uniequeid">
     <title>Jetty Logo</title>
     <mediaobject>
@@ -39,7 +40,7 @@
       </imageobject>
     </mediaobject>
   </figure>
-
+-->
    <!-- Chapters are laid out in the jetty.xml but sections are pulled in via xi:included parts -->
    <chapter id="introduction">
     <title>Introducing Jetty</title>
@@ -53,7 +54,8 @@
       
     <xi:include href="topics/logging/topic.xml"/>  
    </chapter> 
-   
+  
+
    <chapter id="contributing">
     <title>Contributing to Jetty</title>
       

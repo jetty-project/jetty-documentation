@@ -67,22 +67,22 @@ $ mvn install</screen></para>
     while the downloading will stop and you'll see the execution of the
     docbkx-maven-plugin.</para>
 
-    <para><screen>[INFO] --- docbkx-maven-plugin:2.0.13:generate-xhtml (documentation identifier) @ jetty-documentation --- 
-[INFO] Processing input file: jetty.xml 
-[INFO] Dumping to /home/jesse/src/projects/jetty/jetty-documentation/target/docbkx/generated/(gen)jetty.xml 
-[INFO] Applying customization parameters 
+    <para><screen>[INFO] --- docbkx-maven-plugin:2.0.13:generate-xhtml (documentation identifier) @ jetty-documentation ---
+[INFO] Processing input file: jetty.xml
+[INFO] Dumping to /home/jesse/src/projects/jetty/jetty-documentation/target/docbkx/generated/(gen)jetty.xml
+[INFO] Applying customization parameters
 [INFO] Chunking output. &lt;?xml version="1.0" encoding="UTF-8"?&gt;
-[INFO] See /home/jesse/src/projects/jetty/jetty-documentation/target/docbkx/xhtml/jetty for generated file(s) 
-[INFO] Executing tasks 
+[INFO] See /home/jesse/src/projects/jetty/jetty-documentation/target/docbkx/xhtml/jetty for generated file(s)
+[INFO] Executing tasks
 [INFO] Executed tasks </screen></para>
 
     <para>The build is finished once you see a message akin to this:</para>
 
-    <para><screen>[INFO] ------------------------------------------------------------------------ 
-[INFO] BUILD SUCCESS 
-[INFO] ------------------------------------------------------------------------ 
-[INFO] Total time: 7.014s [INFO] Finished at: Tue Oct 25 14:15:37 CDT 2011 
-[INFO] Final Memory: 14M/229M 
+    <para><screen>[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 7.014s [INFO] Finished at: Tue Oct 25 14:15:37 CDT 2011
+[INFO] Final Memory: 14M/229M
 [INFO] ------------------------------------------------------------------------ </screen></para>
 
     <para>You may now open your web browser and browse to the first page of
@@ -156,20 +156,18 @@ $ mvn install</screen></para>
     <itemizedlist>
       <listitem>
         <para>chapters</para>
-
         <itemizedlist>
           <listitem>
             <para>defined in jetty.xml</para>
           </listitem>
-
           <listitem>
-            <para>use xi:include to bring in topics</para>
+            <para>use xi:include to bring in individual chapters</para>
           </listitem>
         </itemizedlist>
       </listitem>
 
       <listitem>
-        <para>topics</para>
+        <para>chapters</para>
 
         <itemizedlist>
           <listitem>
@@ -178,7 +176,7 @@ $ mvn install</screen></para>
           </listitem>
 
           <listitem>
-            <para>root of topic always named topic.xml</para>
+            <para>root of chapters is always named chapter.xml</para>
           </listitem>
 
           <listitem>
@@ -193,13 +191,13 @@ $ mvn install</screen></para>
 
           <listitem>
             <para>images and graphics should be linked to from within the
-            topic directory</para>
+            relevant directory</para>
           </listitem>
         </itemizedlist>
       </listitem>
 
       <listitem>
-        <para>version differences</para>
+        <para>version differences - proposed</para>
 
         <itemizedlist>
           <listitem>

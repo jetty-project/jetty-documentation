@@ -8,6 +8,6 @@
 >
 
   <title>Upgrading Jetty</title>
-  <!--xi:include href="content.xml" /-->
+  <xi:include href="sample.xml" />
 
 </chapter>

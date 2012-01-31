@@ -11,12 +11,11 @@
 
   <build>
     <plugins>
-    <plugin>
+    <!-- plugin>
         <groupId>net.sourceforge.docbook-utils.maven-plugin</groupId>
         <artifactId>maven-tidy-plugin</artifactId>
         <version>1.0.0.beta-1</version>
         <configuration>
-          <!--  REQUIRED: The source directory (input files)  --> 
           <sourceDir>${basedir}/src/docbkx</sourceDir>
           <jtidyConfiguration>
             <input-xml>true</input-xml>
@@ -33,7 +32,7 @@
             </execution>
           </executions>
         
-      </plugin>
+      </plugin-->
       <plugin>
         <groupId>com.agilejava.docbkx</groupId>
         <artifactId>docbkx-maven-plugin</artifactId>

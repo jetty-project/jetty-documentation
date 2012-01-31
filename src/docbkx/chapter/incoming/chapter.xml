@@ -10,6 +10,10 @@
   <title>Incoming Documentation</title>
   
   <para>These pages are works in progress that have not been moved to their respective sections yet.</para>
-  <!--xi:include href="content.xml" /-->
+  
+  <!-- the sample.xml will ultimately remain as a template that can be used
+  as the basis of new documentation but should not be added into build and 
+  show up in released documentation.  Its here as an example for the time being-->
+  <xi:include href="sample.xml"/>
 
 </chapter>

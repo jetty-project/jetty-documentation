@@ -1,14 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd"
+>
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.eclipse.jetty</groupId>
   <artifactId>jetty-documentation</artifactId>
   <version>1.0-SNAPSHOT</version>
   <name>Jetty :: Documentation</name>
   <packaging>pom</packaging>
-     
+
   <build>
     <plugins>
+    <plugin>
+        <groupId>net.sourceforge.docbook-utils.maven-plugin</groupId>
+        <artifactId>maven-tidy-plugin</artifactId>
+        <version>1.0.0.beta-1</version>
+        <configuration>
+          <!--  REQUIRED: The source directory (input files)  --> 
+          <sourceDir>${basedir}/src/docbkx</sourceDir>
+          <jtidyConfiguration>
+            <input-xml>true</input-xml>
+            <wrap>68</wrap>
+            <write-back>true</write-back>
+          </jtidyConfiguration>
+        </configuration>
+        <executions>
+            <execution>
+              <phase>validate</phase>
+              <goals>
+                <goal>tidy</goal>
+              </goals>
+            </execution>
+          </executions>
+        
+      </plugin>
       <plugin>
         <groupId>com.agilejava.docbkx</groupId>
         <artifactId>docbkx-maven-plugin</artifactId>
@@ -25,7 +50,6 @@
             <configuration>
               <!-- per execution configuration -->
               <includes>jetty.xml</includes>
-              <!--draftMode>yes</draftMode-->
             </configuration>
           </execution>
         </executions>
@@ -36,11 +60,10 @@
           <paperType>A4</paperType>
           <chunkedOutput>true</chunkedOutput>
           <fop1Extensions>1</fop1Extensions>
-
           <foCustomization>src/docbkx-stylesheet/fo/docbook.xsl</foCustomization>
           <highlightSource>true</highlightSource>
           <customizationParameters>
-            <!-- additional XSLT parameters-->
+            <!-- additional XSLT parameters -->
             <parameter>
               <name>key</name>
               <value>value</value>
@@ -48,17 +71,17 @@
           </customizationParameters>
           <entities>
             <entity>
-              <name>version</name>
+              <name>jetty.version</name>
               <value>${project.version}</value>
             </entity>
           </entities>
           <postProcess>
-             <copy todir="target/docbkx/xhtml/jetty">
-             <fileset dir="src/docbkx">
-                 <include name="**/*.jpg"/>
-                 <include name="**/*.gif"/>
-             </fileset>
-             </copy>
+            <copy todir="target/docbkx/xhtml/jetty">
+              <fileset dir="src/docbkx">
+                <include name="**/*.jpg" />
+                <include name="**/*.gif" />
+              </fileset>
+            </copy>
           </postProcess>
           <generateToc>book toc,title,figure,table,example,equation</generateToc>
         </configuration>
@@ -95,5 +118,19 @@
       </plugin>
     </plugins>
   </build>
-
+  
+  <pluginRepositories>
+    <pluginRepository>
+      <id>docbook-utils</id>
+      <name>DocBook Utils</name>
+      <url>http://docbook-utils.sourceforge.net/maven2</url>
+      <layout>default</layout>
+      <releases>
+        <enabled>true</enabled>
+        <updatePolicy>daily</updatePolicy>
+        <checksumPolicy>warn</checksumPolicy>
+      </releases>
+    </pluginRepository>
+  </pluginRepositories>
+  
 </project>

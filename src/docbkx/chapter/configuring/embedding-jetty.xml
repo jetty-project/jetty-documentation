@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<section version="5.0" xmlns="http://docbook.org/ns/docbook"
+xmlns:xlink="http://www.w3.org/1999/xlink"
+xmlns:xi="http://www.w3.org/2001/XInclude"
+xmlns:ns5="http://www.w3.org/2000/svg"
+xmlns:ns4="http://www.w3.org/1998/Math/MathML"
+xmlns:ns3="http://www.w3.org/1999/xhtml"
+xmlns:db="http://docbook.org/ns/docbook">
+  <title>Embedding Jetty</title>
+  <para>Jetty has a slogan, "Don't deploy your application in Jetty, deploy
+  Jetty in your application." What this means is that as an alternative to
+  bundling your application as a standard WAR to be deployed in Jetty, Jetty is
+  designed to be a software component that can be instantiated and used in a
+  Java program just like any POJO. Put another way, running Jetty in embedded
+  mode means putting an HTTP module into your application, rather than putting
+  your application into an HTTP server.</para>
+  <para>This tutorial takes you step-by-step from the simplest Jetty server
+  instantiation to running multiple web applications with standards-based
+  deployment descriptors. The source for most of these examples is part of the
+  standard Jetty project.</para>
+  <para>This tutorial is also available as a Embedding Jetty Webinar
+  recording.</para>
+  <section>
+    <title>Overview</title>
+    <para>To embed a Jetty server, the following steps are typical.</para>
+    <itemizedlist>
+      <listitem>
+        <para>Create the server</para>
+      </listitem>
+      <listitem>
+        <para>Add and configure Connectors</para>
+      </listitem>
+      <listitem>
+        <para>Add and configure Handlers</para>
+      </listitem>
+      <listitem>
+        <para>Add and configure Servlets then add to Handlers</para>
+      </listitem>
+      <listitem>
+        <para>Start the server</para>
+      </listitem>
+      <listitem>
+        <para>Wait (or join the server to prevent main exiting)</para>
+      </listitem>
+    </itemizedlist>
+  </section>
+  <section>
+    <title>Creating the Server</title>
+    <para>The following code from SimplestServer.java instantiates and runs the
+    simplest possible Jetty server:</para>
+    <informalexample>
+      <programlisting language="java">
+<![CDATA[
+public class SimplestServer {
+  public static void main(String[] args) throws Exception
+  {
+    Server server = new Server(8080);
+    server.start(); server.join();
+  }
+}
+]]>
+      </programlisting>
+    </informalexample>
+    <para>This runs an HTTP server on port 8080. It is not a very useful server
+    as it has no handlers and thus returns a 404 error for every
+    request.</para>
+  </section>
+</section>

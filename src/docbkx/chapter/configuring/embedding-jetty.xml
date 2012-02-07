@@ -65,4 +65,87 @@ public class SimplestServer {
     as it has no handlers and thus returns a 404 error for every
     request.</para>
   </section>
+  <section>
+    <title>Writing Handlers</title>
+    <para>To produce a response to a request, Jetty requires a Handler to be
+    set on the server. A handler may:</para>
+    <itemizedlist>
+      <listitem>
+        <para>Examine/modify the HTTP request.</para>
+      </listitem>
+      <listitem>
+        <para>Generate the complete HTTP response.</para>
+      </listitem>
+      <listitem>
+        <para>Call another Handler (see HandlerWrapper).</para>
+      </listitem>
+      <listitem>
+        <para>Select one or many Handlers to call (see
+        HandlerCollection).</para>
+      </listitem>
+    </itemizedlist>
+    <section>
+      <title>Hello World Handler</title>
+      <para>The following code based on HelloHandler.java shows a simple hello
+      world handler:</para>
+      <informalexample>
+        <programlisting language="java">
+<![CDATA[
+public class HelloHandler extends AbstractHandler
+{
+    public void handle(String target,Request baseRequest,HttpServletRequest request,HttpServletResponse response)
+        throws IOException, ServletException
+    {
+        response.setContentType("text/html;charset=utf-8");
+        response.setStatus(HttpServletResponse.SC_OK);
+        baseRequest.setHandled(true);
+        response.getWriter().println("<h1>Hello World</h1>");
+    }
+}
+]]>
+        </programlisting>
+      </informalexample>
+      <para>The parameters passed to the handle method are:</para>
+      <itemizedlist>
+        <listitem>
+          <para>target - the target of the request, which is either a URI or a
+          name from a named dispatcher.</para>
+        </listitem>
+        <listitem>
+          <para>baseRequest - the Jetty mutable request object, which is always
+          unwrapped.</para>
+        </listitem>
+        <listitem>
+          <para>request - the immutable request object, which might have been
+          wrapped.</para>
+        </listitem>
+        <listitem>
+          <para>response - the response, which might have been wrapped.</para>
+        </listitem>
+      </itemizedlist>
+      <para>The handler sets the response status, content-type and marks the
+      request as handled before it generates the body of the response using a
+      writer.</para>
+      <para>The following code from OneHandler.java shows how a Jetty server
+      can use this handler:</para>
+      <informalexample>
+        <programlisting language="java">
+<![CDATA[
+public static void main(String[] args) throws Exception
+{
+    Server server = new Server(8080);
+    server.setHandler(new HelloHandler());
+
+    server.start();
+    server.join();
+}]]>
+        </programlisting>
+      </informalexample>
+      <para>You now know everything you need to know to write an HTTP server
+      based on Jetty. However, complex request handling is typically built from
+      multiple Handlers. We will look in later sections at how you can combine
+      handlers like aspects. You can see some of the handlers available in
+      Jetty in the org.eclipse.jetty.server.handler package.</para>
+    </section>
+  </section>
 </section>

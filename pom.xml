@@ -1,17 +1,21 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd"
->
+<?xml version="1.0" encoding="utf-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.eclipse.jetty</groupId>
   <artifactId>jetty-documentation</artifactId>
   <version>1.0-SNAPSHOT</version>
   <name>Jetty :: Documentation</name>
   <packaging>pom</packaging>
-
   <build>
     <plugins>
-    <!-- plugin>
+      <plugin>
+        <groupId>com.erdfelt.maven</groupId>
+        <artifactId>xmlfresh-maven-plugin</artifactId>
+        <version>1.0-SNAPSHOT</version>
+      </plugin>
+<!-- plugin>
         <groupId>net.sourceforge.docbook-utils.maven-plugin</groupId>
         <artifactId>maven-tidy-plugin</artifactId>
         <version>1.0.0.beta-1</version>
@@ -38,7 +42,7 @@
         <artifactId>docbkx-maven-plugin</artifactId>
         <version>2.0.13</version>
         <executions>
-          <!-- -->
+<!-- -->
           <execution>
             <id>documentation identifier</id>
             <phase>compile</phase>
@@ -47,22 +51,24 @@
               <goal>generate-pdf</goal>
             </goals>
             <configuration>
-              <!-- per execution configuration -->
+<!-- per execution configuration -->
               <includes>jetty.xml</includes>
             </configuration>
           </execution>
         </executions>
         <configuration>
-          <!-- shared configuration -->
-          <generatedSourceDirectory>\${project.build.directory}/docbkx/generated</generatedSourceDirectory>
+<!-- shared configuration -->
+          <generatedSourceDirectory>
+          \${project.build.directory}/docbkx/generated</generatedSourceDirectory>
           <xincludeSupported>true</xincludeSupported>
           <paperType>A4</paperType>
           <chunkedOutput>true</chunkedOutput>
           <fop1Extensions>1</fop1Extensions>
-          <foCustomization>src/docbkx-stylesheet/fo/docbook.xsl</foCustomization>
+          <foCustomization>
+          src/docbkx-stylesheet/fo/docbook.xsl</foCustomization>
           <highlightSource>true</highlightSource>
           <customizationParameters>
-            <!-- additional XSLT parameters -->
+<!-- additional XSLT parameters -->
             <parameter>
               <name>key</name>
               <value>value</value>
@@ -82,7 +88,8 @@
               </fileset>
             </copy>
           </postProcess>
-          <generateToc>book toc,title,figure,table,example,equation</generateToc>
+          <generateToc>book
+          toc,title,figure,table,example,equation</generateToc>
         </configuration>
         <dependencies>
           <dependency>
@@ -117,7 +124,6 @@
       </plugin>
     </plugins>
   </build>
-  
   <pluginRepositories>
     <pluginRepository>
       <id>docbook-utils</id>
@@ -131,5 +137,4 @@
       </releases>
     </pluginRepository>
   </pluginRepositories>
-  
 </project>

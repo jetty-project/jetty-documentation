@@ -1,115 +1,81 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <section version="5.0" xmlns="http://docbook.org/ns/docbook"
-  xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
-  xmlns:ns5="http://www.w3.org/2000/svg" xmlns:ns4="http://www.w3.org/1998/Math/MathML"
-  xmlns:ns3="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook"
->
-
+xmlns:xlink="http://www.w3.org/1999/xlink"
+xmlns:xi="http://www.w3.org/2001/XInclude"
+xmlns:ns5="http://www.w3.org/2000/svg"
+xmlns:ns4="http://www.w3.org/1998/Math/MathML"
+xmlns:ns3="http://www.w3.org/1999/xhtml"
+xmlns:db="http://docbook.org/ns/docbook">
   <title>Community</title>
-
-  <para>
-    Developers and users alike are welcome to engage the jetty
-    community. We all have day jobs here so don't just ask questions on
-    irc and frustrated if no one answers right away. Stick around to
-    hear an answer, one is likely coming at some point!
-  </para>
-
+  <para>Developers and users alike are welcome to engage the jetty community.
+  We all have day jobs here so don't just ask questions on irc and frustrated
+  if no one answers right away. Stick around to hear an answer, one is likely
+  coming at some point!</para>
   <section>
     <title>Mailing Lists</title>
-
-    <para>
-      We have a number of options for people that wish to subscribe to
-      our mailing lists.
-
-      <itemizedlist>
-        <listitem>
-          <para>Jetty Developers List</para>
-          <para>Join -
-            https://dev.eclipse.org/mailman/listinfo/jetty-dev
-          </para>
-          <para>Archives -
-            http://dev.eclipse.org/mhonarc/lists/jetty-dev/
-          </para>
-        </listitem>
-        <listitem>
-          <para>Jetty Users List</para>
-          <para>Join -
-            https://dev.eclipse.org/mailman/listinfo/jetty-user
-          </para>
-          <para>Archives -
-            http://dev.eclipse.org/mhonarc/lists/jetty-user/
-          </para>
-        </listitem>
-        <listitem>
-          <para>Jetty Announcements List</para>
-          <para>Join -
-            https://dev.eclipse.org/mailman/listinfo/jetty-announce
-          </para>
-          <para>Archives -
-            http://dev.eclipse.org/mhonarc/lists/jetty-announce/
-          </para>
-        </listitem>
-        <listitem>
-          <para>Jetty Commit List</para>
-          <para>Join -
-            https://dev.eclipse.org/mailman/listinfo/jetty-commit
-          </para>
-          <para>Archives -
-            http://dev.eclipse.org/mhonarc/lists/jetty-commit/
-          </para>
-        </listitem>
-      </itemizedlist>
-
-    </para>
+    <para>We have a number of options for people that wish to subscribe to our
+    mailing lists. 
+    <itemizedlist>
+      <listitem>
+        <para>Jetty Developers List</para>
+        <para>Join - https://dev.eclipse.org/mailman/listinfo/jetty-dev</para>
+        <para>Archives - http://dev.eclipse.org/mhonarc/lists/jetty-dev/</para>
+      </listitem>
+      <listitem>
+        <para>Jetty Users List</para>
+        <para>Join - https://dev.eclipse.org/mailman/listinfo/jetty-user</para>
+        <para>Archives -
+        http://dev.eclipse.org/mhonarc/lists/jetty-user/</para>
+      </listitem>
+      <listitem>
+        <para>Jetty Announcements List</para>
+        <para>Join -
+        https://dev.eclipse.org/mailman/listinfo/jetty-announce</para>
+        <para>Archives -
+        http://dev.eclipse.org/mhonarc/lists/jetty-announce/</para>
+      </listitem>
+      <listitem>
+        <para>Jetty Commit List</para>
+        <para>Join -
+        https://dev.eclipse.org/mailman/listinfo/jetty-commit</para>
+        <para>Archives -
+        http://dev.eclipse.org/mhonarc/lists/jetty-commit/</para>
+      </listitem>
+    </itemizedlist></para>
   </section>
-
   <section>
     <title>Internet Relay Chat - IRC</title>
-
-    <para>
-      Much of our conversations about jetty occur on irc in one location
-      or another. Users are always welcome to come join our irc channels
-      and talk with us, other users, or just lurk.
-
-      <itemizedlist>
-        <listitem>
-          <para>irc.freenode.org - #jetty</para>
-          <para>Our primary location, we recommend that if your looking
-            to find folks on irc you try here.
-          </para>
-          <para>We also have commit notifications coming to this channel
-            on the bottom and top of the hour.</para>
-        </listitem>
-        <listitem>
-          <para>irc.codehaus.org - #jetty</para>
-          <para>Our prior location before the move to the eclipse
-            foundation. We are mostly idle on here.
-          </para>
-        </listitem>
-      </itemizedlist>
-    </para>
+    <para>Much of our conversations about jetty occur on irc in one location or
+    another. Users are always welcome to come join our irc channels and talk
+    with us, other users, or just lurk. 
+    <itemizedlist>
+      <listitem>
+        <para>irc.freenode.org - #jetty</para>
+        <para>Our primary location, we recommend that if your looking to find
+        folks on irc you try here.</para>
+        <para>We also have commit notifications coming to this channel on the
+        bottom and top of the hour.</para>
+      </listitem>
+      <listitem>
+        <para>irc.codehaus.org - #jetty</para>
+        <para>Our prior location before the move to the eclipse foundation. We
+        are mostly idle on here.</para>
+      </listitem>
+    </itemizedlist></para>
   </section>
-
   <section>
     <title>Commit Tracking</title>
-
-    <para>
-      Since jetty is composed of a diverse array of project source
-      repositories, bridged between the eclipse foundation, the
-      codehaus, and some simple projects on github, we use a hidden gem
-      of opensource called cia.vc to aggregate commits on our primary
-      repositories to one location so its easier to follow what and
-      where things are happening.
-
-      <itemizedlist>
-        <listitem>
-          <para>http://cia.vc/stats/project/jetty</para>
-          <para>This page is updated at the bottom and the top of the
-            hour. RSS feeds are also available through this service.
-          </para>
-        </listitem>
-      </itemizedlist>
-    </para>
+    <para>Since jetty is composed of a diverse array of project source
+    repositories, bridged between the eclipse foundation, the codehaus, and
+    some simple projects on github, we use a hidden gem of opensource called
+    cia.vc to aggregate commits on our primary repositories to one location so
+    its easier to follow what and where things are happening. 
+    <itemizedlist>
+      <listitem>
+        <para>http://cia.vc/stats/project/jetty</para>
+        <para>This page is updated at the bottom and the top of the hour. RSS
+        feeds are also available through this service.</para>
+      </listitem>
+    </itemizedlist></para>
   </section>
-
 </section>

@@ -1,12 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<chapter id="introduction" version="5.0" xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:ns5="http://www.w3.org/2000/svg" xmlns:ns4="http://www.w3.org/1998/Math/MathML" xmlns:ns3="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
+<chapter id="introduction" version="5.0" xmlns="http://docbook.org/ns/docbook"
+xmlns:xlink="http://www.w3.org/1999/xlink"
+xmlns:xi="http://www.w3.org/2001/XInclude"
+xmlns:ns5="http://www.w3.org/2000/svg"
+xmlns:ns4="http://www.w3.org/1998/Math/MathML"
+xmlns:ns3="http://www.w3.org/1999/xhtml"
+xmlns:db="http://docbook.org/ns/docbook">
   <title>Introducing Jetty</title>
   <section>
     <title>What is Jetty?</title>
-    <para>Jetty is an open-source project providing an HTTP server, HTTP client, and javax.servlet container. This Jetty Wiki provides information about getting started with Jetty, basic configuration, specific features, optimization, security, JavaEE, monitoring, FAQs, help with troubleshooting, and more. It includes tutorials, howtos, videos, feature descriptions, and reference materials.</para>
+    <para>Jetty is an open-source project providing an HTTP server, HTTP
+    client, and javax.servlet container. This Jetty Wiki provides information
+    about getting started with Jetty, basic configuration, specific features,
+    optimization, security, JavaEE, monitoring, FAQs, help with
+    troubleshooting, and more. It includes tutorials, howtos, videos, feature
+    descriptions, and reference materials.</para>
     <section>
       <title>Proposed Usage</title>
-      <para>By following some simple conventions we can make sure that this is a fairly easy and straight forward effort to port our documentation into the new system.</para>
+      <para>By following some simple conventions we can make sure that this is
+      a fairly easy and straight forward effort to port our documentation into
+      the new system.</para>
       <para>
         <itemizedlist>
           <listitem>
@@ -16,7 +29,8 @@
                 <para>developers</para>
               </listitem>
               <listitem>
-                <para>the existing wiki until all documentation is ported</para>
+                <para>the existing wiki until all documentation is
+                ported</para>
               </listitem>
               <listitem>
                 <para>blogs</para>
@@ -24,23 +38,29 @@
             </itemizedlist>
           </listitem>
           <listitem>
-            <para>developers can checkout the git project make simple changes to any content, coordinating with Shirley as needed to avoid clashes of effort</para>
+            <para>developers can checkout the git project make simple changes
+            to any content, coordinating with Shirley as needed to avoid
+            clashes of effort</para>
           </listitem>
           <listitem>
             <para>we will have an /incoming/ directory</para>
             <itemizedlist>
               <listitem>
-                <para>new 'sections' go here and are written in by developers, this is new features, etc</para>
+                <para>new 'sections' go here and are written in by developers,
+                this is new features, etc</para>
               </listitem>
             </itemizedlist>
             <itemizedlist>
               <listitem>
-                <para>once new section is ready, work with shirley on where it will go and how it will be wired up</para>
+                <para>once new section is ready, work with shirley on where it
+                will go and how it will be wired up</para>
               </listitem>
             </itemizedlist>
           </listitem>
           <listitem>
-            <para>we can all edit and update existing documentation, but new content enters through incoming with shirley as the gatekeeper</para>
+            <para>we can all edit and update existing documentation, but new
+            content enters through incoming with shirley as the
+            gatekeeper</para>
           </listitem>
         </itemizedlist>
       </para>
@@ -50,10 +70,15 @@
       <para>
         <itemizedlist>
           <listitem>
-            <para>We have a way of injecting properties into these xml files. We will leverage that and update the pom.xml and set the version numbers, 6, 7 and 8 that the document covers</para>
+            <para>We have a way of injecting properties into these xml files.
+            We will leverage that and update the pom.xml and set the version
+            numbers, 6, 7 and 8 that the document covers</para>
           </listitem>
           <listitem>
-            <para>commit and then we run normal maven release process, documentation releases will follow a typical 1.0 release approach, releasing before jetty releases so we can ship the latest version of these documents</para>
+            <para>commit and then we run normal maven release process,
+            documentation releases will follow a typical 1.0 release approach,
+            releasing before jetty releases so we can ship the latest version
+            of these documents</para>
             <itemizedlist>
               <listitem>
                 <para>mvn release:prepare</para>
@@ -64,13 +89,16 @@
             </itemizedlist>
           </listitem>
           <listitem>
-            <para>we can consume the documentation from maven central while building out our distributions</para>
+            <para>we can consume the documentation from maven central while
+            building out our distributions</para>
           </listitem>
           <listitem>
-            <para>we can also bundle up the html and deploy it to download.eclipse.org/jetty/documentation</para>
+            <para>we can also bundle up the html and deploy it to
+            download.eclipse.org/jetty/documentation</para>
             <itemizedlist>
               <listitem>
-                <para>we can provide links to older releases of the documentation</para>
+                <para>we can provide links to older releases of the
+                documentation</para>
               </listitem>
             </itemizedlist>
           </listitem>

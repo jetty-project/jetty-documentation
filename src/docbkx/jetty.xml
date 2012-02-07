@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<book version="5.0" xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:db="http://docbook.org/ns/docbook">
+<book version="5.0" xmlns="http://docbook.org/ns/docbook"
+  xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
+  xmlns:db="http://docbook.org/ns/docbook">
 
   <xi:include href="info/info.xml"/>
 
@@ -25,6 +27,6 @@
 
   <xi:include href="appendix/glossery.xml"/>
   <xi:include href="appendix/bibliography.xml"/>
-  <xi:include href="appendix/index.xml"/>
 
+  <index/>
 </book>

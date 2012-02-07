@@ -1,32 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <book version="5.0" xmlns="http://docbook.org/ns/docbook"
-  xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
-  xmlns:db="http://docbook.org/ns/docbook">
-
-  <xi:include href="info/info.xml"/>
-
+xmlns:xlink="http://www.w3.org/1999/xlink"
+xmlns:xi="http://www.w3.org/2001/XInclude"
+xmlns:db="http://docbook.org/ns/docbook">
+  <xi:include href="info/info.xml" />
   <xi:include href="chapter/introduction/chapter.xml" />
   <xi:include href="chapter/getting-started/chapter.xml" />
   <xi:include href="chapter/configuring/chapter.xml" />
   <xi:include href="chapter/deploying/chapter.xml" />
-
   <xi:include href="chapter/logging/chapter.xml" />
-
   <xi:include href="chapter/security/chapter.xml" />
-
   <xi:include href="chapter/optimizing/chapter.xml" />
   <xi:include href="chapter/frameworks/chapter.xml" />
   <xi:include href="chapter/osgi/chapter.xml" />
-
   <xi:include href="chapter/troubleshooting/chapter.xml" />
   <xi:include href="chapter/faq/chapter.xml" />
-
   <xi:include href="chapter/contributing/chapter.xml" />
   <xi:include href="chapter/docbook-examples/chapter.xml" />
   <xi:include href="chapter/incoming/chapter.xml" />
-
-  <xi:include href="appendix/glossery.xml"/>
-  <xi:include href="appendix/bibliography.xml"/>
-
-  <index/>
+  <!--xi:include href="appendix/glossery.xml" />
+  <xi:include href="appendix/bibliography.xml" /-->
+  <index />
 </book>

@@ -18,7 +18,7 @@ xmlns:db="http://docbook.org/ns/docbook">
   <xi:include href="chapter/contributing/chapter.xml" />
   <xi:include href="chapter/docbook-examples/chapter.xml" />
   <xi:include href="chapter/incoming/chapter.xml" />
-  <!--xi:include href="appendix/glossery.xml" />
-  <xi:include href="appendix/bibliography.xml" /-->
+  <xi:include href="appendix/glossery.xml" />
+  <xi:include href="appendix/bibliography.xml" />
   <index />
 </book>

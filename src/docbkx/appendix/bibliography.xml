@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<bibliography version="5.0" xmlns="http://docbook.org/ns/docbook"
-xmlns:xlink="http://www.w3.org/1999/xlink"
-xmlns:xi="http://www.w3.org/2001/XInclude"
-xmlns:ns5="http://www.w3.org/2000/svg"
-xmlns:ns4="http://www.w3.org/1998/Math/MathML"
-xmlns:ns3="http://www.w3.org/1999/xhtml"
+<bibliography version="5.0" xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:ns5="http://www.w3.org/2000/svg"
+xmlns:ns4="http://www.w3.org/1998/Math/MathML" xmlns:ns3="http://www.w3.org/1999/xhtml"
 xmlns:db="http://docbook.org/ns/docbook">
   <title>Normative References</title>
   <biblioentry id="Ref_Full_Backups">
@@ -13,8 +10,7 @@ xmlns:db="http://docbook.org/ns/docbook">
       <publishername>backup4All.com</publishername>
     </publisher>
     <title>
-      <ulink url="http://www.backup4all.com/kb/full-backup-116.html">Full
-      backup</ulink>
+      <ulink url="http://www.backup4all.com/kb/full-backup-116.html">Full backup</ulink>
     </title>
     <pubdate>2009</pubdate>
   </biblioentry>
@@ -24,8 +20,7 @@ xmlns:db="http://docbook.org/ns/docbook">
       <publishername>backup4All.com</publishername>
     </publisher>
     <title>
-      <ulink url="http://www.backup4all.com/kb/incremental-backup-118.html">
-      Incremental backup</ulink>
+      <ulink url="http://www.backup4all.com/kb/incremental-backup-118.html">Incremental backup</ulink>
     </title>
     <pubdate>2009</pubdate>
   </biblioentry>

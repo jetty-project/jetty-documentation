@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.eclipse.jetty</groupId>
@@ -14,9 +13,18 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
   <build>
     <plugins>
       <plugin>
-        <groupId>com.erdfelt.maven</groupId>
+        <groupId>net.erdfelt.maven</groupId>
         <artifactId>xmlfresh-maven-plugin</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.0.0</version>
+        <executions>
+          <execution>
+            <id>format-always</id>
+            <phase>validate</phase>
+            <goals>
+              <goal>freshen</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
 <!-- plugin>
         <groupId>net.sourceforge.docbook-utils.maven-plugin</groupId>
@@ -90,8 +98,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
               </fileset>
             </copy>
           </postProcess>
-          <generateToc>book
-          toc,title,figure,table,example,equation</generateToc>
+          <generateToc>book toc,title,figure,table,example,equation</generateToc>
         </configuration>
         <dependencies>
           <dependency>

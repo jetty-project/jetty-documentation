@@ -8,6 +8,9 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
   <version>1.0-SNAPSHOT</version>
   <name>Jetty :: Documentation</name>
   <packaging>pom</packaging>
+  <properties>
+    <jetty.xref.url>http://download.eclipse.org/jetty/xref"</jetty.xref.url>
+  </properties>
   <build>
     <plugins>
       <plugin>
@@ -35,7 +38,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
               </goals>
             </execution>
           </executions>
-        
+
       </plugin-->
       <plugin>
         <groupId>com.agilejava.docbkx</groupId>
@@ -58,26 +61,25 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
         </executions>
         <configuration>
 <!-- shared configuration -->
-          <generatedSourceDirectory>
-          \${project.build.directory}/docbkx/generated</generatedSourceDirectory>
+          <generatedSourceDirectory>${project.build.directory}/docbkx/generated</generatedSourceDirectory>
           <xincludeSupported>true</xincludeSupported>
           <paperType>A4</paperType>
           <chunkedOutput>true</chunkedOutput>
           <fop1Extensions>1</fop1Extensions>
-          <foCustomization>
-          src/docbkx-stylesheet/fo/docbook.xsl</foCustomization>
+          <foCustomization>src/docbkx-stylesheet/fo/docbook.xsl</foCustomization>
           <highlightSource>true</highlightSource>
-          <customizationParameters>
-<!-- additional XSLT parameters -->
-            <parameter>
-              <name>key</name>
-              <value>value</value>
-            </parameter>
-          </customizationParameters>
           <entities>
             <entity>
               <name>jetty.version</name>
               <value>${project.version}</value>
+            </entity>
+            <entity>
+              <name>jetty.javadoc.url</name>
+              <value>http://download.eclipse.org/jetty/stable-7/javadoc/</value>
+            </entity>
+            <entity>
+              <name>jetty.xref.url</name>
+              <value>http://download.eclipse.org/jetty/stable-7/xref/</value>
             </entity>
           </entities>
           <postProcess>

@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE chapter PUBLIC '-//OASIS//DTD DocBook XML V5.0//EN'
+                         'http://www.oasis-open.org/docbook/xml/5.0b5/dtd/docbook.dtd'
+  [<!ENTITY % jettyentities SYSTEM "../../../../src/main/resources/jetty.entities"> %jettyentities;]>
 <section version="5.0" xmlns="http://docbook.org/ns/docbook"
 xmlns:xlink="http://www.w3.org/1999/xlink"
 xmlns:xi="http://www.w3.org/2001/XInclude"
@@ -14,7 +17,7 @@ xmlns:db="http://docbook.org/ns/docbook">
   <section>
     <title>Mailing Lists</title>
     <para>We have a number of options for people that wish to subscribe to our
-    mailing lists. 
+    mailing lists.
     <itemizedlist>
       <listitem>
         <para>Jetty Developers List</para>
@@ -47,7 +50,7 @@ xmlns:db="http://docbook.org/ns/docbook">
     <title>Internet Relay Chat - IRC</title>
     <para>Much of our conversations about jetty occur on irc in one location or
     another. Users are always welcome to come join our irc channels and talk
-    with us, other users, or just lurk. 
+    with us, other users, or just lurk.
     <itemizedlist>
       <listitem>
         <para>irc.freenode.org - #jetty</para>
@@ -69,7 +72,7 @@ xmlns:db="http://docbook.org/ns/docbook">
     repositories, bridged between the eclipse foundation, the codehaus, and
     some simple projects on github, we use a hidden gem of opensource called
     cia.vc to aggregate commits on our primary repositories to one location so
-    its easier to follow what and where things are happening. 
+    its easier to follow what and where things are happening.
     <itemizedlist>
       <listitem>
         <para>http://cia.vc/stats/project/jetty</para>

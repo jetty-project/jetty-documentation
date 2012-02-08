@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE section PUBLIC '-//OASIS//DTD DocBook XML V5.0//EN'
+  'http://www.oasis-open.org/docbook/xml/5.0b5/dtd/docbook.dtd'
+  [<!ENTITY % jettyentities SYSTEM "../../../../src/main/resources/jetty.entities"> %jettyentities;]>
 <section version="5.0" xmlns="http://docbook.org/ns/docbook"
-xmlns:xlink="http://www.w3.org/1999/xlink"
+xmlns:xl="http://www.w3.org/1999/xlink"
 xmlns:xi="http://www.w3.org/2001/XInclude"
 xmlns:ns5="http://www.w3.org/2000/svg"
 xmlns:ns4="http://www.w3.org/1998/Math/MathML"
@@ -24,6 +27,12 @@ xmlns:db="http://docbook.org/ns/docbook">
     <title>Overview</title>
     <para>To embed a Jetty server, the following steps are typical.</para>
     <itemizedlist>
+      <listitem>
+        <para>&jetty.javadoc.url;</para>
+      </listitem>
+      <listitem>
+        <para>&jetty.xref.url;</para>
+      </listitem>
       <listitem>
         <para>Create the server</para>
       </listitem>
@@ -145,7 +154,7 @@ public static void main(String[] args) throws Exception
       based on Jetty. However, complex request handling is typically built from
       multiple Handlers. We will look in later sections at how you can combine
       handlers like aspects. You can see some of the handlers available in
-      Jetty in the org.eclipse.jetty.server.handler package.</para>
+      Jetty in the <link xl:href="&jetty.xref.url;org/eclipse/jetty/server/handler/package-summary.html">org.eclipse.jetty.server.handler</link> package.</para>
     </section>
   </section>
 </section>

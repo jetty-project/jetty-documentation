@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE chapter PUBLIC '-//OASIS//DTD DocBook XML V5.0//EN'
+                         'http://www.oasis-open.org/docbook/xml/5.0b5/dtd/docbook.dtd'
+  [<!ENTITY % jettyentities SYSTEM "../../../../src/main/resources/jetty.entities"> %jettyentities;]>
 <chapter id="docbook-examples" version="5.0"
 xmlns="http://docbook.org/ns/docbook"
 xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -26,14 +29,14 @@ xmlns:db="http://docbook.org/ns/docbook">
       <primary>Indexterm</primary>
       <secondary>primary, secondary</secondary>
     </indexterm>They can be grouped for preference between primary and
-    secondary terms. More information can be found on usage of indexterms in 
+    secondary terms. More information can be found on usage of indexterms in
     <ulink
     url="http://www.sagehill.net/docbookxsl/GenerateIndex.html#Indexterms">
     DocBook XSL: The Complete Guide</ulink>.</para>
   </section>
   <section>
     <title>See Also</title>
-    <para>Indexterms have an optional element called 
+    <para>Indexterms have an optional element called
     <emphasis>seealso</emphasis>. This allows you to reference other indexterms
     that may be relevant to the reader.</para>
     <example>

@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE chapter PUBLIC '-//OASIS//DTD DocBook XML V5.0//EN'
+                         'http://www.oasis-open.org/docbook/xml/5.0b5/dtd/docbook.dtd'
+  [<!ENTITY % jettyentities SYSTEM "../../../../src/main/resources/jetty.entities"> %jettyentities;]>
 <chapter id="logging" version="5.0" xmlns="http://docbook.org/ns/docbook"
 xmlns:xlink="http://www.w3.org/1999/xlink"
 xmlns:xi="http://www.w3.org/2001/XInclude"
@@ -46,12 +49,12 @@ xmlns:db="http://docbook.org/ns/docbook">
       </itemizedlist>
       <para>THIS SHOULD BE A HEAD-&gt; Jetty 7 Logging Prior to 7.4.5</para>
       <para>Jetty 7 logging prior to 7.4.5 includes some system properties that
-      you can use to control filtering. For example, 
+      you can use to control filtering. For example,
       <literal>org.eclipse.jetty.util.log.stderr.DEBUG</literal>sets the level
       filter to DEBUG and higher, with the possible levels being IGNORE, DEBUG,
       INFO, and WARN. By default, Jetty filters from INFO and above, showing
       only INFO and WARN logs. With StdErrLog you always see INFO and WARN
-      logs. You can add DEBUG and/or IGNORE logs. With the exception of 
+      logs. You can add DEBUG and/or IGNORE logs. With the exception of
       <literal>org.eclipse.jetty.util.log.class</literal>these system
       properties take boolean values (true or false). You set these system
       properties when you start Jetty.</para>

@@ -27,6 +27,31 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
         </executions>
       </plugin>
       <plugin>
+        <artifactId>maven-resources-plugin</artifactId>
+        <version>2.5</version>
+        <executions>
+          <execution>
+            <id>filter-docbook-sources</id>
+            <phase>process-sources</phase>
+            <goals>
+              <goal>copy-resources</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>${basedir}/target/filtered-docbkx</outputDirectory>
+              <resources>
+                <resource>
+                  <directory>src/docbkx</directory>
+                  <filtering>true</filtering>
+                </resource>
+              </resources>
+              <filters>
+                <filter>${basedir}/src/main/filters/jetty.properties</filter>
+              </filters>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
         <groupId>com.agilejava.docbkx</groupId>
         <artifactId>docbkx-maven-plugin</artifactId>
         <version>2.0.14</version>
@@ -50,20 +75,20 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
               </preProcess>
             </configuration>
           </execution>
-          <execution>
+<!--execution>
             <id>pdf</id>
             <phase>compile</phase>
             <goals>
               <goal>generate-pdf</goal>
             </goals>
             <configuration>
-<!-- per execution configuration -->
               <includes>jetty.xml</includes>
             </configuration>
-          </execution>
+          </execution-->
         </executions>
         <configuration>
 <!-- shared configuration -->
+          <sourceDirectory>${basedir}/target/filtered-docbkx</sourceDirectory>
           <includes>jetty.xml</includes>
           <generatedSourceDirectory>${project.build.directory}/docbkx/generated</generatedSourceDirectory>
           <xincludeSupported>true</xincludeSupported>

@@ -41,10 +41,10 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
               <htmlStylesheet>css/docbook.css</htmlStylesheet>
               <htmlCustomization>src/docbkx-stylesheet/html/docbook.xsl</htmlCustomization>
               <preProcess>
-                <copy todir="target/docbkx/html/images">
+                <copy todir="target/docbkx/html/jetty/images">
                   <fileset dir="src/docbkx/images" />
                 </copy>
-                <copy todir="target/docbkx/html/css">
+                <copy todir="target/docbkx/html/jetty/css">
                   <fileset dir="src/docbkx/css" />
                 </copy>
               </preProcess>

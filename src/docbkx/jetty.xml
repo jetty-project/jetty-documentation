@@ -2,8 +2,10 @@
 <!DOCTYPE book PUBLIC '-//OASIS//DTD DocBook XML V5.0//EN'
 'http://www.oasis-open.org/docbook/xml/5.0b5/dtd/docbook.dtd'
 >
-<book version="5.0" xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
-xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:db="http://docbook.org/ns/docbook">
+<book version="5.0" xmlns="http://docbook.org/ns/docbook"
+xmlns:xlink="http://www.w3.org/1999/xlink"
+xmlns:xi="http://www.w3.org/2001/XInclude"
+xmlns:db="http://docbook.org/ns/docbook">
   <xi:include href="info/info.xml" />
   <xi:include href="chapter/introduction/chapter.xml" />
   <xi:include href="chapter/getting-started/chapter.xml" />

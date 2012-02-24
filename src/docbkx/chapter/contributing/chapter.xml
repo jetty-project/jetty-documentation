@@ -3,9 +3,12 @@
 'http://www.oasis-open.org/docbook/xml/5.0b5/dtd/docbook.dtd'
 >
 <chapter id="contributing" version="5.0" xmlns="http://docbook.org/ns/docbook"
-xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
-xmlns:ns5="http://www.w3.org/2000/svg" xmlns:ns4="http://www.w3.org/1998/Math/MathML"
-xmlns:ns3="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
+xmlns:xlink="http://www.w3.org/1999/xlink"
+xmlns:xi="http://www.w3.org/2001/XInclude"
+xmlns:ns5="http://www.w3.org/2000/svg"
+xmlns:ns4="http://www.w3.org/1998/Math/MathML"
+xmlns:ns3="http://www.w3.org/1999/xhtml"
+xmlns:db="http://docbook.org/ns/docbook">
 <!-- This causes a pdf generation err <figure id="fig_uniequeid"> <title>Jetty
     Logo</title> <mediaobject> <imageobject> <imagedata fileref="jetty.gif" format="GIF"
     align="center" contentdepth="3in" contentwidth="5in" scalefit="1" /> </imageobject>

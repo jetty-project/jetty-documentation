@@ -2,76 +2,101 @@
 <!DOCTYPE chapter PUBLIC '-//OASIS//DTD DocBook XML V5.0//EN'
 'http://www.oasis-open.org/docbook/xml/5.0b5/dtd/docbook.dtd'
 >
-<section version="5.0" xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
-xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:ns5="http://www.w3.org/2000/svg"
-xmlns:ns4="http://www.w3.org/1998/Math/MathML" xmlns:ns3="http://www.w3.org/1999/xhtml"
+<section version="5.0" xmlns="http://docbook.org/ns/docbook"
+xmlns:xlink="http://www.w3.org/1999/xlink"
+xmlns:xi="http://www.w3.org/2001/XInclude"
+xmlns:ns5="http://www.w3.org/2000/svg"
+xmlns:ns4="http://www.w3.org/1998/Math/MathML"
+xmlns:ns3="http://www.w3.org/1999/xhtml"
 xmlns:db="http://docbook.org/ns/docbook">
   <title>Contributing Patches</title>
   <para>How to contribute a patch to the jetty project.</para>
   <section>
     <title>Git Diff</title>
-    <para>The simplest way to contribute a patch is to make a modification to a cloned copy of jetty and then generate
-    a diff between the two versions.</para>
+    <para>The simplest way to contribute a patch is to make a modification to a
+    cloned copy of jetty and then generate a diff between the two
+    versions.</para>
     <para>From the top level of the cloned project:</para>
     <screen>$ git diff &gt; ######.patch</screen>
-    <para>The hash marks should be the bugzilla issue that you will be attaching the issue to. All patches coming into
-    jetty @ eclipse much come in through bugzilla for IP tracking purposes. Depending on the size of the patch the
-    patch itself may be flagged as +iplog where it is subject to lawyer review and inclusion with our iplog from here
-    to eternity. We are sorry we are unable to apply patches that we receive via email. So if you have the bugzilla
-    issue created already just attach the issue and feel free to bug us on IRC to take a look. If there is no bugzilla
-    issue yet, create one, make sure the patch is named appropriately and attach it.</para>
-    <para>When the developer reviews the patch and goes to apply it they will use:</para>
+    <para>The hash marks should be the bugzilla issue that you will be
+    attaching the issue to. All patches coming into jetty @ eclipse much come
+    in through bugzilla for IP tracking purposes. Depending on the size of the
+    patch the patch itself may be flagged as +iplog where it is subject to
+    lawyer review and inclusion with our iplog from here to eternity. We are
+    sorry we are unable to apply patches that we receive via email. So if you
+    have the bugzilla issue created already just attach the issue and feel free
+    to bug us on IRC to take a look. If there is no bugzilla issue yet, create
+    one, make sure the patch is named appropriately and attach it.</para>
+    <para>When the developer reviews the patch and goes to apply it they will
+    use:</para>
     <screen>$ git apply &lt; ######.patch</screen>
-    <para>If you want to be a nice person, test your patch on a clean clone to ensure that it applies cleanly. Nothing
-    frustrated a developer quite like a patch that doesn't apply.</para>
+    <para>If you want to be a nice person, test your patch on a clean clone to
+    ensure that it applies cleanly. Nothing frustrated a developer quite like a
+    patch that doesn't apply.</para>
   </section>
   <section>
     <title>Git Format Patch</title>
-    <para>Another approach if you want your name in shiny lights in our commit logs is to use the format patch option.
-    With this approach you commit into your cloned copy of jetty and use the git format patch option to generate what
-    looks like an email message containing all of the commit information. This applies as a commit directly when we
-    apply it so it should be obvious that as with the normal diff we much accept these sorts of patching only via
-    bugzilla.</para>
+    <para>Another approach if you want your name in shiny lights in our commit
+    logs is to use the format patch option. With this approach you commit into
+    your cloned copy of jetty and use the git format patch option to generate
+    what looks like an email message containing all of the commit information.
+    This applies as a commit directly when we apply it so it should be obvious
+    that as with the normal diff we much accept these sorts of patching only
+    via bugzilla.</para>
     <para>From the top level of the cloned project:</para>
-    <para>Make your changes and commit them locally using git commit. Then use git log to identify the commit(s) you
-    want to include in your patch:</para>
-    <screen>commit 70e29326fe904675f772b88a67128c0b3529565e Author: John Doe &lt;john.doe@who.com&gt; Date: Tue Aug 2
-    14:36:50 2011 +0200 353563: HttpDestinationQueueTest too slow</screen>
+    <para>Make your changes and commit them locally using git commit. Then use
+    git log to identify the commit(s) you want to include in your patch:</para>
+    <screen>commit 70e29326fe904675f772b88a67128c0b3529565e Author: John Doe
+    &lt;john.doe@who.com&gt; Date: Tue Aug 2 14:36:50 2011 +0200 353563:
+    HttpDestinationQueueTest too slow</screen>
     <para>Use git format-patch to create the patch:</para>
-    <screen>$ git format-patch -M -B 70e29326fe904675f772b88a67128c0b3529565e</screen>
-    <para>This will create a single patch file for each commit since the specified commit. The names will start with
-    0001-[commitmessage].patch. See http://www.kernel.org/pub/software/scm/git/docs/git-format-patch.html for
+    <screen>$ git format-patch -M -B
+    70e29326fe904675f772b88a67128c0b3529565e</screen>
+    <para>This will create a single patch file for each commit since the
+    specified commit. The names will start with 0001-[commitmessage].patch. See
+    http://www.kernel.org/pub/software/scm/git/docs/git-format-patch.html for
     details.</para>
-    <para>When a developer goes to apply this sort of patch then we must assume responsibility for applying it to our
-    codebase from the IP perspective. So we much be comfortable with the providence of the patch and that it is clear
-    of potential issues. This is not like a diff where you get to edit it and clean up issues before it get applied.
-    The commit is recorded locally and the developer will then have a chance to make additional commits to address any
-    lingering issues. It is critically important that developers applying these sorts of patches are fully aware of
-    what is being committed and what they are signing off on.</para>
+    <para>When a developer goes to apply this sort of patch then we must assume
+    responsibility for applying it to our codebase from the IP perspective. So
+    we much be comfortable with the providence of the patch and that it is
+    clear of potential issues. This is not like a diff where you get to edit it
+    and clean up issues before it get applied. The commit is recorded locally
+    and the developer will then have a chance to make additional commits to
+    address any lingering issues. It is critically important that developers
+    applying these sorts of patches are fully aware of what is being committed
+    and what they are signing off on.</para>
     <para>To apply the patch the developer will use a command like:</para>
-    <screen>$ git am -s 0001-353563-HttpDestinationQueueTest-too-slow.patch</screen>
-    <para>Providing it applies cleanly there will now be a commit in their local copy and they can either make
-    additional commits or push it out. The '-s' option attaches a 'Signed By: ' line to the commit with the developers
-    commit information. This is required, without it the commit should be rejected by the eclipse git server as not
-    valid. There is an update hook in place that validates that either the commit or signed by fields are in fact
+    <screen>$ git am -s
+    0001-353563-HttpDestinationQueueTest-too-slow.patch</screen>
+    <para>Providing it applies cleanly there will now be a commit in their
+    local copy and they can either make additional commits or push it out. The
+    '-s' option attaches a 'Signed By: ' line to the commit with the developers
+    commit information. This is required, without it the commit should be
+    rejected by the eclipse git server as not valid. There is an update hook in
+    place that validates that either the commit or signed by fields are in fact
     eclipse committers authorized to commit to the repository.</para>
   </section>
   <section>
     <title>Git Amend</title>
-    <para>Alternatively, for troublesome patches that do not seem to apply cleanly with git am, you can use git commit
-    --amend to modify the author and signoff the commit. For example:</para>
-    <screen>$ git checkout -b patch $ git apply john-doe.patch $ git commit -a -m "&lt;Original commit message from
-    John Doe&gt;"</screen>
-    <para>At this point the patch is committed with the committer's name on a local branch</para>
-    <screen>$ git commit --amend --author "John Doe &lt;john.doe@who.com&gt;" --signoff</screen>
+    <para>Alternatively, for troublesome patches that do not seem to apply
+    cleanly with git am, you can use git commit --amend to modify the author
+    and signoff the commit. For example:</para>
+    <screen>$ git checkout -b patch $ git apply john-doe.patch $ git commit -a
+    -m "&lt;Original commit message from John Doe&gt;"</screen>
+    <para>At this point the patch is committed with the committer's name on a
+    local branch</para>
+    <screen>$ git commit --amend --author "John Doe &lt;john.doe@who.com&gt;"
+    --signoff</screen>
     <para>Now the patch has the right author and it has been signed off</para>
     <screen>$ git checkout master $ git merge patch</screen>
-    <para>Now the local branch has been merged into master with the right author</para>
+    <para>Now the local branch has been merged into master with the right
+    author</para>
     <screen>$ git branch -d patch $ git push</screen>
   </section>
   <section>
     <title>Gerrit</title>
-    <para>Usage of Gerrit will be coming to eclipse. It is being tracked at the following url:</para>
+    <para>Usage of Gerrit will be coming to eclipse. It is being tracked at the
+    following url:</para>
     <screen>https://bugs.eclipse.org/bugs/show_bug.cgi?id=283749</screen>
   </section>
 </section>

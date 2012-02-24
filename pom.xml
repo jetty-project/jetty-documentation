@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.eclipse.jetty</groupId>
@@ -15,7 +16,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
       <plugin>
         <groupId>net.erdfelt.maven</groupId>
         <artifactId>xmlfresh-maven-plugin</artifactId>
-        <version>1.0.0</version>
+        <version>1.0.1</version>
         <executions>
           <execution>
             <id>format-always</id>
@@ -37,7 +38,8 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
               <goal>copy-resources</goal>
             </goals>
             <configuration>
-              <outputDirectory>${basedir}/target/filtered-docbkx</outputDirectory>
+              <outputDirectory>
+              ${basedir}/target/filtered-docbkx</outputDirectory>
               <resources>
                 <resource>
                   <directory>src/docbkx</directory>
@@ -64,7 +66,8 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
             </goals>
             <configuration>
               <htmlStylesheet>css/docbook.css</htmlStylesheet>
-              <htmlCustomization>src/docbkx-stylesheet/html/docbook.xsl</htmlCustomization>
+              <htmlCustomization>
+              src/docbkx-stylesheet/html/docbook.xsl</htmlCustomization>
               <preProcess>
                 <copy todir="target/docbkx/html/jetty/images">
                   <fileset dir="src/docbkx/images" />
@@ -90,14 +93,17 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 <!-- shared configuration -->
           <sourceDirectory>${basedir}/target/filtered-docbkx</sourceDirectory>
           <includes>jetty.xml</includes>
-          <generatedSourceDirectory>${project.build.directory}/docbkx/generated</generatedSourceDirectory>
+          <generatedSourceDirectory>
+          ${project.build.directory}/docbkx/generated</generatedSourceDirectory>
           <xincludeSupported>true</xincludeSupported>
           <paperType>A4</paperType>
           <chunkedOutput>true</chunkedOutput>
           <fop1Extensions>1</fop1Extensions>
-          <foCustomization>src/docbkx-stylesheet/fo/docbook.xsl</foCustomization>
+          <foCustomization>
+          src/docbkx-stylesheet/fo/docbook.xsl</foCustomization>
           <highlightSource>true</highlightSource>
-          <generateToc>book toc,title,figure,table,example,equation</generateToc>
+          <generateToc>book
+          toc,title,figure,table,example,equation</generateToc>
         </configuration>
         <dependencies>
           <dependency>
@@ -144,5 +150,16 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
         <checksumPolicy>warn</checksumPolicy>
       </releases>
     </pluginRepository>
+    <!--pluginRepository>
+      <id>xmlfresh-plugin</id>
+      <name>XML Fresh Plugin Staged</name>
+      <url>https://oss.sonatype.org/content/repositories/neterdfelt-198/</url>
+      <layout>default</layout>
+      <releases>
+        <enabled>true</enabled>
+        <updatePolicy>daily</updatePolicy>
+        <checksumPolicy>warn</checksumPolicy>
+      </releases>
+    </pluginRepository-->
   </pluginRepositories>
 </project>

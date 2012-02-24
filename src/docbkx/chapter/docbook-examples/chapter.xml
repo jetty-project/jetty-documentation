@@ -2,40 +2,48 @@
 <!DOCTYPE chapter PUBLIC '-//OASIS//DTD DocBook XML V5.0//EN'
 'http://www.oasis-open.org/docbook/xml/5.0b5/dtd/docbook.dtd'
 >
-<chapter id="docbook-examples" version="5.0" xmlns="http://docbook.org/ns/docbook"
-xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
-xmlns:ns5="http://www.w3.org/2000/svg" xmlns:ns4="http://www.w3.org/1998/Math/MathML"
-xmlns:ns3="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
+<chapter id="docbook-examples" version="5.0"
+xmlns="http://docbook.org/ns/docbook"
+xmlns:xlink="http://www.w3.org/1999/xlink"
+xmlns:xi="http://www.w3.org/2001/XInclude"
+xmlns:ns5="http://www.w3.org/2000/svg"
+xmlns:ns4="http://www.w3.org/1998/Math/MathML"
+xmlns:ns3="http://www.w3.org/1999/xhtml"
+xmlns:db="http://docbook.org/ns/docbook">
   <title>Docbook Examples</title>
   <section>
     <title>Indexterm</title>
-    <para>Indexterms are used to define the terms that will appear in the index that is generated. You should always
-    have at least a primary term, and you can have more than one. Optional is the secondary term.</para>
+    <para>Indexterms are used to define the terms that will appear in the index
+    that is generated. You should always have at least a primary term, and you
+    can have more than one. Optional is the secondary term.</para>
     <example>
       <title>Indexterm</title>
-      <programlisting>&lt;indexterm&gt; &lt;primary&gt;start characters, changing&lt;/primary&gt; &lt;/indexterm&gt;
-      &lt;indexterm&gt; &lt;primary&gt;start tags&lt;/primary&gt; &lt;secondary&gt;beginning&lt;/secondary&gt;
+      <programlisting>&lt;indexterm&gt; &lt;primary&gt;start characters,
+      changing&lt;/primary&gt; &lt;/indexterm&gt; &lt;indexterm&gt;
+      &lt;primary&gt;start tags&lt;/primary&gt;
+      &lt;secondary&gt;beginning&lt;/secondary&gt;
       &lt;/indexterm&gt;</programlisting>
     </example>
     <para>
     <indexterm>
       <primary>Indexterm</primary>
       <secondary>primary, secondary</secondary>
-    </indexterm>They can be grouped for preference between primary and secondary terms. More information can be found
-    on usage of indexterms in 
-    <ulink url="http://www.sagehill.net/docbookxsl/GenerateIndex.html#Indexterms">DocBook XSL: The Complete
-    Guide</ulink>.</para>
+    </indexterm>They can be grouped for preference between primary and
+    secondary terms. More information can be found on usage of indexterms in 
+    <ulink
+    url="http://www.sagehill.net/docbookxsl/GenerateIndex.html#Indexterms">
+    DocBook XSL: The Complete Guide</ulink>.</para>
   </section>
   <section>
     <title>See Also</title>
     <para>Indexterms have an optional element called 
-    <emphasis>seealso</emphasis>. This allows you to reference other indexterms that may be relevant to the
-    reader.</para>
+    <emphasis>seealso</emphasis>. This allows you to reference other indexterms
+    that may be relevant to the reader.</para>
     <example>
       <title>Seealso</title>
-      <programlisting>&lt;indexterm&gt; &lt;primary&gt;start tags&lt;/primary&gt;
-      &lt;secondary&gt;beginning&lt;/secondary&gt; &lt;seealso&gt;ending&lt;/seealso&gt;
-      &lt;/indexterm&gt;</programlisting>
+      <programlisting>&lt;indexterm&gt; &lt;primary&gt;start
+      tags&lt;/primary&gt; &lt;secondary&gt;beginning&lt;/secondary&gt;
+      &lt;seealso&gt;ending&lt;/seealso&gt; &lt;/indexterm&gt;</programlisting>
     </example>
   </section>
   <section>
@@ -47,7 +55,8 @@ xmlns:ns3="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook
         <colspec colnum="3" colname="col3" colwidth="1*" />
         <thead>
           <row>
-            <entry namest="col1" nameend="col2" align="left">Multi ColSpan</entry>
+            <entry namest="col1" nameend="col2" align="left">Multi
+            ColSpan</entry>
             <entry colname="col4">Column</entry>
           </row>
         </thead>

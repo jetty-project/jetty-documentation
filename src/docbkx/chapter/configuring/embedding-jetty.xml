@@ -25,7 +25,98 @@ xmlns:db="http://docbook.org/ns/docbook">
   <section>
     <title>Overview</title>
     <para>To embed a Jetty server, the following steps are typical.</para>
-    <itemizedlist>
+    <procedure>
+      <step>
+        <title>Creating the Server</title>
+        <para>The following code from SimplestServer.java instantiates and runs
+        the simplest possible Jetty server:</para>
+        <informalexample>
+          <programlisting language="java">
+<![CDATA[
+   public class SimplestServer
+   {
+     public static void main(String[] args) throws Exception
+     {
+       Server server = new Server(8080);
+       server.start();
+       server.join();
+     }
+   }
+]]>
+          </programlisting>
+        </informalexample>
+        <para>This runs an HTTP server on port 8080. It is not a very useful
+        server as it has no handlers and thus returns a 404 error for every
+        request.</para>
+      </step>
+      <step>
+        <title>Writing Handlers</title>
+        <para>To produce a response to a request, Jetty requires a Handler to
+        be set on the server. A handler may:</para>
+        <itemizedlist>
+          <listitem>Examine/modify the HTTP request.</listitem>
+          <listitem>Generate the complete HTTP response.</listitem>
+          <listitem>Call another Handler (see HandlerWrapper).</listitem>
+          <listitem>Select one or many Handlers to call (see
+          HandlerCollection).</listitem>
+        </itemizedlist>
+        <section>
+          <title>Hello World Handler</title>
+          <para>The following code based on HelloHandler.java shows a simple
+          hello world handler:</para>
+          <informalexample>
+            <programlisting language="java">
+<![CDATA[
+  public class HelloHandler extends AbstractHandler
+  {
+    public void handle(String target,Request baseRequest,HttpServletRequest request,HttpServletResponse response) throws IOException, ServletException
+    {
+      response.setContentType("text/html;charset=utf-8");
+      response.setStatus(HttpServletResponse.SC_OK);
+      baseRequest.setHandled(true);
+      response.getWriter().println("&lt;h1&gt;Hello World&lt;/h1&gt;");
+    }
+  }
+        ]]>
+            </programlisting>
+          </informalexample>
+          <para>The parameters passed to the handle method are:</para>
+          <itemizedlist>
+            <listitem>target - the target of the request, which is either a URI
+            or a name from a named dispatcher.</listitem>
+            <listitem>baseRequest - the Jetty mutable request object, which is
+            always unwrapped.</listitem>
+            <listitem>request - the immutable request object, which might have
+            been wrapped.</listitem>
+            <listitem>response - the response, which might have been
+            wrapped.</listitem>
+          </itemizedlist>
+          <para>The handler sets the response status, content-type and marks
+          the request as handled before it generates the body of the response
+          using a writer.</para>
+          <para>The following code from OneHandler.java shows how a Jetty
+          server can use this handler:</para>
+          <informalexample>
+            <programlisting language="java">
+<![CDATA[
+  public static void main(String[] args) throws Exception
+  {
+    Server server = new Server(8080);
+    server.setHandler(new HelloHandler());
+    server.start();
+    server.join();
+  }
+  ]]>
+            </programlisting>
+          </informalexample>
+          <para>You now know everything you need to know to write an HTTP
+          server based on Jetty. However, complex request handling is typically
+          built from multiple Handlers. We will look in later sections at how
+          you can combine handlers like aspects. You can see some of the
+          handlers available in Jetty in the 
+          <link
+          xl:href="@JXURL@/org/eclipse/jetty/server/handler/package-summary.html">org.eclipse.jetty.server.handler</link>package.</para>
+<!--itemizedlist>
       <listitem>
         <para>Create the server</para>
       </listitem>
@@ -45,8 +136,8 @@ xmlns:db="http://docbook.org/ns/docbook">
         <para>Wait (or join the server to prevent main exiting)</para>
       </listitem>
     </itemizedlist>
-  </section>
-  <section>
+  </section-->
+<!--section>
     <title>Creating the Server</title>
     <para>The following code from SimplestServer.java instantiates and runs the
     simplest possible Jetty server:</para>
@@ -68,8 +159,8 @@ xmlns:db="http://docbook.org/ns/docbook">
     <para>This runs an HTTP server on port 8080. It is not a very useful server
     as it has no handlers and thus returns a 404 error for every
     request.</para>
-  </section>
-  <section>
+  </section-->
+<!--section>
     <title>Writing Handlers</title>
     <para>To produce a response to a request, Jetty requires a Handler to be
     set on the server. A handler may:</para>
@@ -132,10 +223,17 @@ xmlns:db="http://docbook.org/ns/docbook">
       <para>The following code from OneHandler.java shows how a Jetty server
       can use this handler:</para>
       <informalexample>
-        <programlisting language="java">public static void main(String[] args)
-        throws Exception { Server server = new Server(8080);
-        server.setHandler(new HelloHandler()); server.start(); server.join();
-        }</programlisting>
+        <programlisting language="java">
+<![CDATA[
+  public static void main(String[] args) throws Exception
+  {
+    Server server = new Server(8080);
+    server.setHandler(new HelloHandler());
+    server.start();
+    server.join();
+  }
+  ]]>
+        </programlisting>
       </informalexample>
       <para>You now know everything you need to know to write an HTTP server
       based on Jetty. However, complex request handling is typically built from
@@ -144,7 +242,11 @@ xmlns:db="http://docbook.org/ns/docbook">
       Jetty in the
       <link
       xl:href="@JXURL@/org/eclipse/jetty/server/handler/package-summary.html">
-      org.eclipse.jetty.server.handler</link> package.</para>
+      org.eclipse.jetty.server.handler</link>package.</para>
     </section>
+  </section-->
+        </section>
+      </step>
+    </procedure>
   </section>
 </section>

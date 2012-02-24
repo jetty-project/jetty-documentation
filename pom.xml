@@ -150,7 +150,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
         <checksumPolicy>warn</checksumPolicy>
       </releases>
     </pluginRepository>
-    <!--pluginRepository>
+<!--pluginRepository>
       <id>xmlfresh-plugin</id>
       <name>XML Fresh Plugin Staged</name>
       <url>https://oss.sonatype.org/content/repositories/neterdfelt-198/</url>

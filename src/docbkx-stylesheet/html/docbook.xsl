@@ -14,4 +14,15 @@
     - http://docbkx-tools.sourceforge.net/
   -->
 
+  <xsl:template name="user.header.content">
+    <HR/>
+    <p>This is custom header text</p>
+  </xsl:template>
+
+  <xsl:template name="user.footer.content">
+    <HR/>
+    <p>This is custom footer text</p>
+    <xsl:apply-templates select="//copyright[1]" mode="titlepage.mode"/>
+  </xsl:template>
+
 </xsl:stylesheet>

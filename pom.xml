@@ -26,39 +26,34 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
           </execution>
         </executions>
       </plugin>
-<!-- plugin>
-        <groupId>net.sourceforge.docbook-utils.maven-plugin</groupId>
-        <artifactId>maven-tidy-plugin</artifactId>
-        <version>1.0.0.beta-1</version>
-        <configuration>
-          <sourceDir>${basedir}/src/docbkx</sourceDir>
-          <jtidyConfiguration>
-            <input-xml>true</input-xml>
-            <wrap>68</wrap>
-            <write-back>true</write-back>
-          </jtidyConfiguration>
-        </configuration>
-        <executions>
-            <execution>
-              <phase>validate</phase>
-              <goals>
-                <goal>tidy</goal>
-              </goals>
-            </execution>
-          </executions>
-
-      </plugin-->
       <plugin>
         <groupId>com.agilejava.docbkx</groupId>
         <artifactId>docbkx-maven-plugin</artifactId>
-        <version>2.0.13</version>
+        <version>2.0.14</version>
         <executions>
-<!-- -->
           <execution>
-            <id>documentation identifier</id>
+            <id>html</id>
             <phase>compile</phase>
             <goals>
-              <goal>generate-xhtml</goal>
+              <goal>generate-html</goal>
+            </goals>
+            <configuration>
+              <htmlStylesheet>css/docbook.css</htmlStylesheet>
+              <htmlCustomization>src/docbkx-stylesheet/html/docbook.xsl</htmlCustomization>
+              <preProcess>
+                <copy todir="target/docbkx/html/images">
+                  <fileset dir="src/docbkx/images" />
+                </copy>
+                <copy todir="target/docbkx/html/css">
+                  <fileset dir="src/docbkx/css" />
+                </copy>
+              </preProcess>
+            </configuration>
+          </execution>
+          <execution>
+            <id>pdf</id>
+            <phase>compile</phase>
+            <goals>
               <goal>generate-pdf</goal>
             </goals>
             <configuration>
@@ -69,6 +64,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
         </executions>
         <configuration>
 <!-- shared configuration -->
+          <includes>jetty.xml</includes>
           <generatedSourceDirectory>${project.build.directory}/docbkx/generated</generatedSourceDirectory>
           <xincludeSupported>true</xincludeSupported>
           <paperType>A4</paperType>
@@ -76,28 +72,6 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
           <fop1Extensions>1</fop1Extensions>
           <foCustomization>src/docbkx-stylesheet/fo/docbook.xsl</foCustomization>
           <highlightSource>true</highlightSource>
-          <entities>
-            <entity>
-              <name>jetty.version</name>
-              <value>${project.version}</value>
-            </entity>
-            <entity>
-              <name>jetty.javadoc.url</name>
-              <value>http://download.eclipse.org/jetty/stable-7/javadoc/</value>
-            </entity>
-            <entity>
-              <name>jetty.xref.url</name>
-              <value>http://download.eclipse.org/jetty/stable-7/xref/</value>
-            </entity>
-          </entities>
-          <postProcess>
-            <copy todir="target/docbkx/xhtml/jetty">
-              <fileset dir="src/docbkx">
-                <include name="**/*.jpg" />
-                <include name="**/*.gif" />
-              </fileset>
-            </copy>
-          </postProcess>
           <generateToc>book toc,title,figure,table,example,equation</generateToc>
         </configuration>
         <dependencies>

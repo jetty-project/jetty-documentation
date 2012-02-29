@@ -43,7 +43,7 @@ set       toc,title
   </xsl:template>
 
   <xsl:template name="user.header.navigation">
-    <center><img src="images/jetty-logo.svg" width="80"></img></center>
+    <center><a href="http://www.eclipse.org/jetty"><img src="images/jetty-logo.svg" width="80"></img></a></center>
   </xsl:template>
   
   <xsl:template name="user.header.content">

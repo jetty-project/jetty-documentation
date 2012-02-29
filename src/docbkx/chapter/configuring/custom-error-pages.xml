@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE chapter PUBLIC '-//OASIS//DTD DocBook XML V5.0//EN'
+'http://www.oasis-open.org/docbook/xml/5.0b5/dtd/docbook.dtd'
+>
+<section version="5.0" xmlns="http://docbook.org/ns/docbook"
+xmlns:xlink="http://www.w3.org/1999/xlink"
+xmlns:xi="http://www.w3.org/2001/XInclude"
+xmlns:ns5="http://www.w3.org/2000/svg"
+xmlns:ns4="http://www.w3.org/1998/Math/MathML"
+xmlns:ns3="http://www.w3.org/1999/xhtml"
+xmlns:db="http://docbook.org/ns/docbook">
+  <title>Custom Error Pages</title>
+  <para>There are several ways to create custom error pages in Jetty that are
+  described below.</para>
+  <section>
+    <title>Define error pages in web.xml</title>
+    <para>The standard webapp configuration file located in
+    &lt;webapp&gt;/WEB-INF/web.xml can be used to map errors to specific URLs
+    with the &lt;error-page&gt; element. This element creates a mapping between
+    the error-code or exception-type to the location of a resource in the web
+    application.</para>
+    <itemizedlist>
+      <listitem>error-code - integer value</listitem>
+      <listitem>exception-type - fully qualified class name of a Java Exception
+      type</listitem>
+      <listitem>location - location of the resource in webapp relative to the
+      root of the web application. Value should start with "/".</listitem>
+    </itemizedlist>
+    <para>Error code example:</para>
+    <informalexample>
+      <programlisting language="xml">
+<![CDATA[
+<error-page>
+  <error-code>404</error-code>
+  <location>/jspsnoop/ERROR/404</location>
+</error-page>
+]]>
+      </programlisting>
+    </informalexample>
+    <para>Exception example:</para>
+    <informalexample>
+      <programlisting language="xml">
+<![CDATA[
+<error-page>
+  <exception-type>java.io.IOException</exception-type>
+  <location>/jspsnoop/IOException</location>
+</error-page>
+]]>
+      </programlisting>
+    </informalexample>
+  </section>
+  <section>
+    <title>Context file configuration</title>
+    <para>Context files are normally located in &lt;jetty.home&gt;/contexts/
+    (see ContextDeployer for more details). Context files can be used to
+    configure the default error handler provided for a context with more
+    flexibility than is available with web.xml, specifically with the support
+    of error code ranges:</para>
+    <informalexample>
+      <programlisting language="xml">
+<![CDATA[
+<?xml version="1.0"  encoding="ISO-8859-1"?>
+<!DOCTYPE Configure PUBLIC "-//Mort Bay Consulting//DTD Configure//EN" "http://jetty.mortbay.org/configure.dtd">
+
+<Configure class="org.eclipse.jetty.webapp.WebAppContext">
+  <Set name="contextPath">/test</Set>
+  <Set name="war">
+    <SystemProperty name="jetty.home" default="."/>/webapps/test
+  </Set>
+
+  <!-- by Code -->
+  <Get name="errorHandler">
+    <Call name="addErrorPage">
+      <Arg type="int">404</Arg>
+      <Arg type="String">/jspsnoop/ERROR/404</Arg>
+    </Call>
+  </Get>
+
+  <!-- by Exception -->
+  <Get name="errorHandler">
+    <Call name="addErrorPage">
+      <Arg>
+        <Call class="java.lang.Class" name="forName">
+          <Arg type="String">java.io.IOException</Arg>
+        </Call>
+      </Arg>
+      <Arg type="String">/jspsnoop/IOException</Arg>
+    </Call>
+  </Get>
+
+  <!-- by Code Range -->
+  <Get name="errorHandler">
+    <Call name="addErrorPage">
+      <Arg type="int">500</Arg>
+      <Arg type="int">599</Arg>
+      <Arg type="String">/dump/errorCodeRangeMapping</Arg>
+    </Call>
+  </Get>
+</Configure>
+]]>
+      </programlisting>
+    </informalexample>
+  </section>
+  <section>
+    <title>Custom error handler class</title>
+    <para>A context may be configured with a custom error handler class that
+    extends either ErrorHandler for generic contexts, or ErrorPageErrorHandler
+    for webapp contexts.</para>
+    <para>The following methods may be implemented to control the appearance of
+    the error pages:</para>
+    <informalexample>
+      <programlisting language="java">
+<![CDATA[
+void handle(String target, HttpServletRequest request, HttpServletResponse response, int dispatch) throws IOException
+void handleErrorPage(HttpServletRequest request, Writer writer, int code, String message) throws IOException
+void writeErrorPage(HttpServletRequest request, Writer writer, int code, String message, boolean showStacks) throws IOException
+void writeErrorPageHead(HttpServletRequest request, Writer writer, int code, String message) throws IOException
+void writeErrorPageBody(HttpServletRequest request, Writer writer, int code, String message, boolean showStacks) throws IOException
+void writeErrorPageMessage(HttpServletRequest request, Writer writer, int code, String message, String uri) throws IOException
+void writeErrorPageStacks(HttpServletRequest request, Writer writer) throws IOException
+]]>
+      </programlisting>
+    </informalexample>
+    <para>The ErrorPageErrorHandler can also be configured to suppress
+    stacktraces by calling setShowStacks(false).</para>
+    <para>The custom error handler may be set on the context via the API or via
+    a context configuration file. For example a custom error handling class can
+    be added to the javadoc context with:</para>
+    <informalexample>
+      <programlisting language="xml">
+<![CDATA[
+<?xml version="1.0"  encoding="ISO-8859-1"?>
+<!DOCTYPE Configure PUBLIC "-//Mort Bay Consulting//DTD Configure//EN" "http://jetty.mortbay.org/configure.dtd">
+
+<Configure class="org.eclipse.jetty.server.handler.ContextHandler">
+  <Call class="org.eclipse.util.log.Log" name="debug"><Arg>Configure javadoc.xml</Arg></Call>
+  <Set name="contextPath">/javadoc</Set>
+  <Set name="resourceBase"><SystemProperty name="jetty.home" default="."/>/javadoc/</Set>
+
+  <!-- Instantiate your own error handler -->
+  <Set name="errorHandler">
+    <New class="com.acme.handler.MyErrorHandler"/>
+  </Set>
+
+</Configure>
+
+]]>
+      </programlisting>
+    </informalexample>
+  </section>
+  <section>
+    <title>Server level 404 error</title>
+    <para>One may get a 'page not found' when a request is made to the server
+    for a resource that is outside of any registered contexts. As an example,
+    you have a domain name pointing to your public server IP yet no context is
+    registered with jetty to serve pages for that domain. As a consequence, the
+    server, by default, will give a listing of all contexts running on the
+    server.</para>
+    <para>One of the quickest ways to avoid this behavior is to create a catch
+    all context. Create a "root" web app mapped to the "/" URI. Have the
+    index.html redirect to whatever place with a header directive.</para>
+  </section>
+</section>

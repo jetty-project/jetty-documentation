@@ -2,7 +2,8 @@
 <!DOCTYPE chapter PUBLIC '-//OASIS//DTD DocBook XML V5.0//EN'
 'http://www.oasis-open.org/docbook/xml/5.0b5/dtd/docbook.dtd'
 >
-<chapter id="configuring" version="5.0" xmlns="http://docbook.org/ns/docbook"
+<chapter xml:id="configuring" version="5.0"
+xmlns="http://docbook.org/ns/docbook"
 xmlns:xlink="http://www.w3.org/1999/xlink"
 xmlns:xi="http://www.w3.org/2001/XInclude"
 xmlns:ns5="http://www.w3.org/2000/svg"
@@ -10,5 +11,6 @@ xmlns:ns4="http://www.w3.org/1998/Math/MathML"
 xmlns:ns3="http://www.w3.org/1999/xhtml"
 xmlns:db="http://docbook.org/ns/docbook">
   <title>Configuration Options</title>
+  <xi:include href="custom-error-pages.xml" />
   <xi:include href="embedding-jetty.xml" />
 </chapter>

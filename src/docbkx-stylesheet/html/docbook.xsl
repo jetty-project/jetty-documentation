@@ -9,6 +9,29 @@
 
   <xsl:param name="use.id.as.filename" select="1"/>
 
+  <xsl:param name="generate.section.toc.level" select="2"/>
+  <xsl:param name="toc.section.depth" select="2"/>
+  
+  <xsl:param name="generate.toc">
+appendix  toc,title
+article/appendix  nop
+article   toc,title
+book      toc,title,figure,table,example,equation
+chapter   toc,title
+part      toc,title
+preface   toc,title
+qandadiv  toc
+qandaset  toc
+reference toc,title
+sect1     toc
+sect2     toc
+sect3     toc
+sect4     toc
+sect5     toc
+section   toc
+set       toc,title
+</xsl:param>
+  
   <!--
     Important links:
     - http://www.sagehill.net/docbookxsl/

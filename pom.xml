@@ -103,8 +103,8 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
           <foCustomization>
           src/docbkx-stylesheet/fo/docbook.xsl</foCustomization>
           <highlightSource>true</highlightSource>
-          <generateToc>book
-          toc,title,figure,table,example,equation</generateToc>
+<!--generateToc>
+          book,section,toc,title,figure,table,example,equation</generateToc-->
         </configuration>
         <dependencies>
           <dependency>

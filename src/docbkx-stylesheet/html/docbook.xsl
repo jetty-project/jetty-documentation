@@ -39,10 +39,15 @@ set       toc,title
   -->
   
   <xsl:template name="user.head.content">
-    <link rel="shortcut icon" href="images/favicon.ico" />
+    <link rel="shortcut icon" href="images/flavicon.ico" />
   </xsl:template>
 
+  <xsl:template name="user.header.navigation">
+    <center><img src="images/jetty-logo.svg" width="80"></img></center>
+  </xsl:template>
+  
   <xsl:template name="user.header.content">
+    
     <div style="background-color: #DFF2FD; text-align: left; font-size:100%; font-family: arial, sans; border:thin dotted blue; padding: 4px; ">
     <span style="font-variant: small-caps; font-weight: bold">
         <a href="http://www.webtide.com/support.jsp" style="text-decoration:none">Contact the core Jetty developers at

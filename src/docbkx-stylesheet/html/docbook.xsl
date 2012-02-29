@@ -39,7 +39,7 @@ set       toc,title
   -->
   
   <xsl:template name="user.head.content">
-    <link rel="shortcut icon" href="images/flavicon.ico" />
+    <link rel="shortcut icon" href="images/favicon.ico" />
   </xsl:template>
 
   <xsl:template name="user.header.navigation">

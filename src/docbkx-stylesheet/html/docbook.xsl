@@ -14,6 +14,10 @@
     - http://www.sagehill.net/docbookxsl/
     - http://docbkx-tools.sourceforge.net/
   -->
+  
+  <xsl:template name="user.head.content">
+    <link rel="shortcut icon" href="images/favicon.ico" />
+  </xsl:template>
 
   <xsl:template name="user.header.content">
     <div style="background-color: #DFF2FD; text-align: left; font-size:100%; font-family: arial, sans; border:thin dotted blue; padding: 4px; ">

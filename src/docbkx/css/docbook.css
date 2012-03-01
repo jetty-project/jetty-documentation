@@ -1,41 +1,137 @@
-a {text-decoration: none;
-   color: #006699;}
-a:visited {color: #003366;}
-body {line-height: 1.8em;
-      font-size: 62.5%;
-      width: 960px;
-      margin-left: auto;
-      margin-right: auto;
-      font-family: Palatino Linotype, Palatino, serif;
-      background-color: #ffffff;
-      color: #444444;}
-dl {margin: 0;}
-h1, h2, h3 {font-weight: bold;
-            font-variant: small-caps;}
-h1 {font-size: 3em;
-    margin-bottom: .6em;}
-h2 {font-size: 2.4em;
-    margin-bottom: .75em;}
-h3 {font-size: 1.8em;
-    margin-bottom: 1em;}
-p, ul {font-size: 1.4em;
-       margin: 1.286em 0;}
-dl, table {font-size: 1.4em;}
-dl dl {font-size: 1em;}
-pre {font-family: Monaco, Courier New, monospace; font-size: 1.2em; margin-bottom: 1.5em;}
-strong {color: #000000;}
+a {
+  text-decoration: none;
+  color: #006699;
+}
 
-h2.subtitle {font-variant: normal;}
-h3.author {font-variant: normal; margin-top: 2em; margin-bottom: 0;}
-.email {font-size: 1.2em;}
-.informalfigure {text-align: center;}
-.mediaobject {display: inline-block;}
-.caption p {margin: 0; text-align: right; font-size: small;}
+a:visited {
+  color: #003366;
+}
 
-.navfooter table tr td {width: 33.33%;}
+body {
+  line-height: 1.8em;
+  font-size: 62.5%;
+  width: 960px;
+  margin-left: auto;
+  margin-right: auto;
+  font-family: Palatino Linotype, Palatino, serif;
+  background-color: #ffffff;
+  color: #444444;
+}
+
+dl {
+  margin: 0;
+}
+
+h1, h2, h3 {
+  font-weight: bold;
+  font-variant: small-caps;
+}
+
+h1 {
+  font-size: 3em;
+  margin-bottom: .6em;
+}
+
+h2 {
+  font-size: 2.4em;
+  margin-bottom: .75em;
+}
+
+h3 {
+  font-size: 1.8em;
+  margin-bottom: 1em;
+}
+
+p, ul {
+  font-size: 1.4em;
+  margin: 1.286em 0;
+}
+
+dl, table {
+  font-size: 1.4em;
+}
+
+dl dl {
+  font-size: 1em;
+}
+
+pre {
+  font-family: Monaco, Courier New, monospace; 
+  font-size: 1.2em; 
+  margin-bottom: 1.5em;
+}
+
+strong {
+  color: #000000;
+}
+
+h2.subtitle {
+  font-variant: normal;
+}
+
+h3.author {
+  font-variant: normal; 
+  margin-top: 2em; 
+  margin-bottom: 0;
+}
+
+.email {
+  font-size: 1.2em;
+}
+
+.informalfigure {
+  text-align: center;
+}
+
+.mediaobject {
+  display: inline-block;
+}
+
+.caption p {
+ margin: 0; 
+ text-align: right; 
+ font-size: small;
+}
+
+.navfooter table tr td {
+ width: 33.33%;
+}
 
 pre.programlisting {
  background-color: #EEE;
  padding-left: 1.5em;
  padding-right: 1.5em;
+}
+
+pre.screen
+{
+
+        font-family:monospace;
+        white-space: pre;
+        width: 100%;
+        background-color: #EEE;
+        border:solid;
+        color: #000000;
+        border-color: #0000FF;
+        border-left: solid #0000FF 2px;
+        border-right: solid #0000FF 2px;
+        border-top: solid #0000FF 2px;
+        border-bottom: solid #0000FF 2px;
+
+        padding-left: 15pt;
+}
+
+div.variablelist {
+        font-family: Palatino Linotype, Palatino, serif;
+        font-size: 62.5%;
+        padding-left: 20px;
+}
+
+.varlistentry {
+        font-weight: bold;
+        margin-top: 10px;
+        COLOR: #ffffff ;
+        BACKGROUND-color: #a0a0d0;
+        BORDER: solid 1px #606090;
+        PADDING: 1px
 }

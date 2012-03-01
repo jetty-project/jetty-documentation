@@ -2,7 +2,8 @@
 <!DOCTYPE chapter PUBLIC '-//OASIS//DTD DocBook XML V5.0//EN'
 'http://www.oasis-open.org/docbook/xml/5.0b5/dtd/docbook.dtd'
 >
-<section version="5.0" xmlns="http://docbook.org/ns/docbook"
+<section xml:id="contributing-documentation" version="5.0"
+xmlns="http://docbook.org/ns/docbook"
 xmlns:xlink="http://www.w3.org/1999/xlink"
 xmlns:xi="http://www.w3.org/2001/XInclude"
 xmlns:ns5="http://www.w3.org/2000/svg"
@@ -17,39 +18,52 @@ xmlns:db="http://docbook.org/ns/docbook">
   <section>
     <title>Tools</title>
     <para>You will need:</para>
-    <itemizedlist>
-      <listitem>
-        <para>git</para>
-        <para>This project is located at github so if you do not have a GitHub
-        account already you should register for one. You can do that here:
-        https://github.com</para>
-        <para>You can go one of two ways for using git, if you are familiar
-        with SCM's and the command line interface then feel free to install and
-        use git from there. Otherwise we would recommend you use the github
-        client itself as it will help with some of the workflow involved with
-        working with git.</para>
-      </listitem>
-      <listitem>
-        <para>maven 3</para>
-        <para>We build the project with maven 3 which can be found here:
-        http://maven.apache.org</para>
-      </listitem>
-    </itemizedlist>
+    <variablelist>
+      <?dbhtml list-presentation="table"?>
+      <?dbhtml term-width="15%"  list-width="85%" ?>
+      <?dbhtml term-presentation="bold" ?>
+      <?dbhtml term-separator=":" ?>
+      <?dbhtml table-summary="tools needed for working with documentation" ?>
+      <varlistentry>
+        <term>git</term>
+        <listitem>
+          <para>This project is located at github so if you do not have a
+          GitHub account already you should register for one. You can do that
+          at
+          <link xlink:href="https://github.com">Github</link></para>
+          <para>You can go one of two ways for using git, if you are familiar
+          with SCM's and the command line interface then feel free to install
+          and use git from there. Otherwise we would recommend you use the
+          github client itself as it will help with some of the workflow
+          involved with working with git.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>maven 3</term>
+        <listitem>
+          <para>We build the project with maven 3 which can be found at
+          <link xlink:href="http://maven.apache.org">Apache Maven</link></para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
   </section>
   <section>
     <title>Getting Started (cli)</title>
     <para>First you need to obtain the source of the documentation
     project.</para>
     <para>Clone the repository:</para>
-    <para>
-      <screen>$ git clone
-      git@github.com:jetty-project/jetty-documentation.git</screen>
-    </para>
+    <screen linenumbering="numbered">
+<![CDATA[
+$ git clone git@github.com:jetty-project/jetty-documentation.git
+      ]]>
+    </screen>
     <para>You will now have a local directory with all of the
     jetty-documentation. Now we move on to building it.</para>
-    <para>
-      <screen>$ cd jetty-documentation $ mvn install</screen>
-    </para>
+    <screen>
+<![CDATA[
+$ cd jetty-documentation $ mvn install
+]]>
+    </screen>
     <para>While maven is running you may see a lot of files being downloaded.
     If you are not familiar with maven, then what you are seeing is maven
     setting up the execution environment for generating the documentation. This
@@ -58,27 +72,30 @@ xmlns:db="http://docbook.org/ns/docbook">
     dependencies that are required to make this while build work. After a while
     the downloading will stop and you'll see the execution of the
     docbkx-maven-plugin.</para>
-    <para>
-      <screen>[INFO] --- docbkx-maven-plugin:2.0.13:generate-xhtml
-      (documentation identifier) @ jetty-documentation --- [INFO] Processing
-      input file: jetty.xml [INFO] Dumping to
-      /home/jesse/src/projects/jetty/jetty-documentation/target/docbkx/generated/(gen)jetty.xml
-      [INFO] Applying customization parameters [INFO] Chunking output. &lt;?xml
-      version="1.0" encoding="UTF-8"?&gt; [INFO] See
-      /home/jesse/src/projects/jetty/jetty-documentation/target/docbkx/xhtml/jetty
-      for generated file(s) [INFO] Executing tasks [INFO] Executed
-      tasks</screen>
-    </para>
+    <screen>
+<![CDATA[
+[INFO] --- docbkx-maven-plugin:2.0.13:generate-xhtml (documentation identifier) @ jetty-documentation ---
+[INFO] Processing input file: jetty.xml
+[INFO] Dumping to /home/jesse/src/projects/jetty/jetty-documentation/target/docbkx/generated/(gen)jetty.xml
+[INFO] Applying customization parameters
+[INFO] Chunking output. &lt;?xml version="1.0" encoding="UTF-8"?&gt;
+[INFO] See /home/jesse/src/projects/jetty/jetty-documentation/target/docbkx/xhtml/jetty for generated file(s)
+[INFO] Executing tasks
+[INFO] Executed tasks
+]]>
+    </screen>
     <para>The build is finished once you see a message akin to this:</para>
-    <para>
-      <screen>[INFO]
-      ------------------------------------------------------------------------
-      [INFO] BUILD SUCCESS [INFO]
-      ------------------------------------------------------------------------
-      [INFO] Total time: 7.014s [INFO] Finished at: Tue Oct 25 14:15:37 CDT
-      2011 [INFO] Final Memory: 14M/229M [INFO]
-      ------------------------------------------------------------------------</screen>
-    </para>
+    <screen>
+<![CDATA[
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 7.014s
+[INFO] Finished at: Tue Oct 25 14:15:37 CDT 2011
+[INFO] Final Memory: 14M/229M
+[INFO] ------------------------------------------------------------------------
+]]>
+    </screen>
     <para>You may now open your web browser and browse to the first page of the
     html output to see what you have produced! Generally you can do this with
     File -&gt; Open File -&gt; which will open a file system browsing screen,
@@ -113,16 +130,19 @@ xmlns:db="http://docbook.org/ns/docbook">
     follow the process to push that change back into jetty proper. Do make sure
     the change works and the build isn't broken though so make sure you run
     maven and check the output. Then commit the change.</para>
-    <para>
-      <screen>$ git commit -m "Tweaked the introduction to fix a horrid
-      misspelled word." src/docbkbx/topics/introduction/topic.xml</screen>
-    </para>
+    <screen>
+<![CDATA[
+$ git commit -m "Tweaked the introduction to fix a horrid misspelled word." src/docbkbx/topics/introduction/topic.xml
+]]>
+    </screen>
     <para>This will commit the change that you made into git which means that
     now git knows about the change is you now want to push that change up to
     your repository on github.</para>
-    <para>
-      <screen>$ git push</screen>
-    </para>
+    <screen>
+<![CDATA[
+$ git push
+]]>
+    </screen>
     <para>Now you'll see some output showing that your change has been migrated
     to up your repository on github. In fact if you navigate to that repository
     at the top of the files list you should see your comment there. Success,
@@ -139,60 +159,46 @@ xmlns:db="http://docbook.org/ns/docbook">
   </section>
   <section>
     <title>Conventions</title>
-    <para>Below is list of conventions that should be followed when development
+    <para>Below is list of conventions that should be followed when developing
     documentation within this framework. These are not set in stone and should
     be updated as we learn more.</para>
-    <itemizedlist>
-      <listitem>
-        <para>chapters</para>
-        <itemizedlist>
-          <listitem>
-            <para>defined in jetty.xml</para>
-          </listitem>
-          <listitem>
-            <para>use xi:include to bring in individual chapters</para>
-          </listitem>
-        </itemizedlist>
-      </listitem>
-      <listitem>
-        <para>chapters</para>
-        <itemizedlist>
-          <listitem>
-            <para>composed of discrete sections that can be linked into
-            chapters via xi:include as needed</para>
-          </listitem>
-          <listitem>
-            <para>root of chapters is always named chapter.xml</para>
-          </listitem>
-          <listitem>
-            <para>can be further decomposed into xml files and linked in with
-            xi:include</para>
-          </listitem>
-          <listitem>
-            <para>? should topics allow linking in other topics or do we need a
-            'category for topics?'</para>
-          </listitem>
-          <listitem>
-            <para>images and graphics should be linked to from within the
-            relevant directory</para>
-          </listitem>
-        </itemizedlist>
-      </listitem>
-      <listitem>
-        <para>version differences - proposed</para>
-        <itemizedlist>
-          <listitem>
-            <para>small differences should go into nested sections and use
-            titles like 'Prior to: ##' or 'In version: ##'</para>
-          </listitem>
-          <listitem>
-            <para>larger sections that are replaced should go into nested
-            directories and either be xi:included or simply not linked in, but
-            old content should be preserved in version specific sub
-            directories</para>
-          </listitem>
-        </itemizedlist>
-      </listitem>
-    </itemizedlist>
+    <variablelist>
+      <?dbhtml list-presentation="table"?>
+      <?dbhtml term-width="15%"  list-width="85%" ?>
+      <?dbhtml term-presentation="bold" ?>
+      <?dbhtml term-separator="" ?>
+      <?dbhtml table-summary="tools needed for working with documentation" ?>
+      <varlistentry>
+        <term>chapters</term>
+        <listitem>
+          <para>defined in jetty.xml</para>
+        </listitem>
+        <listitem>
+          <para>use xi:include to bring in individual chapters</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>sections</term>
+        <listitem>
+          <para>composed of discrete sections that can be linked into chapters
+          via xi:include as needed</para>
+        </listitem>
+        <listitem>
+          <para>root of chapters is always named chapter.xml</para>
+        </listitem>
+        <listitem>
+          <para>can be further decomposed into xml files and linked in with
+          xi:include</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>version differences</term>
+        <listitem>
+          <para>in general differences in functionality within a major should
+          go into nested sections and use titles like 'Prior to: ##' or 'In
+          version: ##'</para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
   </section>
 </section>

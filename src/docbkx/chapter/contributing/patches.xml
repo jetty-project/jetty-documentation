@@ -141,7 +141,17 @@ $ git push
     <para>Then clone the jetty-project:</para>
     <screen>
 <![CDATA[
-git clone ssh://git.eclipse.org:29418/jetty/org.eclipse.jetty.project
+$ git clone ssh://git.eclipse.org:29418/jetty/org.eclipse.jetty.project
+]]>
+    </screen>
+    <para>
+    <emphasis>Stop.</emphasis>Make sure you have a bugzilla issue open for the
+    change that you want to commit into gerrit for review. Also when you are
+    ready to commit your change make sure that your commit starts with the
+    bugzilla id. For example your commit should look like this:</para>
+    <screen>
+<![CDATA[
+$ git commit -m "[Bug 343532] fixed issue" <files>
 ]]>
     </screen>
     <para>Make sure to properly set the changeIds as described here: 
@@ -152,7 +162,7 @@ git clone ssh://git.eclipse.org:29418/jetty/org.eclipse.jetty.project
     do:</para>
     <screen>
 <![CDATA[
-git push ssh://git.eclipse.org:29418/jetty/org.eclipse.jetty.project HEAD:refs/for/master
+$ git push ssh://git.eclipse.org:29418/jetty/org.eclipse.jetty.project HEAD:refs/for/master
 ]]>
     </screen>
     <para>Note the magic: "HEAD:refs/for/master". Without gerrit will not
@@ -165,6 +175,58 @@ git push ssh://git.eclipse.org:29418/jetty/org.eclipse.jetty.project HEAD:refs/f
   </section>
   <section>
     <title>Gerrit for Committers</title>
-    <para>set your watched projects</para>
+    <para>Using gerrit is pretty simple. Once you have logged in you should
+    first register your interest in the project repositories you want to be
+    notified of patches on. This option is located under your user Settings
+    near your name in the upper right hand corner. Click on 'Watched Projects'
+    and then start typing 'jetty' into the project name box and it will offer
+    completions for the jetty projects.</para>
+    <para>Now that you are watching the appropriate projects you should get
+    email notifications of commits into gerrit. It is critical that you follow
+    strict committer IP process when reviewing commits. Egregious violations of
+    this process can result into committer status issues.</para>
+    <para>On the top of the screen click My -&gt; Watched Changes for a list of
+    the commits available for review. These represent people waiting to have
+    their work reviewed. Once you select an issue to review you will see a list
+    of changes at the bottom, click on these and look over the changes. You can
+    have a dialog back and forth with the user through the comments on the
+    patch. Providing they used the ChangeId setup correctly they will be able
+    to issue updates to their patch for further review. Once you are happy with
+    a review change set click on the Review button. This brings up a screen
+    with three important questions.</para>
+    <variablelist>
+      <varlistentry>
+        <term>Verified</term>
+        <listitem>
+          <para>Have you verified if this patch is acceptable.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>Code Review</term>
+        <listitem>
+          <para>How acceptable is this review change set? Are you willing to
+          testitfy that it is good enough or does it bear further
+          review.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>IP Clean</term>
+        <listitem>
+          <para>Does this commit follow acceptable IP guidelines? If anything
+          looks suspicious then follow up with comments to clarify any
+          potential issues. Commits with minor changes to existing classes and
+          projects are fine and should reference a corresponding bugzilla id in
+          their commit message.</para>
+          <para>Completely new features and large contributions require a
+          corresponding CQ reference.</para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+    <para>Assuming sufficient approval through the review process there will be
+    an option to Review and Submit and the commit will pass through into jetty
+    proper. You may also review and comment without submitting so the Review
+    button is useful for clearly stating the reviewers comments and concerns
+    regarding the three items mentioned above. Multiple reviewers are able to
+    collaborate on a given patch as well.</para>
   </section>
 </section>

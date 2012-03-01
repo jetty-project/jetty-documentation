@@ -97,6 +97,14 @@ h3.author {
  width: 33.33%;
 }
 
+li {
+  font-size: 80%;
+}
+
+.listitem {
+  font-size: 80%;
+}
+
 pre.programlisting {
  background-color: #EEE;
  padding-left: 1.5em;
@@ -114,7 +122,6 @@ pre.screen
   color: black;
   padding-left: 15pt;
 }
-
 
 div.variablelist {
   font-family: Palatino Linotype, Palatino, serif;

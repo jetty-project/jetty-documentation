@@ -134,7 +134,7 @@ $ git push
   <section>
     <title>Gerrit for Contributors</title>
     <para>Prepare yourself for using gerrit by following the steps described
-    here:
+    here: 
     <link
     xlink:href="https://git.eclipse.org/r/Documentation/user-upload.html">
     https://git.eclipse.org/r/Documentation/user-upload.html</link></para>
@@ -145,7 +145,7 @@ $ git clone ssh://git.eclipse.org:29418/jetty/org.eclipse.jetty.project
 ]]>
     </screen>
     <para>
-    <emphasis>Stop.</emphasis> Make sure you have a bugzilla issue open for the
+    <emphasis>Stop.</emphasis>Make sure you have a bugzilla issue open for the
     change that you want to commit into gerrit for review. Also when you are
     ready to commit your change make sure that your commit starts with the
     bugzilla id. For example your commit should look like this:</para>
@@ -154,7 +154,7 @@ $ git clone ssh://git.eclipse.org:29418/jetty/org.eclipse.jetty.project
 $ git commit -m "[Bug 343532] fixed issue" <files>
 ]]>
     </screen>
-    <para>Make sure to properly set the changeIds as described here:
+    <para>Make sure to properly set the changeIds as described here: 
     <link
     xlink:href="https://git.eclipse.org/r/Documentation/user-changeid.html">
     https://git.eclipse.org/r/Documentation/user-changeid.html</link></para>
@@ -167,7 +167,7 @@ $ git push ssh://git.eclipse.org:29418/jetty/org.eclipse.jetty.project HEAD:refs
     </screen>
     <para>Note the magic: "HEAD:refs/for/master". Without gerrit will not
     permit you to push.</para>
-    <para>Review your changes on your gerrit dashboard:
+    <para>Review your changes on your gerrit dashboard: 
     <link xlink:href="https://git.eclipse.org/r/#/">
     https://git.eclipse.org/r/#/</link></para>
     <para>Finally get some coffee and relax. You've contributed something to

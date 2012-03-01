@@ -48,11 +48,11 @@ dl {
 }
 
 dl, table {
-  font-size: 1.4em;
+  font-size: 1em;
 }
 
-dl {
-  font-size: 1.4em;
+dl dl {
+  font-size: 1em;
 }
 
 dt {

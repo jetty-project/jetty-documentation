@@ -20,4 +20,5 @@ xmlns:db="http://docbook.org/ns/docbook">
     a few of the many different ways to optimize jetty.</para>
   </section>
   <xi:include href="garbage-collection.xml"></xi:include>
+  <xi:include href="high-load.xml"></xi:include>
 </chapter>

@@ -39,6 +39,9 @@
     - http://docbkx-tools.sourceforge.net/
   -->
   
+  <!-- squash the generation of title attributes -->
+  <xsl:template name="generate.html.title"/>
+  
   <xsl:template name="user.head.content">
     <link rel="shortcut icon" href="images/favicon.ico" />
   </xsl:template>

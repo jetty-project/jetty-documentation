@@ -11,5 +11,13 @@ xmlns:ns4="http://www.w3.org/1998/Math/MathML"
 xmlns:ns3="http://www.w3.org/1999/xhtml"
 xmlns:db="http://docbook.org/ns/docbook">
   <title>Optimizing Topics</title>
-<!--xi:include href="content.xml" /-->
+  <section>
+    <para>There are many different aspects to optimizing jetty and they very
+    greatly depending on the situation. Are you trying to optimize for number
+    of requests within a given amount of time? Are you trying to optimize the
+    serving of static content? Do you have a large bit of hardware that you
+    want to give entirely over to jetty to use to its hearts delight? Here are
+    a few of the many different ways to optimize jetty.</para>
+  </section>
+  <xi:include href="garbage-collection.xml"></xi:include>
 </chapter>

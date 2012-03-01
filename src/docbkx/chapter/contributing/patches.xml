@@ -12,7 +12,7 @@ xmlns:ns3="http://www.w3.org/1999/xhtml"
 xmlns:db="http://docbook.org/ns/docbook">
   <title>Contributing Patches</title>
   <para>How to contribute a patch to the jetty project.</para>
-  <section>
+  <section xml:id="git-diff">
     <title>Git Diff</title>
     <para>The simplest way to contribute a patch is to make a modification to a
     cloned copy of jetty and then generate a diff between the two
@@ -96,7 +96,7 @@ $ git am -s 0001-353563-HttpDestinationQueueTest-too-slow.patch
     place that validates that either the commit or signed by fields are in fact
     eclipse committers authorized to commit to the repository.</para>
   </section>
-  <section>
+  <section xml:id="git-ammend">
     <title>Git Amend</title>
     <para>Alternatively, for troublesome patches that do not seem to apply
     cleanly with git am, you can use git commit --amend to modify the author
@@ -131,10 +131,10 @@ $ git push
 ]]>
     </screen>
   </section>
-  <section>
+  <section xml:id="gerrit-for-contributors">
     <title>Gerrit for Contributors</title>
     <para>Prepare yourself for using gerrit by following the steps described
-    here: 
+    here:
     <link
     xlink:href="https://git.eclipse.org/r/Documentation/user-upload.html">
     https://git.eclipse.org/r/Documentation/user-upload.html</link></para>
@@ -154,7 +154,7 @@ $ git clone ssh://git.eclipse.org:29418/jetty/org.eclipse.jetty.project
 $ git commit -m "[Bug 343532] fixed issue" <files>
 ]]>
     </screen>
-    <para>Make sure to properly set the changeIds as described here: 
+    <para>Make sure to properly set the changeIds as described here:
     <link
     xlink:href="https://git.eclipse.org/r/Documentation/user-changeid.html">
     https://git.eclipse.org/r/Documentation/user-changeid.html</link></para>
@@ -167,13 +167,13 @@ $ git push ssh://git.eclipse.org:29418/jetty/org.eclipse.jetty.project HEAD:refs
     </screen>
     <para>Note the magic: "HEAD:refs/for/master". Without gerrit will not
     permit you to push.</para>
-    <para>Review your changes on your gerrit dashboard: 
+    <para>Review your changes on your gerrit dashboard:
     <link xlink:href="https://git.eclipse.org/r/#/">
     https://git.eclipse.org/r/#/</link></para>
     <para>Finally get some coffee and relax. You've contributed something to
     jetty, woohooo. :)</para>
   </section>
-  <section>
+  <section xml:id="gerrit-for-committers">
     <title>Gerrit for Committers</title>
     <para>Using gerrit is pretty simple. Once you have logged in you should
     first register your interest in the project repositories you want to be

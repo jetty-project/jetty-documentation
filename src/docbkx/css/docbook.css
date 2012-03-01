@@ -132,16 +132,8 @@ pre.screen
 }
 
 div.variablelist {
-  font-family: Palatino Linotype, Palatino, serif;
-  font-size: 62.5%;
   padding-left: 20px;
 }
-
-.varlistentry {
-  font-weight: bold;
-  margin-top: 10px;
-  color: #ffffff ;
-  background-color: #a0a0d0;
-  border: solid 1px #606090;
-  padding: 1px
+.variablelist dd {
+  font-size: 1.4em;
 }

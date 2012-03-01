@@ -20,7 +20,7 @@ xmlns:db="http://docbook.org/ns/docbook">
     <para>From the top level of the cloned project:</para>
     <screen>
 <![CDATA[
-$ git diff &gt; ######.patch
+$ git diff < ######.patch
 ]]>
     </screen>
     <para>The hash marks should be the bugzilla issue that you will be
@@ -36,7 +36,7 @@ $ git diff &gt; ######.patch
     use:</para>
     <screen>
 <![CDATA[
-$ git apply &lt; ######.patch
+$ git apply < ######.patch
 ]]>
     </screen>
     <para>If you want to be a nice person, test your patch on a clean clone to
@@ -58,7 +58,7 @@ $ git apply &lt; ######.patch
     <screen>
 <![CDATA[
 commit 70e29326fe904675f772b88a67128c0b3529565e
-Author: John Doe &lt;john.doe@who.com&gt;
+Author: John Doe <john.doe@who.com>
 Date: Tue Aug 2 14:36:50 2011 +0200 353563:
 HttpDestinationQueueTest too slow
 ]]>
@@ -105,14 +105,14 @@ $ git am -s 0001-353563-HttpDestinationQueueTest-too-slow.patch
 <![CDATA[
 $ git checkout -b patch
 $ git apply john-doe.patch
-$ git commit -a -m "&lt;Original commit message from John Doe&gt;"
+$ git commit -a -m "<Original commit message from John Doe>"
 ]]>
     </screen>
     <para>At this point the patch is committed with the committer's name on a
     local branch</para>
     <screen>
 <![CDATA[
-$ git commit --amend --author "John Doe &lt;john.doe@who.com&gt;" --signoff
+$ git commit --amend --author "John Doe <john.doe@who.com>" --signoff
 ]]>
     </screen>
     <para>Now the patch has the right author and it has been signed off</para>

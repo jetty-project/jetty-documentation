@@ -18,10 +18,6 @@ body {
   color: #444444;
 }
 
-dl {
-  margin: 0;
-}
-
 h1, h2, h3 {
   font-weight: bold;
   font-variant: small-caps;
@@ -47,12 +43,20 @@ p, ul {
   margin: 1.286em 0;
 }
 
+dl {
+  margin: 0;
+}
+
 dl, table {
   font-size: 1.4em;
 }
 
-dl dl {
-  font-size: 1em;
+dl {
+  font-size: 1.4em;
+}
+
+dt {
+  font-size: 1.4em;
 }
 
 pre {
@@ -105,6 +109,10 @@ li {
   font-size: 80%;
 }
 
+term {
+  font-size: 80%;
+}
+
 pre.programlisting {
  background-color: #EEE;
  padding-left: 1.5em;
@@ -132,8 +140,8 @@ div.variablelist {
 .varlistentry {
   font-weight: bold;
   margin-top: 10px;
-  COLOR: #ffffff ;
-  BACKGROUND-color: #a0a0d0;
-  BORDER: solid 1px #606090;
-  PADDING: 1px
+  color: #ffffff ;
+  background-color: #a0a0d0;
+  border: solid 1px #606090;
+  padding: 1px
 }

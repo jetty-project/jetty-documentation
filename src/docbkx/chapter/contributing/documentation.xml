@@ -22,7 +22,7 @@ xmlns:db="http://docbook.org/ns/docbook">
       <?dbhtml list-presentation="table"?>
       <?dbhtml term-width="15%"  list-width="85%" ?>
       <?dbhtml term-presentation="bold" ?>
-      <?dbhtml term-separator=":" ?>
+      <?dbhtml term-separator="" ?>
       <?dbhtml table-summary="tools needed for working with documentation" ?>
       <varlistentry>
         <term>git</term>

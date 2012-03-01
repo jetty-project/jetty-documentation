@@ -105,33 +105,27 @@ pre.programlisting {
 
 pre.screen
 {
-
-        font-family:monospace;
-        white-space: pre;
-        width: 100%;
-        background-color: #EEE;
-        border:solid;
-        color: #000000;
-        border-color: #0000FF;
-        border-left: solid #0000FF 2px;
-        border-right: solid #0000FF 2px;
-        border-top: solid #0000FF 2px;
-        border-bottom: solid #0000FF 2px;
-
-        padding-left: 15pt;
+  font-family:monospace;
+  white-space: pre;
+  width: 100%;
+  background-color: #EEE;
+  border:solid 1px #CCC;
+  color: black;
+  padding-left: 15pt;
 }
 
+
 div.variablelist {
-        font-family: Palatino Linotype, Palatino, serif;
-        font-size: 62.5%;
-        padding-left: 20px;
+  font-family: Palatino Linotype, Palatino, serif;
+  font-size: 62.5%;
+  padding-left: 20px;
 }
 
 .varlistentry {
-        font-weight: bold;
-        margin-top: 10px;
-        COLOR: #ffffff ;
-        BACKGROUND-color: #a0a0d0;
-        BORDER: solid 1px #606090;
-        PADDING: 1px
+  font-weight: bold;
+  margin-top: 10px;
+  COLOR: #ffffff ;
+  BACKGROUND-color: #a0a0d0;
+  BORDER: solid 1px #606090;
+  PADDING: 1px
 }

@@ -26,33 +26,27 @@ xmlns:db="http://docbook.org/ns/docbook">
         <listitem>Archives -
         http://dev.eclipse.org/mhonarc/lists/jetty-dev/</listitem>
       </itemizedlist></listitem>
-      <listitem>
-        <listitem>Jetty Users List 
-        <itemizedlist>
-          <listitem>Join -
-          https://dev.eclipse.org/mailman/listinfo/jetty-user</listitem>
-          <listitem>Archives -
-          http://dev.eclipse.org/mhonarc/lists/jetty-user/</listitem>
-        </itemizedlist></listitem>
-      </listitem>
-      <listitem>
-        <listitem>Jetty Announcements List 
-        <itemizedlist>
-          <listitem>Join -
-          https://dev.eclipse.org/mailman/listinfo/jetty-announce</listitem>
-          <listitem>Archives -
-          http://dev.eclipse.org/mhonarc/lists/jetty-announce/</listitem>
-        </itemizedlist></listitem>
-      </listitem>
-      <listitem>
-        <listitem>Jetty Commit List 
-        <itemizedlist>
-          <listitem>Join -
-          https://dev.eclipse.org/mailman/listinfo/jetty-commit</listitem>
-          <listitem>Archives -
-          http://dev.eclipse.org/mhonarc/lists/jetty-commit/</listitem>
-        </itemizedlist></listitem>
-      </listitem>
+      <listitem>Jetty Users List 
+      <itemizedlist>
+        <listitem>Join -
+        https://dev.eclipse.org/mailman/listinfo/jetty-user</listitem>
+        <listitem>Archives -
+        http://dev.eclipse.org/mhonarc/lists/jetty-user/</listitem>
+      </itemizedlist></listitem>
+      <listitem>Jetty Announcements List 
+      <itemizedlist>
+        <listitem>Join -
+        https://dev.eclipse.org/mailman/listinfo/jetty-announce</listitem>
+        <listitem>Archives -
+        http://dev.eclipse.org/mhonarc/lists/jetty-announce/</listitem>
+      </itemizedlist></listitem>
+      <listitem>Jetty Commit List 
+      <itemizedlist>
+        <listitem>Join -
+        https://dev.eclipse.org/mailman/listinfo/jetty-commit</listitem>
+        <listitem>Archives -
+        http://dev.eclipse.org/mhonarc/lists/jetty-commit/</listitem>
+      </itemizedlist></listitem>
     </itemizedlist>
     <section>
       <title>Internet Relay Chat - IRC</title>

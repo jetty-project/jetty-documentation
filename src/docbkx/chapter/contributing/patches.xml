@@ -144,12 +144,10 @@ $ git push
 git clone ssh://git.eclipse.org:29418/jetty/org.eclipse.jetty.project
 ]]>
     </screen>
-    <para>Make sure to properly set the changeIds as described here:</para>
-    <screen>
-<![CDATA[
-https://git.eclipse.org/r/Documentation/user-changeid.html
-]]>
-    </screen>
+    <para>Make sure to properly set the changeIds as described here: 
+    <link
+    xlink:href="https://git.eclipse.org/r/Documentation/user-changeid.html">
+    https://git.eclipse.org/r/Documentation/user-changeid.html</link></para>
     <para>Make your changes, commit them as usual with git. Once done
     do:</para>
     <screen>

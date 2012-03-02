@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE chapter PUBLIC '-//OASIS//DTD DocBook XML V5.0//EN'
+'http://www.oasis-open.org/docbook/xml/5.0b5/dtd/docbook.dtd'
+>
+<section xml:id="garbage-collection" version="5.0"
+xmlns="http://docbook.org/ns/docbook"
+xmlns:xlink="http://www.w3.org/1999/xlink"
+xmlns:xi="http://www.w3.org/2001/XInclude"
+xmlns:ns5="http://www.w3.org/2000/svg"
+xmlns:ns4="http://www.w3.org/1998/Math/MathML"
+xmlns:ns3="http://www.w3.org/1999/xhtml"
+xmlns:db="http://docbook.org/ns/docbook">
+  <title>Garbage Collection</title>
+  <para>Tuning the JVM garbage collection (GC) can greatly improve Jetty
+  performance. Specifically, you can avoid pauses while the system performs
+  full garbage collections. Optimal tuning of the GC depends on the behaviour
+  of the application and requires detailed analysis, however there are general
+  recommendations.</para>
+  <section xml:id="examples">
+    <title>Examples</title>
+    <para>These options are general to the Sun JVM, and work in a JDK 6
+    installation. They provide good information about how your JVM is running;
+    based on that initial information, you can then tune more finely.</para>
+    <para>To print the implicit flags with which the JVM is configured:</para>
+    <screen>
+<![CDATA[
+-XX:+PrintCommandLineFlags
+]]>
+    </screen>
+    <para>To disable explicit GC performed regularly by RMI:</para>
+    <screen>
+<![CDATA[
+-XX:+DisableExplicitGC
+]]>
+    </screen>
+    <para>To print the date and time stamps of GC activity with details:</para>
+    <screen>
+<![CDATA[
+-XX:+PrintGCDateStamps \
+-XX:+PrintGCTimeStamps \
+-XX:+PrintGCDetails \
+-XX:+PrintTenuringDistribution
+]]>
+    </screen>
+    <para>To log GC details to a file:</para>
+    <screen>
+<![CDATA[
+-Xloggc:[path/to/gc.log]
+]]>
+    </screen>
+    <para>To print GC activity with less detail:</para>
+    <screen>
+<![CDATA[
+-verbose:gc
+]]>
+    </screen>
+    <para>To use the concurrent marksweep GC with full GC at 80% old generation
+    full:</para>
+    <screen>
+<![CDATA[
+-XX:+UseConcMarkSweepGC \
+-XX:CMSInitiatingOccupancyFraction=80
+]]>
+    </screen>
+  </section>
+</section>

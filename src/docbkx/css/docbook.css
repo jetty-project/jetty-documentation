@@ -8,38 +8,43 @@ a:visited {
 }
 
 body {
-  line-height: 1.8em;
-  font-size: 62.5%;
+  font-family: serif;
+  font-size: 12pt;
+
   width: 960px;
   margin-left: auto;
   margin-right: auto;
-  font-family: Palatino Linotype, Palatino, serif;
   background-color: #ffffff;
   color: #444444;
 }
 
-h1, h2, h3 {
+h1, h2, h3, h4, h5, h6 {
   font-weight: bold;
   font-variant: small-caps;
+  margin-bottom: 12pt;
 }
 
 h1 {
-  font-size: 3em;
-  margin-bottom: .6em;
+  font-size: 20pt;
 }
 
 h2 {
-  font-size: 2.4em;
-  margin-bottom: .75em;
+  font-size: 18pt;
 }
 
 h3 {
-  font-size: 1.8em;
-  margin-bottom: 1em;
+  font-size: 16pt;
+}
+
+h4 {
+  font-size: 14pt;
+}
+
+h5 {
+  font-size: 12pt;
 }
 
 p, ul {
-  font-size: 1.4em;
   margin: 1.286em 0;
 }
 
@@ -47,22 +52,11 @@ dl {
   margin: 0;
 }
 
-dl, table {
-  font-size: 1em;
-}
-
-dl dl {
-  font-size: 1em;
-}
-
-dt {
-  font-size: 1.4em;
-}
-
 pre {
-  font-family: Monaco, Courier New, monospace; 
-  font-size: 1.2em; 
+  font-family: Courier New, monospace; 
+  font-size: 10pt; 
   margin-bottom: 1.5em;
+  overflow-x: auto;
 }
 
 strong {
@@ -80,7 +74,6 @@ h3.author {
 }
 
 .email {
-  font-size: 1.2em;
 }
 
 .informalfigure {
@@ -94,35 +87,21 @@ h3.author {
 .caption p {
  margin: 0; 
  text-align: right; 
- font-size: small;
 }
 
 .navfooter table tr td {
  width: 33.33%;
 }
 
-li {
-  font-size: 80%;
-}
-
-.listitem {
-  font-size: 80%;
-}
-
-term {
-  font-size: 80%;
-}
-
 pre.programlisting {
- background-color: #EEE;
- padding-left: 1.5em;
- padding-right: 1.5em;
- border:solid 1px #CCC;
+   font-family: monospace;
+   background-color: #EEE;
+   padding-left: 1.5em;
+   padding-right: 1.5em;
+   border:solid 1px #CCC;
 }
 
-pre.screen
-{
-  font-family:monospace;
+pre.screen {
   white-space: pre;
   width: 100%;
   background-color: #EEE;
@@ -132,16 +111,33 @@ pre.screen
 }
 
 div.variablelist {
-  font-family: Palatino Linotype, Palatino, serif;
-  font-size: 62.5%;
   padding-left: 20px;
 }
 
-.varlistentry {
-  font-weight: bold;
-  margin-top: 10px;
-  color: #ffffff ;
-  background-color: #a0a0d0;
-  border: solid 1px #606090;
-  padding: 1px
+.programlisting {
+  color: black;
+  font-weight: normal;
 }
+
+.programlisting .hl-tag {
+  color: #881280 !important;
+  font-weight: normal;
+}
+
+.programlisting .hl-keyword {
+  color: #6a6a6a !important;
+  font-weight: normal;
+}
+
+.programlisting .hl-attribute {
+  color: #fc390e !important;
+}
+
+.programlisting .hl-value {
+  color: #1a1aa6 !important;
+}
+
+.programlisting .hl-comment {
+  color: gray !important;
+}
+

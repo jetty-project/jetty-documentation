@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE chapter PUBLIC '-//OASIS//DTD DocBook XML V5.0//EN'
+'http://www.oasis-open.org/docbook/xml/5.0b5/dtd/docbook.dtd'
+>
+<section xml:id="releasing-jetty" version="5.0"
+xmlns="http://docbook.org/ns/docbook"
+xmlns:xlink="http://www.w3.org/1999/xlink"
+xmlns:xi="http://www.w3.org/2001/XInclude"
+xmlns:ns5="http://www.w3.org/2000/svg"
+xmlns:ns4="http://www.w3.org/1998/Math/MathML"
+xmlns:ns3="http://www.w3.org/1999/xhtml"
+xmlns:db="http://docbook.org/ns/docbook">
+  <title>Eclipse Jetty Release Notes</title>
+  <para>This release script is for jetty7, to release jetty8 the script is
+  equivalent except instead of 'master' branch we use 'jetty-8' branch and
+  instead of 'release' branch we use 'release-8'</para>
+  <orderedlist>
+    <listitem>
+      <para>Pick your version identification strings.</para>
+      <para>Example</para>
+      <screen>
+<![CDATA[
+ Release Version                : 7.5.0.v20110901  (v[year][month][day])
+        (be sure you follow debian/redhat/osgi version naming rules)
+ Next Development Version       : 7.5.0-SNAPSHOT
+ Tag Name                       : jetty-7.5.0.v20110901
+]]>
+      </screen>
+    </listitem>
+    <listitem>
+      <para>We use the 'release' branch to avoid problems with other developers
+      actively working on the master branch.</para>
+      <screen>
+<![CDATA[
+// Get all of the remotes
+$ git pull origin
+// Create a local tracking branch (if you haven't already)
+$ git branch --track release refs/remotes/origin/release
+// Check out your local tracking branch.
+$ git checkout release
+// Merge from master into the branch (this becomes your point in time
+// from master that you will be releasing from)
+$ git merge --no-ff master
+]]>
+      </screen>
+    </listitem>
+    <listitem>
+      <para>Update the VERSION.txt with changes from the git logs, this
+      populates the resolves issues since the last release.</para>
+      <screen>
+<![CDATA[
+$ mvn -N -Pupdate-version
+]]>
+      </screen>
+    </listitem>
+    <listitem>
+      <para>Edit the VERSION.txt file to set the 'Release Version' at the top
+      alongside the Date of this release.</para>
+      <screen>
+<![CDATA[
+$ vi VERSION.txt
+]]>
+      </screen>
+    </listitem>
+    <listitem>
+      <para>Make sure everything is commit'd and pushed to
+      git.eclipse.org</para>
+      <screen>
+<![CDATA[
+$ git commit -m "Updating VERSION.txt top section" VERSION.txt
+$ git push origin release
+]]>
+      </screen>
+    </listitem>
+    <listitem>
+      <para>codehaus-only, you also want to update the pom.xml to set the
+      jetty-version property to the correct value and commit then push that as
+      well.</para>
+    </listitem>
+    <listitem>
+      <para>Prepare the Release</para>
+      <para>NOTE: This step updates the &lt;version&gt; elements in the pom.xml
+      files, does a test build with these new versions, and then commits the
+      pom.xml changes to your local git repo.</para>
+      <screen>
+<![CDATA[
+$ mvn release:prepare -DreleaseVersion=7.5.0.RC2 -DdevelopmentVersion=7.5.0-SNAPSHOT -Dtag=jetty-7.5.0.RC2
+]]>
+      </screen>
+    </listitem>
+    <listitem>
+      <para>Perform the Release</para>
+      <para>NOTE: This step performs the release and deploys it to a
+      oss.sonatype.org staging repository.</para>
+      <screen>
+<![CDATA[
+$ mvn release:perform
+  ]]>
+      </screen>
+    </listitem>
+    <listitem>
+      <para>Set up files for next development versions.</para>
+      <para>Edit VERSION.txt for 'Next Development Version' at the top. Do not
+      date this line.</para>
+      <para>Make sure everything is commit'd and pushed to
+      git.eclipse.org</para>
+      <screen>
+<![CDATA[
+$ git commit -m "Updating VERSION.txt top section" VERSION.txt
+$ git push origin release
+]]>
+      </screen>
+    </listitem>
+    <listitem>
+      <para>codehaus-only, you want to reset the jetty-version to another
+      development version</para>
+    </listitem>
+    <listitem>
+      <para>Merge back into master (or jetty-8 depending)</para>
+      <screen>
+<![CDATA[
+$ git checkout master
+$ git merge --no-ff release
+$ git push origin master
+]]>
+      </screen>
+    </listitem>
+  </orderedlist>
+</section>

@@ -26,7 +26,7 @@ xmlns:db="http://docbook.org/ns/docbook">
       <listitem>
         <para>Pick your version identification strings.</para>
         <para>These follow a strict format and will be used when prompted
-        during step 
+        during step
         <xref linkend="prepare-release-step" />
         below.</para>
         <screen>
@@ -113,7 +113,7 @@ $ mvn release:perform
       </listitem>
       <listitem>
         <para>Set up files for next development versions.</para>
-        <para>Edit 
+        <para>Edit
         <filename>VERSION.txt</filename>for 'Next Development Version' at the
         top. Do not date this line.</para>
         <para>Make sure everything is commit'd and pushed to
@@ -159,7 +159,7 @@ mvn -Paggregate-site javadoc:aggregate jxr:jxr
 mvn -N site:deploy
 ]]>
     </screen>
-    <para>This will generate the aggregate docs and deploy them to the 
+    <para>This will generate the aggregate docs and deploy them to the
     <filename>/home/www/jetty/&lt;project
     version&gt;/jetty-project</filename>directory on download.eclipse.org. The
     last step is to ssh to that machine and adjust the placement of the apidocs
@@ -177,5 +177,28 @@ rmdir jetty-project
     <para>End result should be api documents accessible from
     http://download.eclipse.org/jetty/&lt;project version&gt;/api-docs and
     http://download.eclipse.org/jetty/&lt;project version&gt;/xref</para>
+  </section>
+  <section>
+    <title>Deploying Distribution Files</title>
+    <para>Since we also provide alternative locations to download jetty
+    distributions we need to copy these into place. There are a couple of
+    scripts that will take care of this although they need to be localized to
+    your particular execution environment and you need to have authorization to
+    put stuff where it needs to go. These scripts are located at:
+    <link
+    xlink:href="http://git.eclipse.org/c/jetty/org.eclipse.jetty.admin.git/tree/release-scripts">http://git.eclipse.org/c/jetty/org.eclipse.jetty.admin.git/tree/release-scripts</link>.
+    Once these are setup you can deploy a release to eclipse and codehaus with
+    the following incantation.</para>
+    <screen>
+<![CDATA[
+$ ./promote-to-eclipse.sh 7.6.2.v20120302
+$ ./promote-to-codehaus.sh 7.6.2.v20120302 7.6.2
+]]>
+    </screen>
+    <para>Each of these scripts will download all of the relevant files from
+    maven central and then copy them into the correct location on eclipse and
+    codehaus infrastructure. On the eclipse side of it they will also adjust
+    the documentation links if they remain broken as well as regenerate all of
+    the html files on the eclipse download site.</para>
   </section>
 </section>

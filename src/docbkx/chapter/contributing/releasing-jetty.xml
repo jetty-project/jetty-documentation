@@ -19,8 +19,8 @@ xmlns:db="http://docbook.org/ns/docbook">
   <orderedlist>
     <listitem>
       <para>Pick your version identification strings.</para>
-      <para>These follow a strict format and will should be used when prompted
-      during step 
+      <para>These follow a strict format and will be used when prompted
+      during step
       <xref linkend="prepare-release-step" />
       below.</para>
       <screen>
@@ -107,7 +107,7 @@ $ mvn release:perform
     </listitem>
     <listitem>
       <para>Set up files for next development versions.</para>
-      <para>Edit 
+      <para>Edit
       <filename>VERSION.txt</filename>for 'Next Development Version' at the
       top. Do not date this line.</para>
       <para>Make sure everything is commit'd and pushed to

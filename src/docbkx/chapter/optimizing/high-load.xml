@@ -117,13 +117,19 @@ $ sysctl -w net.ipv4.tcp_tw_recycle=1
         <section>
           <section>
             <title>File Descriptors</title>
+<<<<<<< HEAD
             <para>Busy servers and load generators might run out of file
             descriptors as the system defaults are normally low. You can
             increase them for a specific user in <filename>/etc/security/limits.conf:</filename></para>
+=======
+            <para>Busy servers and load generators may run out of file
+            descriptors as the system defaults are normally low. These can be
+            increased for a specific user in /etc/security/limits.conf:</para>
+>>>>>>> d623cc2e24d37d12ab31a2d8416099d42f114802
             <screen>
 <![CDATA[
- theusername            hard nofile     40000
- theusername            soft nofile     40000
+theusername            hard nofile     40000
+theusername            soft nofile     40000
 ]]>
             </screen>
           </section>

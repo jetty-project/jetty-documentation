@@ -11,12 +11,13 @@ xmlns:ns4="http://www.w3.org/1998/Math/MathML"
 xmlns:ns3="http://www.w3.org/1999/xhtml"
 xmlns:db="http://docbook.org/ns/docbook">
   <title>Creating Custom Error Pages</title>
-  <para>The following sections describe several ways to create custom error pages.</para>
+  <para>The following sections describe several ways to create custom error
+  pages.</para>
   <section>
     <title>Defining error pages in web.xml</title>
-    <para>The standard webapp configuration file located in
-    &lt;webapp&gt;/WEB-INF/web.xml can be used to map errors to specific URLs
-    with the &lt;error-page&gt; element. This element creates a mapping between
+    <para>You can use the standard webapp configuration file located in
+     webapp/WEB-INF/web.xml to map errors to specific URLs
+    with the error-page element. This element creates a mapping between
     the error-code or exception-type to the location of a resource in the web
     application.</para>
     <itemizedlist>

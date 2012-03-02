@@ -10,31 +10,37 @@ xmlns:ns5="http://www.w3.org/2000/svg"
 xmlns:ns4="http://www.w3.org/1998/Math/MathML"
 xmlns:ns3="http://www.w3.org/1999/xhtml"
 xmlns:db="http://docbook.org/ns/docbook">
-  <title>Eclipse Jetty Release Notes</title>
-  <para>This release script is for jetty7, to release jetty8 the script is
-  equivalent except instead of 'master' branch we use 'jetty-8' branch and
-  instead of 'release' branch we use 'release-8'. To keep this clear in the
-  steps below the actual git branch name is replaced with $ORIG_BRANCH and
-  $REL_BRANCH.</para>
-  <orderedlist>
-    <listitem>
-      <para>Pick your version identification strings.</para>
-      <para>These follow a strict format and will be used when prompted
-      during step
-      <xref linkend="prepare-release-step" />
-      below.</para>
-      <screen>
+  <title>Releasing Jetty</title>
+  <para>There are a number of steps to releasing jetty. It is not just limited
+  to running a couple of maven commands and then moving onto bigger and better
+  things. There are a number of process related issues once the fun maven bits
+  have been completed.</para>
+  <section>
+    <title>Jetty Release Notes</title>
+    <para>This release script is for jetty7, to release jetty8 the script is
+    equivalent except instead of 'master' branch we use 'jetty-8' branch and
+    instead of 'release' branch we use 'release-8'. To keep this clear in the
+    steps below the actual git branch name is replaced with $ORIG_BRANCH and
+    $REL_BRANCH.</para>
+    <orderedlist>
+      <listitem>
+        <para>Pick your version identification strings.</para>
+        <para>These follow a strict format and will be used when prompted
+        during step 
+        <xref linkend="prepare-release-step" />
+        below.</para>
+        <screen>
 <![CDATA[
  Release Version                : 7.5.0.v20110901  (v[year][month][day])
  Next Development Version       : 7.5.0-SNAPSHOT
  Tag Name                       : jetty-7.5.0.v20110901
 ]]>
-      </screen>
-    </listitem>
-    <listitem>
-      <para>We use the 'release' branch to avoid problems with other developers
-      actively working on the master branch.</para>
-      <screen>
+        </screen>
+      </listitem>
+      <listitem>
+        <para>We use the 'release' branch to avoid problems with other
+        developers actively working on the master branch.</para>
+        <screen>
 <![CDATA[
 // Get all of the remotes
 $ git pull origin
@@ -46,95 +52,130 @@ $ git checkout $REL_BRANCH
 // from master that you will be releasing from)
 $ git merge --no-ff $ORIG_BRANCH
 ]]>
-      </screen>
-    </listitem>
-    <listitem>
-      <para>Update the VERSION.txt with changes from the git logs, this
-      populates the resolves issues since the last release.</para>
-      <screen>
+        </screen>
+      </listitem>
+      <listitem>
+        <para>Update the VERSION.txt with changes from the git logs, this
+        populates the resolves issues since the last release.</para>
+        <screen>
 <![CDATA[
 $ mvn -N -Pupdate-version
 ]]>
-      </screen>
-    </listitem>
-    <listitem>
-      <para>Edit the VERSION.txt file to set the 'Release Version' at the top
-      alongside the Date of this release.</para>
-      <screen>
+        </screen>
+      </listitem>
+      <listitem>
+        <para>Edit the VERSION.txt file to set the 'Release Version' at the top
+        alongside the Date of this release.</para>
+        <screen>
 <![CDATA[
 $ vi VERSION.txt
 ]]>
-      </screen>
-    </listitem>
-    <listitem>
-      <para>Make sure everything is commit'd and pushed to
-      git.eclipse.org</para>
-      <screen>
+        </screen>
+      </listitem>
+      <listitem>
+        <para>Make sure everything is commit'd and pushed to
+        git.eclipse.org</para>
+        <screen>
 <![CDATA[
 $ git commit -m "Updating VERSION.txt top section" VERSION.txt
 $ git push origin $REL_BRANCH
 ]]>
-      </screen>
-      <orderedlist inheritnum="inherit">
-        <listitem>
-          <para>
-          <emphasis>codehaus-only</emphasis>, you also want to update the
-          pom.xml to set the jetty-version property to the correct value and
-          commit then push that as well.</para>
-        </listitem>
-      </orderedlist>
-    </listitem>
-    <listitem xml:id="prepare-release-step">
-      <para>Prepare the Release</para>
-      <para>NOTE: This step updates the &lt;version&gt; elements in the pom.xml
-      files, does a test build with these new versions, and then commits the
-      pom.xml changes to your local git repo.</para>
-      <screen>
+        </screen>
+        <orderedlist inheritnum="inherit">
+          <listitem>
+            <para>
+            <emphasis>codehaus-only</emphasis>, you also want to update the
+            pom.xml to set the jetty-version property to the correct value and
+            commit then push that as well.</para>
+          </listitem>
+        </orderedlist>
+      </listitem>
+      <listitem xml:id="prepare-release-step">
+        <para>Prepare the Release</para>
+        <para>NOTE: This step updates the &lt;version&gt; elements in the
+        pom.xml files, does a test build with these new versions, and then
+        commits the pom.xml changes to your local git repo.</para>
+        <screen>
 <![CDATA[
 $ mvn release:prepare -DreleaseVersion=7.5.0.RC2 -DdevelopmentVersion=7.5.0-SNAPSHOT -Dtag=jetty-7.5.0.RC2
 ]]>
-      </screen>
-    </listitem>
-    <listitem>
-      <para>Perform the Release</para>
-      <para>NOTE: This step performs the release and deploys it to a
-      oss.sonatype.org staging repository.</para>
-      <screen>
+        </screen>
+      </listitem>
+      <listitem>
+        <para>Perform the Release</para>
+        <para>NOTE: This step performs the release and deploys it to a
+        oss.sonatype.org staging repository.</para>
+        <screen>
 <![CDATA[
 $ mvn release:perform
   ]]>
-      </screen>
-    </listitem>
-    <listitem>
-      <para>Set up files for next development versions.</para>
-      <para>Edit
-      <filename>VERSION.txt</filename>for 'Next Development Version' at the
-      top. Do not date this line.</para>
-      <para>Make sure everything is commit'd and pushed to
-      git.eclipse.org</para>
-      <screen>
+        </screen>
+      </listitem>
+      <listitem>
+        <para>Set up files for next development versions.</para>
+        <para>Edit 
+        <filename>VERSION.txt</filename>for 'Next Development Version' at the
+        top. Do not date this line.</para>
+        <para>Make sure everything is commit'd and pushed to
+        git.eclipse.org</para>
+        <screen>
 <![CDATA[
 $ git commit -m "Updating VERSION.txt top section" VERSION.txt
 $ git push origin $REL_BRANCH
 ]]>
-      </screen>
-      <orderedlist inheritnum="inherit">
-        <listitem>
-          <para>
-          <emphasis>codehaus-only</emphasis>, you want to reset the
-          jetty-version to another development version</para>
-        </listitem>
-      </orderedlist>
-    </listitem>
-    <listitem>
-      <para>Merge back into $ORIG_BRANCH</para>
-      <screen>
+        </screen>
+        <orderedlist inheritnum="inherit">
+          <listitem>
+            <para>
+            <emphasis>codehaus-only</emphasis>, you want to reset the
+            jetty-version to another development version</para>
+          </listitem>
+        </orderedlist>
+      </listitem>
+      <listitem>
+        <para>Merge back into $ORIG_BRANCH</para>
+        <screen>
 <![CDATA[
 $ git checkout $ORIG_BRANCH
 $ git merge --no-ff $REL_BRANCH
 $ git push origin $ORIG_BRANCH
 ]]>
-      </screen>
-    </listitem>
-  </orderedlist>
+        </screen>
+      </listitem>
+    </orderedlist>
+  </section>
+  <section>
+    <title>Building and Deploying Aggregate Docs</title>
+    <para>Define the jetty.eclipse.website server entry in your
+    .m2/settings.xml file. You'll need to have access to the dev.eclipse.org
+    machine to perform these actions. If you don't know if you have access to
+    this then you probably don't and will need to ask a project leader for
+    help.</para>
+    <para>To build and deploy the aggregate javadoc and jxr bits:</para>
+    <screen>
+<![CDATA[
+cd target/checkout
+mvn -Paggregate-site javadoc:aggregate jxr:jxr
+mvn -N site:deploy
+]]>
+    </screen>
+    <para>This will generate the aggregate docs and deploy them to the 
+    <filename>/home/www/jetty/&lt;project
+    version&gt;/jetty-project</filename>directory on download.eclipse.org. The
+    last step is to ssh to that machine and adjust the placement of the apidocs
+    and xref directories to remove the jetty-project folder from the url so
+    that we maintain a clean and consistent api url scheme.</para>
+    <screen>
+<![CDATA[
+ssh $COMMITTER_ID@dev.eclipse.org
+cd /home/data/httpd/download.eclipse.org/jetty/<VERSION>
+mv jetty-project/apidocs .
+mv jetty-project/xref .
+rmdir jetty-project
+]]>
+    </screen>
+    <para>End result should be api documents accessible from
+    http://download.eclipse.org/jetty/&lt;project version&gt;/api-docs and
+    http://download.eclipse.org/jetty/&lt;project version&gt;/xref</para>
+  </section>
 </section>

@@ -26,7 +26,7 @@ xmlns:db="http://docbook.org/ns/docbook">
       <listitem>
         <para>Pick your version identification strings.</para>
         <para>These follow a strict format and will be used when prompted
-        during step
+        during step 
         <xref linkend="prepare-release-step" />
         below.</para>
         <screen>
@@ -113,7 +113,7 @@ $ mvn release:perform
       </listitem>
       <listitem>
         <para>Set up files for next development versions.</para>
-        <para>Edit
+        <para>Edit 
         <filename>VERSION.txt</filename>for 'Next Development Version' at the
         top. Do not date this line.</para>
         <para>Make sure everything is commit'd and pushed to
@@ -159,7 +159,7 @@ mvn -Paggregate-site javadoc:aggregate jxr:jxr
 mvn -N site:deploy
 ]]>
     </screen>
-    <para>This will generate the aggregate docs and deploy them to the
+    <para>This will generate the aggregate docs and deploy them to the 
     <filename>/home/www/jetty/&lt;project
     version&gt;/jetty-project</filename>directory on download.eclipse.org. The
     last step is to ssh to that machine and adjust the placement of the apidocs
@@ -184,7 +184,7 @@ rmdir jetty-project
     distributions we need to copy these into place. There are a couple of
     scripts that will take care of this although they need to be localized to
     your particular execution environment and you need to have authorization to
-    put stuff where it needs to go. These scripts are located at:
+    put stuff where it needs to go. These scripts are located at: 
     <link
     xlink:href="http://git.eclipse.org/c/jetty/org.eclipse.jetty.admin.git/tree/release-scripts">http://git.eclipse.org/c/jetty/org.eclipse.jetty.admin.git/tree/release-scripts</link>.
     Once these are setup you can deploy a release to eclipse and codehaus with
@@ -202,12 +202,13 @@ $ ./promote-to-codehaus.sh 7.6.2.v20120302 7.6.2
     the html files on the eclipse download site.</para>
   </section>
   <section>
- <title>Updating Stable Links</title>
-<para>
-Since we are not allowed to have symbolic links on the download site we have to log into the machine manually and remove the previous stable directory and update it with a new release. Maintaining the conventions we use on the site will allow all 'stable' links to be stable and not needed to update to the latest major Jetty build version:
-</para>
-
-<screen>
+    <title>Updating Stable Links</title>
+    <para>Since we are not allowed to have symbolic links on the download site
+    we have to log into the machine manually and remove the previous stable
+    directory and update it with a new release. Maintaining the conventions we
+    use on the site will allow all 'stable' links to be stable and not needed
+    to update to the latest major Jetty build version:</para>
+    <screen>
 <![CDATA[
 $ ssh <user>@build.eclipse.org
 $ cd ~downloads/jetty/
@@ -215,13 +216,16 @@ $ rm -Rf stable-7
 $ cp -r <version> stable-7
 $ ./index.sh
 ]]>
-</screen>
-<para>This needs to be done for both jetty 7 and jetty 8 releases.  In addition we have to work to reduce the footprint of jetty on the primary eclipse download resources so we want to move older releases to the eclipse archive site.</para>
-<screen>
+    </screen>
+    <para>This needs to be done for both jetty 7 and jetty 8 releases. In
+    addition we have to work to reduce the footprint of jetty on the primary
+    eclipse download resources so we want to move older releases to the eclipse
+    archive site.</para>
+    <screen>
 <![CDATA[
 $ cd ~/downloads/jetty
 $ mv <old release> /home/data/httpd/archive.eclipse.org/jetty/
 ]]>
-</screen>
-</section>
+    </screen>
+  </section>
 </section>

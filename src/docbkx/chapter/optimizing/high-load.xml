@@ -10,13 +10,13 @@ xmlns:ns4="http://www.w3.org/1998/Math/MathML"
 xmlns:ns3="http://www.w3.org/1999/xhtml"
 xmlns:db="http://docbook.org/ns/docbook">
   <title>High Load</title>
-  <para>Configuring Jetty for highload, albeit for load testing or for
-  production, requires that the operating system, the JVM, jetty, the
+  <para>Configuring Jetty for high load, whether for load testing or for
+  production, requires that the operating system, the JVM, Jetty, the
   application, the network and the load generation all be tuned.</para>
   <section>
     <title>Load Generation for Load Testing</title>
-    <para>The load generation machines must have their OS, JVM etc tuned just
-    as much as the server machines.</para>
+    <para>The load generation machines must have their OS, JVM, etc., tuned
+    just as much as the server machines.</para>
     <para>The load generation should not be over the local network on the
     server machine, as this has unrealistic performance and latency as well as
     different packet sizes and transport characteristics.</para>
@@ -24,32 +24,35 @@ xmlns:db="http://docbook.org/ns/docbook">
     <variablelist>
       <varlistentry>
         <listitem>A common mistake is that load generators often open
-        relatively few connections that are kept totally busy sending as many
+        relatively few connections that are extremely busy sending as many
         requests as possible over each connection. This causes the measured
-        throughput to be limited by request latency (see Lies Damned Lies and
-        Benchmarks for an analysis of such an issue.</listitem>
+        throughput to be limited by request latency (see 
+        <link
+        xl:href="http://blogs.webtide.com/gregw/entry/lies_damned_lies_and_benchmarks&quot;">Lies,
+        Damned Lies and Benchmarks</link>for an analysis of such an
+        issue).</listitem>
       </varlistentry>
       <varlistentry>
-        <listitem>Another common mistake is to use a TCP/IP for a single
-        request and to open many many short lived connections. This will often
-        result in accept queues filling and limitations due to file descriptor
-        and/or port starvation.</listitem>
+        <listitem>Another common mistake is to use TCP/IP for a single request,
+        and to open many, many short-lived connections. This often results in
+        accept queues filling and limitations due to file descriptor and/or
+        port starvation.</listitem>
       </varlistentry>
       <varlistentry>
-        <listitem>A load generator should well model the traffic profile from
-        the normal clients of the server. For browsers, this if mostly between
-        2 and 6 connections that are mostly idle and that are used in sporadic
-        bursts with read times in between. The connections are mostly long held
-        HTTP/1.1 connections.</listitem>
+        <listitem>A load generator should model the traffic profile from the
+        normal clients of the server. For browsers, this is often between two
+        and six connections that are mostly idle and that are used in sporadic
+        bursts with read times in between. The connections are typically long
+        held HTTP/1.1 connections.</listitem>
       </varlistentry>
       <varlistentry>
         <listitem>Load generators should be written in asynchronous programming
-        style, so that limited threads does not limit the maximum number of
-        users that can be simulated. If the generator is not asynchronous, then
-        a thread pool of 2000 may only be able to simulate 500 or less users.
-        The Jetty HttpClient is an ideal basis for building a load generator,
-        as it is asynchronous and can be used to simulate many thousands of
-        connections (see the Cometd Load Tester for a good example of a
+        style, so that a limited number of threads does not restrict the
+        maximum number of users that can be simulated. If the generator is not
+        asynchronous, a thread pool of 2000 may only be able to simulate 500 or
+        fewer users. The Jetty HttpClient is an ideal choice for building a
+        load generator, as it is asynchronous and can simulate many thousands
+        of connections (see the Cometd Load Tester for a good example of a
         realistic load generator).</listitem>
       </varlistentry>
     </variablelist>
@@ -60,14 +63,16 @@ xmlns:db="http://docbook.org/ns/docbook">
     tuned to support many TCP/IP connections and high throughput.</para>
     <section>
       <title>Linux</title>
-      <para>Linux does a reasonable job of self configuring TCP/IP, but there
-      are a few limits and defaults that that are best increased. These can
-      mostly be configured in /etc/security/limits.conf or via sysctl</para>
+      <para>Linux does a reasonable job of self-configuring TCP/IP, but there
+      are a few limits and defaults that you should increase. You can configure
+      most of them in 
+      <filename>/etc/security/limits.conf</filename>or via 
+      <code>sysctl</code>.</para>
       <section>
         <title>TCP Buffer Sizes</title>
-        <para>These should be increased to at least 16MB for 10G paths and tune
-        the autotuning (although buffer bloat now needs to be
-        considered).</para>
+        <para>You should increase TCP buffer sizes to at least 16MB for 10G
+        paths and tune the autotuning (although you now need to consider buffer
+        bloat).</para>
         <screen>
 <![CDATA[
 $ sysctl -w net.core.rmem_max=16777216
@@ -79,13 +84,14 @@ $ sysctl -w net.ipv4.tcp_wmem="4096 16384 16777216"
       </section>
       <section>
         <title>Queue Sizes</title>
-        <para>net.core.somaxconn controls the size of the connection listening
-        queue. The default value of 128 and if you are running a high-volume
-        server and connections are getting refused at a TCP level, then you
-        want to increase this. This is a very tweakable setting in such a case.
-        Too high and you'll get resource problems as it tries to notify a
-        server of a large number of connections and many will remain pending,
-        and too low and you'll get refused connections:</para>
+        <para>
+        <code>net.core.somaxconn</code>controls the size of the connection
+        listening queue. The default value is 128; if you are running a
+        high-volume server and connections are getting refused at a TCP level,
+        you need to increase this. This is a very tweakable setting in such a
+        case: if you set it too high, resource problems occur as it tries to
+        notify a server of a large number of connections, and many remain
+        pending, but if you set it too low, refused connections occur.</para>
         <screen>
 <![CDATA[
  $ sysctl -w net.core.somaxconn=4096
@@ -105,9 +111,9 @@ $ sysctl -w net.ipv4.tcp_syncookies=1
       </section>
       <section>
         <title>Ports</title>
-        <para>If many outgoing connections are made (eg on load generators),
-        then the operating system may run low on ports. Thus it is best to
-        increase the port range used and allow reuse of sockets in
+        <para>If many outgoing connections are made (for example, on load
+        generators), the operating system might run low on ports. Thus it is
+        best to increase the port range, and allow reuse of sockets in
         TIME_WAIT:</para>
         <screen>
 <![CDATA[
@@ -117,17 +123,22 @@ $ sysctl -w net.ipv4.tcp_tw_recycle=1
         </screen>
         <section>
           <section>
-            <title>File Descriptors</title>
-            <para>Busy servers and load generators may run out of file
-            descriptors as the system defaults are normally low. These can be
-            increased for a specific user in /etc/security/limits.conf:</para>
-            <screen>
+          <title>File Descriptors</title>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD 
+          <para>Busy servers and load generators might run out of file
+          descriptors as the system defaults are normally low. You can increase
+          them for a specific user in 
+          <filename>/etc/security/limits.conf:</filename></para>======= 
+          <para>Busy servers and load generators may run out of file
+          descriptors as the system defaults are normally low. These can be
+          increased for a specific user in
+          /etc/security/limits.conf:</para>&gt;&gt;&gt;&gt;&gt;&gt;&gt;
+          d623cc2e24d37d12ab31a2d8416099d42f114802 
+          <screen>
 <![CDATA[
 theusername            hard nofile     40000
 theusername            soft nofile     40000
 ]]>
-            </screen>
-          </section>
+          </screen></section>
           <section>
             <title>Congestion Control</title>
             <para>Linux supports pluggable congestion control algorithms. To
@@ -138,9 +149,9 @@ theusername            soft nofile     40000
 $ sysctl net.ipv4.tcp_available_congestion_control
 ]]>
             </screen>
-            <para>If cubic and/or htcp are not listed then you will need to
-            research the control algorithms for your kernel. You can try
-            setting the control to cubic with:</para>
+            <para>If cubic and/or htcp are not listed, you need to research the
+            control algorithms for your kernel. You can try setting the control
+            to cubic with:</para>
             <screen>
 <![CDATA[
 $ sysctl -w net.ipv4.tcp_congestion_control=cubic
@@ -157,9 +168,8 @@ $ sysctl -w net.ipv4.tcp_congestion_control=cubic
       </section>
       <section>
         <title>Network Tuning</title>
-        <para>Intermediaries such as nginx can use non persistent HTTP/1.0
-        connection. Make sure that persistent HTTP/1.1 connections are
-        used.</para>
+        <para>Intermediaries such as nginx can use a non-persistent HTTP/1.0
+        connection. Make sure to use persistent HTTP/1.1 connections.</para>
       </section>
       <section>
         <title>JVM Tuning</title>
@@ -186,7 +196,7 @@ $ sysctl -w net.ipv4.tcp_congestion_control=cubic
         </section>
         <section>
           <title>Thread Pool</title>
-          <para>Configure with mind to limiting memory usage maximum available.
+          <para>Configure with goal of limiting memory usage maximum available.
           Typically &gt;50 and &lt;500</para>
         </section>
       </section>

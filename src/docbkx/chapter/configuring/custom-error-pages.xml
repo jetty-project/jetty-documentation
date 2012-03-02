@@ -10,16 +10,15 @@ xmlns:ns5="http://www.w3.org/2000/svg"
 xmlns:ns4="http://www.w3.org/1998/Math/MathML"
 xmlns:ns3="http://www.w3.org/1999/xhtml"
 xmlns:db="http://docbook.org/ns/docbook">
-  <title>Custom Error Pages</title>
-  <para>There are several ways to create custom error pages in Jetty that are
-  described below.</para>
+  <title>Creating Custom Error Pages</title>
+  <para>The following sections describe several ways to create custom error
+  pages.</para>
   <section>
-    <title>Define error pages in web.xml</title>
-    <para>The standard webapp configuration file located in
-    &lt;webapp&gt;/WEB-INF/web.xml can be used to map errors to specific URLs
-    with the &lt;error-page&gt; element. This element creates a mapping between
-    the error-code or exception-type to the location of a resource in the web
-    application.</para>
+    <title>Defining error pages in web.xml</title>
+    <para>You can use the standard webapp configuration file located in
+    webapp/WEB-INF/web.xml to map errors to specific URLs with the error-page
+    element. This element creates a mapping between the error-code or
+    exception-type to the location of a resource in the web application.</para>
     <itemizedlist>
       <listitem>error-code - integer value</listitem>
       <listitem>exception-type - fully qualified class name of a Java Exception

@@ -120,13 +120,13 @@ $ sysctl -w net.ipv4.tcp_tw_recycle=1
             <title>File Descriptors</title>
             <para>Busy servers and load generators may run out of file
             descriptors as the system defaults are normally low. These can be
-increased for a specific user in /etc/security/limits.conf:</para>
-<screen>
+            increased for a specific user in /etc/security/limits.conf:</para>
+            <screen>
 <![CDATA[
- theusername            hard nofile     40000
- theusername            soft nofile     40000
+theusername            hard nofile     40000
+theusername            soft nofile     40000
 ]]>
-</screen>
+            </screen>
           </section>
           <section>
             <title>Congestion Control</title>

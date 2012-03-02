@@ -52,7 +52,7 @@
   
   <xsl:template name="user.header.content">
     
-    <div style="background-color: #DFF2FD; text-align: left; font-size:100%; font-family: arial, sans; border:thin dotted blue; padding: 4px; ">
+    <div style="background-color: #DFF2FD; text-align: left; font-size:80%; font-family: arial, sans; border:thin dotted blue; padding: 4px; ">
     <span style="font-variant: small-caps; font-weight: bold">
         <a href="http://www.webtide.com/support.jsp" style="text-decoration:none">Contact the core Jetty developers at
           <span style="color:#fd360b"> www.webtide.com</span>
@@ -72,7 +72,7 @@
   </xsl:template>
 
   <xsl:template name="user.footer.navigation">
-  <div style="background-color: #DFF2FD; text-align: left; font-size:100%; font-family: arial, sans; border:thin dotted blue; padding: 4px; ">
+  <div style="background-color: #DFF2FD; text-align: left; font-size:80%; font-family: arial, sans; border:thin dotted blue; padding: 4px; ">
   <span  style="font-style:oblique;font-size: 80%">
 See an error or something missing?<br/>
     </span>

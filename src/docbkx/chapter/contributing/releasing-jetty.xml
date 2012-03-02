@@ -17,11 +17,13 @@ xmlns:db="http://docbook.org/ns/docbook">
   <orderedlist>
     <listitem>
       <para>Pick your version identification strings.</para>
-      <para>Example</para>
+      <para>These follow a strict format and will should be used when prompted
+      during step 
+      <xref linkend="prepare-release-step" />
+      .</para>
       <screen>
 <![CDATA[
  Release Version                : 7.5.0.v20110901  (v[year][month][day])
-        (be sure you follow debian/redhat/osgi version naming rules)
  Next Development Version       : 7.5.0-SNAPSHOT
  Tag Name                       : jetty-7.5.0.v20110901
 ]]>
@@ -71,13 +73,15 @@ $ git commit -m "Updating VERSION.txt top section" VERSION.txt
 $ git push origin release
 ]]>
       </screen>
+      <orderedlist inheritnum="inherit">
+        <listitem>
+          <para>codehaus-only, you also want to update the pom.xml to set the
+          jetty-version property to the correct value and commit then push that
+          as well.</para>
+        </listitem>
+      </orderedlist>
     </listitem>
-    <listitem>
-      <para>codehaus-only, you also want to update the pom.xml to set the
-      jetty-version property to the correct value and commit then push that as
-      well.</para>
-    </listitem>
-    <listitem>
+    <listitem xml:id="prepare-release-step">
       <para>Prepare the Release</para>
       <para>NOTE: This step updates the &lt;version&gt; elements in the pom.xml
       files, does a test build with these new versions, and then commits the
@@ -100,8 +104,9 @@ $ mvn release:perform
     </listitem>
     <listitem>
       <para>Set up files for next development versions.</para>
-      <para>Edit VERSION.txt for 'Next Development Version' at the top. Do not
-      date this line.</para>
+      <para>Edit 
+      <filename>VERSION.txt</filename>for 'Next Development Version' at the
+      top. Do not date this line.</para>
       <para>Make sure everything is commit'd and pushed to
       git.eclipse.org</para>
       <screen>
@@ -110,10 +115,12 @@ $ git commit -m "Updating VERSION.txt top section" VERSION.txt
 $ git push origin release
 ]]>
       </screen>
-    </listitem>
-    <listitem>
-      <para>codehaus-only, you want to reset the jetty-version to another
-      development version</para>
+      <orderedlist inheritnum="inherit">
+        <listitem>
+          <para>codehaus-only, you want to reset the jetty-version to another
+          development version</para>
+        </listitem>
+      </orderedlist>
     </listitem>
     <listitem>
       <para>Merge back into master (or jetty-8 depending)</para>

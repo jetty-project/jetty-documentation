@@ -26,5 +26,5 @@ xmlns:db="http://docbook.org/ns/docbook">
   <xi:include href="coding-standards.xml" />
   <xi:include href="patches.xml" />
   <xi:include href="documentation.xml" />
-  <xi:include href="releasing-jetty.xml"/>
+  <xi:include href="releasing-jetty.xml" />
 </chapter>

@@ -201,4 +201,27 @@ $ ./promote-to-codehaus.sh 7.6.2.v20120302 7.6.2
     the documentation links if they remain broken as well as regenerate all of
     the html files on the eclipse download site.</para>
   </section>
+  <section>
+ <title>Updating Stable Links</title>
+<para>
+Since we are not allowed to have symbolic links on the download site we have to log into the machine manually and remove the previous stable directory and update it with a new release. Maintaining the conventions we use on the site will allow all 'stable' links to be stable and not needed to update to the latest major Jetty build version:
+</para>
+
+<screen>
+<![CDATA[
+$ ssh <user>@build.eclipse.org
+$ cd ~downloads/jetty/
+$ rm -Rf stable-7
+$ cp -r <version> stable-7
+$ ./index.sh
+]]>
+</screen>
+<para>This needs to be done for both jetty 7 and jetty 8 releases.  In addition we have to work to reduce the footprint of jetty on the primary eclipse download resources so we want to move older releases to the eclipse archive site.</para>
+<screen>
+<![CDATA[
+$ cd ~/downloads/jetty
+$ mv <old release> /home/data/httpd/archive.eclipse.org/jetty/
+]]>
+</screen>
+</section>
 </section>

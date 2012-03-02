@@ -16,10 +16,9 @@ xmlns:db="http://docbook.org/ns/docbook">
   <section>
     <title>Defining error pages in web.xml</title>
     <para>You can use the standard webapp configuration file located in
-     webapp/WEB-INF/web.xml to map errors to specific URLs
-    with the error-page element. This element creates a mapping between
-    the error-code or exception-type to the location of a resource in the web
-    application.</para>
+    webapp/WEB-INF/web.xml to map errors to specific URLs with the error-page
+    element. This element creates a mapping between the error-code or
+    exception-type to the location of a resource in the web application.</para>
     <itemizedlist>
       <listitem>error-code - integer value</listitem>
       <listitem>exception-type - fully qualified class name of a Java Exception

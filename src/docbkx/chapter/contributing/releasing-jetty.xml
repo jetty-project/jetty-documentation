@@ -13,14 +13,16 @@ xmlns:db="http://docbook.org/ns/docbook">
   <title>Eclipse Jetty Release Notes</title>
   <para>This release script is for jetty7, to release jetty8 the script is
   equivalent except instead of 'master' branch we use 'jetty-8' branch and
-  instead of 'release' branch we use 'release-8'</para>
+  instead of 'release' branch we use 'release-8'. To keep this clear in the
+  steps below the actual git branch name is replaced with $ORIG_BRANCH and
+  $REL_BRANCH.</para>
   <orderedlist>
     <listitem>
       <para>Pick your version identification strings.</para>
       <para>These follow a strict format and will should be used when prompted
       during step 
       <xref linkend="prepare-release-step" />
-      .</para>
+      below.</para>
       <screen>
 <![CDATA[
  Release Version                : 7.5.0.v20110901  (v[year][month][day])
@@ -39,10 +41,10 @@ $ git pull origin
 // Create a local tracking branch (if you haven't already)
 $ git branch --track release refs/remotes/origin/release
 // Check out your local tracking branch.
-$ git checkout release
+$ git checkout $REL_BRANCH
 // Merge from master into the branch (this becomes your point in time
 // from master that you will be releasing from)
-$ git merge --no-ff master
+$ git merge --no-ff $ORIG_BRANCH
 ]]>
       </screen>
     </listitem>
@@ -70,14 +72,15 @@ $ vi VERSION.txt
       <screen>
 <![CDATA[
 $ git commit -m "Updating VERSION.txt top section" VERSION.txt
-$ git push origin release
+$ git push origin $REL_BRANCH
 ]]>
       </screen>
       <orderedlist inheritnum="inherit">
         <listitem>
-          <para>codehaus-only, you also want to update the pom.xml to set the
-          jetty-version property to the correct value and commit then push that
-          as well.</para>
+          <para>
+          <emphasis>codehaus-only</emphasis>, you also want to update the
+          pom.xml to set the jetty-version property to the correct value and
+          commit then push that as well.</para>
         </listitem>
       </orderedlist>
     </listitem>
@@ -112,23 +115,24 @@ $ mvn release:perform
       <screen>
 <![CDATA[
 $ git commit -m "Updating VERSION.txt top section" VERSION.txt
-$ git push origin release
+$ git push origin $REL_BRANCH
 ]]>
       </screen>
       <orderedlist inheritnum="inherit">
         <listitem>
-          <para>codehaus-only, you want to reset the jetty-version to another
-          development version</para>
+          <para>
+          <emphasis>codehaus-only</emphasis>, you want to reset the
+          jetty-version to another development version</para>
         </listitem>
       </orderedlist>
     </listitem>
     <listitem>
-      <para>Merge back into master (or jetty-8 depending)</para>
+      <para>Merge back into $ORIG_BRANCH</para>
       <screen>
 <![CDATA[
-$ git checkout master
-$ git merge --no-ff release
-$ git push origin master
+$ git checkout $ORIG_BRANCH
+$ git merge --no-ff $REL_BRANCH
+$ git push origin $ORIG_BRANCH
 ]]>
       </screen>
     </listitem>

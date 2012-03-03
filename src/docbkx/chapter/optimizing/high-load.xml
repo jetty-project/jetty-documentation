@@ -28,7 +28,7 @@ xmlns:db="http://docbook.org/ns/docbook">
         requests as possible over each connection. This causes the measured
         throughput to be limited by request latency (see 
         <link
-        xl:href="http://blogs.webtide.com/gregw/entry/lies_damned_lies_and_benchmarks&quot;">Lies,
+        xlink:href="http://blogs.webtide.com/gregw/entry/lies_damned_lies_and_benchmarks&quot;">Lies,
         Damned Lies and Benchmarks</link>for an analysis of such an
         issue).</listitem>
       </varlistentry>
@@ -123,22 +123,18 @@ $ sysctl -w net.ipv4.tcp_tw_recycle=1
         </screen>
         <section>
           <section>
-          <title>File Descriptors</title>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD 
-          <para>Busy servers and load generators might run out of file
-          descriptors as the system defaults are normally low. You can increase
-          them for a specific user in 
-          <filename>/etc/security/limits.conf:</filename></para>======= 
-          <para>Busy servers and load generators may run out of file
-          descriptors as the system defaults are normally low. These can be
-          increased for a specific user in
-          /etc/security/limits.conf:</para>&gt;&gt;&gt;&gt;&gt;&gt;&gt;
-          d623cc2e24d37d12ab31a2d8416099d42f114802 
-          <screen>
+            <title>File Descriptors</title>
+            <para>Busy servers and load generators may run out of file
+            descriptors as the system defaults are normally low. These can be
+            increased for a specific user in 
+            <filename>/etc/security/limits.conf</filename>:</para>
+            <screen>
 <![CDATA[
 theusername            hard nofile     40000
 theusername            soft nofile     40000
 ]]>
-          </screen></section>
+            </screen>
+          </section>
           <section>
             <title>Congestion Control</title>
             <para>Linux supports pluggable congestion control algorithms. To

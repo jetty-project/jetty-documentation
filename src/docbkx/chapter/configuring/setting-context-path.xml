@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE section PUBLIC '-//OASIS//DTD DocBook XML V5.0//EN'
+'http://www.oasis-open.org/docbook/xml/5.0b5/dtd/docbook.dtd'>
+<section xml:id="setting-context-path" version="5.0"
+xmlns="http://docbook.org/ns/docbook" xmlns:xl="http://www.w3.org/1999/xlink"
+xmlns:xi="http://www.w3.org/2001/XInclude"
+xmlns:ns5="http://www.w3.org/2000/svg"
+xmlns:ns4="http://www.w3.org/1998/Math/MathML"
+xmlns:ns3="http://www.w3.org/1999/xhtml"
+xmlns:db="http://docbook.org/ns/docbook">
+  <title>Setting a Context Path</title>
+  <para>The context path is the prefix of a URL path that Jetty uses to select
+  the web application to which it routes an incoming request. Typically a URL
+  in a Java servlet server is of the format
+  http://hostname.com/contextPath/servletPath/pathInfo, where each of the path
+  elements can be zero or more / separated elements. If there is no context
+  path, the context is referred to as the root context.</para>
+  <para>How you set the context path depends on how you deploy the web
+  application (or ContextHandler):</para>
+  <section>
+    <title>Embedded Deployment</title>
+    <para>If you run Jetty from code as an embedded server, setting the context
+    path is a matter of calling the setContextPath method on the ContextHandler
+    instance (or WebAppContext instance).</para>
+  </section>
+  <section>
+    <title>Context Deployment</title>
+    <para>If you deploy the web application/context from the context
+    deployer/provider, you set the contextPath within the context.xml
+    file.</para>
+    <screen>
+      <Configure class="org.eclipse.jetty.webapp.WebAppContext">
+      <Set name="contextPath">/foo</Set>...</Configure>
+    </screen>
+  </section>
+  <section>
+    <title>Webapp Deployment</title>
+    <para>If you deploy the web application from the webapp deployer/provider,
+    by default the name of the WAR file forms the context path. So if the file
+    is called foobar.war, the context path is /foobar. There is a special case
+    for webapps called root.war which are mapped to the root / context.</para>
+  </section>
+  <section>
+    <title>Embedding a WEB-INF/jetty-web.xml File</title>
+    <para>You can also set the context path for webapps by embedding a
+    WEB-INF/jetty-web.xml file in the WAR. This is not a preferred
+    method.</para>
+  </section>
+</section>

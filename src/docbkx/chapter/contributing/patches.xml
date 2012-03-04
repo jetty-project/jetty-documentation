@@ -3,8 +3,7 @@
 'http://www.oasis-open.org/docbook/xml/5.0b5/dtd/docbook.dtd'
 >
 <section xml:id="contributing-patches" version="5.0"
-xmlns="http://docbook.org/ns/docbook"
-xmlns:xlink="http://www.w3.org/1999/xlink"
+xmlns="http://docbook.org/ns/docbook" xmlns:xl="http://www.w3.org/1999/xlink"
 xmlns:xi="http://www.w3.org/2001/XInclude"
 xmlns:ns5="http://www.w3.org/2000/svg"
 xmlns:ns4="http://www.w3.org/1998/Math/MathML"
@@ -135,8 +134,7 @@ $ git push
     <title>Gerrit for Contributors</title>
     <para>Prepare yourself for using gerrit by following the steps described
     here: 
-    <link
-    xlink:href="https://git.eclipse.org/r/Documentation/user-upload.html">
+    <link xl:href="https://git.eclipse.org/r/Documentation/user-upload.html">
     https://git.eclipse.org/r/Documentation/user-upload.html</link></para>
     <para>Then clone the jetty-project:</para>
     <screen>
@@ -155,8 +153,7 @@ $ git commit -m "[Bug 343532] fixed issue" <files>
 ]]>
     </screen>
     <para>Make sure to properly set the changeIds as described here: 
-    <link
-    xlink:href="https://git.eclipse.org/r/Documentation/user-changeid.html">
+    <link xl:href="https://git.eclipse.org/r/Documentation/user-changeid.html">
     https://git.eclipse.org/r/Documentation/user-changeid.html</link></para>
     <para>Make your changes, commit them as usual with git. Once done
     do:</para>
@@ -168,7 +165,7 @@ $ git push ssh://git.eclipse.org:29418/jetty/org.eclipse.jetty.project HEAD:refs
     <para>Note the magic: "HEAD:refs/for/master". Without gerrit will not
     permit you to push.</para>
     <para>Review your changes on your gerrit dashboard: 
-    <link xlink:href="https://git.eclipse.org/r/#/">
+    <link xl:href="https://git.eclipse.org/r/#/">
     https://git.eclipse.org/r/#/</link></para>
     <para>Finally get some coffee and relax. You've contributed something to
     jetty, woohooo. :)</para>

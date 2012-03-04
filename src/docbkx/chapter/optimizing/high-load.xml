@@ -3,7 +3,7 @@
 'http://www.oasis-open.org/docbook/xml/5.0b5/dtd/docbook.dtd'
 >
 <section xml:id="high-load" version="5.0" xmlns="http://docbook.org/ns/docbook"
-xmlns:xlink="http://www.w3.org/1999/xlink"
+xmlns:xl="http://www.w3.org/1999/xlink"
 xmlns:xi="http://www.w3.org/2001/XInclude"
 xmlns:ns5="http://www.w3.org/2000/svg"
 xmlns:ns4="http://www.w3.org/1998/Math/MathML"
@@ -28,7 +28,7 @@ xmlns:db="http://docbook.org/ns/docbook">
         requests as possible over each connection. This causes the measured
         throughput to be limited by request latency (see 
         <link
-        xlink:href="http://blogs.webtide.com/gregw/entry/lies_damned_lies_and_benchmarks&quot;">Lies,
+        xl:href="http://blogs.webtide.com/gregw/entry/lies_damned_lies_and_benchmarks&quot;">Lies,
         Damned Lies and Benchmarks</link>for an analysis of such an
         issue).</listitem>
       </varlistentry>
@@ -171,7 +171,7 @@ $ sysctl -w net.ipv4.tcp_congestion_control=cubic
         <title>JVM Tuning</title>
         <itemizedlist>
           <listitem>Tune the 
-          <link xlink:href="garbage-collection.html#examples">Garbage
+          <link xl:href="garbage-collection.html#examples">Garbage
           Collection</link></listitem>
           <listitem>Allocate sufficient memory</listitem>
           <listitem>Use the -server option</listitem>

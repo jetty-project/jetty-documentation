@@ -3,8 +3,7 @@
 'http://www.oasis-open.org/docbook/xml/5.0b5/dtd/docbook.dtd'
 >
 <section xml:id="releasing-jetty" version="5.0"
-xmlns="http://docbook.org/ns/docbook"
-xmlns:xlink="http://www.w3.org/1999/xlink"
+xmlns="http://docbook.org/ns/docbook" xmlns:xl="http://www.w3.org/1999/xlink"
 xmlns:xi="http://www.w3.org/2001/XInclude"
 xmlns:ns5="http://www.w3.org/2000/svg"
 xmlns:ns4="http://www.w3.org/1998/Math/MathML"
@@ -194,7 +193,7 @@ rmdir jetty-project
     your particular execution environment and you need to have authorization to
     put stuff where it needs to go. These scripts are located at: 
     <link
-    xlink:href="http://git.eclipse.org/c/jetty/org.eclipse.jetty.admin.git/tree/release-scripts">http://git.eclipse.org/c/jetty/org.eclipse.jetty.admin.git/tree/release-scripts</link>.
+    xl:href="http://git.eclipse.org/c/jetty/org.eclipse.jetty.admin.git/tree/release-scripts">http://git.eclipse.org/c/jetty/org.eclipse.jetty.admin.git/tree/release-scripts</link>.
     Once these are setup you can deploy a release to eclipse and codehaus with
     the following incantation.</para>
     <screen>

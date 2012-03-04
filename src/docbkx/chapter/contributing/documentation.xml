@@ -3,8 +3,7 @@
 'http://www.oasis-open.org/docbook/xml/5.0b5/dtd/docbook.dtd'
 >
 <section xml:id="contributing-documentation" version="5.0"
-xmlns="http://docbook.org/ns/docbook"
-xmlns:xlink="http://www.w3.org/1999/xlink"
+xmlns="http://docbook.org/ns/docbook" xmlns:xl="http://www.w3.org/1999/xlink"
 xmlns:xi="http://www.w3.org/2001/XInclude"
 xmlns:ns5="http://www.w3.org/2000/svg"
 xmlns:ns4="http://www.w3.org/1998/Math/MathML"
@@ -25,7 +24,7 @@ xmlns:db="http://docbook.org/ns/docbook">
           <para>This project is located at github so if you do not have a
           GitHub account already you should register for one. You can do that
           at 
-          <link xlink:href="https://github.com">Github</link></para>
+          <link xl:href="https://github.com">Github</link></para>
           <para>You can go one of two ways for using git, if you are familiar
           with SCM's and the command line interface then feel free to install
           and use git from there. Otherwise we would recommend you use the
@@ -37,7 +36,7 @@ xmlns:db="http://docbook.org/ns/docbook">
         <term>maven 3</term>
         <listitem>
           <para>We build the project with maven 3 which can be found at 
-          <link xlink:href="http://maven.apache.org">Apache Maven</link></para>
+          <link xl:href="http://maven.apache.org">Apache Maven</link></para>
         </listitem>
       </varlistentry>
     </variablelist>

@@ -5,9 +5,9 @@
 <chapter xml:id="incoming" version="5.0" xmlns="http://docbook.org/ns/docbook"
 xmlns:xl="http://www.w3.org/1999/xlink"
 xmlns:xi="http://www.w3.org/2001/XInclude"
-xmlns:ns5="http://www.w3.org/2000/svg"
-xmlns:ns4="http://www.w3.org/1998/Math/MathML"
-xmlns:ns3="http://www.w3.org/1999/xhtml"
+xmlns:svg="http://www.w3.org/2000/svg"
+xmlns:mth="http://www.w3.org/1998/Math/MathML"
+xmlns:xhtml="http://www.w3.org/1999/xhtml"
 xmlns:db="http://docbook.org/ns/docbook">
   <title>Incoming Documentation</title>
   <para>These pages are works in progress that have not been moved to their

@@ -97,10 +97,11 @@ $ sysctl -w net.ipv4.tcp_wmem="4096 16384 16777216"
  $ sysctl -w net.core.somaxconn=4096
  ]]>
         </screen>
-        <para>The net.core.netdev_max_backlog controls the size of the incoming
-        packet queue for upper-layer (java) processing. The default (2048) may
-        be increased and other related parameters (TODO MORE EXPLANATION)
-        adjusted with:</para>
+        <para>The 
+        <code>net.core.netdev_max_backlog</code>controls the size of the
+        incoming packet queue for upper-layer (java) processing. The default
+        (2048) may be increased and other related parameters (TODO MORE
+        EXPLANATION) adjusted with:</para>
         <screen>
 <![CDATA[
 $ sysctl -w net.core.netdev_max_backlog=16384

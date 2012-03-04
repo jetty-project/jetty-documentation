@@ -15,6 +15,8 @@ xmlns:db="http://docbook.org/ns/docbook">
     jetty. Topics will range from creating custom error pages to embedding
     jetty into your own application.</para>
   </section>
+  <xi:include href="setting-context-path.xml" />
+  <xi:include href="setting-context-path-to-root.xml" />
   <xi:include href="custom-error-pages.xml" />
   <xi:include href="embedding-jetty.xml" />
   <xi:include href="configuring-form-size.xml" />

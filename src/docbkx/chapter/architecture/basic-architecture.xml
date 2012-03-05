@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE section PUBLIC '-//OASIS//DTD DocBook XML V5.0//EN'
+'http://www.oasis-open.org/docbook/xml/5.0b5/dtd/docbook.dtd'
+>
+<section xml:id="basic-architecture" version="5.0"
+xmlns="http://docbook.org/ns/docbook" xmlns:xl="http://www.w3.org/1999/xlink"
+xmlns:xi="http://www.w3.org/2001/XInclude"
+xmlns:svg="http://www.w3.org/2000/svg"
+xmlns:mth="http://www.w3.org/1998/Math/MathML"
+xmlns:xhtml="http://www.w3.org/1999/xhtml"
+xmlns:db="http://docbook.org/ns/docbook">
+  <title>Jetty 7 Architecture</title>
+  <section>
+    <title>View from 20,000 feet</title>
+    <para>The Jetty Server is the plumbing between a collection of Connectors
+    that accept HTTP connections, and a collection of Handlers that service
+    requests from the connections and produce responses, with the work being
+    done by threads taken from a thread pool.</para>
+    <mediaobject>
+      <info>
+        <othercredit>
+          <orgname>jetty simple high level architecture</orgname>
+        </othercredit>
+      </info>
+      <imageobject>
+        <imagedata align="center" width="6in" format="PNG"
+        fileref="images/jetty-high-level-architecture.png" />
+      </imageobject>
+    </mediaobject>
+    <para>While the jetty request/responses are derived from the Servlet API,
+    the full features of the servlet API are only available if the appropriate
+    handlers are configured. For example, the session API on the request is
+    inactive unless the request has been passed to a Session Handler. The
+    concept of a Servlet itself is implemented by a Servlet Handler. If
+    servlets are not required, there is very little overhead in the use of the
+    servlet request/response APIs. Thus you can build a Jetty server using only
+    connectors and handlers, without using Servlets.</para>
+    <para>The job of configuring jetty is the job of building a network of
+    connectors and handlers and providing their individual configurations. As
+    Jetty components are simply Plain Old Java Objects (POJOs), you can
+    accomplish this assembly and configuration of components by a variety of
+    techniques:</para>
+    <itemizedlist>
+      <listitem>In code. See the examples in the Jetty 7 Latest Source
+      XRef.</listitem>
+      <listitem>With Jetty XML - dependency injection style XML
+      format.</listitem>
+      <listitem>With your dependency injection framework of choice: Spring or
+      XBean.</listitem>
+      <listitem>Using Jetty WebApp and Context Deployers.</listitem>
+    </itemizedlist>
+  </section>
+</section>

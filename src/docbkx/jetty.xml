@@ -9,6 +9,7 @@ xmlns:db="http://docbook.org/ns/docbook">
   <xi:include href="info/info.xml" />
   <xi:include href="chapter/introduction/chapter.xml" />
   <xi:include href="chapter/getting-started/chapter.xml" />
+  <xi:include href="chapter/architecture/chapter.xml" />
   <xi:include href="chapter/configuring/chapter.xml" />
   <xi:include href="chapter/deploying/chapter.xml" />
   <xi:include href="chapter/logging/chapter.xml" />

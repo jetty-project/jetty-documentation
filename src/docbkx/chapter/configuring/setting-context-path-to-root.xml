@@ -68,7 +68,7 @@ xmlns:db="http://docbook.org/ns/docbook">
       </code>option.</listitem>
       <listitem>If you have the 
       <code>etc/jetty-webapps.xml</code>present in your 
-      <filename>start.ini</filename>, do not put your
+      <filename>start.ini</filename>, do not put your 
       <code>mywebapp.war</code>in 
       <filename>${jetty.home}/webapps</filename>because doing so causes the
       WebAppProvider to also deploy the same webapp, and confuses your
@@ -94,7 +94,7 @@ xmlns:db="http://docbook.org/ns/docbook">
       </screen>
     </para>
     <para>That reveals that WebAppContext was Started on {/, (the root Context
-    Path) It was using the temp/work directory file:
+    Path) It was using the temp/work directory file: 
     <filename>/tmp/jetty-0.0.0.0-8080-test.war-_-any-/webapp/</filename>. It
     was using the web application specified in 
     <filename>

@@ -20,4 +20,5 @@ xmlns:db="http://docbook.org/ns/docbook">
   <xi:include href="custom-error-pages.xml" />
   <xi:include href="embedding-jetty.xml" />
   <xi:include href="configuring-form-size.xml" />
+  <xi:include href="writing-handlers.xml" />
 </chapter>

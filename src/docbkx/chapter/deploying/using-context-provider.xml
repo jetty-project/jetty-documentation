@@ -164,7 +164,7 @@ xmlns:db="http://docbook.org/ns/docbook">
     a descriptor to the directory, it deploys the new context. If you touch or
     update a descriptor, the provider stops, reconfigures, and redeploys its
     context. If you remove a descriptor, the provider stops and removes its
-    context from the server.
+    context from the server. 
     <para>If the scan interval is zero, the 
     <code>ContextProvider</code>scans the directory only at startup.</para>
     <section>
@@ -177,27 +177,27 @@ xmlns:db="http://docbook.org/ns/docbook">
       things to configure include:</para>
       <itemizedlist>
         <listitem>
-          <code>setAttribute
+          <code>setAttribute 
           <listitem>
-            <code>setClassLoader
+            <code>setClassLoader 
             <listitem>
-              <code>setContextPath
+              <code>setContextPath 
               <listitem>
-                <code>setVirtualHosts
+                <code>setVirtualHosts 
                 <listitem>
-                  <code>addServlet
+                  <code>addServlet 
                   <listitem>
-                    <code>setConfigurations
+                    <code>setConfigurations 
                     <listitem>
-                      <code>setExtraClassPath
+                      <code>setExtraClassPath 
                       <listitem>
-                        <code>setDefaultsDescriptor
+                        <code>setDefaultsDescriptor 
                         <listitem>
-                          <code>setDescriptor
+                          <code>setDescriptor 
                           <listitem>
-                            <code>setOverrideDescriptor
+                            <code>setOverrideDescriptor 
                             <listitem>
-                              <code>setSystemClasses
+                              <code>setSystemClasses 
                               <listitem>
                                 <code>setServerClasses</code>
                               </listitem></code>

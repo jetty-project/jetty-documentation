@@ -11,19 +11,21 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml"
 xmlns:db="http://docbook.org/ns/docbook">
   <title>Creating Custom Error Pages</title>
   <para>The following sections describe several ways to create custom error
-  pages.</para>
+  pages in Jetty.</para>
   <section>
     <title>Defining error pages in web.xml</title>
-    <para>You can use the standard webapp configuration file located in
-    webapp/WEB-INF/web.xml to map errors to specific URLs with the error-page
-    element. This element creates a mapping between the error-code or
-    exception-type to the location of a resource in the web application.</para>
+    <para>You can use the standard webapp configuration file located in 
+    <filename>webapp/WEB-INF/web.xml</filename>to map errors to specific URLs
+    with the error-page element. This element creates a mapping between the
+    error-code or exception-type to the location of a resource in the web
+    application.</para>
     <itemizedlist>
-      <listitem>error-code - integer value</listitem>
-      <listitem>exception-type - fully qualified class name of a Java Exception
-      type</listitem>
-      <listitem>location - location of the resource in webapp relative to the
-      root of the web application. Value should start with "/".</listitem>
+      <listitem>error-code &#8218;&#196;&#236; integer value</listitem>
+      <listitem>exception-type &#8218;&#196;&#236; fully qualified class name
+      of a Java Exception type</listitem>
+      <listitem>location &#8218;&#196;&#236; location of the resource in the
+      webapp relative to the root of the web application. Value should start
+      with "/".</listitem>
     </itemizedlist>
     <para>Error code example:</para>
     <informalexample>
@@ -49,17 +51,18 @@ xmlns:db="http://docbook.org/ns/docbook">
     </informalexample>
   </section>
   <section>
-    <title>Context file configuration</title>
-    <para>Context files are normally located in &lt;jetty.home&gt;/contexts/
-    (see ContextDeployer for more details). Context files can be used to
-    configure the default error handler provided for a context with more
-    flexibility than is available with web.xml, specifically with the support
-    of error code ranges:</para>
+    <title>Configuring context files</title>
+    <para>Context files are normally located in 
+    <filename>jetty.home/contexts/</filename>(see ContextDeployer for more
+    details). You can use context files to configure the default error handler
+    provided for a context with more flexibility than is available with 
+    <code>web.xml</code>, specifically with the support of error code
+    ranges:</para>
     <informalexample>
       <programlisting language="xml">
 <![CDATA[
 <?xml version="1.0"  encoding="ISO-8859-1"?>
-<!DOCTYPE Configure PUBLIC "-//Mort Bay Consulting//DTD Configure//EN" "http://jetty.mortbay.org/configure.dtd">
+<!DOCTYPE Configure PUBLIC "-//Mort Bay Consulting//DTD Configure//EN" "http://jetty.eclipse.org/configure.dtd">
 
 <Configure class="org.eclipse.jetty.webapp.WebAppContext">
   <Set name="contextPath">/test</Set>
@@ -101,11 +104,12 @@ xmlns:db="http://docbook.org/ns/docbook">
     </informalexample>
   </section>
   <section>
-    <title>Custom error handler class</title>
-    <para>A context may be configured with a custom error handler class that
-    extends either ErrorHandler for generic contexts, or ErrorPageErrorHandler
-    for webapp contexts.</para>
-    <para>The following methods may be implemented to control the appearance of
+    <title>Setting a custom error handler class</title>
+    <para>You can configure a context with a custom error handler class that
+    extends either 
+    <code>ErrorHandler</code>for generic contexts, or 
+    <code>ErrorPageErrorHandler</code>for webapp contexts.</para>
+    <para>You can implement the following methods to control the appearance of
     the error pages:</para>
     <informalexample>
       <programlisting language="java">
@@ -120,11 +124,12 @@ void writeErrorPageStacks(HttpServletRequest request, Writer writer) throws IOEx
 ]]>
       </programlisting>
     </informalexample>
-    <para>The ErrorPageErrorHandler can also be configured to suppress
-    stacktraces by calling setShowStacks(false).</para>
-    <para>The custom error handler may be set on the context via the API or via
-    a context configuration file. For example a custom error handling class can
-    be added to the javadoc context with:</para>
+    <para>You can also configure the 
+    <code>ErrorPageErrorHandler</code>to suppress stacktraces by calling 
+    <code>setShowStacks(false)</code>.</para>
+    <para>You can set the custom error handler on the context via the API or
+    via a context configuration file. For example, you can add a custom error
+    handling class to the javadoc context with:</para>
     <informalexample>
       <programlisting language="xml">
 <![CDATA[
@@ -149,11 +154,11 @@ void writeErrorPageStacks(HttpServletRequest request, Writer writer) throws IOEx
   </section>
   <section>
     <title>Server level 404 error</title>
-    <para>One may get a 'page not found' when a request is made to the server
+    <para>You might get a 'page not found' when a request is made to the server
     for a resource that is outside of any registered contexts. As an example,
-    you have a domain name pointing to your public server IP yet no context is
+    you have a domain name pointing to your public server IP, yet no context is
     registered with jetty to serve pages for that domain. As a consequence, the
-    server, by default, will give a listing of all contexts running on the
+    server, by default, gives a listing of all contexts running on the
     server.</para>
     <para>One of the quickest ways to avoid this behavior is to create a catch
     all context. Create a "root" web app mapped to the "/" URI. Have the

@@ -9,6 +9,13 @@ xmlns:svg="http://www.w3.org/2000/svg"
 xmlns:mth="http://www.w3.org/1998/Math/MathML"
 xmlns:xhtml="http://www.w3.org/1999/xhtml"
 xmlns:db="http://docbook.org/ns/docbook">
-  <title>Deployment</title>
-<!--xi:include href="content.xml" /-->
+  <title>Deploying Jetty</title>
+  <section>
+    <para>This chapter discusses various ways to deploy applications with
+    jetty. Topics range from deployment bindings to deploying third party
+    products. It also includes information about the Deployment Manager,
+    ContextProvider, WebApp Provider, and Overlay Deployer.</para>
+  </section>
+  <xi:include href="using-context-provider.xml" />
+   <xi:include href="using-deployment-manager.xml" />
 </chapter>

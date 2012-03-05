@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE section PUBLIC '-//OASIS//DTD DocBook XML V5.0//EN'
+'http://www.oasis-open.org/docbook/xml/5.0b5/dtd/docbook.dtd'>
+<section xml:id="using-context-provider" version="5.0"
+xmlns="http://docbook.org/ns/docbook" xmlns:xl="http://www.w3.org/1999/xlink"
+xmlns:xi="http://www.w3.org/2001/XInclude"
+xmlns:ns5="http://www.w3.org/2000/svg"
+xmlns:ns4="http://www.w3.org/1998/Math/MathML"
+xmlns:ns3="http://www.w3.org/1999/xhtml"
+xmlns:db="http://docbook.org/ns/docbook">
+  <title>Using the Context Provider</title>
+  <para>Jetty provides capability to deploy an arbitrary context or web
+  application with Jetty-specific configuration. The ContextProvider mechanism,
+  which is now an extension of the core deployment infrastructure, implements
+  this capability.</para>
+  <para>You can use the 
+  <link
+  xl:href="http://dev.eclipse.org/viewcvs/viewvc.cgi/jetty/trunk/jetty-deploy/src/main/java/org/eclipse/jetty/deploy/providers/ContextProvider.java?root=RT_JETTY&amp;view=markup">
+    <code>ContextProvider</code>
+  </link>to (hot) deploy an arbitrary context or web application with
+  Jetty-specific configuration. To statically deploy only standard web
+  applications at startup, use the 
+  <code>WebAppProvider</code>//TODO xref//.</para>
+  <section>
+    <title>Understanding the ContextProvider</title>
+    <para>A 
+    <filename>jetty.xml</filename>&gt; typically defines a 
+    <code>ContextProvider</code>; within the stock jetty distribution the name
+    of this file is 
+    <filename>jetty-contexts.xml</filename>:</para>
+    <informalexample>
+      <programlisting language="xml">
+<![CDATA[ 
+ <Configure id="Server" class="org.eclipse.jetty.server.Server">
+        <Ref id="DeploymentManager">
+          <Call name="addAppProvider">
+            <Arg>
+              <New class="org.eclipse.jetty.deploy.providers.ContextProvider">
+                <Set name="monitoredDir"><Property name="jetty.home" default="." />/contexts</Set>
+                <Set name="scanInterval">1</Set>
+              </New>
+            </Arg>
+          </Call>
+        </Ref>
+</Configure>
+]]>
+      </programlisting>
+    </informalexample>
+    <para>The 
+    <code>ContextProvider</code>scans the 
+    <code>monitoredDir</code>directory at intervals of 
+    <code>scanInterval</code>seconds for XML descriptors that define contexts.
+    It then deploys any contexts to the passed contexts reference to a 
+    <code>HandlerContainer</code>(normally an instance of 
+    <code>ContextHandlerCollection</code>). The deployment descriptors are in
+    Jetty/Reference/jetty.xml syntax|jetty xml //TODO xref// format, and define
+    and configure individual contexts. A minimal example is:</para>
+    <informalexample>
+      <programlisting language="xml">
+<![CDATA[ 
+ <?xml version="1.0"  encoding="ISO-8859-1"?>
+ <!DOCTYPE Configure PUBLIC "-//Mort Bay Consulting//DTD Configure//EN" "http://jetty.mortbay.org/configure.dtd">
+ <Configure class="org.eclipse.jetty.webapp.WebAppContext">
+   <Set name="contextPath">/test</Set>
+   <Set name="war"><SystemProperty name="jetty.home" default<nowiki>=</nowiki>"."/>/webapps/test</Set>
+ </Configure>
+]]>
+      </programlisting>
+    </informalexample>
+    <para>This example creates an instance of 
+    <link
+    xl:href="http://dev.eclipse.org/viewcvs/viewvc.cgi/jetty/trunk/jetty-webapp/src/main/java/org/eclipse/jetty/webapp/WebAppContext.java?root=RT_JETTY&amp;view=markup">WebAppContext</link>and
+    sets the 
+    <code>contextPath</code>to 
+    <code>/test</code>and the 
+    <code>resourceBase</code>to 
+    <code>$jetty.home/webapps/test</code>. Because the context used is a
+    standard web application context, when started it inspects the 
+    <code>resourceBase</code>for a 
+    <code>WEB-INF/web.xml</code>for further configuration.</para>
+    <para>The 
+    <code>ContextProvider</code>is added to the server as a 
+    <code>LifeCycle</code>. This simply means that the provider starts and
+    stops with the server. That is, when 
+    <code>server.start()</code>is called, then 
+    <code>start</code>is also called on the provider.</para>
+  </section>
+  <section>
+    <title>Substituting a Property Value</title>
+    <para>The 
+    <code>ContextProvider</code>can automatically do property substitution on
+    the context files that it deploys. You define a 
+    <code>ConfigurationManager</code>that manages the properties and pass this
+    into the 
+    <code>ContextProvider</code>. There is currently one implementation of the 
+    <code>ConfigurationManage</code>, and that is the 
+    <code>org.eclipse.jetty.deployer.FileConfigurationManager</code>, which
+    reads a properties file and makes available the property values to the 
+    <code>ContextProvider</code>. Here's how you would configure the 
+    <code>ContextProvider</code>:</para>
+    <informalexample>
+      <programlisting language="xml">
+<![CDATA[ 
+ <Configure id="Server" class="org.eclipse.jetty.server.Server">
+        <Ref id="DeploymentManager">
+          <Call name="addAppProvider">
+            <Arg>
+              <New class="org.eclipse.jetty.deploy.providers.ContextProvider">
+                <Set name="monitoredDir"><Property name="jetty.home" default="." />/contexts</Set>
+                <Set name="scanInterval">1</Set>
+                <Set name="configurationManager">
+                  <New class="org.mortbay.jetty.deployer.FileConfigurationManager">
+                     <Set name="file"><SystemProperty name="jetty.home" default="."/>/foo.properties</Set>
+                  </New>
+                </Set>
+              </New>
+            </Arg>
+          </Call>
+        </Ref>
+</Configure>
+]]>
+      </programlisting>
+    </informalexample>
+    <para>Here's an example of the contents of the 
+    <tt>foo.properties</tt>file:</para>
+    <screen>foo = /funkyapp</screen>
+    <para>Here's how you would use this in a context xml file:</para>
+    <informalexample>
+      <programlisting language="xml">
+<![CDATA[ 
+ <?xml version="1.0"  encoding="ISO-8859-1"?>
+ <!DOCTYPE Configure PUBLIC "-//Mort Bay Consulting//DTD Configure//EN" "http://jetty.mortbay.org/configure.dtd">
+ <Configure class="org.mortbay.jetty.webapp.WebAppContext">
+   <Set name="contextPath"><Property name="foo"/></Set>
+   <Set name="war"><SystemProperty name="jetty.home" default="."/>/webapps/test</Set>
+ </Configure>
+]]>
+      </programlisting>
+    </informalexample>
+  </section>
+  <section>
+    <title>Contexts</title>
+    <para>Because the class of the context is defined in the Configure clause,
+    you can deploy any type of 
+    <code>ContextHandler</code>with this mechanism, including base 
+    <link
+    xl:href="http://dev.eclipse.org/viewcvs/viewvc.cgi/jetty/trunk/jetty-server/src/main/java/org/eclipse/jetty/server/handler/ContextHandler.java?root=RT_JETTY&amp;view=markup">
+      <code>ContextHandler</code>
+    </link>, 
+    <link
+    xl:href="http://dev.eclipse.org/viewcvs/viewvc.cgi/jetty/trunk/jetty-servlet/src/main/java/org/eclipse/jetty/servlet/ServletContextHandler.java?root=RT_JETTY&amp;view=markup">
+      <code>ServletContextHandler</code>
+    </link>, 
+    <link
+    xl:href="http://dev.eclipse.org/viewcvs/viewvc.cgi/jetty/trunk/jetty-webapp/src/main/java/org/eclipse/jetty/webapp/WebAppContext.java?root=RT_JETTY&amp;view=markup">
+      <code>WebAppContext</code>
+    </link>, or any class derived from them.</para>
+  </section>
+  <section>
+    <title>Using Hot Deploy</title>
+    <para>If the scan interval is non-zero, the 
+    <code>ContextProvider</code>scans the configuration directory at that
+    interval (in seconds) for changes to the deployment descriptors. If you add
+    a descriptor to the directory, it deploys the new context. If you touch or
+    update a descriptor, the provider stops, reconfigures, and redeploys its
+    context. If you remove a descriptor, the provider stops and removes its
+    context from the server.
+    <para>If the scan interval is zero, the 
+    <code>ContextProvider</code>scans the directory only at startup.</para>
+    <section>
+      <title>Configuring Other Things</title>
+      <para>This mechanism allows you to call most of the API available on 
+      <link
+      xl:href="http://dev.eclipse.org/viewcvs/index.cgi/jetty/trunk/jetty-server/src/main/java/org/eclipse/jetty/server/handler/ContextHandler.java?root=RT_JETTY&amp;view=markup">
+        <code>ContextHandler</code>
+      </link>or its derived classes to configure the web application. Useful
+      things to configure include:</para>
+      <itemizedlist>
+        <listitem>
+          <code>setAttribute
+          <listitem>
+            <code>setClassLoader
+            <listitem>
+              <code>setContextPath
+              <listitem>
+                <code>setVirtualHosts
+                <listitem>
+                  <code>addServlet
+                  <listitem>
+                    <code>setConfigurations
+                    <listitem>
+                      <code>setExtraClassPath
+                      <listitem>
+                        <code>setDefaultsDescriptor
+                        <listitem>
+                          <code>setDescriptor
+                          <listitem>
+                            <code>setOverrideDescriptor
+                            <listitem>
+                              <code>setSystemClasses
+                              <listitem>
+                                <code>setServerClasses</code>
+                              </listitem></code>
+                            </listitem></code>
+                          </listitem></code>
+                        </listitem></code>
+                      </listitem></code>
+                    </listitem></code>
+                  </listitem></code>
+                </listitem></code>
+              </listitem></code>
+            </listitem></code>
+          </listitem></code>
+        </listitem>
+      </itemizedlist>
+    </section></para>
+  </section>
+</section>

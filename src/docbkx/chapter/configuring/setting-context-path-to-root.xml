@@ -11,64 +11,75 @@ xmlns:db="http://docbook.org/ns/docbook">
   <title>Setting Context Path to / (root)</title>
   <para>To set your context path to / (the root context path), you need to use
   a Context deployment.</para>
-  <note>
-    <para>
-      <bold>Be aware:</bold>
-    </para>
-    <itemizedlist>
-      <listitem>Java Servlet Specification 2.5 discourages an empty context
-      path string, and Java Servlet Specification 3.0 effectively forbids
-      it.</listitem>
-      <listitem>In Jetty 7.x, the AppProviders assigned to the
-      DeploymentManager handle context path assignment.</listitem>
-      <listitem>By default on the Jetty Distribution, both the WebAppProvider
-      and ContextProvider are enabled. This is important to know because it
-      influences your decision on where to put the mywebapp.war
-      file.</listitem>
-      <listitem>Examine the ${jetty.home}/start.ini file, and you'll see that
-      it contains both references to etc/jetty-webapps.xml and
-      etc/jetty-contexts.xml.</listitem>
-    </itemizedlist>
-  </note>
+  <note>Be aware of the following: 
+  <itemizedlist>
+    <listitem>Java Servlet Specification 2.5 discourages an empty context path
+    string, and Java Servlet Specification 3.0 effectively forbids
+    it.</listitem>
+    <listitem>In Jetty 7.x, the AppProviders assigned to the DeploymentManager
+    //TODO xref// handle context path assignment.</listitem>
+    <listitem>By default on the Jetty Distribution, both the WebAppProvider and
+    ContextProvider are enabled. This is important to know because it
+    influences your decision on where to put the 
+    <filename>mywebapp.war</filename>file.</listitem>
+    <listitem>Examine the 
+    <filename>${jetty.home}/start.ini</filename>file, and you see that it
+    contains both references to 
+    <code>etc/jetty-webapps.xml</code>and 
+    <code>etc/jetty-contexts.xml</code>.</listitem>
+  </itemizedlist></note>
   <section>
     <title>Using the WebAppProvider</title>
-    <para>The WebAppProvider's role is to look in the ${jetty.home}/webapps/
-    directory for any deployable applications (such as *.war), and deploy them
-    onto a context of the same name as the filename. For example, the
-    WebAppProvider deploys ${jetty.home}/webapps/MyApp-2.4.war into the context
-    /MyApp-2.4. There is also the special root.war reserved word that deploys
-    into the context / . While this is the easiest deployment mechanism, it
-    sacrifices control over deployment specifics.</para>
+    <para>The WebAppProvider's //TODO xref// role is to look in the 
+    <filename>${jetty.home}/webapps/</filename>directory for any deployable
+    applications (such as *.war), and deploy them onto a context of the same
+    name as the filename. For example, the WebAppProvider deploys 
+    <filename>${jetty.home}/webapps/MyApp-2.4.war</filename>into the context 
+    <code>/MyApp-2.4</code>. There is also the special 
+    <code>root.war</code>reserved word that deploys into the context / . While
+    this is the easiest deployment mechanism, it sacrifices control over
+    deployment specifics.</para>
   </section>
   <section>
     <title>Using the ContextProvider</title>
-    <para>The ContextProvider's role is to look in the ${jetty.home}/contexts/
-    directory for any jetty-xml formatted, deployable contexts. This deployment
-    mechanism gives you the maximum control over the deployment, as this XML
-    file can control anything that is ultimately resolved to a
-    org.eclipse.jetty.server.handler.ContextHandler base class, of which
-    WebAppContext (WARs, servlets, etc.) are part. The most common use is to
-    specify a WebAppContext-based XML file, and control things such as what
-    files and directories make up the web application, what temporary directory
-    to use, and even what Context Path to use.</para>
+    <para>The ContextProvider's //TODO XREF//role is to look in the 
+    <filename>${jetty.home}/contexts/</filename>directory for any jetty-xml
+    formatted, deployable contexts. This deployment mechanism gives you the
+    maximum control over the deployment, as this XML file can control anything
+    that is ultimately resolved to an 
+    <code>org.eclipse.jetty.server.handler.ContextHandler</code>base class, of
+    which WebAppContexts (WARs, servlets, etc.) are part. The most common use
+    is to specify a WebAppContext-based XML file, and control things such as
+    what files and directories make up the web application, what temporary
+    directory to use, and even what Context Path to use.</para>
   </section>
   <section>
     <title>Setting the Context Path with the ContextProvider</title>
     <para>To set the context path to / , follow these steps.</para>
     <orderedlist>
       <listitem>Make sure your ContextProvider-based deployments are enabled in
-      the start.ini. That is, make sure that etc/jetty-context.xml is
-      present.</listitem>
-      <listitem>Create a ${jetty.home}/contexts/mywebapp.xml that declares the 
-      <Set name="contextPath">/</Set>option.</listitem>
-      <listitem>If you have the etc/jetty-webapps.xml present in your
-      start.ini, do not put your mywebapp.war in ${jetty.home}/webapps because
-      doing so causes the WebAppProvider to also deploy the same webapp, and
-      confuses your deployment.</listitem>
+      the 
+      <filename>start.ini</filename>. That is, make sure that 
+      <code>etc/jetty-context.xml</code>is present.</listitem>
+      <listitem>Create a 
+      <code>${jetty.home}/contexts/mywebapp.xml</code>that declares the 
+      <code>
+        <Set name="contextPath">/</Set>
+      </code>option.</listitem>
+      <listitem>If you have the 
+      <code>etc/jetty-webapps.xml</code>present in your 
+      <filename>start.ini</filename>, do not put your
+      <code>mywebapp.war</code>in 
+      <filename>${jetty.home}/webapps</filename>because doing so causes the
+      WebAppProvider to also deploy the same webapp, and confuses your
+      deployment.</listitem>
       <listitem>Finally, you can see how the jetty distribution itself does
-      this by examining ${jetty.home}/contexts/test.xml. Jetty loads the
-      ${jetty.home}/webapps/test.war via the ContextProvider's use of the
-      ${jetty.home}/contexts/test.xml into the / context path.</listitem>
+      this by examining 
+      <filename>${jetty.home}/contexts/test.xml</filename>. Jetty loads the 
+      <filename>${jetty.home}/webapps/test.war</filename>via the
+      ContextProvider's use of the 
+      <filename>${jetty.home}/contexts/test.xml</filename>into the / context
+      path.</listitem>
     </orderedlist>
   </section>
   <section>
@@ -83,9 +94,10 @@ xmlns:db="http://docbook.org/ns/docbook">
       </screen>
     </para>
     <para>That reveals that WebAppContext was Started on {/, (the root Context
-    Path) It was using the temp/work directory
-    file:/tmp/jetty-0.0.0.0-8080-test.war-_-any-/webapp/ It was using the web
-    application specified in
-    /home/joakim/code/jetty/distros/jetty-distribution-7.6.0.RC3/webapps/test.war.</para>
+    Path) It was using the temp/work directory file:
+    <filename>/tmp/jetty-0.0.0.0-8080-test.war-_-any-/webapp/</filename>. It
+    was using the web application specified in 
+    <filename>
+    /home/joakim/code/jetty/distros/jetty-distribution-7.6.0.RC3/webapps/test.war.</filename></para>
   </section>
 </section>

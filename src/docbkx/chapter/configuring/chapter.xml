@@ -11,9 +11,9 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml"
 xmlns:db="http://docbook.org/ns/docbook">
   <title>Configuration Options</title>
   <section>
-    <para>This chapter discusses version options available when configuring
-    jetty. Topics will range from creating custom error pages to embedding
-    jetty into your own application.</para>
+    <para>This chapter discusses various options available to configure jetty.
+    Topics range from creating custom error pages to embedding jetty into your
+    own application.</para>
   </section>
   <xi:include href="setting-context-path.xml" />
   <xi:include href="setting-context-path-to-root.xml" />

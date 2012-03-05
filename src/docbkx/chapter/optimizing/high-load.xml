@@ -26,10 +26,10 @@ xmlns:db="http://docbook.org/ns/docbook">
         <listitem>A common mistake is that load generators often open
         relatively few connections that are extremely busy sending as many
         requests as possible over each connection. This causes the measured
-        throughput to be limited by request latency (see 
+        throughput to be limited by request latency (see
         <link
         xl:href="http://blogs.webtide.com/gregw/entry/lies_damned_lies_and_benchmarks&quot;">Lies,
-        Damned Lies and Benchmarks</link>for an analysis of such an
+        Damned Lies and Benchmarks</link>&#160;for an analysis of such an
         issue).</listitem>
       </varlistentry>
       <varlistentry>
@@ -65,8 +65,8 @@ xmlns:db="http://docbook.org/ns/docbook">
       <title>Linux</title>
       <para>Linux does a reasonable job of self-configuring TCP/IP, but there
       are a few limits and defaults that you should increase. You can configure
-      most of them in 
-      <filename>/etc/security/limits.conf</filename>or via 
+      most of them in
+      <filename>/etc/security/limits.conf</filename>&#160;or via
       <code>sysctl</code>.</para>
       <section>
         <title>TCP Buffer Sizes</title>
@@ -85,7 +85,7 @@ $ sysctl -w net.ipv4.tcp_wmem="4096 16384 16777216"
       <section>
         <title>Queue Sizes</title>
         <para>
-        <code>net.core.somaxconn</code>controls the size of the connection
+        <code>net.core.somaxconn</code>&#160;controls the size of the connection
         listening queue. The default value is 128; if you are running a
         high-volume server and connections are getting refused at a TCP level,
         you need to increase this. This is a very tweakable setting in such a
@@ -97,8 +97,8 @@ $ sysctl -w net.ipv4.tcp_wmem="4096 16384 16777216"
  $ sysctl -w net.core.somaxconn=4096
  ]]>
         </screen>
-        <para>The 
-        <code>net.core.netdev_max_backlog</code>controls the size of the
+        <para>The
+        <code>net.core.netdev_max_backlog</code>&#160;controls the size of the
         incoming packet queue for upper-layer (java) processing. The default
         (2048) may be increased and other related parameters (TODO MORE
         EXPLANATION) adjusted with:</para>
@@ -127,7 +127,7 @@ $ sysctl -w net.ipv4.tcp_tw_recycle=1
             <title>File Descriptors</title>
             <para>Busy servers and load generators may run out of file
             descriptors as the system defaults are normally low. These can be
-            increased for a specific user in 
+            increased for a specific user in
             <filename>/etc/security/limits.conf</filename>:</para>
             <screen>
 <![CDATA[
@@ -171,7 +171,7 @@ $ sysctl -w net.ipv4.tcp_congestion_control=cubic
       <section>
         <title>JVM Tuning</title>
         <itemizedlist>
-          <listitem>Tune the 
+          <listitem>Tune the
           <link xl:href="garbage-collection.html#examples">Garbage
           Collection</link></listitem>
           <listitem>Allocate sufficient memory</listitem>

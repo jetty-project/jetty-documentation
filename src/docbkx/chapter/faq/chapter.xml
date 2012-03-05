@@ -10,5 +10,9 @@ xmlns:mth="http://www.w3.org/1998/Math/MathML"
 xmlns:xhtml="http://www.w3.org/1999/xhtml"
 xmlns:db="http://docbook.org/ns/docbook">
   <title>Frequently Asked Questions</title>
-<!--xi:include href="content.xml" /-->
+  <section>
+    <para>There are a number of frequently asked questions that we get. These
+    are many of them.</para>
+    <xi:include href="temporary-directories.xml" />
+  </section>
 </chapter>

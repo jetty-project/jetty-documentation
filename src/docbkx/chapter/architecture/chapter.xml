@@ -9,5 +9,8 @@ xmlns:mth="http://www.w3.org/1998/Math/MathML"
 xmlns:xhtml="http://www.w3.org/1999/xhtml"
 xmlns:db="http://docbook.org/ns/docbook">
   <title>Architecture</title>
-<!--xi:include href="content.xml" /-->
+  <section>
+    <para>TODO</para>
+  </section>
+  <xi:include href="basic-architecture.xml" />
 </chapter>

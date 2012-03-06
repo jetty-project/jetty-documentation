@@ -40,6 +40,12 @@ xmlns:db="http://docbook.org/ns/docbook">
     Jetty components are simply Plain Old Java Objects (POJOs), you can
     accomplish this assembly and configuration of components by a variety of
     techniques:</para>
+    <para>deeper 
+    <xref linkend="wh-deeplink" />
+    </para>
+    <para>deepest 
+    <xref linkend="wh-deepest" />
+    </para>
     <itemizedlist>
       <listitem>In code. See the examples in the Jetty 7 Latest Source
       XRef.</listitem>

@@ -17,5 +17,5 @@ xmlns:db="http://docbook.org/ns/docbook">
     ContextProvider, WebApp Provider, and Overlay Deployer.</para>
   </section>
   <xi:include href="using-context-provider.xml" />
-   <xi:include href="using-deployment-manager.xml" />
+  <xi:include href="using-deployment-manager.xml" />
 </chapter>

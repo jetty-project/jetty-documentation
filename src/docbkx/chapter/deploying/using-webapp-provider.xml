@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE section PUBLIC '-//OASIS//DTD DocBook XML V5.0//EN'
+'http://www.oasis-open.org/docbook/xml/5.0b5/dtd/docbook.dtd'>
+<section xml:id="using-webapp-provider" version="5.0"
+xmlns="http://docbook.org/ns/docbook" xmlns:xl="http://www.w3.org/1999/xlink"
+xmlns:xi="http://www.w3.org/2001/XInclude"
+xmlns:ns5="http://www.w3.org/2000/svg"
+xmlns:ns4="http://www.w3.org/1998/Math/MathML"
+xmlns:ns3="http://www.w3.org/1999/xhtml"
+xmlns:db="http://docbook.org/ns/docbook">
+  <title>Using the WebApp Provider</title>
+  <para>The 
+  <link
+  xl:href="@JDURL@index.html?org/eclipse/jetty/deploy/providers/WebAppProvider.html">
+    <code>WebApp Provider</code>
+  </link>is for static deployment of standard WAR files and webapps with little
+  or no Jetty-specific customization. For hot deployment of customized
+  contexts, use the 
+  <link
+  xl:href="@JDURL@index.html?org/eclipse/jetty/deploy/providers/ContextProvider.html">
+    <code>ContextProvider</code>
+  </link></para>
+  <para>The basic operation of the 
+  <code>WebAppProvider</code>is to scan a directory at startup for WAR files or
+  webapp directories and to deploy the web applications found. Typically this
+  is done from a 
+  <filename>jetty.xml</filename>style file; in the jetty distribution the name
+  of this file is 
+  <filename>jetty-webapps.xml</filename>:</para>
+  <informalexample>
+    <programlisting language="xml">
+<![CDATA[ 
+ <Configure id="Server" class="org.eclipse.jetty.server.Server">
+    <Ref id="DeploymentManager">
+          <Call id="webappprovider" name="addAppProvider">
+            <Arg>
+              <New class="org.eclipse.jetty.deploy.providers.WebAppProvider">
+                <Set name="monitoredDirName"><Property name="jetty.home" default="." />/webapps</Set>
+                <Set name="defaultsDescriptor"><Property name="jetty.home" default="."/>/etc/webdefault.xml</Set>
+                <Set name="scanInterval">1</Set>
+                <Set name="contextXmlDir"><Property name="jetty.home" default="." />/contexts</Set>
+                <Set name="extractWars">true</Set>
+              </New>
+            </Arg>
+          </Call>
+    </Ref>
+</Configure>
+]]>
+    </programlisting>
+  </informalexample>
+  <para>This works as follows:</para>
+  <itemizedlist>
+    <listitem>The 
+    <code>WebAppProvider</code>is added to the server as a 
+    <emphasis>LifeCycle</emphasis>. This simply means that the deployer starts
+    and stops with the server, that is, when 
+    <code>server.start()</code>is called, then 
+    <code>start</code>is also called on the deployer.</listitem>
+    <listitem>The 
+    <emphasis>context</emphasis>passed in is a reference to a 
+    <code>HandlerContainer</code>in which the discovered webapps are deployed.
+    This is normally an instance of 
+    <link
+    xl:href="@JDURL@index.html?org/eclipse/jetty/server/handler/ContextHandlerCollection.html">ContextHandlerCollection</link>.</listitem>
+    <listitem>The 
+    <code>contextXmlDir</code>points to a directory like the one the 
+    <code>ContextProvider</code>uses. When you use this option the 
+    <code>WebappProvider</code>checks any webapp or WAR files in the monitored
+    directory for an associated context file. If it finds one, it defers to the
+    
+    <code>ContextProvider</code>to deploy the webapp. If it does not find a
+    context file, the 
+    <code>WebAppProvider</code>deploys the webapp.</listitem>
+    <listitem>The 
+    <code>monitoredDirName</code>is a file path or URL to the directory to scan
+    for web applications. Zip files ending with 
+    <filename>.war</filename>or 
+    <filename>.zip</filename>are deployed. Directories not called CVS are also
+    deployed. The basename of the WAR (for example, 
+    <emphasis>foo</emphasis>from 
+    <filename>foo.war</filename>) or the directory name are used as the context
+    path of the discovered webapps, unless the name is 
+    <emphasis>root</emphasis>, in which case the context path of / is
+    used.</listitem>
+    <listitem>The 
+    <code>parentLoaderPriority</code>parameter is a boolean that selects
+    whether the standard Java parent first delegation
+    [[Jetty/Reference/Jetty_Classloading|classloading]] // TODO URLxref //is
+    used or the servlet specification webapp classloading priority.</listitem>
+    <listitem>If the 
+    <emphasis>extract</emphasis>parameter is true, any packed WAR or zip files
+    are first extracted to a [[Jetty/Reference/Temporary_Directories|temporary
+    directory]] //TODO xref// before being deployed. This is advisable if there
+    are uncompiled JSPs in the web apps.</listitem>
+    <listitem>If the 
+    <emphasis>allowDuplicates</emphasis>' parameter is false, the discovered
+    webapps are checked against existing deployed webapps and are not deployed
+    if the same context path or WAR file is already deployed (perhaps by
+    another deployer).</listitem>
+    <listitem>The 
+    <emphasis>defaultsDescriptor</emphasis>' parameter allows an alternative
+    webdefault.xml config file to be set on the discovered web applications.
+    The [[Jetty/Reference/webdefault.xml|webdefault.xml]] file controls the
+    configuration of the JSP and Default servlets.</listitem>
+  </itemizedlist>
+</section>

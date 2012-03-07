@@ -18,4 +18,6 @@ xmlns:db="http://docbook.org/ns/docbook">
   </section>
   <xi:include href="using-context-provider.xml" />
   <xi:include href="using-deployment-manager.xml" />
+  <xi:include href="using-webapp-provider.xml" />
+  <xi:include href="configuring-overlay-deployer" />
 </chapter>

@@ -11,12 +11,13 @@ xmlns:db="http://docbook.org/ns/docbook">
   <title>Using the DeploymentManager</title>
   <para>In order for Jetty to serve content (static or dynamic), you need to
   create a 
-  <link xl:href="@JDURL@/org/eclipse/jetty/server/handler/ContextHandler.html"> ContextHandler</link>and add it to Jetty in the appropriate place. A
+  <link xl:href="@JDURL@/org/eclipse/jetty/server/handler/ContextHandler.html">
+  ContextHandler</link>and add it to Jetty in the appropriate place. A
   pluggable DeploymentManager exists in Jetty 7 and later to make this process
   easier. The Jetty distribution contains example DeploymentManager
   configurations to deploy WAR files found in a directory to Jetty, and to
   deploy Jetty 
-  <filename>context.xml</filename> files into Jetty as well.</para>
+  <filename>context.xml</filename>files into Jetty as well.</para>
   <para>The DeploymentManager is the heart of the typical webapp deployment
   mechanism; it operates as a combination of an Application LifeCycle Graph,
   Application Providers that find and provide Applications into the Application
@@ -37,22 +38,22 @@ xmlns:db="http://docbook.org/ns/docbook">
     <title>Application Providers</title>
     <para>Before Jetty deploys an application, an 
     <link xl:href="@JDURL@/org/eclipse/jetty/deploy/AppProvider.html">
-    AppProvider</link> identifies the App and then provides it to the
+    AppProvider</link>identifies the App and then provides it to the
     DeploymentManager. Two AppProviders come with the Jetty
     distribution:</para>
     <itemizedlist>
       <listitem>
       <link
       xl:href="@JDURL@/org/eclipse/jetty/deploy/providers/WebAppProvider.html">
-      WebAppProvider</link> monitors a directory for 
-      <code>*.war</code> files and submits them to the Application LifeCycle
+      WebAppProvider</link>&#8211;monitors a directory for 
+      <code>*.war</code>files and submits them to the Application LifeCycle
       Graph for deployment into a context with the same name as the 
-      <code>*.war</code> file itself.</listitem>
+      <code>*.war</code>file itself.</listitem>
       <listitem>
       <link
-      xl:href="@JDURL@/org/eclipse/jetty/deploy/providers/ContextProvider.html">
-      ContextProvider</link> monitors a directory for 
-      <filename>*.xml</filename> files, and using the Jetty XML configurator
+      xl:href="@JDURL@/org/eclipse/jetty/deploy/providers/ContextProvider.html">ContextProvider</link>&#8211;monitors
+      a directory for 
+      <filename>*.xml</filename>files, and using the Jetty XML configurator
       creates a ContextHandler (usually a 
       <code>WebAppContext</code>) for the Application LifeCycle
       Graph.</listitem>
@@ -60,7 +61,7 @@ xmlns:db="http://docbook.org/ns/docbook">
     <para>Activating both at the same time is possible, but can be confusing
     because you must take care to either keep both systems deploying mutually
     exclusive webapps, or align naming conventions of 
-    <filename>context.xml</filename> style files with WAR and webapp
+    <filename>context.xml</filename>style files with WAR and webapp
     directories.</para>
   </section>
   <section xml:id="udm-application-lifecycle-graph">
@@ -99,10 +100,10 @@ xmlns:db="http://docbook.org/ns/docbook">
     </link>defines standard behavior, and handles deploying, starting,
     stopping, and undeploying applications. If you choose, you can write your
     own 
-    <code>AppLifeCycle.Bindings</code> and assign them to anywhere on the Application
-    LifeCycle graph.
+    <code>AppLifeCycle.Bindings</code>and assign them to anywhere on the
+    Application LifeCycle graph. 
     <para>Examples of new 
-    <code>AppLifeCycle.Binding</code> implementations that you can write
+    <code>AppLifeCycle.Binding</code>implementations that you can write
     include:</para>
     <itemizedlist>
       <listitem>Validating the incoming application.</listitem>
@@ -124,13 +125,13 @@ xmlns:db="http://docbook.org/ns/docbook">
       <listitem>
       <link
       xl:href="@JDURL@/org/eclipse/jetty/deploy/bindings/StandardStarter.html">
-      StandardStarter</link>&#8211;Sets the ContextHandler to started and
-      start accepting incoming requests.</listitem>
+      StandardStarter</link>&#8211;Sets the ContextHandler to started and start
+      accepting incoming requests.</listitem>
       <listitem>
       <link
       xl:href="@JDURL@/org/eclipse/jetty/deploy/bindings/StandardStopper.html">
-      StandardStopper</link>&#8211;Stops the ContextHandler and stop
-      accepting incoming requests.</listitem>
+      StandardStopper</link>&#8211;Stops the ContextHandler and stop accepting
+      incoming requests.</listitem>
       <listitem>
       <link
       xl:href="@JDURL@/org/eclipse/jetty/deploy/bindings/StandardUndeployer.html">StandardUndeployer</link>&#8211;Removes
@@ -150,6 +151,6 @@ xmlns:db="http://docbook.org/ns/docbook">
     <para>A fifth, non-standard binding, called 
     <emphasis>DebugBinding</emphasis>, is also available for debugging reasons;
     It logs the various transitions through the Application
-    LifeCycle.</para></codde></para>
+    LifeCycle.</para></para>
   </section>
 </section>

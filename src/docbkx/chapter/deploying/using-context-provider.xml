@@ -15,16 +15,16 @@ xmlns:db="http://docbook.org/ns/docbook">
   this capability.</para>
   <para>You can use the 
   <link
-  xl:href="http://dev.eclipse.org/viewcvs/viewvc.cgi/jetty/trunk/jetty-deploy/src/main/java/org/eclipse/jetty/deploy/providers/ContextProvider.java?root=RT_JETTY&amp;view=markup">
+  xl:href="@JDURL@index.html?org/eclipse/jetty/deploy/providers/ContextProvider.html">
     <code>ContextProvider</code>
   </link>to (hot) deploy an arbitrary context or web application with
   Jetty-specific configuration. To statically deploy only standard web
   applications at startup, use the 
   <code>WebAppProvider</code>//TODO xref//.</para>
-  <section>
+  <section xml:id="ucp-understanding-context-provider">
     <title>Understanding the ContextProvider</title>
     <para>A 
-    <filename>jetty.xml</filename>&gt; typically defines a 
+    <filename>jetty.xml</filename>file typically defines a 
     <code>ContextProvider</code>; within the stock jetty distribution the name
     of this file is 
     <filename>jetty-contexts.xml</filename>:</para>
@@ -69,8 +69,8 @@ xmlns:db="http://docbook.org/ns/docbook">
     </informalexample>
     <para>This example creates an instance of 
     <link
-    xl:href="http://dev.eclipse.org/viewcvs/viewvc.cgi/jetty/trunk/jetty-webapp/src/main/java/org/eclipse/jetty/webapp/WebAppContext.java?root=RT_JETTY&amp;view=markup">WebAppContext</link>and
-    sets the 
+    xl:href="@JDURL@index.html?org/eclipse/jetty/webapp/WebAppContext.html">
+    WebAppContext</link>and sets the 
     <code>contextPath</code>to 
     <code>/test</code>and the 
     <code>resourceBase</code>to 
@@ -85,7 +85,7 @@ xmlns:db="http://docbook.org/ns/docbook">
     <code>server.start()</code>is called, then 
     <code>start</code>is also called on the provider.</para>
   </section>
-  <section>
+  <section xml:id="ucp-substituting-property-value">
     <title>Substituting a Property Value</title>
     <para>The 
     <code>ContextProvider</code>can automatically do property substitution on
@@ -122,7 +122,7 @@ xmlns:db="http://docbook.org/ns/docbook">
       </programlisting>
     </informalexample>
     <para>Here's an example of the contents of the 
-    <tt>foo.properties</tt>file:</para>
+    <filename>foo.properties</filename>file:</para>
     <screen>foo = /funkyapp</screen>
     <para>Here's how you would use this in a context xml file:</para>
     <informalexample>
@@ -138,25 +138,25 @@ xmlns:db="http://docbook.org/ns/docbook">
       </programlisting>
     </informalexample>
   </section>
-  <section>
-    <title>Contexts</title>
+  <section xml:id="ucp-deploying-contexts">
+    <title>Deploying Contexts</title>
     <para>Because the class of the context is defined in the Configure clause,
     you can deploy any type of 
     <code>ContextHandler</code>with this mechanism, including base 
     <link
-    xl:href="http://dev.eclipse.org/viewcvs/viewvc.cgi/jetty/trunk/jetty-server/src/main/java/org/eclipse/jetty/server/handler/ContextHandler.java?root=RT_JETTY&amp;view=markup">
+    xl:href="@JDURL@index.html?org/eclipse/jetty/server/handler/ContextHandler.html">
       <code>ContextHandler</code>
-    </link>, 
+    </link>
     <link
-    xl:href="http://dev.eclipse.org/viewcvs/viewvc.cgi/jetty/trunk/jetty-servlet/src/main/java/org/eclipse/jetty/servlet/ServletContextHandler.java?root=RT_JETTY&amp;view=markup">
+    xl:href="@JDURL@index.html?org/eclipse/jetty/servlet/ServletContextHandler.html">
       <code>ServletContextHandler</code>
     </link>, 
     <link
-    xl:href="http://dev.eclipse.org/viewcvs/viewvc.cgi/jetty/trunk/jetty-webapp/src/main/java/org/eclipse/jetty/webapp/WebAppContext.java?root=RT_JETTY&amp;view=markup">
+    xl:href="@JDURL@index.html?org/eclipse/jetty/webapp/WebAppContext.html">
       <code>WebAppContext</code>
     </link>, or any class derived from them.</para>
   </section>
-  <section>
+  <section xml:id="ucp-using-hot-deploy">
     <title>Using Hot Deploy</title>
     <para>If the scan interval is non-zero, the 
     <code>ContextProvider</code>scans the configuration directory at that
@@ -164,55 +164,55 @@ xmlns:db="http://docbook.org/ns/docbook">
     a descriptor to the directory, it deploys the new context. If you touch or
     update a descriptor, the provider stops, reconfigures, and redeploys its
     context. If you remove a descriptor, the provider stops and removes its
-    context from the server. 
+    context from the server.</para>
     <para>If the scan interval is zero, the 
     <code>ContextProvider</code>scans the directory only at startup.</para>
-    <section>
-      <title>Configuring Other Things</title>
-      <para>This mechanism allows you to call most of the API available on 
-      <link
-      xl:href="http://dev.eclipse.org/viewcvs/index.cgi/jetty/trunk/jetty-server/src/main/java/org/eclipse/jetty/server/handler/ContextHandler.java?root=RT_JETTY&amp;view=markup">
-        <code>ContextHandler</code>
-      </link>or its derived classes to configure the web application. Useful
-      things to configure include:</para>
-      <itemizedlist>
-        <listitem>
-          <code>setAttribute 
-          <listitem>
-            <code>setClassLoader 
-            <listitem>
-              <code>setContextPath 
-              <listitem>
-                <code>setVirtualHosts 
-                <listitem>
-                  <code>addServlet 
-                  <listitem>
-                    <code>setConfigurations 
-                    <listitem>
-                      <code>setExtraClassPath 
-                      <listitem>
-                        <code>setDefaultsDescriptor 
-                        <listitem>
-                          <code>setDescriptor 
-                          <listitem>
-                            <code>setOverrideDescriptor 
-                            <listitem>
-                              <code>setSystemClasses 
-                              <listitem>
-                                <code>setServerClasses</code>
-                              </listitem></code>
-                            </listitem></code>
-                          </listitem></code>
-                        </listitem></code>
-                      </listitem></code>
-                    </listitem></code>
-                  </listitem></code>
-                </listitem></code>
-              </listitem></code>
-            </listitem></code>
-          </listitem></code>
-        </listitem>
-      </itemizedlist>
-    </section></para>
+  </section>
+  <section>
+    <title>Configuring Other Things</title>
+    <para>This mechanism allows you to call most of the API available on 
+    <link
+    xl:href="@JDURL@index.html?org/eclipse/jetty/server/handler/ContextHandler.html">
+      <code>ContextHandler</code>
+    </link>or its derived classes to configure the web application. Useful
+    things to configure include:</para>
+    <itemizedlist>
+      <listitem>
+        <code>setAttribute</code>
+      </listitem>
+      <listitem>
+        <code>setClassLoader</code>
+      </listitem>
+      <listitem>
+        <code>setContextPath</code>
+      </listitem>
+      <listitem>
+        <code>setVirtualHosts</code>
+      </listitem>
+      <listitem>
+        <code>addServlet</code>
+      </listitem>
+      <listitem>
+        <code>setConfigurations</code>
+      </listitem>
+      <listitem>
+        <code>setExtraClassPath</code>
+      </listitem>
+      <listitem>
+        <code>setDefaultsDescriptor</code>
+      </listitem>
+      <listitem>
+        <code>setDescriptor</code>
+      </listitem>
+      <listitem>
+        <code>setOverrideDescriptor</code>
+      </listitem>
+      <listitem>
+        <code>setSystemClasses</code>
+      </listitem>
+      <listitem>
+        <code>setServerClasses</code>
+      </listitem>
+    </itemizedlist>
   </section>
 </section>

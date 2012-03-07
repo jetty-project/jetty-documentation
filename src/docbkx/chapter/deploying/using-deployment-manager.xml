@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE section PUBLIC '-//OASIS//DTD DocBook XML V5.0//EN'
-'http://www.oasis-open.org/docbook/xml/5.0b5/dtd/docbook.dtd'>
 <section xml:id="using-deployment-manager" version="5.0"
-xmlns="http://docbook.org/ns/docbook" xmlns:xl="http://www.w3.org/1999/xlink"
+xmlns="http://docbook.org/ns/docbook"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:xl="http://www.w3.org/1999/xlink"
 xmlns:xi="http://www.w3.org/2001/XInclude"
-xmlns:ns5="http://www.w3.org/2000/svg"
-xmlns:ns4="http://www.w3.org/1998/Math/MathML"
-xmlns:ns3="http://www.w3.org/1999/xhtml"
-xmlns:db="http://docbook.org/ns/docbook">
-  <title>Using the DeploymentManager</title>
+xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd">
+  <title>Using the Deployment Manager</title>
   <para>In order for Jetty to serve content (static or dynamic), you need to
   create a 
   <link xl:href="@JDURL@/org/eclipse/jetty/server/handler/ContextHandler.html">
@@ -45,13 +42,21 @@ xmlns:db="http://docbook.org/ns/docbook">
       <listitem>
       <link
       xl:href="@JDURL@/org/eclipse/jetty/deploy/providers/WebAppProvider.html">
+<<<<<<< HEAD
       WebAppProvider</link>&#8211;monitors a directory for 
+=======
+      WebAppProvider</link>monitors a directory for 
+>>>>>>> 7518b91f4906eb47957fd52386a2c24688a93ec7
       <code>*.war</code>files and submits them to the Application LifeCycle
       Graph for deployment into a context with the same name as the 
       <code>*.war</code>file itself.</listitem>
       <listitem>
       <link
+<<<<<<< HEAD
       xl:href="@JDURL@/org/eclipse/jetty/deploy/providers/ContextProvider.html">ContextProvider</link>&#8211;monitors
+=======
+      xl:href="@JDURL@/org/eclipse/jetty/deploy/providers/ContextProvider.html">ContextProvider</link>monitors
+>>>>>>> 7518b91f4906eb47957fd52386a2c24688a93ec7
       a directory for 
       <filename>*.xml</filename>files, and using the Jetty XML configurator
       creates a ContextHandler (usually a 

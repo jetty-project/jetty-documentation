@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE section PUBLIC '-//OASIS//DTD DocBook XML V5.0//EN'
-'http://www.oasis-open.org/docbook/xml/5.0b5/dtd/docbook.dtd'>
 <section xml:id="using-context-provider" version="5.0"
-xmlns="http://docbook.org/ns/docbook" xmlns:xl="http://www.w3.org/1999/xlink"
+xmlns="http://docbook.org/ns/docbook"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:xl="http://www.w3.org/1999/xlink"
 xmlns:xi="http://www.w3.org/2001/XInclude"
-xmlns:ns5="http://www.w3.org/2000/svg"
-xmlns:ns4="http://www.w3.org/1998/Math/MathML"
-xmlns:ns3="http://www.w3.org/1999/xhtml"
-xmlns:db="http://docbook.org/ns/docbook">
+xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd">
   <title>Using the Context Provider</title>
   <para>Jetty provides capability to deploy an arbitrary context or web
   application with Jetty-specific configuration. The ContextProvider mechanism,
@@ -30,7 +27,7 @@ xmlns:db="http://docbook.org/ns/docbook">
     <filename>jetty-contexts.xml</filename>:</para>
     <informalexample>
       <programlisting language="xml">
-<![CDATA[ 
+<![CDATA[
  <Configure id="Server" class="org.eclipse.jetty.server.Server">
         <Ref id="DeploymentManager">
           <Call name="addAppProvider">
@@ -57,7 +54,7 @@ xmlns:db="http://docbook.org/ns/docbook">
     and configure individual contexts. A minimal example is:</para>
     <informalexample>
       <programlisting language="xml">
-<![CDATA[ 
+<![CDATA[
  <?xml version="1.0"  encoding="ISO-8859-1"?>
  <!DOCTYPE Configure PUBLIC "-//Mort Bay Consulting//DTD Configure//EN" "http://jetty.mortbay.org/configure.dtd">
  <Configure class="org.eclipse.jetty.webapp.WebAppContext">
@@ -100,7 +97,7 @@ xmlns:db="http://docbook.org/ns/docbook">
     <code>ContextProvider</code>:</para>
     <informalexample>
       <programlisting language="xml">
-<![CDATA[ 
+<![CDATA[
  <Configure id="Server" class="org.eclipse.jetty.server.Server">
         <Ref id="DeploymentManager">
           <Call name="addAppProvider">
@@ -127,7 +124,7 @@ xmlns:db="http://docbook.org/ns/docbook">
     <para>Here's how you would use this in a context xml file:</para>
     <informalexample>
       <programlisting language="xml">
-<![CDATA[ 
+<![CDATA[
  <?xml version="1.0"  encoding="ISO-8859-1"?>
  <!DOCTYPE Configure PUBLIC "-//Mort Bay Consulting//DTD Configure//EN" "http://jetty.mortbay.org/configure.dtd">
  <Configure class="org.mortbay.jetty.webapp.WebAppContext">

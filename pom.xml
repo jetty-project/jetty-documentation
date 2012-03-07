@@ -79,7 +79,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
               </preProcess>
             </configuration>
           </execution>
-<!--execution>
+          <execution>
             <id>pdf</id>
             <phase>compile</phase>
             <goals>
@@ -88,7 +88,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
             <configuration>
               <includes>jetty.xml</includes>
             </configuration>
-          </execution-->
+          </execution>
         </executions>
         <configuration>
 <!-- shared configuration -->
@@ -125,14 +125,6 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
             <groupId>net.sf.offo</groupId>
             <artifactId>fop-hyph</artifactId>
             <version>1.2</version>
-            <scope>runtime</scope>
-          </dependency>
-          <dependency>
-            <groupId>net.sf.docbook</groupId>
-            <artifactId>docbook-xml</artifactId>
-            <version>5.0-all</version>
-            <classifier>resources</classifier>
-            <type>zip</type>
             <scope>runtime</scope>
           </dependency>
         </dependencies>

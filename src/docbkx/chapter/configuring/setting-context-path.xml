@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE section PUBLIC '-//OASIS//DTD DocBook XML V5.0//EN'
-'http://www.oasis-open.org/docbook/xml/5.0b5/dtd/docbook.dtd'>
 <section xml:id="setting-context-path" version="5.0"
-xmlns="http://docbook.org/ns/docbook" xmlns:xl="http://www.w3.org/1999/xlink"
+xmlns="http://docbook.org/ns/docbook"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:xl="http://www.w3.org/1999/xlink"
 xmlns:xi="http://www.w3.org/2001/XInclude"
-xmlns:ns5="http://www.w3.org/2000/svg"
-xmlns:ns4="http://www.w3.org/1998/Math/MathML"
-xmlns:ns3="http://www.w3.org/1999/xhtml"
-xmlns:db="http://docbook.org/ns/docbook">
+xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd">
   <title>Setting a Context Path</title>
   <para>The context path is the prefix of a URL path that Jetty uses to select
   the web application to which it routes an incoming request. Typically a URL

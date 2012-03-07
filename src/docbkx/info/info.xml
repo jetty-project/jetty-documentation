@@ -37,4 +37,15 @@ xmlns:db="http://docbook.org/ns/docbook">
     <year>2012</year>
     <holder>Intalio, Inc.</holder>
   </copyright>
+   <keywordset>
+      <keyword>jetty</keyword>
+      <keyword>servlet-api</keyword>
+      <keyword>cometd</keyword>
+      <keyword>http</keyword>
+      <keyword>spdy</keyword>
+      <keyword>eclipse</keyword>
+      <keyword>maven</keyword>
+      <keyword>java</keyword>
+      <keyword>software</keyword>
+    </keywordset>
 </info>

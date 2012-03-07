@@ -300,7 +300,7 @@ mv jtrac/jtrac.war $JETTY_HOME/overlays/webapps
         http://127.0.0.3:8080. The default username/password for JTrac is
         admin/admin.</para>
         <section>
-          <title>Things to Know and Notice
+          <title>Things to Know and Notice 
           <title>
             <para>The following stands out:,/para&gt; 
             <itemizedlist>

@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE book PUBLIC '-//OASIS//DTD DocBook XML V5.0//EN'
-'http://www.oasis-open.org/docbook/xml/5.0b5/dtd/docbook.dtd'
->
 <book version="5.0" xmlns="http://docbook.org/ns/docbook"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xmlns:xl="http://www.w3.org/1999/xlink"
 xmlns:xi="http://www.w3.org/2001/XInclude"
-xmlns:db="http://docbook.org/ns/docbook">
+xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd">
   <xi:include href="info/info.xml" />
   <xi:include href="chapter/introduction/chapter.xml" />
   <xi:include href="chapter/getting-started/chapter.xml" />

@@ -52,9 +52,9 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
   </section>
   <section>
     <title>Overlays</title>
-    <para>To solve the problems highlighted above, Jetty 7.4 introduces WAR
+    <para>To solve the problems highlighted above, Jetty 7.4 and later have WAR
     overlays (a concept borrowed from the Maven WAR plugin). An overlay is
-    basically just another WAR file, whose contents merge on top of the
+    basically just another WAR file; its contents merge on top of the
     original WAR so that you can add or replace files. Jetty overlays also
     allow you to mix in fragments of 
     <filename>web.xml</filename>, which means you can modify the configuration
@@ -263,7 +263,9 @@ mv jtrac/jtrac.war $JETTY_HOME/overlays/webapps
         <title>Installing an Instance Overlay</title>
         <para>Now that you have installed a template, you can install one or
         more instance overlays to deploy the actual web applications:</para>
-        <screen>mv /tmp/overlays/instances/jtracTemplate\=blue
+        <screen>
+<![CDATA[
+        >mv /tmp/overlays/instances/jtracTemplate\=blue
         $JETTY_HOME/overlays/instances/ mv
         /tmp/overlays/instances/jtracTemplate\=red
         $JETTY_HOME/overlays/instances/ mv
@@ -279,7 +281,9 @@ mv jtrac/jtrac.war $JETTY_HOME/overlays/webapps
         &#8218;&#238;&#250;&#8218;&#238;&#196;&#8218;&#238;&#196; favicon.ico
         &#8218;&#238;&#238;&#8218;&#238;&#196;&#8218;&#238;&#196; resources
         &#8218;&#238;&#238;&#8218;&#238;&#196;&#8218;&#238;&#196;
-        jtrac.css</screen>
+        jtrac.css
+        ]]>
+    </screen>
         <itemizedlist>
           <listitem>WEB-INF/overlay.xml&#8211;a Jetty XML format IoC file that
           injects/configures the context for the instance. In this case it sets

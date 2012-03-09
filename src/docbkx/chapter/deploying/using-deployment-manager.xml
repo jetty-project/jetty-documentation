@@ -42,20 +42,14 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
       <listitem>
       <link
       xl:href="@JDURL@/org/eclipse/jetty/deploy/providers/WebAppProvider.html">
-      &lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD WebAppProvider</link>&#8211;monitors a
-      directory for ======= WebAppProvidermonitors a directory for
-      &gt;&gt;&gt;&gt;&gt;&gt;&gt; 7518b91f4906eb47957fd52386a2c24688a93ec7 
+      WebAppProvider</link>&#8211;monitors a
+      directory for WebAppProvider 
       <code>*.war</code>files and submits them to the Application LifeCycle
       Graph for deployment into a context with the same name as the 
       <code>*.war</code>file itself.</listitem>
       <listitem>
-      <link>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
-      xl:href="@JDURL@/org/eclipse/jetty/deploy/providers/ContextProvider.html"&gt;ContextProvider</link>&#8211;monitors
-      =======
-      xl:href="@JDURL@/org/eclipse/jetty/deploy/providers/ContextProvider.html"&gt;ContextProvidermonitors
-      &gt;&gt;&gt;&gt;&gt;&gt;&gt; 7518b91f4906eb47957fd52386a2c24688a93ec7 a
-      directory for 
-      <filename>*.xml</filename>files, and using the Jetty XML configurator
+      <link xl:href="@JDURL@/org/eclipse/jetty/deploy/providers/ContextProvider.html" ContextProvider</link>&#8211;monitors
+   a directory for <filename>*.xml</filename>files, and using the Jetty XML configurator
       creates a ContextHandler (usually a 
       <code>WebAppContext</code>) for the Application LifeCycle
       Graph.</listitem>
@@ -88,8 +82,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     example, any complex requirements for added workflow, approvals, staging,
     distribution, coordinated deploys for a cluster or cloud, etc.).</para>
     <para>New applications enter this graph at the Undeployed node, and the 
-    <link
-    xl:href="@JDURL@/org/eclipse/jetty/deploy/DeploymentManager.html#requestAppGoal(org.eclipse.jetty.deploy.App,">
+    <link    xl:href="@JDURL@/org/eclipse/jetty/deploy/DeploymentManager.html#requestAppGoal(org.eclipse.jetty.deploy.App,">
       <code>java.lang.String
       DeploymentManager.requestAppGoal(App,String)</code>
     </link>method pushes them through the graph.</para>

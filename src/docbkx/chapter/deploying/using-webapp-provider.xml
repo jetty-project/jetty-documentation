@@ -15,8 +15,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
   contexts, use the 
   <link
   xl:href="@JDURL@index.html?org/eclipse/jetty/deploy/providers/ContextProvider.html">
-    <code>ContextProvider</code>
-  </link></para>
+  <code>ContextProvider</code>.</link></para>
   <para>The basic operation of the 
   <code>WebAppProvider</code>is to scan a directory at startup for WAR files or
   webapp directories and to deploy the web applications found. Typically this
@@ -51,7 +50,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     <code>WebAppProvider</code>is added to the server as a 
     <emphasis>LifeCycle</emphasis>. This simply means that the deployer starts
     and stops with the server, that is, when 
-    <code>server.start()</code>is called, then 
+    <code>server.start()</code>is called, 
     <code>start</code>is also called on the deployer.</listitem>
     <listitem>The 
     <emphasis>context</emphasis>passed in is a reference to a 
@@ -82,7 +81,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     <listitem>The 
     <code>parentLoaderPriority</code>parameter is a boolean that selects
     whether the standard Java parent first delegation
-    [[Jetty/Reference/Jetty_Classloading|classloading]] // TODO URLxref //is
+    [[Jetty/Reference/Jetty_Classloading|classloading]] // TODO URL xref //is
     used or the servlet specification webapp classloading priority.</listitem>
     <listitem>If the 
     <emphasis>extract</emphasis>parameter is true, any packed WAR or zip files
@@ -90,14 +89,16 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     directory]] //TODO xref// before being deployed. This is advisable if there
     are uncompiled JSPs in the web apps.</listitem>
     <listitem>If the 
-    <emphasis>allowDuplicates</emphasis>' parameter is false, the discovered
+    <emphasis>allowDuplicates</emphasis>parameter is false, the discovered
     webapps are checked against existing deployed webapps and are not deployed
     if the same context path or WAR file is already deployed (perhaps by
     another deployer).</listitem>
     <listitem>The 
-    <emphasis>defaultsDescriptor</emphasis>' parameter allows an alternative
-    webdefault.xml config file to be set on the discovered web applications.
-    The [[Jetty/Reference/webdefault.xml|webdefault.xml]] file controls the
-    configuration of the JSP and Default servlets.</listitem>
+    <emphasis>defaultsDescriptor</emphasis>parameter allows you to set an
+    alternative 
+    <filename>webdefault.xml</filename>config file on the discovered web
+    applications. The 
+    <code>webdefault.xml</code>//TODO Xref// file controls the configuration of
+    the JSP and Default servlets.</listitem>
   </itemizedlist>
 </section>

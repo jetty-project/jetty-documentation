@@ -27,7 +27,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
   <para>This tutorial describes how to configure Jetty to use the Overlay
   deployer, and how to deploy multiple instances of a web application, using
   the JTrac application in the example.</para>
-  <section>
+  <section xml:id="overview">
     <title>Overview</title>
     <para>Customising, configuring, and deploying a web application bundled as
     a WAR file frequently includes some or all of these steps:</para>
@@ -50,7 +50,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     error-prone task to identify all the changes that you have made, and to
     reapply them to a new version.</para>
   </section>
-  <section>
+  <section xml:id="using-overlays">
     <title>Using Overlays</title>
     <para>To solve the problems highlighted above, Jetty 7.4 and later have WAR
     overlays (a concept borrowed from the Maven WAR plugin). An overlay is
@@ -60,7 +60,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     <filename>web.xml</filename>, which means you can modify the configuration
     without replacing it.</para>
   </section>
-  <section>
+  <section xml:id="jtrac-overlay-example">
     <title>JTrac Overlay Example</title>
     <para>The JTrac issue tracking web application is a good example of a
     typical web application, as it uses the usual suspects of libs: spring,
@@ -80,7 +80,7 @@ export OVERLAYS=/tmp/overlays
       </programlisting>
     </informalexample>
   </section>
-  <section>
+  <section xml:id="configuring-jetty-for-overlays">
     <title>Configuring Jetty for Overlays</title>
     <para>Overlays support is included in jetty distributions from
     7.4.1-SNAPSHOT onwards, so you can download a distribution from
@@ -116,7 +116,7 @@ java -jar start.jar
     <code>JETTY_HOME</code>environment set to the jetty distribution
     directory.</important>
   </section>
-  <section>
+  <section xml:id="installing-webapp">
     <title>Installing the WebApp</title>
     <para>You can download and deploy the WAR file for this demo using the
     following commands, which essentially download and extract the WAR file to
@@ -149,7 +149,7 @@ jar:file:/tmp/jetty-distribution-7.4.1-SNAPSHOT/overlays/webapps/jtrac-2.1.0.war
     application. It simply makes it available to use as the basis for templates
     and overlays.</para>
   </section>
-  <section>
+  <section xml:id="installing-template-overlay">
     <title>Installing a Template Overlay</title>
     <para>A template overlay is a WAR structured directory/archive that
     contains just the files that you have added or modified to
@@ -265,7 +265,7 @@ jar:file:/tmp/jetty-distribution-7.4.1-SNAPSHOT/overlays/webapps/jtrac-2.1.0.war
     structure; moreover it allows you to parameterise some of the
     configuration, which facilitates easy multi-tenant deployment.</para>
   </section>
-  <section>
+  <section xml:id="installing-instance-overlay">
     <title>Installing an Instance Overlay</title>
     <para>Now that you have installed a template, you can install one or more
     instance overlays to deploy the actual web applications:</para>
@@ -324,7 +324,7 @@ instances/jtracTemplate=red/
     http://127.0.0.1:8080, http://127.0.0.2:8080 and http://127.0.0.3:8080. The
     default username/password for JTrac is admin/admin.</para>
   </section>
-  <section>
+  <section xml:id="things-to-know-and-notice">
     <title>Things to Know and Notice</title>
     <para>Notice the following:</para>
     <itemizedlist>

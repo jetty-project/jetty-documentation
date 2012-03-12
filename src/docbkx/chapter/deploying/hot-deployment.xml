@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<section xml:id="hot-deployment" version="5.0"
+xmlns="http://docbook.org/ns/docbook"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:xl="http://www.w3.org/1999/xlink"
+xmlns:xi="http://www.w3.org/2001/XInclude"
+xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd">
+  <title>Hot Deployment</title>
+  <para>Jetty lets you deploy an arbitrary context or web application by
+  monitoring a directory for changes. If you add a web application or a context
+  descriptor to the directory, Jetty's DeploymentManager (DM) deploys a new
+  context. If you touch or update a context descriptor, the DM stops,
+  reconfigures, and redeploys its context. If you remove a context, the DM
+  stops it and removes it from the server.</para>
+  <para>The DeploymentManager is a state-oriented mechanism suitable for
+  developers and embedded users to customize to a variety of use cases. An
+  example follows of the 
+  <filename>jetty.xml</filename>that creates the basic DeploymentManager, which
+  Jetty then uses to plug in the ContextProvider and the WebAppProvider that
+  back the Hot Deployment mechanism. This example also provides information
+  about adding another node to the deployment state, in this case a debug
+  binding. In the Jetty distribution this XML is in the 
+  <filename>jetty-deploy.xml</filename>file, which combined with the 
+  <filename>jetty-contexts.xml</filename>and 
+  <filename>jetty-webapps.xml</filename>files comprise the stock Jetty hot
+  deployment mechanism.</para>
+  <informalexample>
+    <programlisting language="xml">
+<![CDATA[
+<Configure id="Server" class="org.eclipse.jetty.server.Server">
+
+    <Call name="addBean">
+      <Arg>
+        <New id="DeploymentManager" class="org.eclipse.jetty.deploy.DeploymentManager">
+          <Set name="contexts">
+            <Ref id="Contexts" />
+          </Set>
+          <Call name="setContextAttribute">
+            <Arg>org.eclipse.jetty.server.webapp.ContainerIncludeJarPattern</Arg>
+            <Arg>.*/jsp-api-[^/]*\.jar$|.*/jsp-[^/]*\.jar$</Arg>
+          </Call>
+          
+          
+          <!-- Add a customize step to the deployment lifecycle -->
+          <!-- uncomment and replace DebugBinding with your extended AppLifeCycle.Binding class 
+          <Call name="insertLifeCycleNode">
+            <Arg>deployed</Arg>
+            <Arg>starting</Arg>
+            <Arg>customise</Arg>
+          </Call>
+          <Call name="addLifeCycleBinding">
+            <Arg>
+              <New class="org.eclipse.jetty.deploy.bindings.DebugBinding">
+                <Arg>customise</Arg>
+              </New>
+            </Arg>
+          </Call>
+          -->
+          
+        </New>
+      </Arg>
+    </Call>
+</Configure>
+]]>
+    </programlisting>
+  </informalexample>
+  <para>See the xref linkend="using-context-provider" for more information.
+  Previously, Jetty implemented this feature via a ContextDeployer and
+  WebappDeployer, which have both been deprecated.</para>
+  <para>See also the xref linkend= "using-deployment-manager" for detailed
+  conceptual information.</para>
+</section>

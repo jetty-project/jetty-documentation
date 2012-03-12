@@ -8,7 +8,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
   <title>Configuring the Jetty Overlay Deployer</title>
   <para>The Jetty Overlay Deployer allows you to overlay multiple WAR files so
   that you can customise, configure, and deploy a web application without
-  unpacking, modifying and repacking the WAR file. This has the following
+  unpacking, modifying, and repacking the WAR file. It offers the following
   benefits:</para>
   <itemizedlist>
     <listitem>You can keep the WAR file immutable, even signed, so that it is
@@ -23,14 +23,14 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     instance specific components, Jetty is able to share classloaders and
     static resource caches for the template, greatly reducing the memory
     footprint of multiple instances.</listitem>
-    <listitem>This tutorial describes how to configure Jetty to use the Overlay
-    deployer, and how to deploy multiple instances of a web application, using
-    the JTrac application in the example.</listitem>
   </itemizedlist>
+  <para>This tutorial describes how to configure Jetty to use the Overlay
+  deployer, and how to deploy multiple instances of a web application, using
+  the JTrac application in the example.</para>
   <section>
     <title>Overview</title>
-    <para>Customising, configuring and deploying a web application bundled as a
-    WAR file frequently includes some or all of these steps:</para>
+    <para>Customising, configuring, and deploying a web application bundled as
+    a WAR file frequently includes some or all of these steps:</para>
     <itemizedlist>
       <listitem>Editing the WEB-INF/web.xml file to set init parameters, add
       filters/servlets or to configure JNDI resources.</listitem>
@@ -46,17 +46,17 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     </itemizedlist>
     <para>The result is that the customisations and configurations blend into
     both the container and the WAR file. If you upgrade either the container or
-    the base WAR file to a new version, it can be a very difficult and error
-    prone task to identify all the changes that you have made, and to reapply
-    them to a new version.</para>
+    the base WAR file to a new version, it can be a very difficult and
+    error-prone task to identify all the changes that you have made, and to
+    reapply them to a new version.</para>
   </section>
   <section>
-    <title>Overlays</title>
+    <title>Using Overlays</title>
     <para>To solve the problems highlighted above, Jetty 7.4 and later have WAR
     overlays (a concept borrowed from the Maven WAR plugin). An overlay is
-    basically just another WAR file; its contents merge on top of the
-    original WAR so that you can add or replace files. Jetty overlays also
-    allow you to mix in fragments of 
+    basically just another WAR file; its contents merge on top of the original
+    WAR so that you can add or replace files. Jetty overlays also allow you to
+    mix in fragments of 
     <filename>web.xml</filename>, which means you can modify the configuration
     without replacing it.</para>
   </section>
@@ -98,7 +98,8 @@ etc/jetty-overlay.xml
 ]]>
       </programlisting>
     </informalexample>
-    <para>The smarts of this are in etc/jetty-deploy.xml, which installs the
+    <para>The smarts of this are in 
+    <filename>etc/jetty-deploy.xml</filename>, which installs the
     OverlayedAppProvider into the DeploymentManager. You can then start Jetty
     normally:</para>
     <informalexample>
@@ -115,35 +116,39 @@ java -jar start.jar
     <code>JETTY_HOME</code>environment set to the jetty distribution
     directory.</important>
   </section>
-  <title>Installing the WebApp</title>
-  <para>You can download and deploy the WAR file for this demo using the
-  following commands, which essentially downloads and extracts the WAR file to
-  the $JETTY_HOME/overlays/webapps directory.</para>
-  <informalexample>
-    <programlisting language="bash">
+  <section>
+    <title>Installing the WebApp</title>
+    <para>You can download and deploy the WAR file for this demo using the
+    following commands, which essentially download and extract the WAR file to
+    the 
+    <filename>$JETTY_HOME/overlays/webapps</filename>directory.</para>
+    <informalexample>
+      <programlisting language="bash">
 <![CDATA[
 cd /tmp
 wget -O jtrac.zip http://sourceforge.net/projects/j-trac/files/jtrac/2.1.0/jtrac-2.1.0.zip/download
 jar xfv jtrac.zip jtrac/jtrac.war
 mv jtrac/jtrac.war $JETTY_HOME/overlays/webapps
 ]]>
-    </programlisting>
-  </informalexample>
-  <para>When you have run these commands (or equivalent), you see in the Jetty
-  server window a message saying that the OverlayedAppProvider has extracted
-  and loaded the WAR file:</para>
-  <screen>
+      </programlisting>
+    </informalexample>
+    <para>When you have run these commands (or equivalent), you see in the
+    Jetty server window a message saying that the OverlayedAppProvider has
+    extracted and loaded the WAR file:</para>
+    <screen>
 <![CDATA[
   2011-05-06 10:31:54.678:INFO:OverlayedAppProvider:Extract
-  jar:file:/tmp/jetty-distribution-7.4.1-SNAPSHOT/overlays/webapps/jtrac-2.1.0.war!/
-  to /tmp/jtrac-2.1.0_236811420856825222.extract 2011-05-06
-  10:31:55.235:INFO:OverlayedAppProvider:loaded
+jar:file:/tmp/jetty-distribution-7.4.1-SNAPSHOT/overlays/webapps/jtrac-2.1.0.war!/ to /tmp/jtrac-2.1.0_236811420856825222.extract 
+  2011-05-06 10:31:55.235:INFO:OverlayedAppProvider:loaded
   jtrac-2.1.0@1304641914666
   ]]>
-  </screen>
-  <para>Unlike the normal webapps dir, loading a WAR file from the
-  overlays/webapp dir does not deploy the web application. It simply makes it
-  available to use as the basis for templates and overlays.</para>
+    </screen>
+    <para>Unlike the normal 
+    <filename>webapps</filename>dir, loading a WAR file from the 
+    <filename>overlays/webapp</filename>dir does not deploy the web
+    application. It simply makes it available to use as the basis for templates
+    and overlays.</para>
+  </section>
   <section>
     <title>Installing a Template Overlay</title>
     <para>A template overlay is a WAR structured directory/archive that
@@ -154,8 +159,7 @@ mv jtrac/jtrac.war $JETTY_HOME/overlays/webapps
     command:</para>
     <screen>
 <![CDATA[
-  mv $OVERLAYS/jtracTemplate\=jtrac-2.1.0
-  $JETTY_HOME/overlays/templates/
+  mv $OVERLAYS/jtracTemplate\=jtrac-2.1.0 $JETTY_HOME/overlays/templates/
   ]]>
     </screen>
     <para>In the Jetty server window, you should see the template loaded with a
@@ -223,11 +227,13 @@ mv jtrac/jtrac.war $JETTY_HOME/overlays/webapps
         </programlisting>
       </informalexample>
       <listitem>WEB-INF/web-overlay.xml&#8211;a web.xml fragment that Jetty
-      overlays on top of the web.xml from the base WAR file; it can set init
+      overlays on top of the 
+      <filename>web.xml</filename>from the base WAR file; it can set init
       parameters and add/modify filters and servlets. In this example it sets
       the application home and springs rootKey:</listitem>
-      <informalexample>
-        <programlisting language="xml">
+    </itemizedlist>
+    <informalexample>
+      <programlisting language="xml">
 <![CDATA[
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns="http://java.sun.com/xml/ns/j2ee"
@@ -245,36 +251,40 @@ mv jtrac/jtrac.war $JETTY_HOME/overlays/webapps
   <filter>
 </web-app>
 ]]>
-        </programlisting>
-      </informalexample>
-      <para>Notice the parameterisation of values such as
-      ${overlays.instance.classifier}, as this allows the configuration to be
-      in the template, and not customised for each instance.</para>
-      <para>Without the Overlay Deployer, you would still need to have
-      configured all of the above, but rather than being in a single clear
-      structure the configuration elements would have been either in the
-      server's common directory, the server's webdefaults.xml (aka server.xml),
-      or baked into the WAR file of each application instance using
-      copied/modified files from the original. The Overlay Deployer allows you
-      to make all these changes in one structure; moreover it allows you to
-      parameterise some of the configuration, which facilitates easy
-      multi-tenant deployment.</para>
-      <section>
-        <title>Installing an Instance Overlay</title>
-        <para>Now that you have installed a template, you can install one or
-        more instance overlays to deploy the actual web applications:</para>
-        <screen>
+      </programlisting>
+    </informalexample>
+    <para>Notice the parameterisation of values such as
+    ${overlays.instance.classifier}, as this allows the configuration to be in
+    the template, and not customised for each instance.</para>
+    <para>Without the Overlay Deployer, you would still need to have configured
+    all of the above, but rather than being in a single clear structure the
+    configuration elements would have been either in the server's common
+    directory, the server's webdefaults.xml (aka server.xml), or baked into the
+    WAR file of each application instance using copied/modified files from the
+    original. The Overlay Deployer allows you to make all these changes in one
+    structure; moreover it allows you to parameterise some of the
+    configuration, which facilitates easy multi-tenant deployment.</para>
+  </section>
+  <section>
+    <title>Installing an Instance Overlay</title>
+    <para>Now that you have installed a template, you can install one or more
+    instance overlays to deploy the actual web applications:</para>
+    <screen>
 <![CDATA[
         >mv /tmp/overlays/instances/jtracTemplate\=blue
         $JETTY_HOME/overlays/instances/ mv
         /tmp/overlays/instances/jtracTemplate\=red
         $JETTY_HOME/overlays/instances/ mv
         /tmp/overlays/instances/jtracTemplate\=blue
-        $JETTY_HOME/overlays/instances/</screen>
-        <para>As each instance moves into place, you see the Jetty server
-        window react and deploy that instance. Within each instance, there is
-        the structure:</para>
-        <screen>instances/jtracTemplate=red/
+        $JETTY_HOME/overlays/instances/
+        ]]>
+    </screen>
+    <para>As each instance moves into place, you see the Jetty server window
+    react and deploy that instance. Within each instance, there is the
+    structure:</para>
+    <screen>
+<![CDATA[
+instances/jtracTemplate=red/
         &#8218;&#238;&#250;&#8218;&#238;&#196;&#8218;&#238;&#196; WEB-INF
         &#8218;&#238;&#199;
         &#8218;&#238;&#238;&#8218;&#238;&#196;&#8218;&#238;&#196; overlay.xml
@@ -284,12 +294,12 @@ mv jtrac/jtrac.war $JETTY_HOME/overlays/webapps
         jtrac.css
         ]]>
     </screen>
-        <itemizedlist>
-          <listitem>WEB-INF/overlay.xml&#8211;a Jetty XML format IoC file that
-          injects/configures the context for the instance. In this case it sets
-          up a virtual host for the instance:</listitem>
-          <informalexample>
-            <programlisting language="xml">
+    <itemizedlist>
+      <listitem>WEB-INF/overlay.xml&#8211;a Jetty XML format IoC file that
+      injects/configures the context for the instance. In this case it sets up
+      a virtual host for the instance:</listitem>
+      <informalexample>
+        <programlisting language="xml">
 <![CDATA[
 <?xml version="1.0"  encoding="ISO-8859-1"?>
 <!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure.dtd">
@@ -302,60 +312,56 @@ mv jtrac/jtrac.war $JETTY_HOME/overlays/webapps
   </Set>
 </Configure>
 ]]>
-            </programlisting>
-          </informalexample>
-          <listitem>favicon.ico&#8218;&#196;&#236;Replaces the icon in the base
-          WAR with one that has a theme for the instance, in this case red,
-          blue, or green.</listitem>
-          <listitem>resources/jtrac.css&#8218;&#196;&#236;Replaces the style
-          sheet from the base WAR with one that his a theme for the
-          instance.</listitem>
-          <para>You can now view the deployed instances by pointing your
-          browser at http://127.0.0.1:8080, http://127.0.0.2:8080 and
-          http://127.0.0.3:8080. The default username/password for JTrac is
-          admin/admin.</para>
-          <section>
-            <title>Things to Know and Notice 
-            <title>
-              <para>The following stands out:,/para&gt; 
-              <itemizedlist>
-                <listitem>Each instance has themes with images and style sheets
-                from the instance overlay.</listitem>
-                <listitem>Each instance is running with its own application
-                directory (that is, /tmp/jtrac-red), set in templates
-                web-overlay.xml.</listitem>
-                <listitem>A virtual host set in the instance overlay.xml
-                distinguishes the instances.</listitem>
-                <listitem>All instances share static content from the base WAR
-                and template. Specifically there is a shared ResourceCache so
-                only a single instance of each static content is loaded into
-                memory.</listitem>
-                <listitem>All instances share the classloader at the base WAR
-                and template level, so that only a single instance of common
-                classes is loaded into memory. You can configure classes with
-                non shared statics to load in the instances
-                classloader.</listitem>
-                <listitem>Jetty hot deploys all overlays and tracks
-                dependencies.</listitem>
-                <listitem>If an XML changes in an instance, Jetty redeploys
-                it.</listitem>
-                <listitem>If an XML changes in a template, then Jetty redeploys
-                all instances using it.</listitem>
-                <listitem>If a WAR file changes, then Jetty redeploys all
-                templates and all instances dependant on it.</listitem>
-                <listitem>You can esaily deploy new versions. For example, when
-                JTrac-2.2.0.war becomes available, you can just drop it into
-                overlays/webapps and then rename jtracTemplate\=jtrac-2.1.0 to
-                jtracTemplate\=jtrac-2.2.0</listitem>
-                <listitem>There is a fuller version of this demo in
-                overlays-demo-jndi.tar.gz, that uses JNDI (needs options=jndi,
-                annotations and jetty-plus.xml in start.ini) and shows how you
-                can add extra JARs in the overlays.</listitem>
-              </itemizedlist></para>
-            </title></title>
-          </section>
-        </itemizedlist>
-      </section>
+        </programlisting>
+      </informalexample>
+      <listitem>favicon.ico&#8218;Replaces the icon in the base WAR with one
+      that has a theme for the instance, in this case red, blue, or
+      green.</listitem>
+      <listitem>resources/jtrac.css&#8218;Replaces the style sheet from the
+      base WAR with one that his a theme for the instance.</listitem>
+    </itemizedlist>
+    <para>You can now view the deployed instances by pointing your browser at
+    http://127.0.0.1:8080, http://127.0.0.2:8080 and http://127.0.0.3:8080. The
+    default username/password for JTrac is admin/admin.</para>
+  </section>
+  <section>
+    <title>Things to Know and Notice</title>
+    <para>Notice the following:</para>
+    <itemizedlist>
+      <listitem>Each instance has themes with images and style sheets from the
+      instance overlay.</listitem>
+      <listitem>Each instance is running with its own application directory
+      (that is, 
+      <filename>/tmp/jtrac-red</filename>), set in templates 
+      <filename>web-overlay.xml</filename>.</listitem>
+      <listitem>A virtual host set in the instance 
+      <filename>overlay.xml</filename>distinguishes the instances.</listitem>
+      <listitem>All instances share static content from the base WAR and
+      template. Specifically there is a shared ResourceCache so only a single
+      instance of each static content is loaded into memory.</listitem>
+      <listitem>All instances share the classloader at the base WAR and
+      template level, so that only a single instance of common classes is
+      loaded into memory. You can configure classes with non shared statics to
+      load in the instances classloader.</listitem>
+      <listitem>Jetty hot deploys all overlays and tracks
+      dependencies.</listitem>
+      <listitem>If an XML changes in an instance, Jetty redeploys
+      it.</listitem>
+      <listitem>If an XML changes in a template, Jetty redeploys all instances
+      using it.</listitem>
+      <listitem>If a WAR file changes, Jetty redeploys all templates and all
+      instances dependent on it.</listitem>
+      <listitem>You can esaily deploy new versions. For example, when 
+      <code>JTrac-2.2.0.war</code>becomes available, you can just drop it into 
+      <filename>overlays/webapps</filename>and then rename 
+      <code>jtracTemplate\=jtrac-2.1.0</code>to 
+      <code>jtracTemplate\=jtrac-2.2.0</code></listitem>
+      <listitem>There is a fuller version of this demo in 
+      <filename>overlays-demo-jndi.tar.gz</filename>, that uses 
+      <code>JNDI (needs options=jndi</code>, annotations and 
+      <filename>jetty-plus.xml</filename>in 
+      <filename>start.ini)</filename>and shows how you can add extra JARs in
+      the overlays.</listitem>
     </itemizedlist>
   </section>
 </section>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<section xml:id="setting-deployment-bindings" version="5.0"
+xmlns="http://docbook.org/ns/docbook"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:xl="http://www.w3.org/1999/xlink"
+xmlns:xi="http://www.w3.org/2001/XInclude"
+xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd">
+  <title>Setting Deployment Bindings</title>
+<para>
+Jetty provides <emphasis>deployment bindings</emphasis>, which let you tap into the application lifecycle of the DeploymentManager.</para>  
+<para>There are a handful of bindings that exist within the core distribution of jetty:</para>
+<itemizedlist>
+<listitem><code>StandardDeployer</code> (deploying)&#8211;Standard binding that deals with deploying a webapp.</listitem>
+<listitem><code>StandardStarter</code> (starting)&#8211;Standard binding that deals with starting a webapp.</listitem>
+<listitem><code>StandardStopper</code> (stopping)&#8211;Standard binding that deals with stopping a webapp.</listitem>
+<listitem><code>StandardUndeployer</code> (undeploying)&#8211;Standard undeployer that deals with undeploying a webapp.</listitem>
+<listitem><code>DebugBinding</code> (any specified)&#8211;Attaches a binding and prints logging information of a context going through the specified binding target.</listitem>
+<listitem><code>GlobalWebappConfigBinding</code> (deploying)&#8211;Allows the user to override various settings of a webapp's context globally for all contexts.</listitem>
+<informalexample>
+        <programlisting language="xml">
+<![CDATA[
+        <Call name="addLifeCycleBinding">
+          <Arg>
+            <New class="org.eclipse.jetty.deploy.bindings.GlobalWebappConfigBinding" >
+              <Set name="jettyXml">file://<Property name="jetty.home" default="." />/etc/global-webapp-context-config.xml</Set>
+            </New>
+          </Arg>
+        </Call>
+</code>
+]]>
+        </programlisting>
+      </informalexample>
+<listitem>OrderedGroupBinding (any specified)&#8211;Allows the user to set a specific order for bindings to process in a given binding target.</listitem>
+</itemizedlist>
+</section>

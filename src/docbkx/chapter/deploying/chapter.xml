@@ -12,6 +12,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     ContextProvider, WebApp Provider, and Overlay Deployer.</para>
   </section>
   <xi:include href="using-context-provider.xml" />
+  <xi:include href="setting-deployment-bindings.xml" />
   <xi:include href="using-deployment-manager.xml" />
   <xi:include href="using-webapp-provider.xml" />
   <xi:include href="configuring-overlay-deployer.xml" />

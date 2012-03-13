@@ -7,7 +7,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
   <title>Deploying Jetty</title>
   <section>
     <para>This chapter discusses various ways to deploy applications with
-    jetty. Topics range from deployment bindings to deploying third party
+    Jetty. Topics range from deployment bindings to deploying third party
     products. It also includes information about the Deployment Manager,
     ContextProvider, WebApp Provider, and Overlay Deployer.</para>
   </section>
@@ -18,4 +18,8 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     <xi:include href="using-webapp-provider.xml" />
     <xi:include href="configuring-overlay-deployer.xml" />
   </xi:include>
+  <xi:include href="hot-deployment.xml" />
+  <xi:include href="using-context-provider.xml" />
+  <xi:include href="using-webapp-provider.xml" />
+  <xi:include href="configuring-overlay-deployer.xml" />
 </chapter>

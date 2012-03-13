@@ -79,7 +79,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
               </preProcess>
             </configuration>
           </execution>
-          <execution>
+          <!--execution>
             <id>pdf</id>
             <phase>compile</phase>
             <goals>
@@ -88,7 +88,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
             <configuration>
               <includes>jetty.xml</includes>
             </configuration>
-          </execution>
+          </execution-->
         </executions>
         <configuration>
 <!-- shared configuration -->

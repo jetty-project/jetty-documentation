@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<section xml:id="deploying-webapps" version="5.0"
+xmlns="http://docbook.org/ns/docbook"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:xl="http://www.w3.org/1999/xlink"
+xmlns:xi="http://www.w3.org/2001/XInclude"
+xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd">
+  <title>Deploying WebApps</title>
+  <para>Jetty scans its 
+  <filename>$JETTY_HOME/webapps</filename>directory at startup for web
+  applications to deploy:</para>
+  <itemizedlist>
+    <listitem>It deploys the file 
+    <filename>foo.war</filename>as a webapp at context 
+    <filename>/foo</filename>. 
+    <listitem>It deploys the directory 
+    <filename>foo/</filename>at context 
+    <filename>/foo</filename>. If the directory has a 
+    <filename>WEB-INF</filename>subdirectory, Jetty treats it as a servlet
+    webapp, otherwise Jetty serves it only as static content.</listitem>
+    <listitem>If both a 
+    <filename>foo.war</filename>and a 
+    <filename>foo/</filename>directory exist, Jetty uses the one with the most
+    recent last-modified date.</listitem>
+    <listitem>If the webapp is called 
+    <filename>root.war</filename>or the directory is called 
+    <filename>root/</filename>, Jetty deploys it at the / context. 
+    <listitem>
+      <listitem>If the 
+      <filename>contextXmlDir</filename>option is used and a 
+      <filename>foo.xml</filename>file exists in that dir, the WebAppProvider
+      defers to the Contexts Provider for actual webapp deployment. 
+      <listitem>
+        <para>For Jetty version 7.0.2 and later, the 
+        <link
+        xl:href="@JDURL@/org/eclipse/jetty/deploy/providers/WebAppProvider.html">
+          <code>WebAppProvider</code>
+        </link>of the 
+        <link
+        xl:href="@JDURL@/org/eclipse/jetty/deploy/DeploymentManager.html">
+          <code>DeploymentManager</code>
+        </link>controls web app deployment.</para>
+        <section>
+          <title>Deploying Contexts</title>
+          <para>Jetty scans the 
+          <filename>$JETTY_HOME/contexts</filename>directory at runtime for 
+          <filename>context.xml</filename>files that describe either:</para>
+          <itemizedlist>
+            <listitem>a standard WAR file (or directory), plus additional
+            configuration.</listitem>
+            <listitem>a custom Jetty context.</listitem>
+          </itemizedlist>
+          <para>With Jetty version 7.0.2 and later, the 
+          <link
+          xl:href="@JDURL@/org/eclipse/jetty/deploy/providers/ContextProvider.html">
+            <code>ContextProvider</code>
+          </link>of the 
+          <link
+          xl:href="@JDURL@/org/eclipse/jetty/deploy/DeploymentManager.html">
+            <code>DeploymentManager</code>
+          </link>controls contexts deployment.</para>
+        </section>
+        <section>
+          <title>Jetty Maven Plugin</title>
+          <para>If you develop your web application as a Maven project, you can
+          deploy it in Jetty with 
+          <filename>mvn jetty:run</filename>using the
+          [[Jetty/Feature/Jetty_Maven_Plugin|Jetty Maven Plugin]]. //TODO
+          xref//</para>
+          <para>Maven lets you build your web applications by overlaying on
+          other template web applications (for example, 
+          <link xl:href="http://docs.cometd.org/reference/#primer">
+          CometD</link>) and manages the transitive dependencies needed to
+          populate 
+          <code>WEB-INF/lib</code>.</para>
+        </section>
+        <section>
+          <title>OSGi web application bundle</title>
+          <para>TBD</para>
+        </section>
+        <section>
+          <titleUsing Embedded="" Jetty="">
+            <para>You can also deploy web applications into embedded Jetty,
+            either via direct configuration or via configuration of a deployer.
+            For an example see the [[Jetty/Tutorial/Embedding_Jetty|Embedding
+            Jetty Tutorial]]. //TODO xref//</para>
+          </titleUsing>
+        </section>
+      </listitem></listitem>
+    </listitem></listitem></listitem>
+  </itemizedlist>
+</section>

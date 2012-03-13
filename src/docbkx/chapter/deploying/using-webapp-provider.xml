@@ -81,7 +81,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     <listitem>The 
     <code>parentLoaderPriority</code>parameter is a boolean that selects
     whether the standard Java parent first delegation
-    [[Jetty/Reference/Jetty_Classloading|classloading]] // TODO URL xref //is
+    [[Jetty/Reference/Jetty_Classloading|classloading]] // TODO URL xref / /is
     used or the servlet specification webapp classloading priority.</listitem>
     <listitem>If the 
     <emphasis>extract</emphasis>parameter is true, any packed WAR or zip files
@@ -98,7 +98,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     alternative 
     <filename>webdefault.xml</filename>config file on the discovered web
     applications. The 
-    <code>webdefault.xml</code>//TODO Xref// file controls the configuration of
-    the JSP and Default servlets.</listitem>
+    <code>webdefault.xml</code>file controls the configuration of the JSP and
+    Default servlets.</listitem>
   </itemizedlist>
 </section>

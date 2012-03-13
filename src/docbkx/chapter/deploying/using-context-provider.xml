@@ -67,7 +67,8 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     </informalexample>
     <para>This example creates an instance of 
     <link xl:href="@JDURL@/org/eclipse/jetty/webapp/WebAppContext.html">
-    WebAppContext</link>and sets the 
+      <code>WebAppContext</code>
+    </link>and sets the 
     <code>contextPath</code>to 
     <code>/test</code>and the 
     <code>resourceBase</code>to 

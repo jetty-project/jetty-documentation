@@ -14,7 +14,8 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
   <xi:include href="setting-context-path.xml" />
   <xi:include href="setting-context-path-to-root.xml" />
   <xi:include href="custom-error-pages.xml" />
-  <xi:include href="embedding-jetty.xml" />
   <xi:include href="configuring-form-size.xml" />
+  <xi:include href="configuring-jndi" />
   <xi:include href="writing-handlers.xml" />
+  <xi:include href="embedding-jetty.xml" />
 </chapter>

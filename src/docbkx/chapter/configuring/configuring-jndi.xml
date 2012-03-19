@@ -1,0 +1,789 @@
+<?xml version="1.0" encoding="utf-8"?>
+<section xml:id="configuring-jndi" version="5.0"
+xmlns="http://docbook.org/ns/docbook"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:xl="http://www.w3.org/1999/xlink"
+xmlns:xi="http://www.w3.org/2001/XInclude"
+xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd">
+  <title>Configuring JNDI</title>
+  <para>Jetty supports 
+  <code>java:comp/env</code>&#160; lookups in web apps. This is an optional
+  feature for which you need to do some setup. However, if you are using the 
+  <link
+  xl:href="http://mvnrepository.com/artifact/org.mortbay.jetty/jetty-hightide">
+  Hightide</link>&#160;distribution of Jetty, this feature is already fully
+  enabled, so you can skip any setup steps, and just read the sections on how
+  to put objects into Jetty JNDI so that you can retrieve them at
+  runtime.</para>
+  <section xml:id="quick-setup">
+    <title>Quick Setup</title>
+    <para>If you are using the standard distribution of jetty, and want to
+    enable JNDI for all your webapps, complete the steps in this section. If
+    you need a more selective configuration, see 
+    <xref linkend="detailed-setup" />
+    .</para>
+    <orderedlist>
+      <listitem>Edit the 
+      <filename>$JETTY_HOME/start.ini file</filename>.</listitem>
+      <listitem>Modify the Server OPTIONS to include 
+      <emphasis>plus</emphasis>, for example: 
+      <informalexample>
+        <programlisting language="bash">
+<![CDATA[
+OPTIONS=Server,jsp,jmx,resources,websocket,ext,plus
+]]>
+        </programlisting>
+      </informalexample></listitem>
+      <listitem>Near the bottom of the file, in the section on Configuration
+      files, add the following line after 
+      <code>etc/jetty.xml</code>: 
+      <informalexample>
+        <programlisting language="xml">
+<![CDATA[
+etc/jetty-plus.xml
+]]>
+        </programlisting>
+      </informalexample></listitem>
+      <listitem>Save the file.</listitem>
+    </orderedlist>
+    <para>You can now start Jetty and use JNDI with your webapps. See the next
+    section for information on how to add entries to the JNDI environment that
+    Jetty can look up within webapps.</para>
+  </section>
+  <section xml:id="detailed-setup">
+    <title>Detailed Setup</title>
+    <para>The following sections describe the fine points of configuring
+    JNDI.</para>
+    <section xml:id="setting-up-list-of-configurations">
+      <title>Setting Up the List of Configurations</title>
+      <para>When deploying a webapp, Jetty has an extensible list of 
+      <link xl:href="@JDURL@/org/eclipse/jetty/webapp/Configuration.html">
+      configurations</link>that it applies to the webapp in a specific order.
+      These configurations do things like parse 
+      <filename>web.xml</filename>, set up the classpath for the webapp, and
+      parse 
+      <filename>WEB-INF/jetty-web.xml</filename>.</para>
+      <para>To use JNDI with Jetty, you need additional attributes that do
+      things like read 
+      <filename>WEB-INF/jetty-env.xml</filename>, set up a 
+      <code>java:comp/env context</code>, and hook up JNDI entries from the
+      environment into your webapp. The list below shows the two extra elements
+      and the order you must use when you add them:</para>
+      <informalexample>
+        <programlisting language="xml">
+<![CDATA[
+<Array id="plusConfig" type="java.lang.String">
+  <Item>org.eclipse.jetty.webapp.WebInfConfiguration</Item>
+  <Item>org.eclipse.jetty.webapp.WebXmlConfiguration</Item>
+  <Item>org.eclipse.jetty.webapp.MetaInfConfiguration</Item>
+  <Item>org.eclipse.jetty.webapp.FragmentConfiguration</Item>
+  <Item>org.eclipse.jetty.plus.webapp.EnvConfiguration</Item> <!-- add for jndi -->
+  <Item>org.eclipse.jetty.plus.webapp.PlusConfiguration</Item>    <!-- add for jndi -->
+  <Item>org.eclipse.jetty.webapp.JettyWebXmlConfiguration</Item>
+  <Item>org.eclipse.jetty.webapp.TagLibConfiguration</Item>  <!-- not needed for jetty-8 -->
+</Array>
+]]>
+        </programlisting>
+      </informalexample>
+      <para>This augmented list of Configurations for JNDI is predefined for
+      you in the 
+      <code>etc/jetty-plus.xml</code>&#160; file.</para>
+      <para>To have jetty use 
+      <code>etc/jetty-plus.xml</code>&#160; and therefore enable JNDI for all
+      webapps, edit the 
+      <code>$JETTY_HOME/start.ini file</code>, and add the following line in
+      the Configuration section near the bottom of the file:</para>
+      <informalexample>
+        <programlisting language="bash">
+<![CDATA[
+etc/jetty-plus.xml
+]]>
+        </programlisting>
+      </informalexample>
+      <para>Now skip down to the section, 
+      <xref linkend="adding-jndi-implementation-jars" />
+      .</para>
+      <para>If you only want to use JNDI with specific webapps, read on.</para>
+    </section>
+    <section xml:id="applying-jndi-to-single-webapp">
+    <title>Applying JNDI to a Single WebApp</title>
+    <para>If you have only a few webapps that you want to use with JNDI, you
+    can apply the augmented list of configurations specifically to those
+    webapps. To do that, create a context xml file for each webapp, and set up
+    the configuration classes. Here's an example of how that should
+    look:</para>? 
+    <informalexample>
+      <programlisting language="xml">
+<![CDATA[
+<Configure id='wac' class="org.eclipse.jetty.webapp.WebAppContext">
+
+  <Array id="plusConfig" type="java.lang.String">
+    <Item>org.eclipse.jetty.webapp.WebInfConfiguration</Item>
+    <Item>org.eclipse.jetty.webapp.WebXmlConfiguration</Item>
+    <Item>org.eclipse.jetty.webapp.MetaInfConfiguration</Item>
+    <Item>org.eclipse.jetty.webapp.FragmentConfiguration</Item>
+    <Item>org.eclipse.jetty.plus.webapp.EnvConfiguration</Item> <!-- add for JNDI -->
+    <Item>org.eclipse.jetty.plus.webapp.PlusConfiguration</Item>    <!-- add for JNDI -->
+    <Item>org.eclipse.jetty.webapp.JettyWebXmlConfiguration</Item>
+    <Item>org.eclipse.jetty.webapp.TagLibConfiguration</Item>
+  </Array>
+
+  <Set name="war"><SystemProperty name="jetty.home" default="."/>/webapps/my-cool-webapp</Set>
+  <Set name="configurationClasses"><Ref id="plusConfig"/></Set>
+
+</Configure>
+]]>
+      </programlisting>
+    </informalexample>
+    <para>Now you're ready for the next step, which is to put the JNDI Jars
+    onto the jetty classpath, described in the next section, 
+    <xref linkend="adding-jndi-implementation-jars-to-jetty-classpath" />
+    .</para></section>
+    <section xml:id="adding-jndi-implementation-jars-to-jetty-classpath">
+      <title>Adding JNDI Implementation Jars to the Jetty Classpath</title>
+      <para>Now that you have the JNDI configuration for the webapp(s) set up,
+      you need to ensure that the JNDI implementation Jars are on the Jetty
+      classpath. These jars are optional, so are not there by default. You add
+      these into the classpath by using startup time OPTIONS.</para>
+      <para>One way to do this is to supply it on the command line like
+      so:</para>
+      <informalexample>
+        <programlisting language="bash">
+<![CDATA[
+java -jar start.jar OPTIONS=plus
+]]>
+        </programlisting>
+      </informalexample>
+      <para>Another, more permanent way of doing this is to edit the 
+      <filename>$JETTY_HOME/start.ini</filename>file and modify the OPTIONS
+      section to include "plus":</para>
+      <informalexample>
+        <programlisting language="bash">
+<![CDATA[
+OPTIONS=Server,jsp,jmx,resources,websocket,ext,plus
+]]>
+        </programlisting>
+      </informalexample>
+    </section>
+  </section>
+  <section xml:id="using-jndi">
+    <title>Using JNDI</title>
+    <para>You can now configure naming resources to reference in a 
+    <code>web.xml</code>file and access from within the 
+    <code>java:comp/env</code>naming environment of the webapp during
+    execution. Specifically, you can configure support for the following 
+    <code>web.xml</code>elements:</para>
+    <informalexample>
+      <programlisting language="xml">
+<![CDATA[
+env-entry/
+resource-ref/
+resource-env-ref/
+]]>
+      </programlisting>
+    </informalexample>
+    <para>
+    <xref linkend="configuring-env-entries" />
+    shows you how to set up overrides for 
+    <code>env-entry</code>elements in 
+    <filename>web.xml</filename>. 
+    <xref linkend="configuring-resource-refs-and-resorce-env-refs" />
+    discusses how to configure support resources such as 
+    <code>javax.sql.DataSource</code>.</para>
+    <para>You can also plug a JTA 
+    <code>javax.transaction.UserTransaction</code>implementation into Jetty so
+    that webapps can look up 
+    <code>java:comp/UserTransaction</code>to obtain a distributed transaction
+    manager. See 
+    <xref linkend="" />
+    //TODO xref// .</para>
+    <para>You can define your naming resources with three scopes:</para>
+    <itemizedlist>
+      <listitem>jvm scope&#8211;the name is unique within the JVM.</listitem>
+      <listitem>server scope&#8211;the name is unique to the Server
+      instance.</listitem>
+      <listitem>webapp scope&#8211;the name is unique to the WebAppContext
+      instance.</listitem>
+    </itemizedlist>
+    <para>The section 
+    <xref linkend="setting-jndi-entries-as-global-or-scoped" />
+    explains 
+    <emphasis>scoping</emphasis>, and shows you how to use it. Essentially,
+    scoping ensures that JNDI bindings from one web app do not interfere with
+    the JNDI bindings of another&#8211;unless of course you want them
+    to.</para>
+    <section xml:id="binding-objects-into-jetty-jndi">
+      <title>Binding Objects into Jetty JNDI</title>
+      <para>You can bind four types of object into Jetty JNDI:</para>
+      <itemizedlist>
+        <listitem>An ordinary POJO instance.</listitem>
+        <listitem>A 
+        <link
+        xl:href="http://docs.oracle.com/javase/1.5.0/docs/api/javax/naming/Reference.html">javax.naming.Reference</link>instance.</listitem>
+        <listitem>An object instance that implements the 
+        <link
+        xl:href="http://docs.oracle.com/javase/1.5.0/docs/api/javax/naming/Referenceable.html">javax.naming.Referenceable</link>interface.</listitem>
+        <listitem>A link between a name as referenced in 
+        <filename>web.xml</filename>and as referenced in the
+        environment.</listitem>
+      </itemizedlist>
+      <para>The binding for all of these object types follows the same
+      pattern:</para>
+      <informalexample>
+        <programlisting language="xml">
+<![CDATA[
+<New class=type of naming entry>
+  <Arg>scope</Arg>
+  <Arg>name to bind as</Arg>
+  <Arg>the object to bind</Arg>
+</New>
+]]>
+        </programlisting>
+      </informalexample>
+      <section xml:id="defining-naming-entries">
+        <title>Defining Naming Entries</title>
+        <para>The 
+        <code>type of naming entry</code>can be:</para>
+        <itemizedlist>
+          <listitem>
+          <code>org.eclipse.jetty.plus.jndi.EnvEntry</code>for 
+          <code>env-entry</code>.</listitem>
+          <listitem>
+          <code>org.eclipse.jetty.plus.jndi.Resource</code>for all other type
+          of resources.</listitem>
+          <listitem>
+          <code>org.eclipse.jetty.plus.jndi.Transaction</code>for a JTA
+          manager. For detailed information, see the 
+          <xref linkend="configuring-xa-transactions" />
+          .</listitem>
+          <listitem>
+          <code>org.eclipse.jetty.plus.jndi.Link</code>for link between a 
+          <filename>web.xml</filename>resource name and a 
+          <code>amingEntry</code>.</listitem>
+        </itemizedlist>
+        <para>For more information, see 
+        <xref linkend="configuring-links" />
+        .</para>
+        <para>You can define naming entries in three places:</para>
+        <itemizedlist>
+          <listitem>
+            <code>jetty.xml</code>
+          </listitem>
+          <listitem>
+            <code>WEB-INF/jetty-env.xml</code>
+          </listitem>
+          <listitem>context xml file</listitem>
+        </itemizedlist>
+        <para>Naming entries defined in a 
+        <code>jetty.xml</code>file are scoped at either the JVM level or the
+        Server level. Naming entries in a 
+        <code>jetty-env.xml</code>file are scoped to the web app in which the
+        file resides. While you can enter JVM or Server scopes if you choose,
+        we do not recommend doing so. In most cases you define all naming
+        entries that you want visible to a particular Server instance, or to
+        the JVM as a whole in a 
+        <code>jetty.xml</code>file. Entries in a context xml file are scoped at
+        the level of the webapp to which they apply, although once again, you
+        can supply a less strict scoping level of Server or JVM if you
+        choose.</para>
+      </section>
+      <section xml:id="configuring-env-entries">
+        <title>Configuring 
+        <code>env-entries</code></title>
+        <para>Sometimes it is useful to pass configuration information to a
+        webapp at runtime that you either cannot or cannot conveniently code
+        into a 
+        <code>web.xml env-entry</code>. In such cases, you can use 
+        <code>org.eclipse.jetty.plus.jndi.EnvEntry</code>, and even override an
+        entry of the same name in 
+        <filename>web.xml</filename>.</para>
+        <informalexample>
+          <programlisting language="xml">
+<![CDATA[
+<New class="org.eclipse.jetty.plus.jndi.EnvEntry">
+  <Arg></Arg>
+  <Arg>mySpecialValue</Arg>
+  <Arg type="java.lang.Integer">4000</Arg>
+  <Arg type="boolean">true</Arg>
+</New>
+]]>
+          </programlisting>
+        </informalexample>
+        <para>This example defines a virtual 
+        <code>env-entry</code>called 
+        <code>mySpecialValue</code>with value 
+        <code>4000</code>that is unique within the whole JVM. It is put into
+        JNDI at 
+        <code>java:comp/env/mySpecialValue</code>for 
+        <emphasis>every</emphasis>web app deployed. Moreover, the boolean
+        argument indicates that this value overrides an 
+        <code>env-entry</code>of the same name in 
+        <code>web.xml</code>. If you don't want to override, then omit this
+        argument, or set it to 
+        <code>false</code>.</para>
+        <para>See 
+        <xref linkend="setting-jndi-entries-as-global-or-scoped" />
+        for information on other scopes.</para>
+        <para>The Servlet Specification allows binding only the following
+        object types to an 
+        <code>env-entry</code>:</para>
+        <itemizedlist>
+          <listitem>java.lang.String</listitem>
+          <listitem>java.lang.Integer</listitem>
+          <listitem>java.lang.Float</listitem>
+          <listitem>java.lang.Double</listitem>
+          <listitem>java.lang.Long</listitem>
+          <listitem>java.lang.Short</listitem>
+          <listitem>java.lang.Character</listitem>
+          <listitem>java.lang.Byte</listitem>
+          <listitem>java.lang.Boolean</listitem>
+        </itemizedlist>
+        <para>However, Jetty is a little more flexible and allows you to also
+        bind custom POJOs, 
+        <link
+        xl:href="http://docs.oracle.com/javase/1.5.0/docs/api/javax/naming/Reference.html">javax.naming.References</link>and
+        
+        <link
+        xl:href="http://docs.oracle.com/javase/1.5.0/docs/api/javax/naming/Referenceable.html">javax.naming.Referenceables</link>.
+        Be aware that if you take advantage of this feature, your web
+        application is 
+        <emphasis>not portable</emphasis>.</para>
+        <para>To use the 
+        <code>env-entry</code>configured above, use code in your
+        servlet/filter/etc., such as:</para>
+        <informalexample>
+          <programlisting language="java">
+<![CDATA[
+import javax.naming.InitialContext;
+
+InitialContext ic = new InitialContext();
+Integer mySpecialValue = (Integer)ic.lookup("java:comp/env/mySpecialValue");
+]]>
+          </programlisting>
+        </informalexample>
+      </section>
+      <section xml:id="configuring-resource-refs-and-resorce-env-refs">
+        <title>Configuring 
+        <code>resource-refs</code>and 
+        <code>resource-env-refs</code></title>
+        <para>You can configure any type of resource that you want to refer to
+        in a 
+        <code>web.xml</code>file as a 
+        <code>resource-ref</code>or 
+        <code>resource-env-ref</code>, using the 
+        <code>org.eclipse.jetty.plus.jndi.Resource</code>type of naming entry.
+        You provide the scope, the name of the object (relative to 
+        <code>java:comp/env</code>) and a POJO instance or a 
+        <code>javax.naming.Reference</code>instance or 
+        <code>javax.naming.Referenceable</code>instance.</para>
+        <para>The 
+        <link
+        xl:href="http://jcp.org/aboutJava/communityprocess/pr/jsr244/index.html">J2EE
+        Specification</link>recommends that DataSources be stored in 
+        <code>java:comp/env/jdbc</code>, JMS connection factories under 
+        <code>java:comp/env/jms</code>, JavaMail connection factories under 
+        <code>java:comp/env/mail</code>and URL connection factories under 
+        <code>java:comp/env/url</code>. For example:</para>
+        <table>
+          <tr>
+            <td>Resource Type</td>
+            <td>&#160;</td>
+            <td>Name in 
+            <code>jetty.xml</code></td>
+            <td>&#160;</td>
+            <td>Environment Lookup</td>
+          </tr>
+          <tr>
+            <td>javax.sql.DataSource</td>
+            <td>&#160;</td>
+            <td>jdbc/myDB</td>
+            <td>&#160;</td>
+            <td>java:comp/env/jdbc/myDB</td>
+          </tr>
+          <tr>
+            <td>javax.jms.QueueConnectionFactory</td>
+            <td>&#160;</td>
+            <td>jms/myQueue</td>
+            <td>&#160;</td>
+            <td>java:comp/env/jms/myQueue</td>
+          </tr>
+          <tr>
+            <td>javax.mail.Session</td>
+            <td>&#160;</td>
+            <td>mail/myMailService</td>
+            <td>&#160;</td>
+            <td>java:comp/env/mail/myMailService</td>
+          </tr>
+        </table>
+      </section>
+      <section xml:id="configuring-datasources">
+        <title>Configuring DataSources</title>
+        <para>Here is an example of configuring a 
+        <code>javax.sql.DataSource</code>. Jetty can use any DataSource
+        implementation available on its classpath. In this example, the
+        DataSource is from the 
+        <link xl:href="http://db.apache.org/derby">Derby</link>relational
+        database, but you can use any implementation of a 
+        <code>javax.sql.DataSource</code>. This example configures it as scoped
+        to a web app with the id of 
+        <emphasis>wac</emphasis>:</para>
+        <informalexample>
+          <programlisting language="xml">
+<![CDATA[
+<Configure id='wac' class="org.eclipse.jetty.webapp.WebAppContext">
+...
+<New id="myds" class="org.eclipse.jetty.plus.jndi.Resource">
+  <Arg><Ref id="wac"/></Arg>
+  <Arg>jdbc/myds</Arg>
+  <Arg>
+    <New class="org.apache.derby.jdbc.EmbeddedDataSource">
+      <Set name="DatabaseName">test</Set>
+      <Set name="createDatabase">create</Set>
+    </New>
+  </Arg>
+</New>
+</Configure>
+]]>
+          </programlisting>
+        </informalexample>
+        <para>The code above creates an instance of 
+        <code>org.apache.derby.jdbc.EmbeddedDataSource</code>, calls the two
+        setter methods 
+        <code>setDatabaseName("test"),</code>and 
+        <code>setCreateDatabase("create"),</code>and binds it into the JNDI
+        scope for the web app. If you do not have the appropriate 
+        <code>resource-ref</code>setup in your 
+        <code>web.xml</code>, it is available from application lookups as 
+        <code>java:comp/env/jdbc/myds</code>.</para>
+        <para>Here's an example 
+        <filename>web.xml</filename>declaration for the datasource
+        above:</para>
+        <informalexample>
+          <programlisting language="xml">
+<![CDATA[
+  <resource-ref>
+    <res-ref-name>jdbc/myds</res-ref-name>
+    <res-type>javax.sql.DataSource</res-type>
+    <res-auth>Container</res-auth>
+  </resource-ref>
+]]>
+          </programlisting>
+        </informalexample>
+        <para>To look up your DataSource in your servlet/filter/etc.:</para>
+        <informalexample>
+          <programlisting language="java">
+<![CDATA[
+import javax.naming.InitialContext;
+import javax.sql.DataSource;
+
+InitialContext ic = new InitialContext();
+DataSource myDS = (DataSource)ic.lookup("java:comp/env/jdbc/myds");
+]]>
+          </programlisting>
+        </informalexample>
+        <note>Careful! When configuring Resources, ensure that the type of
+        object you configure matches the type of object you expect to look up
+        in 
+        <code>java:comp/env</code>. For database connection factories, this
+        means that the object you register as a Resource 
+        <emphasis>must</emphasis>implement the 
+        <code>javax.sql.DataSource</code>interface.</note>
+      </section>
+      <section xml:id="configuring-jms-queues-topics-connectionfactories">
+        <title>Configuring JMS Queues, Topics and ConnectionFactories</title>
+        <para>Jetty can bind any implementation of the JMS destinations and
+        connection factories. You just need to ensure the implementation Jars
+        are available on Jetty's classpath. Here is an example of binding an 
+        <link xl:href="http://activemq.apache.org">ActiveMQ</link>in JVM
+        connection factory:</para>
+        <informalexample>
+          <programlisting language="xml">
+<![CDATA[
+<Configure id='wac' class="org.eclipse.jetty.webapp.WebAppContext">
+...
+<New id="cf" class="org.eclipse.jetty.plus.jndi.Resource">
+  <Arg><Ref id='wac'/></Arg>
+  <Arg>jms/connectionFactory</Arg>
+  <Arg>
+    <New class="org.apache.activemq.ActiveMQConnectionFactory">
+       <Arg>vm://localhost?broker.persistent=false</Arg>
+    </New>
+  </Arg>
+</New>
+</Configure>
+]]>
+          </programlisting>
+        </informalexample>
+        <para>For more information, see 
+        <link xl:href="http://activemq.apache.org/">ActiveMQ</link>.</para>
+      </section>
+      <section xml:id="configuring-mail">
+        <title>Configuring Mail</title>
+        <para>Jetty also provides infrastructure for access to 
+        <code>javax.mail.Sessions</code>from within an application:</para>
+        <informalexample>
+          <programlisting language="xml">
+<![CDATA[
+<Configure id='wac' class="org.eclipse.jetty.webapp.WebAppContext">
+...
+<New id="mail" class="org.eclipse.jetty.plus.jndi.Resource">
+     <Arg><Ref id="wac"/></Arg>
+     <Arg>mail/Session</Arg>
+     <Arg>
+       <New class="org.eclipse.jetty.jndi.factories.MailSessionReference">
+         <Set name="user">fred</Set>
+         <Set name="password">OBF:1xmk1w261z0f1w1c1xmq</Set>
+         <Set name="properties">
+           <New class="java.util.Properties">
+             <Put name="mail.smtp.host">XXX</Put>
+             <Put name="mail.from">me@me</Put>
+             <Put name="mail.debug">true</Put>
+           </New>
+          </Set>
+       </New>
+     </Arg>
+</New>
+</Configure>
+]]>
+          </programlisting>
+        </informalexample>
+        <para>The setup above creates an instance of the 
+        <code>
+        org.eclipse.jetty.jndi.factories.MailSessionReference</code>class,
+        calls its setter methods 
+        <code>setUser("fred");</code>, 
+        <code>setPassword("OBF:1xmk1w261z0f1w1c1xmq");</code>to set up the
+        authentication for the mail system, and populates a set of Properties,
+        setting them on the 
+        <code>MailSessionReference</code>instance. The result is that an
+        application can look up 
+        <code>java:comp/env/mail/Session</code>at runtime and obtain access to
+        a 
+        <code>javax.mail.Session</code>that has the necessary configuration to
+        permit it to send email via SMTP.</para>
+        <tip>You can set the password to be plain text, or use Jetty's
+        Jetty/Howto/Secure Passwords|password obfuscation //TODO xref//
+        mechanism to make the config file more secure from prying eyes. But you
+        cannot use the other Jetty encryption mechanisms of MD5 and Crypt
+        because then the original password cannot be recovered, which is
+        necessary for the mail system.</tip>
+      </section>
+      <section xml:id="configuring-xa-transactions">
+        <title>Configuring XA Transactions</title>
+        <para>If you want to perform distributed transactions with your
+        resources, you need a 
+        <emphasis>transaction manager</emphasis>that supports the JTA
+        interfaces that you can look up as 
+        <code>java:comp/UserTransaction</code>in your webapp. Jetty does not
+        ship with one as standard, but you can plug in the one you prefer. You
+        can configure a transaction manager using the 
+        <link xl:href="@JDURL@/org.eclipse.jetty.plus.jndi.Transaction.html">
+        JNDI Transaction</link>object in a Jetty config file. The following
+        example configures the 
+        <link xl:href="">Atomikos</link>transaction manager:</para>
+        <informalexample>
+          <programlisting language="xml">
+<![CDATA[
+<New id="tx" class="org.eclipse.jetty.plus.jndi.Transaction">
+  <Arg>
+    <New class="com.atomikos.icatch.jta.J2eeUserTransaction"/>
+  </Arg>
+</New>
+]]>
+          </programlisting>
+        </informalexample>
+        <para>You can also use the 
+        <link
+        xl:href="http://mvnrepository.com/artifact/org.mortbay.jetty/jetty-hightide">Hightide</link>distribution
+        of jetty instead, which comes with the 
+        <link xl:href="http://www.atomikos.com">Atomikos</link>transaction
+        system pre-configured.</para>
+      </section>
+      <section xml:id="configuring-links">
+        <title>Configuring Links</title>
+        <para>The name you set for your 
+        <code>NamingEntry</code>should be the same name you use for it in 
+        <code>web.xml</code>. For example:</para>
+        <para>In a context xml file:</para>
+        <informalexample>
+          <programlisting language="xml">
+<![CDATA[
+<Configure id='wac' class="org.eclipse.jetty.webapp.WebAppContext">
+...
+<New id="myds" class="org.eclipse.jetty.plus.jndi.Resource">
+  <Arg><Ref id="wac"/></Arg>
+  <Arg>jdbc/mydatasource</Arg>
+  <Arg>
+    <New class="org.apache.derby.jdbc.EmbeddedDataSource">
+      <Set name="DatabaseName">test</Set>
+      <Set name="createDatabase">create</Set>
+    </New>
+  </Arg>
+</New>
+</Configure>
+]]>
+          </programlisting>
+        </informalexample>
+        <para>In 
+        <code>web.xml</code>:</para>
+        <informalexample>
+          <programlisting language="xml">
+<![CDATA[
+  <resource-ref>
+    <res-ref-name>jdbc/mydatasource</res-ref-name>
+    <res-type>javax.sql.DataSource</res-type>
+    <res-auth>Container</res-auth>
+    <injection-target>
+      <injection-target-class>com.acme.JNDITest</injection-target-class>
+      <injection-target-name>myDatasource</injection-target-name>
+    </injection-target>
+  </resource-ref>
+]]>
+          </programlisting>
+        </informalexample>
+        <para>You can refer to it in 
+        <code>web.xml</code>by a different name, and link it to the name in
+        your 
+        <code>org.eclipse.jetty.plus.jndi.Resource</code>by using an 
+        <code>org.eclipse.jetty.plus.jndi.Link</code>type of NamingEntry. For
+        the example above, you can refer to the 
+        <code>jdbc/mydatasource</code>resource as 
+        <code>jdbc/mydatasource1</code>as follows:</para>
+        <para>In a context xml file:</para>
+        <informalexample>
+          <programlisting language="xml">
+<![CDATA[
+<Configure id='wac' class="org.eclipse.jetty.webapp.WebAppContext">
+...
+<New id="myds" class="org.eclipse.jetty.plus.jndi.Resource">
+  <Arg><Ref id="wac"/></Arg>
+  <Arg>jdbc/mydatasource</Arg>
+  <Arg>
+    <New class="org.apache.derby.jdbc.EmbeddedDataSource">
+      <Set name="DatabaseName">test</Set>
+      <Set name="createDatabase">create</Set>
+    </New>
+  </Arg>
+</New>
+</Configure>
+]]>
+          </programlisting>
+        </informalexample>
+        <para>In a 
+        <filename>jetty-env.xm</filename>&gt;l file:</para>
+        <informalexample>
+          <programlisting language="xml">
+<![CDATA[
+  <New id="map1" class="org.eclipse.jetty.plus.jndi.Link">
+    <Arg><Ref id='wac'/></Arg>
+    <Arg>jdbc/mydatasource1</Arg> <!-- name in web.xml -->
+    <Arg>jdbc/mydatasource</Arg>  <!-- name in container environment -->
+  </New>
+]]>
+          </programlisting>
+        </informalexample>
+        <para>And in 
+        <filename>&gt;web.xml</filename>&gt;:</para>
+        <informalexample>
+          <programlisting language="xml">
+<![CDATA[
+  <resource-ref>
+    <res-ref-name>jdbc/mydatasource1</res-ref-name>
+    <res-type>javax.sql.DataSource</res-type>
+    <res-auth>Container</res-auth>
+    <injection-target>
+      <injection-target-class>com.acme.JNDITest</injection-target-class>
+      <injection-target-name>myDatasource</injection-target-name>
+    </injection-target>
+  </resource-ref>
+]]>
+          </programlisting>
+        </informalexample>
+        <para>This can be useful when you cannot change 
+        <filename>&gt;web.xml</filename>&gt;but need to link it to a resource
+        in your deployment environment.</para>
+      </section>
+    </section>
+    <section xml:id="setting-jndi-entries-as-global-or-scoped">
+      <title>Setting JNDI Entries as Global or Scoped</title>
+      <para>As previously stated, you can control the visibility of your JNDI
+      naming entries within your JVM, Server and WebAppContext instances.
+      Naming entries at the jvm scope are visible by any application code, and
+      are available to bind to 
+      <code>java:comp/env</code>. Naming entries at the Server scope do not
+      interfere with entries of the same name in a different Server instance,
+      and are available to bind to 
+      <code>java:comp/env</code>of any web apps deployed to that Server
+      instance. Finally, the most specific scope are entries at the webapp
+      scope. An entry of this type is only available to bind to 
+      <code>java:comp/env</code>of the web app in which it is defined.</para>
+      <para>The first parameter to the NamingEntry controls the scope.</para>
+      <para>The jvm scope is represented by a null parameter:</para>
+      <informalexample>
+        <programlisting language="xml">
+<![CDATA[
+<New id="cf" class="org.eclipse.jetty.plus.jndi.Resource">
+  <Arg></Arg>
+  <Arg>jms/connectionFactory</Arg>
+  <Arg>
+    <New class="org.apache.activemq.ActiveMQConnectionFactory">
+       <Arg>vm://localhost?broker.persistent=false</Arg>
+    </New>
+  </Arg>
+</New>
+]]>
+        </programlisting>
+      </informalexample>
+      <para>The Server scope is represented by referencing the related Server
+      object:</para>
+      <informalexample>
+        <programlisting language="xml">
+<![CDATA[
+<Configure id="Server" class="org.eclipse.jetty.Server">
+...
+<New id="cf" class="org.eclipse.jetty.plus.jndi.Resource">
+  <Arg><Ref id="Server"/></Arg>
+  <Arg>jms/connectionFactory</Arg>
+  <Arg>
+    <New class="org.apache.activemq.ActiveMQConnectionFactory">
+       <Arg>vm://localhost?broker.persistent=false</Arg>
+    </New>
+  </Arg>
+</New>
+</Configure>
+]]>
+        </programlisting>
+      </informalexample>
+      <para>The webapp scope is represented by referencing the related
+      WebAppContext object:</para>
+      <informalexample>
+        <programlisting language="xml">
+<![CDATA[>
+<Configure id='wac' class="org.eclipse.jetty.webapp.WebAppContext">
+...
+<New id="cf" class="org.eclipse.jetty.plus.jndi.Resource">
+  <Arg><Ref id='wac'/></Arg>
+  <Arg>jms/connectionFactory</Arg>
+  <Arg>
+    <New class="org.apache.activemq.ActiveMQConnectionFactory">
+       <Arg>vm://localhost?broker.persistent=false</Arg>
+    </New>
+  </Arg>
+</New>
+</Configure>
+]]>
+        </programlisting>
+      </informalexample>
+      <para>As you can see, the most natural configuration files in which to
+      declare naming entries of each scope are:</para>
+      <itemizedlist>
+        <listitem>
+        <filename>&gt;etc/jetty.xml</filename>&gt;&#8211;jvm or Server
+        scope</listitem>
+        <listitem>
+        <filename>&gt;WEB-INF/jetty-env.xml</filename>or a context xml
+        file&#8211;webapp scope</listitem>
+      </itemizedlist>
+    </section>
+  </section>
+</section>

@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="utf-8"?>
+<section xml:id="jndi-datasource-examples" version="5.0"
+xmlns="http://docbook.org/ns/docbook"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:xl="http://www.w3.org/1999/xlink"
+xmlns:xi="http://www.w3.org/2001/XInclude"
+xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd">
+  <title>JNDI Datasource Examples</title>
+  <para>Here are examples of configuring a JNDI datasource for various
+  databases.</para>
+  <note>Read 
+  <xref linkend="configuring-datasources" />
+  in 
+  <xref linkend="configuring-jndi" />
+  for more information about configuring datasources.</note>
+  <para>All of these examples correspond to a 
+  <code>resource-ref</code>in 
+  <code>web.xml</code>.</para>
+  <informalexample>
+    <programlisting language="xml">
+<![CDATA[
+  <resource-ref>
+     <description>My DataSource Reference</description>
+     <res-ref-name>jdbc/DSTest</res-ref-name>
+     <res-type>javax.sql.DataSource</res-type>
+     <res-auth>Container</res-auth>
+  </resource-ref>
+]]>
+    </programlisting>
+  </informalexample>
+  <para>These examples assume that all of the datasources are declared at the
+  JVM scope, but you can, of course, use other scopes. You can configure all
+  JNDI resources in a 
+  <code>jetty.xml</code>&#160;file or in a 
+  <code>WEB-INF/jetty-env.xml</code>&#160;file, or a context XML file.</para>
+  <important>You must provide jetty with the libraries necessary to instantiate
+  the datasource you have configured by putting the corresponding jar in
+  jetty_home/lib/ext.</important>
+  <section xml:id="pooling-datasources">
+    <title>Pooling DataSources</title>
+    <para>Pooling datasources enables connection pooling, which lets you reuse
+    an existing connection instead of creating a new connection to the
+    database. This is highly efficient in terms of memory allocation and speed
+    of the request to the database. We highly recommend this option for
+    production environments.</para>
+    <section xml:id="bonecp">
+      <title>BoneCP</title>
+      <para>Connection pooling, available at 
+      <link
+      xl:href="http://jolbox.com/index.html?page=http://jolbox.com/download.html">BoneCP
+      Download</link>. All configuration options for BoneCP are described here:
+      
+      <link
+      xl:href="http://jolbox.com/bonecp/downloads/site/apidocs/com/jolbox/bonecp/BoneCPDataSource.html">BoneCP
+      API</link>.</para>
+      <informalexample>
+        <programlisting language="xml">
+<![CDATA[
+  <New id="DSTest" class="org.eclipse.jetty.plus.jndi.Resource">
+     <Arg></Arg>
+     <Arg>jdbc/DSTest</Arg>
+     <Arg>
+       <New class="com.jolbox.bonecp.BoneCPDataSource">
+         <Set name="driverClass">com.mysql.jdbc.Driver</Set>
+         <Set name="jdbcUrl">jdbc.url</Set>
+         <Set name="username">jdbc.user</Set>
+         <Set name="password">jdbc.pass</Set>
+         <Set name="minConnectionsPerPartition">5</Set>
+         <Set name="maxConnectionsPerPartition">50</Set>
+         <Set name="acquireIncrement">5</Set>
+         <Set name="idleConnectionTestPeriod">30</Set>
+      </New>
+    </Arg>
+  </New>
+]]>
+        </programlisting>
+      </informalexample>
+    </section>
+    <section xml:id="c3p0">
+      <title>c3p0</title>
+      <para>Connection pooling, available at 
+      <link
+      xl:href="http://repo1.maven.org/maven2/c3p0/c3p0/0.9.1.2/c3p0-0.9.1.2.jar">c3p0
+      Jar</link>.</para>
+      <informalexample>
+        <programlisting language="xml">
+<![CDATA[
+  <New id="DSTest" class="org.eclipse.jetty.plus.jndi.Resource">
+     <Arg></Arg>
+     <Arg>jdbc/DSTest</Arg>
+     <Arg>
+      <New class="com.mchange.v2.c3p0.ComboPooledDataSource">
+         <Set name="driverClass">org.some.Driver</Set>
+         <Set name="jdbcUrl">jdbc.url</Set>
+         <Set name="user">jdbc.user</Set>
+         <Set name="password">jdbc.pass</Set>
+      </New>
+     </Arg>
+    </New>
+]]>
+        </programlisting>
+      </informalexample>
+    </section>
+    <section xml:id="dbcp">
+      <title>dbcp</title>
+      <para>Connection pooling, available at 
+      <link
+      xl:href="http://repo1.maven.org/maven2/commons-dbcp/commons-dbcp/1.2/commons-dbcp-1.2.jar">dbcp
+      Jar</link>.</para>
+      <informalexample>
+        <programlisting language="xml">
+<![CDATA[
+  <New id="DSTest" class="org.eclipse.jetty.plus.jndi.Resource">
+     <Arg></Arg>
+     <Arg>jdbc/DSTest</Arg>
+     <Arg>
+         <New class="org.apache.commons.dbcp.BasicDataSource">
+            <Set name="driverClassName">org.some.Driver</Set>
+            <Set name="url">jdbc.url</Set>
+            <Set name="username">jdbc.user</Set>
+            <Set name="password">jdbc.pass</Set>
+         </New>
+     </Arg>
+    </New>
+]]>
+        </programlisting>
+      </informalexample>
+    </section>
+    <section xml:id="atomikos">
+      <title>Atomikos 3.3.2+</title>
+      <para>Connection pooling + XA transactions.</para>
+      <informalexample>
+        <programlisting language="xml">
+<![CDATA[
+   <New id="DSTest" class="org.eclipse.jetty.plus.jndi.Resource">
+      <Arg></Arg>
+      <Arg>jdbc/DSTest</Arg>
+      <Arg>
+         <New class="com.atomikos.jdbc.AtomikosDataSourceBean">
+            <Set name="minPoolSize">2</Set>
+            <Set name="maxPoolSize">50</Set>
+            <Set name="xaDataSourceClassName">com.mysql.jdbc.jdbc2.optional.MysqlXADataSource</Set>
+            <Set name="UniqueResourceName">DSTest</Set>
+            <Get name="xaProperties">
+               <Call name="setProperty">
+                  <Arg>url</Arg>
+                  <Arg>jdbc:mysql://localhost:3306/databasename</Arg>
+               </Call>
+               <Call name="setProperty">
+                  <Arg>user</Arg>
+                  <Arg>some_username</Arg>
+               </Call>
+               <Call name="setProperty">
+                  <Arg>password</Arg>
+                  <Arg>some_password</Arg>
+               </Call>
+            </Get>
+         </New>
+      </Arg>
+    </New>
+]]>
+        </programlisting>
+      </informalexample>
+    </section>
+  </section>
+  <section xml:id="non-pooling-datasources">
+    <title>Non-pooling DataSources</title>
+    <para>If you are deploying in a production environment, use the Pooling
+    DataSources instead.</para>
+    <section xml:id="mysql">
+      <title>MySQL</title>
+      <para>Implements javax.sql.DataSource,
+      javax.sql.ConnectionPoolDataSource.</para>
+      <informalexample>
+        <programlisting language="xml">
+<![CDATA[ 
+  <New id="DSTest" class="org.eclipse.jetty.plus.jndi.Resource">
+     <Arg></Arg>
+     <Arg>jdbc/DSTest</Arg>
+     <Arg>
+        <New class="com.mysql.jdbc.jdbc2.optional.MysqlConnectionPoolDataSource">
+           <Set name="Url">jdbc:mysql://localhost:3306/databasename</Set>
+           <Set name="User">user</Set>
+           <Set name="Password">pass</Set>
+        </New>
+     </Arg>
+    </New>
+]]>
+        </programlisting>
+      </informalexample>
+    </section>
+    <section xml:id="sql-server-2000">
+      <title>SQL Server 2000</title>
+      <paa>Implements javax.sql.DataSource, javax.sql.ConnectionPoolDataSource.
+      
+      <informalexample>
+        <programlisting language="xml">
+<![CDATA[
+  <New id="DSTest" class="org.eclipse.jetty.plus.jndi.Resource">
+     <Arg></Arg>
+     <Arg>jdbc/DSTest</Arg>
+     <Arg>
+        <New class="net.sourceforge.jtds.jdbcx.JtdsDataSource">
+           <Set name="User">user</Set>
+           <Set name="Password">pass</Set>
+           <Set name="DatabaseName">dbname</Set>
+           <Set name="ServerName">localhost</Set>
+           <Set name="PortNumber">1433</Set>
+        </New>
+     </Arg>
+    </New>
+]]>
+        </programlisting>
+      </informalexample>
+      <section xml:id="oracle-9i10g">
+        <title>Oracle 9i/10g</title>
+        <para>Implements javax.sql.DataSource,
+        javax.sql.ConnectionPoolDataSource.</para>
+        <informalexample>
+          <programlisting language="xml">
+<![CDATA[> 
+  <New id="DSTest" class="org.eclipse.jetty.plus.jndi.Resource">
+    <Arg></Arg>
+    <Arg>jdbc/DSTest</Arg>
+    <Arg>
+      <New class="oracle.jdbc.pool.OracleDataSource">
+        <Set name="DriverType">thin</Set>
+        <Set name="URL">jdbc:oracle:thin:@fmsswdb1:10017:otcd</Set>
+        <Set name="User">xxxx</Set>
+        <Set name="Password">xxxx</Set>
+        <Set name="connectionCachingEnabled">true</Set>
+        <Set name="connectionCacheProperties">
+          <New class="java.util.Properties">
+            <Call name="setProperty">
+              <Arg>MinLimit</Arg>
+              <Arg>5</Arg>
+            </Call>
+            <!-- put the other properties in here too -->
+          </New>
+        </Set>
+      </New>
+    </Arg>
+  </New>
+]]>
+          </programlisting>
+        </informalexample>
+        <para>For more information, refer to: 
+        <link
+        xl:href="http://docs.oracle.com/cd/B14117_01/java.101/b10979/conncache.htm">Oracle
+        Database JDBC documentation</link>.</para>
+      </section>
+      <section xml:id="oracle-9i10g">
+        <title>PostgreSQL</title>
+        <para>Implements javax.sql.DataSource.</para>
+        <informalexample>
+          <programlisting language="xml">
+<![CDATA[> 
+  <New id="DSTest" class="org.eclipse.jetty.plus.jndi.Resource">
+     <Arg></Arg>
+     <Arg>jdbc/DSTest</Arg>
+     <Arg>
+        <New class="org.postgresql.ds.PGSimpleDataSource">
+           <Set name="User">user</Set>
+           <Set name="Password">pass</Set>
+           <Set name="DatabaseName">dbname</Set>
+           <Set name="ServerName">localhost</Set>
+           <Set name="PortNumber">5432</Set>
+        </New>
+     </Arg>
+  </New>
+]]>
+          </programlisting>
+        </informalexample>
+        <para>Implements javax.sql.ConnectionPoolDataSource.</para>
+        <informalexample>
+          <programlisting language="xml">
+<![CDATA[> 
+  <New id="DSTest" class="org.eclipse.jetty.plus.jndi.Resource">
+     <Arg></Arg>
+     <Arg>jdbc/DSTest</Arg>
+     <Arg>
+        <New class="org.postgresql.ds.PGConnectionPoolDataSource">
+           <Set name="User">user</Set>
+           <Set name="Password">pass</Set>
+           <Set name="DatabaseName">dbname</Set>
+           <Set name="ServerName">localhost</Set>
+           <Set name="PortNumber">5432</Set>
+ 
+        </New>
+     </Arg>
+  </New>
+]]>
+          </programlisting>
+        </informalexample>
+        <para>
+          <section xml:id="oracle-9i10g">
+            <title>Sybase</title>
+            <para>Implements javax.sql.DataSource.</para>
+            <informalexample>
+              <programlisting language="xml">
+<![CDATA[> 
+  <New id="DSTest" class="org.eclipse.jetty.plus.jndi.Resource">
+     <Arg></Arg>
+     <Arg>jdbc/DSTest</Arg>
+     <Arg>
+        <New class="com.sybase.jdbc2.jdbc.SybDataSource">
+           <Set name="DatabaseName">dbname</Set>
+           <Set name="User">user</Set>
+           <Set name="Password">pass</Set>
+           <Set name="ServerName">servername</Set>
+           <Set name="PortNumber">5000</Set>
+        </New>
+     </Arg>
+  </New>
+]]>
+              </programlisting>
+            </informalexample>
+          </section>
+          <section xml:id="DB2">
+            <para>Implements javax.sql.DataSource.</para>
+            <informalexample>
+              <programlisting language="xml">
+<![CDATA[> 
+  <New id="DSTest" class="org.eclipse.jetty.plus.jndi.Resource">
+     <Arg></Arg>
+     <Arg>jdbc/DSTest</Arg>
+     <Arg>
+        <New class="com.ibm.db2.jcc.DB2SimpleDataSource">
+           <Set name="DatabaseName">dbname</Set>
+           <Set name="User">user</Set>
+           <Set name="Password">pass</Set>
+           <Set name="ServerName">servername</Set>
+           <Set name="PortNumber">50000</Set>
+        </New>
+     </Arg>
+  </New>
+]]>
+              </programlisting>
+            </informalexample>
+            <para>Implements javax.sql.ConnectionPoolDataSource.</para>
+            <informalexample>
+              <programlisting language="xml">
+<![CDATA[>
+  <New id="DSTest" class="org.eclipse.jetty.plus.jndi.Resource">
+     <Arg></Arg>
+     <Arg>jdbc/DSTest</Arg>
+     <Arg>
+        <New class="com.ibm.db2.jcc.DB2ConnectionPoolDataSource">
+           <Set name="DatabaseName">dbname</Set>
+           <Set name="User">user</Set>
+           <Set name="Password">pass</Set>
+           <Set name="ServerName">servername</Set>
+           <Set name="PortNumber">50000</Set>
+        </New>
+     </Arg>
+  </New>
+]]>
+              </programlisting>
+            </informalexample>
+          </section>
+        </para>
+      </section></paa>
+    </section>
+  </section>
+</section>

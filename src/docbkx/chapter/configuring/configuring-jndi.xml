@@ -101,7 +101,7 @@ etc/jetty-plus.xml
         </programlisting>
       </informalexample>
       <para>Now skip down to the section, 
-      <xref linkend="adding-jndi-implementation-jars" />
+      <xref linkend="adding-jndi-implementation-jars-to-jetty-classpath" />
       .</para>
       <para>If you only want to use JNDI with specific webapps, read on.</para>
     </section>

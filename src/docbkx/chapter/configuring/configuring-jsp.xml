@@ -292,7 +292,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     recompilation. Here is a factoring out of the various options:</para>
     <itemizedlist>
       <listitem>Check the JSP files for possible recompilation on every
-      request:</listitem>
+      request: 
       <informalexample>
         <programlisting language="xml">
 <![CDATA[
@@ -302,10 +302,10 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
 </init-param>
 ]]>
         </programlisting>
-      </informalexample>
-      <listitem>&gt;Only check approximately every N seconds, where a request
-      will trigger the time-lapse calculation. This example checks every 60
-      seconds:</listitem>
+      </informalexample></listitem>
+      <listitem>Only check approximately every N seconds, where a request will
+      trigger the time-lapse calculation. This example checks every 60 seconds:
+      
       <informalexample>
         <programlisting language="xml">
 <![CDATA[
@@ -319,11 +319,10 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
 </init-param>
 ]]>
         </programlisting>
-      </informalexample>
+      </informalexample></listitem>
       <listitem>Do no checking whatsoever, but still compile the JSP on the
       very first hit. (Note: this ''reload-interval'' parameter is shorthand
-      for a ''development=false'' and ''checkInterval=0''
-      combination.):</listitem>
+      for a ''development=false'' and ''checkInterval=0'' combination.): 
       <informalexample>
         <programlisting language="xml">
 <![CDATA[
@@ -333,10 +332,10 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
 </init-param>
 ]]>
         </programlisting>
-      </informalexample>
+      </informalexample></listitem>
       <listitem>Don't do any request-time checking, but instead start a
       background thread to do checks every N seconds. This example checks every
-      60 seconds:</listitem>
+      60 seconds: 
       <informalexample>
         <programlisting language="xml">
 <![CDATA[
@@ -350,7 +349,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
 </init-param>
  ]]>
         </programlisting>
-      </informalexample>
+      </informalexample></listitem>
     </itemizedlist>
   </section>
   <section xml:id="modifying-configuration">
@@ -402,7 +401,8 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
       </informalexample>
       <para>If you want to change the JSP settings for all of the webapps, edit
       the 
-      <tt>$JETTY_HOME/etc/webdefaults.xml</tt>file directly instead.</para>
+      <filename>$JETTY_HOME/etc/webdefaults.xml</filename>file directly
+      instead.</para>
     </section>
     <section xml:id="configuring-jsp-servlet-in-web.xml">
       <title>Configuring the JSP Servlet in 
@@ -510,7 +510,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
       TLDs.</note>
     </section>
     <section xml:id="using-jstl-taglibs-for-jetty8.x">
-      <title>&gt;Using JSTL Taglibs for Jetty 8.x</title>
+      <title>Using JSTL Taglibs for Jetty 8.x</title>
       <para>The version of JSP 2.2 engine that Jetty uses employs a Servlet 3.0
       way of finding TLDs ( 
       <link

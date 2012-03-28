@@ -30,15 +30,13 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     <emphasis>NCSARequestLog</emphasis>which supports the NCSA format in files
     that you can roll over on a daily basis.</para>
     <para>The 
-    <link xl:href="http://logback.qos.ch logback project">Logback
-    Project</link>offers 
+    <link xl:href="http://http://logback.qos.ch/">Logback Project</link>offers 
     <link xl:href="http://logback.qos.ch/access.html">another
     implementation</link>of a RequestLog interface, providing rich and powerful
     HTTP-access log functionality.</para>
     <para>If neither of these options meets your needs, you can implement a
     custom request logger by implementing Jetty's 
-    <link
-    xl:href="@JDURL@/index.html?org/eclipse/jetty/server/RequestLog.html">
+    <link xl:href="@JDURL@/org/eclipse/jetty/server/RequestLog.html">
     RequestLog.java</link>interface and plugging it in similar to the
     NCSARequestLog, as shown below.</para>
   </section>
@@ -105,12 +103,11 @@ requestLogHandler.setRequestLog(requestLog);
     appended to and the extended NCSA format is used in the GMT
     timezone.</para>
     <para>To examine many more configuration options, see 
-    <link
-    xl:href="@JDURL@/index.html?org/eclipse/jetty/server/RequestLog.html">
+    <link xl:href="@JDURL@/org/eclipse/jetty/server/NCSARequestLog.html">
     NCSARequestLog.java</link></para>
   </section>
   <section xml:id="configuring-separate-request-log-for-web-application">
-    <title>Configuring a Separate Request Log For Web Application</title>
+    <title>Configuring a Separate Request Log For a Web Application</title>
     <para>To configure a separate request log for a web application, add the
     following to the context xml file.</para>
     <informalexample>

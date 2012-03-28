@@ -95,28 +95,25 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
       <itemizedlist>
         <listitem>
         <emphasis>UMASK</emphasis>with the umask setting you want the process
-        to have.</listitem>
+        to have.
         <itemizedlist>
           <listitem>You must enter it in decimal. That is, if you want the
-          effect of umask 022, you must enter
-           <screen>
+          effect of umask 022, you must enter 
+          <screen>
 <![CDATA[
 <Set name="umask">18</Set>
 ]]>
-    </screen>
-          </listitem>
-          <listitem>If you prefer hexadecimal, enter
-           <screen>
+          </screen></listitem>
+          <listitem>If you prefer hexadecimal, enter 
+          <screen>
 <![CDATA[
 <Set name="umaskOctal">022</Set>
 ]]>
-    </screen>
-          </listitem>
+          </screen></listitem>
           <listitem>You can remove this line if you don't want to change this
           at runtime.</listitem>
-          <listitem>Set it to 002 if you get an error to the effect
-          that root does not have permission to write to the log
-          file.</listitem>
+          <listitem>Set it to 002 if you get an error to the effect that root
+          does not have permission to write to the log file.</listitem>
         </itemizedlist>
         </listitem>
         <listitem>
@@ -166,13 +163,13 @@ sudo java -jar start.jar
 ]]>
         </screen></listitem>
       </itemizedlist>
-      <note>As the setuid feature relies on a native library, you might find that
-      you need to build the feature for your environment. Either download the
-      src distribution of jetty-hightide from 
+      <note>As the setuid feature relies on a native library, you might find
+      that you need to build the feature for your environment. Either download
+      the src distribution of jetty-hightide from 
       <link
       xl:href="http://repo1.maven.org/maven2/org/mortbay/jetty/jetty-hightide/">Maven
       Central</link>, or checkout the 
-      <link xl:href="git://git.codehaus.org/jetty-project.git">jetty codehaus
+      <link xl:href="http://git.codehaus.org/gitweb.cgi?p=jetty-project.git">jetty codehaus
       git repository</link>, and modify the 
       <filename>jetty-setuid/modules/native/pom.xml</filename>as
       necessary.</note>
@@ -218,7 +215,7 @@ service my_redirector
       <para>Be aware of the following:</para>
       <itemizedlist>
         <listitem>
-          <para>Space on either side of the '=' or it is ignored.</para>
+          <para>Include a space on either side of the '=' or it is ignored.</para>
         </listitem>
         <listitem>
           <para>
@@ -253,8 +250,8 @@ service http
           <emphasis>yum install xinetd</emphasis>fixes that.</para>
         </listitem>
       </itemizedlist>
-      <para>Xinetd is a hugely powerful and configurable system, so expect to do
-      some reading.</para>
+      <para>Xinetd is a hugely powerful and configurable system, so expect to
+      do some reading.</para>
     </section>
   </section>
   <section xml:id="using-solaris10-user-rights-management-framework">

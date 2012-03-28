@@ -6,13 +6,16 @@ xmlns:xl="http://www.w3.org/1999/xlink"
 xmlns:xi="http://www.w3.org/2001/XInclude"
 xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd">
   <title>Configuring Jetty Request Logs</title>
-  <para>
-Request logs are a record of the requests that the server has processed. There is one entry per request received, and commonly in the standard NCSA format, so you can use tools like <link xl:href="http://en.wikipedia.org/wiki/Webalizer">Webalizer</link> to analyze them conveniently.</para>
-<section xml:id="constructing-request-log-entry">
-<title> Constructing a Request Log Entry</title>
-<para>
-A standard request log entry includes the client IP address, date, method, URL, result, size, referrer and user agent, for example:</para>
- <screen>
+  <para>Request logs are a record of the requests that the server has
+  processed. There is one entry per request received, and commonly in the
+  standard NCSA format, so you can use tools like 
+  <link xl:href="http://en.wikipedia.org/wiki/Webalizer">Webalizer</link>to
+  analyze them conveniently.</para>
+  <section xml:id="constructing-request-log-entry">
+    <title>Constructing a Request Log Entry</title>
+    <para>A standard request log entry includes the client IP address, date,
+    method, URL, result, size, referrer and user agent, for example:</para>
+    <screen>
 <![CDATA[
  123.4.5.6 - - [27/Aug/2004:10:16:17 +0000]
   "GET /jetty/tut/XmlConfiguration.html HTTP/1.1"
@@ -20,23 +23,31 @@ A standard request log entry includes the client IP address, date, method, URL, 
   "Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.6) Gecko/20040614 Firefox/0.8"
 ]]>
     </screen>
-    </section>
-    <section xml:id="implementing-request-log">
-<title> Implementing a Request Log</title>
-<para>
-Jetty provides an implementation called <emphasis>NCSARequestLog</emphasis> which supports the NCSA format in files that you can roll over on a daily basis.</para>
-<para>
-The <link xl:href="http://logback.qos.ch logback project">Logback Project</link> offers <link xl:href="http://logback.qos.ch/access.html">another implementation</link> of a RequestLog interface, providing rich and powerful HTTP-access log functionality.</para>
-<para>
-If neither of these options meets your needs, you can implement a custom request logger by implementing Jetty's <link xl:href="@JDURL@/index.html?org/eclipse/jetty/server/RequestLog.html"> RequestLog.java</link> interface and plugging it in similar to the NCSARequestLog, as shown below.</para>
-</section>
-    <section xml:id="configuring-request-log">
-<title> Configuring a Request Log</title>
-<para>
-To configure a single request log for the entire Jetty Server instance:</para>
-
-<informalexample>
-        <programlisting language="xml">
+  </section>
+  <section xml:id="implementing-request-log">
+    <title>Implementing a Request Log</title>
+    <para>Jetty provides an implementation called 
+    <emphasis>NCSARequestLog</emphasis>which supports the NCSA format in files
+    that you can roll over on a daily basis.</para>
+    <para>The 
+    <link xl:href="http://logback.qos.ch logback project">Logback
+    Project</link>offers 
+    <link xl:href="http://logback.qos.ch/access.html">another
+    implementation</link>of a RequestLog interface, providing rich and powerful
+    HTTP-access log functionality.</para>
+    <para>If neither of these options meets your needs, you can implement a
+    custom request logger by implementing Jetty's 
+    <link
+    xl:href="@JDURL@/index.html?org/eclipse/jetty/server/RequestLog.html">
+    RequestLog.java</link>interface and plugging it in similar to the
+    NCSARequestLog, as shown below.</para>
+  </section>
+  <section xml:id="configuring-request-log">
+    <title>Configuring a Request Log</title>
+    <para>To configure a single request log for the entire Jetty Server
+    instance:</para>
+    <informalexample>
+      <programlisting language="xml">
 <![CDATA[
 <Set name="handler">
   <New id="Handlers" class="org.eclipse.jetty.server.handler.HandlerCollection">
@@ -67,13 +78,11 @@ To configure a single request log for the entire Jetty Server instance:</para>
   </Set>
 </Ref>
 ]]>
-        </programlisting>
-      </informalexample>
-<para>
-The equivalent code is:</para>
-
-<informalexample>
-        <programlisting language="java">
+      </programlisting>
+    </informalexample>
+    <para>The equivalent code is:</para>
+    <informalexample>
+      <programlisting language="java">
 <![CDATA[
 HandlerCollection handlers = new HandlerCollection();
 ContextHandlerCollection contexts = new ContextHandlerCollection();
@@ -88,20 +97,24 @@ requestLog.setExtended(false);
 requestLog.setLogTimeZone("GMT");
 requestLogHandler.setRequestLog(requestLog);
 ]]>
-        </programlisting>
-      </informalexample>
-      <para>
-This configures a request log in <filename>$JETTY_HOME/logs</filename> with filenames including the date. Old log files are kept for 90 days before being deleted. Existing log files are appended to and the extended NCSA format is used in the GMT timezone.</para>
-<para>
-To examine many more configuration options, see <link xl:href="@JDURL@/index.html?org/eclipse/jetty/server/RequestLog.html">NCSARequestLog.java</link></para>
-</section>
-<section xml:id="configuring-separate-request-log-for-web-application">
-<title> Configuring a Separate Request Log For Web Application</title>
-<para>
-To configure a separate request log for a web application, add the following  to the context xml file.</para>
-
-<informalexample>
-        <programlisting language="xml">
+      </programlisting>
+    </informalexample>
+    <para>This configures a request log in 
+    <filename>$JETTY_HOME/logs</filename>with filenames including the date. Old
+    log files are kept for 90 days before being deleted. Existing log files are
+    appended to and the extended NCSA format is used in the GMT
+    timezone.</para>
+    <para>To examine many more configuration options, see 
+    <link
+    xl:href="@JDURL@/index.html?org/eclipse/jetty/server/RequestLog.html">
+    NCSARequestLog.java</link></para>
+  </section>
+  <section xml:id="configuring-separate-request-log-for-web-application">
+    <title>Configuring a Separate Request Log For Web Application</title>
+    <para>To configure a separate request log for a web application, add the
+    following to the context xml file.</para>
+    <informalexample>
+      <programlisting language="xml">
 <![CDATA[
 <Configure class="org.eclipse.jetty.webapp.WebAppContext">
   ...
@@ -121,7 +134,7 @@ To configure a separate request log for a web application, add the following  to
   ...
 </Configure>
 ]]>
-        </programlisting>
-      </informalexample>
-</section>
+      </programlisting>
+    </informalexample>
+  </section>
 </section>

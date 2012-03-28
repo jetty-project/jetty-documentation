@@ -95,7 +95,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
       <itemizedlist>
         <listitem>
         <emphasis>UMASK</emphasis>with the umask setting you want the process
-        to have.
+        to have. 
         <itemizedlist>
           <listitem>You must enter it in decimal. That is, if you want the
           effect of umask 022, you must enter 
@@ -114,8 +114,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
           at runtime.</listitem>
           <listitem>Set it to 002 if you get an error to the effect that root
           does not have permission to write to the log file.</listitem>
-        </itemizedlist>
-        </listitem>
+        </itemizedlist></listitem>
         <listitem>
         <emphasis>USERID</emphasis>with the ID of the user you want the process
         to execute as once the ports have been opened.</listitem>
@@ -169,8 +168,8 @@ sudo java -jar start.jar
       <link
       xl:href="http://repo1.maven.org/maven2/org/mortbay/jetty/jetty-hightide/">Maven
       Central</link>, or checkout the 
-      <link xl:href="http://git.codehaus.org/gitweb.cgi?p=jetty-project.git">jetty codehaus
-      git repository</link>, and modify the 
+      <link xl:href="http://git.codehaus.org/gitweb.cgi?p=jetty-project.git">
+      jetty codehaus git repository</link>, and modify the 
       <filename>jetty-setuid/modules/native/pom.xml</filename>as
       necessary.</note>
     </section>
@@ -215,7 +214,8 @@ service my_redirector
       <para>Be aware of the following:</para>
       <itemizedlist>
         <listitem>
-          <para>Include a space on either side of the '=' or it is ignored.</para>
+          <para>Include a space on either side of the '=' or it is
+          ignored.</para>
         </listitem>
         <listitem>
           <para>

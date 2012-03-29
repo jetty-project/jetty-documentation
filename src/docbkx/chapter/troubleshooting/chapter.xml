@@ -6,5 +6,5 @@ xmlns:xl="http://www.w3.org/1999/xlink"
 xmlns:xi="http://www.w3.org/2001/XInclude"
 xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd">
   <title>Troubleshooting</title>
-<!--xi:include href="content.xml" /-->
+  <xi:include href="troubleshooting-zip-exceptions.xml" />
 </chapter>

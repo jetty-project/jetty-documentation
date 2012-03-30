@@ -29,26 +29,35 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
       avoiding the cache problem.</listitem>
       <listitem>Deploy a packed WAR file with the 
       <link
-      xlhref="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/webapp/WebAppContext.html#setExtractWAR(boolean)">setExtractWAR</link>option
-      set to true. This causes the WAR to be extracted to a temporary directory
-      and thus to a new location. This might not be sufficient if you want to
-      hot-replace and reextract the war, so you might also need to use 
+      xl:href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/webapp/WebAppContext.html#setExtractWAR(boolean)">setExtractWAR</link>option
+      set to true. This causes the WAR to be extracted to a 
       <link
-      xl:href="http://download.eclipse.org/jetty/stable7/apidocs/org/eclipse/jetty/webapp/WebAppContext.html#setCopyWebInf(boolean)">WebAppContext.setCopyWebInf(true)</link>,
+      xl:href="http://wiki.eclipse.org/Jetty/Reference/Temporary_Directories">
+      temporary directory</link>and thus to a new location. This might not be
+      sufficient if you want to hot-replace and reextract the WAR, so you might
+      also need to use 
+      <link
+      xl:href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/webapp/WebAppContext.html#setCopyWebInf(boolean)">WebAppContext.setCopyWebInf(true)</link>,
       which (re)copies just the WEB-INF directory to a different
       location.</listitem>
       <listitem>Deploy an unpacked WAR file with the 
       <link
-      xlhref="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/webapp/WebAppContext.html#setCopyWebDir(boolean)">setCopyWebDir</link>option
+      xl:href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/webapp/WebAppContext.html#setCopyWebDir(boolean)">setCopyWebDir</link>option
       set to true. This causes the directory to be extracted to a new
       location.</listitem>
     </itemizedlist>
     <para>Be aware that any of the techniques listed above that involve copying
-    part or all of the webapp will probably not avoid the zip file problem if a
-    work directory is being used (which avoids re-extraction on start/stop of a
-    context or container).</para>
-    <para>If you have problems with Windows file-locking preventing JSP
-    editing, use the 
+    part or all of the webapp will probably not avoid the zip file problem if
+    you are using a 
+    <link
+    xl:href="http://wiki.eclipse.org/Jetty/Reference/Temporary_Directories">
+    work directory</link>(which avoids re-extraction on start/stop of a context
+    or container).</para>
+    <para>If you have problems with 
+    <link
+    xl:href="http://wiki.eclipse.org/Jetty/Howto/Deal_with_Locked_Windows_Files">Windows
+    file-locking</link>preventing static file editing (such as JSP or HTML),
+    use the 
     <link
     xl:href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/webapp/WebAppContext.html#setCopyWebDir(boolean)">WebAppContext.setCopyWebDir(true)</link>option.</para>
   </section>

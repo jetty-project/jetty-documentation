@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<section xml:id="configuring-jetty" version="5.0"
+xmlns="http://docbook.org/ns/docbook"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:xl="http://www.w3.org/1999/xlink"
+xmlns:xi="http://www.w3.org/2001/XInclude"
+xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd">
+  <title>Configuring Jetty &amp;hbsp; Master Doc</title>
+  <para>Configuring Jetty consists of building a network of connectors and
+  handlers and providing their individual configurations. It is a combination
+  of:</para>
+  <itemizedlist>
+  <listitem>HTTP server configuration &amp;hbsp; ports, thread pools, buffers,
+  etc.</listitem>
+  <listitem>Web container configuration &amp;hbsp; webapps deployment, security
+  realms, JNDI, etc.</listitem>Web application &amp;hbsp; init parameters, non
+  standard options, etc.</itemizedlist>
+  <note>See [[Jetty/Reference/Jetty_Architecture|Jetty Architecture]] for
+  graphical representations of the interactions among connectors and
+  handlers.</note>
+  <para>Since Jetty components are simply Plain Old Java Objects ( 
+  <link xl:href="http://en.wikipedia.org/wiki/Plain_Old_Java_Object">
+  POJOs</link>), you can accomplish this assembly and configuration of Jetty by
+  a variety of techniques:</para>
+  <itemizedlist>
+    <listitem>
+      <xref linkend="developing-against-jetty-api" />
+    </listitem>
+    <listitem>
+      <xref linkend="using-jetty-xml" />
+    </listitem>
+    <listitem>
+      <xref linkend="embedding-jetty" />
+    </listitem>
+    <listitem>
+      <xref linkend="using-jetty-maven-plugin" />
+    </listitem>
+    <listitem>
+      <xref linkend="using-dependency-injection-framework" />
+    </listitem>
+    <listitem>
+      <xref linkend="developing-against-jetty-api" />
+    </listitem>
+  </itemizedlist>
+  <section xml:id="developing-against-jetty-api">
+    <title>Developing Against the Jetty API</title>
+    <para>You can develop both standard web applications and embedded web
+    applications by writing code. The basic approach is to install the required
+    [[Jetty/Reference/Dependencies|Jetty-7 jars and dependencies]] on your
+    class path and then write and run a variation of one of the examples in 
+    <xref linkend="embedding" />
+    .</para>
+    <para>For more details about setting up your class path, see:</para>
+    <itemizedlist>
+      <listitem>[[Jetty/Tutorial/Jetty_HelloWorld|Jetty HelloWorld
+      Tutorial]]</listitem>
+      <listitem>[[Jetty/Tutorial/Jetty_and_Maven_HelloWorld|Jetty and Maven
+      HelloWorld Tutorial]]</listitem>
+    </itemizedlist>
+    <para>For more information on developing against the Jetty API, as well as
+    explanations of other tools, including the Jetty Maven, Ant, and OSGi
+    plugins, see [http://wiki.eclipse.org/Jetty/Howto/Develop How to Develop
+    with Jetty].</para>
+    <para>Above all, study the examples in the 
+    <link xl:href="http://download.eclipse.org/jetty/stable-7/xref/">Jetty
+    Latest Source XRef</link>.</para>
+  </section>
+  <section xml:id="using-jetty-xml">
+    <title>Using Jetty XML</title>
+    <para>Jetty XML offers XML equivalents to code. It is based on Java's
+    Reflection API. Classes in the 
+    <code>java.lang.reflec</code>represent Java methods and classes, such that
+    you can instantiate objects and invoke their methods based on their names
+    and argument types. Behind the scenes, Jetty's XML config parser translates
+    the XML elements and attributes into Reflection calls. (Ethan McAllum makes
+    this point in his appreciative article about Jetty, 
+    <link
+    xl:href="http://onjava.com/pub/a/onjava/2006/06/14/what-is-jetty.html?page=3">
+    <emphasis>What is Jetty?</emphasis>)</link></para>
+    <para>The default configuration file for Jetty is 
+    <filename>jetty.xml</filename>, typically located at 
+    <filename>$JETTY_HOME/etc/jetty.xml</filename>. Usually 
+    <filename>jetty.xml</filename>configures these components:</para>
+    <itemizedlist>
+      <listitem>the Server class (or subclass if extended) and global
+      options</listitem>
+      <listitem>a ThreadPool &amp;hbsp; min &amp; max thread</listitem>
+      <listitem>connectors &amp;hbsp; ports, timeouts, buffer sizes, protocol,
+      etc.</listitem>
+      <listitem>the handler structure &amp;hbsp; default handlers and/or a
+      contextHandlerCollections, etc.</listitem>
+      <listitem>the DeploymentManage &amp;hbsp; scans for and deploys webapps
+      and contexts</listitem>
+      <listitem>login services &amp;hbsp; provide authentication
+      checking</listitem>
+      <listitem>a request log</listitem>
+    </itemizedlist>
+    <para>Not all Jetty features are configured in 
+    <filename>jetty.xml</filename>. There are several optional configuration
+    files that share the same format as 
+    <filename>jetty.xml</filename>and, if specified, concatenate to it. These
+    configuration files are also stored in 
+    <filename>$JETTY_HOME/etc/</filename>, and examples of them are in 
+    <link
+    xl:href="http://dev.eclipse.org/viewsvn/index.cgi/jetty/trunk/jetty-server/src/main/config/etc/?root=RT_JETTY">SVN
+    Repository</link>.</para>
+    <itemizedlist>
+      <listitem>[[Jetty/Feature/Start.jar|Start.jar]] &amp;hbsp; selects the
+      configuration files to use.</listitem>
+      <listitem>[[Jetty/Reference/jetty.xml_usage|jetty XML Usage]] &amp;hbsp;
+      describes the process of merging configuration files.</listitem>
+      <listitem>[[Jetty/Reference/jetty.xml_syntax|Jetty.xml Syntax ]]
+      &amp;hbsp; describes the syntax for using
+      [[Jetty/Reference/jetty.xml|jetty.xml]]</listitem>
+    </itemizedlist>
+    <section xml:id="additional-resources">
+      <title>Additional Resources</title>
+      <itemizedlist>
+        <listitem>[http://www.eclipse.org/jetty/configure.dtd configure.dtd]
+        &amp;hbsp; document type descriptor for the
+        org.eclipse.XmlConfiguration class</listitem>
+        <listitem>[[Jetty/Reference/jetty-web.xml| jetty-web.xml]] &amp;hbsp;
+        Webapp configuration file</listitem>
+        <listitem>[[Jetty/Reference/jetty-env.xml| jetty-env.xml]] &amp;hbsp;
+        JNDI configuration file</listitem>
+        <listitem>[[Jetty/Reference/webdefault.xml|webdefault.xml]] &amp;hbsp;
+        Pre-web.xml configuration</listitem>
+        <listitem>[[Jetty/Reference/override-web.xml|override-web.xml]]
+        &amp;hbsp; Post-web.xml configuration</listitem>
+      </itemizedlist>
+    </section>
+  </section>
+  <section xml:id="embedding-jetty">
+    <title>Embedding Jetty</title>
+    <para>You can embed Jetty in an application. This is an alternative to
+    bundling your application as a standard WAR to be deployed in Jetty. Jetty
+    is designed to work as a software component that can be instantiated and
+    used in a Java program just like any any 
+    <link xl:href="http://en.wikipedia.org/wiki/Plain_Old_Java_Object">
+    POJO</link>. For more information and configuration instructions, see 
+    <xref linkend="embedding" />
+    .</para>
+  </section>
+  <section xml:id="using-jetty-maven-plugin">
+    <title>Using the Jetty Maven Plugin</title>
+    <para>Apache Maven is a software project management and comprehension tool.
+    Based on the concept of a project object model (POM), Maven can manage a
+    project's build, reporting, and documentation from a central piece of
+    information. It is an ideal tool to build a web application project, and
+    such projects can use the Jetty Maven Plugin to run the web application in
+    development mode. For information and configuration instructions,
+    see</para>
+    <itemizedlist>
+      <listitem>[[Jetty/Feature/Jetty_Maven_Plugin|Jetty Maven
+      Plugin]]</listitem>
+      <listitem>[[Jetty/Tutorial/Jetty_and_Maven_HelloWorld|Jetty Maven
+      HelloWorld Tutorial]]</listitem>
+    </itemizedlist>
+  </section>
+  <section xml:id="using-dependency-injection-framework">
+    <title>Using a Dependency Injection Framework: Spring, XBean</title>
+    <para>You can use almost any IoC-style framework, including Spring and
+    XBean, to assemble and configure Jetty.</para>
+    <section xml:id="configuring-jetty-with-spring">
+      <title>Configuring Jetty with 
+      <link xl:href="http://www.springsource.org/">Spring</link></title>
+      <para>The jetty-spring module is included in jetty@codehaus with some
+      convenience classes and a Main method to run Jetty from Spring. For more
+      information, see:</para>
+      <itemizedlist>
+        <listitem>[[Jetty/Howto/Spring|How to Configure Jetty Using
+        Spring]]</listitem>
+        <listitem>
+        [[Jetty/Tutorial/Embedding_Jetty#File_Server_with_spring|Embedding
+        Jetty with Spring XML]]</listitem>
+      </itemizedlist>
+    </section>
+    <section xml:id="configuring-jetty-with-xbean">
+      <title>Configuring Jetty with 
+      <link xl:href="http://geronimo.apache.org/xbean/index.html">
+      XBean</link></title>
+      <para>Jetty 7 and later includes support for XBean, allowing you to use
+      an XML format to customize Jetty within an XBean configuration file. For
+      more information, see
+      [[Jetty/Howto/Configure_Jetty_with_XBean|Configuring Jetty with
+      XBean]].</para>
+    </section>
+  </section>
+  <section xml:id="consulting-jetty-api-docs">
+    <title>Consulting the Jetty API Docs</title>
+    <para>The 
+    <link xl:href="http://download.eclipse.org/jetty/stable-7/apidocs/">Jetty
+    API docs</link>are the ultimate resource for configuration, regardless of
+    the configuration method you use. This is because Jetty configuration can
+    be considered as calling setters on a collection of POJOs.</para>
+  </section>
+</section>

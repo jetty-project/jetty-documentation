@@ -11,6 +11,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     Topics range from creating custom error pages to embedding jetty into your
     own application.</para>
   </section>
+  <xi:include href="configuring-jetty-master-doc.xml" />
   <xi:include href="setting-context-path.xml" />
   <xi:include href="setting-context-path-to-root.xml" />
   <xi:include href="custom-error-pages.xml" />

@@ -15,7 +15,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     protocols and formats, thus it helps to have a reasonable understanding of
     the basics. The following links provide some good starting points:</para>
     <itemizedlist>
-      <listitem>Certificates:</listitem>
+      <listitem>Certificates: 
       <itemizedlist>
         <listitem>
           <link xl:href="http://en.tldp.org/HOWTO/SSL Certificates HOWTO">SSL
@@ -25,8 +25,8 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
           <link xl:href="http://mindprod.com/jgloss/certificate.html">Mindprod
           Java Glossary: Certificates</link>
         </listitem>
-      </itemizedlist>
-      <listitem>Keytool:</listitem>
+      </itemizedlist></listitem>
+      <listitem>Keytool: 
       <itemizedlist>
         <listitem>
           <link
@@ -38,107 +38,105 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
           xl:href="http://docs.oracle.com/javase/1.5.0/docs/tooldocs/windows/keytool.html">Keytool
           for Windows</link>
         </listitem>
-      </itemizedlist>
-      <listitem>Other tools:</listitem>
+      </itemizedlist></listitem>
+      <listitem>Other tools: 
       <itemizedlist>
-        <listitem>
-          <link
-          xl:href="https://www.ibm.com/developerworks/mydeveloperworks/groups/service/html/communityview?communityUuid=6fb00498-f6ea-4f65-bf0c-adc5bd0c5fcc">IBM
-          Keyman</link>
-        </listitem>
+        <link
+        xl:href="https://www.ibm.com/developerworks/mydeveloperworks/groups/service/html/communityview?communityUuid=6fb00498-f6ea-4f65-bf0c-adc5bd0c5fcc">IBM
+        Keyman</link>
+      </itemizedlist></listitem>
+        <listitem>OpenSSL: 
+        <itemizedlist>
+          <listitem>
+            <link xl:href="http://www.openssl.org/docs/HOWTO/">OpenSSL
+            HOWTO</link>
+          </listitem>
+          <listitem>
+            <link xl:href="http://www.openssl.org/support/faq.html">OpenSSL
+            FAQ</link>
+          </listitem>
+        </itemizedlist></listitem>
       </itemizedlist>
-      <listitem>OpenSSL:</listitem>
-      <itemizedlist>
-        <listitem>
-          <link xl:href="http://www.openssl.org/docs/HOWTO/">OpenSSL
-          HOWTO</link>
-        </listitem>
-        <listitem>
-          <link xl:href="http://www.openssl.org/support/faq.html">OpenSSL
-          FAQ</link>
-        </listitem>
-      </itemizedlist>
-    </itemizedlist>
-    <section xml:id="openssl-vs-keytool">
-      <title>OpenSSL vs. Keytool</title>
-      <para>For testing, Keytool probably provides the simplest way to generate
-      the key and certificate you need. However, 
-      <link
-      xl:href="https://www.ibm.com/developerworks/mydeveloperworks/groups/service/html/communityview?communityUuid=6fb00498-f6ea-4f65-bf0c-adc5bd0c5fcc">IBM
-      Keyman</link>is also pretty good, and provides a GUI rather than a
-      command line.</para>
-      <para>You can also use the OpenSSL tools to generate keys and
-      certificates, or to convert those that you have used with Apache or other
-      servers. Since Apache and other servers commonly use the OpenSSL tool
-      suite to generate and manipulate keys and certificates, you might already
-      have some keys and certificates created by OpenSSL. Also, OpenSSL might
-      be more trusted than Keytool or some certificate authorities. You might
-      also prefer the formats OpenSSL produces.</para>
-      <para>If you want the option of using the same certificate with Jetty or
-      a web server such as Apache not written in Java, you might prefer to
-      generate your private key and certificate with OpenSSL. The Java Keytool
-      does not provide options for exporting private keys, and Apache needs the
-      private key. If you create the key and certificate with OpenSSL, your
-      non-Java web server has ready access to it.</para>
-    </section>
-  </section>
-  <section xml:id="configuring-jetty-for-ssl">
-    <title>Configuring Jetty for SSL</title>
-    <para>To configure Jetty for SSL, complete the tasks in the following
-    sections:</para>
-    <itemizedlist>
-      <listitem>
-        <xref linkend="generating-key-pairs-and-certificates" />
-      </listitem>
-      <listitem>
-        <xref linkend="requesting-trusted-certificate" />
-      </listitem>
-      <listitem>
+      <section xml:id="openssl-vs-keytool">
+        <title>OpenSSL vs. Keytool</title>
+        <para>For testing, Keytool probably provides the simplest way to
+        generate the key and certificate you need. However, 
+        <link
+        xl:href="https://www.ibm.com/developerworks/mydeveloperworks/groups/service/html/communityview?communityUuid=6fb00498-f6ea-4f65-bf0c-adc5bd0c5fcc">IBM
+        Keyman</link>is also pretty good, and provides a GUI rather than a
+        command line.</para>
+        <para>You can also use the OpenSSL tools to generate keys and
+        certificates, or to convert those that you have used with Apache or
+        other servers. Since Apache and other servers commonly use the OpenSSL
+        tool suite to generate and manipulate keys and certificates, you might
+        already have some keys and certificates created by OpenSSL. Also,
+        OpenSSL might be more trusted than Keytool or some certificate
+        authorities. You might also prefer the formats OpenSSL produces.</para>
+        <para>If you want the option of using the same certificate with Jetty
+        or a web server such as Apache not written in Java, you might prefer to
+        generate your private key and certificate with OpenSSL. The Java
+        Keytool does not provide options for exporting private keys, and Apache
+        needs the private key. If you create the key and certificate with
+        OpenSSL, your non-Java web server has ready access to it.</para>
+      </section>
+      <section xml:id="configuring-jetty-for-ssl">
+        <title>Configuring Jetty for SSL</title>
+        <para>To configure Jetty for SSL, complete the tasks in the following
+        sections:</para>
+        <itemizedlist>
+          <listitem>
+            <xref linkend="generating-key-pairs-and-certificates" />
+          </listitem>
+          <listitem>
+            <xref linkend="requesting-trusted-certificate" />
+          </listitem>
+          <listitem>
+            <xref linkend="loading-keys-and-certificates" />
+          </listitem>
+          <listitem>
+            <xref linkend="configuring-ssl-parameters" />
+          </listitem>
+        </itemizedlist>
+      </section>
+      <section xml:id="generating-key-pairs-and-certificates">
+        <title>Generating Key Pairs and Certificates</title>
+        <para>The simplest way to generate keys and certificates is to use the
+        Keytool application that comes with the JDK, as it generates keys and
+        certificates directly into the keystore. See 
+        <xref linkend="generating-key-pairs-and-certificates-JDK-keytool" />
+        .</para>
+        <para>If you already have keys and certificates, see 
         <xref linkend="loading-keys-and-certificates" />
-      </listitem>
-      <listitem>
-        <xref linkend="configuring-ssl-parameters" />
-      </listitem>
-    </itemizedlist>
-  </section>
-  <section xml:id="generating-key-pairs-and-certificates">
-    <title>Generating Key Pairs and Certificates</title>
-    <para>The simplest way to generate keys and certificates is to use the
-    Keytool application that comes with the JDK, as it generates keys and
-    certificates directly into the keystore. See 
-    <xref linkend="generating-key-pairs-and-certificates-JDK-keytool" />
-    .</para>
-    <para>If you already have keys and certificates, see 
-    <xref linkend="loading-keys-and-certificates" />
-    to load them into a JSSE key store. This section also applies if you have a
-    renewal certificate to replace one that is expiring.</para>
-    <para>The examples below generate only basic keys and certificates. You
-    should read the full manuals of the tools you are using if you want to
-    specify:</para>
-    <itemizedlist>
-      <listitem>Key size.</listitem>
-      <listitem>Certificate expiry.</listitem>
-      <listitem>Alternate security providers.</listitem>
-    </itemizedlist>
-    <section xml:id="generating-key-pairs-and-certificates-JDK-keytool">
-      <title>Generating Keys and Certificates with JDK Keytool</title>
-      <para>The following command generates a key pair and certificate directly
-      into a keystore:</para>
-      <screen>
+        to load them into a JSSE key store. This section also applies if you
+        have a renewal certificate to replace one that is expiring.</para>
+        <para>The examples below generate only basic keys and certificates. You
+        should read the full manuals of the tools you are using if you want to
+        specify:</para>
+        <itemizedlist>
+          <listitem>Key size.</listitem>
+          <listitem>Certificate expiry.</listitem>
+          <listitem>Alternate security providers.</listitem>
+        </itemizedlist>
+        <section xml:id="generating-key-pairs-and-certificates-JDK-keytool">
+          <title>Generating Keys and Certificates with JDK Keytool</title>
+          <para>The following command generates a key pair and certificate
+          directly into a keystore:</para>
+          <screen>
 <![CDATA[
  keytool -keystore keystore -alias jetty -genkey -keyalg RSA
 ]]>
-      </screen>
-      <note>The DSA key algorithm certificate produces an error after loading
-      several pages. In a browser, it displays a message "Could not establish
-      an encrypted connection because certificate presented by localhost has an
-      invalid signature." The solution is to use RSA for the key
-      algorithm.</note>
-      <para>This command prompts for information about the certificate and for
-      passwords to protect both the keystore and the keys within it. The only
-      mandatory response is to provide the fully qualified host name of the
-      server at the "first and last name" prompt. For example:</para>
-      <screen>
+          </screen>
+          <note>The DSA key algorithm certificate produces an error after
+          loading several pages. In a browser, it displays a message "Could not
+          establish an encrypted connection because certificate presented by
+          localhost has an invalid signature." The solution is to use RSA for
+          the key algorithm.</note>
+          <para>This command prompts for information about the certificate and
+          for passwords to protect both the keystore and the keys within it.
+          The only mandatory response is to provide the fully qualified host
+          name of the server at the "first and last name" prompt. For
+          example:</para>
+          <screen>
 <![CDATA[
  keytool -keystore keystore -alias jetty -genkey -keyalg RSA
  Enter keystore password:  password
@@ -161,42 +159,44 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
  Enter key password for <jetty>
          (RETURN if same as keystore password):  password
 ]]>
-      </screen>
-      <para>You now have the minimal requirements to run an SSL connection and
-      could proceed directly to 
-      <xref linked="configuring-ssl-parameters" />
-      to configure an SSL connector. However the browser will not trust the
-      certificate you have generated, and prompts the user to this effect.
-      While what you have at this point is often sufficient for testing, most
-      public sites need a trusted certificate, as shown in the section, 
-      <xref linkend="generating-csr-from-keytool" />
-      .</para>
-    </section>
-    <section xml:id="generating-keys-and-certificates-openssl">
-      <title>Generating Keys and Certificates with OpenSSL</title>
-      <para>The following command generates a key pair in the file 
-      <filename>jetty.key</filename>:</para>
-      <screen>
+          </screen>
+          <para>You now have the minimal requirements to run an SSL connection
+          and could proceed directly to 
+          <xref linked="configuring-ssl-parameters" />
+          to configure an SSL connector. However the browser will not trust the
+          certificate you have generated, and prompts the user to this effect.
+          While what you have at this point is often sufficient for testing,
+          most public sites need a trusted certificate, as shown in the
+          section, 
+          <xref linkend="generating-csr-from-keytool" />
+          .</para>
+        </section>
+        <section xml:id="generating-keys-and-certificates-openssl">
+          <title>Generating Keys and Certificates with OpenSSL</title>
+          <para>The following command generates a key pair in the file 
+          <filename>jetty.key</filename>:</para>
+          <screen>
 <![CDATA[
  openssl genrsa -des3 -out jetty.key
 ]]>
-      </screen>
-      <para>You might also want to use the 
-      <filename>-rand</filename>file argument to provide an arbitrary file that
-      helps seed the random number generator.</para>
-      <para>The following command generates a certificate for the key into the
-      file 
-      <filename>jetty.crt</filename>:</para>
-      <screen>
+          </screen>
+          <para>You might also want to use the 
+          <filename>-rand</filename>file argument to provide an arbitrary file
+          that helps seed the random number generator.</para>
+          <para>The following command generates a certificate for the key into
+          the file 
+          <filename>jetty.crt</filename>:</para>
+          <screen>
 <![CDATA[
  openssl req -new -x509 -key jetty.key -out jetty.crt
 ]]>
-      </screen>
-      <para>The next command prompts for information about the certificate and
-      for passwords to protect both the keystore and the keys within it. The
-      only mandatory response is to provide the fully qualified host name of
-      the server at the ''Common Name'' prompt. For example:</para>
-      <screen>
+          </screen>
+          <para>The next command prompts for information about the certificate
+          and for passwords to protect both the keystore and the keys within
+          it. The only mandatory response is to provide the fully qualified
+          host name of the server at the ''Common Name'' prompt. For
+          example:</para>
+          <screen>
 <![CDATA[
  openssl genrsa -des3 -out jetty.key
  Generating RSA private key, 512 bit long modulus
@@ -225,85 +225,85 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
  
  #
 ]]>
-      </screen>
-      <para>You now have the minimal requirements to run an SSL connection and
-      could proceed directly to 
-      <xref linkend="loading-keys-and-certificates" />
-      to load these keys and certificates into a JSSE keystore. However the
-      browser will not trust the certificate you have generated, and prompts
-      the user to this effect. While what you have at this point is often
-      sufficient for testing, most public sites need a trusted certificate, as
-      shown in the section, 
-      <xref linkend="generating-csr-from-openssl" />
-      to obtain a certificate.</para>
-    </section>
-    <section xml:id="using-keys-and-certificates-from-other-sources">
-      <title>Using Keys and Certificates from Other Sources</title>
-      <para>If you have keys and certificates from other sources, you can
-      proceed directly to 
-      <xref linkend="loading-keys-and-certificates" />
-      .</para>
-    </section>
-  </section>
-  <section xml:id="requesting-trusted-certificate">
-    <title>Requesting a Trusted Certificate</title>
-    <para>The keys and certificates generated with the JDK Keytool and OpenSSL
-    are sufficient to run an SSL connector. However the browser will not trust
-    the certificate you have generated, and it will prompt the user to this
-    effect.</para>
-    <para>To obtain a certificate that most common browsers will trust, you
-    need to request a well-known certificate authority (CA) to sign your
-    key/certificate. Such trusted CAs include: AddTrust, Entrust, GeoTrust, RSA
-    Data Security, Thawte, VISA, ValiCert, Verisign, and beTRUSTed, among
-    others. Each CA has its own instructions (look for JSSE or OpenSSL
-    sections), but all involve a step that generates a certificate signing
-    request (CSR).</para>
-    <section xml:id="generating-csr-from-keytool">
-      <title>Generating a CSR from Keytool</title>
-      <para>The following command generates the file 
-      <filename>jetty.csr</filename>using Keytool for a key/cert already in the
-      keystore:</para>
-      <screen>
+          </screen>
+          <para>You now have the minimal requirements to run an SSL connection
+          and could proceed directly to 
+          <xref linkend="loading-keys-and-certificates" />
+          to load these keys and certificates into a JSSE keystore. However the
+          browser will not trust the certificate you have generated, and
+          prompts the user to this effect. While what you have at this point is
+          often sufficient for testing, most public sites need a trusted
+          certificate, as shown in the section, 
+          <xref linkend="generating-csr-from-openssl" />
+          to obtain a certificate.</para>
+        </section>
+        <section xml:id="using-keys-and-certificates-from-other-sources">
+          <title>Using Keys and Certificates from Other Sources</title>
+          <para>If you have keys and certificates from other sources, you can
+          proceed directly to 
+          <xref linkend="loading-keys-and-certificates" />
+          .</para>
+        </section>
+      </section>
+      <section xml:id="requesting-trusted-certificate">
+        <title>Requesting a Trusted Certificate</title>
+        <para>The keys and certificates generated with the JDK Keytool and
+        OpenSSL are sufficient to run an SSL connector. However the browser
+        will not trust the certificate you have generated, and it will prompt
+        the user to this effect.</para>
+        <para>To obtain a certificate that most common browsers will trust, you
+        need to request a well-known certificate authority (CA) to sign your
+        key/certificate. Such trusted CAs include: AddTrust, Entrust, GeoTrust,
+        RSA Data Security, Thawte, VISA, ValiCert, Verisign, and beTRUSTed,
+        among others. Each CA has its own instructions (look for JSSE or
+        OpenSSL sections), but all involve a step that generates a certificate
+        signing request (CSR).</para>
+        <section xml:id="generating-csr-from-keytool">
+          <title>Generating a CSR from Keytool</title>
+          <para>The following command generates the file 
+          <filename>jetty.csr</filename>using Keytool for a key/cert already in
+          the keystore:</para>
+          <screen>
 <![CDATA[
  keytool -certreq -alias jetty -keystore keystore -file jetty.csr
 ]]>
-      </screen>
-    </section>
-    <section xml:id="generating-csr-from-openssl">
-      <title>Generating a CSR from OpenSSL</title>
-      <para>The following command generates the file 
-      <filename>jetty.csr</filename>using OpenSSL for a key in the file 
-      <filename>jetty.key</filename>:</para>
-      <screen>
+          </screen>
+        </section>
+        <section xml:id="generating-csr-from-openssl">
+          <title>Generating a CSR from OpenSSL</title>
+          <para>The following command generates the file 
+          <filename>jetty.csr</filename>using OpenSSL for a key in the file 
+          <filename>jetty.key</filename>:</para>
+          <screen>
 <![CDATA[
  openssl req -new -key jetty.key -out jetty.csr
 ]]>
-      </screen>
-      <para>Notice that this command uses only the existing key from 
-      <filename>jetty.keyfile</filename>, and not a certificate in 
-      <filename>jetty.crt</filename>as generated with OpenSSL. You need to
-      enter the details for the certificate again.</para>
-    </section>
-  </section>
-  <section xml:id="loading-keys-and-certificates">
-    <title>Loading Keys and Certificates</title>
-    <para>Once a CA has sent you a certificate, or if you generated your own
-    certificate without Keytool, you need to load it into a JSSE
-    keystore.</para>
-    <note>You need both the private key and the certificate in the keystore.
-    You should load the certificate into the keystore used to generate the CSR
-    with Keytool. If your key pair is not in a keystore (generated with
-    OpenSSL), you need to use the PKCS12 format to load both key and
-    certificate (see 
-    <xref linkend="loading-keys-and-certificates-via-pkcks12" />
-    .</note>
-    <section xml:id="loading-certificates-with-keytool">
-      <title>Loading Certificates with Keytool</title>
-      <para>You can use Keytool to load a certificate in PEM form directly into
-      a keystore. The PEM format is a text encoding of certificates; it is
-      produced by OpenSSL, and is returned by some CAs. An example PEM file
-      is:</para>
-      <screen>
+          </screen>
+          <para>Notice that this command uses only the existing key from 
+          <filename>jetty.keyfile</filename>, and not a certificate in 
+          <filename>jetty.crt</filename>as generated with OpenSSL. You need to
+          enter the details for the certificate again.</para>
+        </section>
+      </section>
+      <section xml:id="loading-keys-and-certificates">
+        <title>Loading Keys and Certificates</title>
+        <para>Once a CA has sent you a certificate, or if you generated your
+        own certificate without Keytool, you need to load it into a JSSE
+        keystore.</para>
+        <note>You need both the private key and the certificate in the
+        keystore. You should load the certificate into the keystore used to
+        generate the CSR with Keytool. If your key pair is not in a keystore
+        (generated with OpenSSL), you need to use the PKCS12 format to load
+        both key and certificate (see 
+        <xref linkend="loading-keys-and-certificates-via-pkcks12" />
+        .</note>
+        <section xml:id="loading-certificates-with-keytool">
+          <title>Loading Certificates with Keytool</title>
+          <para>You can use Keytool to load a certificate in PEM form directly
+          into a keystore. The PEM format is a text encoding of certificates;
+          it is produced by OpenSSL, and is returned by some CAs. An example
+          PEM file is:</para>
+          <screen>
 <![CDATA[
  jetty.crt
  -----BEGIN CERTIFICATE-----
@@ -322,98 +322,99 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
  Rcz6oCRvCGCe5kDB
  -----END CERTIFICATE-----
  ]]>
-      </screen>
-      <para>The following command loads a PEM encoded certificate in the 
-      <filename>jetty.crt</filename>file into a JSSE keystore:</para>
-      <screen>
+          </screen>
+          <para>The following command loads a PEM encoded certificate in the 
+          <filename>jetty.crt</filename>file into a JSSE keystore:</para>
+          <screen>
 <![CDATA[
  keytool -keystore keystore -import -alias jetty -file jetty.crt -trustcacerts
 ]]>
-      </screen>
-      <para>Depending on the situation, you might not require the 
-      <code>-trustcacerts</code>option. Try the operation without it if you
-      like. If the certificate you receive from the CA is not in a format that
-      Keytool understands, you can use the 
-      <code>openssl</code>command to convert formats:</para>
-      <screen>
+          </screen>
+          <para>Depending on the situation, you might not require the 
+          <code>-trustcacerts</code>option. Try the operation without it if you
+          like. If the certificate you receive from the CA is not in a format
+          that Keytool understands, you can use the 
+          <code>openssl</code>command to convert formats:</para>
+          <screen>
 <![CDATA[
  openssl x509 -in jetty.der -inform DER -outform PEM -out jetty.crt
 ]]>
-      </screen>
-    </section>
-    <section xml:id="loading-keys-and-certificates-via-pkcks12">
-      <title>Loading Keys and Certificates via PKCS12</title>
-      <para>If you have a key and certificate in separate files, you need to
-      combine them into a PKCS12 format file to load into a new keystore. The
-      certificate can be one you generated yourself or one returned from a CA
-      in response to your CSR.</para>
-      <para>The following OpenSSL command combines the keys in 
-      <filename>jetty.key</filename>and the certificate in the 
-      <filename>jetty.crt</filename>file into the 
-      <filename>jetty.pkcs12</filename>file:</para>
-      <screen>
+          </screen>
+        </section>
+        <section xml:id="loading-keys-and-certificates-via-pkcks12">
+          <title>Loading Keys and Certificates via PKCS12</title>
+          <para>If you have a key and certificate in separate files, you need
+          to combine them into a PKCS12 format file to load into a new
+          keystore. The certificate can be one you generated yourself or one
+          returned from a CA in response to your CSR.</para>
+          <para>The following OpenSSL command combines the keys in 
+          <filename>jetty.key</filename>and the certificate in the 
+          <filename>jetty.crt</filename>file into the 
+          <filename>jetty.pkcs12</filename>file:</para>
+          <screen>
 <![CDATA[
  openssl pkcs12 -inkey jetty.key -in jetty.crt -export -out jetty.pkcs12
 ]]>
-      </screen>
-      <para>If you have a chain of certificates, because your CA is an
-      intermediary, build the PKCS12 file as follows:</para>
-      <screen>
+          </screen>
+          <para>If you have a chain of certificates, because your CA is an
+          intermediary, build the PKCS12 file as follows:</para>
+          <screen>
 <![CDATA[
  # cat example.crt intermediate.crt [intermediate2.crt]... rootCA.crt > cert-chain.txt
  # openssl pkcs12 -export -inkey example.key -in cert-chain.txt -out example.pkcs12
 ]]>
-      </screen>
-      <para>The order of certificates must be from server to rootCA, as per
-      RFC2246 section 7.4.2.</para>
-      <para>OpenSSL asks for an 
-      <emphasis>export password</emphasis>. A non-empty password seems to be
-      required to make the next step work. Then load the resulting PKCS12 file
-      into a JSSE keystore with the following jetty utility class:</para>
-      <informalexample>
-        <programlisting language="java">
+          </screen>
+          <para>The order of certificates must be from server to rootCA, as per
+          RFC2246 section 7.4.2.</para>
+          <para>OpenSSL asks for an 
+          <emphasis>export password</emphasis>. A non-empty password seems to
+          be required to make the next step work. Then load the resulting
+          PKCS12 file into a JSSE keystore with the following jetty utility
+          class:</para>
+          <informalexample>
+            <programlisting language="java">
 <![CDATA[
  java -classpath $JETTY_HOME/lib/jetty-util-6.1-SNAPSHOT.jar:$JETTY_HOME/lib/jetty-6.1-SNAPSHOT.jar org.eclipse.jetty.security.PKCS12Import jetty.pkcs12 keystore
 ]]>
-        </programlisting>
-      </informalexample>
-      <para>This asks for two passphrases. Give the password from the last step
-      as the input passphrase and you are set. The "output passphrase" must
-      appear in your 
-      <filename>jetty.xml</filename>config file as both the Password and
-      KeyPassword of the SunJsseListener that uses the certificate.</para>
-      <para>You can also use Keytool (starting form jdk1.6) to import a PKCS12
-      file with the following command:</para>
-      <screen>
+            </programlisting>
+          </informalexample>
+          <para>This asks for two passphrases. Give the password from the last
+          step as the input passphrase and you are set. The "output passphrase"
+          must appear in your 
+          <filename>jetty.xml</filename>config file as both the Password and
+          KeyPassword of the SunJsseListener that uses the certificate.</para>
+          <para>You can also use Keytool (starting form jdk1.6) to import a
+          PKCS12 file with the following command:</para>
+          <screen>
 <![CDATA[
  keytool -importkeystore -srckeystore jetty.pkcs12 -srcstoretype PKCS12 -destkeystore keystore
 ]]>
-      </screen>
-    </section>
-  </section>
-  <section xml:id="configuring-ssl-parameters">
-    <title>Configuring SSL Parameters</title>
-    <para>Beginning with Jetty 7.3.1, the preferred way to configure SSL
-    parameters for the connector is by configuring the 
-    <link
-    xl:href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/http/ssl/SslContextFactory.html">SslContextFactory</link>object
-    and passing it to the connector's constructor.</para>
-    <para>Jetty has two SSL connectors: the 
-    <emphasis>SslSocketConnector</emphasis>and the 
-    <emphasis>SslSelectChannelConnector</emphasis>. The SslSocketConnector is
-    built on top of the Jetty SocketConnector which is Jetty's implementation
-    of a blocking connector. It uses Java's SslSocket to add the security
-    layer. The SslSelectChannelConnector is an extension of Jetty's
-    SelectChannelConnector, which uses non-blocking IO. For its security layer,
-    it uses java nio SslEngine. You can configure these two connectors
-    similarly; the difference is in the implementation.</para>
-    <para>The following is an example of an SslSelectChannelConnector
-    configuration. You can configure an SslSocketConnector the same way;just
-    change the value of the class to 
-    <filename>
-    org.eclipse.jetty.server.ssl.SslSocketConnector</filename>.</para>
-    <informalexample>
-      <programlisting language="xml">
+          </screen>
+        </section>
+      </section>
+      <section xml:id="configuring-ssl-parameters">
+        <title>Configuring SSL Parameters</title>
+        <para>Beginning with Jetty 7.3.1, the preferred way to configure SSL
+        parameters for the connector is by configuring the 
+        <link
+        xl:href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/http/ssl/SslContextFactory.html">SslContextFactory</link>object
+        and passing it to the connector's constructor.</para>
+        <para>Jetty has two SSL connectors: the 
+        <emphasis>SslSocketConnector</emphasis>and the 
+        <emphasis>SslSelectChannelConnector</emphasis>. The SslSocketConnector
+        is built on top of the Jetty SocketConnector which is Jetty's
+        implementation of a blocking connector. It uses Java's SslSocket to add
+        the security layer. The SslSelectChannelConnector is an extension of
+        Jetty's SelectChannelConnector, which uses non-blocking IO. For its
+        security layer, it uses java nio SslEngine. You can configure these two
+        connectors similarly; the difference is in the implementation.</para>
+        <para>The following is an example of an SslSelectChannelConnector
+        configuration. You can configure an SslSocketConnector the same
+        way;just change the value of the class to 
+        <filename>
+        org.eclipse.jetty.server.ssl.SslSocketConnector</filename>.</para>
+        <informalexample>
+          <programlisting language="xml">
 <![CDATA[
    <Call name="addConnector">
      <Arg>
@@ -433,93 +434,94 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
      </Arg>
    </Call>
 ]]>
-      </programlisting>
-    </informalexample>
-    <para>Other properties that you can set for the SslContextFactory
-    include:</para>
-    <itemizedlist>
-    <listitem>certAlias&#8218;&#196;&#236;Alias of a certificate to
-    use.</listitem>
-    <listitem>keyStoreType&#8218;&#196;&#236;Default is 
-    <emphasis>JKS.</emphasis></listitem>
-    <listitem>keyStoreProvider&#8218;&#196;&#236;Default is the SunJSSE
-    provider.</listitem>
-    <listitem>trustStoreType&#8218;&#196;&#236;Default is 
-    <emphasis>JKS</emphasis>.</listitem>
-    <listitem>trustStoreProvider&#8218;&#196;&#236;Default is the SunJSSE
-    provider.</listitem>
-    <listitem>sslKeyManagerFactoryAlgorithm&#8218;&#196;&#236;Set to the value
-    of the 
-    <code>ssl.KeyManagerFactory.algorithm</code>system property. If there is no
-    such property, the default is 
-    <emphasis>SunX509.</emphasis></listitem>
-    <listitem>sslTrustManagerFactoryAlgorithm&#8218;&#196;&#236;set to the
-    value of the 
-    <code>ssl.TrustManagerFactory.algorithm</code>system property. If there is
-    no such property, the default is 
-    <emphasis>SunX509.</emphasis></listitem>
-    <listitem>secureRandomAlgorithm&#8218;&#196;&#236;Default is
-    null.</listitem>
-    <listitem>protocol&#8218;&#196;&#236;Default is 
-    <emphasis>TLS.</emphasis></listitem>
-    <listitem>provider&#8218;&#196;&#236;Default is the first provider that
-    supports that protocol</listitem>. 
-    <listitem>includeCipherSuites&#8218;&#196;&#236;See
-    [[Jetty/Howto/CipherSuites|How to configure SSL Cipher Suites]] //TODO
-    xref//.</listitem>
-    <listitem>excludeCipherSuites&#8218;&#196;&#236;See
-    [[Jetty/Howto/CipherSuites|How to configure SSL Cipher Suites]] //TODO
-    xref//.</listitem>
-    <listitem>needClientAuth&#8218;&#196;&#236;Default is 
-    <emphasis>false</emphasis>.</listitem>
-    <listitem>wantClientAuth&#8218;&#196;&#236;Defaults is 
-    <emphasis>false</emphasis>.</listitem>
-    <listitem>validateCerts&#8218;&#196;&#236;Default is 
-    <emphasis>false</emphasis>.</listitem>
-    <listitem>allowRenegotiate&#8218;&#196;&#236;Default is 
-    <emphasis>false</emphasis>.</listitem>
-    <listitem>crlPath&#8218;&#196;&#236;Path to certificate revocation list
-    file for SSL certificate validation.</listitem>
-    <listitem>maxCertPathLengh&#8218;&#196;&#236;Maximum allowed number of
-    intermediate certificates, default is -1
-    (unlimited).</listitem></itemizedlist>
-    <para>If there is no value for the 
-    <emphasis>truststore</emphasis>, the system uses the 
-    <emphasis>'keystore</emphasis>value. You can obfuscate passwords by using
-    the Jetty [[Jetty/Howto/Secure_Passwords|password
-    utility]].//TODOwref//</para>
-    <section xml:id="choosing-directory-for-keystore">
-      <title>Choosing a Directory for the Keystore</title>
-      <para>The keystore file in the example above is given relative to the
-      jetty home directory. For production, choose a private directory with
-      restricted access to keep your keystore in. Even though it has a
-      password, the password might be configured into the runtime environment,
-      so is vulnerable to theft. You can now start Jetty the normal way (make
-      sure that 
-      <code>jcert.jar, jnet.jar and jsse.jar</code>are on your classpath) and
-      you can use SSL with a URL like:</para>
-      <screen>
+          </programlisting>
+        </informalexample>
+        <para>Other properties that you can set for the SslContextFactory
+        include:</para>
+        <itemizedlist>
+        <listitem>certAlias&#8218;&#196;&#236;Alias of a certificate to
+        use.</listitem>
+        <listitem>keyStoreType&#8218;&#196;&#236;Default is 
+        <emphasis>JKS.</emphasis></listitem>
+        <listitem>keyStoreProvider&#8218;&#196;&#236;Default is the SunJSSE
+        provider.</listitem>
+        <listitem>trustStoreType&#8218;&#196;&#236;Default is 
+        <emphasis>JKS</emphasis>.</listitem>
+        <listitem>trustStoreProvider&#8218;&#196;&#236;Default is the SunJSSE
+        provider.</listitem>
+        <listitem>sslKeyManagerFactoryAlgorithm&#8218;&#196;&#236;Set to the
+        value of the 
+        <code>ssl.KeyManagerFactory.algorithm</code>system property. If there
+        is no such property, the default is 
+        <emphasis>SunX509.</emphasis></listitem>
+        <listitem>sslTrustManagerFactoryAlgorithm&#8218;&#196;&#236;set to the
+        value of the 
+        <code>ssl.TrustManagerFactory.algorithm</code>system property. If there
+        is no such property, the default is 
+        <emphasis>SunX509.</emphasis></listitem>
+        <listitem>secureRandomAlgorithm&#8218;&#196;&#236;Default is
+        null.</listitem>
+        <listitem>protocol&#8218;&#196;&#236;Default is 
+        <emphasis>TLS.</emphasis></listitem>
+        <listitem>provider&#8218;&#196;&#236;Default is the first provider that
+        supports that protocol</listitem>. 
+        <listitem>includeCipherSuites&#8218;&#196;&#236;See
+        [[Jetty/Howto/CipherSuites|How to configure SSL Cipher Suites]] //TODO
+        xref//.</listitem>
+        <listitem>excludeCipherSuites&#8218;&#196;&#236;See
+        [[Jetty/Howto/CipherSuites|How to configure SSL Cipher Suites]] //TODO
+        xref//.</listitem>
+        <listitem>needClientAuth&#8218;&#196;&#236;Default is 
+        <emphasis>false</emphasis>.</listitem>
+        <listitem>wantClientAuth&#8218;&#196;&#236;Defaults is 
+        <emphasis>false</emphasis>.</listitem>
+        <listitem>validateCerts&#8218;&#196;&#236;Default is 
+        <emphasis>false</emphasis>.</listitem>
+        <listitem>allowRenegotiate&#8218;&#196;&#236;Default is 
+        <emphasis>false</emphasis>.</listitem>
+        <listitem>crlPath&#8218;&#196;&#236;Path to certificate revocation list
+        file for SSL certificate validation.</listitem>
+        <listitem>maxCertPathLengh&#8218;&#196;&#236;Maximum allowed number of
+        intermediate certificates, default is -1
+        (unlimited).</listitem></itemizedlist>
+        <para>If there is no value for the 
+        <emphasis>truststore</emphasis>, the system uses the 
+        <emphasis>'keystore</emphasis>value. You can obfuscate passwords by
+        using the Jetty [[Jetty/Howto/Secure_Passwords|password
+        utility]].//TODOwref//</para>
+        <section xml:id="choosing-directory-for-keystore">
+          <title>Choosing a Directory for the Keystore</title>
+          <para>The keystore file in the example above is given relative to the
+          jetty home directory. For production, choose a private directory with
+          restricted access to keep your keystore in. Even though it has a
+          password, the password might be configured into the runtime
+          environment, so is vulnerable to theft. You can now start Jetty the
+          normal way (make sure that 
+          <code>jcert.jar, jnet.jar and jsse.jar</code>are on your classpath)
+          and you can use SSL with a URL like:</para>
+          <screen>
 <![CDATA[
  https://localhost:8443/
 ]]>
-      </screen>
-    </section>
-    <section xml:id="setting-port-for-https">
-      <title>Setting the Port for HTTPS</title>
-      <para>Remember that the default port for https is 443 not 80, so change
-      8443 to 443 if you want to be able to use URLs without explicit port
-      numbers. For a production site it normally makes sense to have an
-      HttpListener on port 80 and a SunJsseListener on port 443. Because these
-      are privileged ports, you might want to use a redirection mechanism to
-      map port 80 to, for example, 8080 and 443 to, for example, 8443. For
-      details on this, see [[Jetty/Howto/Port80|Accessing Port 80 as a non-Root
-      User]] //TODO xref//.</para>
-      <note>The most common mistake at this point is to try to access port 8443
-      with http rather than https. If you are using CONFIDENTIAL or INTEGRAL
-      security constraints, you should also configure the normal HTTP connector
-      with the port to use for SSL:</note>
-      <informalexample>
-        <programlisting language="xml">
+          </screen>
+        </section>
+        <section xml:id="setting-port-for-https">
+          <title>Setting the Port for HTTPS</title>
+          <para>Remember that the default port for https is 443 not 80, so
+          change 8443 to 443 if you want to be able to use URLs without
+          explicit port numbers. For a production site it normally makes sense
+          to have an HttpListener on port 80 and a SunJsseListener on port 443.
+          Because these are privileged ports, you might want to use a
+          redirection mechanism to map port 80 to, for example, 8080 and 443
+          to, for example, 8443. For details on this, see
+          [[Jetty/Howto/Port80|Accessing Port 80 as a non-Root User]] //TODO
+          xref//.</para>
+          <note>The most common mistake at this point is to try to access port
+          8443 with http rather than https. If you are using CONFIDENTIAL or
+          INTEGRAL security constraints, you should also configure the normal
+          HTTP connector with the port to use for SSL:</note>
+          <informalexample>
+            <programlisting language="xml">
 <![CDATA[
 
  <Call name="addConnector">
@@ -533,41 +535,43 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
        </Arg>
      </Call>
 ]]>
-        </programlisting>
-      </informalexample>
-    </section>
-  </section>
-  <section xml:id="configuring-ssl-for-earlier-versions-of-jetty">
-    <title>Configuring SSL for Earlier Versions of Jetty</title>
-    <para>For instructions on configuring SSL for versions earlier than Jetty
-    7.3.1, refer to [[Jetty/Reference/SSL_Connectors#Using Deprecated
-    Methods|Using Deprecated Methods to Configure SSL for Jetty]] //TODO
-    xref//.</para>
-  </section>
-  <section xml:id="password-issues">
-    <title>Password Issues</title>
-    <para>If the configuration does not include passwords, you can provide them
-    as as java properties ( 
-    <code>jetty.ssl.password</code>and 
-    <code>jetty.ssl.keypassword</code>), else the system prompts for them.
-    Remember that putting your password on the command line is a security risk.
-    You can also set them as properties within the config file, but this risks
-    accidental discovery by developers.</para>
-    <para>If jetty receives a password that begins with 
-    <emphasis>OBF:</emphasis>it treats it as an obfuscated password. You can
-    obfuscate passwords by running 
-    <link
-    xl:href="http://download.eclipse.org/jetty/stable-7/apidocs/index.html?org/eclipse/jetty/http/security/Password.html">org.eclipse.jetty.http.security.Password</link>as
-    a main class. This can protect passwords from casual observation.</para>
-  </section>
-  <section xml:id="renewing-certificates">
-    <title>Renewing Certificates</title>
-    <para>If you are updating your configuration to use a newer certificate, as
-    when the old one is expiring, just load the newer certificate as described
-    in the section, 
-    <xref linkend="loading-keys-and-certificates" />
-    . If you imported the key and certificate originally using the PKCS12
-    method, use an alias of "1" rather than "jetty", because that is the alias
-    the PKCS12 process enters into the keystore.</para>
+            </programlisting>
+          </informalexample>
+        </section>
+      </section>
+      <section xml:id="configuring-ssl-for-earlier-versions-of-jetty">
+        <title>Configuring SSL for Earlier Versions of Jetty</title>
+        <para>For instructions on configuring SSL for versions earlier than
+        Jetty 7.3.1, refer to [[Jetty/Reference/SSL_Connectors#Using Deprecated
+        Methods|Using Deprecated Methods to Configure SSL for Jetty]] //TODO
+        xref//.</para>
+      </section>
+      <section xml:id="password-issues">
+        <title>Password Issues</title>
+        <para>If the configuration does not include passwords, you can provide
+        them as as java properties ( 
+        <code>jetty.ssl.password</code>and 
+        <code>jetty.ssl.keypassword</code>), else the system prompts for them.
+        Remember that putting your password on the command line is a security
+        risk. You can also set them as properties within the config file, but
+        this risks accidental discovery by developers.</para>
+        <para>If jetty receives a password that begins with 
+        <emphasis>OBF:</emphasis>it treats it as an obfuscated password. You
+        can obfuscate passwords by running 
+        <link
+        xl:href="http://download.eclipse.org/jetty/stable-7/apidocs/index.html?org/eclipse/jetty/http/security/Password.html">org.eclipse.jetty.http.security.Password</link>as
+        a main class. This can protect passwords from casual
+        observation.</para>
+      </section>
+      <section xml:id="renewing-certificates">
+        <title>Renewing Certificates</title>
+        <para>If you are updating your configuration to use a newer
+        certificate, as when the old one is expiring, just load the newer
+        certificate as described in the section, 
+        <xref linkend="loading-keys-and-certificates" />
+        . If you imported the key and certificate originally using the PKCS12
+        method, use an alias of "1" rather than "jetty", because that is the
+        alias the PKCS12 process enters into the keystore.</para>
+      </section>
   </section>
 </section>

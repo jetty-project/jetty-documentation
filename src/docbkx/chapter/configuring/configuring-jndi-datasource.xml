@@ -15,7 +15,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
   for more information about configuring datasources.</note>
   <para>All of these examples correspond to a 
   <code>resource-ref</code>in 
-  <code>web.xml</code>.</para>
+  <filename>web.xml</filename>.</para>
   <informalexample>
     <programlisting language="xml">
 <![CDATA[
@@ -31,8 +31,9 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
   <para>These examples assume that all of the datasources are declared at the
   JVM scope, but you can, of course, use other scopes. You can configure all
   JNDI resources in a 
-  <code>jetty.xml</code>&#160;file or in a 
-  <code>WEB-INF/jetty-env.xml</code>&#160;file, or a context XML file.</para>
+  <filename>jetty.xml</filename>&#160;file or in a 
+  <filename>WEB-INF/jetty-env.xml</filename>&#160;file, or a context XML
+  file.</para>
   <important>You must provide jetty with the libraries necessary to instantiate
   the datasource you have configured by putting the corresponding jar in
   jetty_home/lib/ext.</important>
@@ -191,8 +192,8 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     </section>
     <section xml:id="sql-server-2000">
       <title>SQL Server 2000</title>
-      <paa>Implements javax.sql.DataSource, javax.sql.ConnectionPoolDataSource.
-      
+      <para>Implements javax.sql.DataSource,
+      javax.sql.ConnectionPoolDataSource.</para>
       <informalexample>
         <programlisting language="xml">
 <![CDATA[
@@ -212,12 +213,13 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
 ]]>
         </programlisting>
       </informalexample>
-      <section xml:id="oracle-9i10g">
-        <title>Oracle 9i/10g</title>
-        <para>Implements javax.sql.DataSource,
-        javax.sql.ConnectionPoolDataSource.</para>
-        <informalexample>
-          <programlisting language="xml">
+    </section>
+    <section xml:id="oracle-9i10g">
+    <title>Oracle 9i/10g</title>
+    <para>Implements javax.sql.DataSource,
+    javax.sql.ConnectionPoolDataSource.</para>
+    <informalexample>
+      <programlisting language="xml">
 <![CDATA[> 
   <New id="DSTest" class="org.eclipse.jetty.plus.jndi.Resource">
     <Arg></Arg>
@@ -242,18 +244,17 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     </Arg>
   </New>
 ]]>
-          </programlisting>
-        </informalexample>
-        <para>For more information, refer to: 
-        <link
-        xl:href="http://docs.oracle.com/cd/B14117_01/java.101/b10979/conncache.htm">Oracle
-        Database JDBC documentation</link>.</para>
-      </section>
-      <section xml:id="oracle-9i10g">
-        <title>PostgreSQL</title>
-        <para>Implements javax.sql.DataSource.</para>
-        <informalexample>
-          <programlisting language="xml">
+      </programlisting>
+    </informalexample>
+    <para>For more information, refer to:</para>
+    <link
+    xl:href="http://docs.oracle.com/cd/B14117_01/java.101/b10979/conncache.htm">Oracle
+    Database JDBC documentation</link>.</section>
+    <section xml:id="postgreSQL">
+      <title>PostgreSQL</title>
+      <para>Implements javax.sql.DataSource.</para>
+      <informalexample>
+        <programlisting language="xml">
 <![CDATA[> 
   <New id="DSTest" class="org.eclipse.jetty.plus.jndi.Resource">
      <Arg></Arg>
@@ -269,11 +270,11 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
      </Arg>
   </New>
 ]]>
-          </programlisting>
-        </informalexample>
-        <para>Implements javax.sql.ConnectionPoolDataSource.</para>
-        <informalexample>
-          <programlisting language="xml">
+        </programlisting>
+      </informalexample>
+      <para>Implements javax.sql.ConnectionPoolDataSource.</para>
+      <informalexample>
+        <programlisting language="xml">
 <![CDATA[> 
   <New id="DSTest" class="org.eclipse.jetty.plus.jndi.Resource">
      <Arg></Arg>
@@ -290,14 +291,14 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
      </Arg>
   </New>
 ]]>
-          </programlisting>
-        </informalexample>
-        <para>
-          <section xml:id="oracle-9i10g">
-            <title>Sybase</title>
-            <para>Implements javax.sql.DataSource.</para>
-            <informalexample>
-              <programlisting language="xml">
+        </programlisting>
+      </informalexample>
+    </section>
+    <section xml:id="sybase">
+      <title>Sybase</title>
+      <para>Implements javax.sql.DataSource.</para>
+      <informalexample>
+        <programlisting language="xml">
 <![CDATA[> 
   <New id="DSTest" class="org.eclipse.jetty.plus.jndi.Resource">
      <Arg></Arg>
@@ -313,13 +314,13 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
      </Arg>
   </New>
 ]]>
-              </programlisting>
-            </informalexample>
-          </section>
-          <section xml:id="DB2">
-            <para>Implements javax.sql.DataSource.</para>
-            <informalexample>
-              <programlisting language="xml">
+        </programlisting>
+      </informalexample>
+    </section>
+    <section xml:id="DB2">
+      <para>Implements javax.sql.DataSource.</para>
+      <informalexample>
+        <programlisting language="xml">
 <![CDATA[> 
   <New id="DSTest" class="org.eclipse.jetty.plus.jndi.Resource">
      <Arg></Arg>
@@ -335,11 +336,11 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
      </Arg>
   </New>
 ]]>
-              </programlisting>
-            </informalexample>
-            <para>Implements javax.sql.ConnectionPoolDataSource.</para>
-            <informalexample>
-              <programlisting language="xml">
+        </programlisting>
+      </informalexample>
+      <para>Implements javax.sql.ConnectionPoolDataSource.</para>
+      <informalexample>
+        <programlisting language="xml">
 <![CDATA[>
   <New id="DSTest" class="org.eclipse.jetty.plus.jndi.Resource">
      <Arg></Arg>
@@ -355,11 +356,8 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
      </Arg>
   </New>
 ]]>
-              </programlisting>
-            </informalexample>
-          </section>
-        </para>
-      </section></paa>
+        </programlisting>
+      </informalexample>
     </section>
   </section>
 </section>

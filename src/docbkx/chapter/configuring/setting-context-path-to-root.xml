@@ -14,7 +14,9 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     string, and Java Servlet Specification 3.0 effectively forbids
     it.</listitem>
     <listitem>In Jetty 7.x, the AppProviders assigned to the DeploymentManager
-    (see <xref linkend="using-deployment-manager" />) handle context path assignment.</listitem>
+    (see 
+    <xref linkend="using-deployment-manager" />
+    ) handle context path assignment.</listitem>
     <listitem>By default on the Jetty Distribution, both the WebAppProvider and
     ContextProvider are enabled. This is important to know because it
     influences your decision on where to put the 
@@ -27,7 +29,9 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
   </itemizedlist></note>
   <section>
     <title>Using the WebAppProvider</title>
-    <para>The WebAppProvider's role (see <xref linkend="using-webapp-provider" />)  is to look in the 
+    <para>The WebAppProvider's role (see 
+    <xref linkend="using-webapp-provider" />
+    ) is to look in the 
     <filename>${jetty.home}/webapps/</filename>directory for any deployable
     applications (such as *.war), and deploy them onto a context of the same
     name as the filename. For example, the WebAppProvider deploys 
@@ -39,7 +43,9 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
   </section>
   <section>
     <title>Using the ContextProvider</title>
-    <para>The ContextProvider's role (see <xref linkend="using-context -provider" />) is to look in the 
+    <para>The ContextProvider's role (see 
+    <xref linkend="using-context -provider" />
+    ) is to look in the 
     <filename>${jetty.home}/contexts/</filename>directory for any jetty-xml
     formatted, deployable contexts. This deployment mechanism gives you the
     maximum control over the deployment, as this XML file can control anything

@@ -17,31 +17,37 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
   application (or ContextHandler):</para>
   <section>
     <title>Using Embedded Deployment</title>
-    <para>If you run Jetty from code as an embedded server (see <xref linkend="embedding" />), setting the context path is a matter of calling the 
+    <para>If you run Jetty from code as an embedded server (see 
+    <xref linkend="embedding" />
+    ), setting the context path is a matter of calling the 
     <code>setContextPath</code>method on the 
     <code>ContextHandler</code>instance (or 
     <code>WebAppContext</code>instance).</para>
   </section>
   <section>
     <title>Using the Context Provider</title>
-    <para>If you deploy the web application/context by <xref linkend="using-context-provider" />, you set the contextPath within the 
+    <para>If you deploy the web application/context by 
+    <xref linkend="using-context-provider" />
+    , you set the contextPath within the 
     <filename>context.xml</filename>file.</para>
     <screen>
 <![CDATA[
       <Configure class="org.eclipse.jetty.webapp.WebAppContext">
       <Set name="contextPath">/foo</Set>...</Configure>
     ]]>
-          </screen>
+    </screen>
   </section>
   <section>
     <title>Using the Webapp Provider</title>
-    <para>If you deploy the web application by <xref linkend="using-webapp-provider" />, by
-    default the name of the WAR file forms the context path. So if the filename
-    is 
+    <para>If you deploy the web application by 
+    <xref linkend="using-webapp-provider" />
+    , by default the name of the WAR file forms the context path. So if the
+    filename is 
     <filename>foobar.war</filename>, the context path is 
     <filename>/foobar</filename>. There is a special case for webapps called 
-    <filename>root.war</filename>which are mapped to the root / context. See
-    <xref linkend=""setting-context-path-to-root" />.</para>
+    <filename>root.war</filename>which are mapped to the root / context. See 
+    <xref linkend="" />
+    .</para>
   </section>
   <section>
     <title>Embedding a WEB-INF/jetty-web.xml File</title>

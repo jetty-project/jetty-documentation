@@ -27,7 +27,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     <code>etc/jetty-webapps.xml</code>and 
     <code>etc/jetty-contexts.xml</code>.</listitem>
   </itemizedlist></note>
-  <section>
+  <section xml:id="using-the-webapp-provider">
     <title>Using the WebAppProvider</title>
     <para>The WebAppProvider's role (see 
     <xref linkend="using-webapp-provider" />
@@ -41,7 +41,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     this is the easiest deployment mechanism, it sacrifices control over
     deployment specifics.</para>
   </section>
-  <section>
+  <section xml:id="using-the-context-provider">
     <title>Using the ContextProvider</title>
     <para>The ContextProvider's role (see 
     <xref linkend="using-context -provider" />
@@ -56,8 +56,8 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     what files and directories make up the web application, what temporary
     directory to use, and even what Context Path to use.</para>
   </section>
-  <section>
-    <title>Setting the Context Path with the ContextProvider</title>
+  <section xml:id="setting-context-path-with-contextprovider">
+    <title>Setting the Context Path with the <code>ContextProvider</code></title>
     <para>To set the context path to / , follow these steps.</para>
     <orderedlist>
       <listitem>Make sure your ContextProvider-based deployments are enabled in
@@ -85,7 +85,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
       path.</listitem>
     </orderedlist>
   </section>
-  <section>
+  <section xml:id="studying-logs">
     <title>Studying the Logs</title>
     <para>Look at the logs:</para>
     <para>

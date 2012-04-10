@@ -5,43 +5,27 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xmlns:xl="http://www.w3.org/1999/xlink"
 xmlns:xi="http://www.w3.org/2001/XInclude"
 xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd">
-  <title>Configuring Jetty &amp; Master Doc</title>
+  <title>Configuring Jetty&#8211;Master Doc</title>
+  <para>Since Jetty components are simply Plain Old Java Objects ( 
+  <link xl:href="http://en.wikipedia.org/wiki/Plain_Old_Java_Object">
+  POJOs</link>), you can accomplish the assembly and configuration of Jetty by
+  a variety of techniques, as indicated in the sections of this document,
+  listed above.</para>
   <para>Configuring Jetty consists of building a network of connectors and
   handlers and providing their individual configurations. It is a combination
   of:</para>
   <itemizedlist>
-  <listitem>HTTP server configuration &amp;hbsp; ports, thread pools, buffers,
-  etc.</listitem>
-  <listitem>Web container configuration &amp;hbsp; webapps deployment, security
-  realms, JNDI, etc.</listitem>Web application &amp;hbsp; init parameters, non
-  standard options, etc.</itemizedlist>
-  <note>See [[Jetty/Reference/Jetty_Architecture|Jetty Architecture]] for
-  graphical representations of the interactions among connectors and
-  handlers.</note>
-  <para>Since Jetty components are simply Plain Old Java Objects ( 
-  <link xl:href="http://en.wikipedia.org/wiki/Plain_Old_Java_Object">
-  POJOs</link>), you can accomplish this assembly and configuration of Jetty by
-  a variety of techniques:</para>
-  <itemizedlist>
-    <listitem>
-      <xref linkend="developing-against-jetty-api" />
-    </listitem>
-    <listitem>
-      <xref linkend="using-jetty-xml" />
-    </listitem>
-    <listitem>
-      <xref linkend="embedding-jetty" />
-    </listitem>
-    <listitem>
-      <xref linkend="using-jetty-maven-plugin" />
-    </listitem>
-    <listitem>
-      <xref linkend="using-dependency-injection-framework" />
-    </listitem>
-    <listitem>
-      <xref linkend="developing-against-jetty-api" />
-    </listitem>
+    <listitem>HTTP server configuration&#8211;ports, thread pools,
+    buffers</listitem>
+    <listitem>Web container configuration&#8211;webapps deployment, security
+    realms, JNDI</listitem>
+    <listitem>Web application&#8211;init parameters, non standard
+    options</listitem>
   </itemizedlist>
+  <note>See 
+  <xref linkend="basic-architecture" />
+  for graphical representations of the interactions among connectors and
+  handlers.</note>
   <section xml:id="developing-against-jetty-api">
     <title>Developing Against the Jetty API</title>
     <para>You can develop both standard web applications and embedded web
@@ -84,15 +68,14 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     <itemizedlist>
       <listitem>the Server class (or subclass if extended) and global
       options</listitem>
-      <listitem>a ThreadPool &amp;hbsp; min &amp; max thread</listitem>
-      <listitem>connectors &amp;hbsp; ports, timeouts, buffer sizes, protocol,
+      <listitem>a ThreadPool&#8211;min and max thread</listitem>
+      <listitem>connectors&#8211;ports, timeouts, buffer sizes, protocol,
       etc.</listitem>
-      <listitem>the handler structure &amp;hbsp; default handlers and/or a
-      contextHandlerCollections, etc.</listitem>
-      <listitem>the DeploymentManage &amp;hbsp; scans for and deploys webapps
+      <listitem>the handler structure&#8211;default handlers and/or a
+      contextHandlerCollections</listitem>
+      <listitem>the DeploymentManage&#8211;hbsp; scans for and deploys webapps
       and contexts</listitem>
-      <listitem>login services &amp;hbsp; provide authentication
-      checking</listitem>
+      <listitem>login services&#8211;provide authentication checking</listitem>
       <listitem>a request log</listitem>
     </itemizedlist>
     <para>Not all Jetty features are configured in 
@@ -105,28 +88,28 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     xl:href="http://dev.eclipse.org/viewsvn/index.cgi/jetty/trunk/jetty-server/src/main/config/etc/?root=RT_JETTY">SVN
     Repository</link>.</para>
     <itemizedlist>
-      <listitem>[[Jetty/Feature/Start.jar|Start.jar]] &amp;hbsp; selects the
+      <listitem>[[Jetty/Feature/Start.jar|Start.jar]]&#8211;selects the
       configuration files to use.</listitem>
-      <listitem>[[Jetty/Reference/jetty.xml_usage|jetty XML Usage]] &amp;hbsp;
+      <listitem>[[Jetty/Reference/jetty.xml_usage|jetty XML Usage]]&#8211;
       describes the process of merging configuration files.</listitem>
-      <listitem>[[Jetty/Reference/jetty.xml_syntax|Jetty.xml Syntax ]]
-      &amp;hbsp; describes the syntax for using
+      <listitem>[[Jetty/Reference/jetty.xml_syntax|Jetty.xml
+      Syntax]]&#8211;describes the syntax for using
       [[Jetty/Reference/jetty.xml|jetty.xml]]</listitem>
     </itemizedlist>
     <section xml:id="additional-resources">
       <title>Additional Resources</title>
       <itemizedlist>
-        <listitem>[http://www.eclipse.org/jetty/configure.dtd configure.dtd]
-        &amp;hbsp; document type descriptor for the
+        <listitem>[http://www.eclipse.org/jetty/configure.dtd
+        configure.dtd]&#8211;document type descriptor for the
         org.eclipse.XmlConfiguration class</listitem>
-        <listitem>[[Jetty/Reference/jetty-web.xml| jetty-web.xml]] &amp;hbsp;
+        <listitem>[[Jetty/Reference/jetty-web.xml| jetty-web.xml]]&#8211;
         Webapp configuration file</listitem>
-        <listitem>[[Jetty/Reference/jetty-env.xml| jetty-env.xml]] &amp;hbsp;
-        JNDI configuration file</listitem>
-        <listitem>[[Jetty/Reference/webdefault.xml|webdefault.xml]] &amp;hbsp;
+        <listitem>[[Jetty/Reference/jetty-env.xml| jetty-env.xml]]&#8211; JNDI
+        configuration file</listitem>
+        <listitem>[[Jetty/Reference/webdefault.xml|webdefault.xml]]&#8211;
         Pre-web.xml configuration</listitem>
-        <listitem>[[Jetty/Reference/override-web.xml|override-web.xml]]
-        &amp;hbsp; Post-web.xml configuration</listitem>
+        <listitem>[[Jetty/Reference/override-web.xml|override-web.xml]]&#8211;
+        Post-web.xml configuration</listitem>
       </itemizedlist>
     </section>
   </section>

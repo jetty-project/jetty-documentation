@@ -57,7 +57,8 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     directory to use, and even what Context Path to use.</para>
   </section>
   <section xml:id="setting-context-path-with-contextprovider">
-    <title>Setting the Context Path with the <code>ContextProvider</code></title>
+    <title>Setting the Context Path with the 
+    <code>ContextProvider</code></title>
     <para>To set the context path to / , follow these steps.</para>
     <orderedlist>
       <listitem>Make sure your ContextProvider-based deployments are enabled in

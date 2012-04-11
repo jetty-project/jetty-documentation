@@ -30,8 +30,9 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     <title>Developing Against the Jetty API</title>
     <para>You can develop both standard web applications and embedded web
     applications by writing code. The basic approach is to install the required
-    [[Jetty/Reference/Dependencies|Jetty-7 jars and dependencies]] on your
-    class path and then write and run a variation of one of the examples in 
+    [[Jetty/Reference/Dependencies|Jetty-7 jars and dependencies]] //TODO
+    xref// on your class path and then write and run a variation of one of the
+    examples in 
     <xref linkend="embedding" />
     .</para>
     <para>For more details about setting up your class path, see:</para>

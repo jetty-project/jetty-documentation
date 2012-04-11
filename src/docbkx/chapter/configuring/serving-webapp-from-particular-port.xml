@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="utf-8"?>
+<section xml:id="serving-webapp-from-particular-port" version="5.0"
+xmlns="http://docbook.org/ns/docbook"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:xl="http://www.w3.org/1999/xlink"
+xmlns:xi="http://www.w3.org/2001/XInclude"
+xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd">
+  <title>Serving a WebApp from a Particular Port</title>
+  <para>You might need to serve webapp A only from port A and webapp B only
+  from port B. The most efficient way to do this is with two 
+  <code>org.eclipse.jetty.server.Server</code>instances. There is also another,
+  slightly less efficient 
+  <xref linkend="alternative" />
+  .</para>
+  <para>Server instance A has a connector listening on port A with webapp A
+  defined, and Server instance B has webapp B and a connector listening on port
+  B defined. For example:</para>
+  <para>You want to serve webapp A from port 8080, and webapp B from an SSL
+  connector on port 8443. This involves setting up two Server instances and two
+  context files.</para>
+  <section xml:id="creating-server-instances">
+    <title>
+      <code>Creating Server Instances</code>
+    </title>
+    <para>You set up two Server instances, each in its own 
+    <filename>jetty.xml</filename>file.</para>
+    <section xml:id="jettya.xml">
+      <title>Creating 
+      <filename>jettyA.xml</filename></title>
+      <para>The Server instance example for JettyA follows:</para>
+      <informalexample>
+        <programlisting language="xml">
+<![CDATA[>
+<Configure id="ServerA" class="org.eclipse.jetty.server.Server">
+
+    <!-- set up the port for ServerA -->
+    <Set name="connectors">
+      <Array type="org.eclipse.jetty.server.Connector">
+        <Item>
+          <New class="org.eclipse.jetty.server.nio.SelectChannelConnector">
+            <Set name="port">8080</Set>
+            <Set name="maxIdleTime">30000</Set>
+            <Set name="Acceptors">10</Set>
+          </New>
+        </Item>
+      </Array>
+    </Set>
+
+   <!-- set up a context provider for Server A -->
+    <Call name="addLifeCycle">
+      <Arg>
+        <New class="org.eclipse.jetty.deploy.providers.ContextProvider">
+          <Set name="contexts"><Ref id="Contexts"/></Set>
+          <Set name="configurationDir"><SystemProperty name="jetty.home" default="."/>/contextsA</Set>
+          <Set name="scanInterval">5</Set>
+        </New>
+      </Arg>
+    </Call>
+
+</Configure>
+]]>
+        </programlisting>
+      </informalexample>
+    </section>
+    <section xml:id="jettyb.xml">
+      <title>Creating
+      <filename>jettyB.xml</filename></title>
+      <para>The Server instance example for JettyB follows:</para>
+      <informalexample>
+        <programlisting language="xml">
+<![CDATA[>
+<source lang=xml>
+<Configure id="ServerB" class="org.eclipse.jetty.server.Server">
+
+    <!-- set up the port for ServerB -->
+    <Set name="connectors">
+      <Array type="org.eclipse.jetty.server.Connector">
+        <Item>
+          <New class="org.eclipse.jetty.server.ssl.SslSocketConnector">
+            <Set name="Port">8443</Set>
+            <Set name="maxIdleTime">30000</Set>
+            <Set name="Keystore"><SystemProperty name="jetty.home" default="." />/etc/keystore</Set>
+            <Set name="Password">OBF:1vny1zlo1x8e1vnw1vn61x8g1zlu1vn4</Set>
+            <Set name="KeyPassword">OBF:1u2u1wml1z7s1z7a1wnl1u2g</Set>
+          </New>
+        </Item>
+      </Array>
+    </Set>
+
+     <!-- set up a context provider for ServerB -->
+      <Arg>
+        <New class="org.eclipse.jetty.deploy.providers.ContextProvider">
+          <Set name="contexts"><Ref id="Contexts"/></Set>
+          <Set name="configurationDir"><SystemProperty name="jetty.home" default="."/>/contextsB</Set>
+          <Set name="scanInterval">5</Set>
+        </New>
+      </Arg>
+    </Call>
+
+</Configure>
+]]>
+        </programlisting>
+      </informalexample>
+    </section>
+  </section>
+  <section xml:id="creating-context-files">
+    <title>
+      <code>Creating Context Files</code>
+    </title>
+    <para>Now you need to set up two context files, one to describe the webapp
+    you want to deploy on Server A and the other for the webapp to deploy on
+    Server B. You then put these files into 
+    <code>$JETTY_HOME/contextsA</code>or 
+    <code>$JETTY_HOME/contextsB</code>respectively.</para>
+    <section xml:id="creating-contexta">
+      <title>
+        <code>Creating ContextA</code>
+      </title>
+      <para>The example 
+      <filename>contextA.xml</filename>file follows:</para>
+      <informalexample>
+        <programlisting language="xml">
+<![CDATA[>
+    <Configure class="org.eclipse.jetty.webapp.WebAppContext">
+      <Set name="war"><SystemProperty name="jetty.home"/>/webapps/A</Set>
+      <Set name="contextPath">/webappA</Set>
+       ...
+    </Configure>
+]]>
+        </programlisting>
+      </informalexample>
+    </section>
+    <section xml:id="creating-contextb">
+      <title>
+        <code>Creating ContextB</code>
+      </title>
+      <para>The example 
+      <filename>contextB.xml</filename>file follows:</para>
+      <informalexample>
+        <programlisting language="xml">
+<![CDATA[>
+    <Configure class="org.eclipse.jetty.webapp.WebAppContext">
+      <Set name="war"><SystemProperty name="jetty.home"/>/webapps/B</Set>
+      <Set name="contextPath">/webappB</Set>
+       ...
+    </Configure>
+]]>
+        </programlisting>
+      </informalexample>
+    </section>
+    <para>You run both Server instances in the same JVM by providing them both
+    on the runline:</para>
+    <screen>
+<![CDATA[
+java -jar start.jar jettyA.xml jettyB.xml
+]]>
+    </screen>
+    <para>Of course, you could also start two separate Jetty instances, one
+    with jettyA.xml and the other with jettyB.xml. However, it is usually more
+    efficient to run both Servers in the same JVM.</para>
+  </section>
+  <section xml:id="alternative">
+    <title>Alternative</title>
+    <para>There is also an alternative way to achieve the same result as above,
+    however it is slightly less efficient. It involves setting the list of
+    connectors on a webapp from which it accepts requests. This is a less
+    efficient solution than the one described above because the request is
+    presented to each webapp, which then must decide to accept it or not. In
+    the first solution, only one webapp is ever passed the request. In this
+    alternate configuration, you only need a single Server instance. You define
+    each of the connectors with a unique name, and then assign each webapp a
+    list of connector names to which it should respond.</para>
+    <para>This alternative requires a 
+    <filename>jetty.xml</filename>file and two context files.</para>
+    <section xml:id="creating-jetty.xml-file">
+      <title>Creating a 
+      <filename>jetty.xml</filename>File</title>
+      <para>The example 
+      <filename>jetty.xml</filename>follows:</para>
+      <informalexample>
+        <programlisting language="xml">
+<![CDATA[>
+<Configure class="org.eclipse.jetty.server.Server">
+
+    <!-- set up both connectors -->
+    <Set name="connectors">
+      <Array type="org.eclipse.jetty.server.Connector">
+        <Item>
+          <New  class="org.eclipse.jetty.server.nio.SelectChannelConnector">
+            <Set name="port">8080</Set>
+            <Set name="maxIdleTime">30000</Set>
+            <Set name="Acceptors">1</Set>
+            <Set name="name">connA</Set>
+          </New>
+        </Item>
+        <Item>
+          <New id="connB" class="org.eclipse.jetty.server.nio.SelectChannelConnector">
+            <Set name="port">9090</Set>
+            <Set name="maxIdleTime">30000</Set>
+            <Set name="Acceptors">1</Set>            
+            <Set name="name">connB</Set>
+          </New>
+        </Item>
+      </Array>
+    </Set>
+
+     <!-- set up a context provider -->
+      <Arg>
+        <New class="org.eclipse.jetty.deploy.providers.ContextProvider">
+          <Set name="contexts"><Ref id="Contexts"/></Set>
+          <Set name="configurationDir"><SystemProperty name="jetty.home" default="."/>/contexts</Set>
+          <Set name="scanInterval">5</Set>
+        </New>
+      </Arg>
+    </Call>
+</Configure>
+]]>
+        </programlisting>
+      </informalexample>
+    </section>
+    <section xml:id="creating-alt-contexta">
+      <title>Creating ContextA</title>
+      <para>The example 
+      <filename>contexta.xml</filename>follows:</para>
+      <informalexample>
+        <programlisting language="xml">
+<![CDATA[>
+    <Configure  class="org.eclipse.jetty.webapp.WebAppContext">      
+      <Set name="war"><SystemProperty name="jetty.home"/>/webapps/A</Set>
+      <Set name="contextPath">/webappA</Set>
+      <Set name="connectorNames">
+        <Array type="String">
+          <Item>connA</Item>
+        </Array>
+       </Set>
+      ...
+    </Configure>
+]]>
+        </programlisting>
+      </informalexample>
+    </section>
+    <section xml:id="creating-alt-contextb">
+      <title>Creating ContextB</title>
+      <para>The example 
+      <filename>contextb.xml</filename>follows:</para>
+      <informalexample>
+        <programlisting language="xml">
+<![CDATA[>
+<source lang=xml>
+    <Configure  class="org.eclipse.jetty.webapp.WebAppContext">
+      <Set name="war"><SystemProperty name="jetty.home"/>/webapps/B</Set>
+      <Set name="contextPath"/webappB</Set>
+      <Set name="connectorNames">
+        <Array type="String">
+          <Item>connB</Item>
+        </Array>
+      </Set>
+    </Configure>
+]]>
+        </programlisting>
+      </informalexample>
+    </section>
+    <para>Now start jetty as usual (if your Server config file is called
+    jetty.xml you can omit it from the run line):</para>
+    <screen>
+<![CDATA[
+java -jar start.jar}}
+]]>
+    </screen>
+  </section>
+</section>

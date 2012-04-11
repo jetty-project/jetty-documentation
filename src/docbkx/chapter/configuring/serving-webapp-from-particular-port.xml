@@ -63,7 +63,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
       </informalexample>
     </section>
     <section xml:id="jettyb.xml">
-      <title>Creating
+      <title>Creating 
       <filename>jettyB.xml</filename></title>
       <para>The Server instance example for JettyB follows:</para>
       <informalexample>

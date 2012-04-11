@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<section xml:id="jetty-helloworld" version="5.0"
+xmlns="http://docbook.org/ns/docbook"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:xl="http://www.w3.org/1999/xlink"
+xmlns:xi="http://www.w3.org/2001/XInclude"
+xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd">
+  <title>Jetty HelloWorld</title>
+  <para>This tutorial shows how you can develop code against the Jetty API with the jetty classes on your class path.  If you want to use Maven or standard web applications, see the 
+<xref linkend="jetty-maven-helloworld" />.</para>
+<section xml:id="downloading-jars">
+<title>Downloading the Jars</title>
+<para>Jetty is decomposed into many [[Jetty/Reference/Dependencies|jars and dependencies]] //TODO xref//to achieve a minimal footprint by selecting the minimal set of jars.  Typically it is best to use something like Maven to manage jars this tutorial uses an aggregate Jar that contains all of the Jjetty classes in one Jar.</para> 
+<para>
+You can manually download the jetty aggregate-all Jar and the servlet api Jar using <link xl:href="http://www.gnu.org/software/wget/"><emphasis>wget</emphasis></link> or similar command (for example, <link xl:href="http://curl.haxx.se/"><emphasis>curl</emphasis></link>) or a browser. Use wget as follows:</para>
+ <screen>
+<![CDATA[
+mkdir Demo
+cd Demo
+JETTY_VERSION=7.0.2.v20100331
+wget -U none http://repo1.maven.org/maven2/org/eclipse/jetty/aggregate/jetty-all/$JETTY_VERSION/jetty-all-$JETTY_VERSION.jar
+wget -U none http://repo1.maven.org/maven2/javax/servlet/servlet-api/2.5/servlet-api-2.5.jar
+]]>
+    </screen>
+</section>
+<section xml:id="writing-helloworld-example">
+<title>Writing a HelloWorld Example</title>
+<para>
+The <xref linkend="embedding" /> tutorial contains many examples of writing against the Jetty API. This tutorial uses a simple HelloWorld handler with a main method to run the server. In an editor, edit the file <filename>HelloWorld.java</filename> and add the following content:</para>
+
+<informalexample>
+        <programlisting language="java">
+<![CDATA[>
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.ServletException;
+
+import java.io.IOException;
+
+import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.server.Request;
+import org.eclipse.jetty.server.handler.AbstractHandler;
+
+public class HelloWorld extends AbstractHandler
+{
+    public void handle(String target,
+                       Request baseRequest,
+                       HttpServletRequest request,
+                       HttpServletResponse response) 
+        throws IOException, ServletException
+    {
+        response.setContentType("text/html;charset=utf-8");
+        response.setStatus(HttpServletResponse.SC_OK);
+        baseRequest.setHandled(true);
+        response.getWriter().println("<h1>Hello World</h1>");
+    }
+
+    public static void main(String[] args) throws Exception
+    {
+        Server server = new Server(8080);
+        server.setHandler(new HelloWorld());
+ 
+        server.start();
+        server.join();
+    }
+}
+]]>
+        </programlisting>
+      </informalexample>
+</section>
+<section xml:id="compiling-helloworld-example">
+<title>Compiling the HelloWord example</title>
+<para>The following command  compiles the HelloWorld class:</para>
+
+<screen>
+<![CDATA[
+javac -cp servlet-api-2.5.jar:jetty-all-$JETTY_VERSION.jar HelloWorld.java
+]]>
+    </screen>
+    </section>
+<section xml:id="running-handler-and-server">
+<title>Running the Handler and Server</title>
+<para>The following command runs the HelloWorld example:</para>
+
+<screen>
+<![CDATA[
+java -cp .:servlet-api-2.5.jar:jetty-all-$JETTY_VERSION.jar HelloWorld
+]]>
+    </screen>
+<para>
+You can now point your browser at <nowiki>http://localhost:8080</nowiki> to see your hello world page.</para>
+</section>
+<section xml:id="next-steps">
+<title>Next Steps</title>
+<para>To learn more about Jetty, take these next steps:</para>
+<itemizedlist>
+<listitem>Follow the examples in <xref linkend="embedding" /> to better understand the jetty APIs.</listitem>
+<listitem>Explore the complete <link xl:href="http://download.eclipse.org/jetty/stable-7/apidocs/">jetty javadoc</link></listitem>
+<listitem>Consider using Jetty and Maven (see <xref linkend="jetty-maven-helloworld" />) to manage your Jars and dependencies.</listitem>
+<listitem>Review other options in [[Jetty/Howto/Develop|Howto Develop with Jetty]] TODO xref</listitem>
+</itemizedlist>
+</section>
+</section>

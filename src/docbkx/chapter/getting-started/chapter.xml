@@ -7,10 +7,10 @@ xmlns:mth="http://www.w3.org/1998/Math/MathML"
 xmlns:xhtml="http://www.w3.org/1999/xhtml"
 xmlns:db="http://docbook.org/ns/docbook">
   <title>Getting Started With Jetty</title>
-<section>
-    <para>This chapter discusses various options available to getting started with Jetty.
-    Topics range from creating custom error pages to embedding jetty into your
-    own application.</para>
+  <section>
+    <para>This chapter discusses various options available to getting started
+    with Jetty. Topics range from creating custom error pages to embedding
+    jetty into your own application.</para>
   </section>
   <xi:include href="jetty-helloworld.xml" />
   <xi:include href="jetty-maven-helloworld.xml" />

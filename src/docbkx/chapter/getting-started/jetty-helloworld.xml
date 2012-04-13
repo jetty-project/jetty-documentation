@@ -8,8 +8,8 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
   <title>Jetty HelloWorld</title>
   <para>This tutorial shows how you can develop code against the Jetty API with
   the jetty classes on your class path. If you want to use Maven or standard
-  web applications, see the 
-  <xref linkend="jetty-maven-helloworld" />
+  web applications, see 
+  <xref linkend="jetty-maven-helloworld" xreflabel="" />
   .</para>
   <section xml:id="downloading-jars">
     <title>Downloading the Jars</title>
@@ -39,7 +39,7 @@ wget -U none http://repo1.maven.org/maven2/javax/servlet/servlet-api/2.5/servlet
   <section xml:id="writing-helloworld-example">
     <title>Writing a HelloWorld Example</title>
     <para>The 
-    <xref linkend="embedding" />
+    <xref linkend="embedding" xreflabel="Embedding" />
     tutorial contains many examples of writing against the Jetty API. This
     tutorial uses a simple HelloWorld handler with a main method to run the
     server. In an editor, edit the file 

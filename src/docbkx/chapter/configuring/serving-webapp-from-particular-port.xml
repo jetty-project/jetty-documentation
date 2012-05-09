@@ -19,9 +19,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
   connector on port 8443. This involves setting up two Server instances and two
   context files.</para>
   <section xml:id="creating-server-instances">
-    <title>
-      <code>Creating Server Instances</code>
-    </title>
+    <title>Creating Server Instances</title>
     <para>You set up two Server instances, each in its own 
     <filename>jetty.xml</filename>file.</para>
     <section xml:id="jettya.xml">
@@ -30,7 +28,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
       <para>The Server instance example for JettyA follows:</para>
       <informalexample>
         <programlisting language="xml">
-<![CDATA[>
+<![CDATA[
 <Configure id="ServerA" class="org.eclipse.jetty.server.Server">
 
     <!-- set up the port for ServerA -->
@@ -68,7 +66,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
       <para>The Server instance example for JettyB follows:</para>
       <informalexample>
         <programlisting language="xml">
-<![CDATA[>
+<![CDATA[
 <source lang=xml>
 <Configure id="ServerB" class="org.eclipse.jetty.server.Server">
 
@@ -104,23 +102,19 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     </section>
   </section>
   <section xml:id="creating-context-files">
-    <title>
-      <code>Creating Context Files</code>
-    </title>
+    <title>Creating Context Files</title>
     <para>Now you need to set up two context files, one to describe the webapp
     you want to deploy on Server A and the other for the webapp to deploy on
     Server B. You then put these files into 
     <code>$JETTY_HOME/contextsA</code>or 
     <code>$JETTY_HOME/contextsB</code>respectively.</para>
     <section xml:id="creating-contexta">
-      <title>
-        <code>Creating ContextA</code>
-      </title>
+      <title>Creating ContextA</title>
       <para>The example 
       <filename>contextA.xml</filename>file follows:</para>
       <informalexample>
         <programlisting language="xml">
-<![CDATA[>
+<![CDATA[
     <Configure class="org.eclipse.jetty.webapp.WebAppContext">
       <Set name="war"><SystemProperty name="jetty.home"/>/webapps/A</Set>
       <Set name="contextPath">/webappA</Set>
@@ -131,14 +125,12 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
       </informalexample>
     </section>
     <section xml:id="creating-contextb">
-      <title>
-        <code>Creating ContextB</code>
-      </title>
+      <title>Creating ContextB</title>
       <para>The example 
       <filename>contextB.xml</filename>file follows:</para>
       <informalexample>
         <programlisting language="xml">
-<![CDATA[>
+<![CDATA[
     <Configure class="org.eclipse.jetty.webapp.WebAppContext">
       <Set name="war"><SystemProperty name="jetty.home"/>/webapps/B</Set>
       <Set name="contextPath">/webappB</Set>
@@ -156,11 +148,11 @@ java -jar start.jar jettyA.xml jettyB.xml
 ]]>
     </screen>
     <para>Of course, you could also start two separate Jetty instances, one
-    with jettyA.xml and the other with jettyB.xml. However, it is usually more
+    with <filename>jettyA.xml</filename> and the other with <filename>jettyB.xml</filename>. However, it is usually more
     efficient to run both Servers in the same JVM.</para>
   </section>
   <section xml:id="alternative">
-    <title>Alternative</title>
+    <title>An Alternative</title>
     <para>There is also an alternative way to achieve the same result as above,
     however it is slightly less efficient. It involves setting the list of
     connectors on a webapp from which it accepts requests. This is a less
@@ -179,7 +171,7 @@ java -jar start.jar jettyA.xml jettyB.xml
       <filename>jetty.xml</filename>follows:</para>
       <informalexample>
         <programlisting language="xml">
-<![CDATA[>
+<![CDATA[
 <Configure class="org.eclipse.jetty.server.Server">
 
     <!-- set up both connectors -->
@@ -224,7 +216,7 @@ java -jar start.jar jettyA.xml jettyB.xml
       <filename>contexta.xml</filename>follows:</para>
       <informalexample>
         <programlisting language="xml">
-<![CDATA[>
+<![CDATA[
     <Configure  class="org.eclipse.jetty.webapp.WebAppContext">      
       <Set name="war"><SystemProperty name="jetty.home"/>/webapps/A</Set>
       <Set name="contextPath">/webappA</Set>
@@ -245,8 +237,7 @@ java -jar start.jar jettyA.xml jettyB.xml
       <filename>contextb.xml</filename>follows:</para>
       <informalexample>
         <programlisting language="xml">
-<![CDATA[>
-<source lang=xml>
+<![CDATA[
     <Configure  class="org.eclipse.jetty.webapp.WebAppContext">
       <Set name="war"><SystemProperty name="jetty.home"/>/webapps/B</Set>
       <Set name="contextPath"/webappB</Set>
@@ -261,10 +252,10 @@ java -jar start.jar jettyA.xml jettyB.xml
       </informalexample>
     </section>
     <para>Now start jetty as usual (if your Server config file is called
-    jetty.xml you can omit it from the run line):</para>
+    <filename>jetty.xml</filename> you can omit it from the run line):</para>
     <screen>
 <![CDATA[
-java -jar start.jar}}
+java -jar start.jar
 ]]>
     </screen>
   </section>

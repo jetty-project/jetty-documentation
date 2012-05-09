@@ -148,8 +148,10 @@ java -jar start.jar jettyA.xml jettyB.xml
 ]]>
     </screen>
     <para>Of course, you could also start two separate Jetty instances, one
-    with <filename>jettyA.xml</filename> and the other with <filename>jettyB.xml</filename>. However, it is usually more
-    efficient to run both Servers in the same JVM.</para>
+    with 
+    <filename>jettyA.xml</filename>and the other with 
+    <filename>jettyB.xml</filename>. However, it is usually more efficient to
+    run both Servers in the same JVM.</para>
   </section>
   <section xml:id="alternative">
     <title>An Alternative</title>
@@ -251,8 +253,8 @@ java -jar start.jar jettyA.xml jettyB.xml
         </programlisting>
       </informalexample>
     </section>
-    <para>Now start jetty as usual (if your Server config file is called
-    <filename>jetty.xml</filename> you can omit it from the run line):</para>
+    <para>Now start jetty as usual (if your Server config file is called 
+    <filename>jetty.xml</filename>you can omit it from the run line):</para>
     <screen>
 <![CDATA[
 java -jar start.jar

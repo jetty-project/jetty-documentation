@@ -14,5 +14,5 @@ xmlns:db="http://docbook.org/ns/docbook">
   </section>
   <xi:include href="jetty-helloworld.xml" />
   <xi:include href="jetty-maven-helloworld.xml" />
-  <xi:include href="start-jar" />
+  <xi:include href="start-jar.xml" />
 </chapter>

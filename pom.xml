@@ -148,6 +148,14 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
     </repository>
   </repositories>
   <pluginRepositories>
+     <pluginRepository>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+      <id>sonatype-snapshots</id>
+      <name>Sonatype Jetty Snapshots</name>
+      <url>http://oss.sonatype.org/content/groups/jetty</url>
+    </pluginRepository>
     <pluginRepository>
       <id>docbook-utils</id>
       <name>DocBook Utils</name>

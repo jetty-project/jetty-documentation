@@ -27,18 +27,10 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
         <para>The following code from SimplestServer.java instantiates and runs
         the simplest possible Jetty server:</para>
         <informalexample>
-          <programlisting language="java">
-<![CDATA[
-   public class SimplestServer
-   {
-     public static void main(String[] args) throws Exception
-     {
-       Server server = new Server(8080);
-       server.start();
-       server.join();
-     }
-   }
-]]>
+          <programlisting language="rjava">
+            <filename>
+            http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/plain/example-jetty-embedded/src/main/java/org/eclipse/jetty/embedded/SimplestServer.java</filename>
+<!-- methodname>main</methodname-->
           </programlisting>
         </informalexample>
         <para>This runs an HTTP server on port 8080. It is not a very useful
@@ -61,19 +53,9 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
           <para>The following code based on HelloHandler.java shows a simple
           hello world handler:</para>
           <informalexample>
-            <programlisting language="java">
-<![CDATA[
-  public class HelloHandler extends AbstractHandler
-  {
-    public void handle(String target,Request baseRequest,HttpServletRequest request,HttpServletResponse response) throws IOException, ServletException
-    {
-      response.setContentType("text/html;charset=utf-8");
-      response.setStatus(HttpServletResponse.SC_OK);
-      baseRequest.setHandled(true);
-      response.getWriter().println("&lt;h1&gt;Hello World&lt;/h1&gt;");
-    }
-  }
-        ]]>
+            <programlisting language="rjava">
+              <filename>
+              http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/plain/example-jetty-embedded/src/main/java/org/eclipse/jetty/embedded/HelloHandler.java</filename>
             </programlisting>
           </informalexample>
           <para>The parameters passed to the handle method are:</para>
@@ -93,16 +75,10 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
           <para>The following code from OneHandler.java shows how a Jetty
           server can use this handler:</para>
           <informalexample>
-            <programlisting language="java">
-<![CDATA[
-  public static void main(String[] args) throws Exception
-  {
-    Server server = new Server(8080);
-    server.setHandler(new HelloHandler());
-    server.start();
-    server.join();
-  }
-  ]]>
+            <programlisting language="rjava">
+              <filename>
+              http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/plain/example-jetty-embedded/src/main/java/org/eclipse/jetty/embedded/OneHandler.java</filename>
+              <methodname>main</methodname>
             </programlisting>
           </informalexample>
           <para>You now know everything you need to know to write an HTTP

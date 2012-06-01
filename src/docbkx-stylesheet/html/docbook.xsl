@@ -1,4 +1,7 @@
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0"
+xmlns:fetch="java:org.eclipse.jetty.xslt.tools.SourceFetchExtension"
+xmlns:d="http://docbook.org/ns/docbook"
+>
 
   <!-- imports the original docbook stylesheet -->
   <xsl:import href="urn:docbkx:stylesheet"/>
@@ -51,7 +54,6 @@
   </xsl:template>
   
   <xsl:template name="user.header.content">
-    
     <div style="background-color: #DFF2FD; text-align: left; font-size:80%; font-family: arial, sans; border:thin dotted blue; padding: 4px; ">
     <span style="font-variant: small-caps; font-weight: bold">
         <a href="http://www.webtide.com/support.jsp" style="text-decoration:none">Contact the core Jetty developers at
@@ -85,4 +87,62 @@ See an error or something missing?<br/>
     
    </div>
   </xsl:template>
+  
+  <xsl:template match="d:programlisting[@language='rjava']">
+    
+    <xsl:param name="suppress-numbers" select="'0'"/>
+  
+    <xsl:call-template name="anchor"/>
+  
+    <xsl:variable name="div.element">pre</xsl:variable>
+  
+    <xsl:if test="$shade.verbatim != 0">
+      <xsl:message>
+        <xsl:text>The shade.verbatim parameter is deprecated. </xsl:text>
+        <xsl:text>Use CSS instead,</xsl:text>
+      </xsl:message>
+      <xsl:message>
+        <xsl:text>for example: pre.</xsl:text>
+        <xsl:value-of select="local-name(.)"/>
+        <xsl:text> { background-color: #E0E0E0; }</xsl:text>
+      </xsl:message>
+    </xsl:if>
+
+    <xsl:element name="{$div.element}">
+          <xsl:apply-templates select="." mode="common.html.attributes"/>
+          
+          <xsl:if test="@width != ''">
+            <xsl:attribute name="width">
+              <xsl:value-of select="@width"/>
+            </xsl:attribute>
+          </xsl:if>
+          <xsl:choose>
+            <xsl:when test="$highlight.source != 0">
+              <xsl:variable name="filename" select="./d:filename"/>
+              <xsl:variable name="methodname" select="./d:methodname"/>
+              <xsl:variable name="newText" select="fetch:fetch($filename,$methodname)"/>
+              
+              <xsl:value-of select="$newText"/>
+              <!--xsl:call-template name="apply-highlighting"/-->
+            </xsl:when>
+            <xsl:otherwise>
+            
+            <xsl:if test="function-available('fetch:fetch')">
+              <xsl:variable name="filename" select="./d:/filename"/>
+              <xsl:variable name="methodname" select="./d:methodname"/>
+              <xsl:variable name="newText" select="fetch:fetch($filename,$methodname)"/>
+      
+              <xsl:apply-templates select="$newText"/>
+      <xsl:value-of select="$newText"/>
+           </xsl:if>
+           
+            </xsl:otherwise>
+          </xsl:choose>
+        </xsl:element>
+
+
+    
+
+  </xsl:template>
+  
 </xsl:stylesheet>

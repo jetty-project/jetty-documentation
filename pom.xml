@@ -148,7 +148,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
     </repository>
   </repositories>
   <pluginRepositories>
-     <pluginRepository>
+    <pluginRepository>
       <snapshots>
         <enabled>true</enabled>
       </snapshots>

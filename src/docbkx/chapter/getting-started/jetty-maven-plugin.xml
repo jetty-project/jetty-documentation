@@ -428,7 +428,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
         </informalexample>
       </section>
     </section>
-    <section xml:id="jetty:deploy-war-running-pre-assembled-war">
+    <section xml:id="deploy-war-running-pre-assembled-war">
       <title>jetty:deploy-war: Running a pre-assembled war</title>
       <para>This is basically the same as 
       <code>jetty:run-war</code>, but without assembling the WAR of the current
@@ -649,61 +649,61 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     generated classes and files for your webapp are already present
     first.</para>
   </section>
-</section>
-<section xml:id="more-configuration-options">
-  <title>More Configuration Options</title>
-  <para>The following sections provide information on additional configuration
-  options.</para>
-  <section xml:id="excluded-goals">
-    <title>Excluded Goals</title>
-    <para>Your webapp might not work with one of the goals, for example 
-    <code>jetty:run</code>. In this case, use the 
-    <code>excludedGoals</code>&#160; parameter:</para>
-    <para>
-    <code>excludedGoals</code>&#160; (Optional)&#8211;Set to a comma-separated
-    list of Jetty goal names which, if executed, cause the plugin to print an
-    informative message and exit immediately:</para>
-    <informalexample>
-      <programlisting language="xml">
+  <section xml:id="more-configuration-options">
+    <title>More Configuration Options</title>
+    <para>The following sections provide information on additional
+    configuration options.</para>
+    <section xml:id="excluded-goals">
+      <title>Excluded Goals</title>
+      <para>Your webapp might not work with one of the goals, for example 
+      <code>jetty:run</code>. In this case, use the 
+      <code>excludedGoals</code>&#160; parameter:</para>
+      <para>
+      <code>excludedGoals</code>&#160; (Optional)&#8211;Set to a
+      comma-separated list of Jetty goal names which, if executed, cause the
+      plugin to print an informative message and exit immediately:</para>
+      <informalexample>
+        <programlisting language="xml">
 <![CDATA[
 <configuration>
    <excludedGoals>run,run-exploded</excludedGoals>
 </configuration>
 ]]>
-      </programlisting>
-    </informalexample>
-  </section>
-  <section xml:id="manual-reload">
-    <title>Manual Reload</title>
-    <para>You might not want Jetty to automatically reload and redeploy your
-    webapp when something about it changes. For example, you might be doing a
-    series of changes that you want to ignore until you're done. In that use,
-    use the 
-    <code>reload</code>&#160; parameter:</para>
-    <para>
-    <code>reload</code>(Optional)&#8211;Default value is 
-    <code>automatic</code>. If 
-    <code>manual</code>, a linefeed in the console can reload the context. If 
-    <code>automatic</code>, traditional reloading on changed files is
-    enabled.</para>
-  </section>
-  <section xml:id="stopping-plugin-from-another-terminal-window">
-    <title>Stopping the Plugin from Another Terminal Window</title>
-    <para>If you want to use 
-    <code>mvn jetty:stop</code>, you need to configure the plugin with a
-    special port number and key that you also supply by executing the 
-    <code>stop</code>&#160; goal:</para>
-    <itemizedlist>
-      <listitem>
-      <code>stopPort</code>&#8211;A port number for jetty to listen on to
-      receive a stop command to cause it to shutdown.</listitem>
-      <listitem>
-      <code>stopKey</code>&#8211;A string value sent to the 
-      <code>stopPort</code>&#160; to validate the stop command.</listitem>
-    </itemizedlist>
-    <para>Here's a configuration example:</para>
-    <informalexample>
-      <programlisting language="xml">
+        </programlisting>
+      </informalexample>
+    </section>
+    <section xml:id="manual-reload">
+      <title>Manual Reload</title>
+      <para>You might not want Jetty to automatically reload and redeploy your
+      webapp when something about it changes. For example, you might be doing a
+      series of changes that you want to ignore until you're done. In that use,
+      use the 
+      <code>reload</code>&#160; parameter:</para>
+      <para>
+      <code>reload</code>(Optional)&#8211;Default value is 
+      <code>automatic</code>. If 
+      <code>manual</code>, a linefeed in the console can reload the context. If
+      
+      <code>automatic</code>, traditional reloading on changed files is
+      enabled.</para>
+    </section>
+    <section xml:id="stopping-plugin-from-another-terminal-window">
+      <title>Stopping the Plugin from Another Terminal Window</title>
+      <para>If you want to use 
+      <code>mvn jetty:stop</code>, you need to configure the plugin with a
+      special port number and key that you also supply by executing the 
+      <code>stop</code>&#160; goal:</para>
+      <itemizedlist>
+        <listitem>
+        <code>stopPort</code>&#8211;A port number for jetty to listen on to
+        receive a stop command to cause it to shutdown.</listitem>
+        <listitem>
+        <code>stopKey</code>&#8211;A string value sent to the 
+        <code>stopPort</code>&#160; to validate the stop command.</listitem>
+      </itemizedlist>
+      <para>Here's a configuration example:</para>
+      <informalexample>
+        <programlisting language="xml">
 <![CDATA[
 <plugin>
   <groupId>org.mortbay.jetty</groupId>
@@ -714,57 +714,57 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
   </configuration>
 </plugin>
 ]]>
-      </programlisting>
-    </informalexample>
-    <para>Then, while Jetty is running, type:</para>
-    <screen>
+        </programlisting>
+      </informalexample>
+      <para>Then, while Jetty is running, type:</para>
+      <screen>
 <![CDATA[
     mvn jetty:stop
 ]]>
-    </screen>
-    <para>The 
-    <code>stopPort</code>&#160; must be free on the machine you are running on.
-    If this is not the case, you get an "Address already in use" error message
-    after the "Started SelectedChannelConnector ..." message.</para>
-  </section>
-  <section xml:id="using-mvn-jetty:help">
-    <title>Using 
-    <code>mvn jetty:help</code>&#160; for More Help</title>
-    <para>For more help, use the 
-    <code>mvn jetty:help</code>&#160; command.</para>
-    <itemizedlist>
-      <listitem>
-      <code>mvn jetty:help</code>&#8211;Prints the list of goals for the
-      jetty-maven-plugin, with a description of each goal.</listitem>
-      <listitem>
-      <code>mvn jetty:help -Ddetail=true -Dgoal= goal-name</code>&#8211;Prints
-      a list of the properties you can set for that goal, in addition to its
-      description.</listitem>
-    </itemizedlist>
-  </section>
-  <section xml:id="skipping-execution-of-jetty">
-    <title>Skipping Execution of Jetty</title>
-    <para>Similar to the well known system property 
-    <code>mvn.test.skip</code>, you can define the system property 
-    <code>jetty.skip</code>to prevent Jetty running. This is most useful when
-    configuring Jetty for execution during integration testing and you want to
-    skip the tests:</para>
-    <screen>
+      </screen>
+      <para>The 
+      <code>stopPort</code>&#160; must be free on the machine you are running
+      on. If this is not the case, you get an "Address already in use" error
+      message after the "Started SelectedChannelConnector ..." message.</para>
+    </section>
+    <section xml:id="using-mvn-jetty:help">
+      <title>Using 
+      <code>mvn jetty:help</code>&#160; for More Help</title>
+      <para>For more help, use the 
+      <code>mvn jetty:help</code>&#160; command.</para>
+      <itemizedlist>
+        <listitem>
+        <code>mvn jetty:help</code>&#8211;Prints the list of goals for the
+        jetty-maven-plugin, with a description of each goal.</listitem>
+        <listitem>
+        <code>mvn jetty:help -Ddetail=true -Dgoal=
+        goal-name</code>&#8211;Prints a list of the properties you can set for
+        that goal, in addition to its description.</listitem>
+      </itemizedlist>
+    </section>
+    <section xml:id="skipping-execution-of-jetty">
+      <title>Skipping Execution of Jetty</title>
+      <para>Similar to the well known system property 
+      <code>mvn.test.skip</code>, you can define the system property 
+      <code>jetty.skip</code>to prevent Jetty running. This is most useful when
+      configuring Jetty for execution during integration testing and you want
+      to skip the tests:</para>
+      <screen>
 <![CDATA[
     mvn -Djetty.skip=true
 ]]>
-    </screen>
-    <para>You can also use the 
-    <code>skip</code>configuration parameter to skip Jetty during certain
-    executions (see above).</para>
-  </section>
-  <section xml:id="configuring-security-settings">
-    <title>Configuring Security Settings</title>
-    <para>You can configure LoginServices (known as UserRealms in Jetty 6) in
-    the plugin. Here's an example of setting up the HashLoginService for a
-    webapp:</para>
-    <informalexample>
-      <programlisting language="xml">
+      </screen>
+      <para>You can also use the 
+      <code>skip</code>configuration parameter to skip Jetty during certain
+      executions (see above).</para>
+    </section>
+    <section xml:id="configuring-security-settings">
+      <title>Configuring Security Settings</title>
+      <para>You can configure LoginServices (known as UserRealms in Jetty 6) in
+      the plugin. Here's an example of setting up the HashLoginService for a
+      webapp:</para>
+      <informalexample>
+        <programlisting language="xml">
 <![CDATA[
 <plugin>
   <groupId>org.mortbay.jetty</groupId>
@@ -783,23 +783,23 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
   </configuration>
 </plugin>
 ]]>
-      </programlisting>
-    </informalexample>
-  </section>
-  <section xml:id="configuring-connectors">
-    <title>Configuring Connectors</title>
-    <para>You can configure a list of 
-    <code>org.eclipse.jetty.server.Connector</code>objects for the plugin. If
-    you don't specify any, an NIO 
-    <code>org.eclipse.jetty.server.nio.SelectChannelConnector</code>is
-    configured on port 8080. You can change this default port number by using
-    the system property 
-    <code>jetty.port</code>on the command line, for example 
-    <code>mvn -Djetty.port=9999 jetty:run</code>. Alternatively, you can
-    specify as many connectors as you like. Here's an example of configuring a
-    connector on a different port number:</para>
-    <informalexample>
-      <programlisting language="xml">
+        </programlisting>
+      </informalexample>
+    </section>
+    <section xml:id="configuring-connectors">
+      <title>Configuring Connectors</title>
+      <para>You can configure a list of 
+      <code>org.eclipse.jetty.server.Connector</code>objects for the plugin. If
+      you don't specify any, an NIO 
+      <code>org.eclipse.jetty.server.nio.SelectChannelConnector</code>is
+      configured on port 8080. You can change this default port number by using
+      the system property 
+      <code>jetty.port</code>on the command line, for example 
+      <code>mvn -Djetty.port=9999 jetty:run</code>. Alternatively, you can
+      specify as many connectors as you like. Here's an example of configuring
+      a connector on a different port number:</para>
+      <informalexample>
+        <programlisting language="xml">
 <![CDATA[
 <plugin>
   <groupId>org.mortbay.jetty</groupId>
@@ -818,19 +818,20 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
   </configuration>
 </plugin>
 ]]>
-      </programlisting>
-    </informalexample>
-  </section>
-  <section xml:id="using-overlaid-wars">
-    <title>Using Overlaid WARs</title>
-    <para>If your webapp depends on other WAR files, the Jetty Maven plugin is
-    able to merge resources from all of them. The merging is fairly simple and
-    does not support exclusions. The ordering of dependencies is important if
-    you have defined the same resource in multiple files. There is no special
-    configuration for this beyond simply declaring the dependencies.</para>
-    <para>For example, suppose our webapp depends on these two WARs:</para>
-    <informalexample>
-      <programlisting language="xml">
+        </programlisting>
+      </informalexample>
+    </section>
+    <section xml:id="using-overlaid-wars">
+      <title>Using Overlaid WARs</title>
+      <para>If your webapp depends on other WAR files, the Jetty Maven plugin
+      is able to merge resources from all of them. The merging is fairly simple
+      and does not support exclusions. The ordering of dependencies is
+      important if you have defined the same resource in multiple files. There
+      is no special configuration for this beyond simply declaring the
+      dependencies.</para>
+      <para>For example, suppose our webapp depends on these two WARs:</para>
+      <informalexample>
+        <programlisting language="xml">
 <![CDATA[
 <dependency>
       <groupId>com.acme</groupId>
@@ -843,11 +844,11 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
       <type>war</type>
 </dependency>
 ]]>
-      </programlisting>
-    </informalexample>
-    <para>Suppose the webapps contain:</para>
-    <informalexample>
-      <programlisting language="text">
+        </programlisting>
+      </informalexample>
+      <para>Suppose the webapps contain:</para>
+      <informalexample>
+        <programlisting language="text">
 <![CDATA[
 WebAppX:
 
@@ -864,11 +865,11 @@ WebAppY:
 /WEB-INF/web.xml
 /WEB-INF/special.xml
 ]]>
-      </programlisting>
-    </informalexample>
-    <para>Then the webapp has available these additional resources:</para>
-    <informalexample>
-      <programlisting language="text">
+        </programlisting>
+      </informalexample>
+      <para>Then the webapp has available these additional resources:</para>
+      <informalexample>
+        <programlisting language="text">
 <![CDATA[
 /foo.jsp (X)
 /bar.jsp (X)
@@ -876,20 +877,20 @@ WebAppY:
 /WEB-INF/web.xml (X)
 /WEB-INF/sitemesh.xml (Y)
 ]]>
-      </programlisting>
-    </informalexample>
-  </section>
-  <section xml:id="using-multiple-webapp-root-directories">
-    <title>Using Multiple Webapp Root Directories</title>
-    <para>If you have external resources that you want to incorporate in the
-    execution of a webapp, but which are not assembled into WARs, you can't use
-    the overlaid WARs method described above, but you can tell Jetty the
-    directories in which these external resources are located. At runtime, when
-    Jetty receives a request for a resource, it searches all the locations to
-    retrieve the resource. It's a lot like the overlaid WAR situation, but
-    without the WAR. Here's a configuration example:</para>
-    <informalexample>
-      <programlisting language="xml">
+        </programlisting>
+      </informalexample>
+    </section>
+    <section xml:id="using-multiple-webapp-root-directories">
+      <title>Using Multiple Webapp Root Directories</title>
+      <para>If you have external resources that you want to incorporate in the
+      execution of a webapp, but which are not assembled into WARs, you can't
+      use the overlaid WARs method described above, but you can tell Jetty the
+      directories in which these external resources are located. At runtime,
+      when Jetty receives a request for a resource, it searches all the
+      locations to retrieve the resource. It's a lot like the overlaid WAR
+      situation, but without the WAR. Here's a configuration example:</para>
+      <informalexample>
+        <programlisting language="xml">
 <![CDATA[
 <configuration>
   <webApp>
@@ -900,15 +901,15 @@ WebAppY:
   </webApp>
 </configuration>
 ]]>
-      </programlisting>
-    </informalexample>
-  </section>
-  <section xml:id="using-gzip-compression">
-    <title>Using GZip Compression and Other Jetty Extensions</title>
-    <para>You must explicitly enable GZip compression and other Jetty
-    extensions by adding a dependency on jetty-servlets:</para>
-    <informalexample>
-      <programlisting language="xml">
+        </programlisting>
+      </informalexample>
+    </section>
+    <section xml:id="using-gzip-compression">
+      <title>Using GZip Compression and Other Jetty Extensions</title>
+      <para>You must explicitly enable GZip compression and other Jetty
+      extensions by adding a dependency on jetty-servlets:</para>
+      <informalexample>
+        <programlisting language="xml">
 <![CDATA[
       <plugin>
         <groupId>org.mortbay.jetty</groupId>
@@ -926,15 +927,16 @@ WebAppY:
         </dependencies>
       </plugin>
       ]]>
-      </programlisting>
-    </informalexample>
-    <note>Setting the 
-    <code>groupId</code>: Maven by default looks for plugins with a groupId of 
-    <code>org.apache.maven.plugins</code>, even if the groupId is declared
-    differently as above. To instruct Maven to look for the plugin in the
-    groupId as defined, set a plugin group in a profile in 
-    <filename>settings.xml</filename>:</note>
-    <screen>
+        </programlisting>
+      </informalexample>
+      <note>Setting the 
+      <code>groupId</code>: Maven by default looks for plugins with a groupId
+      of 
+      <code>org.apache.maven.plugins</code>, even if the groupId is declared
+      differently as above. To instruct Maven to look for the plugin in the
+      groupId as defined, set a plugin group in a profile in 
+      <filename>settings.xml</filename>:</note>
+      <screen>
 <![CDATA[
 <profile>
   ...
@@ -943,20 +945,20 @@ WebAppY:
   </pluginGroups>
 </profile>
 ]]>
-    </screen>
-  </section>
-  <section xml:id="running-more-than-one-webapp">
-    <title>Running More than One Webapp</title>
-    <para>You can use either a 
-    <filename>jetty.xml</filename>&#160; file to configure extra (pre-compiled)
-    webapps that you want to deploy, or you can use the 
-    <code>contextHandlers</code>&#160; configuration element in the Jetty
-    plugin configuration to do so. If you want to deploy webapp A, and webapps
-    B and C in the same Jetty instance:</para>
-    <para>Putting the configuration in webapp A's 
-    <code>pom.xml</code>:</para>
-    <informalexample>
-      <programlisting language="xml">
+      </screen>
+    </section>
+    <section xml:id="running-more-than-one-webapp">
+      <title>Running More than One Webapp</title>
+      <para>You can use either a 
+      <filename>jetty.xml</filename>&#160; file to configure extra
+      (pre-compiled) webapps that you want to deploy, or you can use the 
+      <code>contextHandlers</code>&#160; configuration element in the Jetty
+      plugin configuration to do so. If you want to deploy webapp A, and
+      webapps B and C in the same Jetty instance:</para>
+      <para>Putting the configuration in webapp A's 
+      <code>pom.xml</code>:</para>
+      <informalexample>
+        <programlisting language="xml">
 <![CDATA[
 <plugin>
   <groupId>org.mortbay.jetty</groupId>
@@ -979,14 +981,14 @@ WebAppY:
   </configuration>
 </plugin>
 ]]>
-      </programlisting>
-    </informalexample>
-    <para>Alternatively, add a 
-    <filename>jetty.xml</filename>&#160; file to webapp A. Copy the 
-    <filename>jetty.xml</filename>&#160; file from the jetty distribution, and
-    then add WebAppContexts for the other 2 webapps:</para>
-    <informalexample>
-      <programlisting language="xml">
+        </programlisting>
+      </informalexample>
+      <para>Alternatively, add a 
+      <filename>jetty.xml</filename>&#160; file to webapp A. Copy the 
+      <filename>jetty.xml</filename>&#160; file from the jetty distribution,
+      and then add WebAppContexts for the other 2 webapps:</para>
+      <informalexample>
+        <programlisting language="xml">
 <![CDATA[
    <Ref id="Contexts">
        <Call name="addHandler">
@@ -1007,13 +1009,13 @@ WebAppY:
        </Call>
    </Ref>
 ]]>
-      </programlisting>
-    </informalexample>
-    <para>Then configure the location of this 
-    <filename>jetty.xml</filename>&#160; file into webapp A's jetty
-    plugin:</para>
-    <informalexample>
-      <programlisting language="xml">
+        </programlisting>
+      </informalexample>
+      <para>Then configure the location of this 
+      <filename>jetty.xml</filename>&#160; file into webapp A's jetty
+      plugin:</para>
+      <informalexample>
+        <programlisting language="xml">
 <![CDATA[
 <plugin>
   <groupId>org.mortbay.jetty</groupId>
@@ -1027,26 +1029,27 @@ WebAppY:
    </configuration>
 </plugin>
 ]]>
-      </programlisting>
-    </informalexample>
-    <para>For either of these solutions, the other webapps must already have
-    been built, and they are not automatically monitored for changes. You can
-    refer either to the packed WAR file of the pre-built webapps or to their
-    expanded equivalents.</para>
-  </section>
-  <section xml:id="setting-system-properties">
-    <title>Setting System Properties</title>
-    <para>You can specify property name/value pairs that Jetty sets as System
-    properties for the execution of the plugin. Note that if a System property
-    is already set (for example, from the command line or by the JVM itself),
-    then these configured properties DO NOT override them. This feature is
-    useful to tidy up the command line and save a lot of typing.</para>
-    <section xml:id="specifying-properties-in-pom">
-      <title>Specifying System Properties in the POM</title>
-      <para>Here's an example of how to specify System properties in the
-      POM:</para>
-      <informalexample>
-        <programlisting language="xml">
+        </programlisting>
+      </informalexample>
+      <para>For either of these solutions, the other webapps must already have
+      been built, and they are not automatically monitored for changes. You can
+      refer either to the packed WAR file of the pre-built webapps or to their
+      expanded equivalents.</para>
+    </section>
+    <section xml:id="setting-system-properties">
+      <title>Setting System Properties</title>
+      <para>You can specify property name/value pairs that Jetty sets as System
+      properties for the execution of the plugin. Note that if a System
+      property is already set (for example, from the command line or by the JVM
+      itself), then these configured properties DO NOT override them. This
+      feature is useful to tidy up the command line and save a lot of
+      typing.</para>
+      <section xml:id="specifying-properties-in-pom">
+        <title>Specifying System Properties in the POM</title>
+        <para>Here's an example of how to specify System properties in the
+        POM:</para>
+        <informalexample>
+          <programlisting language="xml">
 <![CDATA[
 <plugin>
   <groupId>org.mortbay.jetty</groupId>
@@ -1064,13 +1067,13 @@ WebAppY:
    </configuration>
 </plugin>
 ]]>
-        </programlisting>
-      </informalexample>
-      <para>As of jetty-7.6.5, you CAN cause the system properties defined in
-      the POM to override those on the command line by using the 
-      <code>force</code>parameter:</para>
-      <informalexample>
-        <programlisting language="xml">
+          </programlisting>
+        </informalexample>
+        <para>As of jetty-7.6.5, you CAN cause the system properties defined in
+        the POM to override those on the command line by using the 
+        <code>force</code>parameter:</para>
+        <informalexample>
+          <programlisting language="xml">
 <![CDATA[
 <plugin>
   <groupId>org.mortbay.jetty</groupId>
@@ -1089,29 +1092,30 @@ WebAppY:
    </configuration>
 </plugin>
 ]]>
-        </programlisting>
-      </informalexample>
-    </section>
-    <section xml:id="specifying-properties-in-file">
-      <title>Specifying System Properties in a File</title>
-      <para>You can also specify your System properties in a file. System
-      properties you specify in this way DO NOT override System properties that
-      set on the command line, by the JVM, or directly in the POM via 
-      <code>systemProperties</code>.</para>
-      <para>Here's an example of the file:</para>
-      <informalexample>
-        <programlisting language="text">
+          </programlisting>
+        </informalexample>
+      </section>
+      <section xml:id="specifying-properties-in-file">
+        <title>Specifying System Properties in a File</title>
+        <para>You can also specify your System properties in a file. System
+        properties you specify in this way DO NOT override System properties
+        that set on the command line, by the JVM, or directly in the POM via 
+        <code>systemProperties</code>.</para>
+        <para>Here's an example of the file:</para>
+        <informalexample>
+          <programlisting language="text">
 <![CDATA[
 fooprop=222
 ]]>
-        </programlisting>
-      </informalexample>
-      <para>Here's an example of configuring the file for the plugin, although
-      you can instead specify the file by setting the System property (!) 
-      <filename>jetty.systemPropertiesFile</filename>on the command
-      line:</para>
-      <informalexample>
-        <programlisting language="xml">
+          </programlisting>
+        </informalexample>
+        <para>Here's an example of configuring the file for the plugin,
+        although you can instead specify the file by setting the System
+        property (!) 
+        <filename>jetty.systemPropertiesFile</filename>on the command
+        line:</para>
+        <informalexample>
+          <programlisting language="xml">
 <![CDATA[
 <plugin>
   <groupId>org.mortbay.jetty</groupId>
@@ -1124,8 +1128,9 @@ fooprop=222
    </configuration>
 </plugin>
 ]]>
-        </programlisting>
-      </informalexample>
+          </programlisting>
+        </informalexample>
+      </section>
     </section>
   </section>
 </section>

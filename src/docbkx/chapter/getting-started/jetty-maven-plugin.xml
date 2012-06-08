@@ -644,7 +644,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
 ]]>
       </programlisting>
     </informalexample>
-    <para>Of course, you can use this goal from the command line (
+    <para>Of course, you can use this goal from the command line ( 
     <code>mvn jetty:start</code>), however you need to be sure that all
     generated classes and files for your webapp are already present
     first.</para>
@@ -730,7 +730,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
   <section xml:id="using-mvn-jetty:help">
     <title>Using 
     <code>mvn jetty:help</code>&#160; for More Help</title>
-    <para>For more help, use the
+    <para>For more help, use the 
     <code>mvn jetty:help</code>&#160; command.</para>
     <itemizedlist>
       <listitem>

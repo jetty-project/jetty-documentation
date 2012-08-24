@@ -42,13 +42,13 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     <para>deepest 
     <link linkend="wh-deepest">this is custom</link></para>
     <itemizedlist>
-      <listitem>In code. See the examples in the Jetty 7 Latest Source
-      XRef.</listitem>
-      <listitem>With Jetty XML - dependency injection style XML
-      format.</listitem>
-      <listitem>With your dependency injection framework of choice: Spring or
-      XBean.</listitem>
-      <listitem>Using Jetty WebApp and Context Deployers.</listitem>
+      <listitem><para>In code. See the examples in the Jetty 7 Latest Source
+      XRef.</para></listitem>
+      <listitem><para>With Jetty XML - dependency injection style XML
+      format.</para></listitem>
+      <listitem><para>With your dependency injection framework of choice: Spring or
+      XBean.</para></listitem>
+      <listitem><para>Using Jetty WebApp and Context Deployers.</para></listitem>
     </itemizedlist>
   </section>
   <section>
@@ -98,17 +98,17 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
       </imageobject>
     </mediaobject>
     <itemizedlist>
-      <listitem>SocketConnector - for few busy connections or when NIO is not
-      available</listitem>
-      <listitem>BlockingChannelConnector - for few busy connections when NIO is
-      available</listitem>
-      <listitem>SelectChannelConnector - for many mostly idle connections or
-      asynchronous handling of Ajax requests</listitem>
-      <listitem>SslSocketConnector - SSL without NIO</listitem>
-      <listitem>SslSelectChannelConnector - SSL with non blocking NIO
-      support</listitem>
-      <listitem>AJPConnector AJP protocol support for connections from apache
-      mod_jk or mod_proxy_ajp</listitem>
+      <listitem><para>SocketConnector - for few busy connections or when NIO is not
+      available</para></listitem>
+      <listitem><para>BlockingChannelConnector - for few busy connections when NIO is
+      available</para></listitem>
+      <listitem><para>SelectChannelConnector - for many mostly idle connections or
+      asynchronous handling of Ajax requests</para></listitem>
+      <listitem><para>SslSocketConnector - SSL without NIO</para></listitem>
+      <listitem><para>SslSelectChannelConnector - SSL with non blocking NIO
+      support</para></listitem>
+      <listitem><para>AJPConnector AJP protocol support for connections from apache
+      mod_jk or mod_proxy_ajp</para></listitem>
     </itemizedlist>
   </section>
   <section>
@@ -135,29 +135,29 @@ public void handle(String target, Request baseRequest, HttpServletRequest reques
     </informalexample>
     <para>Parameters:</para>
     <itemizedlist>
-      <listitem>target&#8218;&#196;&#236;The target of the request, either a
-      URI or a name.</listitem>
-      <listitem>baseRequest&#8218;&#196;&#236;The original unwrapped request
-      object.</listitem>
-      <listitem>request&#8218;&#196;&#236;The request either as the Request
+      <listitem><para>target&#8218;&#196;&#236;The target of the request, either a
+      URI or a name.</para></listitem>
+      <listitem><para>baseRequest&#8218;&#196;&#236;The original unwrapped request
+      object.</para></listitem>
+      <listitem><para>request&#8218;&#196;&#236;The request either as the Request
       object or a wrapper of that request. You can use the
       HttpConnection.getCurrentConnection() method to access the Request object
-      if required.</listitem>
-      <listitem>response&#8218;&#196;&#236;The response as the Response object
+      if required.</para></listitem>
+      <listitem><para>response&#8218;&#196;&#236;The response as the Response object
       or a wrapper of that request. You can use the
       HttpConnection.getCurrentConnection() method to access the Response
-      object if required.</listitem>
+      object if required.</para></listitem>
     </itemizedlist>
     <para>An implementation of this method can handle the request, pass the
     request onto another handler (or servlet) or it might modify and/or wrap
     the request and then pass it on. This gives three styles of Handler:</para>
     <itemizedlist>
-      <listitem>Coordinating Handlers - Handlers that route requests to other
+      <listitem><para>Coordinating Handlers - Handlers that route requests to other
       handlers (eg HandlerCollection, ContextHandlerCollection)</listitem>
-      <listitem>Filtering Handlers - Handlers that augment a request and pass
+      <listitem><para>Filtering Handlers - Handlers that augment a request and pass
       it on to other handlers (eg. HandlerWrapper, ContextHandler,
       SessionHandler)</listitem>
-      <listitem>Generating Handlers - Handlers that produce content (eg
+      <listitem><para>Generating Handlers - Handlers that produce content (eg
       ResourceHandler and ServletHandler)</listitem>
     </itemizedlist>
     <section>
@@ -218,18 +218,18 @@ public void handle(String target, Request baseRequest, HttpServletRequest reques
     <para>Contexts are handlers that group other handlers below a particular
     URI context path or a virtual host. Typcially a context can have :</para>
     <itemizedlist>
-      <listitem>A context path that defines which requests are handled by the
-      context (eg /myapp )</listitem>
-      <listitem>A resource base for static content (a docroot)</listitem>
-      <listitem>A class loader to obtain classes specific to the context
-      (typically docroot/WEB-INF/classes)</listitem>
-      <listitem>Virtual host names</listitem>
+      <listitem><para>A context path that defines which requests are handled by the
+      context (eg /myapp )</para></listitem>
+      <listitem><para>A resource base for static content (a docroot)</para></listitem>
+      <listitem><para>A class loader to obtain classes specific to the context
+      (typically docroot/WEB-INF/classes)</para></listitem>
+      <listitem><para>Virtual host names</para></listitem>
     </itemizedlist>
     <para>Contexts implementations include:</para>
     <itemizedlist>
-      <listitem>ContextHandler</listitem>
-      <listitem>Servlet Context</listitem>
-      <listitem>Web Application Context</listitem>
+      <listitem><para>ContextHandler</para></listitem>
+      <listitem><para>Servlet Context</para></listitem>
+      <listitem><para>Web Application Context</para></listitem>
     </itemizedlist>
     <para>A web application context combines handlers for security, session and
     servlets in a single unit that can be configured with a web.xml

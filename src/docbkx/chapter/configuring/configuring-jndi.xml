@@ -23,9 +23,9 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     <xref linkend="detailed-setup" />
     .</para>
     <orderedlist>
-      <listitem>Edit the 
-      <filename>$JETTY_HOME/start.ini file</filename>.</listitem>
-      <listitem>Modify the Server OPTIONS to include 
+      <listitem><para>Edit the 
+      <filename>$JETTY_HOME/start.ini file</filename>.</para></listitem>
+      <listitem><para>Modify the Server OPTIONS to include 
       <emphasis>plus</emphasis>, for example: 
       <informalexample>
         <programlisting language="bash">
@@ -33,8 +33,8 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
 OPTIONS=Server,jsp,jmx,resources,websocket,ext,plus
 ]]>
         </programlisting>
-      </informalexample></listitem>
-      <listitem>Near the bottom of the file, in the section on Configuration
+      </informalexample></para></listitem>
+      <listitem><para>Near the bottom of the file, in the section on Configuration
       files, add the following line after 
       <code>etc/jetty.xml</code>: 
       <informalexample>
@@ -43,8 +43,8 @@ OPTIONS=Server,jsp,jmx,resources,websocket,ext,plus
 etc/jetty-plus.xml
 ]]>
         </programlisting>
-      </informalexample></listitem>
-      <listitem>Save the file.</listitem>
+      </informalexample></para></listitem>
+      <listitem><para>Save the file.</para></listitem>
     </orderedlist>
     <para>You can now start Jetty and use JNDI with your webapps. See the next
     section for information on how to add entries to the JNDI environment that
@@ -200,11 +200,11 @@ resource-env-ref/
     .</para>
     <para>You can define your naming resources with three scopes:</para>
     <itemizedlist>
-      <listitem>jvm scope&#8211;the name is unique within the JVM.</listitem>
-      <listitem>server scope&#8211;the name is unique to the Server
-      instance.</listitem>
-      <listitem>webapp scope&#8211;the name is unique to the WebAppContext
-      instance.</listitem>
+      <listitem><para>jvm scope&#8211;the name is unique within the JVM.</para></listitem>
+      <listitem><para>server scope&#8211;the name is unique to the Server
+      instance.</para></listitem>
+      <listitem><para>webapp scope&#8211;the name is unique to the WebAppContext
+      instance.</para></listitem>
     </itemizedlist>
     <para>See 
     <xref linkend="setting-jndi-entries-as-global-or-scoped" />
@@ -217,16 +217,16 @@ resource-env-ref/
       <title>Binding Objects into Jetty JNDI</title>
       <para>You can bind four types of object into Jetty JNDI:</para>
       <itemizedlist>
-        <listitem>An ordinary POJO instance.</listitem>
-        <listitem>A 
+        <listitem><para>An ordinary POJO instance.</para></listitem>
+        <listitem><para>A 
         <link
-        xl:href="http://docs.oracle.com/javase/1.5.0/docs/api/javax/naming/Reference.html">javax.naming.Reference</link>instance.</listitem>
-        <listitem>An object instance that implements the 
+        xl:href="http://docs.oracle.com/javase/1.5.0/docs/api/javax/naming/Reference.html">javax.naming.Reference</link>instance.</para></listitem>
+        <listitem><para>An object instance that implements the 
         <link
-        xl:href="http://docs.oracle.com/javase/1.5.0/docs/api/javax/naming/Referenceable.html">javax.naming.Referenceable</link>interface.</listitem>
-        <listitem>A link between a name as referenced in 
+        xl:href="http://docs.oracle.com/javase/1.5.0/docs/api/javax/naming/Referenceable.html">javax.naming.Referenceable</link>interface.</para></listitem>
+        <listitem><para>A link between a name as referenced in 
         <filename>web.xml</filename>and as referenced in the
-        environment.</listitem>
+        environment.</para></listitem>
       </itemizedlist>
       <para>The binding for all of these object types follows the same
       pattern:</para>
@@ -246,34 +246,36 @@ resource-env-ref/
         <para>The 
         <code>type of naming entry</code>can be:</para>
         <itemizedlist>
-          <listitem>
+          <listitem><para>
           <code>org.eclipse.jetty.plus.jndi.EnvEntry</code>for 
-          <code>env-entry</code>.</listitem>
-          <listitem>
+          <code>env-entry</code>.</para></listitem>
+          <listitem><para>
           <code>org.eclipse.jetty.plus.jndi.Resource</code>for all other type
-          of resources.</listitem>
-          <listitem>
+          of resources.</para></listitem>
+          <listitem><para>
           <code>org.eclipse.jetty.plus.jndi.Transaction</code>for a JTA
           manager. For detailed information, see the 
           <xref linkend="configuring-xa-transactions" />
-          .</listitem>
-          <listitem>
+          .</para></listitem>
+          <listitem><para>
           <code>org.eclipse.jetty.plus.jndi.Link</code>for link between a 
           <filename>web.xml</filename>resource name and a 
-          <code>amingEntry</code>.</listitem>
+          <code>amingEntry</code>.</para></listitem>
         </itemizedlist>
         <para>For more information, see 
         <xref linkend="configuring-links" />
         .</para>
         <para>You can define naming entries in three places:</para>
         <orderedlist>
-          <listitem>
+          <listitem><para>
             <filename>jetty.xml</filename>
+            </para>
           </listitem>
-          <listitem>
+          <listitem><para>
             <filename>WEB-INF/jetty-env.xml</filename>
+            </para>
           </listitem>
-          <listitem>context xml file</listitem>
+          <listitem><para>context xml file</para></listitem>
         </orderedlist>
         <para>Naming entries defined in a 
         <filename>jetty.xml</filename>file are scoped at either the JVM level

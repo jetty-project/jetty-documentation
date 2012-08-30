@@ -8,11 +8,13 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
   <title>JNDI Datasource Examples</title>
   <para>Here are examples of configuring a JNDI datasource for various
   databases.</para>
-  <note><para>Read 
-  <xref linkend="configuring-datasources" />
-  in 
-  <xref linkend="configuring-jndi" />
-  for more information about configuring datasources.</para></note>
+  <note>
+    <para>Read 
+    <xref linkend="configuring-datasources" />
+    in 
+    <xref linkend="configuring-jndi" />
+    for more information about configuring datasources.</para>
+  </note>
   <para>All of these examples correspond to a 
   <code>resource-ref</code>in 
   <filename>web.xml</filename>.</para>
@@ -34,9 +36,11 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
   <filename>jetty.xml</filename>&#160;file or in a 
   <filename>WEB-INF/jetty-env.xml</filename>&#160;file, or a context XML
   file.</para>
-  <important><para>You must provide jetty with the libraries necessary to instantiate
-  the datasource you have configured by putting the corresponding jar in
-  jetty_home/lib/ext.</para></important>
+  <important>
+    <para>You must provide jetty with the libraries necessary to instantiate
+    the datasource you have configured by putting the corresponding jar in
+    jetty_home/lib/ext.</para>
+  </important>
   <section xml:id="pooling-datasources">
     <title>Pooling DataSources</title>
     <para>Pooling datasources enables connection pooling, which lets you reuse

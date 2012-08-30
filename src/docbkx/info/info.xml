@@ -7,32 +7,6 @@ xmlns:mth="http://www.w3.org/1998/Math/MathML"
 xmlns:xhtml="http://www.w3.org/1999/xhtml"
 xmlns:db="http://docbook.org/ns/docbook">
   <title>Jetty : The Definitive Reference</title>
-  <revhistory>
-    <revision>
-      <revnumber>1</revnumber>
-      <date>Oct 14 2011</date>
-      <authorinitials>JCM</authorinitials>
-      <revremark>added contribution section</revremark>
-    </revision>
-    <revision>
-      <revnumber>7.6.1.v20120127</revnumber>
-      <date>Jan 27 2012</date>
-      <authorinitials>JCM</authorinitials>
-      <revremark>updated for release</revremark>
-    </revision>
-  </revhistory>
-  <authorgroup>
-    <author>
-      <firstname>Jesse</firstname>
-      <surname>McConnell</surname>
-      <affiliation>
-        <jobtitle>Developer</jobtitle>
-        <orgname>Intalio, Inc.</orgname>
-        <address>Omaha, Nebraska</address>
-        <email>jesse.mcconnell AT gmail.com</email>
-      </affiliation>
-    </author>
-  </authorgroup>
   <copyright>
     <year>2012</year>
     <holder>Intalio, Inc.</holder>

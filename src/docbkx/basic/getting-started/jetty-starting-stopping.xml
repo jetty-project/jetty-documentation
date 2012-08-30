@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<section xml:id="jetty-starting-stopping" version="5.0"
+xmlns="http://docbook.org/ns/docbook"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:xl="http://www.w3.org/1999/xlink"
+xmlns:xi="http://www.w3.org/2001/XInclude"
+xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd">
+  <title>Starting and Stopping Jetty</title>
+  <para></para>
+  <section>
+    <title>Starting Jetty</title>
+    <para>short description on starting, link to full jetty-start
+    section</para>
+  </section>
+  <section>
+    <title>Stopping Jetty</title>
+    <para>how to stop, use stop port, etc</para>
+  </section>
+  <section>
+    <title>Restarting Jetty</title>
+    <para>restarting (with the script, maybe us in automatic startup
+    section)</para>
+  </section>
+  <section>
+    <title>Automatic Startup</title>
+    <para>the start.sh script, adaption for env</para>
+  </section>
+  <section>
+    <title>Testing the startup</title>
+    <para>using browser to hit localhost, port,</para>
+  </section>
+</section>

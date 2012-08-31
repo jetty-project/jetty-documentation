@@ -143,6 +143,8 @@
 
 	</part>
 
+  <!-- 
 	<xi:include href="appendix/glossery.xml" />
 	<index />
+	-->
 </book>

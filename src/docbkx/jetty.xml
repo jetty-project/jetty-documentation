@@ -29,7 +29,9 @@
 		to java, new to webapps, new to servlets, etc. Care should be taken in the 
 		writing of the basic documents to not assume too much knowledge. In fact 
 		the basic directory should strictly be concerned with the distribution and 
-		should not stray out too far into other topics. Advanced: the advanced directory 
+		should not stray out too far into other topics. 
+		
+		Advanced: the advanced directory 
 		should contain targeted sections dealing to specific aspects of jetty, for 
 		example embedding jetty, using jetty with maven, using jetty in unit tests, 
 		information about the architecture of jetty, leveraging the jetty-client, 

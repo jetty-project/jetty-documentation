@@ -5,11 +5,14 @@ xmlns:xi="http://www.w3.org/2001/XInclude"
 xmlns:svg="http://www.w3.org/2000/svg"
 xmlns:mth="http://www.w3.org/1998/Math/MathML"
 xmlns:xhtml="http://www.w3.org/1999/xhtml"
-xmlns:db="http://docbook.org/ns/docbook">
+xmlns:db="http://docbook.org/ns/docbook">ß
   <title>Getting Started With Jetty</title>
   <section>
-    <para>This chapter starts off with the most simple use case for jetty,
-    installing and starting up the distribution</para>
+    <para>Jetty can be used in many different ways ranging from being embedded in 
+    applications, launched from different build systems, from different jvm 
+    based languages, or as a standalone distribution.  This documentation covers
+    the latter, a standalone distribution suitable for deploying web applications.
+    </para>
   </section>
   <xi:include href="jetty-installing.xml" />
   <xi:include href="jetty-starting-stopping.xml" />

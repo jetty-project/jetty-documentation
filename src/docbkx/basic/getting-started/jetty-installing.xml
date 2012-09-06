@@ -1,12 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xml:id="jetty-installing" version="5.0"
-xmlns="http://docbook.org/ns/docbook"
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-xmlns:xl="http://www.w3.org/1999/xlink"
-xmlns:xi="http://www.w3.org/2001/XInclude"
-xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd">
-  <title>Installing Jetty</title>
-  <para>downloading the distribution</para>
-  <para>short description and link to embedded usage, not too much about this
-  though, should be for simple use case, the distribution</para>
+	xmlns="http://docbook.org/ns/docbook" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
+	xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd">
+	<title>Getting Started with Jetty</title>
+
+	<section>
+		<title>Downloading</title>
+		<para>The standalone jetty distribution is available for download from
+			the Eclipse
+			Foundation.</para>
+		<orderedlist>
+			<listitem>
+				<para>http://download.eclipse.org/jetty</para>
+			</listitem>
+		</orderedlist>
+		<para>It is available in both zip and gzip formats, download the one
+			most
+			appropriate for your system. You may note that there are a number of other
+			files with extensions of .sha, or .md5 which are checksum files. When you
+			download and unpack the binary, it is extracted into a directory
+			called
+			jetty-distribution-VERSION. Put this directory into a convenient location.
+			The rest of the instructions in this wiki will refer to this location as
+			either JETTY_HOME or as $(jetty.home).</para>
+	</section>
+	<section>
+		<title>Distribution Content</title>
+
+		<para>This is a quick rundown of the distribution's contents. The
+			top-level directory contains:</para>
+		<tgroup cols="2">
+			<title>Contents</title>
+			<thead>
+				<row>
+					<entry align="left">Location</entry>
+					<entry align="left">Description</entry>
+				</row>
+			</thead>
+			<tbody>
+				<row>
+					<entry>LICENSE-APACHE-2.0.TXT</entry>
+					<entry>license file for Jetty (Jetty 7 is dual-licensed)</entry>
+				</row>
+				<row>
+					<entry>LICENSE-ECLIPSE-1.0.HTML</entry>
+					<entry>license file for Jetty (Jetty 7 is dual-licensed)</entry>
+				</row>
+				<row>
+					<entry>README.txt</entry>
+					<entry>contains useful getting started information</entry>
+				</row>
+				<row>
+					<entry>VERSION.txt</entry>
+					<entry>Release Information</entry>
+				</row>
+				<row>
+					<entry>about.html</entry>
+					<entry>"About This Content" page from Eclipse</entry>
+				</row>
+				<row>
+					<entry>bin</entry>
+					<entry>utility shell scripts to help run Jetty on unix systems</entry>
+				</row>
+				<row>
+					<entry>contexts</entry>
+					<entry>hot deploy contexts directory</entry>
+				</row>
+				<row>
+					<entry>etc</entry>
+					<entry>directory for Jetty configuration files</entry>
+				</row>
+				<row>
+					<entry>javadoc</entry>
+					<entry>contains the javadoc</entry>
+				</row>
+				<row>
+					<entry>lib</entry>
+					<entry>contains all the JAR files necessary to run jetty</entry>
+				</row>
+				<row>
+					<entry>logs</entry>
+					<entry>directory for request logs</entry>
+				</row>
+				<row>
+					<entry>notice.html</entry>
+					<entry>license information an exceptions</entry>
+				</row>
+				<row>
+					<entry>resources</entry>
+					<entry>directory containing additional resources for classpath</entry>
+				</row>
+				<row>
+					<entry>start.ini</entry>
+					<entry>configuration file for starting jetty</entry>
+				</row>
+				<row>
+					<entry>start.jar</entry>
+					<entry>jar which invokes jetty-7 (see also How to Run Jetty)</entry>
+				</row>
+				<row>
+					<entry>webapps</entry>
+					<entry>directory containing webapps which will be run under the
+						default configuration of Jetty; contains demo webapps</entry>
+				</row>
+			</tbody>
+		</tgroup>
+	</section>
+
 </section>

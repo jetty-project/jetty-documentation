@@ -18,13 +18,13 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
   versions Jetty 7 and later. If you're using the plugin with Jetty 6 (you
   should really upgrade), see the 
   <link xl:href="http://docs.codehaus.org/display/JETTY/Maven+Jetty+Plugin">
-  Maven Jetty Plugin guide</link>at Codehaus.</note>
+  Maven Jetty Plugin guide</link>&#160; at Codehaus.</note>
   <important>You need to use Maven 3 for jetty-7.5.3 and later
   releases.</important>
   <section xml:id="get-up-and-running">
   <title>Quick Start: Get Up and Running</title>
   <para>First, add 
-  <code>jetty-maven-plugin</code>to your 
+  <code>jetty-maven-plugin</code>&#160; to your 
   <filename>pom.xml</filename>definition:</para>
   <informalexample>
     <programlisting language="xml">
@@ -44,7 +44,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
 ]]>
   </screen>
   <para>This starts Jetty and serves up your project on
-  http://localhost:8080/</para>. 
+  http://localhost:8080/.</para> 
   <para>Jetty continues to run until you stop it. While it runs, it
   periodically scans for changes to your project files, so if you save changes
   and recompile your class files, Jetty redeploys your webapp, and you can
@@ -52,7 +52,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
   <section xml:id="stopping-plugin">
     <title>Stopping the Plugin</title>
     <para>You can terminate the plugin with a 
-    <code>ctrl-c</code>in the terminal window where it is running.</para>
+    <code>ctrl-c</code>&#160; in the terminal window where it is running.</para>
   </section></section>
   <section xml:id="running-and-deploying">
     <title>Running and Deploying</title>
@@ -87,7 +87,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
       connectors in a standard //TO DO
       xref//[[http://wiki.eclipse.org/Jetty/Reference/jetty.xml jetty xml
       config]] file and put its location into the 
-      <code>jettyXml&gt;</code>&#160; parameter.</listitem>
+      <code>jettyXml</code>&#160; parameter.</listitem>
       <listitem>
       <code>jettyXml</code>&#160; (Optional)&#8211;The location of a 
       <filename>jetty.xml</filename>&#160; file to apply in addition to any
@@ -160,7 +160,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
         <filename>pom.xml</filename>.</listitem>
         <listitem>
         <code>descriptor</code>&#8211;The path to the 
-        <filename>web.xml</filename>file for your webapp.</listitem>
+        <filename>web.xml</filename>&#160; file for your webapp.</listitem>
         <listitem>
         <code>defaultsDescriptor</code>&#8211;The path to a 
         <filename>webdefault.xml</filename>&#160; file that will be applied to
@@ -196,12 +196,12 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
       <listitem>
       <code>contextXml&gt;</code>&#160; (Optional)&#8211;The path to a context
       xml file that is applied to your webapp AFTER the 
-      <code>webApp</code>element.</listitem>
+      <code>webApp</code>&#160;element.</listitem>
     </itemizedlist>
     <section xml:id="running-unassembled-webapp">
       <title>jetty:run: Running an Unassembled Webapp</title>
       <para>The 
-      <code>run</code>goal runs on a webapp that does not have to be built into
+      <code>run</code>&#160;goal runs on a webapp that does not have to be built into
       a WAR. Instead, Jetty deploys the webapp from its constituent sources. It
       looks for the constituent parts of a webapp in the Maven default project
       locations, although you can override these in the plugin configuration.
@@ -248,8 +248,8 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     <section xml:id="configuring-additional-parameters">
       <title>Configuring Additional Parameters</title>
       <para>In addition to the 
-      <code>webApp</code>element which is common to most goals, the 
-      <code>jetty:run</code>goal supports:</para>
+      <code>webApp</code>&#160;element that is common to most goals, the 
+      <code>jetty:run</code>&#160;goal supports:</para>
       <itemizedlist>
         <listitem>
         <code>classesDirectory</code>&#8211;Location of your compiled classes
@@ -263,17 +263,17 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
         <filename>${project.build.testOutputDirectory}</filename>.</listitem>
         <listitem>
         <code>useTestScope</code>&#8211;If true, the classes from 
-        <code>testClassesDirectory</code>and dependencies of scope "test" are
+        <code>testClassesDirectory</code>&#160;and dependencies of scope "test" are
         placed first on the classpath. By default this is false.</listitem>
         <listitem>
         <code>useProvidedScope</code>&#8211;If true, the dependencies with
         scope "provided" are placed onto the 
         <emphasis>container classpath</emphasis>. 
-        <note>NOT the webapp classpath, as "provided" indicates that these
+        Be aware that this is NOT the webapp classpath, as "provided" indicates that these
         dependencies would normally be expected to be provided by the
         container. You should very rarely ever need to use this. Instead, you
         should copy the provided dependencies as explicit dependencies of the 
-        <code>plugin</code>instead.</note></listitem>
+        <code>plugin</code>&#160;instead.</listitem>
         <listitem>
         <code>webAppSourceDirectory</code>&#8211;By default, this is set to 
         <filename>${basedir}/src/main/webapp</filename>. If your static sources
@@ -298,12 +298,12 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
         long list of extra files you want scanned, it is more convenient to use
         pattern matching expressions to specify them instead of enumerating
         them with the 
-        <code>scanTargets&#8218;&#196;&#236;List</code>&#160; of 
+        <code>scanTargetsList</code>&#160; of 
         <code>scanTargetPatterns</code>, each consisting of a directory, and
         including and/or excluding parameters to specify the file matching
         patterns.</listitem>
         <listitem>
-        <code>skip&gt;</code>&#160; (Optional)&#8211;Default is false. If true,
+        <code>skip</code>&#160; (Optional)&#8211;Default is false. If true,
         the execution of the plugin exits. Same as setting the SystemProperty 
         <code>-Djetty.skip</code>&#160; on the command line.</listitem>
       </itemizedlist>
@@ -352,7 +352,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
       </informalexample>
       <para>If, for whatever reason, you cannot run on an unassembled webapp,
       the goals 
-      <code>run-war</code>and 
+      <code>run-war</code>&#160;and 
       <code>run-exploded</code>&#160; work on unassembled webapps.</para>
     </section>
     <section xml:id="running-assembled-webapp-as-war">
@@ -360,12 +360,12 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
       <para>This goal first packages your webapp as a WAR file and then deploys
       it to Jetty. If you set a non-zero 
       <code>scanInterval</code>, Jetty watches your 
-      <filename>pom.xml</filename>and the WAR file; if either changes, it
+      <filename>pom.xml</filename>&#160;and the WAR file; if either changes, it
       redeploys the war.</para>
       <section xml:id="configuring-war">
         <title>Configuring the WAR</title>
         <para>
-        <code>war</code>is the location of the built WAR file. This defaults to
+        <code>war</code>&#160;is the location of the built WAR file. This defaults to
         
         <code>${project.build.directory}/${project.build.finalName}.war</code>.
         If this is not sufficient, set it to your custom location.</para>

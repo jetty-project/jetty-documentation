@@ -6,28 +6,24 @@ xmlns:xl="http://www.w3.org/1999/xlink"
 xmlns:xi="http://www.w3.org/2001/XInclude"
 xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd">
   <title>Configuration Options</title>
-  <section>
-    <para>This chapter discusses various options available to configure jetty.
-    Topics range from creating custom error pages to embedding jetty into your
-    own application.</para>
-  </section>
+  <para>This chapter discusses various options available to configure strictly
+  the jetty distribution.</para>
   <xi:include href="configuring-jetty-master-doc.xml" />
   <xi:include href="setting-context-path.xml" />
   <xi:include href="setting-context-path-to-root.xml" />
   <xi:include href="configuring-connectors.xml" />
   <xi:include href="custom-error-pages.xml" />
   <xi:include href="configuring-form-size.xml" />
-  <xi:include href="configuring-jndi.xml" />
-  <xi:include href="configuring-jndi-datasource.xml" />
   <xi:include href="configuring-jsp.xml" />
   <xi:include href="setting-port80-access-for-non-root-user.xml" />
   <xi:include href="configuring-jetty-request-logs.xml" />
-  <xi:include href="setting-session-characteristics.xml" />
-  <xi:include href="using-persistent-sessions.xml" />
   <xi:include href="configuring-ssl.xml" />
   <xi:include href="configuring-virtual-hosts.xml" />
   <xi:include href="serving-webapp-from-particular-port.xml" />
+<<<<<<< HEAD:src/docbkx/chapter/configuring/chapter.xml
   <xi:include href="writing-custom-handlers.xml" />
   <xi:include href="embedding-jetty.xml" />
   <xi:include href="configuring-websockets.xml" />
+=======
+>>>>>>> 4243f1f9d90857c4f3411c0acca2da41c6936cf0:src/docbkx/basic/configuring/chapter.xml
 </chapter>

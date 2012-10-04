@@ -1,26 +1,152 @@
 <?xml version="1.0" encoding="utf-8"?>
 <book version="5.0" xmlns="http://docbook.org/ns/docbook"
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-xmlns:xl="http://www.w3.org/1999/xlink"
-xmlns:xi="http://www.w3.org/2001/XInclude"
-xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd">
-  <xi:include href="info/info.xml" />
-  <xi:include href="chapter/introduction/chapter.xml" />
-  <xi:include href="chapter/getting-started/chapter.xml" />
-  <xi:include href="chapter/architecture/chapter.xml" />
-  <xi:include href="chapter/configuring/chapter.xml" />
-  <xi:include href="chapter/deploying/chapter.xml" />
-  <xi:include href="chapter/logging/chapter.xml" />
-  <xi:include href="chapter/security/chapter.xml" />
-  <xi:include href="chapter/optimizing/chapter.xml" />
-  <xi:include href="chapter/frameworks/chapter.xml" />
-  <xi:include href="chapter/osgi/chapter.xml" />
-  <xi:include href="chapter/troubleshooting/chapter.xml" />
-  <xi:include href="chapter/faq/chapter.xml" />
-  <xi:include href="chapter/contributing/chapter.xml" />
-  <xi:include href="chapter/docbook-examples/chapter.xml" />
-  <xi:include href="chapter/incoming/chapter.xml" />
-  <xi:include href="appendix/glossery.xml" />
-  <xi:include href="appendix/bibliography.xml" />
-  <index />
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xl="http://www.w3.org/1999/xlink"
+	xmlns:xi="http://www.w3.org/2001/XInclude"
+	xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd">
+
+	<info>
+		<title>Jetty : The Definitive Reference</title>
+		<copyright>
+			<year>2012</year>
+			<holder>Intalio, Inc.</holder>
+		</copyright>
+		<keywordset>
+			<keyword>jetty</keyword>
+			<keyword>servlet-api</keyword>
+			<keyword>cometd</keyword>
+			<keyword>http</keyword>
+			<keyword>spdy</keyword>
+			<keyword>eclipse</keyword>
+			<keyword>maven</keyword>
+			<keyword>java</keyword>
+			<keyword>software</keyword>
+		</keywordset>
+	</info>
+	
+	<!-- 
+	  BASIC: there is a directory called basic, this comprises the basic 
+		entry level information for jetty, suitable for someone that is perhaps new 
+		to java, new to webapps, new to servlets, etc. Care should be taken in the 
+		writing of the basic documents to not assume too much knowledge. In fact 
+		the basic directory should strictly be concerned with the distribution and 
+		should not stray out too far into other topics. 
+		
+		Advanced: the advanced directory 
+		should contain targeted sections dealing to specific aspects of jetty, for 
+		example embedding jetty, using jetty with maven, using jetty in unit tests, 
+		information about the architecture of jetty, leveraging the jetty-client, 
+		osgi frameworks, etc. 
+	-->
+
+	<!-- BASIC -->
+	<part xml:id="part-one">
+	    <title>A Beginners Guide</title>
+		<!-- 
+		First we want a general introduction to what jetty is, perhaps a bit 
+			of history but fairly short and sweet explanation of the what and why for 
+			jetty. -->
+		<xi:include href="basic/introduction/chapter.xml" />
+		
+		<!-- Getting started gives the reader enough to download and run the most 
+			simple example of jetty, the distribution which is a very common use case 
+			for someone new to jetty. If know they don't need the distribution then they 
+			are knowledgable enough to consult the TOC for what they want so we keep 
+			this simple and clear for people that don't know what they are doing yet. -->
+		<xi:include href="basic/getting-started/chapter.xml" />
+		
+		<!-- Next we have a section completely devoted to configuring the distribution, 
+			targeted areas that are focused on the specific tangible scenarios that people 
+			working with the distribution will run across, if discussion goes to advanced 
+			topics just describe and link deeper into document. NOTE: some topics might 
+			be worth of breaking into a separate basic chapter, like sessions? -->
+		<xi:include href="basic/configuring/chapter.xml" />
+		
+		<!-- 
+		Once someone has configured their container they will want to deploy 
+			their application so this chapter discusses how to deploy war files onto 
+			the container or how to link static resources, the context handling system, 
+			etc. 
+			-->
+	  <xi:include href="basic/deploying/chapter.xml" />
+	  
+	  <!-- 
+	  Sessions are a huge part of many peoples applications and we should take care
+	  to detail out the options available with jetty session management.
+	   -->
+	  <xi:include href="basic/sessions/chapter.xml"/>
+	  
+	  <!-- 
+	    JNDI has been a source of a lot of questions so it makes sense to call it out
+	    as a specific section and give it justice
+	   -->
+	  <xi:include href="basic/jndi/chapter.xml"/>
+	  
+		<!-- What are good things to consider when running jetty, managing garbage 
+			collection, etc etc. -->
+		<xi:include href="basic/tuning/chapter.xml" />
+		<!-- Now that folks have their webapp deployed into jetty and everything 
+			is supposed to be working, how do they debug issues and resolve them? -->
+		<xi:include href="basic/troubleshooting/chapter.xml" />
+		<!-- StackOverflow has a lot of information about common questions, we 
+			should mine it periodically to add to this section. NOTE: merge with troubleshooting? -->
+		<xi:include href="basic/faq/chapter.xml" />
+		<!-- How to contribute to jetty, to the documentation, to get additional 
+			help -->
+		<xi:include href="basic/contributing/chapter.xml" />
+	</part>
+
+
+	<!-- ADVANCED -->
+	<part xml:id="part-two">
+	  <title>Advanced Topics</title>
+		<!-- We should perhaps start off here with details about the architecture 
+			of jetty, how it all comes together for the lifecycle of a request, how our 
+			pooling works, etc -->
+		<xi:include href="advanced/architecture/chapter.xml" />
+		<!-- Logging is a critical component of jetty and should have its own section 
+			on how to change logging frameworks, how to redirect logging, override webapp 
+			logging, etc -->
+		<xi:include href="advanced/logging/chapter.xml" />
+		<!-- The jetty client is a complex topic and suitable for an advanced section 
+			in of itself. -->
+		<xi:include href="advanced/client/chapter.xml" />
+		<!-- How to use the jetty-maven-plugin is a big topic and is definitely 
+			in the advanced section of things. -->
+		<xi:include href="advanced/maven/chapter.xml" />
+		
+		<!-- 
+     How to write and wire up custom handlers
+     -->
+    <xi:include href="advanced/handlers/chapter.xml"/>
+		
+		<!-- 
+     Embedding jetty topics
+     -->
+    <xi:include href="advanced/embedding/chapter.xml"/>
+		
+		<!-- 
+		 Deployment Overlays
+		 -->
+		<xi:include href="advanced/overlays/chapter.xml"/>
+		
+		<!-- Security topics could go here, if we want to go indepth on them, it 
+			would probably be a good idea. NOTE: or perhaps we should have one combo 
+			section on sessions and security. -->
+		<xi:include href="advanced/security/chapter.xml" />
+		<!-- Using jetty in third party frame works like spring or osgi -->
+		<xi:include href="advanced/frameworks/chapter.xml" />
+		<!-- osgi ought to go under frameworks -->
+		<xi:include href="advanced/osgi/chapter.xml" />
+		<!-- Notes about upgrading from previous versions of jetty. -->
+		<xi:include href="advanced/upgrading/chapter.xml" />
+		<!-- Contribution is a big topic and it might be good to have how to build 
+			jetty, how to submit patches, etc here opposed to in the basic section. -->
+		<xi:include href="advanced/contributing/chapter.xml" />
+
+	</part>
+
+  <!-- 
+	<xi:include href="appendix/glossery.xml" />
+	<index />
+	-->
 </book>

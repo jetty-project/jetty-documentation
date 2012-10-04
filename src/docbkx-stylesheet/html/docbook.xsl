@@ -14,8 +14,8 @@ xmlns:d="http://docbook.org/ns/docbook"
   <xsl:param name="use.id.as.filename" select="1"/>
 
   <!-- tweak the generation of toc generation -->
-  <xsl:param name="generate.section.toc.level" select="2"/>
-  <xsl:param name="toc.section.depth" select="2"/>  
+  <xsl:param name="generate.section.toc.level" select="1"/>
+  <xsl:param name="toc.section.depth" select="1"/>  
   <xsl:param name="generate.toc">
     appendix  toc,title
     article/appendix  nop

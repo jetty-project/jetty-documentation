@@ -18,8 +18,6 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     both core jetty code and even this document.</para>
   </section>
   <xi:include href="community.xml" />
-  <xi:include href="coding-standards.xml" />
   <xi:include href="patches.xml" />
   <xi:include href="documentation.xml" />
-  <xi:include href="releasing-jetty.xml" />
 </chapter>

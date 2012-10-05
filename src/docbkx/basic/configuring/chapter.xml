@@ -20,10 +20,4 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
   <xi:include href="configuring-ssl.xml" />
   <xi:include href="configuring-virtual-hosts.xml" />
   <xi:include href="serving-webapp-from-particular-port.xml" />
-<<<<<<< HEAD:src/docbkx/chapter/configuring/chapter.xml
-  <xi:include href="writing-custom-handlers.xml" />
-  <xi:include href="embedding-jetty.xml" />
-  <xi:include href="configuring-websockets.xml" />
-=======
->>>>>>> 4243f1f9d90857c4f3411c0acca2da41c6936cf0:src/docbkx/basic/configuring/chapter.xml
 </chapter>

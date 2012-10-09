@@ -1,50 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<section xml:id="temporary-directories" version="5.0"
-xmlns="http://docbook.org/ns/docbook"
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-xmlns:xl="http://www.w3.org/1999/xlink"
+<section xml:id="temporary-directories" version="5.0" xmlns="http://docbook.org/ns/docbook"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xl="http://www.w3.org/1999/xlink"
 xmlns:xi="http://www.w3.org/2001/XInclude"
 xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd">
   <title>Temporary Directories</title>
-  <para>Jetty itself has no temporary directories, but you can assign a
-  directory for each web application, into which the WAR is unpacked, JSPs
-  compiled on-the-fly, etc.</para>
-  <para>The algorithm for determining a webapp's temporary directory location
-  is as follows:</para>
+  <para>Jetty itself has no temporary directories, but you can assign a directory for each web application, into which
+  the WAR is unpacked, JSPs compiled on-the-fly, etc.</para>
+  <para>The algorithm for determining a webapp's temporary directory location is as follows:</para>
   <itemizedlist>
     <listitem>Try to use an explicit directory specifically for this webapp: 
     <itemizedList>
-      <listitem>Iff 
-      <code>webapp.getTempDirectory()</code>is set, use it. Do NOT delete it on
-      jvm exit.</listitem>
-      <listitem>Iff javax.servlet.context.tempdir context attribute is set for
-      this webapp &amp;&amp; exists &amp;&amp; writeable, then use it. Do NOT
-      delete on jvm exit.</listitem>
+      <listitem>Iff <code>webapp.getTempDirectory()</code> is set, use it. Do NOT delete it on jvm exit.</listitem>
+      <listitem>Iff javax.servlet.context.tempdir context attribute is set for this webapp &amp;&amp; exists &amp;&amp;
+      writeable, then use it. Do NOT delete on jvm exit.</listitem>
     </itemizedList></listitem>
-    <listitem>Create a directory based on global settings. The new directory
-    will be called "Jetty_"host""port"'"context""+virtualhost : 
+    <listitem>Create a directory based on global settings. The new directory will be called
+    "Jetty_"host""port"'"context""+virtualhost : 
     <itemizedlist>
-      <listitem>Iff 
-      <filename>$(jetty.home)/work</filename>exists create the directory there.
-      Do NOT delete on jvm exit. Do NOT delete contents if dir already
-      exists.</listitem>
-      <listitem>Iff 
-      <filename>WEB-INF/work</filename>exists create the directory there. Do
-      NOT delete on jvm exit. Do NOT delete contents if dir already
-      exists.</listitem>
-      <listitem>Else create dir in 
-      <code>$(java.io.tmpdir)</code>. Set delete on jvm exit. Delete contents
-      if dir already exists.</listitem>
+      <listitem>Iff <filename>$(jetty.home)/work</filename> exists create the directory there. Do NOT delete on jvm
+      exit. Do NOT delete contents if dir already exists.</listitem>
+      <listitem>Iff <filename>WEB-INF/work</filename> exists create the directory there. Do NOT delete on jvm exit. Do
+      NOT delete contents if dir already exists.</listitem>
+      <listitem>Else create dir in <code>$(java.io.tmpdir)</code> . Set delete on jvm exit. Delete contents if dir
+      already exists.</listitem>
     </itemizedlist></listitem>
   </itemizedlist>
-  <para>Be aware that a temporary directory will have its contents deleted when
-  the webapp is stopped unless either</para>
+  <para>Be aware that a temporary directory will have its contents deleted when the webapp is stopped unless
+  either</para>
   <itemizedlist>
     <listitem>It is called work.</listitem>
     <listitem>It pre-existed the deployment of the webapp.</listitem>
-    <para>Once a tempory directory has been allocated, a File instance for it
-    is set and retrievable as the 
-    <code>javax.servlet.context.tempdir</code>attribute of the web
-    application.</para>
+    <para>Once a tempory directory has been allocated, a File instance for it is set and retrievable as the <code>
+    javax.servlet.context.tempdir</code> attribute of the web application.</para>
   </itemizedlist>
 </section>

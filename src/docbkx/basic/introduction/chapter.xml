@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<chapter xml:id="introduction" version="5.0"
-xmlns="http://docbook.org/ns/docbook"
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-xmlns:xl="http://www.w3.org/1999/xlink"
+<chapter xml:id="introduction" version="5.0" xmlns="http://docbook.org/ns/docbook"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xl="http://www.w3.org/1999/xlink"
 xmlns:xi="http://www.w3.org/2001/XInclude"
 xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd">
   <title>Introducing Jetty</title>
@@ -13,17 +11,14 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
       </othercredit>
     </info>
     <imageobject>
-      <imagedata align="center" width="6in" format="GIF"
-      fileref="images/jetty.gif" />
+      <imagedata align="center" width="6in" format="GIF" fileref="images/jetty.gif" />
     </imageobject>
   </mediaobject>
   <section>
     <title>What is Jetty?</title>
-    <para>Jetty is an open-source project providing an HTTP server, HTTP
-    client, and javax.servlet container. This document provides information
-    about getting started with Jetty, basic configuration, specific features,
-    optimization, security, JavaEE, monitoring, FAQs, help with
-    troubleshooting, and more. It includes tutorials, howtos, videos, feature
-    descriptions, and reference materials.</para>
+    <para>Jetty is an open-source project providing an HTTP server, HTTP client, and javax.servlet container. This
+    document provides information about getting started with Jetty, basic configuration, specific features,
+    optimization, security, JavaEE, monitoring, FAQs, help with troubleshooting, and more. It includes tutorials,
+    howtos, videos, feature descriptions, and reference materials.</para>
   </section>
 </chapter>

@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<section xml:id="jndi-datasource-examples" version="5.0"
-xmlns="http://docbook.org/ns/docbook"
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-xmlns:xl="http://www.w3.org/1999/xlink"
+<section xml:id="jndi-datasource-examples" version="5.0" xmlns="http://docbook.org/ns/docbook"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xl="http://www.w3.org/1999/xlink"
 xmlns:xi="http://www.w3.org/2001/XInclude"
 xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd">
   <title>JNDI Datasource Examples</title>
-  <para>Here are examples of configuring a JNDI datasource for various
-  databases.</para>
+  <para>Here are examples of configuring a JNDI datasource for various databases.</para>
   <note>
     <para>Read 
     <xref linkend="configuring-datasources" />
@@ -15,9 +12,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     <xref linkend="configuring-jndi" />
     for more information about configuring datasources.</para>
   </note>
-  <para>All of these examples correspond to a 
-  <code>resource-ref</code>in 
-  <filename>web.xml</filename>.</para>
+  <para>All of these examples correspond to a <code>resource-ref</code> in <filename>web.xml</filename> .</para>
   <informalexample>
     <programlisting language="xml">
 <![CDATA[
@@ -30,34 +25,25 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
 ]]>
     </programlisting>
   </informalexample>
-  <para>These examples assume that all of the datasources are declared at the
-  JVM scope, but you can, of course, use other scopes. You can configure all
-  JNDI resources in a 
-  <filename>jetty.xml</filename>&#160;file or in a 
-  <filename>WEB-INF/jetty-env.xml</filename>&#160;file, or a context XML
-  file.</para>
+  <para>These examples assume that all of the datasources are declared at the JVM scope, but you can, of course, use
+  other scopes. You can configure all JNDI resources in a <filename>jetty.xml</filename> &#160;file or in a <filename>
+  WEB-INF/jetty-env.xml</filename> &#160;file, or a context XML file.</para>
   <important>
-    <para>You must provide jetty with the libraries necessary to instantiate
-    the datasource you have configured by putting the corresponding jar in
-    jetty_home/lib/ext.</para>
+    <para>You must provide jetty with the libraries necessary to instantiate the datasource you have configured by
+    putting the corresponding jar in jetty_home/lib/ext.</para>
   </important>
   <section xml:id="pooling-datasources">
     <title>Pooling DataSources</title>
-    <para>Pooling datasources enables connection pooling, which lets you reuse
-    an existing connection instead of creating a new connection to the
-    database. This is highly efficient in terms of memory allocation and speed
-    of the request to the database. We highly recommend this option for
-    production environments.</para>
+    <para>Pooling datasources enables connection pooling, which lets you reuse an existing connection instead of
+    creating a new connection to the database. This is highly efficient in terms of memory allocation and speed of the
+    request to the database. We highly recommend this option for production environments.</para>
     <section xml:id="bonecp">
       <title>BoneCP</title>
-      <para>Connection pooling, available at 
-      <link
-      xl:href="http://jolbox.com/index.html?page=http://jolbox.com/download.html">BoneCP
-      Download</link>. All configuration options for BoneCP are described here:
-      
-      <link
+      <para>Connection pooling, available at <link
+      xl:href="http://jolbox.com/index.html?page=http://jolbox.com/download.html">BoneCP Download</link> . All
+      configuration options for BoneCP are described here: <link
       xl:href="http://jolbox.com/bonecp/downloads/site/apidocs/com/jolbox/bonecp/BoneCPDataSource.html">BoneCP
-      API</link>.</para>
+      API</link> .</para>
       <informalexample>
         <programlisting language="xml">
 <![CDATA[
@@ -83,10 +69,8 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     </section>
     <section xml:id="c3p0">
       <title>c3p0</title>
-      <para>Connection pooling, available at 
-      <link
-      xl:href="http://repo1.maven.org/maven2/c3p0/c3p0/0.9.1.2/c3p0-0.9.1.2.jar">c3p0
-      Jar</link>.</para>
+      <para>Connection pooling, available at <link
+      xl:href="http://repo1.maven.org/maven2/c3p0/c3p0/0.9.1.2/c3p0-0.9.1.2.jar">c3p0 Jar</link> .</para>
       <informalexample>
         <programlisting language="xml">
 <![CDATA[
@@ -108,10 +92,9 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     </section>
     <section xml:id="dbcp">
       <title>dbcp</title>
-      <para>Connection pooling, available at 
-      <link
+      <para>Connection pooling, available at <link
       xl:href="http://repo1.maven.org/maven2/commons-dbcp/commons-dbcp/1.2/commons-dbcp-1.2.jar">dbcp
-      Jar</link>.</para>
+      Jar</link> .</para>
       <informalexample>
         <programlisting language="xml">
 <![CDATA[
@@ -170,12 +153,10 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
   </section>
   <section xml:id="non-pooling-datasources">
     <title>Non-pooling DataSources</title>
-    <para>If you are deploying in a production environment, use the Pooling
-    DataSources instead.</para>
+    <para>If you are deploying in a production environment, use the Pooling DataSources instead.</para>
     <section xml:id="mysql">
       <title>MySQL</title>
-      <para>Implements javax.sql.DataSource,
-      javax.sql.ConnectionPoolDataSource.</para>
+      <para>Implements javax.sql.DataSource, javax.sql.ConnectionPoolDataSource.</para>
       <informalexample>
         <programlisting language="xml">
 <![CDATA[ 
@@ -196,8 +177,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     </section>
     <section xml:id="sql-server-2000">
       <title>SQL Server 2000</title>
-      <para>Implements javax.sql.DataSource,
-      javax.sql.ConnectionPoolDataSource.</para>
+      <para>Implements javax.sql.DataSource, javax.sql.ConnectionPoolDataSource.</para>
       <informalexample>
         <programlisting language="xml">
 <![CDATA[
@@ -220,8 +200,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     </section>
     <section xml:id="oracle-9i10g">
     <title>Oracle 9i/10g</title>
-    <para>Implements javax.sql.DataSource,
-    javax.sql.ConnectionPoolDataSource.</para>
+    <para>Implements javax.sql.DataSource, javax.sql.ConnectionPoolDataSource.</para>
     <informalexample>
       <programlisting language="xml">
 <![CDATA[> 
@@ -250,10 +229,9 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
 ]]>
       </programlisting>
     </informalexample>
-    <para>For more information, refer to:</para>
-    <link
-    xl:href="http://docs.oracle.com/cd/B14117_01/java.101/b10979/conncache.htm">Oracle
-    Database JDBC documentation</link>.</section>
+    <para>For more information, refer to:</para><link
+    xl:href="http://docs.oracle.com/cd/B14117_01/java.101/b10979/conncache.htm">Oracle Database JDBC
+    documentation</link> .</section>
     <section xml:id="postgreSQL">
       <title>PostgreSQL</title>
       <para>Implements javax.sql.DataSource.</para>

@@ -1,43 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<section version="5.0" xmlns="http://docbook.org/ns/docbook"
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-xmlns:xl="http://www.w3.org/1999/xlink"
-xmlns:xi="http://www.w3.org/2001/XInclude"
+<section version="5.0" xmlns="http://docbook.org/ns/docbook" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
 xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd">
   <title>Logging in Jetty 6</title>
   <section>
     <title>Overview</title>
-    <para>Jetty has a builtin logging facade that can log to stderr or to SLF4J
-    (which in turn can log to commons-logging, Log4j, NLOG4J or Java
-    logging).</para>
-    <para>Jetty logging looks for an SLF4J Jar on the classpath. If present,
-    SLF4J controls logging; otherwise Jetty uses stderr. The
-    org.mortbay.log.Log class coordinates logging; By default, Jetty generates
-    only INFO and WARNING logs. You can use the following system parameters to
-    control logging: 
+    <para>Jetty has a builtin logging facade that can log to stderr or to SLF4J (which in turn can log to
+    commons-logging, Log4j, NLOG4J or Java logging).</para>
+    <para>Jetty logging looks for an SLF4J Jar on the classpath. If present, SLF4J controls logging; otherwise Jetty
+    uses stderr. The org.mortbay.log.Log class coordinates logging; By default, Jetty generates only INFO and WARNING
+    logs. You can use the following system parameters to control logging: 
     <table>
       <title>Options</title>
       <tgroup cols="2">
         <tbody>
           <row>
             <entry>org.mortbay.log.class</entry>
-            <entry>Specifies an implementation of org.mortbay.log.Logger to
-            use.</entry>
+            <entry>Specifies an implementation of org.mortbay.log.Logger to use.</entry>
           </row>
           <row>
             <entry>DEBUG</entry>
-            <entry>If set, DEBUG logs are produced, else Jetty generates only
-            INFO and WARN logs.</entry>
+            <entry>If set, DEBUG logs are produced, else Jetty generates only INFO and WARN logs.</entry>
           </row>
           <row>
             <entry>VERBOSE</entry>
-            <entry>If set, VERBOSE logging is produced, including IGNORED
-            exceptions.</entry>
+            <entry>If set, VERBOSE logging is produced, including IGNORED exceptions.</entry>
           </row>
           <row>
             <entry>IGNORED</entry>
-            <entry>If set (jetty 6.1.10 and later), IGNORED exceptions are
-            logged independent of DEBUG and VERBOSE settings.</entry>
+            <entry>If set (jetty 6.1.10 and later), IGNORED exceptions are logged independent of DEBUG and VERBOSE
+            settings.</entry>
           </row>
         </tbody>
       </tgroup>
@@ -45,82 +37,63 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
   </section>
   <section>
     <title>Logging for Jetty Standalone</title>
-    <para>The core of Jetty has no hard dependencies on an external logging
-    infrastructure.</para>
-    <para>The only logging dependency is introduced by Jasper, the JSP engine.
-    Jasper has traditionally had a dependency on commons-logging, which proves
-    problematic in container-based architectures. To overcome this, Jetty uses
-    two different solutions, depending on the version of JSP standard.</para>
-    <para>
-    <emphasis>Note:</emphasis>The start.jar mechanism automatically selects a
-    JSP version at runtime based on the JDK version. As JSP 2.1 mandates at
-    least JDK 1.5, if you are running with a 1.5 JVM this is the version
+    <para>The core of Jetty has no hard dependencies on an external logging infrastructure.</para>
+    <para>The only logging dependency is introduced by Jasper, the JSP engine. Jasper has traditionally had a
+    dependency on commons-logging, which proves problematic in container-based architectures. To overcome this, Jetty
+    uses two different solutions, depending on the version of JSP standard.</para>
+    <para><emphasis>Note:</emphasis> The start.jar mechanism automatically selects a JSP version at runtime based on
+    the JDK version. As JSP 2.1 mandates at least JDK 1.5, if you are running with a 1.5 JVM this is the version
     selected. However, if you are running with a lower version JVM, the 
-    <literal>start.jar</literal>mechanism places the JSP 2.0 Jars onto the
-    classpath.</para>
+    <literal>start.jar</literal>mechanism places the JSP 2.0 Jars onto the classpath.</para>
   </section>
   <section>
     <title>JSP 2.0</title>
-    <para>Jetty uses the SLF4J logging infrastructure to bridge to
-    commons-logging for JSP2.0. This means that Jetty sends commons-log
-    messages to the SLF4J interface.</para>
-    <para>Jetty ships with the Simple log impl, which outputs only INFO level
-    and above messages to stderr. You can replace the Simple log with any other
-    SLF4J log impl by removing the 
-    <literal>lib/jsp-2.0/slf4j-simple-1.0-rc5.jar</literal>and copying in the
-    SLF4J impl of your choice. The core Jetty code has a soft dependency on
-    SLF4J, meaning that if an SLF4J impl is on the classpath at startup, Jetty
-    directs all logging messages to it.</para>
-    <para>Alternatively, you can remove the SLF4J Jars and use commons-logging
-    instead by copying in the commons-logging Jar and a commons-logging
-    compliant log impl, such as Log4j, to the 
-    <literal>lib/</literal>directory. If you do that, be aware that the core
-    Jetty code does not use commons-logging; it logs messages to stderr
-    instead. Read on to learn how to get the stderr log mechanism to print
-    DEBUG level messages.</para>
+    <para>Jetty uses the SLF4J logging infrastructure to bridge to commons-logging for JSP2.0. This means that Jetty
+    sends commons-log messages to the SLF4J interface.</para>
+    <para>Jetty ships with the Simple log impl, which outputs only INFO level and above messages to stderr. You can
+    replace the Simple log with any other SLF4J log impl by removing the 
+    <literal>lib/jsp-2.0/slf4j-simple-1.0-rc5.jar</literal>and copying in the SLF4J impl of your choice. The core Jetty
+    code has a soft dependency on SLF4J, meaning that if an SLF4J impl is on the classpath at startup, Jetty directs
+    all logging messages to it.</para>
+    <para>Alternatively, you can remove the SLF4J Jars and use commons-logging instead by copying in the
+    commons-logging Jar and a commons-logging compliant log impl, such as Log4j, to the 
+    <literal>lib/</literal>directory. If you do that, be aware that the core Jetty code does not use commons-logging;
+    it logs messages to stderr instead. Read on to learn how to get the stderr log mechanism to print DEBUG level
+    messages.</para>
   </section>
   <section>
     <title>JSP 2.1</title>
-    <para>With the 2.1 version of the JSP specification, Jetty has removed all
-    logging dependencies from the Jasper code. This means that you don't need
-    an external logger&#8218;&#196;&#238;Jetty uses its own stderr logging
-    mechanism. By default, that outputs only INFO level and above
-    messages.</para>
-    <para>To enable logging of DEBUG level messages, invoke Jetty with the
-    -DDEBUG flag:</para>
+    <para>With the 2.1 version of the JSP specification, Jetty has removed all logging dependencies from the Jasper
+    code. This means that you don't need an external logger&#8218;&#196;&#238;Jetty uses its own stderr logging
+    mechanism. By default, that outputs only INFO level and above messages.</para>
+    <para>To enable logging of DEBUG level messages, invoke Jetty with the -DDEBUG flag:</para>
     <para>
       <screen>java -DDEBUG -jar start.jar</screen>
     </para>
   </section>
   <section>
     <title>Logging for Jetty Embedded</title>
-    <para>Since the core of Jetty has no hard external logging dependency, if
-    you include only the 
+    <para>Since the core of Jetty has no hard external logging dependency, if you include only the 
     <literal>lib/jetty-util.jar</literal>and 
-    <literal>lib/jetty.jar</literal>on your classpath, Jetty directs all log
-    messages to stderr. To see DEBUG level messages, start your application
-    with the -DDEBUG flag:</para>
+    <literal>lib/jetty.jar</literal>on your classpath, Jetty directs all log messages to stderr. To see DEBUG level
+    messages, start your application with the -DDEBUG flag:</para>
     <para>
       <screen>java -DDEBUG ......</screen>
     </para>
-    <para>Alternatively, call SystemProperty.set("DEBUG", "true") before
-    calling new 
-    <literal>org.mortbay.jetty.Server()</literal>. If your embedded application
-    includes the Jars from either of the JSP versions in 
-    <literal>lib/</literal>, then read the previous section for instructions on
-    how to configure logging.</para>
+    <para>Alternatively, call SystemProperty.set("DEBUG", "true") before calling new 
+    <literal>org.mortbay.jetty.Server()</literal>. If your embedded application includes the Jars from either of the
+    JSP versions in 
+    <literal>lib/</literal>, then read the previous section for instructions on how to configure logging.</para>
   </section>
   <section>
     <title>Logging with the maven-jetty-plugin</title>
-    <para>As with all Maven plugins, log messages produced by the plugin itself
-    are sent to stderr and only at the INFO level and above. To see DEBUG level
-    messages from the plugin, invoke the plugin with the -X flag:</para>
+    <para>As with all Maven plugins, log messages produced by the plugin itself are sent to stderr and only at the INFO
+    level and above. To see DEBUG level messages from the plugin, invoke the plugin with the -X flag:</para>
     <para>
       <screen>mvn -X jetty:run</screen>
     </para>
-    <para>Log messages from the Jetty instance embedded in the plugin work in
-    much the same way as Jetty standalone. The plugin picks an appropriate JSP
-    version based on the version of the JVM executing the plugin. See the Jetty
+    <para>Log messages from the Jetty instance embedded in the plugin work in much the same way as Jetty standalone.
+    The plugin picks an appropriate JSP version based on the version of the JVM executing the plugin. See the Jetty
     Maven2 Plugin pages for an explanation of how to configure logging.</para>
   </section>
 </section>

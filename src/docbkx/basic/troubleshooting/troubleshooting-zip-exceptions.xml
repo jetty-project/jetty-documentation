@@ -1,64 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<section xml:id="troubleshooting-zip-exceptions" version="5.0"
-xmlns="http://docbook.org/ns/docbook"
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-xmlns:xl="http://www.w3.org/1999/xlink"
+<section xml:id="troubleshooting-zip-exceptions" version="5.0" xmlns="http://docbook.org/ns/docbook"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xl="http://www.w3.org/1999/xlink"
 xmlns:xi="http://www.w3.org/2001/XInclude"
 xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd">
   <title>Troubleshooting Zip Exceptions</title>
   <para>A Zip exception occurs when Jetty rereads a Jar or WAR file.</para>
-  <para>The JVM maintains a cache of zip file indexes, and does not support hot
-  replacement of zip files. Thus if you redeploy a web application using the
-  same WAR or Jar files, exceptions occur when Jetty rereads the jars. See 
-  <link xl:href="http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=4774421">
-  Oracle Bug 4774421</link>for more information.</para>
+  <para>The JVM maintains a cache of zip file indexes, and does not support hot replacement of zip files. Thus if you
+  redeploy a web application using the same WAR or Jar files, exceptions occur when Jetty rereads the jars. See <link
+  xl:href="http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=4774421">Oracle Bug 4774421</link> for more
+  information.</para>
   <section xml:id="remedy">
     <title>Remedy</title>
-    <para>The remedy is to avoid hot replacing Jar or WAR files, which can be
-    difficult if you are using the 
-    <link xl:href="http://wiki.eclipse.org/Jetty/Feature/ContextDeployer">hot
-    Context Provider</link>. You can use the following techniques to reduce
-    exposure to this issue:</para>
+    <para>The remedy is to avoid hot replacing Jar or WAR files, which can be difficult if you are using the <link
+    xl:href="http://wiki.eclipse.org/Jetty/Feature/ContextDeployer">hot Context Provider</link> . You can use the
+    following techniques to reduce exposure to this issue:</para>
     <itemizedlist>
-      <listitem>Deploy unpacked classes in the 
-      <filename>WEB-INF/classes</filename>directory rather than as a Jar file
-      under 
-      <filename>WEB-INF/lib</filename>.</listitem>
-      <listitem>Deploy all WAR and Jar files with a version number in their
-      filename or path. If the code changes, a new version number applies,
-      avoiding the cache problem.</listitem>
-      <listitem>Deploy a packed WAR file with the 
-      <link
-      xl:href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/webapp/WebAppContext.html#setExtractWAR(boolean)">setExtractWAR</link>option
-      set to true. This causes the WAR to be extracted to a 
-      <link
-      xl:href="http://wiki.eclipse.org/Jetty/Reference/Temporary_Directories">
-      temporary directory</link>and thus to a new location. This might not be
-      sufficient if you want to hot-replace and reextract the WAR, so you might
-      also need to use 
-      <link
+      <listitem>Deploy unpacked classes in the <filename>WEB-INF/classes</filename> directory rather than as a Jar file
+      under <filename>WEB-INF/lib</filename> .</listitem>
+      <listitem>Deploy all WAR and Jar files with a version number in their filename or path. If the code changes, a
+      new version number applies, avoiding the cache problem.</listitem>
+      <listitem>Deploy a packed WAR file with the <link
+      xl:href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/webapp/WebAppContext.html#setExtractWAR(boolean)">setExtractWAR</link> option
+      set to true. This causes the WAR to be extracted to a <link
+      xl:href="http://wiki.eclipse.org/Jetty/Reference/Temporary_Directories">temporary directory</link> and thus to a
+      new location. This might not be sufficient if you want to hot-replace and reextract the WAR, so you might also
+      need to use <link
       xl:href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/webapp/WebAppContext.html#setCopyWebInf(boolean)">WebAppContext.setCopyWebInf(true)</link>,
-      which (re)copies just the WEB-INF directory to a different
-      location.</listitem>
-      <listitem>Deploy an unpacked WAR file with the 
-      <link
-      xl:href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/webapp/WebAppContext.html#setCopyWebDir(boolean)">setCopyWebDir</link>option
-      set to true. This causes the directory to be extracted to a new
-      location.</listitem>
+      which (re)copies just the WEB-INF directory to a different location.</listitem>
+      <listitem>Deploy an unpacked WAR file with the <link
+      xl:href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/webapp/WebAppContext.html#setCopyWebDir(boolean)">setCopyWebDir</link> option
+      set to true. This causes the directory to be extracted to a new location.</listitem>
     </itemizedlist>
-    <para>Be aware that any of the techniques listed above that involve copying
-    part or all of the webapp will probably not avoid the zip file problem if
-    you are using a 
-    <link
-    xl:href="http://wiki.eclipse.org/Jetty/Reference/Temporary_Directories">
-    work directory</link>(which avoids re-extraction on start/stop of a context
-    or container).</para>
-    <para>If you have problems with 
-    <link
-    xl:href="http://wiki.eclipse.org/Jetty/Howto/Deal_with_Locked_Windows_Files">Windows
-    file-locking</link>preventing static file editing (such as JSP or HTML),
-    use the 
-    <link
-    xl:href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/webapp/WebAppContext.html#setCopyWebDir(boolean)">WebAppContext.setCopyWebDir(true)</link>option.</para>
+    <para>Be aware that any of the techniques listed above that involve copying part or all of the webapp will probably
+    not avoid the zip file problem if you are using a <link
+    xl:href="http://wiki.eclipse.org/Jetty/Reference/Temporary_Directories">work directory</link> (which avoids
+    re-extraction on start/stop of a context or container).</para>
+    <para>If you have problems with <link xl:href="http://wiki.eclipse.org/Jetty/Howto/Deal_with_Locked_Windows_Files">
+    Windows file-locking</link> preventing static file editing (such as JSP or HTML), use the <link
+    xl:href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/webapp/WebAppContext.html#setCopyWebDir(boolean)">WebAppContext.setCopyWebDir(true)</link> option.</para>
   </section>
 </section>

@@ -1,34 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<section xml:id="coding-standards" version="5.0"
-xmlns="http://docbook.org/ns/docbook"
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-xmlns:xl="http://www.w3.org/1999/xlink"
+<section xml:id="coding-standards" version="5.0" xmlns="http://docbook.org/ns/docbook"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xl="http://www.w3.org/1999/xlink"
 xmlns:xi="http://www.w3.org/2001/XInclude"
 xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd">
   <title>Coding Standards</title>
   <para>Jetty uses number of conventions for its source code.</para>
   <section>
     <title>Code Formatting</title>
-    <para>Jetty uses the code formatting the following project
-    specifies.</para>
+    <para>Jetty uses the code formatting the following project specifies.</para>
     <itemlizedlist>
       <listitem>
-        <link
-        xl:href="http://git.eclipse.org/c/jetty/org.eclipse.jetty.admin.git/tree/jetty-eclipse-java-format.xml">http://git.eclipse.org/c/jetty/org.eclipse.jetty.admin.git/tree/jetty-eclipse-java-format.xml</link>
+        <link xl:href="http://git.eclipse.org/c/jetty/org.eclipse.jetty.admin.git/tree/jetty-eclipse-java-format.xml">
+        http://git.eclipse.org/c/jetty/org.eclipse.jetty.admin.git/tree/jetty-eclipse-java-format.xml</link>
       </listitem>
       <section>
         <title>Code Templates</title>
-        <para>Jetty specifies the following code templates for use by the
-        project developers.</para>
+        <para>Jetty specifies the following code templates for use by the project developers.</para>
         <itemlizedlist>
           <listitem>
             <link
-            xl:href="http://git.eclipse.org/c/jetty/org.eclipse.jetty.admin.git/tree/jetty-eclipse-codetemplates.xml">http://git.eclipse.org/c/jetty/org.eclipse.jetty.admin.git/tree/jetty-eclipse-codetemplates.xml</link>
+            xl:href="http://git.eclipse.org/c/jetty/org.eclipse.jetty.admin.git/tree/jetty-eclipse-codetemplates.xml">
+            http://git.eclipse.org/c/jetty/org.eclipse.jetty.admin.git/tree/jetty-eclipse-codetemplates.xml</link>
           </listitem>
           <section>
             <title>Code Conventions</title>
-            <para>The following is an example of the Java formatting and naming
-            styles to apply to Jetty:</para>
+            <para>The following is an example of the Java formatting and naming styles to apply to Jetty:</para>
             <informalexample>
               <programlisting language="java">
 <![CDATA[

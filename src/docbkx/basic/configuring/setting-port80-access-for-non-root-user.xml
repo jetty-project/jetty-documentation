@@ -1,81 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<section xml:id="setting-port80-access" version="5.0"
-xmlns="http://docbook.org/ns/docbook"
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-xmlns:xl="http://www.w3.org/1999/xlink"
+<section xml:id="setting-port80-access" version="5.0" xmlns="http://docbook.org/ns/docbook"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xl="http://www.w3.org/1999/xlink"
 xmlns:xi="http://www.w3.org/2001/XInclude"
 xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd">
   <title>Setting Port 80 Access for a Non-Root User</title>
-  <para>On Unix-based systems, port 80 is protected; typically only the
-  superuser root can open it. For security reasons, it is not desirable to run
-  the server as root. This page presents several options to access port 80 as a
-  non-root user, including using ipchains, iptables, Jetty's SetUID feature,
-  xinetd, and the Solaris 10 User Rights Management Framework.</para>
+  <para>On Unix-based systems, port 80 is protected; typically only the superuser root can open it. For security
+  reasons, it is not desirable to run the server as root. This page presents several options to access port 80 as a
+  non-root user, including using ipchains, iptables, Jetty's SetUID feature, xinetd, and the Solaris 10 User Rights
+  Management Framework.</para>
   <section xml:id="using-ipchains">
     <title>Using ipchains</title>
-    <para>On some Linux systems you can use the 
-    <emphasis>ipchains REDIRECT</emphasis>mechanism to redirect from one port
-    to another inside the kernel (if ipchains is not available, then usually
-    iptables is):</para>
+    <para>On some Linux systems you can use the <emphasis>ipchains REDIRECT</emphasis> mechanism to redirect from one
+    port to another inside the kernel (if ipchains is not available, then usually iptables is):</para>
     <screen>
 <![CDATA[
 /sbin/ipchains -I input --proto TCP --dport 80 -j REDIRECT 8080
 ]]>
     </screen>
-    <para>This command instructs the system as follows: "Insert into the
-    kernel's packet filtering the following as the first rule to check on
-    incoming packets: If the protocol is TCP and the destination port is 80,
-    redirect the packet to port 8080." Be aware that your kernel must be
-    compiled with support for ipchains (virtually all stock kernels are). You
-    must also have the ipchains command-line utility installed (on RedHat the
-    package is aptly named "ipchains"). You can run this command at any time,
-    preferably just once, since it inserts another copy of the rule every time
-    you run it.</para>
-    <para>After you set up this rule, a Linux 2.2 kernel redirects all data
-    addressed to port 80 to a server such as Jetty running on port 8080.This
-    includes all RedHat 6.x distros. Linux 2.4 kernels, for example, RedHat
-    7.1+, have a similar iptables facility.</para>
+    <para>This command instructs the system as follows: "Insert into the kernel's packet filtering the following as the
+    first rule to check on incoming packets: If the protocol is TCP and the destination port is 80, redirect the packet
+    to port 8080." Be aware that your kernel must be compiled with support for ipchains (virtually all stock kernels
+    are). You must also have the ipchains command-line utility installed (on RedHat the package is aptly named
+    "ipchains"). You can run this command at any time, preferably just once, since it inserts another copy of the rule
+    every time you run it.</para>
+    <para>After you set up this rule, a Linux 2.2 kernel redirects all data addressed to port 80 to a server such as
+    Jetty running on port 8080.This includes all RedHat 6.x distros. Linux 2.4 kernels, for example, RedHat 7.1+, have
+    a similar iptables facility.</para>
   </section>
   <section xml:id="using-iptables">
     <title>Using iptables</title>
-    <para>On many Linux systems you can use the iptables REDIRECTmechanism to
-    redirect from one port to another inside the kernel (if iptables is not
-    available, then usually ipchains is).</para>
-    <para>You need to add something like the following to the startup scripts
-    or your firewall rules:</para>
+    <para>On many Linux systems you can use the iptables REDIRECTmechanism to redirect from one port to another inside
+    the kernel (if iptables is not available, then usually ipchains is).</para>
+    <para>You need to add something like the following to the startup scripts or your firewall rules:</para>
     <screen>
 <![CDATA[
 /sbin/iptables -t nat -I PREROUTING -p tcp --dport 80 -j REDIRECT --to-port 8080
 ]]>
     </screen>
-    <para>The underlying model of iptables is different from ipchains, so the
-    forwarding normally happens only to packets originating off-box. You also
-    need to allow incoming packets to port 8080 if you use iptables as a local
+    <para>The underlying model of iptables is different from ipchains, so the forwarding normally happens only to
+    packets originating off-box. You also need to allow incoming packets to port 8080 if you use iptables as a local
     firewall.</para>
-    <para>Be careful to place rules like this one early in your 
-    <emphasis>input</emphasis>chain. Such rules must precede any rule that
-    accepts the packet, otherwise the redirection won't occur. You can insert
-    as many rules as required if your server needs to listen on multiple ports,
-    as for HTTPS.</para>
+    <para>Be careful to place rules like this one early in your <emphasis>input</emphasis> chain. Such rules must
+    precede any rule that accepts the packet, otherwise the redirection won't occur. You can insert as many rules as
+    required if your server needs to listen on multiple ports, as for HTTPS.</para>
   </section>
   <section xml:id="configuring-jetty's-setuid-feature">
     <title>Configuring Jetty's SetUID Feature</title>
-    <para>The SetUID feature is among the Jetty 7 modules that remain at
-    Codehaus, and it retains the mortbay.org package naming. It does use the
-    Jetty 7 package modules at 
-    <link xl:href="http://download.eclipse.org/jetty/">Eclipse</link>.
-    Jetty-hightide-7 at 
-    <link xl:href="http://dist.codehaus.org/jetty/">Codehaus</link>comes with 
-    <code>jetty-setuid</code>compiled for Jetty 7. You can also download the 
-    <code>setuid</code>Jar and 
-    <code>config</code>Jar from the 
-    <link
-    xl:href="http://repo1.maven.org/maven2/org/mortbay/jetty/jetty-setuid-java/">Maven
-    Central Repository</link>, and then copy the 
-    <code>setuid</code>Jar to 
-    <filename>$jetty.home/etc</filename>, and unjar the 
-    <code>setuid-config</code>Jar in 
-    <filename>$jetty.home.</filename></para>
+    <para>The SetUID feature is among the Jetty 7 modules that remain at Codehaus, and it retains the mortbay.org
+    package naming. It does use the Jetty 7 package modules at <link xl:href="http://download.eclipse.org/jetty/">
+    Eclipse</link> . Jetty-hightide-7 at <link xl:href="http://dist.codehaus.org/jetty/">Codehaus</link> comes with
+    <code>jetty-setuid</code> compiled for Jetty 7. You can also download the <code>setuid</code> Jar and <code>
+    config</code> Jar from the <link xl:href="http://repo1.maven.org/maven2/org/mortbay/jetty/jetty-setuid-java/">Maven
+    Central Repository</link>, and then copy the <code>setuid</code> Jar to <filename>$jetty.home/etc</filename>, and
+    unjar the <code>setuid-config</code> Jar in <filename>$jetty.home.</filename></para>
     <section xml:id="creating-jetty-config-file">
       <title>Creating a Jetty Config File</title>
       <para>Create a Jetty config file as follows:</para>
@@ -93,12 +70,9 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
       </informalexample>
       <para>Where you replace:</para>
       <itemizedlist>
-        <listitem>
-        <emphasis>UMASK</emphasis>with the umask setting you want the process
-        to have. 
+        <listitem><emphasis>UMASK</emphasis> with the umask setting you want the process to have. 
         <itemizedlist>
-          <listitem>You must enter it in decimal. That is, if you want the
-          effect of umask 022, you must enter 
+          <listitem>You must enter it in decimal. That is, if you want the effect of umask 022, you must enter 
           <screen>
 <![CDATA[
 <Set name="umask">18</Set>
@@ -110,48 +84,35 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
 <Set name="umaskOctal">022</Set>
 ]]>
           </screen></listitem>
-          <listitem>You can remove this line if you don't want to change this
-          at runtime.</listitem>
-          <listitem>Set it to 002 if you get an error to the effect that root
-          does not have permission to write to the log file.</listitem>
+          <listitem>You can remove this line if you don't want to change this at runtime.</listitem>
+          <listitem>Set it to 002 if you get an error to the effect that root does not have permission to write to the
+          log file.</listitem>
         </itemizedlist></listitem>
-        <listitem>
-        <emphasis>USERID</emphasis>with the ID of the user you want the process
-        to execute as once the ports have been opened.</listitem>
+        <listitem><emphasis>USERID</emphasis> with the ID of the user you want the process to execute as once the ports
+        have been opened.</listitem>
       </itemizedlist>
-      <tip>For your convenience, if you download Jetty Hightide, you'll find
-      one of these ready made in the 
-      <filename>$jetty.home/etc/jetty-setuid.xml</filename>. Alternatively, if
-      you downloaded the 
-      <code>jetty-setuid-java</code>Jars from the Maven Central repo, find it
-      in the 
-      <filename>jetty-setuid-java-config.jar</filename>file.</tip>
+      <tip>For your convenience, if you download Jetty Hightide, you'll find one of these ready made in the <filename>
+      $jetty.home/etc/jetty-setuid.xml</filename> . Alternatively, if you downloaded the <code>
+      jetty-setuid-java</code> Jars from the Maven Central repo, find it in the <filename>
+      jetty-setuid-java-config.jar</filename> file.</tip>
     </section>
     <section xml:id="configuring-jetty-for-setuid">
       <title>Configuring jetty for setuid</title>
-      <para>The easiest way to do this is to edit the 
-      <filename>$jetty.home/start.ini</filename>file:</para>
+      <para>The easiest way to do this is to edit the <filename>$jetty.home/start.ini</filename> file:</para>
       <itemizedlist>
-        <listitem>uncomment 
-        <code>--exec</code></listitem>
-        <listitem>add 
-        <filename>-Djava.library.path=lib/setuid</filename></listitem>
-        <listitem>add an option for setuid: 
-        <code>
+        <listitem>uncomment <code>--exec</code></listitem>
+        <listitem>add <filename>-Djava.library.path=lib/setuid</filename></listitem>
+        <listitem>add an option for setuid: <code>
         OPTIONS=Server,jsp,jmx,resources,websocket,ext,jta,plus,jdbc,annotations,setuid</code></listitem>
-        <listitem>add 
-        <filename>etc/jetty-setuid.xml</filename>as the first file in the
-        configuration file section</listitem>
+        <listitem>add <filename>etc/jetty-setuid.xml</filename> as the first file in the configuration file
+        section</listitem>
       </itemizedlist>
-      <important>You must ensure that the 
-      <filename>etc/jetty-setuid.xml</filename>file is first in the list of
-      config files.</important>
+      <important>You must ensure that the <filename>etc/jetty-setuid.xml</filename> file is first in the list of config
+      files.</important>
     </section>
     <section xml:id="running-jetty-as-root-user">
       <title>Running Jetty as Root User</title>
-      <para>Having edited 
-      <filename>start.ini</filename>as advised above, to run jetty as the root
-      user:</para>
+      <para>Having edited <filename>start.ini</filename> as advised above, to run jetty as the root user:</para>
       <itemizedlist>
         <listitem>Switch to the userid of your choice.</listitem>
         <listitem>Optionally set the umask of your choice.</listitem>
@@ -162,37 +123,26 @@ sudo java -jar start.jar
 ]]>
         </screen></listitem>
       </itemizedlist>
-      <note>As the setuid feature relies on a native library, you might find
-      that you need to build the feature for your environment. Either download
-      the src distribution of jetty-hightide from 
-      <link
-      xl:href="http://repo1.maven.org/maven2/org/mortbay/jetty/jetty-hightide/">Maven
-      Central</link>, or checkout the 
-      <link xl:href="http://git.codehaus.org/gitweb.cgi?p=jetty-project.git">
-      jetty codehaus git repository</link>, and modify the 
-      <filename>jetty-setuid/modules/native/pom.xml</filename>as
-      necessary.</note>
+      <note>As the setuid feature relies on a native library, you might find that you need to build the feature for
+      your environment. Either download the src distribution of jetty-hightide from <link
+      xl:href="http://repo1.maven.org/maven2/org/mortbay/jetty/jetty-hightide/">Maven Central</link>, or checkout the
+      <link xl:href="http://git.codehaus.org/gitweb.cgi?p=jetty-project.git">jetty codehaus git repository</link>, and
+      modify the <filename>jetty-setuid/modules/native/pom.xml</filename> as necessary.</note>
     </section>
   </section>
   <section xml:id="using-xinetd">
     <title>Using xinetd</title>
-    <para>With modern Linux flavours, inetd has a newer, better big brother 
-    <emphasis>xinetd</emphasis>, that you can use to redirect network traffic.
-    Since xinetd is driven by text files, all you need is a text editor. For
-    detailed information, see 
-    <link xl:href="http://www.xinetd.org/"></link>.</para>
+    <para>With modern Linux flavours, inetd has a newer, better big brother <emphasis>xinetd</emphasis>, that you can
+    use to redirect network traffic. Since xinetd is driven by text files, all you need is a text editor. For detailed
+    information, see <link xl:href="http://www.xinetd.org/"></link> .</para>
     <para>There are two ways to give xinetd instructions:</para>
     <itemizedlist>
-      <listitem>Add a new service to 
-      <filename>etc/xinetd.conf</filename></listitem>
-      <listitem>Add a new file to the directory 
-      <filename>etc/xinetd.d</filename></listitem>
+      <listitem>Add a new service to <filename>etc/xinetd.conf</filename></listitem>
+      <listitem>Add a new file to the directory <filename>etc/xinetd.d</filename></listitem>
     </itemizedlist>
-    <para>The format is the same; if you have a look at the file/directory, you
-    will get the picture.</para>
-    <para>The following entry redirects all inward TCP traffic on port 80 to
-    port 8888 on the local machine. You can also redirect to other machines for
-    gimp proxying:</para>
+    <para>The format is the same; if you have a look at the file/directory, you will get the picture.</para>
+    <para>The following entry redirects all inward TCP traffic on port 80 to port 8888 on the local machine. You can
+    also redirect to other machines for gimp proxying:</para>
     <screen>
 <![CDATA[
 service my_redirector
@@ -214,16 +164,12 @@ service my_redirector
       <para>Be aware of the following:</para>
       <itemizedlist>
         <listitem>
-          <para>Include a space on either side of the '=' or it is
-          ignored.</para>
+          <para>Include a space on either side of the '=' or it is ignored.</para>
         </listitem>
         <listitem>
-          <para>
-          <code>type = UNLISTED</code>means that the name of the service does
-          not have to be in 
-          <filename>/etc/services</filename>, but you have to specify port and
-          protocol. If you want to do use an existing service name, for
-          example, http:</para>
+          <para><code>type = UNLISTED</code> means that the name of the service does not have to be in <filename>
+          /etc/services</filename>, but you have to specify port and protocol. If you want to do use an existing
+          service name, for example, http:</para>
           <screen>
 <![CDATA[
 service http
@@ -237,40 +183,31 @@ service http
 }
 ]]>
           </screen>
-          <para>Have a browse in /etc/services and it will all become
-          clear.</para>
+          <para>Have a browse in /etc/services and it will all become clear.</para>
         </listitem>
         <listitem>
-          <para>Logging might present certain security problems, so you might
-          want to leave that out.</para>
+          <para>Logging might present certain security problems, so you might want to leave that out.</para>
         </listitem>
         <listitem>
-          <para>RHEL5 doesn't contain xinetd by default for reasons best known
-          to themselves; 
-          <emphasis>yum install xinetd</emphasis>fixes that.</para>
+          <para>RHEL5 doesn't contain xinetd by default for reasons best known to themselves; <emphasis>yum install
+          xinetd</emphasis> fixes that.</para>
         </listitem>
       </itemizedlist>
-      <para>Xinetd is a hugely powerful and configurable system, so expect to
-      do some reading.</para>
+      <para>Xinetd is a hugely powerful and configurable system, so expect to do some reading.</para>
     </section>
   </section>
   <section xml:id="using-solaris10-user-rights-management-framework">
     <title>Using the Solaris 10 User Rights Management Framework</title>
-    <para>Solaris 10 provides a User Rights Management framework that can
-    permit users and processes superuser-like abilities:</para>
+    <para>Solaris 10 provides a User Rights Management framework that can permit users and processes superuser-like
+    abilities:</para>
     <screen>
 <![CDATA[
 usermod -K defaultpriv=basic,net_privaddr myself
 ]]>
     </screen>
-    <para>Now the 
-    <code>myself</code>user can bind to port 80.</para>
-    <para>Refer to the 
-    <link
-    xl:href="http://docs.oracle.com/cd/E23823_01/html/816-4557/prbactm-1.html#scrolltoc">Solaris
-    10</link>and 
-    <link
-    xl:href="http://docs.oracle.com/cd/E23824_01/html/821-1456/prbactm-1.html#scrolltoc">Solaris
-    11 Security Services documentation</link>for more information.</para>
+    <para>Now the <code>myself</code> user can bind to port 80.</para>
+    <para>Refer to the <link xl:href="http://docs.oracle.com/cd/E23823_01/html/816-4557/prbactm-1.html#scrolltoc">
+    Solaris 10</link> and <link xl:href="http://docs.oracle.com/cd/E23824_01/html/821-1456/prbactm-1.html#scrolltoc">
+    Solaris 11 Security Services documentation</link> for more information.</para>
   </section>
 </section>

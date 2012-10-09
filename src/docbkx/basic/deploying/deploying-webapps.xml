@@ -1,110 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<section xml:id="deploying-webapps" version="5.0"
-xmlns="http://docbook.org/ns/docbook"
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-xmlns:xl="http://www.w3.org/1999/xlink"
+<section xml:id="deploying-webapps" version="5.0" xmlns="http://docbook.org/ns/docbook"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xl="http://www.w3.org/1999/xlink"
 xmlns:xi="http://www.w3.org/2001/XInclude"
 xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd">
   <title>Deploying WebApps</title>
-  <para>You can make Jetty aware of web applications to deploy in two
-  ways:</para>
+  <para>You can make Jetty aware of web applications to deploy in two ways:</para>
   <itemizedlist>
-    <listitem>By placing the web application in a specific location. For Jetty
-    version 7.0.2 and later, the 
-    <link
+    <listitem>By placing the web application in a specific location. For Jetty version 7.0.2 and later, the <link
     xl:href="@JDURL@/org/eclipse/jetty/deploy/providers/WebAppProvider.html">
       <code>WebAppProvider</code>
-    </link>of the 
-    <link xl:href="@JDURL@/org/eclipse/jetty/deploy/DeploymentManager.html">
+    </link> of the <link xl:href="@JDURL@/org/eclipse/jetty/deploy/DeploymentManager.html">
       <code>DeploymentManager</code>
-    </link>controls location-based web app deployment.</listitem>
-    <listitem>By creating a file that describes the deployment properties of
-    your web application. For Jetty version 7.0.2 and later, the 
-    <link
-    xl:href="@JDURL@/org/eclipse/jetty/deploy/providers/ContextProvider.html">
+    </link> controls location-based web app deployment.</listitem>
+    <listitem>By creating a file that describes the deployment properties of your web application. For Jetty version
+    7.0.2 and later, the <link xl:href="@JDURL@/org/eclipse/jetty/deploy/providers/ContextProvider.html">
       <code>ContextProvider</code>
-    </link>of the 
-    <link xl:href="@JDURL@/org/eclipse/jetty/deploy/DeploymentManager.html">
+    </link> of the <link xl:href="@JDURL@/org/eclipse/jetty/deploy/DeploymentManager.html">
       <code>DeploymentManager</code>
-    </link>controls contexts deployment.</listitem>
+    </link> controls contexts deployment.</listitem>
   </itemizedlist>
-  <para>In either case the web application may be either packed or unpacked WAR
-  files.</para>
-  <para>Before discussing the mechanisms for deploying Jetty applications, it
-  is helpful to define two terms:</para>
+  <para>In either case the web application may be either packed or unpacked WAR files.</para>
+  <para>Before discussing the mechanisms for deploying Jetty applications, it is helpful to define two terms:</para>
   <itemizedlist>
-    <listitem>
-    <emphasis>Context</emphasis>&#8211;the name for a deployed instance of a
-    web application. A web application is to a context as a class is to an
-    object of that class type.</listitem>
-    <listitem>
-    <emphasis>Context Path</emphasis>&#8211;the URL that identifies a
-    particular context. Jetty uses it to route requests to the appropriate
-    context.</listitem>
+    <listitem><emphasis>Context</emphasis> &#8211;the name for a deployed instance of a web application. A web
+    application is to a context as a class is to an object of that class type.</listitem>
+    <listitem><emphasis>Context Path</emphasis> &#8211;the URL that identifies a particular context. Jetty uses it to
+    route requests to the appropriate context.</listitem>
   </itemizedlist>
   <section xml:id="location-based-deployment">
     <title>Using Location-Based Deployment</title>
-    <para>In a default installation, Jetty scans its 
-    <filename>$JETTY_HOME/webapps</filename>directory at startup for web
-    applications to deploy. To deploy your web application, simply place it in
-    that directory.</para>
-    <para>Once it detects the web application, Jetty deploys it in the
-    following manner:</para>
+    <para>In a default installation, Jetty scans its <filename>$JETTY_HOME/webapps</filename> directory at startup for
+    web applications to deploy. To deploy your web application, simply place it in that directory.</para>
+    <para>Once it detects the web application, Jetty deploys it in the following manner:</para>
     <itemizedlist>
-      <listitem>It deploys the file 
-      <filename>foo.war</filename>as a webapp at context 
-      <filename>/foo</filename>.</listitem>
-      <listitem>It deploys the directory 
-      <filename>foo/</filename>at context 
-      <filename>/foo</filename>. If the directory has a 
-      <filename>WEB-INF</filename>subdirectory, Jetty treats it as a servlet
-      webapp, otherwise Jetty serves it only as static content.</listitem>
-      <listitem>If both a 
-      <filename>foo.war</filename>and a 
-      <filename>foo/</filename>directory exist, Jetty uses the one with the
-      most recent last-modified date.</listitem>
-      <listitem>If the webapp is called 
-      <filename>root.war</filename>or the directory is called 
-      <filename>root/</filename>, Jetty deploys it at the / context.</listitem>
-      <listitem>If the 
-      <filename>contextXmlDir</filename>option is used and a 
-      <filename>foo.xml</filename>file exists in that directory, the 
-      <code>WebAppProvider</code>defers to the 
-      <code>ContextProvider</code>for actual webapp deployment.</listitem>
+      <listitem>It deploys the file <filename>foo.war</filename> as a webapp at context <filename>
+      /foo</filename> .</listitem>
+      <listitem>It deploys the directory <filename>foo/</filename> at context <filename>/foo</filename> . If the
+      directory has a <filename>WEB-INF</filename> subdirectory, Jetty treats it as a servlet webapp, otherwise Jetty
+      serves it only as static content.</listitem>
+      <listitem>If both a <filename>foo.war</filename> and a <filename>foo/</filename> directory exist, Jetty uses the
+      one with the most recent last-modified date.</listitem>
+      <listitem>If the webapp is called <filename>root.war</filename> or the directory is called <filename>
+      root/</filename>, Jetty deploys it at the / context.</listitem>
+      <listitem>If the <filename>contextXmlDir</filename> option is used and a <filename>foo.xml</filename> file exists
+      in that directory, the <code>WebAppProvider</code> defers to the <code>ContextProvider</code> for actual webapp
+      deployment.</listitem>
     </itemizedlist>
   </section>
   <section xml:id="deploying-contexts">
     <title>Deploying Contexts (Descriptor Based)</title>
-    <para>Using the location based deployment model is quick and easy, but
-    sometimes you might need to tune certain deployment properties (for
-    example, you want to deploy with a context path that is not based on the
-    file name, or you want to define a special database connection pool just
-    for this web application). You can use a context deployment descriptor file
-    to accomplish such tuning.</para>
+    <para>Using the location based deployment model is quick and easy, but sometimes you might need to tune certain
+    deployment properties (for example, you want to deploy with a context path that is not based on the file name, or
+    you want to define a special database connection pool just for this web application). You can use a context
+    deployment descriptor file to accomplish such tuning.</para>
     <section xml:id="using-basic-descriptor-files">
       <title>Using Basic Descriptor Files</title>
-      <para>In a default Jetty installation, Jetty scans its 
-      <filename>$JETTY_HOME/contexts</filename>directory for context deployment
-      descriptor files. To deploy a web application using such a file, simply
-      place the file in that directory.</para>
-      <para>The deployment descriptor file itself is a standard Jetty
-      [[Jetty/Reference/jetty.xml syntax|configuration]] //TODO Xref// file
-      that configures a 
-      <link xl:href="@JDURL@/org/eclipse/jetty/webapp/WebAppContext.html">
+      <para>In a default Jetty installation, Jetty scans its <filename>$JETTY_HOME/contexts</filename> directory for
+      context deployment descriptor files. To deploy a web application using such a file, simply place the file in that
+      directory.</para>
+      <para>The deployment descriptor file itself is a standard Jetty [[Jetty/Reference/jetty.xml
+      syntax|configuration]] //TODO Xref// file that configures a <link
+      xl:href="@JDURL@/org/eclipse/jetty/webapp/WebAppContext.html">
         <code>WebAppContext</code>
-      </link>class. For a basic installation you probably need to set only two
-      properties:</para>
+      </link> class. For a basic installation you probably need to set only two properties:</para>
       <itemizedlist>
-        <listitem>
-        <emphasis>war</emphasis>&#8211;the filesystem path to the web
-        application file/directory.</listitem>
-        <listitem>
-        <emphasis>contextPath</emphasis>&#8211;the context path to use for the
-        web application.</listitem>
+        <listitem><emphasis>war</emphasis> &#8211;the filesystem path to the web application file/directory.</listitem>
+        <listitem><emphasis>contextPath</emphasis> &#8211;the context path to use for the web application.</listitem>
       </itemizedlist>
-      <para>For example, here is a descriptor file that deploys the file 
-      <filename>/opt/myapp/myapp.war</filename>to the context path 
-      <filename>/wiki</filename>:</para>
+      <para>For example, here is a descriptor file that deploys the file <filename>/opt/myapp/myapp.war</filename> to
+      the context path <filename>/wiki</filename> :</para>
       <informalexample>
         <programlisting language="xml">
 <![CDATA[
@@ -118,11 +82,8 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
 ]]>
         </programlisting>
       </informalexample>
-      <note>You can use the 
-      <code>SystemProperty</code>and 
-      <code>Property</code>elements in your descriptor file. For example, if
-      you set the system property 
-      <code>myapp.home=/opt/myapp</code>, you can rewrite the previous example
+      <note>You can use the <code>SystemProperty</code> and <code>Property</code> elements in your descriptor file. For
+      example, if you set the system property <code>myapp.home=/opt/myapp</code>, you can rewrite the previous example
       as:</note>
       <informalexample>
         <programlisting language="xml">
@@ -137,23 +98,19 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
 ]]>
         </programlisting>
       </informalexample>
-      <para>If you need to change the home path for your application, you can
-      simply change the system property. This is useful if you frequently
-      switch among multiple versions of an app.</para>
+      <para>If you need to change the home path for your application, you can simply change the system property. This
+      is useful if you frequently switch among multiple versions of an app.</para>
     </section>
     <section xml:id="configuring-advanced-descriptor-files">
       <title>Configuring Advanced Descriptor Files</title>
-      <para>If you look at the documentation for the 
-      <link xl:href="@JDURL@/org/eclipse/jetty/webapp/WebAppContext.html">
+      <para>If you look at the documentation for the <link
+      xl:href="@JDURL@/org/eclipse/jetty/webapp/WebAppContext.html">
         <code>WebAppContext</code>
-      </link>class, you notice that there are a lot more properties than just
-      the two mentioned above. Here are some examples that configure advanced
-      optons with your descriptor file.</para>
-      <para>This first example tells Jetty not to expand the WAR file when
-      deploying it. This can help make it clear that people should not be
-      making changes to the temporary unpacked WAR because such changes do not
-      persist, and therefore do not apply the next time the web application
-      deploys.</para>
+      </link> class, you notice that there are a lot more properties than just the two mentioned above. Here are some
+      examples that configure advanced optons with your descriptor file.</para>
+      <para>This first example tells Jetty not to expand the WAR file when deploying it. This can help make it clear
+      that people should not be making changes to the temporary unpacked WAR because such changes do not persist, and
+      therefore do not apply the next time the web application deploys.</para>
       <informalexample>
         <programlisting language="xml">
 <![CDATA[
@@ -168,14 +125,10 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
 ]]>
         </programlisting>
       </informalexample>
-      <para>The next example retrieves the JavaEE Servlet context and sets an
-      initialization parameter on it. You can also use the 
-      <code>setAttribute</code>method to set a Servlet context attribute.
-      However, since the 
-      <filename>web.xml</filename>for the web application is processed after
-      the deployment descriptor, the 
-      <filename>web.xml</filename>values overwrite like-named attributes from
-      the deployment descriptor.</para>
+      <para>The next example retrieves the JavaEE Servlet context and sets an initialization parameter on it. You can
+      also use the <code>setAttribute</code> method to set a Servlet context attribute. However, since the <filename>
+      web.xml</filename> for the web application is processed after the deployment descriptor, the <filename>
+      web.xml</filename> values overwrite like-named attributes from the deployment descriptor.</para>
       <informalexample>
         <programlisting language="xml">
 <![CDATA[
@@ -195,12 +148,10 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
 ]]>
         </programlisting>
       </informalexample>
-      <para>The following example sets a special 
-      <filename>web.xml</filename>override descriptor. This descriptor is
-      processed after the web application's 
-      <filename>web.xml</filename>, so may override like-named attributes. This
-      feature is useful if you want to add parameters or additional Servlet
-      mappings without breaking open a packed WAR file.</para>
+      <para>The following example sets a special <filename>web.xml</filename> override descriptor. This descriptor is
+      processed after the web application's <filename>web.xml</filename>, so may override like-named attributes. This
+      feature is useful if you want to add parameters or additional Servlet mappings without breaking open a packed WAR
+      file.</para>
       <informalexample>
         <programlisting language="xml">
 <![CDATA[
@@ -215,13 +166,10 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
 ]]>
         </programlisting>
       </informalexample>
-      <para>The next example configures not only the web application context,
-      but also a database connection pool (see
-      [[Jetty/Howto/Configure_JNDI_Datasource|Configure JNDI Datasource]]
-      //TODO xref//) that our application can then use. If the 
-      <filename>web.xml</filename>does not include a reference to this data
-      source, you can use the override descriptor mechanism (the previous
-      example), to include it.</para>
+      <para>The next example configures not only the web application context, but also a database connection pool (see
+      [[Jetty/Howto/Configure_JNDI_Datasource|Configure JNDI Datasource]] //TODO xref//) that our application can then
+      use. If the <filename>web.xml</filename> does not include a reference to this data source, you can use the
+      override descriptor mechanism (the previous example), to include it.</para>
       <informalexample>
         <programlisting language="xml">
 <![CDATA[
@@ -251,16 +199,11 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     </section>
     <section>
       <title>Jetty Maven Plugin</title>
-      <para>If you develop your web application as a Maven project, you can
-      deploy it in Jetty with 
-      <filename>mvn jetty:run</filename>, using the
-      [[Jetty/Feature/Jetty_Maven_Plugin|Jetty Maven Plugin]]. //TODO
-      xref//</para>
-      <para>Maven lets you build your web applications by overlaying on other
-      template web applications (for example, 
-      <link xl:href="http://docs.cometd.org/reference/#primer">CometD</link>)
-      and manages the transitive dependencies needed to populate 
-      <code>WEB-INF/lib</code>.</para>
+      <para>If you develop your web application as a Maven project, you can deploy it in Jetty with <filename>mvn
+      jetty:run</filename>, using the [[Jetty/Feature/Jetty_Maven_Plugin|Jetty Maven Plugin]]. //TODO xref//</para>
+      <para>Maven lets you build your web applications by overlaying on other template web applications (for example,
+      <link xl:href="http://docs.cometd.org/reference/#primer">CometD</link> ) and manages the transitive dependencies
+      needed to populate <code>WEB-INF/lib</code> .</para>
     </section>
     <section xml:id="using-OSGi-web-application-bundle">
       <title>Using the OSGi Web Application Bundle</title>
@@ -268,10 +211,9 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     </section>
     <section xml:id="using-embedded-jetty">
       <title>Using Embedded Jetty</title>
-      <para>You can also deploy web applications into embedded Jetty, either
-      via direct configuration or via configuration of a deployer. For an
-      example see the [[Jetty/Tutorial/Embedding_Jetty|Embedding Jetty
-      Tutorial]]. //TODO xref//</para>
+      <para>You can also deploy web applications into embedded Jetty, either via direct configuration or via
+      configuration of a deployer. For an example see the [[Jetty/Tutorial/Embedding_Jetty|Embedding Jetty Tutorial]].
+      //TODO xref//</para>
     </section>
   </section>
 </section>

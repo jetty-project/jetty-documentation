@@ -1,22 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<section xml:id="jetty-maven-helloworld" version="5.0"
-xmlns="http://docbook.org/ns/docbook"
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-xmlns:xl="http://www.w3.org/1999/xlink"
+<section xml:id="jetty-maven-helloworld" version="5.0" xmlns="http://docbook.org/ns/docbook"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xl="http://www.w3.org/1999/xlink"
 xmlns:xi="http://www.w3.org/2001/XInclude"
 xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd">
   <title>Jetty and Maven HelloWorld</title>
-  <para>
-  <link xl:href="http://maven.apache.org/">Apache Maven</link>is a software
-  project management and comprehension tool. Based on the concept of a project
-  object model (POM), Maven can manage a project's build, reporting and
-  documentation from a central piece of information. It is an ideal tool to
-  build a web application project, and such projects can use the
-  [[Jetty/Feature/Jetty Maven Plugin | Jetty Maven Plugin]] //TODO xref// to
-  run the web application in development mode. You can use Maven both to build
-  embedded Jetty applications and standards based web applications.</para>
-  <para>To understand the basic operations of building and running against
-  Jetty, first review:</para>
+  <para><link xl:href="http://maven.apache.org/">Apache Maven</link> is a software project management and comprehension
+  tool. Based on the concept of a project object model (POM), Maven can manage a project's build, reporting and
+  documentation from a central piece of information. It is an ideal tool to build a web application project, and such
+  projects can use the [[Jetty/Feature/Jetty Maven Plugin | Jetty Maven Plugin]] //TODO xref// to run the web
+  application in development mode. You can use Maven both to build embedded Jetty applications and standards based web
+  applications.</para>
+  <para>To understand the basic operations of building and running against Jetty, first review:</para>
   <itemizedlist>
     <listitem>
     <xref linkend="jetty-helloworld" />
@@ -27,10 +21,9 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
   </itemizedlist>
   <section xml:id="configuring-embedded-jetty-with-maven">
     <title>Configuring Embedded Jetty with Maven</title>
-    <para>Maven uses convention over configuration, so it is best to use the
-    project structure as Maven recommends. You can use 
-    <emphasis>Archetypes</emphasis>to quickly setup Maven projects, this
-    tutorial sets up the structure manually:</para>
+    <para>Maven uses convention over configuration, so it is best to use the project structure as Maven recommends. You
+    can use <emphasis>Archetypes</emphasis> to quickly setup Maven projects, this tutorial sets up the structure
+    manually:</para>
     <screen>
 <![CDATA[
 mkdir JettyMavenHelloWorld
@@ -40,8 +33,7 @@ mkdir -p src/main/java/org/example
     </screen>
     <section xml:id="creating-helloworld-class">
     <title>Creating the HelloWorld Class</title>
-    <para>Use an editor to create the file 
-    <filename>src/main/java/org/example/HelloWorld.java</filename>with the
+    <para>Use an editor to create the file <filename>src/main/java/org/example/HelloWorld.java</filename> with the
     following contents:</para>
     <informalexample>
       <programlisting language="java">
@@ -83,10 +75,8 @@ public class HelloWorld extends AbstractHandler
     </informalexample>&gt;</section>
     <section xml:id="creating-pom-descriptor">
     <title>Creating the POM Descriptor</title>
-    <para>The 
-    <filename>pom.xml</filename>file declares the project name and it's
-    dependencies. Use an editor to create the file 
-    <filename>pom.xml</filename>with the following contents:</para>
+    <para>The <filename>pom.xml</filename> file declares the project name and it's dependencies. Use an editor to
+    create the file <filename>pom.xml</filename> with the following contents:</para>
     <informalexample>
       <programlisting language="java">
 <![CDATA[>
@@ -140,18 +130,16 @@ public class HelloWorld extends AbstractHandler
     </informalexample>&gt;</section>
     <section xml:id="buildng-and-running-embedded-helloworld">
       <title>Building and Running Embedded HelloWorld</title>
-      <para>You can now compile and execute the HelloWorld class by using these
-      commands:</para>
+      <para>You can now compile and execute the HelloWorld class by using these commands:</para>
       <screen>
 <![CDATA[
 mvn clean compile exec:java
 ]]>
       </screen>
       <para>You can point your browser to 
-      <nowiki>http://localhost:8080</nowiki>to see the hello world page. You
-      can observe what Maven is doing for you behind the scenes by using the 
-      <code>mvn dependency:tree</code>command, which reveals the transitive
-      dependency resolved and downloaded as:</para>
+      <nowiki>http://localhost:8080</nowiki>to see the hello world page. You can observe what Maven is doing for you
+      behind the scenes by using the <code>mvn dependency:tree</code> command, which reveals the transitive dependency
+      resolved and downloaded as:</para>
       <screen>
 <![CDATA[
 > mvn dependency:tree
@@ -182,10 +170,8 @@ mvn clean compile exec:java
   </section>
   <section xml:id="developing-standard-webapp-with-jetty-and-maven">
     <title>Developing a Standard WebApp with Jetty and Maven</title>
-    <para>The example above shows how to run a hello world example as an
-    embedded Jetty handler. The following example shows how to develop a
-    standard webapp with Maven and Jetty. First create the Maven
-    structure:</para>
+    <para>The example above shows how to run a hello world example as an embedded Jetty handler. The following example
+    shows how to develop a standard webapp with Maven and Jetty. First create the Maven structure:</para>
     <screen>
 <![CDATA[
 mkdir JettyMavenHelloWarApp
@@ -196,9 +182,8 @@ mkdir -p src/main/webapp/WEB-INF
     </screen>
     <section xml:id="creating-static-content">
     <title>Creating Static Content</title>
-    <para>A web application can contain static content, so create the file 
-    <filename>src/main/webapp/index.html</filename>with the following
-    contents:</para>
+    <para>A web application can contain static content, so create the file <filename>
+    src/main/webapp/index.html</filename> with the following contents:</para>
     <informalexample>
       <programlisting language="html4strict">
 <![CDATA[>
@@ -209,8 +194,7 @@ mkdir -p src/main/webapp/WEB-INF
     </informalexample>&gt;</section>
     <section xml:id="creating-servlet">
     <title>Creating a Servlet</title>
-    <para>Use an editor to create the file 
-    <filename>src/main/java/org/example/HelloServlet.java</filename>with the
+    <para>Use an editor to create the file <filename>src/main/java/org/example/HelloServlet.java</filename> with the
     following contents:</para>
     <informalexample>
       <programlisting language="java">
@@ -236,10 +220,8 @@ public class HelloServlet extends HttpServlet
 ]]>
       </programlisting>
     </informalexample>&gt; 
-    <para>You need to declare this servlet in the deployment descriptor, so
-    edit the file 
-    <filename>src/main/webapp/WEB-INF/web.xml</filename>and add the following
-    contents:</para>
+    <para>You need to declare this servlet in the deployment descriptor, so edit the file <filename>
+    src/main/webapp/WEB-INF/web.xml</filename> and add the following contents:</para>
     <informalexample>
       <programlisting language="xml">
 <![CDATA[>
@@ -270,23 +252,19 @@ mvn jetty:run
 ]]>
       </screen>
       <para>You can see the static and dynamic content at 
-      <nowiki>http://localhost:8080/hello-world/hello</nowiki>. The context
-      path portion of the url ("hello-world") comes from the artifact ID in the
-      pom.xml file.</para>
+      <nowiki>http://localhost:8080/hello-world/hello</nowiki>. The context path portion of the url ("hello-world")
+      comes from the artifact ID in the pom.xml file.</para>
     </section>
     <section xml:id="building-war-file">
       <title>Building a WAR file</title>
-      <para>You can create a Web Application Archive (WAR) file from the
-      project with the command:</para>
+      <para>You can create a Web Application Archive (WAR) file from the project with the command:</para>
       <screen>
 <![CDATA[
 mvn package
 ]]>
       </screen>
-      <para>The resulting war file is in the 
-      <filename>target</filename>directory and may be deployed on any standard
-      servlet server or [[Jetty/Howto/Deploy_Web_Applications|deployed to
-      jetty]]. TODO xref</para>
+      <para>The resulting war file is in the <filename>target</filename> directory and may be deployed on any standard
+      servlet server or [[Jetty/Howto/Deploy_Web_Applications|deployed to jetty]]. TODO xref</para>
     </section>
   </section>
 </section>

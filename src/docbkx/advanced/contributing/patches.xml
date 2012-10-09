@@ -1,55 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<section xml:id="contributing-patches" version="5.0"
-xmlns="http://docbook.org/ns/docbook"
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-xmlns:xl="http://www.w3.org/1999/xlink"
+<section xml:id="contributing-patches" version="5.0" xmlns="http://docbook.org/ns/docbook"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xl="http://www.w3.org/1999/xlink"
 xmlns:xi="http://www.w3.org/2001/XInclude"
 xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd">
   <title>Contributing Patches</title>
   <para>How to contribute a patch to the jetty project.</para>
   <section xml:id="git-diff">
     <title>Git Diff</title>
-    <para>The simplest way to contribute a patch is to make a modification to a
-    cloned copy of jetty and then generate a diff between the two
-    versions.</para>
+    <para>The simplest way to contribute a patch is to make a modification to a cloned copy of jetty and then generate
+    a diff between the two versions.</para>
     <para>From the top level of the cloned project:</para>
     <screen>
 <![CDATA[
 $ git diff < ######.patch
 ]]>
     </screen>
-    <para>The hash marks should be the bugzilla issue that you will be
-    attaching the issue to. All patches coming into jetty @ eclipse much come
-    in through bugzilla for IP tracking purposes. Depending on the size of the
-    patch the patch itself may be flagged as +iplog where it is subject to
-    lawyer review and inclusion with our iplog from here to eternity. We are
-    sorry we are unable to apply patches that we receive via email. So if you
-    have the bugzilla issue created already just attach the issue and feel free
-    to bug us on IRC to take a look. If there is no bugzilla issue yet, create
-    one, make sure the patch is named appropriately and attach it.</para>
-    <para>When the developer reviews the patch and goes to apply it they will
-    use:</para>
+    <para>The hash marks should be the bugzilla issue that you will be attaching the issue to. All patches coming into
+    jetty @ eclipse much come in through bugzilla for IP tracking purposes. Depending on the size of the patch the
+    patch itself may be flagged as +iplog where it is subject to lawyer review and inclusion with our iplog from here
+    to eternity. We are sorry we are unable to apply patches that we receive via email. So if you have the bugzilla
+    issue created already just attach the issue and feel free to bug us on IRC to take a look. If there is no bugzilla
+    issue yet, create one, make sure the patch is named appropriately and attach it.</para>
+    <para>When the developer reviews the patch and goes to apply it they will use:</para>
     <screen>
 <![CDATA[
 $ git apply < ######.patch
 ]]>
     </screen>
-    <para>If you want to be a nice person, test your patch on a clean clone to
-    ensure that it applies cleanly. Nothing frustrated a developer quite like a
-    patch that doesn't apply.</para>
+    <para>If you want to be a nice person, test your patch on a clean clone to ensure that it applies cleanly. Nothing
+    frustrated a developer quite like a patch that doesn't apply.</para>
   </section>
   <section>
     <title>Git Format Patch</title>
-    <para>Another approach if you want your name in shiny lights in our commit
-    logs is to use the format patch option. With this approach you commit into
-    your cloned copy of jetty and use the git format patch option to generate
-    what looks like an email message containing all of the commit information.
-    This applies as a commit directly when we apply it so it should be obvious
-    that as with the normal diff we much accept these sorts of patching only
-    via bugzilla.</para>
+    <para>Another approach if you want your name in shiny lights in our commit logs is to use the format patch option.
+    With this approach you commit into your cloned copy of jetty and use the git format patch option to generate what
+    looks like an email message containing all of the commit information. This applies as a commit directly when we
+    apply it so it should be obvious that as with the normal diff we much accept these sorts of patching only via
+    bugzilla.</para>
     <para>From the top level of the cloned project:</para>
-    <para>Make your changes and commit them locally using git commit. Then use
-    git log to identify the commit(s) you want to include in your patch:</para>
+    <para>Make your changes and commit them locally using git commit. Then use git log to identify the commit(s) you
+    want to include in your patch:</para>
     <screen>
 <![CDATA[
 commit 70e29326fe904675f772b88a67128c0b3529565e
@@ -64,38 +54,31 @@ HttpDestinationQueueTest too slow
 $ git format-patch -M -B 70e29326fe904675f772b88a67128c0b3529565e
 ]]>
     </screen>
-    <para>This will create a single patch file for each commit since the
-    specified commit. The names will start with 0001-[commitmessage].patch. See
-    http://www.kernel.org/pub/software/scm/git/docs/git-format-patch.html for
+    <para>This will create a single patch file for each commit since the specified commit. The names will start with
+    0001-[commitmessage].patch. See http://www.kernel.org/pub/software/scm/git/docs/git-format-patch.html for
     details.</para>
-    <para>When a developer goes to apply this sort of patch then we must assume
-    responsibility for applying it to our codebase from the IP perspective. So
-    we much be comfortable with the providence of the patch and that it is
-    clear of potential issues. This is not like a diff where you get to edit it
-    and clean up issues before it get applied. The commit is recorded locally
-    and the developer will then have a chance to make additional commits to
-    address any lingering issues. It is critically important that developers
-    applying these sorts of patches are fully aware of what is being committed
-    and what they are signing off on.</para>
+    <para>When a developer goes to apply this sort of patch then we must assume responsibility for applying it to our
+    codebase from the IP perspective. So we much be comfortable with the providence of the patch and that it is clear
+    of potential issues. This is not like a diff where you get to edit it and clean up issues before it get applied.
+    The commit is recorded locally and the developer will then have a chance to make additional commits to address any
+    lingering issues. It is critically important that developers applying these sorts of patches are fully aware of
+    what is being committed and what they are signing off on.</para>
     <para>To apply the patch the developer will use a command like:</para>
     <screen>
 <![CDATA[
 $ git am -s 0001-353563-HttpDestinationQueueTest-too-slow.patch
 ]]>
     </screen>
-    <para>Providing it applies cleanly there will now be a commit in their
-    local copy and they can either make additional commits or push it out. The
-    '-s' option attaches a 'Signed By: ' line to the commit with the developers
-    commit information. This is required, without it the commit should be
-    rejected by the eclipse git server as not valid. There is an update hook in
-    place that validates that either the commit or signed by fields are in fact
+    <para>Providing it applies cleanly there will now be a commit in their local copy and they can either make
+    additional commits or push it out. The '-s' option attaches a 'Signed By: ' line to the commit with the developers
+    commit information. This is required, without it the commit should be rejected by the eclipse git server as not
+    valid. There is an update hook in place that validates that either the commit or signed by fields are in fact
     eclipse committers authorized to commit to the repository.</para>
   </section>
   <section xml:id="git-ammend">
     <title>Git Amend</title>
-    <para>Alternatively, for troublesome patches that do not seem to apply
-    cleanly with git am, you can use git commit --amend to modify the author
-    and signoff the commit. For example:</para>
+    <para>Alternatively, for troublesome patches that do not seem to apply cleanly with git am, you can use git commit
+    --amend to modify the author and signoff the commit. For example:</para>
     <screen>
 <![CDATA[
 $ git checkout -b patch
@@ -103,8 +86,7 @@ $ git apply john-doe.patch
 $ git commit -a -m "<Original commit message from John Doe>"
 ]]>
     </screen>
-    <para>At this point the patch is committed with the committer's name on a
-    local branch</para>
+    <para>At this point the patch is committed with the committer's name on a local branch</para>
     <screen>
 <![CDATA[
 $ git commit --amend --author "John Doe <john.doe@who.com>" --signoff
@@ -117,8 +99,7 @@ $ git checkout master
 $ git merge patch
 ]]>
     </screen>
-    <para>Now the local branch has been merged into master with the right
-    author</para>
+    <para>Now the local branch has been merged into master with the right author</para>
     <screen>
 <![CDATA[
 $ git branch -d patch
@@ -128,9 +109,8 @@ $ git push
   </section>
   <section xml:id="gerrit-for-contributors">
     <title>Gerrit for Contributors</title>
-    <para>Prepare yourself for using gerrit by following the steps described
-    here: 
-    <link xl:href="https://git.eclipse.org/r/Documentation/user-upload.html">
+    <para>Prepare yourself for using gerrit by following the steps described here: <link
+    xl:href="https://git.eclipse.org/r/Documentation/user-upload.html">
     https://git.eclipse.org/r/Documentation/user-upload.html</link></para>
     <para>Then clone the jetty-project:</para>
     <screen>
@@ -138,55 +118,43 @@ $ git push
 $ git clone ssh://git.eclipse.org:29418/jetty/org.eclipse.jetty.project
 ]]>
     </screen>
-    <para>
-    <emphasis>Stop.</emphasis>Make sure you have a bugzilla issue open for the
-    change that you want to commit into gerrit for review. Also when you are
-    ready to commit your change make sure that your commit starts with the
+    <para><emphasis>Stop.</emphasis> Make sure you have a bugzilla issue open for the change that you want to commit
+    into gerrit for review. Also when you are ready to commit your change make sure that your commit starts with the
     bugzilla id. For example your commit should look like this:</para>
     <screen>
 <![CDATA[
 $ git commit -m "[Bug 343532] fixed issue" <files>
 ]]>
     </screen>
-    <para>Make sure to properly set the changeIds as described here: 
-    <link xl:href="https://git.eclipse.org/r/Documentation/user-changeid.html">
+    <para>Make sure to properly set the changeIds as described here: <link
+    xl:href="https://git.eclipse.org/r/Documentation/user-changeid.html">
     https://git.eclipse.org/r/Documentation/user-changeid.html</link></para>
-    <para>Make your changes, commit them as usual with git. Once done
-    do:</para>
+    <para>Make your changes, commit them as usual with git. Once done do:</para>
     <screen>
 <![CDATA[
 $ git push ssh://git.eclipse.org:29418/jetty/org.eclipse.jetty.project HEAD:refs/for/master
 ]]>
     </screen>
-    <para>Note the magic: "HEAD:refs/for/master". Without gerrit will not
-    permit you to push.</para>
-    <para>Review your changes on your gerrit dashboard: 
-    <link xl:href="https://git.eclipse.org/r/#/">
+    <para>Note the magic: "HEAD:refs/for/master". Without gerrit will not permit you to push.</para>
+    <para>Review your changes on your gerrit dashboard: <link xl:href="https://git.eclipse.org/r/#/">
     https://git.eclipse.org/r/#/</link></para>
-    <para>Finally get some coffee and relax. You've contributed something to
-    jetty, woohooo. :)</para>
+    <para>Finally get some coffee and relax. You've contributed something to jetty, woohooo. :)</para>
   </section>
   <section xml:id="gerrit-for-committers">
     <title>Gerrit for Committers</title>
-    <para>Using gerrit is pretty simple. Once you have logged in you should
-    first register your interest in the project repositories you want to be
-    notified of patches on. This option is located under your user Settings
-    near your name in the upper right hand corner. Click on 'Watched Projects'
-    and then start typing 'jetty' into the project name box and it will offer
-    completions for the jetty projects.</para>
-    <para>Now that you are watching the appropriate projects you should get
-    email notifications of commits into gerrit. It is critical that you follow
-    strict committer IP process when reviewing commits. Egregious violations of
-    this process can result into committer status issues.</para>
-    <para>On the top of the screen click My -&gt; Watched Changes for a list of
-    the commits available for review. These represent people waiting to have
-    their work reviewed. Once you select an issue to review you will see a list
-    of changes at the bottom, click on these and look over the changes. You can
-    have a dialog back and forth with the user through the comments on the
-    patch. Providing they used the ChangeId setup correctly they will be able
-    to issue updates to their patch for further review. Once you are happy with
-    a review change set click on the Review button. This brings up a screen
-    with three important questions.</para>
+    <para>Using gerrit is pretty simple. Once you have logged in you should first register your interest in the project
+    repositories you want to be notified of patches on. This option is located under your user Settings near your name
+    in the upper right hand corner. Click on 'Watched Projects' and then start typing 'jetty' into the project name box
+    and it will offer completions for the jetty projects.</para>
+    <para>Now that you are watching the appropriate projects you should get email notifications of commits into gerrit.
+    It is critical that you follow strict committer IP process when reviewing commits. Egregious violations of this
+    process can result into committer status issues.</para>
+    <para>On the top of the screen click My -&gt; Watched Changes for a list of the commits available for review. These
+    represent people waiting to have their work reviewed. Once you select an issue to review you will see a list of
+    changes at the bottom, click on these and look over the changes. You can have a dialog back and forth with the user
+    through the comments on the patch. Providing they used the ChangeId setup correctly they will be able to issue
+    updates to their patch for further review. Once you are happy with a review change set click on the Review button.
+    This brings up a screen with three important questions.</para>
     <variablelist>
       <varlistentry>
         <term>Verified</term>
@@ -197,29 +165,23 @@ $ git push ssh://git.eclipse.org:29418/jetty/org.eclipse.jetty.project HEAD:refs
       <varlistentry>
         <term>Code Review</term>
         <listitem>
-          <para>How acceptable is this review change set? Are you willing to
-          testitfy that it is good enough or does it bear further
-          review.</para>
+          <para>How acceptable is this review change set? Are you willing to testitfy that it is good enough or does it
+          bear further review.</para>
         </listitem>
       </varlistentry>
       <varlistentry>
         <term>IP Clean</term>
         <listitem>
-          <para>Does this commit follow acceptable IP guidelines? If anything
-          looks suspicious then follow up with comments to clarify any
-          potential issues. Commits with minor changes to existing classes and
-          projects are fine and should reference a corresponding bugzilla id in
-          their commit message.</para>
-          <para>Completely new features and large contributions require a
-          corresponding CQ reference.</para>
+          <para>Does this commit follow acceptable IP guidelines? If anything looks suspicious then follow up with
+          comments to clarify any potential issues. Commits with minor changes to existing classes and projects are
+          fine and should reference a corresponding bugzilla id in their commit message.</para>
+          <para>Completely new features and large contributions require a corresponding CQ reference.</para>
         </listitem>
       </varlistentry>
     </variablelist>
-    <para>Assuming sufficient approval through the review process there will be
-    an option to Review and Submit and the commit will pass through into jetty
-    proper. You may also review and comment without submitting so the Review
-    button is useful for clearly stating the reviewers comments and concerns
-    regarding the three items mentioned above. Multiple reviewers are able to
-    collaborate on a given patch as well.</para>
+    <para>Assuming sufficient approval through the review process there will be an option to Review and Submit and the
+    commit will pass through into jetty proper. You may also review and comment without submitting so the Review button
+    is useful for clearly stating the reviewers comments and concerns regarding the three items mentioned above.
+    Multiple reviewers are able to collaborate on a given patch as well.</para>
   </section>
 </section>

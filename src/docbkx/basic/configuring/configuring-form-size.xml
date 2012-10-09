@@ -1,17 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<section xml:id="configuring-form-size" version="5.0"
-xmlns="http://docbook.org/ns/docbook"
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-xmlns:xl="http://www.w3.org/1999/xlink"
+<section xml:id="configuring-form-size" version="5.0" xmlns="http://docbook.org/ns/docbook"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xl="http://www.w3.org/1999/xlink"
 xmlns:xi="http://www.w3.org/2001/XInclude"
 xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd">
   <title>Configuring Form Size</title>
-  <para>Jetty limits the amount of data that can post back from a browser or
-  other client to the server. This helps protect the server against denial of
-  service attacks by malicious clients sending huge amounts of data. The
-  default maximum size Jetty permits is 200000 bytes. You can change this
-  default for a particular webapp, for all webapps on a particular Server
-  instance, or all webapps within the same JVM.</para>
+  <para>Jetty limits the amount of data that can post back from a browser or other client to the server. This helps
+  protect the server against denial of service attacks by malicious clients sending huge amounts of data. The default
+  maximum size Jetty permits is 200000 bytes. You can change this default for a particular webapp, for all webapps on a
+  particular Server instance, or all webapps within the same JVM.</para>
   <section>
   <title>Changing the Maximum Form Size for a Single Webapp</title>
   <para>The method to invoke is:</para>
@@ -22,11 +18,9 @@ ContextHandler.setMaxFormContentSize(int maxSize);
 ]]>
     </programlisting>
   </informalexample>
-  <para>You can do this either in a [[Jetty/Feature/ContextDeployer|context XML
-  deployment descriptor]] external to the webapp, or in a
-  [[Jetty/Reference/jetty-web.xml| 
-  <code>jetty-web.xml</code>file]] in the webapp's 
-  <code>WEB-INF</code>directory.</para>//TODO: fix above xref 
+  <para>You can do this either in a [[Jetty/Feature/ContextDeployer|context XML deployment descriptor]] external to the
+  webapp, or in a [[Jetty/Reference/jetty-web.xml| <code>jetty-web.xml</code> file]] in the webapp's <code>
+  WEB-INF</code> directory.</para>//TODO: fix above xref 
   <para>In either case the syntax of the XML file is the same:</para>
   <informalexample>
     <programlisting language="xml">
@@ -42,8 +36,7 @@ ContextHandler.setMaxFormContentSize(int maxSize);
   </informalexample></section>
   <section>
     <title>Changing the Maximum Form Size for All Apps on a Server</title>
-    <para>Set an attribute on the Server instance for which you want to modify
-    the maximum form content size:</para>
+    <para>Set an attribute on the Server instance for which you want to modify the maximum form content size:</para>
     <informalexample>
       <programlisting language="xml">
 <![CDATA[
@@ -59,7 +52,6 @@ ContextHandler.setMaxFormContentSize(int maxSize);
   </section>
   <section>
     <title>Changing the Maximum Form Size for All Apps in the JVM</title>
-    <para>Use the system property
-    "org.eclipse.jetty.server.Request.maxFormContentSize".</para>
+    <para>Use the system property "org.eclipse.jetty.server.Request.maxFormContentSize".</para>
   </section>
 </section>

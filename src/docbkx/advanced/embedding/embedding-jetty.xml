@@ -1,57 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xml:id="embedding" version="5.0" xmlns="http://docbook.org/ns/docbook"
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-xmlns:xl="http://www.w3.org/1999/xlink"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xl="http://www.w3.org/1999/xlink"
 xmlns:xi="http://www.w3.org/2001/XInclude"
 xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd">
   <title>Embedding Jetty</title>
-  <para>Jetty has a slogan, "Don't deploy your application in Jetty, deploy
-  Jetty in your application." What this means is that as an alternative to
-  bundling your application as a standard WAR to be deployed in Jetty, Jetty is
-  designed to be a software component that can be instantiated and used in a
-  Java program just like any POJO. Put another way, running Jetty in embedded
-  mode means putting an HTTP module into your application, rather than putting
-  your application into an HTTP server.</para>
-  <para>This tutorial takes you step-by-step from the simplest Jetty server
-  instantiation to running multiple web applications with standards-based
-  deployment descriptors. The source for most of these examples is part of the
+  <para>Jetty has a slogan, "Don't deploy your application in Jetty, deploy Jetty in your application." What this means
+  is that as an alternative to bundling your application as a standard WAR to be deployed in Jetty, Jetty is designed
+  to be a software component that can be instantiated and used in a Java program just like any POJO. Put another way,
+  running Jetty in embedded mode means putting an HTTP module into your application, rather than putting your
+  application into an HTTP server.</para>
+  <para>This tutorial takes you step-by-step from the simplest Jetty server instantiation to running multiple web
+  applications with standards-based deployment descriptors. The source for most of these examples is part of the
   standard Jetty project.</para>
-  <para>This tutorial is also available as a Embedding Jetty Webinar
-  recording.</para>
+  <para>This tutorial is also available as a Embedding Jetty Webinar recording.</para>
   <section>
     <title>Overview</title>
     <para>To embed a Jetty server, the following steps are typical.</para>
     <procedure>
       <step>
         <title>Creating the Server</title>
-        <para>The following code from SimplestServer.java instantiates and runs
-        the simplest possible Jetty server:</para>
+        <para>The following code from SimplestServer.java instantiates and runs the simplest possible Jetty
+        server:</para>
         <informalexample>
           <programlisting language="rjava">
             <filename>
-            http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/plain/example-jetty-embedded/src/main/java/org/eclipse/jetty/embedded/SimplestServer.java</filename>
+            http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/plain/example-jetty-embedded/src/main/java/org/eclipse/jetty/embedded/SimplestServer.java</filename> 
 <!-- methodname>main</methodname-->
           </programlisting>
         </informalexample>
-        <para>This runs an HTTP server on port 8080. It is not a very useful
-        server as it has no handlers and thus returns a 404 error for every
-        request.</para>
+        <para>This runs an HTTP server on port 8080. It is not a very useful server as it has no handlers and thus
+        returns a 404 error for every request.</para>
       </step>
       <step>
         <title>Writing Handlers</title>
-        <para>To produce a response to a request, Jetty requires a Handler to
-        be set on the server. A handler may:</para>
+        <para>To produce a response to a request, Jetty requires a Handler to be set on the server. A handler
+        may:</para>
         <itemizedlist>
           <listitem>Examine/modify the HTTP request.</listitem>
           <listitem>Generate the complete HTTP response.</listitem>
           <listitem>Call another Handler (see HandlerWrapper).</listitem>
-          <listitem>Select one or many Handlers to call (see
-          HandlerCollection).</listitem>
+          <listitem>Select one or many Handlers to call (see HandlerCollection).</listitem>
         </itemizedlist>
         <section>
           <title>Hello World Handler</title>
-          <para>The following code based on HelloHandler.java shows a simple
-          hello world handler:</para>
+          <para>The following code based on HelloHandler.java shows a simple hello world handler:</para>
           <informalexample>
             <programlisting language="rjava">
               <filename>
@@ -60,34 +52,27 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
           </informalexample>
           <para>The parameters passed to the handle method are:</para>
           <itemizedlist>
-            <listitem>target - the target of the request, which is either a URI
-            or a name from a named dispatcher.</listitem>
-            <listitem>baseRequest - the Jetty mutable request object, which is
-            always unwrapped.</listitem>
-            <listitem>request - the immutable request object, which might have
-            been wrapped.</listitem>
-            <listitem>response - the response, which might have been
-            wrapped.</listitem>
+            <listitem>target - the target of the request, which is either a URI or a name from a named
+            dispatcher.</listitem>
+            <listitem>baseRequest - the Jetty mutable request object, which is always unwrapped.</listitem>
+            <listitem>request - the immutable request object, which might have been wrapped.</listitem>
+            <listitem>response - the response, which might have been wrapped.</listitem>
           </itemizedlist>
-          <para>The handler sets the response status, content-type and marks
-          the request as handled before it generates the body of the response
-          using a writer.</para>
-          <para>The following code from OneHandler.java shows how a Jetty
-          server can use this handler:</para>
+          <para>The handler sets the response status, content-type and marks the request as handled before it generates
+          the body of the response using a writer.</para>
+          <para>The following code from OneHandler.java shows how a Jetty server can use this handler:</para>
           <informalexample>
             <programlisting language="rjava">
               <filename>
-              http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/plain/example-jetty-embedded/src/main/java/org/eclipse/jetty/embedded/OneHandler.java</filename>
+              http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/plain/example-jetty-embedded/src/main/java/org/eclipse/jetty/embedded/OneHandler.java</filename> 
               <methodname>main</methodname>
             </programlisting>
           </informalexample>
-          <para>You now know everything you need to know to write an HTTP
-          server based on Jetty. However, complex request handling is typically
-          built from multiple Handlers. We will look in later sections at how
-          you can combine handlers like aspects. You can see some of the
-          handlers available in Jetty in the 
-          <link
-          xl:href="@JXURL@/org/eclipse/jetty/server/handler/package-summary.html">org.eclipse.jetty.server.handler</link>package.</para>
+          <para>You now know everything you need to know to write an HTTP server based on Jetty. However, complex
+          request handling is typically built from multiple Handlers. We will look in later sections at how you can
+          combine handlers like aspects. You can see some of the handlers available in Jetty in the <link
+          xl:href="@JXURL@/org/eclipse/jetty/server/handler/package-summary.html">
+          org.eclipse.jetty.server.handler</link> package.</para>
 <!--itemizedlist>
       <listitem>
         <para>Create the server</para>

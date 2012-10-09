@@ -4,9 +4,9 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xl="http://www.w3.or
 xmlns:xi="http://www.w3.org/2001/XInclude"
 xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd">
   <title>Configuring JNDI</title>
-  <para>Jetty supports <code>java:comp/env</code> &#160; lookups in web apps. This is an optional feature for which you
+  <para>Jetty supports <code>java:comp/env</code>  lookups in web apps. This is an optional feature for which you
   need to do some setup. However, if you are using the <link
-  xl:href="http://mvnrepository.com/artifact/org.mortbay.jetty/jetty-hightide">Hightide</link> &#160;distribution of
+  xl:href="http://mvnrepository.com/artifact/org.mortbay.jetty/jetty-hightide">Hightide</link> distribution of
   Jetty, this feature is already fully enabled, so you can skip any setup steps, and just read the sections on how to
   put objects into Jetty JNDI so that you can retrieve them at runtime.</para>
   <section xml:id="quick-setup">
@@ -77,8 +77,8 @@ etc/jetty-plus.xml
         </programlisting>
       </informalexample>
       <para>This augmented list of Configurations for JNDI is predefined for you in the <code>
-      etc/jetty-plus.xml</code> &#160; file.</para>
-      <para>To have jetty use <code>etc/jetty-plus.xml</code> &#160; and therefore to enable JNDI for all webapps, edit
+      etc/jetty-plus.xml</code>  file.</para>
+      <para>To have jetty use <code>etc/jetty-plus.xml</code>  and therefore to enable JNDI for all webapps, edit
       the <code>$JETTY_HOME/start.ini file</code>, and add the following line in the Configuration section near the
       bottom of the file:</para>
       <informalexample>

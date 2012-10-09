@@ -26,8 +26,8 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     </programlisting>
   </informalexample>
   <para>These examples assume that all of the datasources are declared at the JVM scope, but you can, of course, use
-  other scopes. You can configure all JNDI resources in a <filename>jetty.xml</filename> &#160;file or in a <filename>
-  WEB-INF/jetty-env.xml</filename> &#160;file, or a context XML file.</para>
+  other scopes. You can configure all JNDI resources in a <filename>jetty.xml</filename> file or in a <filename>
+  WEB-INF/jetty-env.xml</filename> file, or a context XML file.</para>
   <important>
     <para>You must provide jetty with the libraries necessary to instantiate the datasource you have configured by
     putting the corresponding jar in jetty_home/lib/ext.</para>

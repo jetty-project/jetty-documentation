@@ -18,7 +18,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
         busy sending as many requests as possible over each connection. This causes the measured throughput to be
         limited by request latency (see <link
         xl:href="http://blogs.webtide.com/gregw/entry/lies_damned_lies_and_benchmarks&quot;">Lies, Damned Lies and
-        Benchmarks</link> &#160;for an analysis of such an issue).</listitem>
+        Benchmarks</link> for an analysis of such an issue).</listitem>
       </varlistentry>
       <varlistentry>
         <listitem>Another common mistake is to use TCP/IP for a single request, and to open many, many short-lived
@@ -46,7 +46,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     <section>
       <title>Linux</title>
       <para>Linux does a reasonable job of self-configuring TCP/IP, but there are a few limits and defaults that you
-      should increase. You can configure most of them in <filename>/etc/security/limits.conf</filename> &#160;or via
+      should increase. You can configure most of them in <filename>/etc/security/limits.conf</filename> or via
       <code>sysctl</code> .</para>
       <section>
         <title>TCP Buffer Sizes</title>
@@ -63,7 +63,7 @@ $ sysctl -w net.ipv4.tcp_wmem="4096 16384 16777216"
       </section>
       <section>
         <title>Queue Sizes</title>
-        <para><code>net.core.somaxconn</code> &#160;controls the size of the connection listening queue. The default
+        <para><code>net.core.somaxconn</code> controls the size of the connection listening queue. The default
         value is 128; if you are running a high-volume server and connections are getting refused at a TCP level, you
         need to increase this. This is a very tweakable setting in such a case: if you set it too high, resource
         problems occur as it tries to notify a server of a large number of connections, and many remain pending, but if
@@ -73,7 +73,7 @@ $ sysctl -w net.ipv4.tcp_wmem="4096 16384 16777216"
  $ sysctl -w net.core.somaxconn=4096
  ]]>
         </screen>
-        <para>The <code>net.core.netdev_max_backlog</code> &#160;controls the size of the incoming packet queue for
+        <para>The <code>net.core.netdev_max_backlog</code> controls the size of the incoming packet queue for
         upper-layer (java) processing. The default (2048) may be increased and other related parameters (TODO MORE
         EXPLANATION) adjusted with:</para>
         <screen>

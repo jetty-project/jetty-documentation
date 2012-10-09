@@ -5,7 +5,7 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xmlns:xl="http://www.w3.org/1999/xlink"
 xmlns:xi="http://www.w3.org/2001/XInclude"
 xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd">
-  <title>Configuring the Jetty Maven Plugin</title>
+  <title>Configuring WebSockets</title>
   <para>
 The <link xl:href="http://en.wikipedia.org/wiki/WebSockets">
   WebSockets</link>&#160; protocol and API is an emerging standard that seeks to provide high-quality, bidirectional communication between a browser (or other web client) and a server. The goal is to eventually replace Comet techniques like long polling. Jetty has supported the various WebSocket drafts in the 7.x and 8.x releases.</para>  

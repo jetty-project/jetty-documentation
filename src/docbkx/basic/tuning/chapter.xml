@@ -5,14 +5,14 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xmlns:xl="http://www.w3.org/1999/xlink"
 xmlns:xi="http://www.w3.org/2001/XInclude"
 xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd">
-  <title>Optimizing Topics</title>
+  <title>Optimizing Jetty</title>
   <section>
-    <para>There are many different aspects to optimizing jetty and they very
-    greatly depending on the situation. Are you trying to optimize for number
+    <para>There are many ways to optimize Jetty, which vary
+    depending on the situation. Are you trying to optimize for number
     of requests within a given amount of time? Are you trying to optimize the
     serving of static content? Do you have a large bit of hardware that you
-    want to give entirely over to jetty to use to its hearts delight? Here are
-    a few of the many different ways to optimize jetty.</para>
+    want to give entirely over to Jetty to use to its heart's delight? Here are
+    a few of the many different ways to optimize Jetty.</para>
   </section>
   <xi:include href="garbage-collection.xml"></xi:include>
   <xi:include href="high-load.xml"></xi:include>

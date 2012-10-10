@@ -4,11 +4,11 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xl="http://www.w3.or
 xmlns:xi="http://www.w3.org/2001/XInclude"
 xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd">
   <title>Configuring JNDI</title>
-  <para>Jetty supports <code>java:comp/env</code>  lookups in web apps. This is an optional feature for which you
-  need to do some setup. However, if you are using the <link
-  xl:href="http://mvnrepository.com/artifact/org.mortbay.jetty/jetty-hightide">Hightide</link> distribution of
-  Jetty, this feature is already fully enabled, so you can skip any setup steps, and just read the sections on how to
-  put objects into Jetty JNDI so that you can retrieve them at runtime.</para>
+  <para>Jetty supports <code>java:comp/env</code> lookups in web apps. This is an optional feature for which you need
+  to do some setup. However, if you are using the <link
+  xl:href="http://mvnrepository.com/artifact/org.mortbay.jetty/jetty-hightide">Hightide</link> distribution of Jetty,
+  this feature is already fully enabled, so you can skip any setup steps, and just read the sections on how to put
+  objects into Jetty JNDI so that you can retrieve them at runtime.</para>
   <section xml:id="quick-setup">
     <title>Quick Setup</title>
     <para>If you are using the standard distribution of jetty, and want to enable JNDI for all your webapps, complete
@@ -77,10 +77,10 @@ etc/jetty-plus.xml
         </programlisting>
       </informalexample>
       <para>This augmented list of Configurations for JNDI is predefined for you in the <code>
-      etc/jetty-plus.xml</code>  file.</para>
-      <para>To have jetty use <code>etc/jetty-plus.xml</code>  and therefore to enable JNDI for all webapps, edit
-      the <code>$JETTY_HOME/start.ini file</code>, and add the following line in the Configuration section near the
-      bottom of the file:</para>
+      etc/jetty-plus.xml</code> file.</para>
+      <para>To have jetty use <code>etc/jetty-plus.xml</code> and therefore to enable JNDI for all webapps, edit the
+      <code>$JETTY_HOME/start.ini file</code>, and add the following line in the Configuration section near the bottom
+      of the file:</para>
       <informalexample>
         <programlisting language="bash">
 <![CDATA[

@@ -37,33 +37,33 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
   </informalexample>
   <para>This works as follows:</para>
   <itemizedlist>
-    <listitem>The <code>WebAppProvider</code> is added to the server as a <emphasis>LifeCycle</emphasis> . This simply
+    <listitem><para>The <code>WebAppProvider</code> is added to the server as a <emphasis>LifeCycle</emphasis> . This simply
     means that the deployer starts and stops with the server, that is, when <code>server.start()</code> is called,
-    <code>start</code> is also called on the deployer.</listitem>
-    <listitem>The <emphasis>context</emphasis> passed in is a reference to a <code>HandlerContainer</code> in which the
+    <code>start</code> is also called on the deployer</para></listitem>
+    <listitem><para>The <emphasis>context</emphasis> passed in is a reference to a <code>HandlerContainer</code> in which the
     discovered webapps are deployed. This is normally an instance of <link
     xl:href="@JDURL@index.html?org/eclipse/jetty/server/handler/ContextHandlerCollection.html">
-    ContextHandlerCollection</link> .</listitem>
-    <listitem>The <code>contextXmlDir</code> points to a directory like the one the <code>ContextProvider</code> uses.
+    ContextHandlerCollection</link>.</para></listitem>
+    <listitem><para>The <code>contextXmlDir</code> points to a directory like the one the <code>ContextProvider</code> uses.
     When you use this option the <code>WebappProvider</code> checks any webapp or WAR files in the monitored directory
     for an associated context file. If it finds one, it defers to the <code>ContextProvider</code> to deploy the
-    webapp. If it does not find a context file, the <code>WebAppProvider</code> deploys the webapp.</listitem>
-    <listitem>The <code>monitoredDirName</code> is a file path or URL to the directory to scan for web applications.
+    webapp. If it does not find a context file, the <code>WebAppProvider</code> deploys the webapp.</para></listitem>
+    <listitem><para>The <code>monitoredDirName</code> is a file path or URL to the directory to scan for web applications.
     Zip files ending with <filename>.war</filename> or <filename>.zip</filename> are deployed. Directories not called
     CVS are also deployed. The basename of the WAR (for example, <emphasis>foo</emphasis> from <filename>
     foo.war</filename> ) or the directory name are used as the context path of the discovered webapps, unless the name
-    is <emphasis>root</emphasis>, in which case the context path of / is used.</listitem>
-    <listitem>The <code>parentLoaderPriority</code> parameter is a boolean that selects whether the standard Java
+    is <emphasis>root</emphasis>, in which case the context path of / is used.</para></listitem>
+    <listitem><para>The <code>parentLoaderPriority</code> parameter is a boolean that selects whether the standard Java
     parent first delegation [[Jetty/Reference/Jetty_Classloading|classloading]] // TODO URL xref / /is used or the
-    servlet specification webapp classloading priority.</listitem>
-    <listitem>If the <emphasis>extract</emphasis> parameter is true, any packed WAR or zip files are first extracted to
+    servlet specification webapp classloading priority.</para></listitem>
+    <listitem><para>If the <emphasis>extract</emphasis> parameter is true, any packed WAR or zip files are first extracted to
     a [[Jetty/Reference/Temporary_Directories|temporary directory]] //TODO xref// before being deployed. This is
-    advisable if there are uncompiled JSPs in the web apps.</listitem>
-    <listitem>If the <emphasis>allowDuplicates</emphasis> parameter is false, the discovered webapps are checked
+    advisable if there are uncompiled JSPs in the web apps.</para></listitem>
+    <listitem><para>If the <emphasis>allowDuplicates</emphasis> parameter is false, the discovered webapps are checked
     against existing deployed webapps and are not deployed if the same context path or WAR file is already deployed
-    (perhaps by another deployer).</listitem>
-    <listitem>The <emphasis>defaultsDescriptor</emphasis> parameter allows you to set an alternative <filename>
+    (perhaps by another deployer).</para></listitem>
+    <listitem><para>The <emphasis>defaultsDescriptor</emphasis> parameter allows you to set an alternative <filename>
     webdefault.xml</filename> config file on the discovered web applications. The <code>webdefault.xml</code> file
-    controls the configuration of the JSP and Default servlets.</listitem>
+    controls the configuration of the JSP and Default servlets.</para></listitem>
   </itemizedlist>
 </section>

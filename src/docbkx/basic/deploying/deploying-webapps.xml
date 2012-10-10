@@ -34,8 +34,8 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     <para>Once it detects the web application, Jetty deploys it in the following manner:</para>
     <itemizedlist>
       <listitem><para>It deploys the file <filename>foo.war</filename> as a webapp at context <filename>
-      /foo</filename> .</para></listitem>
-      <listitem><para>It deploys the directory <filename>foo/</filename> at context <filename>/foo</filename> . If the
+      /foo</filename>.</para></listitem>
+      <listitem><para>It deploys the directory <filename>foo/</filename> at context <filename>/foo</filename>. If the
       directory has a <filename>WEB-INF</filename> subdirectory, Jetty treats it as a servlet webapp, otherwise Jetty
       serves it only as static content.</para></listitem>
       <listitem><para>If both a <filename>foo.war</filename> and a <filename>foo/</filename> directory exist, Jetty uses the
@@ -167,7 +167,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
         </programlisting>
       </informalexample>
       <para>The next example configures not only the web application context, but also a database connection pool (see
-      [[Jetty/Howto/Configure_JNDI_Datasource|Configure JNDI Datasource]] //TODO xref//) that our application can then
+      <xref linkedn="jndi-datasource-examples" /> that our application can then
       use. If the <filename>web.xml</filename> does not include a reference to this data source, you can use the
       override descriptor mechanism (the previous example), to include it.</para>
       <informalexample>
@@ -200,10 +200,10 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     <section>
       <title>Jetty Maven Plugin</title>
       <para>If you develop your web application as a Maven project, you can deploy it in Jetty with <filename>mvn
-      jetty:run</filename>, using the [[Jetty/Feature/Jetty_Maven_Plugin|Jetty Maven Plugin]]. //TODO xref//</para>
+      jetty:run</filename>, using the <xref linkend="jetty-maven-plugin" />.</para>
       <para>Maven lets you build your web applications by overlaying on other template web applications (for example,
-      <link xl:href="http://docs.cometd.org/reference/#primer">CometD</link> ) and manages the transitive dependencies
-      needed to populate <code>WEB-INF/lib</code> .</para>
+      <link xl:href="http://docs.cometd.org/reference/#primer">CometD</link>) and manages the transitive dependencies
+      needed to populate <code>WEB-INF/lib</code>.</para>
     </section>
     <section xml:id="using-OSGi-web-application-bundle">
       <title>Using the OSGi Web Application Bundle</title>
@@ -212,8 +212,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     <section xml:id="using-embedded-jetty">
       <title>Using Embedded Jetty</title>
       <para>You can also deploy web applications into embedded Jetty, either via direct configuration or via
-      configuration of a deployer. For an example see the [[Jetty/Tutorial/Embedding_Jetty|Embedding Jetty Tutorial]].
-      //TODO xref//</para>
+      configuration of a deployer. For an example see <xref linkend="embedding" />.</para>
     </section>
   </section>
 </section>

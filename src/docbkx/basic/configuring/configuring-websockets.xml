@@ -4,10 +4,10 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xl="http://www.w3.or
 xmlns:xi="http://www.w3.org/2001/XInclude"
 xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd">
   <title>Configuring WebSockets</title>
-  <para>The <link xl:href="http://en.wikipedia.org/wiki/WebSockets">WebSockets</link>  protocol and API is an
-  emerging standard that seeks to provide high-quality, bidirectional communication between a browser (or other web
-  client) and a server. The goal is to eventually replace Comet techniques like long polling. Jetty has supported the
-  various WebSocket drafts in the 7.x and 8.x releases.</para>
+  <para>The <link xl:href="http://en.wikipedia.org/wiki/WebSockets">WebSockets</link> protocol and API is an emerging
+  standard that seeks to provide high-quality, bidirectional communication between a browser (or other web client) and
+  a server. The goal is to eventually replace Comet techniques like long polling. Jetty has supported the various
+  WebSocket drafts in the 7.x and 8.x releases.</para>
   <section xml:id="you-do-not-want-to-do-this">
     <title>You don&#8217;t want to do this!</title>
     <para>This document shows you how to use WebSockets from the levels closest to the machine; it targets framework
@@ -192,9 +192,9 @@ _onmessage: function(m) {
     <title>Understanding How the Server Works</title>
     <para>The <link
     xl:href="http://dev.eclipse.org/svnroot/rt/org.eclipse.jetty/jetty/tags/jetty-7.4.0.v20110414/jetty-websocket/src/main/java/org/eclipse/jetty/websocket/">TestServer.java
-    server side code</link> for this chat room uses an embedded Jetty server and is written against the Jetty
-    WebSocket APIs that are not part of the WebSocket standard. There is not yet even a proposed standard for
-    serverside WebSocket APIs, but it is a topic for consideration with the servlet 3.1 JSR.</para>
+    server side code</link> for this chat room uses an embedded Jetty server and is written against the Jetty WebSocket
+    APIs that are not part of the WebSocket standard. There is not yet even a proposed standard for serverside
+    WebSocket APIs, but it is a topic for consideration with the servlet 3.1 JSR.</para>
     <para>The test server is an extension of an <link xl:href="http://wiki.eclipse.org/Jetty/Tutorial/Embedding_Jetty">
     embedded Jetty server</link>, and the constructor adds a <link
     xl:href="http://download.eclipse.org/jetty/7.4.0.v20110414/xref/org/eclipse/jetty/server/nio/SelectChannelConnector.html">connector</link> at
@@ -262,13 +262,13 @@ _wsHandler = new WebSocketHandler()
     </informalexample>
     <para>A simplification of the test <link
     xl:href="http://download.eclipse.org/jetty/7.4.0.v20110414/xref/org/eclipse/jetty/websocket/WebSocket.html">
-    WebSocket</link> from the test server follows. It excludes the shared code for the other protocols supported.
-    Like the Javascript API, there is an <code>onOpen, onClose</code> and <code>onMessage</code> callback. The <code>
+    WebSocket</link> from the test server follows. It excludes the shared code for the other protocols supported. Like
+    the Javascript API, there is an <code>onOpen, onClose</code> and <code>onMessage</code> callback. The <code>
     onOpen</code> callback is passed in a <link
     xl:href="http://download.eclipse.org/jetty/7.4.0.v20110414/xref/org/eclipse/jetty/websocket/WebSocket.html#107">
-    Connection</link> instance that sends messages. The implementation of <code>onOpen</code> adds the WebSocket
-    to a collection of all known WebSockets, and <code>onClose</code> removes the WebSocket. The implementation of
-    <code>onMessage</code> is to simply iterate through that collection and to send the received message to each
+    Connection</link> instance that sends messages. The implementation of <code>onOpen</code> adds the WebSocket to a
+    collection of all known WebSockets, and <code>onClose</code> removes the WebSocket. The implementation of <code>
+    onMessage</code> is to simply iterate through that collection and to send the received message to each
     WebSocket:</para>
     <informalexample>
       <programlisting language="java">
@@ -312,13 +312,13 @@ class TestEchoBroadcastWebSocket implements WebSocket.OnTextMessage
     <title>Don&#8217;t do it this way!</title>
     <para>Now you know the basics of how WebSockets work, we repeat the warning that you should not do it this
     way&#8211;unless you are a framework developer. Even then, you probably want to use the <link
-    xl:href="@JDURL@/org/eclipse/jetty/websocket/WebSocketServlet.html">WebSocketServlet</link> and a non
-    embedded Jetty, but the basic concepts are the same. The strength of the Jetty solution is that it terminates both
-    WebSocket connections and HTTP requests in the same environment, so that mixed frameworks and applications are easy
-    to create.</para>
+    xl:href="@JDURL@/org/eclipse/jetty/websocket/WebSocketServlet.html">WebSocketServlet</link> and a non embedded
+    Jetty, but the basic concepts are the same. The strength of the Jetty solution is that it terminates both WebSocket
+    connections and HTTP requests in the same environment, so that mixed frameworks and applications are easy to
+    create.</para>
     <para>Application developers should really look to a framework like <link xl:href="http://cometd.org">
-    Cometd</link> rather than directly coding to WebSockets themselves. It is not that the mechanics of
-    WebSockets are hard, just that they don&#8217;t solve all of the problems that you encounter in a real world Comet
+    Cometd</link> rather than directly coding to WebSockets themselves. It is not that the mechanics of WebSockets are
+    hard, just that they don&#8217;t solve all of the problems that you encounter in a real world Comet
     application.</para>
   </section>
   <section xml:id="additional-resources">

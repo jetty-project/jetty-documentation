@@ -139,42 +139,42 @@ foo = /funkyapp
       <code>ContextHandler</code>
     </link> or its derived classes to configure the web application. Useful things to configure include:</para>
     <itemizedlist>
-      <listitem>
+      <listitem><para>
         <code>setAttribute</code>
-      </listitem>
-      <listitem>
+      </para></listitem>
+      <listitem><para>
         <code>setClassLoader</code>
-      </listitem>
-      <listitem>
+      </para></listitem>
+      <listitem><para>
         <code>setContextPath</code>
-      </listitem>
-      <listitem>
+      </para></listitem>
+      <listitem><para>
         <code>setVirtualHosts</code>
-      </listitem>
-      <listitem>
+      </para></listitem>
+      <listitem><para>
         <code>addServlet</code>
-      </listitem>
-      <listitem>
+      </para></listitem>
+      <listitem><para>
         <code>setConfigurations</code>
-      </listitem>
-      <listitem>
+      </para></listitem>
+      <listitem><para>
         <code>setExtraClassPath</code>
-      </listitem>
-      <listitem>
+      </para></listitem>
+      <listitem><para>
         <code>setDefaultsDescriptor</code>
-      </listitem>
-      <listitem>
+      </para></listitem>
+      <listitem><para>
         <code>setDescriptor</code>
-      </listitem>
-      <listitem>
+      </para></listitem>
+      <listitem><para>
         <code>setOverrideDescriptor</code>
-      </listitem>
-      <listitem>
+      </para></listitem>
+      <listitem><para>
         <code>setSystemClasses</code>
-      </listitem>
-      <listitem>
+      </para></listitem>
+      <listitem><para>
         <code>setServerClasses</code>
-      </listitem>
+      </para></listitem>
     </itemizedlist>
   </section>
 </section>

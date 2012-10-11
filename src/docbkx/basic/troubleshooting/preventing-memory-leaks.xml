@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<section xml:id="preventing-memory-leaks" version="5.0" xmlns="http://docbook.org/ns/docbook"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xl="http://www.w3.org/1999/xlink"
+xmlns:xi="http://www.w3.org/2001/XInclude"
+xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd">
+  <title>Preventing Memory Leaks</title>
+  <para>If you have thoroughly investigated tools like jconsole, yourkit, jprofiler, jvisualvm or any of the other profiling and analysis tools, and you can eliminate your code as the source of the problem, read the following sections about how to prevent memory leaks in your application.</para>
+  <section xml:id="preventing-webapp-classloader-pinning">
+<title>Preventing WebApp Classloader Pinning</title>
+<tip>This feature is available for Jetty 7.6.6 and later.</tip>
+<para>Code that keeps references to a webapp classloader can cause memory leaks. These leaks fall generally into two categories: static fields and daemon threads.</para>
+<itemizedlist>
+<listitem><para>A static field is initialized with the value of the classloader, which happens to be a webapp classloader; as Jetty undeploys and redeploys the webapp, the static reference lives on, meaning garbage collecting cannot occur for the webapp classloader.</para></listitem>
+<listitem><para> The latter case occurs when Jetty starts as a daemon thread and is outside the lifecycle of the webapp; threads have references to the context classloader that created them, leading to a memory leak if that classloader belongs to a webapp. For a good discussion of the issue see <link xl:href="http://cdivilly.wordpress.com/tag/sun-awt-appcontext/">Anatomy of a PermGen Memory Leak</link>.</para></listitem>
+</itemizedlist>
+<para>
+We provide a number of <link xl:href="@JDURL@//org/eclipse/jetty/util/preventers/package-summary.html">workaround classes</link> that preemptively invoke the problematic code with the Jetty classloader, thereby ensuring the webapp classloader is not pinned. Be aware that since some of the problematic code creates threads, you should be selective about which preventers you enable, and only use those that are specific to your application.</para>
+<section xml:id="preventers-table">
+<title>Preventers</title>
+<para>Jetty includes the following preventers.</para>
+<informaltable>
+    <tgroup cols="2">
+      <thead>
+        <row>
+          <entry align="left">Name</entry>
+          <entry align="left">Problem Addressed</entry>
+        </row>
+      </thead>
+      <tbody>
+        <row>
+          <entry>AppContextLeakPreventer</entry>
+          <entry>The call to <code>AppContext.getAppContext()</code> keeps a static reference to the context classloader. The JRE can invoke AppContext in many different places.</entry>
+        </row>
+        <row>
+          <entry>AWTLeakPreventer</entry>
+          <entry>The <code>java.awt.Toolkit</code> class has a static field that is the default toolkit. Creating the default toolkit causes the creation of an <code>EventQueue</code>, which has a classloader field initialized with the thread context class loader. See <link xl:href="https://issues.jboss.org/browse/AS7-3733">JBoss AS7-3733.</link></entry>
+        </row>     
+        <row>
+          <entry>DOMLeakPreventer</entry>
+          <entry>DOM parsing can cause the webapp classloader to be pinned, due to the static field <code>RuntimeException</code> of <code>com.sun.org.apache.xerces.internal.parsers.AbstractDOMParser</code>. The bug report at <link xl:href="http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=6916498">Oracle Bug ID 6916498</link> specifically mentions that a heap dump might not identify the GCRoot as the uncollected loader, making it difficult to identify the cause of the leak.</entry>
+        </row>     
+        <row>
+          <entry>DriverManagerLeakPreventer</entry>
+          <entry>The number of threads dedicated to accepting incoming connections.</entry>
+        </row>     
+        <row>
+          <entry>GCThreadLeakPreventer</entry>
+          <entry>Calls to <code>sun.misc.GC.requestLatency</code> create a daemon thread that keeps a reference to the context classloader. A known caller of this method is the RMI impl. See <link xl:href="http://stackoverflow.com/questions/6626680/does-java-garbage-collection-log-entry-full-gc-system-mean-some-class-called">Stackoverflow: Does java garbage collection log entry 'Full GC system' mean some class called System.gc()?</link></entry>
+        </row>  
+        <row>
+          <entry>Java2DLeakPreventer</entry>
+          <entry><code>sun.java2d.Disposer</code> keeps a reference to the classloader. See <link xl:href="https://issues.apache.org/bugzilla/show_bug.cgi?id=51687">ASF Bug 51687</link></entry>
+        </row>             
+        <row>
+          <entry>LDAPLeakPreventer</entry>
+          <entry>If <code>com.sun.jndi.LdapPoolManager</code> class is loaded and the system property <code>com.sun.jndi.ldap.connect.pool.timeout</code> is set to a nonzero value, a daemon thread starts and keeps a reference to the context classloader.</entry>
+        </row>   
+        <row>
+          <entry>LoginConfigurationLeakPreventer</entry>
+          <entry>The <code>javax.security.auth.login.Configuration</code> class keeps a static reference to the thread context classloader.</entry>
+        </row>         
+        <row>
+          <entry>SecurityProviderLeakPreventer</entry>
+          <entry>Some security providers, such as <code>sun.security.pkcs11.SunPKCS11</code> start a deamon thread that traps the thread context classloader.</entry>
+        </row>                              
+      </tbody>
+    </tgroup>
+  </informaltable>
+</section>
+<section xml:id="configuring-preventers">
+<title>Configuring Preventers</title>
+<para>
+You can individually enable each preventer by adding an instance to a Server with the <code>addBean(Object)</code> call. Here's an example of how to do it in code with the <code>org.eclipse.jetty.util.preventers.AppContextLeakPreventer</code>:</para>
+    <informalexample>
+      <programlisting language="java">
+<![CDATA[
+Server server = new Server();
+server.addBean(new AppContextLeakPreventer());
+]]>
+      </programlisting>
+    </informalexample>
+<para>
+You can add the equivalent in code to the <code>$JETTY_HOME/etc/jetty.xml</code> file or any jetty xml file that is configuring a Server instance. Be aware however, if you have more than one Server instance in your jvm, configure these preventers on just <emphasis>one</emphasis> of them. Here's the example from code put into xml:</para>
+<informalexample>
+      <programlisting language="xml">
+<![CDATA[
+<Configure id="Server" class="org.eclipse.jetty.server.Server">
+
+   <Call name="addBean">
+    <Arg>
+      <New class="org.eclipse.jetty.util.preventers.AppContextLeakPreventer"/>
+    </Arg>
+   </Call>
+
+</Configure>
+]]>
+      </programlisting>
+    </informalexample>
+</section>
+</section>
+<section xml:id="jsp-bugs">
+<title>JSP bugs: Permgen problems</title>
+<para>
+The JSP engine in Jetty is Jasper. This was originally developed under the Apache Tomcat project, but over time many different project have forked it. All Jetty versions up to 6 used Apache-based Jasper exclusively, with Jetty 6 using Apache Jasper only for JSP2.0. With the advent of JSP 2.1, Jetty 6 switched to using Jasper from Sun's <link xl:href="https://glassfish.java.net/">Glassfish</link> project, which is now the reference implementation.</para>
+<para>
+All forks of Jasper suffer from a problem whereby using jsp tag files puts the permgen space under pressure. This is because of the classloading architecture of the jsp implementation. Each jsp file is effectively compiled and its class loaded in its own classloader to allow for hot replacement. Each jsp that contains references to a tag file compiles the tag if necessary and then loads it using its own classloader. If you have many jsps that refer to the same tag file, the tag's class is loaded over and over again into permgen space, once for each jsp. See <link xl:herf="http://java.net/jira/browse/GLASSFISH-3963"> Glassfish bug 3963</link>, and <link xl:href="https://issues.apache.org/bugzilla/show_bug.cgi?id=43878">Apache bug 43878</link>. The Apache Tomcat project has already closed this bug with status WON'T FIX, however the Glassfish folks still have the bug open and have scheduled it to be fixed. When the fix becomes available, the Jetty project will pick it up and incorporate into our release program.</para>
+</section>
+<section xml:id="jvm-bugs">
+<title>JVM bugs</title>
+<para>This section describes garbage collection and direct ByteBuffer problems.</para>
+<section xml:id="jvm-garbage-collection-problems">
+<title>Garbage Collection Problems</title>
+<para>
+One symptom of a cluster of jvm related memory issues is the OOM exception accompanied by a message such as <code>java.lang.OutOfMemoryError: requested xxxx bytes for xxx. Out of swap space?</code>.</para>
+<para>
+Oracle bug <link xl:href="http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=4697804">4697804</link> describes how this can happen in the scenario when the garbage collector needs to allocate a bit more space during its run and tries to resize the heap, but fails because the machine is out of swap space. One suggested work around is to ensure that the jvm never tries to resize the heap, by setting min heap size to max heap size:</para>
+<informalexample>
+      <programlisting language="text">
+<![CDATA[
+java -Xmx1024m -Xms1024m
+]]>
+      </programlisting>
+    </informalexample>
+    <para>
+Another workaround is to ensure you have configured sufficient swap space on your device to accommodate all programs you are running concurrently.</para>
+</section>
+<section xml:id="direct-byte-buffers">
+<title>Direct ByteBuffers</title>
+<para>
+Exhausting native memory is another issue related to jvm bugs. The symptoms to look out for are the process size growing, but heap use remaining relatively constant. Both the JIT compiler and nio ByteBuffers can consume native memory. Oracle bug <link xl:href="http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=6210541"> 6210541</link> discusses a still-unsolved problem whereby the jvm itself allocates a direct ByteBuffer in some circumstances while the system never garbage collects, effectively eating native memory. Guy Korland's blog discusses this problem <link xl:href="http://www.jroller.com/gkorland/entry/java_s_memory_isn_t">here</link> and <link xl:href="http://www.jroller.com/gkorland/entry/java_s_memory_managment_is">here</link>. As the JIT compiler consumes native memory, the lack of available memory may manifest itself in the JIT as OutOfMemory exceptions such as <code>Exception in thread "CompilerThread0" java.lang.OutOfMemoryError: requested xxx bytes for ChunkPool::allocate. Out of swap space?</code>.</para>
+<para>
+By default, Jetty allocates and manages its own pool of direct ByteBuffers for io if you configure the nio SelectChannelConnector. It also allocates MappedByteBuffers to memory-map static files via the DefaultServlet settings. However, you could be vulnerable to this jvm ByteBuffer allocation problem if you have disabled either of these options. For example, if you're on Windows, you may have disabled the use of memory-mapped buffers for the static file cache on the DefaultServlet to avoid the file-locking problem.</para>
+</section>
+</section>
+</section>

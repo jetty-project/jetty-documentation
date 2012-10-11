@@ -8,18 +8,27 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
   the DeploymentManager.</para>
   <para>There are a handful of bindings that exist within the core distribution of jetty:</para>
   <itemizedlist>
-    <listitem><para><code>StandardDeployer</code> (deploying)&#8211;Standard binding that deals with deploying a
-    webapp.</para></listitem>
-    <listitem><para><code>StandardStarter</code> (starting)&#8211;Standard binding that deals with starting a
-    webapp.</para></listitem>
-    <listitem><para><code>StandardStopper</code> (stopping)&#8211;Standard binding that deals with stopping a
-    webapp.</para></listitem>
-    <listitem><para><code>StandardUndeployer</code> (undeploying)&#8211;Standard undeployer that deals with undeploying a
-    webapp.</para></listitem>
-    <listitem><para><code>DebugBinding</code> (any specified)&#8211;Attaches a binding and prints logging information of a
-    context going through the specified binding target.</para></listitem>
-    <listitem><para><code>GlobalWebappConfigBinding</code> (deploying)&#8211;Allows the user to override various settings of
-    a webapp's context globally for all contexts.</para></listitem>
+    <listitem>
+      <para><code>StandardDeployer</code> (deploying)&#8211;Standard binding that deals with deploying a webapp.</para>
+    </listitem>
+    <listitem>
+      <para><code>StandardStarter</code> (starting)&#8211;Standard binding that deals with starting a webapp.</para>
+    </listitem>
+    <listitem>
+      <para><code>StandardStopper</code> (stopping)&#8211;Standard binding that deals with stopping a webapp.</para>
+    </listitem>
+    <listitem>
+      <para><code>StandardUndeployer</code> (undeploying)&#8211;Standard undeployer that deals with undeploying a
+      webapp.</para>
+    </listitem>
+    <listitem>
+      <para><code>DebugBinding</code> (any specified)&#8211;Attaches a binding and prints logging information of a
+      context going through the specified binding target.</para>
+    </listitem>
+    <listitem>
+      <para><code>GlobalWebappConfigBinding</code> (deploying)&#8211;Allows the user to override various settings of a
+      webapp's context globally for all contexts.</para>
+    </listitem>
     <informalexample>
       <programlisting language="xml">
 <![CDATA[
@@ -34,7 +43,9 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
 ]]>
       </programlisting>
     </informalexample>
-    <listitem><para>OrderedGroupBinding (any specified)&#8211;Allows the user to set a specific order for bindings to process
-    in a given binding target.</para></listitem>
+    <listitem>
+      <para>OrderedGroupBinding (any specified)&#8211;Allows the user to set a specific order for bindings to process
+      in a given binding target.</para>
+    </listitem>
   </itemizedlist>
 </section>

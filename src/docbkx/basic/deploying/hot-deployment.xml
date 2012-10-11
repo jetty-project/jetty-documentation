@@ -55,7 +55,11 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
 ]]>
     </programlisting>
   </informalexample>
-  <para>See <xref linkend="using-context-provider" /> for more information. Previously, Jetty implemented this feature
-  via a ContextDeployer and WebappDeployer, which have both been deprecated.</para>
-  <para>See also <xref linkend= "using-deployment-manager" /> for detailed conceptual information.</para>
+  <para>See 
+  <xref linkend="using-context-provider" />
+  for more information. Previously, Jetty implemented this feature via a ContextDeployer and WebappDeployer, which have
+  both been deprecated.</para>
+  <para>See also 
+  <xref linkend="using-deployment-manager" />
+  for detailed conceptual information.</para>
 </section>

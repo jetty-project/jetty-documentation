@@ -35,7 +35,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
         to the Application LifeCycle Graph for deployment into a context with the same name as the <code>
         *.war</code> file itself.&gt;</para>
       </listitem>
-      <listitem>&gt;
+      <listitem>&gt; 
       <para><link xl:href="@JDURL@/org/eclipse/jetty/deploy/providers/ContextProvider.html" ContextProvider="">
       </link> &#8211;monitors a directory for <filename>*.xml</filename> files, and using the Jetty XML configurator
       creates a ContextHandler (usually a <code>WebAppContext</code> ) for the Application LifeCycle

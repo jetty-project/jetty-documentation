@@ -19,7 +19,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     xl:href="@JDURL@/org/eclipse/jetty/deploy/providers/ContextProvider.html">
       <code>ContextProvider API</code>
     </link>
-<para> Using @JXURL@ to make a link to the <code>ContextProvider</code> xef:</para>
+<para> Using @JXURL@ to make a link to the <code>ContextProvider</code> xref:</para>
 <link
     xl:href="@JXURL@/org/eclipse/jetty/deploy/providers/ContextProvider.html">
       <code>ContextProvider xref</code>

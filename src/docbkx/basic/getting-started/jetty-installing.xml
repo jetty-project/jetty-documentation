@@ -31,12 +31,8 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
       </thead>
       <tbody>
         <row>
-          <entry>LICENSE-APACHE-2.0.TXT</entry>
-          <entry>license file for Jetty (Jetty 7 is dual-licensed)</entry>
-        </row>
-        <row>
-          <entry>LICENSE-ECLIPSE-1.0.HTML</entry>
-          <entry>license file for Jetty (Jetty 7 is dual-licensed)</entry>
+          <entry>license-eplv10-aslv20.html</entry>
+          <entry>license file for Jetty</entry>
         </row>
         <row>
           <entry>README.txt</entry>
@@ -47,24 +43,12 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
           <entry>Release Information</entry>
         </row>
         <row>
-          <entry>about.html</entry>
-          <entry>"About This Content" page from Eclipse</entry>
-        </row>
-        <row>
           <entry>bin</entry>
           <entry>utility shell scripts to help run Jetty on unix systems</entry>
         </row>
         <row>
-          <entry>contexts</entry>
-          <entry>hot deploy contexts directory</entry>
-        </row>
-        <row>
           <entry>etc</entry>
           <entry>directory for Jetty configuration files</entry>
-        </row>
-        <row>
-          <entry>javadoc</entry>
-          <entry>contains the javadoc</entry>
         </row>
         <row>
           <entry>lib</entry>
@@ -80,7 +64,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
         </row>
         <row>
           <entry>resources</entry>
-          <entry>directory containing additional resources for classpath</entry>
+          <entry>directory containing additional resources for classpath, activated via configuration</entry>
         </row>
         <row>
           <entry>start.ini</entry>
@@ -88,7 +72,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
         </row>
         <row>
           <entry>start.jar</entry>
-          <entry>jar which invokes jetty-7 (see also How to Run Jetty)</entry>
+          <entry>jar which invokes jetty (see also How to Run Jetty)</entry>
         </row>
         <row>
           <entry>webapps</entry>

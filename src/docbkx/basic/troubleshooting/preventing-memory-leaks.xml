@@ -4,9 +4,9 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xl="http://www.w3.or
 xmlns:xi="http://www.w3.org/2001/XInclude"
 xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd">
   <title>Preventing Memory Leaks</title>
-  <para>If you have memory leaks, and you have thoroughly investigated tools like jconsole, yourkit, jprofiler, jvisualvm or any of the other
-  profiling and analysis tools, and you can eliminate your code as the source of the problem, read the following
-  sections about how to prevent memory leaks in your application.</para>
+  <para>If you have memory leaks, and you have thoroughly investigated tools like jconsole, yourkit, jprofiler,
+  jvisualvm or any of the other profiling and analysis tools, and you can eliminate your code as the source of the
+  problem, read the following sections about how to prevent memory leaks in your application.</para>
   <section xml:id="preventing-webapp-classloader-pinning">
     <title>Preventing WebApp Classloader Pinning</title>
     <note>This feature is available for Jetty 7.6.6 and later.</note>
@@ -19,9 +19,10 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
         collecting cannot occur for the webapp classloader.</para>
       </listitem>
       <listitem>
-        <para>When Jetty starts as a daemon thread and is outside the lifecycle of the webapp, threads have references to the context classloader that created them, leading to a memory leak if that classloader belongs to a webapp. For a good discussion of the issue see <link
-        xl:href="http://cdivilly.wordpress.com/tag/sun-awt-appcontext/">Anatomy of a PermGen Memory
-        Leak.</link></para>
+        <para>When Jetty starts as a daemon thread and is outside the lifecycle of the webapp, threads have references
+        to the context classloader that created them, leading to a memory leak if that classloader belongs to a webapp.
+        For a good discussion of the issue see <link xl:href="http://cdivilly.wordpress.com/tag/sun-awt-appcontext/">
+        Anatomy of a PermGen Memory Leak.</link></para>
       </listitem>
     </itemizedlist>
     <para>We provide a number of <link xl:href="@JDURL@//org/eclipse/jetty/util/preventers/package-summary.html">
@@ -56,7 +57,10 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
             <row>
               <entry>DOMLeakPreventer</entry>
               <entry>DOM parsing can cause the webapp classloader to be pinned, due to the static field <code>
-              RuntimeException</code> of <code>com.sun.org.apache.xerces.internal.parsers.AbstractDOMParser.</code> <link xl:href="http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=6916498">Oracle bug 6916498</link> specifically mentions that a heap dump might not identify the GCRoot as the uncollected
+              RuntimeException</code> of <code>
+              com.sun.org.apache.xerces.internal.parsers.AbstractDOMParser.</code> <link
+              xl:href="http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=6916498">Oracle bug
+              6916498</link> specifically mentions that a heap dump might not identify the GCRoot as the uncollected
               loader, making it difficult to identify the cause of the leak.</entry>
             </row>
             <row>
@@ -110,8 +114,8 @@ server.addBean(new AppContextLeakPreventer());
         </programlisting>
       </informalexample>
       <para>You can add the equivalent in code to the <code>$JETTY_HOME/etc/jetty.xml</code> file or any jetty xml file
-      that is configuring a Server instance. Be aware that if you have more than one Server instance in your JVM, you should
-      configure these preventers on just <emphasis>one</emphasis> of them. Here's the example from code put into
+      that is configuring a Server instance. Be aware that if you have more than one Server instance in your JVM, you
+      should configure these preventers on just <emphasis>one</emphasis> of them. Here's the example from code put into
       xml:</para>
       <informalexample>
         <programlisting language="xml">
@@ -155,8 +159,8 @@ server.addBean(new AppContextLeakPreventer());
       <title>Garbage Collection Problems</title>
       <para>One symptom of a cluster of JVM related memory issues is the OOM exception accompanied by a message such as
       <code>java.lang.OutOfMemoryError: requested xxxx bytes for xxx. Out of swap space?</code> .</para>
-      <para><link xl:href="http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=4697804">
-      Oracle bug 4697804</link> describes how this can happen in the scenario when the garbage collector needs to allocate a bit
+      <para><link xl:href="http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=4697804">Oracle bug
+      4697804</link> describes how this can happen in the scenario when the garbage collector needs to allocate a bit
       more space during its run and tries to resize the heap, but fails because the machine is out of swap space. One
       suggested work around is to ensure that the JVM never tries to resize the heap, by setting min heap size to max
       heap size:</para>
@@ -174,14 +178,14 @@ java -Xmx1024m -Xms1024m
       <title>Direct ByteBuffers</title>
       <para>Exhausting native memory is another issue related to JVM bugs. The symptoms to look out for are the process
       size growing, but heap use remaining relatively constant. Both the JIT compiler and nio ByteBuffers can consume
-      native memory. <link xl:href="http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=6210541">
-      Oracle bug 6210541</link> discusses a still-unsolved problem whereby the JVM itself allocates a direct ByteBuffer in some
+      native memory. <link xl:href="http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=6210541">Oracle bug
+      6210541</link> discusses a still-unsolved problem whereby the JVM itself allocates a direct ByteBuffer in some
       circumstances while the system never garbage collects, effectively eating native memory. Guy Korland's blog
       discusses this problem <link xl:href="http://www.jroller.com/gkorland/entry/java_s_memory_isn_t">here</link> and
-      <link xl:href="http://www.jroller.com/gkorland/entry/java_s_memory_managment_is">here.</link> As the JIT
-      compiler consumes native memory, the lack of available memory may manifest itself in the JIT as OutOfMemory
-      exceptions such as <code>Exception in thread "CompilerThread0" java.lang.OutOfMemoryError: requested xxx bytes
-      for ChunkPool::allocate. Out of swap space?</code></para>
+      <link xl:href="http://www.jroller.com/gkorland/entry/java_s_memory_managment_is">here.</link> As the JIT compiler
+      consumes native memory, the lack of available memory may manifest itself in the JIT as OutOfMemory exceptions
+      such as <code>Exception in thread "CompilerThread0" java.lang.OutOfMemoryError: requested xxx bytes for
+      ChunkPool::allocate. Out of swap space?</code></para>
       <para>By default, Jetty allocates and manages its own pool of direct ByteBuffers for io if you configure the nio
       SelectChannelConnector. It also allocates MappedByteBuffers to memory-map static files via the DefaultServlet
       settings. However, you could be vulnerable to this JVM ByteBuffer allocation problem if you have disabled either

@@ -25,4 +25,14 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     <title>Testing the startup</title>
     <para>using browser to hit localhost, port,</para>
   </section>
+  <section>
+    <title>Additional Topics</title>
+    <para>
+      <itemizedList>
+        <listitem>
+          <para>link to start.jar option descriptions</para>
+        </listItem>
+      </itemizedList>
+    </para>
+  </section>
 </section>

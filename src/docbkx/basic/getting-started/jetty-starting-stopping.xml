@@ -7,32 +7,74 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
   <para></para>
   <section>
     <title>Starting Jetty</title>
-    <para>short description on starting, link to full jetty-start section</para>
-  </section>
-  <section>
-    <title>Stopping Jetty</title>
-    <para>how to stop, use stop port, etc</para>
-  </section>
-  <section>
-    <title>Restarting Jetty</title>
-    <para>restarting (with the script, maybe us in automatic startup section)</para>
-  </section>
-  <section>
-    <title>Automatic Startup</title>
-    <para>the start.sh script, adaption for env</para>
-  </section>
-  <section>
-    <title>Testing the startup</title>
-    <para>using browser to hit localhost, port,</para>
-  </section>
-  <section>
-    <title>Additional Topics</title>
-    <orderedlist>
-      <listitem>
-        <para>
-          <xref linkend="advanced-jetty-start" />
-        </para>
-      </listitem>
-    </orderedlist>
+    <para>Starting the jetty distribution is simple, providing you have nothing else runinng on port 8080 (the default
+    port that jetty start on) then all you need to run is:</para>
+    <para>
+      <code>&gt; java -jar start.jar</code>
+    </para>
+    <para>If everything goes correctly you should see the following information start flowing in the terminal you
+    started jetty in. This will be near the top of the output and indicates that jetty has started both the http and
+    https connectors on the 8080 and 8443 ports respectively. What follows this will be a wealth of information related
+    to webapps being deployed which is of limited usefulness at this point, what matters is that you have started jetty
+    and now check out how it worked. 
+    <screen>
+<![CDATA[
+2012-10-16 15:51:35.551:INFO:oejs.Server:main: jetty-9.0.0.M1
+2012-10-16 15:51:35.593:INFO:oejs.NCSARequestLog:main: Opened /Users/jesse/Downloads/jetty-distribution-9.0.0.M1/logs/2012_10_16.request.log
+2012-10-16 15:51:35.631:INFO:oejs.ServerConnector:main: Started ServerConnector@566749c5{HTTP/1.1}{0.0.0.0:8080}
+2012-10-16 15:51:36.019:INFO:oejs.ServerConnector:main: Started ServerConnector@151a30e7{SSL-http/1.1}{0.0.0.0:8443}
+]]>
+    </screen>
+    <para>Note: If you see the following exception you already have something running on the port that jetty is
+    configured to run on and you either need to shut down whatever that process is, or configure jetty to run on
+    another port.</para>
+    <screen>
+<![CDATA[
+Caused by: java.net.BindException: Address already in use
+ at sun.nio.ch.Net.bind0(Native Method)
+ at sun.nio.ch.Net.bind(Net.java:344)
+ at sun.nio.ch.Net.bind(Net.java:336)
+ at sun.nio.ch.ServerSocketChannelImpl.bind(ServerSocketChannelImpl.java:199)
+  ]]>
+    </screen>
+    <para>If this happened the short cut way to resolve it for testing purposes is to start up jetty with a commandline
+    option which overrides the configured jetty.port value.</para>
+    <para>
+      <code>java -jar start.jar -Djetty.port=8081</code>
+    </para>
+    <para>Starting up with this option enabled will kick out a helpful warning message that indicates you should not
+    continue starting jetty in this way. We'll discuss changing this value later in 
+    <xref linkend="configuring-connectors" /></para>
+    <screen>
+<![CDATA[
+WARNING: System properties and/or JVM args set.  Consider using --dry-run or --exec
+]]>
+    </screen>
+    <section>
+      <title>Testing the startup</title>
+      <para>using browser to hit localhost, port,</para>
+    </section>
+    <section>
+      <title>Stopping Jetty</title>
+      <para>how to stop, use stop port, etc</para>
+    </section>
+    <section>
+      <title>Restarting Jetty</title>
+      <para>restarting (with the script, maybe us in automatic startup section)</para>
+    </section>
+    <section>
+      <title>Automatic Startup</title>
+      <para>the start.sh script, adaption for env</para>
+    </section>
+    <section>
+      <title>Additional Topics</title>
+      <orderedlist>
+        <listitem>
+          <para>
+            <xref linkend="advanced-jetty-start" />
+          </para>
+        </listitem>
+      </orderedlist>
+    </section>
   </section>
 </section>

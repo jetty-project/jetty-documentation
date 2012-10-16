@@ -19,7 +19,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
         <version>2.0</version>
         <configuration>
           <tidy>
-            <new-inline-tags>code,filename,emphasis,link</new-inline-tags>
+            <new-inline-tags>code,filename,emphasis,link,xref</new-inline-tags>
             <wrap>120</wrap>
           </tidy>
         </configuration>

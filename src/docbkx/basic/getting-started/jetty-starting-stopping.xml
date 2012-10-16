@@ -27,12 +27,10 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
   </section>
   <section>
     <title>Additional Topics</title>
-    <para>
-      <itemizedList>
-        <listitem>
-          <para>link to start.jar option descriptions</para>
-        </listItem>
-      </itemizedList>
-    </para>
+    <orderedlist>
+      <listitem>
+        <para>link to start.jar option descriptions</para>
+      </listitem>
+    </orderedlist>
   </section>
 </section>

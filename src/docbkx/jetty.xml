@@ -71,6 +71,11 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
             as a specific section and give it justice
            -->
     <xi:include href="basic/jndi/chapter.xml" />
+    <!-- 
+            JMX has been a source of a lot of questions as well so it makes sense to call it out
+            as a specific section and give it justice
+           -->
+    <xi:include href="basic/jmx/chapter.xml" />
 <!-- What are good things to consider when running jetty, managing garbage 
                         collection, etc etc. -->
     <xi:include href="basic/tuning/chapter.xml" />

@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<section xml:id="advanced-start-features" version="5.0" xmlns="http://docbook.org/ns/docbook"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xl="http://www.w3.org/1999/xlink"
+xmlns:xi="http://www.w3.org/2001/XInclude"
+xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd">
+  <title>Start Features</title>
+  <section>
+    <title>Introduction</title>
+    <para>Jetty is just a Java program that you can run like any other Java program once you set up a classpath. For
+    example, you can run the SimplestServer from the Embedding Jetty Tutorial as follows:</para>
+    <para>
+      <code>java -cp $JETTY_CLASSPATH org.eclipse.jetty.embedded.SimplestServer</code>
+    </para>
+    <para>Similarly, if you configure your server with jetty.xml rather than a Java main, you can run the server
+    with:</para>
+    <para>
+      <code>java -cp $JETTY_CLASSPATH org.eclipse.jetty.xml.XmlConfiguration etc/jetty.xml</code>
+    </para>
+    <para>The difficult part of both these examples is knowing what must be on the JETTY_CLASSPATH. The Jetty server
+    comes in over 46 Jars, so working out exactly which Jars you need can be difficult. If you develop with Maven,
+    these Jar dependencies can be managed for you, but you still need to set up a classpath when running from the
+    command line.</para>
+    <para>The start.jar mechanism is an executable Jar file that builds a class path and then executes your main
+    program. It is a generic mechanism that you can use with any Java program. A start.config file controls its
+    behaviour. The standard start.jar comes with a start.config file for Jetty, so that you can start Jetty
+    with:</para>
+    <para>
+      <code>java -jar start.jar</code>
+    </para>
+    <para>You can see the effective command line start.jar generates by providing the --dry-run parameter:</para>
+    <para>
+      <code>java -jar start.jar --dry-run</code>
+    </para>
+    <para>which for the default case generates:</para>
+    <screen>
+<![CDATA[
+/usr/lib/jvm/java-1.5.0-sun-1.5.0.19/jre/bin/java \
+-Djetty.home=/home/gregw/src/jetty-7.0.0/jetty-distribution/target/distribution \
+-cp /home/gregw/src/jetty-7.0.0/jetty-distribution/target/distribution/resources:\
+/home/gregw/src/jetty-7.0.0/jetty-distribution/target/distribution/lib/jetty-xml-7.0.0.RC6-SNAPSHOT.jar:\
+/home/gregw/src/jetty-7.0.0/jetty-distribution/target/distribution/lib/servlet-api-2.5.jar:\
+/home/gregw/src/jetty-7.0.0/jetty-distribution/target/distribution/lib/jetty-http-7.0.0.RC6-SNAPSHOT.jar:\
+/home/gregw/src/jetty-7.0.0/jetty-distribution/target/distribution/lib/jetty-continuation-7.0.0.RC6-SNAPSHOT.jar:\
+/home/gregw/src/jetty-7.0.0/jetty-distribution/target/distribution/lib/jetty-server-7.0.0.RC6-SNAPSHOT.jar:\
+/home/gregw/src/jetty-7.0.0/jetty-distribution/target/distribution/lib/jetty-security-7.0.0.RC6-SNAPSHOT.jar:\
+/home/gregw/src/jetty-7.0.0/jetty-distribution/target/distribution/lib/jetty-servlet-7.0.0.RC6-SNAPSHOT.jar:\
+/home/gregw/src/jetty-7.0.0/jetty-distribution/target/distribution/lib/jetty-webapp-7.0.0.RC6-SNAPSHOT.jar:\
+/home/gregw/src/jetty-7.0.0/jetty-distribution/target/distribution/lib/jetty-deploy-7.0.0.RC6-SNAPSHOT.jar:\
+/home/gregw/src/jetty-7.0.0/jetty-distribution/target/distribution/lib/jetty-servlets-7.0.0.RC6-SNAPSHOT.jar:\
+/home/gregw/src/jetty-7.0.0/jetty-distribution/target/distribution/lib/jetty-util-7.0.0.RC6-SNAPSHOT.jar:\
+/home/gregw/src/jetty-7.0.0/jetty-distribution/target/distribution/lib/jetty-io-7.0.0.RC6-SNAPSHOT.jar \
+org.eclipse.jetty.xml.XmlConfiguration \
+/home/gregw/src/jetty-7.0.0/jetty-distribution/target/distribution/etc/jetty.xml
+]]>
+    </screen>
+  </section>
+  <section>
+    <title>Building the Environment</title>
+    <para>The start.jar builds an environment of Java system properties and start properties that parameterize the
+    start mechanism and the execution of the program. In a start.config, the string ${name} is expanded to a start
+    property and $(name) is expanded to either a start property or a system property.</para>
+    <para>The main property set by the default start.config is jetty.home, which is assumed to be the directory in
+    which start.jar is deployed. If the jetty.home is not set with a -Djetty.home, then ".", ".." and some well known
+    directories are searched for start.jar.</para>
+    <para>The $(version) property is also determined by examining the manifest of the start.jar.</para>
+  </section>
+  <section>
+    <title>Building the Classpath</title>
+    <para>The default start.config assumes that all the Jetty Jars are in a directory tree under ${jetty.home}/lib. The
+    following Jars are put on all classpaths built by the default start.config:</para>
+    <para>
+      <code>$(jetty.home)/lib/jetty-util-$(version).jar $(jetty.home)/lib/jetty-io-$(version).jar</code>
+    </para>
+    <para>If you don't specify any OPTIONS, the following entries are also added by default:</para>
+    <para>
+      <code>$(jetty.home)/resources/ $(jetty.home)/lib/jetty-xml-$(version).jar $(jetty.home)/lib/servlet-api-2.5.jar
+      $(jetty.home)/lib/jetty-http-$(version).jar $(jetty.home)/lib/jetty-continuation-$(version).jar
+      $(jetty.home)/lib/jetty-server-$(version).jar $(jetty.home)/lib/jetty-security-$(version).jar
+      $(jetty.home)/lib/jetty-servlet-$(version).jar $(jetty.home)/lib/jetty-webapp-$(version).jar
+      $(jetty.home)/lib/jetty-deploy-$(version).jar $(jetty.home)/lib/jetty-servlets-$(version).jar
+      $(jetty.home)/lib/ext/*.jar</code>
+    </para>
+    <para>This is sufficient to run most standard web applications.</para>
+    <para>If the system property ${path} is defined, it is treated as a classpath string and prepended to the generated
+    classpath. If the system property ${lib} is defined, it is treated as a directory of Jars and all Jars discovered
+    are prepended to the generated classpath.</para>
+  </section>
+  <section>
+    <title>Setting OPTIONS</title>
+    <para>You can specify options to the start.jar to change the default Jars added to the classpath:</para>
+    <para>
+      <code>java -jar start.jar OPTIONS=Server,jmx,ajp,setuid</code>
+    </para>
+    <para>To list the options available, use:</para>
+    <para>
+      <code>java -jar start.jar --help</code>
+    </para>
+    <para>If you specify an option, the default Jars listed above are not added to the classpath.</para>
+    <para>Three types of options are available:</para>
+    <itemizedlist>
+      <listitem>
+        <para>Convenience Options - By convention, options starting with a capital letter are convenience options that
+        include many other options. For example the "Server" option includes all the options commonly needed to run a
+        server: xml,server,security,servlet,webapp,deploy and servlets options; while the option "server" contains just
+        the Jars for the core HTTP server. "All" is the other convenience option.</para>
+      </listitem>
+      <listitem>
+        <para>Known module options - The main known Jetty modules each have an option predefined to select their
+        required Jars. Known options include xml, server, security, servlet, webapp, deploy, serlvets, rewrite, jmx,
+        ajp, jndi, annotations, setuid, policy and client.</para>
+      </listitem>
+      <listitem>
+        <para>Discovered options - Directories within ${jetty.home}/lib can be discovered as options. The "lib/ext",
+        "lib/jsp" and "lib/jta" are directories that can be discovered as an options.</para>
+      </listitem>
+    </itemizedlist>
+  </section>
+  <section>
+    <title>Building the Arguments</title>
+    <para>The jetty start.config file lists has etc/jetty.xml as the default command line argument, which in the
+    default case is the name of the configuration file passed to the XmlConfiguration main. If you need additional
+    configuration files, you must list all the configuration files on the command line along with the options required
+    for the classpath. For example, the following runs Jetty with JMX and AJP connector:</para>
+    <para>
+      <code>java -jar start.jar OPTIONS=Server,jmx,ajp etc/jetty-jmx.xml etc/jetty.xml etc/jetty-ajp.xml</code>
+    </para>
+    <para>Use the --help parameter to list the available XML configuration files.</para>
+  </section>
+  <section>
+    <title>Running the Main</title>
+    <para>The jetty start.config has org.eclipse.jetty.xml.XmlConfiguration as the main class to run. You can replace
+    it with another class by setting the start.class system property.</para>
+  </section>
+  <section>
+    <title>Setting Defaults: start.ini</title>
+    <para>If the file start.ini exists in the same directory as start.jar, it is read and every non-comment line is
+    treated as a command line argument. The following start.ini sets the options and default configuration files for
+    using the server with JMX and SSL:</para>
+    <screen>
+<![CDATA[
+#===========================================================
+# Jetty start.jar arguments
+#-----------------------------------------------------------
+OPTIONS=Server,jmx,resources
+etc/jetty-jmx.xml
+etc/jetty.xml
+etc/jetty-ssl.xml
+]]>
+    </screen>
+    <para>As well as normal start.jar arguments, it is possible to put JVM arguments in a start.ini. However, because
+    these cannot affect the JVM that is running start.jar, you should provide the --exec option so that a new JVM is
+    spawned with the arguments. The following start.ini example sets the JVM heap memory and enables remote JMX
+    management:</para>
+    <screen>
+<![CDATA[
+#===========================================================
+# Jetty start.jar arguments
+#-----------------------------------------------------------
+--exec
+-Xmx512m
+-Dcom.sun.management.jmxremote
+OPTIONS=Server,jmx,resources
+etc/jetty-jmx.xml
+etc/jetty.xml
+etc/jetty-ssl.xml
+]]>
+    </screen>
+  </section>
+</section>

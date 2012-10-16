@@ -29,7 +29,9 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     <title>Additional Topics</title>
     <orderedlist>
       <listitem>
-        <para>link to start.jar option descriptions</para>
+        <para>
+          <link ref="advanced-jetty-start" />
+        </para>
       </listitem>
     </orderedlist>
   </section>

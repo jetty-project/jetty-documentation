@@ -71,7 +71,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
             as a specific section and give it justice
            -->
     <xi:include href="basic/jndi/chapter.xml" />
-    <!-- 
+<!-- 
             JMX has been a source of a lot of questions as well so it makes sense to call it out
             as a specific section and give it justice
            -->
@@ -96,6 +96,8 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
                         of jetty, how it all comes together for the lifecycle of a request, how our 
                         pooling works, etc -->
     <xi:include href="advanced/architecture/chapter.xml" />
+<!-- Information about the start.jar -->
+    <xi:include href="advanced/starting/chapter.xml" />
 <!-- Logging is a critical component of jetty and should have its own section 
                         on how to change logging frameworks, how to redirect logging, override webapp 
                         logging, etc -->

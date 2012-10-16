@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<chapter xml:id="jmx-chapter" version="5.0" xmlns="http://docbook.org/ns/docbook"
+<section xml:id="advanced-start-features" version="5.0" xmlns="http://docbook.org/ns/docbook"
 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xl="http://www.w3.org/1999/xlink"
 xmlns:xi="http://www.w3.org/2001/XInclude"
 xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd">
-  <title>JMX</title>
-<!--xi:include href="configuring-jmx.xml" /-->
-</chapter>
+  <title>Start Option Matrix</title>
+  <para>Content from: http://wiki.eclipse.org/Jetty/Reference/Start_Options</para>
+</section>

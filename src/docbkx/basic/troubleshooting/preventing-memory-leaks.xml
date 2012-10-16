@@ -52,7 +52,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
               <entry>The <code>java.awt.Toolkit</code> class has a static field that is the default toolkit. Creating
               the default toolkit causes the creation of an <code>EventQueue</code>, which has a classloader field
               initialized with the thread context class loader. See <link
-              xl:href="https://issues.jboss.org/browse/AS7-3733">JBoss bug AS7 -3733.</link></entry>
+              xl:href="https://issues.jboss.org/browse/AS7-3733">JBoss bug AS7-3733.</link></entry>
             </row>
             <row>
               <entry>DOMLeakPreventer</entry>
@@ -146,7 +146,7 @@ server.addBean(new AppContextLeakPreventer());
     and its class loaded in its own classloader to allow for hot replacement. Each JSP that contains references to a
     tag file compiles the tag if necessary and then loads it using its own classloader. If you have many JSPs that
     refer to the same tag file, the tag's class is loaded over and over again into permgen space, once for each JSP.
-    See <link xl:href="http://java.net/jira/browse/GLASSFISH-3963">Glassfish bug 3963</link>, and <link
+    See <link xl:href="http://java.net/jira/browse/GLASSFISH-3963">Glassfish bug 3963</link> and <link
     xl:href="https://issues.apache.org/bugzilla/show_bug.cgi?id=43878">Apache bug 43878.</link> The Apache Tomcat
     project has already closed this bug with status WON'T FIX, however the Glassfish folks still have the bug open and
     have scheduled it to be fixed. When the fix becomes available, the Jetty project will pick it up and incorporate
@@ -158,7 +158,7 @@ server.addBean(new AppContextLeakPreventer());
     <section xml:id="jvm-garbage-collection-problems">
       <title>Garbage Collection Problems</title>
       <para>One symptom of a cluster of JVM related memory issues is the OOM exception accompanied by a message such as
-      <code>java.lang.OutOfMemoryError: requested xxxx bytes for xxx. Out of swap space?</code> .</para>
+      <code>java.lang.OutOfMemoryError: requested xxxx bytes for xxx. Out of swap space?</code></para>
       <para><link xl:href="http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=4697804">Oracle bug
       4697804</link> describes how this can happen in the scenario when the garbage collector needs to allocate a bit
       more space during its run and tries to resize the heap, but fails because the machine is out of swap space. One

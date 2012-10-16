@@ -7,9 +7,9 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
   <para>A virtual host is an alternative name, registered in DNS, for an IP address. Virtual hosting takes one of two
   forms:</para>
   <itemizedlist>
-    <listitem>Multiple names can resolve to a single IP address.</listitem>
-    <listitem>Multi-homed hosts, that is machines with more than one network interface, can have a different name for
-    each IP address.</listitem>
+    <listitem><para>Multiple names can resolve to a single IP address.</para></listitem>
+    <listitem><para>Multi-homed hosts, that is machines with more than one network interface, can have a different name for
+    each IP address.</para></listitem>
   </itemizedlist>
   <para>Jetty users often want to configure their web applications taking into account these different virtual hosts.
   Frequently, a machine with a single IP address has different DNS resolvable names associated with it, and a webapp
@@ -17,34 +17,32 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
   applications from different virtual hosts.</para>
   <para>You can set virtual hosts in various ways, including:</para>
   <itemizedlist>
-  <listitem>Using a context XML file in the context directory: <link
+  <listitem><para>Using a context XML file in the context directory: <link
   xl:href="@JDURL@/org/eclipse/jetty/server/handler/ContextHandler.html#setVirtualHosts">
-    <code>setVirtualHosts</code>
-  </link> . This is the preferred method.</listitem>
-  <listitem>Java calls in an embedded usage: 
-  <xref linkend="embedding" />
-  .</listitem>
-  <listitem>Within an explicitly deployed webapp (no deployer) listed in [[Jetty/Reference/jetty.xml|jetty.xml]] or
-  similar.</listitem>//TODO xref// 
-  <listitem>Using a <filename>WEB-INF/jetty-web.xml</filename> file (deprecated, but works with the webapp provider if
-  you do not use the context provider).</listitem></itemizedlist>
+    <code>setVirtualHosts.</code>
+  </link> This is the preferred method.</para></listitem>
+  <listitem><para>Java calls in an embedded usage: 
+  <xref linkend="embedding" />.</para></listitem>
+  <listitem><para>Within an explicitly deployed webapp (no deployer) listed in [[Jetty/Reference/jetty.xml|jetty.xml]] or
+  similar.</para></listitem>//TODO xref// 
+  <listitem><para>Using a <filename>WEB-INF/jetty-web.xml</filename> file (deprecated, but works with the webapp provider if
+  you do not use the context provider).</para></listitem></itemizedlist>
   <para>For descriptions of the various ways to configure Jetty, including links to documents that provide detailed
   configuration instructions, see 
-  <xref linkend="configuring-jetty" />
-  .</para>
+  <xref linkend="configuring-jetty" />.</para>
   <para>The examples that follow set virtual hosts in the preferred way, by calling the method <code>
-  ContextHandler</code> . <link xl:href="@JDURL@/org/eclipse/jetty/server/handler/ContextHandler.html#setVirtualHosts">
-  setVirtualHosts</link> .</para>
+  ContextHandler</code>.<link xl:href="@JDURL@/org/eclipse/jetty/server/handler/ContextHandler.html#setVirtualHosts">
+  setVirtualHosts</link>.</para>
   <section xml:id="configuring-a-virtual-host">
     <title>Configuring a Virtual Host</title>
     <para>When configuring a web application, you can supply a list of IP addresses and names at which the web
     application is reachable. Suppose you have a machine with these IP addresses and DNS resolvable names:</para>
     <itemizedlist>
-      <listitem>333.444.555.666</listitem>
-      <listitem>127.0.0.1</listitem>
-      <listitem>www.blah.com</listitem>
-      <listitem>www.blah.net</listitem>
-      <listitem>www.blah.org</listitem>
+      <listitem><para>333.444.555.666</para></listitem>
+      <listitem><para>127.0.0.1</para></listitem>
+      <listitem><para>www.blah.com</para></listitem>
+      <listitem><para>www.blah.net</para></listitem>
+      <listitem><para>www.blah.org</para></listitem>
     </itemizedlist>
     <para>Suppose you have a webapp, <emphasis>xxx.war</emphasis>, that you want all of the above names and addresses
     to serve. You would configure the webapp as follows:</para>
@@ -70,21 +68,21 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     <para>Assuming you have configured a connector listening on port 8080, webapp <emphasis>xxx.war</emphasis> is
     available at all of the following addresses:</para>
     <itemizedlist>
-      <listitem>
+      <listitem><para>
         <literal>http://333.444.555.666:8080/xxx</literal>
-      </listitem>
-      <listitem>
+      </para></listitem>
+      <listitem><para>
         <literal>http://127.0.0.1:8080/xxx</literal>
-      </listitem>
-      <listitem>
+      </para></listitem>
+      <listitem><para>
         <literal>http://www.blah.com:8080/xxx</literal>
-      </listitem>
-      <listitem>
+      </para></listitem>
+      <listitem><para>
         <literal>http://www.blah.net:8080/xxx</literal>
-      </listitem>
-      <listitem>
+      </para></listitem>
+      <listitem><para>
         <literal>http://www.blah.org:8080/xxx</literal>
-      </listitem>
+      </para></listitem>
     </itemizedlist>
   </section>
   <section xml:id="configuring-different-webapps-for-different-virtual-hosts">
@@ -92,15 +90,15 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     <para>You can configure different webapps for different virtual hosts by supplying a different list of virtual
     hosts for each webapp. For example, suppose your imaginary machine has these DNS names and IP addresses:</para>
     <itemizedlist>
-      <listitem>333.444.555.666</listitem>
-      <listitem>127.0.0.1</listitem>
-      <listitem>www.blah.com</listitem>
-      <listitem>www.blah.net</listitem>
-      <listitem>www.blah.org</listitem>
-      <listitem>777.888.888.111</listitem>
-      <listitem>www.other.com</listitem>
-      <listitem>www.other.net</listitem>
-      <listitem>www.other.org</listitem>
+      <listitem><para>333.444.555.666</para></listitem>
+      <listitem><para>127.0.0.1</para></listitem>
+      <listitem><para>www.blah.com</para></listitem>
+      <listitem><para>www.blah.net</para></listitem>
+      <listitem><para>www.blah.org</para></listitem>
+      <listitem><para>777.888.888.111</para></listitem>
+      <listitem><para>www.other.com</para></listitem>
+      <listitem><para>www.other.net</para></listitem>
+      <listitem><para>www.other.org</para></listitem>
     </itemizedlist>
     <para>Suppose also you have another webapp, <emphasis>zzz.war</emphasis> . You want <emphasis>xxx.war</emphasis> to
     deploy as above, and <emphasis>zzz.war</emphasis> to deploy only from 777.888.888.111, www.other.com, www.other.net
@@ -146,36 +144,36 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     </informalexample>
     <para>Webapp <emphasis>xxx.war</emphasis> is still available at:</para>
     <itemizedlist>
-      <listitem>
+      <listitem><para>
         <literal>http://333.444.555.666:8080/xxx</literal>
-      </listitem>
-      <listitem>
+      </para></listitem>
+      <listitem><para>
         <literal>http://127.0.0.1:8080/xxx</literal>
-      </listitem>
-      <listitem>
+      </para></listitem>
+      <listitem><para>
         <literal>http://www.blah.com:8080/xxx</literal>
-      </listitem>
-      <listitem>
+      </para></listitem>
+      <listitem><para>
         <literal>http://www.blah.net:8080/xxx</literal>
-      </listitem>
-      <listitem>
+      </para></listitem>
+      <listitem><para>
         <literal>http://www.blah.org:8080/xxx</literal>
-      </listitem>
+      </para></listitem>
     </itemizedlist>
     <para>But now webapp ''zzz.war'' is available at:</para>
     <itemizedlist>
-      <listitem>
+      <listitem><para>
         <literal>http://777.888.888.111:8080/zzz</literal>
-      </listitem>
-      <listitem>
+      </para></listitem>
+      <listitem><para>
         <literal>http://www.other.com:8080/zzz</literal>
-      </listitem>
-      <listitem>
+      </para></listitem>
+      <listitem><para>
         <literal>http://www.other.net:8080/zzz</literal>
-      </listitem>
-      <listitem>
+      </para></listitem>
+      <listitem><para>
         <literal>http://www.other.org:8080/zzz</literal>
-      </listitem>
+      </para></listitem>
     </itemizedlist>
   </section>
   <section>
@@ -226,36 +224,36 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     </informalexample>
     <para>Now, webapp xxx.war is available at:</para>
     <itemizedlist>
-      <listitem>
+      <listitem><para>
         <literal>http://333.444.555.666:8080/</literal>
-      </listitem>
-      <listitem>
+      </para></listitem>
+      <listitem><para>
         <literal>http://127.0.0.1:8080/</literal>
-      </listitem>
-      <listitem>
+      </para></listitem>
+      <listitem><para>
         <literal>http://www.blah.com:8080/</literal>
-      </listitem>
-      <listitem>
+      </para></listitem>
+      <listitem><para>
         <literal>http://www.blah.net:8080/</literal>
-      </listitem>
-      <listitem>
+      </para></listitem>
+      <listitem><para>
         <literal>http://www.blah.org:8080/</literal>
-      </listitem>
+      </para></listitem>
     </itemizedlist>
     <para>and webapp zzz.war is available at:</para>
     <itemizedlist>
-      <listitem>
+      <listitem><para>
         <literal>http://777.888.888.111:8080/</literal>
-      </listitem>
-      <listitem>
+      </para></listitem>
+      <listitem><para>
         <literal>http://www.other.com:8080/</literal>
-      </listitem>
-      <listitem>
+      </para></listitem>
+      <listitem><para>
         <literal>http://www.other.net:8080/</literal>
-      </listitem>
-      <listitem>
+      </para></listitem>
+      <listitem><para>
         <literal>http://www.other.org:8080/</literal>
-      </listitem>
+      </para></listitem>
     </itemizedlist>
   </section>
   <section xml:id="configuring-virtual-hosts-with-non-asci-characters">
@@ -298,7 +296,8 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     <para>If you don't have any webapps deployed at /, hitting the URL 
     <literal>http://www.&#8730;&#8226;&#8730;&#167;&#8730;&#8706;.com:8080</literal>reaches Jetty's default handler,
     which serves back a 404 page listing the available contexts:</para>
-    <screen>
+   <informalexample>
+      <programlisting language="bash">
 <![CDATA[
 Error 404 - Not Found
 
@@ -308,7 +307,8 @@ Contexts known to this server are:
 
 /test @ www.xn--4cab6c.com:8080 ---> WebAppContext@82d210@82d210/test,file:/tmp/Jetty_0_0_0_0_8080_test.war__test_www.xn..4cab6c.com_1jadjg/webapp/,/home/janb/src/jetty-eclipse/jetty/trunk/jetty-distribution/target/distribution/webapps/test.war
 ]]>
-    </screen>
+      </programlisting>
+    </informalexample>
     <para>Notice that the link already has the punycode transformed domain name in it.</para>
   </section>
 </section>

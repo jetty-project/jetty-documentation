@@ -6,7 +6,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
   <title>Download Jetty</title>
   <section>
     <title>Downloading</title>
-    <para>The standalone jetty distribution is available for download from the Eclipse Foundation.</para>
+    <para>The standalone Jetty distribution is available for download from the Eclipse Foundation.</para>
     <orderedlist>
       <listitem>
         <para>http://download.eclipse.org/jetty</para>
@@ -17,69 +17,70 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     and unpack the binary, it is extracted into a directory called jetty-distribution-VERSION. Put this directory into
     a convenient location. The rest of the instructions in this wiki will refer to this location as either JETTY_HOME
     or as $(jetty.home).</para>
-  </section>
-  <section>
-    <title>Distribution Content</title>
-    <para>This is a quick rundown of the distribution's contents. The top-level directory contains:</para>
-    <tgroup cols="2">
-      <title>Contents</title>
-      <thead>
-        <row>
-          <entry align="left">Location</entry>
-          <entry align="left">Description</entry>
-        </row>
-      </thead>
-      <tbody>
-        <row>
-          <entry>license-eplv10-aslv20.html</entry>
-          <entry>license file for Jetty</entry>
-        </row>
-        <row>
-          <entry>README.txt</entry>
-          <entry>contains useful getting started information</entry>
-        </row>
-        <row>
-          <entry>VERSION.txt</entry>
-          <entry>Release Information</entry>
-        </row>
-        <row>
-          <entry>bin</entry>
-          <entry>utility shell scripts to help run Jetty on unix systems</entry>
-        </row>
-        <row>
-          <entry>etc</entry>
-          <entry>directory for Jetty configuration files</entry>
-        </row>
-        <row>
-          <entry>lib</entry>
-          <entry>contains all the JAR files necessary to run jetty</entry>
-        </row>
-        <row>
-          <entry>logs</entry>
-          <entry>directory for request logs</entry>
-        </row>
-        <row>
-          <entry>notice.html</entry>
-          <entry>license information an exceptions</entry>
-        </row>
-        <row>
-          <entry>resources</entry>
-          <entry>directory containing additional resources for classpath, activated via configuration</entry>
-        </row>
-        <row>
-          <entry>start.ini</entry>
-          <entry>configuration file for starting jetty</entry>
-        </row>
-        <row>
-          <entry>start.jar</entry>
-          <entry>jar which invokes jetty (see also How to Run Jetty)</entry>
-        </row>
-        <row>
-          <entry>webapps</entry>
-          <entry>directory containing webapps which will be run under the default configuration of Jetty; contains demo
-          webapps</entry>
-        </row>
-      </tbody>
-    </tgroup>
+    <para>Since jetty has been around 
+    <section>
+      <title>Distribution Content</title>
+      <para>This is a quick rundown of the distribution's contents. The top-level directory contains:</para>
+      <tgroup cols="2">
+        <title>Contents</title>
+        <thead>
+          <row>
+            <entry align="left">Location</entry>
+            <entry align="left">Description</entry>
+          </row>
+        </thead>
+        <tbody>
+          <row>
+            <entry>license-eplv10-aslv20.html</entry>
+            <entry>license file for Jetty</entry>
+          </row>
+          <row>
+            <entry>README.txt</entry>
+            <entry>contains useful getting started information</entry>
+          </row>
+          <row>
+            <entry>VERSION.txt</entry>
+            <entry>Release Information</entry>
+          </row>
+          <row>
+            <entry>bin</entry>
+            <entry>utility shell scripts to help run Jetty on unix systems</entry>
+          </row>
+          <row>
+            <entry>etc</entry>
+            <entry>directory for Jetty configuration files</entry>
+          </row>
+          <row>
+            <entry>lib</entry>
+            <entry>contains all the JAR files necessary to run jetty</entry>
+          </row>
+          <row>
+            <entry>logs</entry>
+            <entry>directory for request logs</entry>
+          </row>
+          <row>
+            <entry>notice.html</entry>
+            <entry>license information an exceptions</entry>
+          </row>
+          <row>
+            <entry>resources</entry>
+            <entry>directory containing additional resources for classpath, activated via configuration</entry>
+          </row>
+          <row>
+            <entry>start.ini</entry>
+            <entry>configuration file for starting jetty</entry>
+          </row>
+          <row>
+            <entry>start.jar</entry>
+            <entry>jar which invokes jetty (see also How to Run Jetty)</entry>
+          </row>
+          <row>
+            <entry>webapps</entry>
+            <entry>directory containing webapps which will be run under the default configuration of Jetty; contains
+            demo webapps</entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </section></para>
   </section>
 </section>

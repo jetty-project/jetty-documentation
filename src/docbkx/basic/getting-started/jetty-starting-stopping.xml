@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<section xml:id="jetty-starting-stopping" version="5.0" xmlns="http://docbook.org/ns/docbook"
+<section xml:id="starting-and-stopping" version="5.0" xmlns="http://docbook.org/ns/docbook"
 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xl="http://www.w3.org/1999/xlink"
 xmlns:xi="http://www.w3.org/2001/XInclude"
 xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd">
   <title>Starting and Stopping Jetty</title>
   <para></para>
-  <section>
+  <section xml:id="starting-jetty">
     <title>Starting Jetty</title>
     <para>Starting the jetty distribution is simple, providing you have nothing else runinng on port 8080 (the default
     port that jetty start on) then all you need to run is:</para>
@@ -16,7 +16,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     started jetty in. This will be near the top of the output and indicates that jetty has started both the http and
     https connectors on the 8080 and 8443 ports respectively. What follows this will be a wealth of information related
     to webapps being deployed which is of limited usefulness at this point, what matters is that you have started jetty
-    and now check out how it worked. 
+    and now check out how it worked.</para>
     <screen>
 <![CDATA[
 2012-10-16 15:51:35.551:INFO:oejs.Server:main: jetty-9.0.0.M1
@@ -52,30 +52,30 @@ WARNING: System properties and/or JVM args set.  Consider using --dry-run or --e
 ]]>
     </screen>
     <section>
-      <title>Testing the startup</title>
-      <para>using browser to hit localhost, port,</para>
+      <title>Testing the Startup</title>
+      <para></para>
     </section>
-    <section>
-      <title>Stopping Jetty</title>
-      <para>how to stop, use stop port, etc</para>
-    </section>
-    <section>
-      <title>Restarting Jetty</title>
-      <para>restarting (with the script, maybe us in automatic startup section)</para>
-    </section>
-    <section>
-      <title>Automatic Startup</title>
-      <para>the start.sh script, adaption for env</para>
-    </section>
-    <section>
-      <title>Additional Topics</title>
-      <orderedlist>
-        <listitem>
-          <para>
-            <xref linkend="advanced-jetty-start" />
-          </para>
-        </listitem>
-      </orderedlist>
-    </section></para>
+  </section>
+  <section xml:id="stopping-jetty">
+    <title>Stopping Jetty</title>
+    <para>how to stop, use stop port, etc</para>
+  </section>
+  <section>
+    <title>Restarting Jetty</title>
+    <para>restarting (with the script, maybe us in automatic startup section)</para>
+  </section>
+  <section>
+    <title>Automatic Startup</title>
+    <para>the start.sh script, adaption for env</para>
+  </section>
+  <section>
+    <title>Additional Topics</title>
+    <orderedlist>
+      <listitem>
+        <para>
+          <xref linkend="advanced-jetty-start" />
+        </para>
+      </listitem>
+    </orderedlist>
   </section>
 </section>

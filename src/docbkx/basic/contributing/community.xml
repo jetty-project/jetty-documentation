@@ -4,8 +4,8 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xl="http://www.w3.or
 xmlns:xi="http://www.w3.org/2001/XInclude"
 xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd">
   <title>Community</title>
-  <para>Developers and users alike are welcome to engage the jetty community. We all have day jobs here so don't just
-  ask questions on irc and frustrated if no one answers right away. Stick around to hear an answer, one is likely
+  <para>Developers and users alike are welcome to engage the Jetty community. We all have day jobs here so don't just
+  ask questions on IRC and frustrated if no one answers right away. Stick around to hear an answer, one is likely
   coming at some point!</para>
   <section>
     <title>Mailing Lists</title>
@@ -34,28 +34,28 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     </itemizedlist>
     <section>
       <title>Internet Relay Chat - IRC</title>
-      <para>Much of our conversations about jetty occur on irc in one location or another. Users are always welcome to
-      come join our irc channels and talk with us, other users, or just lurk.</para>
+      <para>Much of our conversations about Jetty occur on IRC in one location or another. Users are always welcome to
+      come join our IRC channels and talk with us, other users, or just lurk.</para>
       <variablelist>
         <varlistentry>
           <term>irc.freenode.org - #jetty</term>
           <listitem>
-            <para>Our primary location, we recommend that if your looking to find folks on irc you try here.</para>
+            <para>Our primary location, we recommend that if your looking to find folks on IRC you try here.</para>
             <para>We also have commit notifications coming to this channel on the bottom and top of the hour.</para>
           </listitem>
         </varlistentry>
         <varlistentry>
           <term>irc.codehaus.org - #jetty</term>
           <listitem>
-            <para>Our prior location before the move to the eclipse foundation. We are mostly idle on here.</para>
+            <para>Our prior location before the move to the eclipse foundation. We are idle on here.</para>
           </listitem>
         </varlistentry>
       </variablelist>
     </section>
     <section>
       <title>Commit Tracking</title>
-      <para>Since jetty is composed of a diverse array of project source repositories, bridged between the eclipse
-      foundation, the codehaus, and some simple projects on github, we use a hidden gem of opensource called cia.vc to
+      <para>Since Jetty is composed of a diverse array of project source repositories, bridged between the eclipse
+      foundation, the codehaus, and some simple projects on GitHub, we use a hidden gem of opensource called cia.vc to
       aggregate commits on our primary repositories to one location so its easier to follow what and where things are
       happening. 
       <itemizedlist>

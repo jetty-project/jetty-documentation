@@ -43,7 +43,8 @@ $ git clone git@github.com:jetty-project/jetty-documentation.git
     it.</para>
     <screen>
 <![CDATA[
-$ cd jetty-documentation $ mvn install
+$ cd jetty-documentation 
+$ mvn install
 ]]>
     </screen>
     <para>While maven is running you may see a lot of files being downloaded. If you are not familiar with maven, then
@@ -128,24 +129,18 @@ $ git push
     These are not set in stone and should be updated as we learn more.</para>
     <variablelist>
       <varlistentry>
-        <term>chapters</term>
+        <term>build before committing</term>
         <listitem>
-          <para>defined in jetty.xml</para>
-        </listitem>
-        <listitem>
-          <para>use xi:include to bring in individual chapters</para>
+          <para>We have an xmlfresh maven plugin that reformats the code to the standards for the project.  This is to prevent wide spread merge conflict between commits.  The line wrap is set to 120 and the indent is 2 spaces, never tab characters.  There are a handful of tags that render inline to the para tags, these are found in the maven configuration of the xmlfresh-maven-plugin.</para>
         </listitem>
       </varlistentry>
       <varlistentry>
-        <term>sections</term>
+        <term>xml:id</term>
         <listitem>
-          <para>composed of discrete sections that can be linked into chapters via xi:include as needed</para>
+          <para>Critically important for being able to generate url's that can be used in a persistent fashion.  Without xml:id's the chapters and sections will have generated id which are rooting in obscure location based voodoo.  A url using these 'e12c8673' type links will not be durable across generations of the documentation.  These xml:id's need to be used on chapters and sections two deep, and anywhere that you intend to cross link deeper.</para>
         </listitem>
         <listitem>
-          <para>root of chapters is always named chapter.xml</para>
-        </listitem>
-        <listitem>
-          <para>can be further decomposed into xml files and linked in with xi:include</para>
+          <para>The xml:id values go into a global namespace so they must be unique across the entire document or the last example will win and any cross links will go there.  We will have a maven plugin that will fail the build on detecting this soon.</para>
         </listitem>
       </varlistentry>
       <varlistentry>

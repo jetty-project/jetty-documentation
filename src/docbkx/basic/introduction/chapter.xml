@@ -17,8 +17,32 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
   <section>
     <title>What is Jetty?</title>
     <para>Jetty is an open-source project providing an HTTP server, HTTP client, and javax.servlet container. This
-    document provides information about getting started with Jetty, basic configuration, specific features,
-    optimization, security, JavaEE, monitoring, FAQs, help with troubleshooting, and more. It includes tutorials,
-    howtos, videos, feature descriptions, and reference materials.</para>
+    document is broken into two parts. The first part has an emphasis on beginning to use jetty from the context on the
+    distribution. It will provides information about downloading Jetty, basic configuration on how to change things
+    like the port jetty runs on and adjusting logging levels and configuring many of the most common servlet container
+    features like JNDI, JMX and session management. The second part of this document describes advanced usages of
+    jetty, specific indepth features like our highly scalable async client, proxy servlet configuration, or configuring
+    the jetty maven plugin or using jetty as an embedded server. The advanced section will include tutorials, howtos,
+    videos, and some reference materials.</para>
+  </section>
+  <section>
+    <title>What version do I use?</title>
+    <para>Jetty 9 is the most recent version of Jetty and has a great many improvements over the previous versions. One
+    improvement being this documentation which is focused on Jetty 9. While many people continue to use older versions
+    of Jetty we generally recommend using Jetty 9 as it represents the version of Jetty that we will actively maintain
+    and improve over the next few years.</para>
+    <para>For a bit of historical context, Jetty 6 was a major rewrite of Jetty over Jetty 5 and was the lead supported
+    version of Jetty for many years. Near the end of the life of Jetty 6 the project was moved to the Eclipse
+    Foundation and Jetty 7 and Jetty 8 were born out of that migration. At the time there were significant changes
+    between Jetty 6 and Jetty 7, most noticiably the improvement of the maven build coupled with a large artifact
+    reorganiation, and the obvious package name changes required from the move to Eclipse. Initially the hope that been
+    that this would coincide with the release of the Servlet 3.0 spec but that ended up being delayed, which meant the
+    migration to eclipse would continue supporting Servlet 2.5 and Jetty 8 was born once that spec landed. Since Jetty
+    6 and 7 has supported many of the fundamentals of the Servlet 3.0 spec (namely async servlets) we decided that we
+    would release 7 and 8 in lockstep which is why the release dates for Jetty 7 and 8 always match up.</para>
+    <para>In a similar situation, we were waiting on the Servlet 3.1 spec to be released before we jumped to Jetty 9
+    but once more events conspired against this and we will instead be updating Jetty 9 to 9.1 once that spec is
+    released. We will continue to support Jetty 7 and 8 in maintanence mode for the next couple of years but Jetty 9 is
+    where it is at as it were.</para>
   </section>
 </chapter>

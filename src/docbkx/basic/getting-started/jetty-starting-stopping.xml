@@ -44,7 +44,8 @@ Caused by: java.net.BindException: Address already in use
     </para>
     <para>Starting up with this option enabled will kick out a helpful warning message that indicates you should not
     continue starting jetty in this way. We'll discuss changing this value later in 
-    <xref linkend="configuring-connectors" /></para>
+    <xref linkend="configuring-connectors" />
+    </para>
     <screen>
 <![CDATA[
 WARNING: System properties and/or JVM args set.  Consider using --dry-run or --exec
@@ -75,6 +76,6 @@ WARNING: System properties and/or JVM args set.  Consider using --dry-run or --e
           </para>
         </listitem>
       </orderedlist>
-    </section>
+    </section></para>
   </section>
 </section>

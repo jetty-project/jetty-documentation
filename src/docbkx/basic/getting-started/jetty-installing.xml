@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<section xml:id="jetty-installing" version="5.0" xmlns="http://docbook.org/ns/docbook"
+<section xml:id="jetty-downloading" version="5.0" xmlns="http://docbook.org/ns/docbook"
 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xl="http://www.w3.org/1999/xlink"
 xmlns:xi="http://www.w3.org/2001/XInclude"
 xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd">
-  <title>Getting Started with Jetty</title>
+  <title>Download Jetty</title>
   <section>
     <title>Downloading</title>
     <para>The standalone jetty distribution is available for download from the Eclipse Foundation.</para>

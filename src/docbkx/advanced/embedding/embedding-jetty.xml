@@ -24,7 +24,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
         <informalexample>
           <programlisting language="rjava">
             <filename>
-            http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/plain/example-jetty-embedded/src/main/java/org/eclipse/jetty/embedded/SimplestServer.java</filename> 
+            http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/plain/examples/embedded/src/main/java/org/eclipse/jetty/embedded/SimplestServer.java</filename> 
 <!-- methodname>main</methodname-->
           </programlisting>
         </informalexample>
@@ -47,7 +47,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
           <informalexample>
             <programlisting language="rjava">
               <filename>
-              http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/plain/example-jetty-embedded/src/main/java/org/eclipse/jetty/embedded/HelloHandler.java</filename>
+              http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/plain/examples/embedded/src/main/java/org/eclipse/jetty/embedded/HelloHandler.java</filename>
             </programlisting>
           </informalexample>
           <para>The parameters passed to the handle method are:</para>
@@ -64,7 +64,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
           <informalexample>
             <programlisting language="rjava">
               <filename>
-              http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/plain/example-jetty-embedded/src/main/java/org/eclipse/jetty/embedded/OneHandler.java</filename> 
+              http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/plain/examples/embedded/src/main/java/org/eclipse/jetty/embedded/OneHandler.java</filename> 
               <methodname>main</methodname>
             </programlisting>
           </informalexample>

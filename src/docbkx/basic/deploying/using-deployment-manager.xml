@@ -30,16 +30,14 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     Jetty distribution:</para>
     <itemizedlist>
       <listitem>
-        <para><link xl:href="@JDURL@/org/eclipse/jetty/deploy/providers/WebAppProvider.html">
-        WebAppProvider</link> &#8211;monitors a directory for WebAppProvider <code>*.war</code> files and submits them
+        <para><link xl:href="@JDURL@/org/eclipse/jetty/deploy/providers/WebAppProvider.html">WebAppProvider</link>&#8211;monitors a directory for WebAppProvider <code>*.war</code> files and submits them
         to the Application LifeCycle Graph for deployment into a context with the same name as the <code>
-        *.war</code> file itself.&gt;</para>
+        *.war</code> file itself.</para>
       </listitem>
-      <listitem>&gt; 
-      <para><link xl:href="@JDURL@/org/eclipse/jetty/deploy/providers/ContextProvider.html" ContextProvider="">
-      </link> &#8211;monitors a directory for <filename>*.xml</filename> files, and using the Jetty XML configurator
-      creates a ContextHandler (usually a <code>WebAppContext</code> ) for the Application LifeCycle
-      Graph.&gt;</para></listitem>
+      <listitem> 
+      <para><link xl:href="@JDURL@/org/eclipse/jetty/deploy/providers/ContextProvider.html">ContextProvider</link>&#8211;monitors a directory for <filename>*.xml</filename> files, and using the Jetty XML configurator
+      creates a ContextHandler (usually a <code>WebAppContext</code>) for the Application LifeCycle
+      Graph.</para></listitem>
     </itemizedlist>
     <para>Activating both at the same time is possible, but can be confusing because you must take care to either keep
     both systems deploying mutually exclusive webapps, or align naming conventions of <filename>
@@ -48,7 +46,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
   <section xml:id="udm-application-lifecycle-graph">
     <title>Application LifeCycle Graph</title>
     <para>The core feature of the DeploymentManager is the <link
-    xl:href="@JDURL@/org/eclipse/jetty/deploy/AppLifeCycle.html">Application LifeCycle Graph</link> .</para>
+    xl:href="@JDURL@/org/eclipse/jetty/deploy/AppLifeCycle.html">Application LifeCycle Graph</link>.</para>
     <mediaobject>
       <info>
         <othercredit>
@@ -64,7 +62,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     complex requirements for added workflow, approvals, staging, distribution, coordinated deploys for a cluster or
     cloud, etc.).</para>
     <para>New applications enter this graph at the Undeployed node, and the <link
-    xl:href="@JDURL@/org/eclipse/jetty/deploy/DeploymentManager.html#requestAppGoal(org.eclipse.jetty.deploy.App,">
+    xl:href="@JDURL@/org/eclipse/jetty/deploy/DeploymentManager.html#requestAppGoal(org.eclipse.jetty.deploy.App">
       <code>java.lang.String DeploymentManager.requestAppGoal(App,String)</code>
     </link> method pushes them through the graph.</para>
   </section>
@@ -78,7 +76,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     <para>Examples of new <code>AppLifeCycle.Binding</code> implementations that you can write include:</para>
     <itemizedlist>
       <listitem>
-        <para>Validating the incoming application.&gt;</para>
+        <para>Validating the incoming application.</para>
       </listitem>
       <listitem>
         <para>Preventing the deployment of known forbidden applications.</para>
@@ -123,7 +121,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
         fileref="images/Jetty_DeployManager_DefaultAppLifeCycleBindings.png" />
       </imageobject>
     </mediaobject>
-    <para>A fifth, non-standard binding, called <emphasis>DebugBinding</emphasis>, is also available for debugging
+    <para>A fifth, non-standard binding, called <link xl:href="@JDURL@/org/eclipse/jetty/deploy/bindings/DebugBinding.html">Debug Binding</link>, is also available for debugging
     reasons; It logs the various transitions through the Application LifeCycle.</para>
   </section>
 </section>

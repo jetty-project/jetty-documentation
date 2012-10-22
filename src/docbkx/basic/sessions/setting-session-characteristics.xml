@@ -143,7 +143,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
       </informalexample>
     </section>
     <section xml:id="more-information-session-manager-params">
-    <title>More Information</title
+      <title>More Information</title>
       <para>For more information about Session Manager parameters, study the <link
       xl:href="http://download.eclipse.org/jetty/stable-7/xref/org/eclipse/jetty/server/SessionManager.html">class
       org.eclipse.jetty.server.SessionManager source</link> .</para>

@@ -10,9 +10,40 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
   <properties>
     <jetty.xref.url>http://download.eclipse.org/jetty/xref"</jetty.xref.url>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <build.support.version>1.2</build.support.version>
   </properties>
   <build>
     <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-enforcer-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>enforce</id>
+            <goals>
+              <goal>enforce</goal>
+            </goals>
+            <configuration>
+              <rules>
+                <requireMavenVersion>
+                  <version>[2.0.6,)</version>
+                </requireMavenVersion>
+                <requireJavaVersion>
+                  <version>[1.5,)</version>
+                </requireJavaVersion>
+                <versionTxtRule implementation="org.eclipse.jetty.toolchain.enforcer.rules.UniqueXmlIdDocbookRule" />
+             </rules>
+            </configuration>
+          </execution>
+        </executions>
+        <dependencies>
+           <dependency>
+             <groupId>org.eclipse.jetty.toolchain</groupId>
+             <artifactId>jetty-build-support</artifactId>
+             <version>${build.support.version}</version>
+           </dependency>
+        </dependencies>
+      </plugin>
       <plugin>
         <groupId>net.erdfelt.maven</groupId>
         <artifactId>xmlfresh-maven-plugin</artifactId>

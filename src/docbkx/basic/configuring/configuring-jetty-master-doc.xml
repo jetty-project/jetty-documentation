@@ -109,20 +109,16 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
       <para>The jetty-spring module is included in jetty@codehaus with some convenience classes and a Main method to
       run Jetty from Spring. For more information, see:</para>
       <itemizedlist>
-        <listitem>[[Jetty/Howto/Spring|How to Configure Jetty Using Spring]]</listitem>
+        <listitem>
+          <xref linkend="framework-jetty-spring" />
+        </listitem>
         <listitem>[[Jetty/Tutorial/Embedding_Jetty#File_Server_with_spring|Embedding Jetty with Spring XML]]</listitem>
       </itemizedlist>
-    </section>
-    <section xml:id="configuring-jetty-with-xbean">
-      <title>Configuring Jetty with <link xl:href="http://geronimo.apache.org/xbean/index.html">XBean</link></title>
-      <para>Jetty 7 and later includes support for XBean, allowing you to use an XML format to customize Jetty within
-      an XBean configuration file. For more information, see [[Jetty/Howto/Configure_Jetty_with_XBean|Configuring Jetty
-      with XBean]].</para>
     </section>
   </section>
   <section xml:id="consulting-jetty-api-docs">
     <title>Consulting the Jetty API Docs</title>
-    <para>The <link xl:href="http://download.eclipse.org/jetty/stable-7/apidocs/">Jetty API docs</link> are the
+    <para>The <link xl:href="http://download.eclipse.org/jetty/stable-9/apidocs/">Jetty API docs</link> are the
     ultimate resource for configuration, regardless of the configuration method you use. This is because Jetty
     configuration can be considered as calling setters on a collection of POJOs.</para>
   </section>

@@ -80,7 +80,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
       </itemizedlist>
     </section>
   </section>
-  <section xml:id="embedding-jetty">
+  <section xml:id="master-embedding-jetty">
     <title>Embedding Jetty</title>
     <para>You can embed Jetty in an application. This is an alternative to bundling your application as a standard WAR
     to be deployed in Jetty. Jetty is designed to work as a software component that can be instantiated and used in a

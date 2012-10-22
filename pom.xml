@@ -32,16 +32,16 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
                   <version>[1.5,)</version>
                 </requireJavaVersion>
                 <versionTxtRule implementation="org.eclipse.jetty.toolchain.enforcer.rules.UniqueXmlIdDocbookRule" />
-             </rules>
+              </rules>
             </configuration>
           </execution>
         </executions>
         <dependencies>
-           <dependency>
-             <groupId>org.eclipse.jetty.toolchain</groupId>
-             <artifactId>jetty-build-support</artifactId>
-             <version>${build.support.version}</version>
-           </dependency>
+          <dependency>
+            <groupId>org.eclipse.jetty.toolchain</groupId>
+            <artifactId>jetty-build-support</artifactId>
+            <version>${build.support.version}</version>
+          </dependency>
         </dependencies>
       </plugin>
       <plugin>

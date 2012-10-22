@@ -119,7 +119,6 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
 <!-- 
                  Deployment Overlays
                  -->
-    <xi:include href="advanced/overlays/chapter.xml" />
 <!-- Security topics could go here, if we want to go indepth on them, it 
                         would probably be a good idea. NOTE: or perhaps we should have one combo 
                         section on sessions and security. -->

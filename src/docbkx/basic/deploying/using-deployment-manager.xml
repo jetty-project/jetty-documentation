@@ -30,14 +30,17 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     Jetty distribution:</para>
     <itemizedlist>
       <listitem>
-        <para><link xl:href="@JDURL@/org/eclipse/jetty/deploy/providers/WebAppProvider.html">WebAppProvider</link>&#8211;monitors a directory for WebAppProvider <code>*.war</code> files and submits them
+        <para><link xl:href="@JDURL@/org/eclipse/jetty/deploy/providers/WebAppProvider.html">
+        WebAppProvider</link> &#8211;monitors a directory for WebAppProvider <code>*.war</code> files and submits them
         to the Application LifeCycle Graph for deployment into a context with the same name as the <code>
         *.war</code> file itself.</para>
       </listitem>
-      <listitem> 
-      <para><link xl:href="@JDURL@/org/eclipse/jetty/deploy/providers/ContextProvider.html">ContextProvider</link>&#8211;monitors a directory for <filename>*.xml</filename> files, and using the Jetty XML configurator
-      creates a ContextHandler (usually a <code>WebAppContext</code>) for the Application LifeCycle
-      Graph.</para></listitem>
+      <listitem>
+        <para><link xl:href="@JDURL@/org/eclipse/jetty/deploy/providers/ContextProvider.html">
+        ContextProvider</link> &#8211;monitors a directory for <filename>*.xml</filename> files, and using the Jetty
+        XML configurator creates a ContextHandler (usually a <code>WebAppContext</code> ) for the Application LifeCycle
+        Graph.</para>
+      </listitem>
     </itemizedlist>
     <para>Activating both at the same time is possible, but can be confusing because you must take care to either keep
     both systems deploying mutually exclusive webapps, or align naming conventions of <filename>
@@ -46,7 +49,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
   <section xml:id="udm-application-lifecycle-graph">
     <title>Application LifeCycle Graph</title>
     <para>The core feature of the DeploymentManager is the <link
-    xl:href="@JDURL@/org/eclipse/jetty/deploy/AppLifeCycle.html">Application LifeCycle Graph</link>.</para>
+    xl:href="@JDURL@/org/eclipse/jetty/deploy/AppLifeCycle.html">Application LifeCycle Graph</link> .</para>
     <mediaobject>
       <info>
         <othercredit>
@@ -121,7 +124,8 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
         fileref="images/Jetty_DeployManager_DefaultAppLifeCycleBindings.png" />
       </imageobject>
     </mediaobject>
-    <para>A fifth, non-standard binding, called <link xl:href="@JDURL@/org/eclipse/jetty/deploy/bindings/DebugBinding.html">Debug Binding</link>, is also available for debugging
-    reasons; It logs the various transitions through the Application LifeCycle.</para>
+    <para>A fifth, non-standard binding, called <link
+    xl:href="@JDURL@/org/eclipse/jetty/deploy/bindings/DebugBinding.html">Debug Binding</link>, is also available for
+    debugging reasons; It logs the various transitions through the Application LifeCycle.</para>
   </section>
 </section>

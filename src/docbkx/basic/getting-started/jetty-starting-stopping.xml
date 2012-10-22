@@ -1,80 +1,271 @@
 <?xml version="1.0" encoding="utf-8"?>
-<section xml:id="starting-and-stopping" version="5.0" xmlns="http://docbook.org/ns/docbook"
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xl="http://www.w3.org/1999/xlink"
-xmlns:xi="http://www.w3.org/2001/XInclude"
-xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd">
+<section version="5.0"
+         xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd"
+         xml:id="starting-and-stopping" xmlns="http://docbook.org/ns/docbook"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:xs="http://www.w3.org/2001/XMLSchema"
+         xmlns:xl="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:ns2="http://www.w3.org/1998/Math/MathML"
+         xmlns:ns="http://docbook.org/ns/docbook">
   <title>Starting and Stopping Jetty</title>
-  <para></para>
+
+  <para/>
+
   <section xml:id="starting-jetty">
     <title>Starting Jetty</title>
-    <para>Starting the jetty distribution is simple, providing you have nothing else runinng on port 8080 (the default
-    port that jetty start on) then all you need to run is:</para>
-    <para>
-      <code>&gt; java -jar start.jar</code>
-    </para>
-    <para>If everything goes correctly you should see the following information start flowing in the terminal you
-    started jetty in. This will be near the top of the output and indicates that jetty has started both the http and
-    https connectors on the 8080 and 8443 ports respectively. What follows this will be a wealth of information related
-    to webapps being deployed which is of limited usefulness at this point, what matters is that you have started jetty
-    and now check out how it worked.</para>
-    <screen>
-<![CDATA[
-2012-10-16 15:51:35.551:INFO:oejs.Server:main: jetty-9.0.0.M1
-2012-10-16 15:51:35.593:INFO:oejs.NCSARequestLog:main: Opened /Users/jesse/Downloads/jetty-distribution-9.0.0.M1/logs/2012_10_16.request.log
-2012-10-16 15:51:35.631:INFO:oejs.ServerConnector:main: Started ServerConnector@566749c5{HTTP/1.1}{0.0.0.0:8080}
-2012-10-16 15:51:36.019:INFO:oejs.ServerConnector:main: Started ServerConnector@151a30e7{SSL-http/1.1}{0.0.0.0:8443}
-]]>
-    </screen>
-    <para>Note: If you see the following exception you already have something running on the port that jetty is
-    configured to run on and you either need to shut down whatever that process is, or configure jetty to run on
-    another port.</para>
-    <screen>
-<![CDATA[
-Caused by: java.net.BindException: Address already in use
+
+    <para>To start the jetty distribution on the default port of 8080 run the
+    following command:</para>
+
+    <para><code>&gt; java -jar start.jar</code></para>
+
+    <para>If everything goes correctly you should see about 20 lines of logged
+    INFO statements that will include lines like the following, that inform
+    you of the components being started:</para>
+
+    <screen>2012-10-22 16:02:24.988:INFO:oejs.Server:main: jetty-9.0.0-M2
+2012-10-22 16:02:25.040:INFO:oejs.NCSARequestLog:main: Opened /home/gregw/src/jetty-9/jetty-distribution/target/distribution/logs/2012_10_22.request.log
+2012-10-22 16:02:25.115:INFO:oejs.ServerConnector:main: Started ServerConnector@6aeeafb{HTTP/1.1}{0.0.0.0:8080}
+2012-10-22 16:02:25.348:INFO:oejs.ServerConnector:main: Started ServerConnector@24a45e{SSL-http/1.1}{0.0.0.0:8443}
+2012-10-22 16:02:25.357:INFO:oejdp.ScanningAppProvider:main: Deployment monitor [file:/home/gregw/src/jetty-9/jetty-distribution/target/distribution/webapps/] at interval 1
+2012-10-22 16:02:25.688:INFO:oejd.DeploymentManager:main: Deployable added: /home/gregw/src/jetty-9/jetty-distribution/target/distribution/webapps/test.xml
+2012-10-22 16:02:25.725:INFO:oejw.WebInfConfiguration:main: Extract jar:file:/home/gregw/src/jetty-9/jetty-distribution/target/distribution/webapps/test.war!/ to /tmp/jetty-0.0.0.0-8080-test.war-_test-any-/webapp
+2012-10-22 16:02:26.097:INFO:oejsh.ContextHandler:main: started o.e.j.w.WebAppContext@4e3ceb07{/test,file:/tmp/jetty-0.0.0.0-8080-test.war-_test-any-/webapp/,AVAILABLE}{/test.war}</screen>
+
+    <para>You will also see some warnings like:</para>
+
+    <screen>2012-10-22 16:02:24.748:WARN::main: test-realm is deployed. DO NOT USE IN PRODUCTION!
+2012-10-22 16:02:25.582:WARN::main: async-rest webapp is deployed. DO NOT USE IN PRODUCTION!</screen>
+
+    <para>These warnings are telling you that some demonstration web
+    applications and services are deployed and that they should be removed
+    before the server is put into production. These warnings can be ignored
+    while testing, or you can see LINK:Deploying Web Applications to learn how
+    to remove them.</para>
+
+    <para>You can test the started Jetty by pointing a Browser or any HTTP
+    client at port 8080 of the machine. If you are running the browser on the
+    same machine as the Jetty instance, then the URL to use is:</para>
+
+    <para><code>http://localhost:8080/</code></para>
+
+    <para>Your browser or HTTP client should see the Jetty welcome page and be
+    able to follow the links to some test web applications.</para>
+
+    <section>
+      <title>Changing the Jetty Port</title>
+
+      <para>If you see the following exception you already have something
+      running on the port that jetty is configured to run on and you either
+      need to shut down whatever that process is, or configure jetty to run on
+      another port.</para>
+
+      <screen>Caused by: java.net.BindException: Address already in use
  at sun.nio.ch.Net.bind0(Native Method)
  at sun.nio.ch.Net.bind(Net.java:344)
  at sun.nio.ch.Net.bind(Net.java:336)
- at sun.nio.ch.ServerSocketChannelImpl.bind(ServerSocketChannelImpl.java:199)
-  ]]>
-    </screen>
-    <para>If this happened the short cut way to resolve it for testing purposes is to start up jetty with a commandline
-    option which overrides the configured jetty.port value.</para>
-    <para>
-      <code>java -jar start.jar -Djetty.port=8081</code>
-    </para>
-    <para>Starting up with this option enabled will kick out a helpful warning message that indicates you should not
-    continue starting jetty in this way. We'll discuss changing this value later in 
-    <xref linkend="configuring-connectors" />
-    </para>
-    <screen>
-<![CDATA[
-WARNING: System properties and/or JVM args set.  Consider using --dry-run or --exec
-]]>
-    </screen>
+ at sun.nio.ch.ServerSocketChannelImpl.bind(ServerSocketChannelImpl.java:199)    </screen>
+
+      <para>Jetty can be made to run on a different port by adding setting the
+      jetty.port Property on the command line:</para>
+
+      <para><code>&gt; java -jar start.jar jetty.port=8081</code></para>
+
+      <para>This property can also be set in the <code>start.ini</code> file
+      or by editing the usage of the property in the
+      <code>etc/jetty-http.xml</code> configuration file. For more information
+      see <xref linkend="configuring-connectors"/>.</para>
+    </section>
+
     <section>
-      <title>Testing the Startup</title>
-      <para></para>
+      <title>Starting HTTPS</title>
+
+      <para>By defaults set in the <code>start.ini</code> file, Jetty starts
+      the HTTP connector that is defined in <code>etc/jetty-http.xml</code>.
+      To also start the HTTPS connector defined in
+      <code>etc/jetty-https.xml</code> you can simply append this
+      configuration file to the command line:</para>
+
+      <para><code>&gt; java -jar start.jar etc/jetty-https.xml</code></para>
+
+      <para>You can now test this connector by pointing your browser
+      to:</para>
+
+      <para><code>https://localhost:8443/</code></para>
+
+      <para>Alternately you can edit the <code>start.ini</code> file and
+      uncomment the line that includes the https configuration file and then
+      start jetty without any extra command line arguments. Note also that the
+      SSL port can be changed with the jetty.tls.port Property:</para>
+
+      <para><code>&gt; java -jar start.jar jetty.tls.port=8444
+      etc/jetty-https.xml</code></para>
+    </section>
+
+    <section>
+      <title>Deploying Web Applications</title>
+
+      <para>Jetty by default includes the <code>etc/jetty-deploy.xml</code>
+      file in <code>start.ini</code>, which configures a web application
+      Deployer that hot deploys files found in the <code>webapps</code>
+      directory. Standard WAR files and jetty configuration files that are
+      placed in the <code>webapps</code> directory will be hot deployed to the
+      server with the following conventions:</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>A directory called <code>example/</code> will be deployed as a
+          standard web application if it contains a <code>WEB-INF/
+          </code>subdirectory, otherwise it will be deployed as context of
+          static content. The context path will be <code>/example</code> (eg
+          <code>http://localhost:8080/example/</code>) unless the base name is
+          <code>root</code>, in which case the context path is /. If the
+          directory name ends with ".d" it is ignored (by may be used by
+          explicit configuration).</para>
+        </listitem>
+
+        <listitem>
+          <para>A file called <code>example.war</code> will be deployed as a
+          standard web application with the context path /example (eg
+          http://localhost:8080/example/). If he base name is root, then the
+          context path is /. If <code>example.war</code> and
+          <code>example/</code> exist, then only the WAR is deployed (which
+          may use the directory as an unpack location).</para>
+        </listitem>
+
+        <listitem>
+          <para>An XML file like <code>example.xml</code> will be deployed as
+          a context whose configuration is defined by the XML. The context
+          path must be set by the configuration itself. If
+          <code>example.xml</code> and <code>example.war</code> exist, then
+          only the XML is deployed (which may use the war in its
+          configuration).</para>
+        </listitem>
+      </itemizedlist>
+
+      <para>If you have a standard web application, it can hot deployed into
+      jetty by copying it into the webapps directory. Alternately to test
+      deployment you can copy the provided test web application
+      provided:</para>
+
+      <para><code>&gt; cp webapps/test.war webapps/myapp.war</code></para>
+
+      <para>The Jetty distribution comes with the following deployed in the
+      webapps directory:</para>
+
+      <variablelist>
+        <varlistentry>
+          <term>ROOT/</term>
+
+          <listitem>
+            <para>The Jetty welcome page served as static content. </para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>test.xml</term>
+
+          <listitem>
+            <para>The configuration file that deploys the demonstration web
+            application in test.war using the extra configuration contained
+            within test.d</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>test.war</term>
+
+          <listitem>
+            <para>The demonstration web application that is configured and
+            deployed by test.xml</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>test.d</term>
+
+          <listitem>
+            <para>A directory containing additional configuration files used
+            by test.xml</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>async-rest.war</term>
+
+          <listitem>
+            <para>A web application demonstration asynchronous REST to Ebay.
+            </para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>javadoc.xml</term>
+
+          <listitem>
+            <para>A context configuration that deploys as static content the
+            javadoc directory found at jetty.home/javadoc</para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+
+      <para>These demonstration web applications should be removed before
+      using Jetty in production.</para>
+    </section>
+
+    <section>
+      <title>Advanced Start.jar</title>
+
+      <para>The job of the start.jar command is to interpret the command line
+      and start.ini arguments in order to build a java classpath and list of
+      properties and configuration files to pass to the main class of the
+      Jetty XML configuration mechanism. The start.jar mechanism has many
+      options which are documented in <xref linkend="advanced-jetty-start"/>
+      and can be seen in summary with the command:</para>
+
+      <para><code>&gt; java -jar start.jar --help</code></para>
     </section>
   </section>
+
   <section xml:id="stopping-jetty">
     <title>Stopping Jetty</title>
-    <para>how to stop, use stop port, etc</para>
+
+    <para>If jetty has been simply started from the command line, then it is
+    safe to stop it using the normal Ctrl-C key sequence to abort it. This
+    will trigger an orderly shutdown of the server.</para>
+
+    <para>However, the server may be started with some advanced start.jar
+    options so that it runs in the background:</para>
+
+    <para><code>&gt; java -jar start.jar STOP.PORT=8881 STOP.KEY=magic
+    --daemon &amp;</code></para>
+
+    <para>This server may now be shutdown with the command:</para>
+
+    <para><code>&gt; java -jar start.jar STOP.PORT=8881 STOP.KEY=magic
+    --stop</code></para>
   </section>
+
   <section>
     <title>Restarting Jetty</title>
-    <para>restarting (with the script, maybe us in automatic startup section)</para>
+
+    <para>restarting (with the script, maybe us in automatic startup
+    section)</para>
   </section>
+
   <section>
     <title>Automatic Startup</title>
+
     <para>the start.sh script, adaption for env</para>
   </section>
+
   <section>
     <title>Additional Topics</title>
+
     <orderedlist>
       <listitem>
-        <para>
-          <xref linkend="advanced-jetty-start" />
-        </para>
+        <para><xref linkend="advanced-jetty-start"/></para>
       </listitem>
     </orderedlist>
   </section>

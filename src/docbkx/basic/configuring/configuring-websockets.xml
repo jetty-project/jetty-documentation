@@ -321,8 +321,8 @@ class TestEchoBroadcastWebSocket implements WebSocket.OnTextMessage
     hard, just that they don&#8217;t solve all of the problems that you encounter in a real world Comet
     application.</para>
   </section>
-  <section xml:id="additional-resources">
-    <title>Additional Resources</title>
+  <section xml:id="additional-resources-configuring-websockets">
+    <title>Additional Resources for Configuring WebSockets</title>
     <para>
       <link xl:href="http://wiki.eclipse.org/Jetty_WTP_Plugin/Jetty_WTP_Websocket_Wizard">Using the WTP WebSocket
       Wizard</link>

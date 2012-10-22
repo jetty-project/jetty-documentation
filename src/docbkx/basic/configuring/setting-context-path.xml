@@ -29,7 +29,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     ]]>
     </screen>
   </section>
-  <section xml:id="using-the-webapp-provider">
+  <section xml:id="context path-using-the-webapp-provider">
     <title>Using the Webapp Provider</title>
     <para>If you deploy the web application by 
     <xref linkend="using-webapp-provider" />

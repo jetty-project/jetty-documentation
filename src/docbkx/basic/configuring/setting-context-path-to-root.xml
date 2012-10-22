@@ -18,7 +18,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     <listitem>Examine the <filename>${jetty.home}/start.ini</filename> file, and you see that it contains both
     references to <code>etc/jetty-webapps.xml</code> and <code>etc/jetty-contexts.xml</code> .</listitem>
   </itemizedlist></note>
-  <section xml:id="using-the-webapp-provider">
+  <section xml:id="root-using-the-webapp-provider">
     <title>Using the WebAppProvider</title>
     <para>The WebAppProvider's role (see 
     <xref linkend="using-webapp-provider" />

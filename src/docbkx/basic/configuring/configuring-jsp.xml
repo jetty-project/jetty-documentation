@@ -39,8 +39,8 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
 ]]>
       </programlisting>
     </informalexample>
-    <section xml:id="using-jetty-maven-plugin">
-      <title>Using the Jetty Maven Plugin</title>
+    <section xml:id="jsp-using-jetty-maven-plugin">
+      <title>Using the Jetty Maven Plugin with JSP</title>
       <para>For jetty-7.5.0 and later we upgraded the version of JSP to <filename>jsp-impl-2.1.3.b10</filename> (from
       Glassfish). In this version, the JSP infrastructure ALWAYS tries to acquire a Java compiler from the JVM if the
       version of Java is 1.6 or above. Therefore, if you are using a JRE, JSPs are unable to compile, so you must use a

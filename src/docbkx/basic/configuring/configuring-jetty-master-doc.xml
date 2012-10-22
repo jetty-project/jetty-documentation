@@ -68,8 +68,8 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
       <listitem>[[Jetty/Reference/jetty.xml_syntax|Jetty.xml Syntax]]&#8211;describes the syntax for using
       [[Jetty/Reference/jetty.xml|jetty.xml]]</listitem>
     </itemizedlist>
-    <section xml:id="additional-resources">
-      <title>Additional Resources</title>
+    <section xml:id="configuring-jetty-references">
+      <title>Configuring Jetty References</title>
       <itemizedlist>
         <listitem>[http://www.eclipse.org/jetty/configure.dtd configure.dtd]&#8211;document type descriptor for the
         org.eclipse.XmlConfiguration class</listitem>
@@ -89,7 +89,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     <xref linkend="embedding" />
     .</para>
   </section>
-  <section xml:id="using-jetty-maven-plugin">
+  <section xml:id="master-using-jetty-maven-plugin">
     <title>Using the Jetty Maven Plugin</title>
     <para>Apache Maven is a software project management and comprehension tool. Based on the concept of a project
     object model (POM), Maven can manage a project's build, reporting, and documentation from a central piece of

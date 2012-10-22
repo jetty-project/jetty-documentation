@@ -591,8 +591,8 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
         </programlisting>
       </informalexample>
     </section>
-    <section xml:id="configuring-connectors">
-      <title>Configuring Connectors</title>
+    <section xml:id="configuring-connectors-jetty-maven-plugin">
+      <title>Configuring Connectors for Jetty Maven Plugin</title>
       <para>You can configure a list of <code>org.eclipse.jetty.server.Connector</code> objects for the plugin. If you
       don't specify any, an NIO <code>org.eclipse.jetty.server.nio.SelectChannelConnector</code> is configured on port
       8080. You can change this default port number by using the system property <code>jetty.port</code> on the command

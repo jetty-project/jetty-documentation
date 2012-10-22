@@ -7,8 +7,8 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
   <para>Tuning the JVM garbage collection (GC) can greatly improve Jetty performance. Specifically, you can avoid
   pauses while the system performs full garbage collections. Optimal tuning of the GC depends on the behaviour of the
   application and requires detailed analysis, however there are general recommendations.</para>
-  <section xml:id="examples">
-    <title>Examples</title>
+  <section xml:id="tuning-examples">
+    <title>Tuning Examples</title>
     <para>These options are general to the Sun JVM, and work in a JDK 6 installation. They provide good information
     about how your JVM is running; based on that initial information, you can then tune more finely.</para>
     <para>To print the implicit flags with which the JVM is configured:</para>

@@ -59,8 +59,8 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
       </tgroup>
     </table>
   </section>
-  <section xml:id="examples">
-    <title>Examples</title>
+  <section xml:id="applying-init-parameters">
+    <title>Applying Init Parameters</title>
     <para>The following sections provide examples of how to apply the init parameters.</para>
     <section xml:id="context-parameter-example">
       <title>Context Parameter Example</title>
@@ -116,7 +116,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
         </programlisting>
       </informalexample>
     </section>
-    <section xml:id="session-manager-examples">
+    <section xml:id="init-parameter-examples">
       <title>SessionManager Examples</title>
       <para>You can configure init parameters directly on a <code>SessionManager</code> instance, either in code or the
       equivalent in xml:</para>
@@ -142,8 +142,9 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
         </programlisting>
       </informalexample>
     </section>
-    <section xml:id="session-manager-examples">
-      <para>For more information about parameters, study the <link
+    <section xml:id="more-information-session-manager-params">
+    <title>More Information</title
+      <para>For more information about Session Manager parameters, study the <link
       xl:href="http://download.eclipse.org/jetty/stable-7/xref/org/eclipse/jetty/server/SessionManager.html">class
       org.eclipse.jetty.server.SessionManager source</link> .</para>
       <para>See also the [[Jetty/Feature/Session Clustering|Session Clustering]] // TODO xref //tutorial.</para>

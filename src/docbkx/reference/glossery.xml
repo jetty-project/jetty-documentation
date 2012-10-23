@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<glossary id="Glossary" version="5.0" xmlns="http://docbook.org/ns/docbook" xmlns:xl="http://www.w3.org/1999/xlink"
+xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg"
+xmlns:mth="http://www.w3.org/1998/Math/MathML" xmlns:xhtml="http://www.w3.org/1999/xhtml"
+xmlns:db="http://docbook.org/ns/docbook">
+  <title>Glossary</title>
+  <glossdiv>
+    <title>*</title>
+    <glossentry id="gBaseT1000">
+      <glossterm>1000BaseT</glossterm>
+      <glossdef>
+        <para>IEEE 802.3 physical layer specification for 1000Mbps Ethernet over two pairs of category 5 UTP
+        wire.</para>
+      </glossdef>
+    </glossentry>
+    <glossentry id="gBaseT100">
+      <glossterm>100BaseT</glossterm>
+      <glossdef>
+        <para>IEEE 802.3 physical layer specification for 100Mbps Ethernet over two pairs of category 5 UTP
+        wire.</para>
+      </glossdef>
+    </glossentry>
+    <glossentry id="gTenBase2">
+      <glossterm>10Base2</glossterm>
+      <glossdef>
+        <para>IEEE 802.3 physical-layer specification for 10Mbps ethernet over thin coaxial cable. Commonly referred to
+        as thinnet.</para>
+      </glossdef>
+    </glossentry>
+  </glossdiv>
+</glossary>

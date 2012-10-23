@@ -103,7 +103,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
       <itemizedlist>
         <listitem>
           <para>[http://www.eclipse.org/jetty/configure.dtd configure.dtd]&#8211;document type descriptor for the
-          org.eclipse.XmlConfiguration class
+          org.eclipse.XmlConfiguration class 
           <listitem>
             <para>[[Jetty/Reference/jetty-web.xml| jetty-web.xml]]&#8211; Webapp configuration file</para>
           </listitem>

@@ -43,6 +43,8 @@ xmlns:l="http://docbook.sourceforge.net/xmlns/l10n/1.0"
     - http://docbkx-tools.sourceforge.net/
   -->
 
+  <!-- This addresses the issue where 'the section called "foo"' is rendered when we really only want 'foo' 
+       Note: we should still be able to use xrefstyle on xrefs -->
   <xsl:param name="local.l10n.xml" select="document('')"/>  
   <l:i18n xmlns:l="http://docbook.sourceforge.net/xmlns/l10n/1.0">
     <l:l10n language="en">

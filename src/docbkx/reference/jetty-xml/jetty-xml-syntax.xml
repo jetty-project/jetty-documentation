@@ -1,23 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<section xml:id="jetty-xml-syntax" version="5.0" xmlns="http://docbook.org/ns/docbook" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
+<section xml:id="jetty-xml-syntax" version="5.0" xmlns="http://docbook.org/ns/docbook"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xl="http://www.w3.org/1999/xlink"
+xmlns:xi="http://www.w3.org/2001/XInclude"
 xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd">
   <title>Introduction</title>
-<para>
-The Jetty XML syntax is a straightforward mapping of XML elements to a Java API so that POJOs can be instantiated and getters, setters and methods called. It is very similar to Inversion Of Control (IOC) or Dependency Injection (DI) frameworks like Spring or Plexus (but it predates all of them). Typically Jetty XML is used by jetty.xml to configure a Jetty server or by a context.xml file to configure a ContextHandler or subclass, but you can also use the mechanism to configure arbitrary POJOs.
-</para>
-<para>
-This page describes the basic syntax of Jetty XML configuration. See jetty.xml Usage for information on how you can use and combine Jetty XML. See Configuration Files for specific examples.
-</para>
-<section>
-	<title>
-Basic Example
-</title>
-<para>
-The following XML configuration file creates some Java objects and sets some attributes:
-</para>
-
-<informalexample>
+  <para>The Jetty XML syntax is a straightforward mapping of XML elements to a Java API so that POJOs can be
+  instantiated and getters, setters and methods called. It is very similar to Inversion Of Control (IOC) or Dependency
+  Injection (DI) frameworks like Spring or Plexus (but it predates all of them). Typically Jetty XML is used by
+  jetty.xml to configure a Jetty server or by a context.xml file to configure a ContextHandler or subclass, but you can
+  also use the mechanism to configure arbitrary POJOs.</para>
+  <para>This page describes the basic syntax of Jetty XML configuration. See jetty.xml Usage for information on how you
+  can use and combine Jetty XML. See Configuration Files for specific examples.</para>
+  <section>
+    <title>Basic Example</title>
+    <para>The following XML configuration file creates some Java objects and sets some attributes:</para>
+    <informalexample>
       <programlisting language="xml">
 <![CDATA[
 <?xml version="1.0"?>
@@ -44,13 +41,10 @@ The following XML configuration file creates some Java objects and sets some att
   </Ref>
 </Configure>
 ]]>
-</programlisting>
-</informalexample>
-<para>
-The XML above is equivalent to the following java code:
-</para>
-
-<informalexample>
+      </programlisting>
+    </informalexample>
+    <para>The XML above is equivalent to the following java code:</para>
+    <informalexample>
       <programlisting language="java">
 <![CDATA[
 com.acme.Foo foo = new com.acme.Foo();
@@ -67,33 +61,25 @@ foo.setNested(bar);
 bar.setWibble(20);
 bar.getParent().setName("demo2");
 ]]>
-</programlisting>
-</informalexample>
-</section>
-<section>
-	<title>
-Overview
-</title>
-<section>
-	<title>
-Understanding DTD and Parsing
-</title>
-<para>
-The document type descriptor (DTD) describes all valid elements. The first two lines must reference the DTD, and you must substitute the appropriate class for the object you are trying to configure. See the appropriate jetty-*.xml references.
-</para>
-<para>
-The org.eclipse.jetty.xml.XmlConfiguration class parses the Jetty XML files using the configure.dtd descriptor.
-</para>
-</section>
-<section>
-	<title>
-Using Method Calls
-</title>
-<para>
-You configure Java objects with a sequence of &lt;New>, &lt;Set>, &lt;Put> and &lt;Call> elements:
-</para>
-<informalexample>
-      <programlisting language="xml">
+      </programlisting>
+    </informalexample>
+  </section>
+  <section>
+    <title>Overview</title>
+    <section>
+      <title>Understanding DTD and Parsing</title>
+      <para>The document type descriptor (DTD) describes all valid elements. The first two lines must reference the
+      DTD, and you must substitute the appropriate class for the object you are trying to configure. See the
+      appropriate jetty-*.xml references.</para>
+      <para>The org.eclipse.jetty.xml.XmlConfiguration class parses the Jetty XML files using the configure.dtd
+      descriptor.</para>
+    </section>
+    <section>
+      <title>Using Method Calls</title>
+      <para>You configure Java objects with a sequence of &lt;New&gt;, &lt;Set&gt;, &lt;Put&gt; and &lt;Call&gt;
+      elements:</para>
+      <informalexample>
+        <programlisting language="xml">
 <![CDATA[
 <Set name="Test">value</Set>
 obj.setTest("value");
@@ -104,78 +90,74 @@ obj.test("value");
 <New class="com.acme.MyStuff"><Arg/></New>
 new com.acme.MyStuff();
 ]]>
-</programlisting>
-</informalexample>
-</section>
-<section>
-	<title>
-Coercing Arguments to a Type
-</title>
-<para>
-Jetty coerces values to match method arguments on a best effort approach, but you can also specify explicit types with the type attribute. Supported values for type are:
-</para>
-<para>
-String, Character, Short, Byte, Integer, Long, Boolean, Float, Double, char, short, byte, int, long, boolean, float, double, URL, InetAddress, InetAddrPort, void
-</para>
-<para>
-For Java classes, you can use either the fully-qualified class name, or just the class name.
-</para>
-</section>
-<section>
-	<title>
-Referring to a Class
-</title>
-<para>
-If you do not specify the classname, Jetty assumes you are calling the method on this. Otherwise, use the class attribute to specify the fully-qualified class name of an object to configure. (You must always specify the class of the root Configure element.)
-</para>
-</section>
-<section>
-	<title>
-Referring to an Object
-</title>
-<para>
-You can use the id attribute to store a reference to this object when first creating or referring to this object. You can then use the &lt;Ref> tag to reference the object later. The id must be unique for each object you create.
-</para>
-</section>
-</section>
-<section>
-	<title>Types</title>
-<section xml:id="jetty-xml-configure">
-<title><para>
-&lt;Configure&gt;</para></title>
-<para>
-This is the root element that specifies the class of object that is to be configured. It is usually either the Server, in jetty.xml , or a WebAppContext, in jetty-web.xml.
-</para>
-
-<tgroup cols="3">
-<thead>
-	<row>
-	 <entry align="left">Attribute</entry>
-	 <entry align="center">Required</entry>
-	 <entry align="left">Description</entry>
-	</row>
-</thead>
-<tbody>
-	<row>
-		<entry>id</entry>
-		<entry>no</entry>
-        <entry><para>a reference to the object that was created. If you define multiple &lt;Configure> tags with the same id, they will be treated as one object, even if they're in different files. You can use this to break up configuration of an object (such as the Server) across multiple files.</para></entry>
-    </row>
-    <row>
-<entry>class</entry>
-<entry>no</entry> 
-<entry>the fully qualified classname of the object to be configured. Could be org.eclipse.jetty.server.Server, org.eclipse.jetty.webapp.WebAppContext, a handler, etc.</entry>
-</row>
-</tbody>
-</tgroup>
-<section>
-	<title><para>
-Can Contain</para>
-</title>
-<itemizedlist>
-        <listitem><para><linkend ref="jetty-xml-configure"/></para></listitem>
-</itemizedlist>
-</section>
+        </programlisting>
+      </informalexample>
+    </section>
+    <section>
+      <title>Coercing Arguments to a Type</title>
+      <para>Jetty coerces values to match method arguments on a best effort approach, but you can also specify explicit
+      types with the type attribute. Supported values for type are:</para>
+      <para>String, Character, Short, Byte, Integer, Long, Boolean, Float, Double, char, short, byte, int, long,
+      boolean, float, double, URL, InetAddress, InetAddrPort, void</para>
+      <para>For Java classes, you can use either the fully-qualified class name, or just the class name.</para>
+    </section>
+    <section>
+      <title>Referring to a Class</title>
+      <para>If you do not specify the classname, Jetty assumes you are calling the method on this. Otherwise, use the
+      class attribute to specify the fully-qualified class name of an object to configure. (You must always specify the
+      class of the root Configure element.)</para>
+    </section>
+    <section>
+      <title>Referring to an Object</title>
+      <para>You can use the id attribute to store a reference to this object when first creating or referring to this
+      object. You can then use the &lt;Ref&gt; tag to reference the object later. The id must be unique for each object
+      you create.</para>
+    </section>
+  </section>
+  <section>
+    <title>Types</title>
+    <section xml:id="jetty-xml-configure">
+      <title>&lt;Configure&gt;</title>
+      <para>This is the root element that specifies the class of object that is to be configured. It is usually either
+      the Server, in jetty.xml , or a WebAppContext, in jetty-web.xml.</para>
+      <tgroup cols="3">
+        <thead>
+          <row>
+            <entry align="left">Attribute</entry>
+            <entry align="center">Required</entry>
+            <entry align="left">Description</entry>
+          </row>
+        </thead>
+        <tbody>
+          <row>
+            <entry>id</entry>
+            <entry>no</entry>
+            <entry>
+              <para>a reference to the object that was created. If you define multiple &lt;Configure&gt; tags with the
+              same id, they will be treated as one object, even if they're in different files. You can use this to
+              break up configuration of an object (such as the Server) across multiple files.</para>
+            </entry>
+          </row>
+          <row>
+            <entry>class</entry>
+            <entry>no</entry>
+            <entry>the fully qualified classname of the object to be configured. Could be
+            org.eclipse.jetty.server.Server, org.eclipse.jetty.webapp.WebAppContext, a handler, etc.</entry>
+          </row>
+        </tbody>
+      </tgroup>
+      <section>
+        <title>
+          <para>Can Contain</para>
+        </title>
+        <itemizedlist>
+          <listitem>
+            <para>
+              <xref linkend="jetty-xml-configure" />
+            </para>
+          </listitem>
+        </itemizedlist>
+      </section>
 <!--
 <Set>,<Get>, <Put>, <Call>, <New>, <Ref>, <Array>, <Map>, <Property>
 
@@ -205,12 +187,12 @@ Using id to break up configuration of one object across multiple files
 (etc/jetty.xml)
 
 <Configure id="Server" class="org.eclipse.jetty.server.Server">
-  <!-- basic configuration here ->
+  <!== basic configuration here ->
 </Configure>
 (etc/jetty-logging.xml)
 
 <Configure id="Server" class="org.eclipse.jetty.server.Server">
-  <!-- assumes that you have the basic server configuration set up; this file only contains additional configuration for logging ->
+  <!== assumes that you have the basic server configuration set up; this file only contains additional configuration for logging ->
 </Configure>
 Then run the combined configuration using:
 
@@ -363,12 +345,12 @@ value text, <Get>, <Call>, <New>, <Ref>, <Array>, <Map>, <SystemProperty>, <Prop
 
 Examples
 Basic examples
-<Arg>foo</Arg> <!-- String ->
-<Arg>true</Arg> <!-- Boolean ->
-<Arg>1</Arg> <!-- int, long, short, float, double ->
-<Arg><Ref id="foo" /></Arg>  <!-- any object; reference a previously created object with id "foo", and pass it as a parameter ->
-<Arg></Arg> <!-- null value ->
-<Arg type="String"></Arg> <!-- empty string "" ->
+<Arg>foo</Arg> <!== String ->
+<Arg>true</Arg> <!== Boolean ->
+<Arg>1</Arg> <!== int, long, short, float, double ->
+<Arg><Ref id="foo" /></Arg>  <!== any object; reference a previously created object with id "foo", and pass it as a parameter ->
+<Arg></Arg> <!== null value ->
+<Arg type="String"></Arg> <!== empty string "" ->
 Coercing Type
 This explicitly coerces the type to a boolean:
 
@@ -466,14 +448,14 @@ foo.setTest("1, 2, 3");
 Ref vs. Nested Elements
 Here is an example of the difference in syntax between using the Ref element, and nesting method calls. They are exactly equivalent:
 
-<!-- using Ref in conjunction with Get ->
+<!== using Ref in conjunction with Get ->
 <Configure id="Server" class="org.eclipse.jetty.server.Server">
   <Get id="Logger" class="org.eclipse.jetty.util.log.Log" name="log"/>
   <Ref id="Logger">
     <Set name="debugEnabled">true</Set>
   </Ref>
 </Configure>
-<!-- calling the setter directly on the object returned by Get ->
+<!== calling the setter directly on the object returned by Get ->
 <Configure id="Server" class="org.eclipse.jetty.server.Server">
   <Get class="org.eclipse.jetty.util.log.Log" name="log">
     <Set name="debugEnabled">true</Set>
@@ -486,14 +468,14 @@ Here is a more practical example, taken from the handler configuration section i
     <Set name="handlers">
       <Array type="org.eclipse.jetty.server.Handler">
         <Item>
-          <!-- create a new instance of a ContextHandlerCollection named "Contexts" ->
+          <!== create a new instance of a ContextHandlerCollection named "Contexts" ->
           <New id="Contexts" class="org.eclipse.jetty.server.handler.ContextHandlerCollection"/>
         </Item>
         <Item>
           <New id="DefaultHandler" class="org.eclipse.jetty.server.handler.DefaultHandler"/>
         </Item>
         <Item>
-          <!-- create a new instance of a RequestLogHandler named "RequestLog"->
+          <!== create a new instance of a RequestLogHandler named "RequestLog"->
           <New id="RequestLog" class="org.eclipse.jetty.server.handler.RequestLogHandler"/>
         </Item>
       </Array>
@@ -504,13 +486,13 @@ Here is a more practical example, taken from the handler configuration section i
 <Call name="addBean">
   <Arg>
     <New class="org.eclipse.jetty.deploy.ContextDeployer">
-      <!-- pass in the ContextHandlerCollection object ("Contexts") that was created earlier, as an argument ->
+      <!== pass in the ContextHandlerCollection object ("Contexts") that was created earlier, as an argument ->
       <Set name="contexts"><Ref id="Contexts"/></Set>
     </New>
   </Arg>
 </Call>
  
-<!-- configure the RequestLogHandler object ("RequestLog") that we created earlier ->
+<!== configure the RequestLogHandler object ("RequestLog") that we created earlier ->
 <Ref id="RequestLog">
   ....
 </Ref>
@@ -619,5 +601,7 @@ Example
   </Call>
 </Property>
 Additional -->
-</section> <!-- types section -->
+    </section>
+<!-- types section -->
+  </section>
 </section>

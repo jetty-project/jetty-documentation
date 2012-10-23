@@ -133,8 +133,9 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
                         jetty, how to submit patches, etc here opposed to in the basic section. -->
     <xi:include href="advanced/contributing/chapter.xml" />
   </part>
-<!-- 
-        <xi:include href="appendix/glossary.xml" />
-        <index />
-        -->
+  <part>
+    <title>Reference Section</title>
+<!-- Details on the jetty.xml syntax and conventions -->
+    <xi:include href="reference/jetty-xml/chapter.xml" />
+  </part>
 </book>

@@ -18,7 +18,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
       <emphasis>wget</emphasis>
     </link> or similar command (for example, <link xl:href="http://curl.haxx.se/">
       <emphasis>curl</emphasis>
-    </link> ) or a browser. Use wget as follows:</para>
+    </link>) or a browser. Use wget as follows:</para>
     <screen>
 <![CDATA[
 mkdir Demo

@@ -16,7 +16,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
   <section xml:id="ucp-understanding-context-provider">
     <title>Understanding the ContextProvider</title>
     <para>A <filename>jetty.xml</filename> file typically defines a <code>ContextProvider</code>; within the stock
-    jetty distribution the name of this file is <filename>jetty-contexts.xml</filename> :</para>
+    jetty distribution the name of this file is <filename>jetty-contexts.xml</filename>:</para>
     <informalexample>
       <programlisting language="xml">
 <![CDATA[ 
@@ -38,7 +38,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     <para>The <code>ContextProvider</code> scans the <code>monitoredDir</code> directory at intervals of <code>
     scanInterval</code> seconds for XML descriptors that define contexts. It then deploys any contexts to the passed
     contexts reference to a <code>HandlerContainer</code>, (normally an instance of <code>
-    ContextHandlerCollection</code> ). The deployment descriptors are in Jetty/Reference/jetty.xml syntax|jetty xml
+    ContextHandlerCollection</code>). The deployment descriptors are in Jetty/Reference/jetty.xml syntax|jetty xml
     //TODO xref// format, and define and configure individual contexts. A minimal example is:</para>
     <informalexample>
       <programlisting language="xml">
@@ -55,9 +55,9 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     <para>This example creates an instance of <link xl:href="@JDURL@/org/eclipse/jetty/webapp/WebAppContext.html">
       <code>WebAppContext</code>
     </link> and sets the <code>contextPath</code> to <code>/test</code> and the <code>resourceBase</code> to <code>
-    $jetty.home/webapps/test</code> . Because the context used is a standard web application context, when started it
+    $jetty.home/webapps/test</code>. Because the context used is a standard web application context, when started it
     inspects the <code>resourceBase</code> for a <code>WEB-INF/web.xml</code> for further configuration.</para>
-    <para>The <code>ContextProvider</code> is added to the server as a <code>LifeCycle</code> . This simply means that
+    <para>The <code>ContextProvider</code> is added to the server as a <code>LifeCycle</code>. This simply means that
     the provider starts and stops with the server. That is, when <code>server.start()</code> is called, <code>
     start</code> is also called on the provider.</para>
   </section>
@@ -65,10 +65,10 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     <title>Substituting a Property Value</title>
     <para>The <code>ContextProvider</code> can automatically do property substitution on the context files that it
     deploys. You define a <code>ConfigurationManager</code> that manages the properties and pass this into the <code>
-    ContextProvider</code> . There is currently one implementation of the <code>ConfigurationManage</code>, and that is
+    ContextProvider</code>. There is currently one implementation of the <code>ConfigurationManage</code>, and that is
     the <code>org.eclipse.jetty.deployer.FileConfigurationManager</code>, which reads a properties file and makes
-    available the property values to the <code>ContextProvider</code> . Here's how to configure the <code>
-    ContextProvider</code> :</para>
+    available the property values to the <code>ContextProvider</code>. Here's how to configure the <code>
+    ContextProvider</code>:</para>
     <informalexample>
       <programlisting language="xml">
 <![CDATA[ 

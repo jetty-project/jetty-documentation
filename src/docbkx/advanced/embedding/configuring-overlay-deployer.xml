@@ -49,7 +49,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     <title>JTrac Overlay Example</title>
     <para>The JTrac issue tracking web application is a good example of a typical web application, as it uses the usual
     suspects of libs: spring, hibernate, dom4j, commons-*, wicket, etc. The files for this demonstration are available
-    in <filename>overlays-demo.tar.gz</filename> . You can expand it on top of the jetty distribution; this tutorial
+    in <filename>overlays-demo.tar.gz</filename>. You can expand it on top of the jetty distribution; this tutorial
     expands it to <filename>/tmp</filename> and installs the components step-by-step:</para>
     <informalexample>
       <programlisting language="bash">
@@ -280,7 +280,7 @@ instances/jtracTemplate=red/
     <itemizedlist>
       <listitem>Each instance has themes with images and style sheets from the instance overlay.</listitem>
       <listitem>Each instance is running with its own application directory (that is, <filename>
-      /tmp/jtrac-red</filename> ), set in templates <filename>web-overlay.xml</filename> .</listitem>
+      /tmp/jtrac-red</filename>), set in templates <filename>web-overlay.xml</filename>.</listitem>
       <listitem>A virtual host set in the instance <filename>overlay.xml</filename> distinguishes the
       instances.</listitem>
       <listitem>All instances share static content from the base WAR and template. Specifically there is a shared

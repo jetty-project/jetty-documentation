@@ -45,8 +45,8 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
   <xref linkend="configuring-jetty" />
   .</para>
   <para>The examples that follow set virtual hosts in the preferred way, by calling the method <code>
-  ContextHandler</code> .<link xl:href="@JDURL@/org/eclipse/jetty/server/handler/ContextHandler.html#setVirtualHosts">
-  setVirtualHosts</link> .</para>
+  ContextHandler</code>.<link xl:href="@JDURL@/org/eclipse/jetty/server/handler/ContextHandler.html#setVirtualHosts">
+  setVirtualHosts</link>.</para>
   <section xml:id="configuring-a-virtual-host">
     <title>Configuring a Virtual Host</title>
     <para>When configuring a web application, you can supply a list of IP addresses and names at which the web
@@ -152,7 +152,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
         <para>www.other.org</para>
       </listitem>
     </itemizedlist>
-    <para>Suppose also you have another webapp, <emphasis>zzz.war</emphasis> . You want <emphasis>xxx.war</emphasis> to
+    <para>Suppose also you have another webapp, <emphasis>zzz.war</emphasis>. You want <emphasis>xxx.war</emphasis> to
     deploy as above, and <emphasis>zzz.war</emphasis> to deploy only from 777.888.888.111, www.other.com, www.other.net
     and www.other.org:</para>
     <informalexample>

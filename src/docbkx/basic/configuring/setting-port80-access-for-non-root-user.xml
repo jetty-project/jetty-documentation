@@ -48,7 +48,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     <title>Configuring Jetty's SetUID Feature</title>
     <para>The SetUID feature is among the Jetty 7 modules that remain at Codehaus, and it retains the mortbay.org
     package naming. It does use the Jetty 7 package modules at <link xl:href="http://download.eclipse.org/jetty/">
-    Eclipse</link> . Jetty-hightide-7 at <link xl:href="http://dist.codehaus.org/jetty/">Codehaus</link> comes with
+    Eclipse</link>. Jetty-hightide-7 at <link xl:href="http://dist.codehaus.org/jetty/">Codehaus</link> comes with
     <code>jetty-setuid</code> compiled for Jetty 7. You can also download the <code>setuid</code> Jar and <code>
     config</code> Jar from the <link xl:href="http://repo1.maven.org/maven2/org/mortbay/jetty/jetty-setuid-java/">Maven
     Central Repository</link>, and then copy the <code>setuid</code> Jar to <filename>$jetty.home/etc</filename>, and
@@ -92,7 +92,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
         have been opened.</listitem>
       </itemizedlist>
       <tip>For your convenience, if you download Jetty Hightide, you'll find one of these ready made in the <filename>
-      $jetty.home/etc/jetty-setuid.xml</filename> . Alternatively, if you downloaded the <code>
+      $jetty.home/etc/jetty-setuid.xml</filename>. Alternatively, if you downloaded the <code>
       jetty-setuid-java</code> Jars from the Maven Central repo, find it in the <filename>
       jetty-setuid-java-config.jar</filename> file.</tip>
     </section>
@@ -134,7 +134,7 @@ sudo java -jar start.jar
     <title>Using xinetd</title>
     <para>With modern Linux flavours, inetd has a newer, better big brother <emphasis>xinetd</emphasis>, that you can
     use to redirect network traffic. Since xinetd is driven by text files, all you need is a text editor. For detailed
-    information, see <link xl:href="http://www.xinetd.org/"></link> .</para>
+    information, see <link xl:href="http://www.xinetd.org/"></link>.</para>
     <para>There are two ways to give xinetd instructions:</para>
     <itemizedlist>
       <listitem>Add a new service to <filename>etc/xinetd.conf</filename></listitem>

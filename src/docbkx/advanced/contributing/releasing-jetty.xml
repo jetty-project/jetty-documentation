@@ -166,7 +166,7 @@ rmdir jetty-project
     There are a couple of scripts that will take care of this although they need to be localized to your particular
     execution environment and you need to have authorization to put stuff where it needs to go. These scripts are
     located at: <link xl:href="http://git.eclipse.org/c/jetty/org.eclipse.jetty.admin.git/tree/release-scripts">
-    http://git.eclipse.org/c/jetty/org.eclipse.jetty.admin.git/tree/release-scripts</link> . Once these are setup you
+    http://git.eclipse.org/c/jetty/org.eclipse.jetty.admin.git/tree/release-scripts</link>. Once these are setup you
     can deploy a release to eclipse and codehaus with the following incantation.</para>
     <screen>
 <![CDATA[

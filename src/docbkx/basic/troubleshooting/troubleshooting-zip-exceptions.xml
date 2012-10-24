@@ -12,11 +12,11 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
   <section xml:id="remedy">
     <title>Remedy</title>
     <para>The remedy is to avoid hot replacing Jar or WAR files, which can be difficult if you are using the <link
-    xl:href="http://wiki.eclipse.org/Jetty/Feature/ContextDeployer">hot Context Provider</link> . You can use the
+    xl:href="http://wiki.eclipse.org/Jetty/Feature/ContextDeployer">hot Context Provider</link>. You can use the
     following techniques to reduce exposure to this issue:</para>
     <itemizedlist>
       <listitem>Deploy unpacked classes in the <filename>WEB-INF/classes</filename> directory rather than as a Jar file
-      under <filename>WEB-INF/lib</filename> .</listitem>
+      under <filename>WEB-INF/lib</filename>.</listitem>
       <listitem>Deploy all WAR and Jar files with a version number in their filename or path. If the code changes, a
       new version number applies, avoiding the cache problem.</listitem>
       <listitem>Deploy a packed WAR file with the <link

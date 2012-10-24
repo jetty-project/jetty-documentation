@@ -21,7 +21,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
       exit. Do NOT delete contents if dir already exists.</listitem>
       <listitem>Iff <filename>WEB-INF/work</filename> exists create the directory there. Do NOT delete on jvm exit. Do
       NOT delete contents if dir already exists.</listitem>
-      <listitem>Else create dir in <code>$(java.io.tmpdir)</code> . Set delete on jvm exit. Delete contents if dir
+      <listitem>Else create dir in <code>$(java.io.tmpdir)</code>. Set delete on jvm exit. Delete contents if dir
       already exists.</listitem>
     </itemizedlist></listitem>
   </itemizedlist>

@@ -62,7 +62,7 @@ xmlns:ns2="http://www.w3.org/1998/Math/MathML" xmlns:ns="http://docbook.org/ns/d
     <section>
       <title>Starting HTTPS</title>
       <para>By defaults set in the <code>start.ini</code> file, Jetty starts the HTTP connector that is defined in
-      <code>etc/jetty-http.xml</code> . To also start the HTTPS connector defined in <code>
+      <code>etc/jetty-http.xml</code>. To also start the HTTPS connector defined in <code>
       etc/jetty-https.xml</code> you can simply append this configuration file to the command line:</para>
       <para>
         <code>&gt; java -jar start.jar etc/jetty-https.xml</code>
@@ -88,7 +88,7 @@ xmlns:ns2="http://www.w3.org/1998/Math/MathML" xmlns:ns="http://docbook.org/ns/d
         <listitem>
           <para>A directory called <code>example/</code> will be deployed as a standard web application if it contains
           a <code>WEB-INF/</code> subdirectory, otherwise it will be deployed as context of static content. The context
-          path will be <code>/example</code> (eg <code>http://localhost:8080/example/</code> ) unless the base name is
+          path will be <code>/example</code> (eg <code>http://localhost:8080/example/</code>) unless the base name is
           <code>root</code>, in which case the context path is /. If the directory name ends with ".d" it is ignored
           (by may be used by explicit configuration).</para>
         </listitem>

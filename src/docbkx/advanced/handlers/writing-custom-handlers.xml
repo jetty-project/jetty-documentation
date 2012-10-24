@@ -56,10 +56,10 @@ public void handle(String target, Request baseRequest, HttpServletRequest reques
     xl:href="http://download.oracle.com/docs/cd/E17477_01/javaee/5/api/javax/servlet/http/HttpServletRequest.html">
     Servlet Request</link> and <link
     xl:href="http://download.oracle.com/docs/cd/E17477_01/javaee/5/api/javax/servlet/http/HttpServletResponse.html">
-    Servlet Response</link> . These are the standard APIs and are moderately restricted in what they can do to the
+    Servlet Response</link>. These are the standard APIs and are moderately restricted in what they can do to the
     request and response. More often than not, access to the Jetty implementations of these classes is required: <link
     xl:href="@JDURL@/org/eclipse/jetty/server/Request.html">Request</link> and <link
-    xl:href="@JDURL@/org/eclipse/jetty/server/Response.html">Response</link> . However, as the request and response may
+    xl:href="@JDURL@/org/eclipse/jetty/server/Response.html">Response</link>. However, as the request and response may
     be wrapped by handlers, filters and servlets, it is not possible to pass the implementation directly. The following
     mantra retrieves the core implementation objects from under any wrappers:</para>
     <informalexample>

@@ -47,7 +47,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
       <title>Linux</title>
       <para>Linux does a reasonable job of self-configuring TCP/IP, but there are a few limits and defaults that you
       should increase. You can configure most of them in <filename>/etc/security/limits.conf</filename> or via <code>
-      sysctl</code> .</para>
+      sysctl</code>.</para>
       <section>
         <title>TCP Buffer Sizes</title>
         <para>You should increase TCP buffer sizes to at least 16MB for 10G paths and tune the autotuning (although you
@@ -98,7 +98,7 @@ $ sysctl -w net.ipv4.tcp_tw_recycle=1
           <section>
             <title>File Descriptors</title>
             <para>Busy servers and load generators may run out of file descriptors as the system defaults are normally
-            low. These can be increased for a specific user in <filename>/etc/security/limits.conf</filename> :</para>
+            low. These can be increased for a specific user in <filename>/etc/security/limits.conf</filename>:</para>
             <screen>
 <![CDATA[
 theusername            hard nofile     40000

@@ -25,7 +25,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
   </section>
   <section>
     <title>See Also</title>
-    <para>Indexterms have an optional element called <emphasis>seealso</emphasis> . This allows you to reference other
+    <para>Indexterms have an optional element called <emphasis>seealso</emphasis>. This allows you to reference other
     indexterms that may be relevant to the reader.</para>
     <example>
       <title>Seealso</title>

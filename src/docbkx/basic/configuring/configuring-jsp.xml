@@ -10,7 +10,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     <para>To compile <filename>.jsp</filename> files into Java classes, you need a Java compiler. You can acquire a
     Java compiler from the JVM if you are using a full JDK, or from a third party Jar.</para>
     <para>In versions of Jetty prior to 7.5.0, the JSP infrastructure uses the Eclipse Java Compiler ( <code>
-    ecj.jar</code> ) which is supplied in <filename>$JETTY_HOME/lib/jsp</filename> . For jetty-7.5.0 and later we
+    ecj.jar</code>) which is supplied in <filename>$JETTY_HOME/lib/jsp</filename>. For jetty-7.5.0 and later we
     upgraded the version of JSP to <code>jsp-impl-2.1.3.b10</code> (from Glassfish). In this version, the JSP
     infrastructure ALWAYS tries to acquire a Java compiler from the JVM if the version of Java is 1.6 or above.
     Therefore, if you are using a JRE, JSPs are unable to compile, so you must use a full JDK. Alternatively, you can
@@ -18,9 +18,9 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     [[Jetty/Feature/Jetty_Jspc_Maven_Plugin|Jetty JSPC Maven Plugin]] TODO xref// is helpful for precompilation.</para>
     <para>If you are using jetty-7.5.5 or later (including jetty-8.x), you can use <emphasis>either</emphasis> a full
     JDK <emphasis>or</emphasis> a JRE in combination with a third party Java compiler (such as ecj which we distribute
-    in <filename>$JETTY_HOME/lib/jsp</filename> ). To use the ecj compiler, you need to set a <code>
-    SystemProperty</code> . You can do this either in your code or in a jetty config file. Here's the snippet that you
-    can put into <filename>jetty.xml</filename> :</para>
+    in <filename>$JETTY_HOME/lib/jsp</filename>). To use the ecj compiler, you need to set a <code>
+    SystemProperty</code>. You can do this either in your code or in a jetty config file. Here's the snippet that you
+    can put into <filename>jetty.xml</filename>:</para>
     <informalexample>
       <programlisting language="xml">
 <![CDATA[
@@ -31,7 +31,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
 ]]>
       </programlisting>
     </informalexample>
-    <para>Alternatively, you can put this <code>SystemProperty</code> into <filename>start.ini</filename> :</para>
+    <para>Alternatively, you can put this <code>SystemProperty</code> into <filename>start.ini</filename>:</para>
     <informalexample>
       <programlisting language="text">
 <![CDATA[
@@ -79,7 +79,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
           <row>
             <entry>development</entry>
             <entry><code>development=true</code>, recompilation checks occur on each request. See also <code>
-            modificationTestInterval</code> .</entry>
+            modificationTestInterval</code>.</entry>
             <entry>TRUE</entry>
             <entry>&#8211;</entry>
           </row>
@@ -136,7 +136,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
           <row>
             <entry>checkInterval</entry>
             <entry>Interval in seconds between background recompile checks. Only relevant if <code>
-            development=false</code> .</entry>
+            development=false</code>.</entry>
             <entry>0</entry>
             <entry>&#8211;</entry>
           </row>
@@ -235,7 +235,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
           <row>
             <entry>reload-interval</entry>
             <entry>If <code>reload-interval=0</code>, then no runtime checking of JSP, otherwise sets the checking
-            interval for both <code>development=true</code> and <code>development=false</code> .</entry>
+            interval for both <code>development=true</code> and <code>development=false</code>.</entry>
             <entry>&#8211;</entry>
             <entry>&#8211;</entry>
           </row>
@@ -409,7 +409,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     <section xml:id="using-jstl-taglibs-for-jetty7.x">
       <title>Using JSTL Taglibs for Jetty 7.x</title>
       <para>The JSTL tags are present in the <code>org.apache.taglibs.standard.glassfish</code> Jar in <filename>
-      $JETTY_HOME/lib/jsp</filename> . For the Jetty/JSP integration to find them, you need to configure a pattern that
+      $JETTY_HOME/lib/jsp</filename>. For the Jetty/JSP integration to find them, you need to configure a pattern that
       defines the names of files in the container's classpath that contain <filename>.tld</filename> files. You must
       define the pattern as a context attribute on <emphasis>each</emphasis> context that you deploy. The context
       attribute and pattern is:</para>
@@ -420,7 +420,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
 ]]>
       </screen>
       <para>If you are using the Jetty deployers (that is, your <filename>start.ini</filename> file contains <filename>
-      etc/jetty-deploy.xml</filename> ), you don't need to do anything, as the pattern is pre-defined in <filename>
+      etc/jetty-deploy.xml</filename>), you don't need to do anything, as the pattern is pre-defined in <filename>
       etc/jetty-deploy.xml</filename>, and the deployer makes sure the attribute is set on each and every context it
       deploys. If you are NOT using the deployers, you need to configure the attribute on <emphasis>
       each</emphasis> context you set. Here's an example:</para>
@@ -447,8 +447,8 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
       <title>Using JSTL Taglibs for Jetty 8.x</title>
       <para>The version of JSP 2.2 engine that Jetty uses employs a Servlet 3.0 way of finding TLDs ( <link
       xl:href="http://docs.oracle.com/javaee/6/api/javax/servlet/ServletContainerInitializer.html">
-      ServletContainerInitializer</link> ), and thus does <emphasis>not</emphasis> require that you define <code>
-      org.eclipse.jetty.server.webapp.ContainerIncludeJarPattern</code> .</para>
+      ServletContainerInitializer</link>), and thus does <emphasis>not</emphasis> require that you define <code>
+      org.eclipse.jetty.server.webapp.ContainerIncludeJarPattern</code>.</para>
     </section>
   </section>
   <section xml:id="using-jsf-taglibs">
@@ -459,17 +459,17 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
       <title>Using JSF Taglibs with Jetty Standalone</title>
       <para>If you want to use JSF with your webapp, you need to copy the jsf implementation Jar (whichever Jar
       contains the <filename>META-INF/*.tld</filename> files from your chosen JSF implementation) into <filename>
-      $JETTY_HOME/lib/jsp</filename> . This is because the version of the JSP engine from Glassfish that we are using
+      $JETTY_HOME/lib/jsp</filename>. This is because the version of the JSP engine from Glassfish that we are using
       <emphasis>requires</emphasis> that the JSF tags are on the container's classpath, and <emphasis>not</emphasis> on
       the webapp's classpath.</para>
       <para>If you are using Jetty 7.x, add the JSF implementation Jar to the set of container Jars that are scanned
       for TLDs. The set of Jars is specified as a Java Pattern as the value of the <code>ContextAttribute
-      org.eclipse.jetty.server.webapp.ContainerIncludeJarPattern</code> . You must add a pattern that matches the name
+      org.eclipse.jetty.server.webapp.ContainerIncludeJarPattern</code>. You must add a pattern that matches the name
       of the implementation Jar.</para>
       <para>You can set this <code>ContextAttribute</code> on just a particular webapp, or for all webapps.</para>
       <para>To set it on just one webapp, create or edit a [[Jetty/Feature/ContextDeployer|context xml]] //TODO xref//
       file that describes your webapp. For example, assuming the implementation Jar is called <code>
-      javax.faces-2.1.6.jar</code> :</para>
+      javax.faces-2.1.6.jar</code>:</para>
       <informalexample>
         <programlisting language="xml">
 <![CDATA[
@@ -490,8 +490,8 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
       </link> method.</para>
       <para>If you want to use JSF with all of your webapps, 
       <xref linkend="using-deployment-manager" />
-      , edit <filename>$JETTY_HOME/etc/jetty-deploy.xml</filename> . For example, assuming the implementation Jar is
-      named <code>javax.faces-2.1.6.jar</code> :</para>
+      , edit <filename>$JETTY_HOME/etc/jetty-deploy.xml</filename>. For example, assuming the implementation Jar is
+      named <code>javax.faces-2.1.6.jar</code>:</para>
       <informalexample>
         <programlisting language="xml">
 <![CDATA[
@@ -547,7 +547,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
       <para>For versions 7.5.0 to 7.6.1, the Jetty Maven plugin does not scan the JSF dependency Jars for the TLDs
       containing the startup listeners. If you are using these versions, we recommend you upgrade to a more recent
       version. If this is not possible, you should define the relevant listener in your <filename>
-      web.xml</filename> :</para>
+      web.xml</filename>:</para>
       <para>For MyFaces:</para>
       <informalexample>
         <programlisting language="xml">

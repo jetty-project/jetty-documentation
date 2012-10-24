@@ -104,7 +104,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
       <title>Configuring Preventers</title>
       <para>You can individually enable each preventer by adding an instance to a Server with the <code>
       addBean(Object)</code> call. Here's an example of how to do it in code with the <code>
-      org.eclipse.jetty.util.preventers.AppContextLeakPreventer</code> :</para>
+      org.eclipse.jetty.util.preventers.AppContextLeakPreventer</code>:</para>
       <informalexample>
         <programlisting language="java">
 <![CDATA[

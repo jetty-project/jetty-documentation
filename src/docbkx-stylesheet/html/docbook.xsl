@@ -152,9 +152,6 @@ See an error or something missing?<br/>
           </xsl:choose>
         </xsl:element>
 
-
-    
-
   </xsl:template>
   
 </xsl:stylesheet>

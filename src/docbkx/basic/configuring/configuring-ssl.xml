@@ -146,7 +146,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
       </section>
       <section xml:id="generating-keys-and-certificates-openssl">
         <title>Generating Keys and Certificates with OpenSSL</title>
-        <para>The following command generates a key pair in the file <filename>jetty.key</filename> :</para>
+        <para>The following command generates a key pair in the file <filename>jetty.key</filename>:</para>
         <screen>
 <![CDATA[
  openssl genrsa -des3 -out jetty.key
@@ -155,7 +155,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
         <para>You might also want to use the <filename>-rand</filename> file argument to provide an arbitrary file that
         helps seed the random number generator.</para>
         <para>The following command generates a certificate for the key into the file <filename>
-        jetty.crt</filename> :</para>
+        jetty.crt</filename>:</para>
         <screen>
 <![CDATA[
  openssl req -new -x509 -key jetty.key -out jetty.crt
@@ -231,7 +231,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
       <section xml:id="generating-csr-from-openssl">
         <title>Generating a CSR from OpenSSL</title>
         <para>The following command generates the file <filename>jetty.csr</filename> using OpenSSL for a key in the
-        file <filename>jetty.key</filename> :</para>
+        file <filename>jetty.key</filename>:</para>
         <screen>
 <![CDATA[
  openssl req -new -key jetty.key -out jetty.csr
@@ -313,7 +313,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
 ]]>
         </screen>
         <para>The order of certificates must be from server to rootCA, as per RFC2246 section 7.4.2.</para>
-        <para>OpenSSL asks for an <emphasis>export password</emphasis> . A non-empty password seems to be required to
+        <para>OpenSSL asks for an <emphasis>export password</emphasis>. A non-empty password seems to be required to
         make the next step work. Then load the resulting PKCS12 file into a JSSE keystore with the following jetty
         utility class:</para>
         <informalexample>
@@ -342,14 +342,14 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
       xl:href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/http/ssl/SslContextFactory.html">
       SslContextFactory</link> object and passing it to the connector's constructor.</para>
       <para>Jetty has two SSL connectors: the <emphasis>SslSocketConnector</emphasis> and the <emphasis>
-      SslSelectChannelConnector</emphasis> . The SslSocketConnector is built on top of the Jetty SocketConnector which
+      SslSelectChannelConnector</emphasis>. The SslSocketConnector is built on top of the Jetty SocketConnector which
       is Jetty's implementation of a blocking connector. It uses Java's SslSocket to add the security layer. The
       SslSelectChannelConnector is an extension of Jetty's SelectChannelConnector, which uses non-blocking IO. For its
       security layer, it uses java nio SslEngine. You can configure these two connectors similarly; the difference is
       in the implementation.</para>
       <para>The following is an example of an SslSelectChannelConnector configuration. You can configure an
       SslSocketConnector the same way;just change the value of the class to <filename>
-      org.eclipse.jetty.server.ssl.SslSocketConnector</filename> .</para>
+      org.eclipse.jetty.server.ssl.SslSocketConnector</filename>.</para>
       <informalexample>
         <programlisting language="xml">
 <![CDATA[
@@ -378,7 +378,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
       <listitem>certAlias&#8218;&#196;&#236;Alias of a certificate to use.</listitem>
       <listitem>keyStoreType&#8218;&#196;&#236;Default is <emphasis>JKS.</emphasis></listitem>
       <listitem>keyStoreProvider&#8218;&#196;&#236;Default is the SunJSSE provider.</listitem>
-      <listitem>trustStoreType&#8218;&#196;&#236;Default is <emphasis>JKS</emphasis> .</listitem>
+      <listitem>trustStoreType&#8218;&#196;&#236;Default is <emphasis>JKS</emphasis>.</listitem>
       <listitem>trustStoreProvider&#8218;&#196;&#236;Default is the SunJSSE provider.</listitem>
       <listitem>sslKeyManagerFactoryAlgorithm&#8218;&#196;&#236;Set to the value of the <code>
       ssl.KeyManagerFactory.algorithm</code> system property. If there is no such property, the default is <emphasis>
@@ -393,10 +393,10 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
       Suites]] //TODO xref//.</listitem>
       <listitem>excludeCipherSuites&#8218;&#196;&#236;See [[Jetty/Howto/CipherSuites|How to configure SSL Cipher
       Suites]] //TODO xref//.</listitem>
-      <listitem>needClientAuth&#8218;&#196;&#236;Default is <emphasis>false</emphasis> .</listitem>
-      <listitem>wantClientAuth&#8218;&#196;&#236;Defaults is <emphasis>false</emphasis> .</listitem>
-      <listitem>validateCerts&#8218;&#196;&#236;Default is <emphasis>false</emphasis> .</listitem>
-      <listitem>allowRenegotiate&#8218;&#196;&#236;Default is <emphasis>false</emphasis> .</listitem>
+      <listitem>needClientAuth&#8218;&#196;&#236;Default is <emphasis>false</emphasis>.</listitem>
+      <listitem>wantClientAuth&#8218;&#196;&#236;Defaults is <emphasis>false</emphasis>.</listitem>
+      <listitem>validateCerts&#8218;&#196;&#236;Default is <emphasis>false</emphasis>.</listitem>
+      <listitem>allowRenegotiate&#8218;&#196;&#236;Default is <emphasis>false</emphasis>.</listitem>
       <listitem>crlPath&#8218;&#196;&#236;Path to certificate revocation list file for SSL certificate
       validation.</listitem>
       <listitem>maxCertPathLengh&#8218;&#196;&#236;Maximum allowed number of intermediate certificates, default is -1
@@ -455,7 +455,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     <section xml:id="password-issues">
       <title>Password Issues</title>
       <para>If the configuration does not include passwords, you can provide them as as java properties ( <code>
-      jetty.ssl.password</code> and <code>jetty.ssl.keypassword</code> ), else the system prompts for them. Remember
+      jetty.ssl.password</code> and <code>jetty.ssl.keypassword</code>), else the system prompts for them. Remember
       that putting your password on the command line is a security risk. You can also set them as properties within the
       config file, but this risks accidental discovery by developers.</para>
       <para>If jetty receives a password that begins with <emphasis>OBF:</emphasis> it treats it as an obfuscated

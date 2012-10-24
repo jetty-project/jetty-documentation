@@ -114,12 +114,277 @@ new com.acme.MyStuff();
       you create.</para>
     </section>
   </section>
+  <section xml:id="jetty-xml-configure">
+    <title>&lt;Configure&gt;</title>
+    <para>This is the root element that specifies the class of object that is to be configured. It is usually either
+    the Server, in jetty.xml , or a WebAppContext, in jetty-web.xml.</para>
+    <tgroup cols="3">
+      <thead>
+        <row>
+          <entry align="left">Attribute</entry>
+          <entry align="center">Required</entry>
+          <entry align="left">Description</entry>
+        </row>
+      </thead>
+      <tbody>
+        <row>
+          <entry>id</entry>
+          <entry>no</entry>
+          <entry>
+            <para>a reference to the object that was created. If you define multiple &lt;Configure&gt; tags with the
+            same id, they will be treated as one object, even if they're in different files. You can use this to break
+            up configuration of an object (such as the Server) across multiple files.</para>
+          </entry>
+        </row>
+        <row>
+          <entry>class</entry>
+          <entry>no</entry>
+          <entry>the fully qualified classname of the object to be configured. Could be
+          org.eclipse.jetty.server.Server, org.eclipse.jetty.webapp.WebAppContext, a handler, etc.</entry>
+        </row>
+      </tbody>
+    </tgroup>
+    <section>
+      <title>Can Contain</title>
+      <para>
+      <xref linkend="jetty-xml-set" />
+      , 
+      <xref linkend="jetty-xml-get" />
+      , 
+      <xref linkend="jetty-xml-put" />
+      , 
+      <xref linkend="jetty-xml-call" />
+      , 
+      <xref linkend="jetty-xml-new" />
+      , 
+      <xref linkend="jetty-xml-ref" />
+      , 
+      <xref linkend="jetty-xml-array" />
+      , 
+      <xref linkend="jetty-xml-map" />
+      , 
+      <xref linkend="jetty-xml-property" />
+      </para>
+    </section>
+<!--
+<Set>,<Get>, <Put>, <Call>, <New>, <Ref>, <Array>, <Map>, <Property>
+-->
+    <section>
+      <title>Examples</title>
+      <section>
+        <title>Basic Example</title>
+        <informalexample>
+          <programlisting language="xml">
+<![CDATA[
+<Configure class="org.eclipse.jetty.server.Server">
+  <Set name="port">8080</Set>
+</Configure>
+]]>
+          </programlisting>
+        </informalexample>
+        <para>This is equivalent to:</para>
+        <informalexample>
+          <programlisting language="java">
+<![CDATA[
+org.eclipse.jetty.server.Server server = new org.eclipse.jetty.server.Server();
+server.setPort(8080);
+]]>
+          </programlisting>
+        </informalexample>
+      </section>
+      <section>
+        <title>Using id to break up configuration of one object across multiple files</title>
+        <para>(etc/jetty.xml)</para>
+        <informalexample>
+          <programlisting language="xml">
+<![CDATA[
+<Configure id="Server" class="org.eclipse.jetty.server.Server">
+  <!== basic configuration here ->
+</Configure>
+]]>
+          </programlisting>
+        </informalexample>
+        <para>(etc/jetty-logging.xml)</para>
+        <informalexample>
+          <programlisting language="xml">
+<![CDATA[
+<Configure id="Server" class="org.eclipse.jetty.server.Server">
+  <!== assumes that you have the basic server configuration set up; this file only contains additional configuration for logging ->
+</Configure>
+]]>
+          </programlisting>
+        </informalexample>
+        <para>Then run the combined configuration using:</para>
+        <screen linenumbering="numbered">
+<![CDATA[
+java -jar start.jar etc/jetty.xml jetty-logging.xml
+]]>
+        </screen>
+      </section>
+    </section>
+  </section>
+  <section xml:id="jetty-xml-set">
+    <title>&lt;Set&gt;</title>
+    <para>A Set element maps to a call to a setter method or field on the current object. It can contain text and/or
+    elements such as Call, New, SystemProperty, etc., as values. The name and optional type attributes are used to
+    select the setter method. If you do not specify a value type, white space is trimmed out of the value. If it
+    contains multiple elements as values, they are added as strings before being converted to any specified
+    type.</para>
+    <tgroup cols="3">
+      <thead>
+        <row>
+          <entry align="left">Attribute</entry>
+          <entry align="center">Required</entry>
+          <entry align="left">Description</entry>
+        </row>
+      </thead>
+      <tbody>
+        <row>
+          <entry>name</entry>
+          <entry>yes</entry>
+          <entry>the name of the setter method to call, or the field to set. If the name given is xxx, then a setXxx
+          method is used. If the setXxx method cannot be found, then the xxx field is used.</entry>
+        </row>
+        <row>
+          <entry>type</entry>
+          <entry>no</entry>
+          <entry>the declared type of the argument. See also discussion of type for Arg for how to define null and
+          empty string values.</entry>
+        </row>
+        <row>
+          <entry>class</entry>
+          <entry>no</entry>
+          <entry>if present, then this Set is treated as a static set method invocation</entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </section>
   <section>
-    <title>Types</title>
-    <section xml:id="jetty-xml-configure">
-      <title>&lt;Configure&gt;</title>
-      <para>This is the root element that specifies the class of object that is to be configured. It is usually either
-      the Server, in jetty.xml , or a WebAppContext, in jetty-web.xml.</para>
+    <section>
+      <title>Can Contain</title>
+      <itemizedlist>
+        <listitem>
+          <para>value text</para>
+        </listitem>
+        <listitem>
+          <para>
+            <xref linkend="jetty-xml-get" />
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            <xref linkend="jetty-xml-call" />
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            <xref linkend="jetty-xml-new" />
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            <xref linkend="jetty-xml-ref" />
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            <xref linkend="jetty-xml-array" />
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            <xref linkend="jetty-xml-map" />
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            <xref linkend="jetty-xml-system-property" />
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            <xref linkend="jetty-xml-property" />
+          </para>
+        </listitem>
+      </itemizedlist>
+    </section>
+<!--
+value text, <Get>, <Call>, <New>, <Ref>, <Array>, <Map>, <SystemProperty>, <Property>
+-->
+    <section>
+      <title>Examples</title>
+      <section>
+        <title>Basic Example</title>
+        <informalexample>
+          <programlisting language="xml">
+<![CDATA[
+<Configure id="server" class="org.eclipse.jetty.server.Server">
+  <Set name="port">8080</Set>
+</Configure>
+]]>
+          </programlisting>
+        </informalexample>
+      </section>
+      <section>
+        <title>Set via a System Property</title>
+        <informalexample>
+          <programlisting language="xml">
+<![CDATA[
+<Configure id="server" class="org.eclipse.jetty.server.Server">
+  <Set name="port"><SystemProperty name="jetty.port" /></Set>
+</Configure>
+]]>
+          </programlisting>
+        </informalexample>
+      </section>
+      <section>
+        <title>Creating a NewObject and Setting It on the Server</title>
+        <informalexample>
+          <programlisting language="xml">
+<![CDATA[
+<Configure id="server" class="org.eclipse.jetty.server.Server">
+  <Set name="threadPool">
+    <New class="org.eclipse.jetty.util.thread.QueuedThreadPool">
+      <Set name="minThreads">10</Set>
+      <Set name="maxThreads">1000</Set>
+    </New>
+  </Set>
+</Configure>
+]]>
+          </programlisting>
+        </informalexample>
+        <para>This is equivalent to:</para>
+        <informalexample>
+          <programlisting language="java">
+<![CDATA[
+org.eclipse.jetty.server.Server server = new org.eclipse.jetty.server.Server();
+ 
+org.eclipse.jetty.util.thread.QueuedThreadPool threadPool = new org.eclipse.jetty.util.thread.QueuedThreadPool();
+threadPool.setMinThreads(10);
+threadPool.setMaxThreads(1000);
+ 
+server.setThreadPool(threadPool);
+]]>
+          </programlisting>
+        </informalexample>
+      </section>
+      <section>
+        <title>Invoking a Static Setter</title>
+        <informalexample>
+          <programlisting language="xml">
+<![CDATA[
+<Configure id="server" class="org.eclipse.jetty.server.Server">
+  <Set class="org.eclipse.jetty.util.log.Log" name="logToParent">loggerName</Set>
+</Configure">
+]]>
+          </programlisting>
+        </informalexample>
+      </section>
+    </section>
+    <section xml:id="jetty-xml-get">
+      <title>&lt;Get&gt;</title>
+      <para>A Get element maps to a call to a getter method or field on the current object. It can contain nested
+      elements such as Set, Put, Call, etc.; these act on the object returned by the Get call.</para>
       <tgroup cols="3">
         <thead>
           <row>
@@ -130,140 +395,98 @@ new com.acme.MyStuff();
         </thead>
         <tbody>
           <row>
-            <entry>id</entry>
-            <entry>no</entry>
-            <entry>
-              <para>a reference to the object that was created. If you define multiple &lt;Configure&gt; tags with the
-              same id, they will be treated as one object, even if they're in different files. You can use this to
-              break up configuration of an object (such as the Server) across multiple files.</para>
-            </entry>
+            <entry>name</entry>
+            <entry>yes</entry>
+            <entry>the name of the getter method to call, or the field to get. If the name given is xxx, then a getXxx
+            method is used. If the getXxx method cannot be found, then the xxx field is used.</entry>
           </row>
           <row>
             <entry>class</entry>
             <entry>no</entry>
-            <entry>the fully qualified classname of the object to be configured. Could be
-            org.eclipse.jetty.server.Server, org.eclipse.jetty.webapp.WebAppContext, a handler, etc.</entry>
+            <entry>f present, then this Get is treated as a static getter or field.</entry>
+          </row>
+          <row>
+            <entry>id</entry>
+            <entry>no</entry>
+            <entry>if present, then you can use this id to refer to the returned object later.</entry>
           </row>
         </tbody>
       </tgroup>
-      <section>
-        <title>
-          <para>Can Contain</para>
-        </title>
-        <itemizedlist>
-          <listitem>
-            <para>
-              <xref linkend="jetty-xml-configure" />
-            </para>
-          </listitem>
-        </itemizedlist>
-      </section>
+    </section>
+    <section>
+      <title>Can Contain</title>
+      <itemizedlist>
+        <listitem>
+          <para>
+            <xref linkend="jetty-xml-set" />
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            <xref linkend="jetty-xml-get" />
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            <xref linkend="jetty-xml-put" />
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            <xref linkend="jetty-xml-call" />
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            <xref linkend="jetty-xml-new" />
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            <xref linkend="jetty-xml-ref" />
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            <xref linkend="jetty-xml-array" />
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            <xref linkend="jetty-xml-map" />
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            <xref linkend="jetty-xml-property" />
+          </para>
+        </listitem>
+      </itemizedlist>
+    </section>
 <!--
 <Set>,<Get>, <Put>, <Call>, <New>, <Ref>, <Array>, <Map>, <Property>
-
-Examples
-Basic Example
-<informalexample>
-      <programlisting language="xml">
+-->
+    <section>
+      <title>Examples</title>
+      <section>
+        <title>Basic Example</title>
+        <para>This simple example doesn't do much on its own. You would normally use this in conjunction with a &lt;Ref
+        id="Logger" /&gt;.</para>
+        <informalexample>
+          <programlisting language="xml">
 <![CDATA[
-<Configure class="org.eclipse.jetty.server.Server">
-  <Set name="port">8080</Set>
-</Configure>
-]]>
-</programlisting>
-</informalexample>
-<para>
-This is equivalent to:
-</para>
-<informalexample>
-      <programlisting language="java">
-<![CDATA[
-org.eclipse.jetty.server.Server server = new org.eclipse.jetty.server.Server();
-server.setPort(8080);
-]]>
-</programlisting>
-</informalexample>
-Using id to break up configuration of one object across multiple files
-(etc/jetty.xml)
-
-<Configure id="Server" class="org.eclipse.jetty.server.Server">
-  <!== basic configuration here ->
-</Configure>
-(etc/jetty-logging.xml)
-
-<Configure id="Server" class="org.eclipse.jetty.server.Server">
-  <!== assumes that you have the basic server configuration set up; this file only contains additional configuration for logging ->
-</Configure>
-Then run the combined configuration using:
-
-java -jar start.jar etc/jetty.xml jetty-logging.xml
-<Set>
-
-A Set element maps to a call to a setter method or field on the current object. It can contain text and/or elements such as Call, New, SystemProperty, etc., as values. The name and optional type attributes are used to select the setter method. If you do not specify a value type, white space is trimmed out of the value. If it contains multiple elements as values, they are added as strings before being converted to any specified type.
-
-Attributes
-name 
-(required), the name of the setter method to call, or the field to set. If the name given is xxx, then a setXxx method is used. If the setXxx method cannot be found, then the xxx field is used.
-type 
-(optional), the declared type of the argument. See also discussion of type for Arg for how to define null and empty string values.
-class 
-(optional), if present, then this Set is treated as a static set method invocation
-Can Contain
-value text, <Get>, <Call>, <New>, <Ref>, <Array>, <Map>, <SystemProperty>, <Property>
-
-Examples
-Basic Example
-<Configure id="server" class="org.eclipse.jetty.server.Server">
-  <Set name="port">8080</Set>
-</Configure>
-Set via a System Property
-<Configure id="server" class="org.eclipse.jetty.server.Server">
-  <Set name="port"><SystemProperty name="jetty.port" /></Set>
-</Configure>
-Creating a NewObject and Setting It on the Server
-<Configure id="server" class="org.eclipse.jetty.server.Server">
-  <Set name="threadPool">
-    <New class="org.eclipse.jetty.util.thread.QueuedThreadPool">
-      <Set name="minThreads">10</Set>
-      <Set name="maxThreads">1000</Set>
-    </New>
-  </Set>
-</Configure>
-This is equivalent to:
-
-org.eclipse.jetty.server.Server server = new org.eclipse.jetty.server.Server();
- 
-org.eclipse.jetty.util.thread.QueuedThreadPool threadPool = new org.eclipse.jetty.util.thread.QueuedThreadPool();
-threadPool.setMinThreads(10);
-threadPool.setMaxThreads(1000);
- 
-server.setThreadPool(threadPool);
-Invoking a Static Setter
-<Configure id="server" class="org.eclipse.jetty.server.Server">
-  <Set class="org.eclipse.jetty.util.log.Log" name="logToParent">loggerName</Set>
-</Configure">
-<Get>
-
-A Get element maps to a call to a getter method or field on the current object. It can contain nested elements such as Set, Put, Call, etc.; these act on the object returned by the Get call.
-
-Attributes
-name 
-(required), the name of the getter method to call, or the field to get. If the name given is xxx, then a getXxx method is used. If the getXxx method cannot be found, then the xxx field is used.
-class 
-(optional), if present, then this Get is treated as a static getter or field.
-id 
-(optional), if present, then you can use this id to refer to the returned object later.
-Can Contain
-<Set>,<Get>, <Put>, <Call>, <New>, <Ref>, <Array>, <Map>, <Property>
-
-Examples
-Basic Example
-This simple example doesn't do much on its own. You would normally use this in conjunction with a <Ref id="Logger" />.
-
 <Configure id="server" class="org.eclipse.jetty.server.Server">
   <Get id="Logger" class="org.eclipse.jetty.util.log.Log" name="log"/>
 </Configure>
-Invoking a Static Getter and Call Methods on the Returned Object
+]]>
+          </programlisting>
+        </informalexample>
+      </section>
+      <section>
+        <title>Invoking a Static Getter and Call Methods on the Returned Object</title>
+        <informalexample>
+          <programlisting language="xml">
+<![CDATA[
 <Configure id="server" class="org.eclipse.jetty.server.Server">
     <Get class="java.lang.System" name="out">
       <Call name="println">
@@ -271,22 +494,105 @@ Invoking a Static Getter and Call Methods on the Returned Object
       </Call>
     </Get>
 </Configure>
-<Put>
-
-A Put element maps to a call to a put method on the current object, which must implement the Map interface. It can contain text and/or elements such as Call, New, SystemProperty, etc. as values. If you do not specify a no value type, white space is trimmed out of the value. If it contains multiple elements as values, they are added as strings before being converted to any specified type.
-
-Attributes
-name 
-(required), used as the put key
-type 
-(optional), forces the type of the value. See also discussion of type for Arg for how to define null and empty string values.
-Can Contain
+]]>
+          </programlisting>
+        </informalexample>
+      </section>
+    </section>
+    <section xml:id="jetty-xml-put">
+      <title>&lt;Put&gt;</title>
+      <para>A Put element maps to a call to a put method on the current object, which must implement the Map interface.
+      It can contain text and/or elements such as Call, New, SystemProperty, etc. as values. If you do not specify a no
+      value type, white space is trimmed out of the value. If it contains multiple elements as values, they are added
+      as strings before being converted to any specified type.</para>
+      <tgroup cols="3">
+        <thead>
+          <row>
+            <entry align="left">Attribute</entry>
+            <entry align="center">Required</entry>
+            <entry align="left">Description</entry>
+          </row>
+        </thead>
+        <tbody>
+          <row>
+            <entry>name</entry>
+            <entry>yes</entry>
+            <entry>used as the put key</entry>
+          </row>
+          <row>
+            <entry>type</entry>
+            <entry>no</entry>
+            <entry>forces the type of the value. See also discussion of type for Arg for how to define null and empty
+            string values.</entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </section>
+    <section>
+      <title>Can Contain</title>
+      <itemizedlist>
+        <listitem>
+          <para>value text</para>
+        </listitem>
+        <listitem>
+          <para>
+            <xref linkend="jetty-xml-get" />
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            <xref linkend="jetty-xml-call" />
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            <xref linkend="jetty-xml-new" />
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            <xref linkend="jetty-xml-ref" />
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            <xref linkend="jetty-xml-array" />
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            <xref linkend="jetty-xml-map" />
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            <xref linkend="jetty-xml-system-property" />
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            <xref linkend="jetty-xml-property" />
+          </para>
+        </listitem>
+      </itemizedlist>
+    </section>
+<!--
 value text, <Get>, <Call>, <New>, <Ref>, <Array>, <Map>, <SystemProperty>, <Property>
-
-Example
+-->
+    <section>
+      <title>Example</title>
+      <informalexample>
+        <programlisting language="xml">
+<![CDATA[
 <Get name="someKindOfMap">
    <Put name="keyName">objectValue</Put>
 </Get>
+]]>
+        </programlisting>
+      </informalexample>
+    </section>
+  </section>
+<!--
 <Call>
 
 A Call element maps to an arbitrary call to a method on the current object. It can contain a sequence of Arg elements followed by a sequence of configuration elements, such as Set, Put, Call. The <Arg>s are passed as arguments to the method; the sequence of configuration elements act on the object returned by the original call.
@@ -601,7 +907,5 @@ Example
   </Call>
 </Property>
 Additional -->
-    </section>
 <!-- types section -->
-  </section>
 </section>

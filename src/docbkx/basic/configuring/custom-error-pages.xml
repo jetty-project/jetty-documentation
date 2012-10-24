@@ -108,7 +108,7 @@ void writeErrorPageStacks(HttpServletRequest request, Writer writer) throws IOEx
       </programlisting>
     </informalexample>
     <para>You can also configure the <code>ErrorPageErrorHandler</code> to suppress stacktraces by calling <code>
-    setShowStacks(false)</code> .</para>
+    setShowStacks(false)</code>.</para>
     <para>You can set the custom error handler on the context via the API or via a context configuration file. For
     example, you can add a custom error handling class to the javadoc context with:</para>
     <informalexample>

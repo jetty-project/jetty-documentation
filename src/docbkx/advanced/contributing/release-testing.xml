@@ -51,7 +51,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
       </screen>
     </listitem>
     <listitem>
-      <para>Verify that <filename>test.war</filename> gets redeployed in <filename>STDOUT</filename> .</para>
+      <para>Verify that <filename>test.war</filename> gets redeployed in <filename>STDOUT</filename>.</para>
     </listitem>
   </orderedlist>
   <section xml:id="testing-cometd">

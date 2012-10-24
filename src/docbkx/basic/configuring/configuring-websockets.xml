@@ -14,7 +14,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     developers who want to use WebSockets, and application developers who can't stand not knowing what is under the
     hood. However, application programmers should not follow these examples to build an application. WebSockets is not
     a silver bullet, and on its own will never be simple to use for nontrivial applications (see <link
-    xl:href="http://webtide.intalio.com/2011/04/is-websocket-chat-simpler">Is WebSocket Chat Simpler?</link> ). We
+    xl:href="http://webtide.intalio.com/2011/04/is-websocket-chat-simpler">Is WebSocket Chat Simpler?</link>). We
     recommend that you look toward frameworks like <link xl:href="http://cometd.org">Cometd</link>, that provide a
     higher level of abstraction, hide the technicalities, and allow you to use either Comet long polling or WebSockets
     transparently.</para>
@@ -81,7 +81,7 @@ wget --user-agent=demo \
       </listitem>
       <listitem>
         <para>Put into it the following contents which you can download from <link
-        xl:href="http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/plain/jetty-websocket/src/test/webapp/index.html">jetty-websocket/src/test/webapp/index.html.</link> &gt;This
+        xl:href="http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/plain/jetty-websocket/src/test/webapp/index.html">jetty-websocket/src/test/webapp/index.html.</link>&gt;This
         index file contains the HTML, CSS and Javascript for a basic chat room.</para>
       </listitem>
     </itemizedlist>

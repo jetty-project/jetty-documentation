@@ -146,7 +146,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
       <title>More Information</title>
       <para>For more information about Session Manager parameters, study the <link
       xl:href="http://download.eclipse.org/jetty/stable-7/xref/org/eclipse/jetty/server/SessionManager.html">class
-      org.eclipse.jetty.server.SessionManager source</link> .</para>
+      org.eclipse.jetty.server.SessionManager source</link>.</para>
       <para>See also the [[Jetty/Feature/Session Clustering|Session Clustering]] // TODO xref //tutorial.</para>
     </section>
   </section>

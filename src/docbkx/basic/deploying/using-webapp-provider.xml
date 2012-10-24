@@ -9,11 +9,11 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
   </link> is for static deployment of standard WAR files and webapps with little or no Jetty-specific customization.
   For hot deployment of customized contexts, use the <link
   xl:href="@JDURL@index.html?org/eclipse/jetty/deploy/providers/ContextProvider.html"><code>
-  ContextProvider</code> .</link></para>
+  ContextProvider</code>.</link></para>
   <para>The basic operation of the <code>WebAppProvider</code> is to scan a directory at startup for WAR files or
   webapp directories and to deploy the web applications found. Typically this is done from a <filename>
   jetty.xml</filename> style file; in the jetty distribution the name of this file is <filename>
-  jetty-webapps.xml</filename> :</para>
+  jetty-webapps.xml</filename>:</para>
   <informalexample>
     <programlisting language="xml">
 <![CDATA[ 
@@ -38,7 +38,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
   <para>This works as follows:</para>
   <itemizedlist>
     <listitem>
-      <para>The <code>WebAppProvider</code> is added to the server as a <emphasis>LifeCycle</emphasis> . This simply
+      <para>The <code>WebAppProvider</code> is added to the server as a <emphasis>LifeCycle</emphasis>. This simply
       means that the deployer starts and stops with the server, that is, when <code>server.start()</code> is called,
       <code>start</code> is also called on the deployer</para>
     </listitem>
@@ -46,7 +46,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
       <para>The <emphasis>context</emphasis> passed in is a reference to a <code>HandlerContainer</code> in which the
       discovered webapps are deployed. This is normally an instance of <link
       xl:href="@JDURL@index.html?org/eclipse/jetty/server/handler/ContextHandlerCollection.html">
-      ContextHandlerCollection</link> .</para>
+      ContextHandlerCollection</link>.</para>
     </listitem>
     <listitem>
       <para>The <code>contextXmlDir</code> points to a directory like the one the <code>ContextProvider</code> uses.
@@ -58,8 +58,8 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
       <para>The <code>monitoredDirName</code> is a file path or URL to the directory to scan for web applications. Zip
       files ending with <filename>.war</filename> or <filename>.zip</filename> are deployed. Directories not called CVS
       are also deployed. The basename of the WAR (for example, <emphasis>foo</emphasis> from <filename>
-      foo.war</filename> ) or the directory name are used as the context path of the discovered webapps, unless the
-      name is <emphasis>root</emphasis>, in which case the context path of / is used.</para>
+      foo.war</filename>) or the directory name are used as the context path of the discovered webapps, unless the name
+      is <emphasis>root</emphasis>, in which case the context path of / is used.</para>
     </listitem>
     <listitem>
       <para>The <code>parentLoaderPriority</code> parameter is a boolean that selects whether the standard Java parent

@@ -34,8 +34,8 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     <para>If you deploy the web application by 
     <xref linkend="using-webapp-provider" />
     , by default the name of the WAR file forms the context path. So if the filename is <filename>
-    foobar.war</filename>, the context path is <filename>/foobar</filename> . There is a special case for webapps
-    called <filename>root.war</filename> which are mapped to the root / context. See 
+    foobar.war</filename>, the context path is <filename>/foobar</filename>. There is a special case for webapps called
+    <filename>root.war</filename> which are mapped to the root / context. See 
     <xref linkend="setting-context-path-to-root" />
     .</para>
   </section>

@@ -5,7 +5,7 @@ xmlns:xi="http://www.w3.org/2001/XInclude"
 xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd">
   <title>Introduction to Configuring Jetty</title>
   <para>Since Jetty components are simply Plain Old Java Objects ( <link
-  xl:href="http://en.wikipedia.org/wiki/Plain_Old_Java_Object">POJOs</link> ), you can accomplish the assembly and
+  xl:href="http://en.wikipedia.org/wiki/Plain_Old_Java_Object">POJOs</link>), you can accomplish the assembly and
   configuration of Jetty by a variety of techniques, as indicated in the sections of this document, listed
   above.</para>
   <para>Configuring Jetty consists of building a network of connectors and handlers and providing their individual
@@ -44,7 +44,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     the Jetty Maven, Ant, and OSGi plugins, see [http://wiki.eclipse.org/Jetty/Howto/Develop How to Develop with
     Jetty].</para>
     <para>Above all, study the examples in the <link xl:href="http://download.eclipse.org/jetty/stable-7/xref/">Jetty
-    Latest Source XRef</link> .</para>
+    Latest Source XRef</link>.</para>
   </section>
   <section xml:id="using-jetty-xml">
     <title>Using Jetty XML</title>
@@ -53,9 +53,9 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     methods based on their names and argument types. Behind the scenes, Jetty's XML config parser translates the XML
     elements and attributes into Reflection calls. (Ethan McAllum makes this point in his appreciative article about
     Jetty, <link xl:href="http://onjava.com/pub/a/onjava/2006/06/14/what-is-jetty.html?page=3"><emphasis>What is
-    Jetty?</emphasis> )</link></para>
+    Jetty?</emphasis>)</link></para>
     <para>The default configuration file for Jetty is <filename>jetty.xml</filename>, typically located at <filename>
-    $JETTY_HOME/etc/jetty.xml</filename> . Usually <filename>jetty.xml</filename> configures these components:</para>
+    $JETTY_HOME/etc/jetty.xml</filename>. Usually <filename>jetty.xml</filename> configures these components:</para>
     <itemizedlist>
       <listitem>
         <para>the Server class (or subclass if extended) and global options</para>
@@ -79,12 +79,12 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
         <para>a request log</para>
       </listitem>
     </itemizedlist>
-    <para>Not all Jetty features are configured in <filename>jetty.xml</filename> . There are several optional
+    <para>Not all Jetty features are configured in <filename>jetty.xml</filename>. There are several optional
     configuration files that share the same format as <filename>jetty.xml</filename> and, if specified, concatenate to
     it. These configuration files are also stored in <filename>$JETTY_HOME/etc/</filename>, and examples of them are in
     <link
     xl:href="http://dev.eclipse.org/viewsvn/index.cgi/jetty/trunk/jetty-server/src/main/config/etc/?root=RT_JETTY">SVN
-    Repository</link> .</para>
+    Repository</link>.</para>
     <itemizedlist>
       <listitem>
         <para>[[Jetty/Feature/Start.jar|Start.jar]]&#8211;selects the configuration files to use.</para>
@@ -124,7 +124,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
       <para>You can embed Jetty in an application. This is an alternative to bundling your application as a standard
       WAR to be deployed in Jetty. Jetty is designed to work as a software component that can be instantiated and used
       in a Java program just like any any <link xl:href="http://en.wikipedia.org/wiki/Plain_Old_Java_Object">
-      POJO</link> . For more information and configuration instructions, see 
+      POJO</link>. For more information and configuration instructions, see 
       <xref linkend="embedding" />
       .</para>
     </section>

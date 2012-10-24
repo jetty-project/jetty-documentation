@@ -12,7 +12,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     <xref linkend="configuring-jndi" />
     for more information about configuring datasources.</para>
   </note>
-  <para>All of these examples correspond to a <code>resource-ref</code> in <filename>web.xml</filename> .</para>
+  <para>All of these examples correspond to a <code>resource-ref</code> in <filename>web.xml</filename>.</para>
   <informalexample>
     <programlisting language="xml">
 <![CDATA[
@@ -40,10 +40,10 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     <section xml:id="bonecp">
       <title>BoneCP</title>
       <para>Connection pooling, available at <link
-      xl:href="http://jolbox.com/index.html?page=http://jolbox.com/download.html">BoneCP Download</link> . All
+      xl:href="http://jolbox.com/index.html?page=http://jolbox.com/download.html">BoneCP Download</link>. All
       configuration options for BoneCP are described here: <link
       xl:href="http://jolbox.com/bonecp/downloads/site/apidocs/com/jolbox/bonecp/BoneCPDataSource.html">BoneCP
-      API</link> .</para>
+      API</link>.</para>
       <informalexample>
         <programlisting language="xml">
 <![CDATA[
@@ -70,7 +70,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     <section xml:id="c3p0">
       <title>c3p0</title>
       <para>Connection pooling, available at <link
-      xl:href="http://repo1.maven.org/maven2/c3p0/c3p0/0.9.1.2/c3p0-0.9.1.2.jar">c3p0 Jar</link> .</para>
+      xl:href="http://repo1.maven.org/maven2/c3p0/c3p0/0.9.1.2/c3p0-0.9.1.2.jar">c3p0 Jar</link>.</para>
       <informalexample>
         <programlisting language="xml">
 <![CDATA[
@@ -94,7 +94,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
       <title>dbcp</title>
       <para>Connection pooling, available at <link
       xl:href="http://repo1.maven.org/maven2/commons-dbcp/commons-dbcp/1.2/commons-dbcp-1.2.jar">dbcp
-      Jar</link> .</para>
+      Jar</link>.</para>
       <informalexample>
         <programlisting language="xml">
 <![CDATA[
@@ -231,7 +231,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     </informalexample>
     <para>For more information, refer to:</para><link
     xl:href="http://docs.oracle.com/cd/B14117_01/java.101/b10979/conncache.htm">Oracle Database JDBC
-    documentation</link> .</section>
+    documentation</link>.</section>
     <section xml:id="postgreSQL">
       <title>PostgreSQL</title>
       <para>Implements javax.sql.DataSource.</para>

@@ -11,7 +11,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     <para>This connector uses efficient NIO buffers with a non-blocking threading model. Jetty uses Direct NIO buffers,
     and allocates threads only to connections with requests. Synchronization simulates blocking for the servlet API,
     and any unflushed content at the end of request handling is written asynchronously. See the <link
-    xl:href="@JDURL@/org/eclipse/jetty/server/nio/SelectChannelConnector.html">javadoc</link> . This connector is best
+    xl:href="@JDURL@/org/eclipse/jetty/server/nio/SelectChannelConnector.html">javadoc</link>. This connector is best
     used when there are a many connections that have idle periods.</para>
     <para>When used with [[Jetty/Feature/Continuations|Continuations]], //TODO xref// threadless waits are supported.
     When a filter or servlet calls <code>getEvent</code> on a Continuation, a runtime exception is thrown to allow the
@@ -27,25 +27,25 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     <para>This connector implements a traditional blocking IO and threading model. Jetty uses Normal JRE sockets and
     allocates a thread per connection. Jetty allocates large buffers to active connections only. You should use this
     Connector only if NIO is not available. See the <link
-    xl:href="@JDURL@/org/eclipse/jetty/server/bio/SocketConnector.html">javadoc</link> .</para>
+    xl:href="@JDURL@/org/eclipse/jetty/server/bio/SocketConnector.html">javadoc</link>.</para>
   </section>
   <section xml:id="sslselectchannelconnector">
     <title>SslSelectChannelConnector</title>
     <para>This is an SSL connector that uses NIO. For more information about its configuration, see
     [[Jetty/Reference/SSL Connectors|SSL Connector Reference]]. //TODO xref//See also the <link
-    xl:href="@JDURL@/org/eclipse/jetty/server/ssl/SslSelectChannelConnector.html">javadoc</link> .</para>
+    xl:href="@JDURL@/org/eclipse/jetty/server/ssl/SslSelectChannelConnector.html">javadoc</link>.</para>
   </section>
   <section xml:id="sslsocketconnector">
     <title>SslSocketConnector</title>
     <para>This is a blocking IO connector that supports SSL. See the <link
-    xl:href="@JDURL@/org/eclipse/jetty/server/ssl/SslSocketConnector.html">javadoc</link> .</para>
+    xl:href="@JDURL@/org/eclipse/jetty/server/ssl/SslSocketConnector.html">javadoc</link>.</para>
   </section>
   <section xml:id="ajp13socketconnector">
     <title>Ajp13SocketConnector</title>
     <para>This connector implements the AJP13 protocol. See [[Jetty/Howto/Configure AJP13|How to Configure Ajp13]]
     //TODO xref//for more information, and also take a look at [[JETTY/Howto/Configure mod_proxy|How to Configure
     mod_proxy]] //TODOxref// for alternatives to using the AJP13 protocol. See also the <link
-    xl:href="@JDURL@/org/eclipse/jetty/ajp/Ajp13SocketConnector.html">javadoc</link> .</para>
+    xl:href="@JDURL@/org/eclipse/jetty/ajp/Ajp13SocketConnector.html">javadoc</link>.</para>
   </section>
   <section xml:id="configuration-options">
   <title>Configuration Options</title>You can fine tune your connector configuration using the following parameters. 

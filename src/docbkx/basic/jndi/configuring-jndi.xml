@@ -17,7 +17,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     .</para>
     <orderedlist>
       <listitem>
-        <para>Edit the <filename>$JETTY_HOME/start.ini file</filename> .</para>
+        <para>Edit the <filename>$JETTY_HOME/start.ini file</filename>.</para>
       </listitem>
       <listitem>
         <para>Modify the Server OPTIONS to include <emphasis>plus</emphasis>, for example: 
@@ -31,7 +31,7 @@ OPTIONS=Server,jsp,jmx,resources,websocket,ext,plus
       </listitem>
       <listitem>
         <para>Near the bottom of the file, in the section on Configuration files, add the following line after <code>
-        etc/jetty.xml</code> : 
+        etc/jetty.xml</code>: 
         <informalexample>
           <programlisting language="xml">
 <![CDATA[
@@ -55,7 +55,7 @@ etc/jetty-plus.xml
       <para>When deploying a webapp, Jetty has an extensible list of <link
       xl:href="@JDURL@/org/eclipse/jetty/webapp/Configuration.html">configurations</link> that it applies to the webapp
       in a specific order. These configurations do things like parse <filename>web.xml</filename>, set up the classpath
-      for the webapp, and parse <filename>WEB-INF/jetty-web.xml</filename> .</para>
+      for the webapp, and parse <filename>WEB-INF/jetty-web.xml</filename>.</para>
       <para>To use JNDI with Jetty, you need additional attributes that do things like read <filename>
       WEB-INF/jetty-env.xml</filename>, set up a <code>java:comp/env context</code>, and hook up JNDI entries from the
       environment into your webapp. The list below shows the two extra elements and the order you must use when you add
@@ -168,7 +168,7 @@ resource-env-ref/
     <xref linkend="configuring-env-entries" />
     shows you how to set up overrides for <code>env-entry</code> elements in <filename>web.xml</filename>, while 
     <xref linkend="configuring-resource-refs-and-resorce-env-refs" />
-    discusses how to configure support resources such as <code>javax.sql.DataSource</code> .</para>
+    discusses how to configure support resources such as <code>javax.sql.DataSource</code>.</para>
     <para>You can also plug a JTA <code>javax.transaction.UserTransaction</code> implementation into Jetty so that
     webapps can look up <code>java:comp/UserTransaction</code> to obtain a distributed transaction manager. See 
     <xref linkend="configuring-xa-transactions" />
@@ -228,7 +228,7 @@ resource-env-ref/
         <para>The <code>type of naming entry</code> can be:</para>
         <itemizedlist>
           <listitem>
-            <para><code>org.eclipse.jetty.plus.jndi.EnvEntry</code> for <code>env-entry</code> .</para>
+            <para><code>org.eclipse.jetty.plus.jndi.EnvEntry</code> for <code>env-entry</code>.</para>
           </listitem>
           <listitem>
             <para><code>org.eclipse.jetty.plus.jndi.Resource</code> for all other type of resources.</para>
@@ -241,7 +241,7 @@ resource-env-ref/
           </listitem>
           <listitem>
             <para><code>org.eclipse.jetty.plus.jndi.Link</code> for link between a <filename>
-            web.xml</filename> resource name and a <code>amingEntry</code> .</para>
+            web.xml</filename> resource name and a <code>amingEntry</code>.</para>
           </listitem>
         </itemizedlist>
         <para>For more information, see 
@@ -274,9 +274,9 @@ resource-env-ref/
       <section xml:id="configuring-env-entries">
         <title>Configuring <code>env-entries</code></title>
         <para>Sometimes it is useful to pass configuration information to a webapp at runtime that you either cannot or
-        cannot conveniently code into a <code>web.xml env-entry</code> . In such cases, you can use <code>
+        cannot conveniently code into a <code>web.xml env-entry</code>. In such cases, you can use <code>
         org.eclipse.jetty.plus.jndi.EnvEntry</code>, and even override an entry of the same name in <filename>
-        web.xml</filename> .</para>
+        web.xml</filename>.</para>
         <informalexample>
           <programlisting language="xml">
 <![CDATA[
@@ -293,13 +293,12 @@ resource-env-ref/
         <code>4000</code> that is unique within the whole JVM. It is put into JNDI at <code>
         java:comp/env/mySpecialValue</code> for <emphasis>every</emphasis> web app deployed. Moreover, the boolean
         argument indicates that this value overrides an <code>env-entry</code> of the same name in <code>
-        web.xml</code> . If you don't want to override, then omit this argument, or set it to <code>
-        false</code> .</para>
+        web.xml</code>. If you don't want to override, then omit this argument, or set it to <code>false</code>.</para>
         <para>See 
         <xref linkend="setting-jndi-entries-as-global-or-scoped" />
         for information on other scopes.</para>
         <para>The Servlet Specification allows binding only the following object types to an <code>
-        env-entry</code> :</para>
+        env-entry</code>:</para>
         <itemizedlist>
           <listitem>java.lang.String</listitem>
           <listitem>java.lang.Integer</listitem>
@@ -315,8 +314,8 @@ resource-env-ref/
         xl:href="http://docs.oracle.com/javase/1.5.0/docs/api/javax/naming/Reference.html">
         javax.naming.References</link> and <link
         xl:href="http://docs.oracle.com/javase/1.5.0/docs/api/javax/naming/Referenceable.html">
-        javax.naming.Referenceables</link> . Be aware that if you take advantage of this feature, your web application
-        is <emphasis>not portable</emphasis> .</para>
+        javax.naming.Referenceables</link>. Be aware that if you take advantage of this feature, your web application
+        is <emphasis>not portable</emphasis>.</para>
         <para>To use the <code>env-entry</code> configured above, use code in your servlet/filter/etc., such as:</para>
         <informalexample>
           <programlisting language="java">
@@ -334,12 +333,12 @@ Integer mySpecialValue = (Integer)ic.lookup("java:comp/env/mySpecialValue");
         <para>You can configure any type of resource that you want to refer to in a <code>web.xml</code> file as a
         <code>resource-ref</code> or <code>resource-env-ref</code>, using the <code>
         org.eclipse.jetty.plus.jndi.Resource</code> type of naming entry. You provide the scope, the name of the object
-        (relative to <code>java:comp/env</code> ) and a POJO instance or a <code>javax.naming.Reference</code> instance
+        (relative to <code>java:comp/env</code>) and a POJO instance or a <code>javax.naming.Reference</code> instance
         or <code>javax.naming.Referenceable</code> instance.</para>
         <para>The <link xl:href="http://jcp.org/aboutJava/communityprocess/pr/jsr244/index.html">J2EE
         Specification</link> recommends that DataSources be stored in <code>java:comp/env/jdbc</code>, JMS connection
         factories under <code>java:comp/env/jms</code>, JavaMail connection factories under <code>
-        java:comp/env/mail</code> and URL connection factories under <code>java:comp/env/url</code> . For
+        java:comp/env/mail</code> and URL connection factories under <code>java:comp/env/url</code>. For
         example:</para>
         <table>
           <title>Storing DataSources</title>
@@ -373,11 +372,11 @@ Integer mySpecialValue = (Integer)ic.lookup("java:comp/env/mySpecialValue");
       </section>
       <section xml:id="configuring-datasources">
         <title>Configuring DataSources</title>
-        <para>Here is an example of configuring a <code>javax.sql.DataSource</code> . Jetty can use any DataSource
+        <para>Here is an example of configuring a <code>javax.sql.DataSource</code>. Jetty can use any DataSource
         implementation available on its classpath. In this example, the DataSource is from the <link
         xl:href="http://db.apache.org/derby">Derby</link> relational database, but you can use any implementation of a
-        <code>javax.sql.DataSource</code> . This example configures it as scoped to a web app with the id of <emphasis>
-        wac</emphasis> :</para>
+        <code>javax.sql.DataSource</code>. This example configures it as scoped to a web app with the id of <emphasis>
+        wac</emphasis>:</para>
         <informalexample>
           <programlisting language="xml">
 <![CDATA[
@@ -401,7 +400,7 @@ Integer mySpecialValue = (Integer)ic.lookup("java:comp/env/mySpecialValue");
         two setter methods <code>setDatabaseName("test"),</code> and <code>setCreateDatabase("create"),</code> and
         binds it into the JNDI scope for the web app. If you do not have the appropriate <code>resource-ref</code> set
         up in your <code>web.xml</code>, it is available from application lookups as <code>
-        java:comp/env/jdbc/myds</code> .</para>
+        java:comp/env/jdbc/myds</code>.</para>
         <para>Here's an example <filename>web.xml</filename> declaration for the datasource above:</para>
         <informalexample>
           <programlisting language="xml">
@@ -427,7 +426,7 @@ DataSource myDS = (DataSource)ic.lookup("java:comp/env/jdbc/myds");
           </programlisting>
         </informalexample>
         <note>Careful! When configuring Resources, ensure that the type of object you configure matches the type of
-        object you expect to look up in <code>java:comp/env</code> . For database connection factories, this means that
+        object you expect to look up in <code>java:comp/env</code>. For database connection factories, this means that
         the object you register as a Resource <emphasis>must</emphasis> implement the <code>
         javax.sql.DataSource</code> interface.</note>
         <para>For more examples of datasource configurations, see 
@@ -457,7 +456,7 @@ DataSource myDS = (DataSource)ic.lookup("java:comp/env/jdbc/myds");
 ]]>
           </programlisting>
         </informalexample>
-        <para>For more information, see <link xl:href="http://activemq.apache.org/">ActiveMQ</link> .</para>
+        <para>For more information, see <link xl:href="http://activemq.apache.org/">ActiveMQ</link>.</para>
       </section>
       <section xml:id="configuring-mail">
         <title>Configuring Mail</title>
@@ -527,7 +526,7 @@ DataSource myDS = (DataSource)ic.lookup("java:comp/env/jdbc/myds");
       <section xml:id="configuring-links">
         <title>Configuring Links</title>
         <para>The name you set for your <code>NamingEntry</code> should be the same name you use for it in <code>
-        web.xml</code> . For example:</para>
+        web.xml</code>. For example:</para>
         <para>In a context xml file:</para>
         <informalexample>
           <programlisting language="xml">
@@ -548,7 +547,7 @@ DataSource myDS = (DataSource)ic.lookup("java:comp/env/jdbc/myds");
 ]]>
           </programlisting>
         </informalexample>
-        <para>In <code>web.xml</code> :</para>
+        <para>In <code>web.xml</code>:</para>
         <informalexample>
           <programlisting language="xml">
 <![CDATA[
@@ -624,11 +623,11 @@ DataSource myDS = (DataSource)ic.lookup("java:comp/env/jdbc/myds");
       <title>Setting JNDI Entries as Global or Scoped</title>
       <para>As previously stated, you can control the visibility of your JNDI naming entries within your JVM, Server
       and WebAppContext instances. Naming entries at the jvm scope are visible by any application code, and are
-      available to bind to <code>java:comp/env</code> . Naming entries at the Server scope do not interfere with
-      entries of the same name in a different Server instance, and are available to bind to <code>
-      java:comp/env</code> of any web apps deployed to that Server instance. Finally, the most specific scope are
-      entries at the webapp scope. An entry of this type is only available to bind to <code>java:comp/env</code> of the
-      web app in which it is defined.</para>
+      available to bind to <code>java:comp/env</code>. Naming entries at the Server scope do not interfere with entries
+      of the same name in a different Server instance, and are available to bind to <code>java:comp/env</code> of any
+      web apps deployed to that Server instance. Finally, the most specific scope are entries at the webapp scope. An
+      entry of this type is only available to bind to <code>java:comp/env</code> of the web app in which it is
+      defined.</para>
       <para>The first parameter to the NamingEntry controls the scope.</para>
       <para>The jvm scope is represented by a null parameter:</para>
       <informalexample>

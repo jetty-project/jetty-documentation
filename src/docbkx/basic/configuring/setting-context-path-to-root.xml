@@ -16,7 +16,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     important to know because it influences your decision on where to put the <filename>
     mywebapp.war</filename> file.</listitem>
     <listitem>Examine the <filename>${jetty.home}/start.ini</filename> file, and you see that it contains both
-    references to <code>etc/jetty-webapps.xml</code> and <code>etc/jetty-contexts.xml</code> .</listitem>
+    references to <code>etc/jetty-webapps.xml</code> and <code>etc/jetty-contexts.xml</code>.</listitem>
   </itemizedlist></note>
   <section xml:id="root-using-the-webapp-provider">
     <title>Using the WebAppProvider</title>
@@ -24,7 +24,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     <xref linkend="using-webapp-provider" />
     ) is to look in the <filename>${jetty.home}/webapps/</filename> directory for any deployable applications (such as
     *.war), and deploy them onto a context of the same name as the filename. For example, the WebAppProvider deploys
-    <filename>${jetty.home}/webapps/MyApp-2.4.war</filename> into the context <code>/MyApp-2.4</code> . There is also
+    <filename>${jetty.home}/webapps/MyApp-2.4.war</filename> into the context <code>/MyApp-2.4</code>. There is also
     the special <code>root.war</code> reserved word that deploys into the context / . While this is the easiest
     deployment mechanism, it sacrifices control over deployment specifics.</para>
   </section>
@@ -43,7 +43,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     <title>Setting the Context Path with the <code>ContextProvider</code></title>
     <para>To set the context path to / , follow these steps.</para>
     <orderedlist>
-      <listitem>Make sure your ContextProvider-based deployments are enabled in the <filename>start.ini</filename> .
+      <listitem>Make sure your ContextProvider-based deployments are enabled in the <filename>start.ini</filename>.
       That is, make sure that <code>etc/jetty-context.xml</code> is present.</listitem>
       <listitem>Create a <code>${jetty.home}/contexts/mywebapp.xml</code> that declares the <code>
         <Set name="contextPath">/</Set>
@@ -52,7 +52,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
       not put your <code>mywebapp.war</code> in <filename>${jetty.home}/webapps</filename> because doing so causes the
       WebAppProvider to also deploy the same webapp, and confuses your deployment.</listitem>
       <listitem>Finally, you can see how the jetty distribution itself does this by examining <filename>
-      ${jetty.home}/contexts/test.xml</filename> . Jetty loads the <filename>
+      ${jetty.home}/contexts/test.xml</filename>. Jetty loads the <filename>
       ${jetty.home}/webapps/test.war</filename> via the ContextProvider's use of the <filename>
       ${jetty.home}/contexts/test.xml</filename> into the / context path.</listitem>
     </orderedlist>
@@ -69,7 +69,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
       </screen>
     </para>
     <para>That reveals that WebAppContext was Started on {/, (the root Context Path) It was using the temp/work
-    directory file: <filename>/tmp/jetty-0.0.0.0-8080-test.war-_-any-/webapp/</filename> . It was using the web
+    directory file: <filename>/tmp/jetty-0.0.0.0-8080-test.war-_-any-/webapp/</filename>. It was using the web
     application specified in <filename>
     /home/joakim/code/jetty/distros/jetty-distribution-7.6.0.RC3/webapps/test.war.</filename></para>
   </section>

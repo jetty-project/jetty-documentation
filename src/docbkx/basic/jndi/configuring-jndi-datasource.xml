@@ -6,11 +6,8 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
   <title>JNDI Datasource Examples</title>
   <para>Here are examples of configuring a JNDI datasource for various databases.</para>
   <note>
-    <para>Read 
-    <xref linkend="configuring-datasources" />
-    in 
-    <xref linkend="configuring-jndi" />
-    for more information about configuring datasources.</para>
+    <para>Read <xref linkend="configuring-datasources" />in <xref linkend="configuring-jndi" />for more information
+    about configuring datasources.</para>
   </note>
   <para>All of these examples correspond to a <code>resource-ref</code> in <filename>web.xml</filename>.</para>
   <informalexample>

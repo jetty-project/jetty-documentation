@@ -12,12 +12,8 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
   applications.</para>
   <para>To understand the basic operations of building and running against Jetty, first review:</para>
   <itemizedlist>
-    <listitem>
-    <xref linkend="jetty-helloworld" />
-    .</listitem>
-    <listitem>
-    <xref linkend="embedding" />
-    .</listitem>
+    <listitem><xref linkend="jetty-helloworld" />.</listitem>
+    <listitem><xref linkend="embedding" />.</listitem>
   </itemizedlist>
   <section xml:id="configuring-embedded-jetty-with-maven">
     <title>Configuring Embedded Jetty with Maven</title>

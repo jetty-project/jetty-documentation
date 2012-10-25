@@ -5,9 +5,8 @@ xmlns:xi="http://www.w3.org/2001/XInclude"
 xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd">
   <title>Jetty HelloWorld</title>
   <para>This tutorial shows how you can develop code against the Jetty API with the jetty classes on your class path.
-  If you want to use Maven or standard web applications, see 
-  <xref linkend="jetty-maven-helloworld" xreflabel="" />
-  .</para>
+  If you want to use Maven or standard web applications, see <xref linkend="jetty-maven-helloworld"
+  xreflabel="" />.</para>
   <section xml:id="downloading-jars">
     <title>Downloading the Jars</title>
     <para>Jetty is decomposed into many [[Jetty/Reference/Dependencies|jars and dependencies]] //TODO xref//to achieve
@@ -31,11 +30,9 @@ wget -U none http://repo1.maven.org/maven2/javax/servlet/servlet-api/2.5/servlet
   </section>
   <section xml:id="writing-helloworld-example">
     <title>Writing a HelloWorld Example</title>
-    <para>The 
-    <xref linkend="embedding" xreflabel="Embedding" />
-    tutorial contains many examples of writing against the Jetty API. This tutorial uses a simple HelloWorld handler
-    with a main method to run the server. In an editor, edit the file <filename>HelloWorld.java</filename> and add the
-    following content:</para>
+    <para>The <xref linkend="embedding" xreflabel="Embedding" />tutorial contains many examples of writing against the
+    Jetty API. This tutorial uses a simple HelloWorld handler with a main method to run the server. In an editor, edit
+    the file <filename>HelloWorld.java</filename> and add the following content:</para>
     <informalexample>
       <programlisting language="java">
 <![CDATA[
@@ -100,14 +97,11 @@ java -cp .:servlet-api-2.5.jar:jetty-all-$JETTY_VERSION.jar HelloWorld
     <title>Next Steps</title>
     <para>To learn more about Jetty, take these next steps:</para>
     <itemizedlist>
-      <listitem>Follow the examples in 
-      <xref linkend="embedding" />
-      to better understand the jetty APIs.</listitem>
+      <listitem>Follow the examples in <xref linkend="embedding" />to better understand the jetty APIs.</listitem>
       <listitem>Explore the complete <link xl:href="http://download.eclipse.org/jetty/stable-7/apidocs/">jetty
       javadoc</link></listitem>
-      <listitem>Consider using Jetty and Maven (see 
-      <xref linkend="jetty-maven-helloworld" />
-      ) to manage your Jars and dependencies.</listitem>
+      <listitem>Consider using Jetty and Maven (see <xref linkend="jetty-maven-helloworld" />) to manage your Jars and
+      dependencies.</listitem>
       <listitem>Review other options in [[Jetty/Howto/Develop|Howto Develop with Jetty]] TODO xref</listitem>
     </itemizedlist>
   </section>

@@ -84,13 +84,11 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     <section xml:id="generating-key-pairs-and-certificates">
       <title>Generating Key Pairs and Certificates</title>
       <para>The simplest way to generate keys and certificates is to use the Keytool application that comes with the
-      JDK, as it generates keys and certificates directly into the keystore. See 
-      <xref linkend="generating-key-pairs-and-certificates-JDK-keytool" />
-      .</para>
-      <para>If you already have keys and certificates, see 
-      <xref linkend="loading-keys-and-certificates" />
-      to load them into a JSSE key store. This section also applies if you have a renewal certificate to replace one
-      that is expiring.</para>
+      JDK, as it generates keys and certificates directly into the keystore. See <xref
+      linkend="generating-key-pairs-and-certificates-JDK-keytool" />.</para>
+      <para>If you already have keys and certificates, see <xref linkend="loading-keys-and-certificates" />to load them
+      into a JSSE key store. This section also applies if you have a renewal certificate to replace one that is
+      expiring.</para>
       <para>The examples below generate only basic keys and certificates. You should read the full manuals of the tools
       you are using if you want to specify:</para>
       <itemizedlist>
@@ -136,13 +134,11 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
          (RETURN if same as keystore password):  password
 ]]>
         </screen>
-        <para>You now have the minimal requirements to run an SSL connection and could proceed directly to 
-        <xref linked="configuring-ssl-parameters" />
-        to configure an SSL connector. However the browser will not trust the certificate you have generated, and
-        prompts the user to this effect. While what you have at this point is often sufficient for testing, most public
-        sites need a trusted certificate, as shown in the section, 
-        <xref linkend="generating-csr-from-keytool" />
-        .</para>
+        <para>You now have the minimal requirements to run an SSL connection and could proceed directly to <xref
+        linked="configuring-ssl-parameters" />to configure an SSL connector. However the browser will not trust the
+        certificate you have generated, and prompts the user to this effect. While what you have at this point is often
+        sufficient for testing, most public sites need a trusted certificate, as shown in the section, <xref
+        linkend="generating-csr-from-keytool" />.</para>
       </section>
       <section xml:id="generating-keys-and-certificates-openssl">
         <title>Generating Keys and Certificates with OpenSSL</title>
@@ -194,19 +190,16 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
  #
 ]]>
         </screen>
-        <para>You now have the minimal requirements to run an SSL connection and could proceed directly to 
-        <xref linkend="loading-keys-and-certificates" />
-        to load these keys and certificates into a JSSE keystore. However the browser will not trust the certificate
-        you have generated, and prompts the user to this effect. While what you have at this point is often sufficient
-        for testing, most public sites need a trusted certificate, as shown in the section, 
-        <xref linkend="generating-csr-from-openssl" />
-        to obtain a certificate.</para>
+        <para>You now have the minimal requirements to run an SSL connection and could proceed directly to <xref
+        linkend="loading-keys-and-certificates" />to load these keys and certificates into a JSSE keystore. However the
+        browser will not trust the certificate you have generated, and prompts the user to this effect. While what you
+        have at this point is often sufficient for testing, most public sites need a trusted certificate, as shown in
+        the section, <xref linkend="generating-csr-from-openssl" />to obtain a certificate.</para>
       </section>
       <section xml:id="using-keys-and-certificates-from-other-sources">
         <title>Using Keys and Certificates from Other Sources</title>
-        <para>If you have keys and certificates from other sources, you can proceed directly to 
-        <xref linkend="loading-keys-and-certificates" />
-        .</para>
+        <para>If you have keys and certificates from other sources, you can proceed directly to <xref
+        linkend="loading-keys-and-certificates" />.</para>
       </section>
     </section>
     <section xml:id="requesting-trusted-certificate">
@@ -248,9 +241,8 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
       load it into a JSSE keystore.</para>
       <note>You need both the private key and the certificate in the keystore. You should load the certificate into the
       keystore used to generate the CSR with Keytool. If your key pair is not in a keystore (generated with OpenSSL),
-      you need to use the PKCS12 format to load both key and certificate (see 
-      <xref linkend="loading-keys-and-certificates-via-pkcks12" />
-      .</note>
+      you need to use the PKCS12 format to load both key and certificate (see <xref
+      linkend="loading-keys-and-certificates-via-pkcks12" />.</note>
       <section xml:id="loading-certificates-with-keytool">
         <title>Loading Certificates with Keytool</title>
         <para>You can use Keytool to load a certificate in PEM form directly into a keystore. The PEM format is a text
@@ -466,10 +458,9 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     <section xml:id="renewing-certificates">
       <title>Renewing Certificates</title>
       <para>If you are updating your configuration to use a newer certificate, as when the old one is expiring, just
-      load the newer certificate as described in the section, 
-      <xref linkend="loading-keys-and-certificates" />
-      . If you imported the key and certificate originally using the PKCS12 method, use an alias of "1" rather than
-      "jetty", because that is the alias the PKCS12 process enters into the keystore.</para>
+      load the newer certificate as described in the section, <xref linkend="loading-keys-and-certificates" />. If you
+      imported the key and certificate originally using the PKCS12 method, use an alias of "1" rather than "jetty",
+      because that is the alias the PKCS12 process enters into the keystore.</para>
     </section>
   </section>
 </section>

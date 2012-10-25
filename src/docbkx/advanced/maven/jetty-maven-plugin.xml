@@ -90,9 +90,8 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
       RequestLog: 
       <itemizedlist>
         <listitem>In a jetty xml config file (specified in the <code>jettyXml</code> parameter).</listitem>
-        <listitem>In a context (see 
-        <xref linkend="ucp-deploying-contexts" />
-        ), as specified in the <code>contextXml</code> parameter.</listitem>
+        <listitem>In a context (see <xref linkend="ucp-deploying-contexts" />), as specified in the <code>
+        contextXml</code> parameter.</listitem>
         <listitem>In the <code>webApp</code> element. TODO [http://wiki.eclipse.org/Jetty/Tutorial/RequestLo] on
         configuring request logs.</listitem>
       </itemizedlist></listitem>

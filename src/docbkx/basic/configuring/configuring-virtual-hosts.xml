@@ -28,9 +28,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     </link> This is the preferred method.</para>
   </listitem>
   <listitem>
-    <para>Java calls in an embedded usage: 
-    <xref linkend="embedding" />
-    .</para>
+    <para>Java calls in an embedded usage: <xref linkend="embedding" />.</para>
   </listitem>
   <listitem>
     <para>Within an explicitly deployed webapp (no deployer) listed in [[Jetty/Reference/jetty.xml|jetty.xml]] or
@@ -41,9 +39,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     you do not use the context provider).</para>
   </listitem></itemizedlist>
   <para>For descriptions of the various ways to configure Jetty, including links to documents that provide detailed
-  configuration instructions, see 
-  <xref linkend="configuring-jetty" />
-  .</para>
+  configuration instructions, see <xref linkend="configuring-jetty" />.</para>
   <para>The examples that follow set virtual hosts in the preferred way, by calling the method <code>
   ContextHandler</code>.<link xl:href="@JDURL@/org/eclipse/jetty/server/handler/ContextHandler.html#setVirtualHosts">
   setVirtualHosts</link>.</para>

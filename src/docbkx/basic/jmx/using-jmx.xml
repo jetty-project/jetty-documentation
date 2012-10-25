@@ -110,10 +110,9 @@ mbContainer.addBean(Log.getLog());
     </section>
     <section xml:id="jmx-using-jetty-maven-plugin">
       <title>Using the Jetty Maven Plugin with JMX</title>
-      <para>If you are using the 
-      <xref linkedn="jetty-maven-plugin" />
-      you should copy the <filename>etc/jetty-jmx.xml</filename> file into your webapp project somewhere, such as
-      <filename>src/etc,</filename> then add a &lt;jettyconfig&gt; element to the plugin &lt;configuration&gt;:</para>
+      <para>If you are using the <xref linkedn="jetty-maven-plugin" />you should copy the <filename>
+      etc/jetty-jmx.xml</filename> file into your webapp project somewhere, such as <filename>src/etc,</filename> then
+      add a &lt;jettyconfig&gt; element to the plugin &lt;configuration&gt;:</para>
       <informalexample>
         <programlisting language="xml">
 <![CDATA[

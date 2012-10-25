@@ -488,10 +488,9 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
       xl:href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/webapp/WebAppContext.html">
         <code>WebAppContext.setAttribute(String name, String value)</code>
       </link> method.</para>
-      <para>If you want to use JSF with all of your webapps, 
-      <xref linkend="using-deployment-manager" />
-      , edit <filename>$JETTY_HOME/etc/jetty-deploy.xml</filename>. For example, assuming the implementation Jar is
-      named <code>javax.faces-2.1.6.jar</code>:</para>
+      <para>If you want to use JSF with all of your webapps, <xref linkend="using-deployment-manager" />, edit
+      <filename>$JETTY_HOME/etc/jetty-deploy.xml</filename>. For example, assuming the implementation Jar is named
+      <code>javax.faces-2.1.6.jar</code>:</para>
       <informalexample>
         <programlisting language="xml">
 <![CDATA[

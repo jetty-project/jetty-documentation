@@ -11,9 +11,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
   for extension. However, some users might have special requirements or footprint concerns that prohibit the use of the
   full servlet API. For them implementing a Jetty handler is a straight forward way to provide dynamic web content with
   a minimum of fuss.</para>
-  <para>See 
-  <xref linkend="basic-architecture" />
-  to understand more about Handlers vs. Servlets.</para>
+  <para>See <xref linkend="basic-architecture" />to understand more about Handlers vs. Servlets.</para>
   <section xml:id="handler-api">
   <title>The Handler API</title>
   <para>The <link xl:href="@JDURL@/org/eclipse/jetty/server/Handler.html">Handler</link> interface provides Jetty's

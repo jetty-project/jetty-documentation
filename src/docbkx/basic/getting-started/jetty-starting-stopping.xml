@@ -55,9 +55,8 @@ xmlns:ns2="http://www.w3.org/1998/Math/MathML" xmlns:ns="http://docbook.org/ns/d
         <code>&gt; java -jar start.jar jetty.port=8081</code>
       </para>
       <para>This property can also be set in the <code>start.ini</code> file or by editing the usage of the property in
-      the <code>etc/jetty-http.xml</code> configuration file. For more information see 
-      <xref linkend="configuring-connectors" />
-      .</para>
+      the <code>etc/jetty-http.xml</code> configuration file. For more information see <xref
+      linkend="configuring-connectors" />.</para>
     </section>
     <section>
       <title>Starting HTTPS</title>
@@ -156,9 +155,8 @@ xmlns:ns2="http://www.w3.org/1998/Math/MathML" xmlns:ns="http://docbook.org/ns/d
       <title>Advanced Start.jar</title>
       <para>The job of the start.jar command is to interpret the command line and start.ini arguments in order to build
       a java classpath and list of properties and configuration files to pass to the main class of the Jetty XML
-      configuration mechanism. The start.jar mechanism has many options which are documented in 
-      <xref linkend="advanced-jetty-start" />
-      and can be seen in summary with the command:</para>
+      configuration mechanism. The start.jar mechanism has many options which are documented in <xref
+      linkend="advanced-jetty-start" />and can be seen in summary with the command:</para>
       <para>
         <code>&gt; java -jar start.jar --help</code>
       </para>

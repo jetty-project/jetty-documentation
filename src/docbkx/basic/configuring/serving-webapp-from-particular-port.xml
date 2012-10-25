@@ -6,9 +6,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
   <title>Serving a WebApp from a Particular Port</title>
   <para>You might need to serve webapp A only from port A and webapp B only from port B. The most efficient way to do
   this is with two <code>org.eclipse.jetty.server.Server</code> instances. There is also another, slightly less
-  efficient 
-  <xref linkend="alternative" />
-  .</para>
+  efficient <xref linkend="alternative" />.</para>
   <para>Server instance A has a connector listening on port A with webapp A defined, and Server instance B has webapp B
   and a connector listening on port B defined. For example:</para>
   <para>You want to serve webapp A from port 8080, and webapp B from an SSL connector on port 8443. This involves

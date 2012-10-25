@@ -189,10 +189,10 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
 ]]>
         </programlisting>
       </informalexample>
-      <para>The next example configures not only the web application context, but also a database connection pool (see 
-      <xref linkedn="jndi-datasource-examples" />
-      that our application can then use. If the <filename>web.xml</filename> does not include a reference to this data
-      source, you can use the override descriptor mechanism (the previous example), to include it.</para>
+      <para>The next example configures not only the web application context, but also a database connection pool (see
+      <xref linkedn="jndi-datasource-examples" />that our application can then use. If the <filename>
+      web.xml</filename> does not include a reference to this data source, you can use the override descriptor
+      mechanism (the previous example), to include it.</para>
       <informalexample>
         <programlisting language="xml">
 <![CDATA[
@@ -223,9 +223,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     <section>
       <title>Jetty Maven Plugin</title>
       <para>If you develop your web application as a Maven project, you can deploy it in Jetty with <filename>mvn
-      jetty:run</filename>, using the 
-      <xref linkend="jetty-maven-plugin" />
-      .</para>
+      jetty:run</filename>, using the <xref linkend="jetty-maven-plugin" />.</para>
       <para>Maven lets you build your web applications by overlaying on other template web applications (for example,
       <link xl:href="http://docs.cometd.org/reference/#primer">CometD</link>) and manages the transitive dependencies
       needed to populate <code>WEB-INF/lib</code>.</para>
@@ -237,9 +235,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     <section xml:id="using-embedded-jetty">
       <title>Using Embedded Jetty</title>
       <para>You can also deploy web applications into embedded Jetty, either via direct configuration or via
-      configuration of a deployer. For an example see 
-      <xref linkend="embedding" />
-      .</para>
+      configuration of a deployer. For an example see <xref linkend="embedding" />.</para>
     </section>
   </section>
 </section>

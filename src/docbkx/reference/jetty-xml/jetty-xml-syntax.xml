@@ -76,7 +76,7 @@ bar.getParent().setName("demo2");
     </section>
     <section>
       <title>Using Method Calls</title>
-      <para>You configure Java objects with a sequence of &lt;New&gt;, &lt;Set&gt;, &lt;Put&gt; and &lt;Call&gt;
+      <para>You configure Java objects with a sequence of <xref linkend="jetty-xml-get"/>, <xref linkend="jetty-xml-set"/>, <xref linkend="jetty-xml-put"/> and <xref linkend="jetty-xml-call"/>
       elements:</para>
       <informalexample>
         <programlisting language="xml">
@@ -110,8 +110,7 @@ new com.acme.MyStuff();
     <section>
       <title>Referring to an Object</title>
       <para>You can use the id attribute to store a reference to this object when first creating or referring to this
-      object. You can then use the &lt;Ref&gt; tag to reference the object later. The id must be unique for each object
-      you create.</para>
+      object. You can then use the <xref linkend="jetty-xml-ref"/> tag to reference the object later. The id must be unique for each object you create.</para>
     </section>
   </section>
   <section xml:id="jetty-xml-configure">
@@ -132,7 +131,7 @@ new com.acme.MyStuff();
             <entry>id</entry>
             <entry>no</entry>
             <entry>
-              <para>a reference to the object that was created. If you define multiple &lt;Configure&gt; tags with the
+              <para>a reference to the object that was created. If you define multiple <xref linkend="jetty-xml-configure"/> tags with the
               same id, they will be treated as one object, even if they're in different files. You can use this to
               break up configuration of an object (such as the Server) across multiple files.</para>
             </entry>
@@ -148,25 +147,9 @@ new com.acme.MyStuff();
     </section>
     <section>
       <title>Can Contain</title>
-      <para>
-      <xref linkend="jetty-xml-set" />
-      , 
-      <xref linkend="jetty-xml-get" />
-      , 
-      <xref linkend="jetty-xml-put" />
-      , 
-      <xref linkend="jetty-xml-call" />
-      , 
-      <xref linkend="jetty-xml-new" />
-      , 
-      <xref linkend="jetty-xml-ref" />
-      , 
-      <xref linkend="jetty-xml-array" />
-      , 
-      <xref linkend="jetty-xml-map" />
-      , 
-      <xref linkend="jetty-xml-property" />
-      </para>
+      <para><xref linkend="jetty-xml-set" />, <xref linkend="jetty-xml-get" />, <xref linkend="jetty-xml-put" />, <xref
+      linkend="jetty-xml-call" />, <xref linkend="jetty-xml-new" />, <xref linkend="jetty-xml-ref" />, <xref
+      linkend="jetty-xml-array" />, <xref linkend="jetty-xml-map" />, <xref linkend="jetty-xml-property" /></para>
     </section>
 <!--
 <Set>,<Get>, <Put>, <Call>, <New>, <Ref>, <Array>, <Map>, <Property>
@@ -264,23 +247,10 @@ java -jar start.jar etc/jetty.xml jetty-logging.xml
     </section>
     <section>
       <title>Can Contain</title>
-      <para>value text, 
-      <xref linkend="jetty-xml-get" />
-      , 
-      <xref linkend="jetty-xml-call" />
-      , 
-      <xref linkend="jetty-xml-new" />
-      , 
-      <xref linkend="jetty-xml-ref" />
-      , 
-      <xref linkend="jetty-xml-array" />
-      , 
-      <xref linkend="jetty-xml-map" />
-      , 
-      <xref linkend="jetty-xml-system-property" />
-      , 
-      <xref linkend="jetty-xml-property" />
-      </para>
+      <para>value text, <xref linkend="jetty-xml-get" />, <xref linkend="jetty-xml-call" />, <xref
+      linkend="jetty-xml-new" />, <xref linkend="jetty-xml-ref" />, <xref linkend="jetty-xml-array" />, <xref
+      linkend="jetty-xml-map" />, <xref linkend="jetty-xml-system-property" />, <xref
+      linkend="jetty-xml-property" /></para>
     </section>
 <!--
 value text, <Get>, <Call>, <New>, <Ref>, <Array>, <Map>, <SystemProperty>, <Property>
@@ -391,25 +361,9 @@ server.setThreadPool(threadPool);
     </section>
     <section>
       <title>Can Contain</title>
-      <para>
-      <xref linkend="jetty-xml-set" />
-      , 
-      <xref linkend="jetty-xml-get" />
-      , 
-      <xref linkend="jetty-xml-put" />
-      , 
-      <xref linkend="jetty-xml-call" />
-      , 
-      <xref linkend="jetty-xml-new" />
-      , 
-      <xref linkend="jetty-xml-ref" />
-      , 
-      <xref linkend="jetty-xml-array" />
-      , 
-      <xref linkend="jetty-xml-map" />
-      , 
-      <xref linkend="jetty-xml-property" />
-      </para>
+      <para><xref linkend="jetty-xml-set" />, <xref linkend="jetty-xml-get" />, <xref linkend="jetty-xml-put" />, <xref
+      linkend="jetty-xml-call" />, <xref linkend="jetty-xml-new" />, <xref linkend="jetty-xml-ref" />, <xref
+      linkend="jetty-xml-array" />, <xref linkend="jetty-xml-map" />, <xref linkend="jetty-xml-property" /></para>
     </section>
 <!--
 <Set>,<Get>, <Put>, <Call>, <New>, <Ref>, <Array>, <Map>, <Property>
@@ -480,23 +434,10 @@ server.setThreadPool(threadPool);
     </section>
     <section>
       <title>Can Contain</title>
-      <para>value text , 
-      <xref linkend="jetty-xml-get" />
-      , 
-      <xref linkend="jetty-xml-call" />
-      , 
-      <xref linkend="jetty-xml-new" />
-      , 
-      <xref linkend="jetty-xml-ref" />
-      , 
-      <xref linkend="jetty-xml-array" />
-      , 
-      <xref linkend="jetty-xml-map" />
-      , 
-      <xref linkend="jetty-xml-system-property" />
-      , 
-      <xref linkend="jetty-xml-property" />
-      </para>
+      <para>value text , <xref linkend="jetty-xml-get" />, <xref linkend="jetty-xml-call" />, <xref
+      linkend="jetty-xml-new" />, <xref linkend="jetty-xml-ref" />, <xref linkend="jetty-xml-array" />, <xref
+      linkend="jetty-xml-map" />, <xref linkend="jetty-xml-system-property" />, <xref
+      linkend="jetty-xml-property" /></para>
     </section>
 <!--
 value text, <Get>, <Call>, <New>, <Ref>, <Array>, <Map>, <SystemProperty>, <Property>
@@ -551,27 +492,10 @@ value text, <Get>, <Call>, <New>, <Ref>, <Array>, <Map>, <SystemProperty>, <Prop
     </section>
     <section>
       <title>Can Contain</title>
-      <para>
-      <xref linkend="jetty-xml-arg" />
-      , 
-      <xref linkend="jetty-xml-set" />
-      , 
-      <xref linkend="jetty-xml-get" />
-      , 
-      <xref linkend="jetty-xml-put" />
-      , 
-      <xref linkend="jetty-xml-call" />
-      , 
-      <xref linkend="jetty-xml-new" />
-      , 
-      <xref linkend="jetty-xml-ref" />
-      , 
-      <xref linkend="jetty-xml-array" />
-      , 
-      <xref linkend="jetty-xml-map" />
-      , 
-      <xref linkend="jetty-xml-property" />
-      </para>
+      <para><xref linkend="jetty-xml-arg" />, <xref linkend="jetty-xml-set" />, <xref linkend="jetty-xml-get" />, <xref
+      linkend="jetty-xml-put" />, <xref linkend="jetty-xml-call" />, <xref linkend="jetty-xml-new" />, <xref
+      linkend="jetty-xml-ref" />, <xref linkend="jetty-xml-array" />, <xref linkend="jetty-xml-map" />, <xref
+      linkend="jetty-xml-property" /></para>
     </section>
 <!--<Arg>, <Set>,<Get>, <Put>, <Call>, <New>, <Ref>, <Array>, <Map>, <Property>-->
     <section>
@@ -648,11 +572,8 @@ com.acme.Environment.setPort( server.getPort() );
   </section>
   <section xml:id="jetty-xml-arg">
     <title>&lt;Arg&gt;</title>
-    <para>An Arg element can be an argument of either a method or a constructor. Use it within 
-    <xref linkend="jetty-syntax-call" />
-    and 
-    <xref linkend="jetty-syntax-new" />
-    .</para>
+    <para>An Arg element can be an argument of either a method or a constructor. Use it within <xref
+    linkend="jetty-syntax-call" />and <xref linkend="jetty-syntax-new" />.</para>
     <para>It can contain text and/or elements, such as Call, New, SystemProperty, etc., as values. The optional type
     attribute can force the type of the value. If you don't specify a type, white space is trimmed out of the value. If
     it contains multiple elements as values, they are added as strings before being converted to any specified
@@ -678,23 +599,10 @@ com.acme.Environment.setPort( server.getPort() );
     </section>
     <section>
       <title>Can Contain</title>
-      <para>value text, 
-      <xref linkend="jetty-xml-get" />
-      , 
-      <xref linkend="jetty-xml-call" />
-      , 
-      <xref linkend="jetty-xml-new" />
-      , 
-      <xref linkend="jetty-xml-ref" />
-      , 
-      <xref linkend="jetty-xml-array" />
-      , 
-      <xref linkend="jetty-xml-map" />
-      , 
-      <xref linkend="jetty-xml-system-property" />
-      , 
-      <xref linkend="jetty-xml-property" />
-      </para>
+      <para>value text, <xref linkend="jetty-xml-get" />, <xref linkend="jetty-xml-call" />, <xref
+      linkend="jetty-xml-new" />, <xref linkend="jetty-xml-ref" />, <xref linkend="jetty-xml-array" />, <xref
+      linkend="jetty-xml-map" />, <xref linkend="jetty-xml-system-property" />, <xref
+      linkend="jetty-xml-property" /></para>
     </section>
 <!--
 value text, <Get>, <Call>, <New>, <Ref>, <Array>, <Map>, <SystemProperty>, <Property>
@@ -729,9 +637,8 @@ value text, <Get>, <Call>, <New>, <Ref>, <Array>, <Map>, <SystemProperty>, <Prop
       </section>
       <section>
         <title>As a Parameter</title>
-        <para>Here are a couple of examples of 
-        <xref linkend="jetty-xml-arg" />
-        being used as a parameter to methods and to constructors:</para>
+        <para>Here are a couple of examples of <xref linkend="jetty-xml-arg" />being used as a parameter to methods and
+        to constructors:</para>
         <informalexample>
           <programlisting language="xml">
 <![CDATA[
@@ -780,12 +687,9 @@ new com.acme.Baz(com.acme.MyStaticObjectFactory.createObject(2));
   <section xml:id="jetty-xml-new">
     <title>&lt;New&gt;</title>
     <para>Instantiates an object. Equivalent to new in Java, and allows the creation of a new object. A New element can
-    contain a sequence of 
-    <xref linkend="jetty-xml-arg" />
-    's, followed by a sequence of configuration elements (Set, Put, etc). 
-    <xref linkend="jetty-xml-arg" />
-    's are used to select a constructor for the object to be created. The sequence of configuration elements then acts
-    on the newly-created object.</para>
+    contain a sequence of <xref linkend="jetty-xml-arg" />'s, followed by a sequence of configuration elements (Set,
+    Put, etc). <xref linkend="jetty-xml-arg" />'s are used to select a constructor for the object to be created. The
+    sequence of configuration elements then acts on the newly-created object.</para>
     <section>
       <tgroup cols="3">
         <thead>
@@ -811,27 +715,10 @@ new com.acme.Baz(com.acme.MyStaticObjectFactory.createObject(2));
     </section>
     <section>
       <title>Can Contain</title>
-      <para>
-      <xref linkend="jetty-xml-arg" />
-      , 
-      <xref linkend="jetty-xml-set" />
-      , 
-      <xref linkend="jetty-xml-get" />
-      , 
-      <xref linkend="jetty-xml-put" />
-      , 
-      <xref linkend="jetty-xml-call" />
-      , 
-      <xref linkend="jetty-xml-new" />
-      , 
-      <xref linkend="jetty-xml-ref" />
-      , 
-      <xref linkend="jetty-xml-array" />
-      , 
-      <xref linkend="jetty-xml-map" />
-      , 
-      <xref linkend="jetty-xml-property" />
-      </para>
+      <para><xref linkend="jetty-xml-arg" />, <xref linkend="jetty-xml-set" />, <xref linkend="jetty-xml-get" />, <xref
+      linkend="jetty-xml-put" />, <xref linkend="jetty-xml-call" />, <xref linkend="jetty-xml-new" />, <xref
+      linkend="jetty-xml-ref" />, <xref linkend="jetty-xml-array" />, <xref linkend="jetty-xml-map" />, <xref
+      linkend="jetty-xml-property" /></para>
     </section>
 <!-- <Arg>, <Set>,<Get>, <Put>, <Call>, <New>, <Ref>, <Array>, <Map>, <Property> -->
     <section>
@@ -927,25 +814,9 @@ foo.setTest("1, 2, 3");
       </section>
       <section>
         <title>Can Contain</title>
-        <para>
-        <xref linkend="jetty-xml-set" />
-        , 
-        <xref linkend="jetty-xml-get" />
-        , 
-        <xref linkend="jetty-xml-put" />
-        , 
-        <xref linkend="jetty-xml-call" />
-        , 
-        <xref linkend="jetty-xml-new" />
-        , 
-        <xref linkend="jetty-xml-ref" />
-        , 
-        <xref linkend="jetty-xml-array" />
-        , 
-        <xref linkend="jetty-xml-map" />
-        , 
-        <xref linkend="jetty-xml-property" />
-        </para>
+        <para><xref linkend="jetty-xml-set" />, <xref linkend="jetty-xml-get" />, <xref linkend="jetty-xml-put" />,
+        <xref linkend="jetty-xml-call" />, <xref linkend="jetty-xml-new" />, <xref linkend="jetty-xml-ref" />, <xref
+        linkend="jetty-xml-array" />, <xref linkend="jetty-xml-map" />, <xref linkend="jetty-xml-property" /></para>
       </section>
 <!--<Set>,<Get>, <Put>, <Call>, <New>, <Ref>, <Array>, <Map>, <Property> -->
       <section>
@@ -1143,23 +1014,9 @@ String[] a = new String[] { "value0", new String("value1") };
     </section>
     <section>
       <title>Can Contain</title>
-      <para>
-      <xref linkend="jetty-xml-get" />
-      , 
-      <xref linkend="jetty-xml-call" />
-      , 
-      <xref linkend="jetty-xml-new" />
-      , 
-      <xref linkend="jetty-xml-ref" />
-      , 
-      <xref linkend="jetty-xml-array" />
-      , 
-      <xref linkend="jetty-xml-map" />
-      , 
-      <xref linkend="jetty-xml-system-property" />
-      , 
-      <xref linkend="jetty-xml-property" />
-      </para>
+      <para><xref linkend="jetty-xml-get" />, <xref linkend="jetty-xml-call" />, <xref linkend="jetty-xml-new" />,
+      <xref linkend="jetty-xml-ref" />, <xref linkend="jetty-xml-array" />, <xref linkend="jetty-xml-map" />, <xref
+      linkend="jetty-xml-system-property" />, <xref linkend="jetty-xml-property" /></para>
     </section>
   </section>
 <!--value text, <Get>, <Call>, <New>, <Ref>, <Array>, <Map>, <SystemProperty>, <Property>-->
@@ -1217,9 +1074,7 @@ m.put("keyName", new String("value1"));
   </section>
   <section xml:id="jetty-xml-entry">
     <title>&lt;Entry&gt;</title>
-    <para>An Entry element contains a key-value 
-    <xref linkend="jetty-xml-item" />
-    pair for a Map.</para>
+    <para>An Entry element contains a key-value <xref linkend="jetty-xml-item" />pair for a Map.</para>
     <section>
       <title>Can Contain</title>
       <para>
@@ -1317,25 +1172,9 @@ System.getProperty("jetty.port", "8080");
     </section>
     <section>
       <title>Can Contain</title>
-      <para>
-      <xref linkend="jetty-xml-set" />
-      , 
-      <xref linkend="jetty-xml-get" />
-      , 
-      <xref linkend="jetty-xml-put" />
-      , 
-      <xref linkend="jetty-xml-call" />
-      , 
-      <xref linkend="jetty-xml-new" />
-      , 
-      <xref linkend="jetty-xml-ref" />
-      , 
-      <xref linkend="jetty-xml-array" />
-      , 
-      <xref linkend="jetty-xml-map" />
-      , 
-      <xref linkend="jetty-xml-property" />
-      </para>
+      <para><xref linkend="jetty-xml-set" />, <xref linkend="jetty-xml-get" />, <xref linkend="jetty-xml-put" />, <xref
+      linkend="jetty-xml-call" />, <xref linkend="jetty-xml-new" />, <xref linkend="jetty-xml-ref" />, <xref
+      linkend="jetty-xml-array" />, <xref linkend="jetty-xml-map" />, <xref linkend="jetty-xml-property" /></para>
     </section>
 <!--<Set>,<Get>, <Put>, <Call>, <New>, <Ref>, <Array>, <Map>, <Property>-->
     <section>

@@ -45,9 +45,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     </orderedlist></tip>
     <para>The above example uses a configuration file suitable for the <link
     xl:href="@JDURL@/org/eclipse/jetty/deploy/providers/ContextProvider.html">ContextProvider</link>, thus you might
-    want to check out 
-    <xref linkend="using-context-provider" />
-    .</para>
+    want to check out <xref linkend="using-context-provider" />.</para>
   </section>
   <section xml:id="delaying-session-load">
     <title>Delaying Session Load</title>

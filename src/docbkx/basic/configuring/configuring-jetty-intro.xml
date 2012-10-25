@@ -21,16 +21,13 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
       <para>Web application&#8211;init parameters, non standard options</para>
     </listitem>
   </itemizedlist>
-  <note>See 
-  <xref linkend="basic-architecture" />
-  for graphical representations of the interactions among connectors and handlers.</note>
+  <note>See <xref linkend="basic-architecture" />for graphical representations of the interactions among connectors and
+  handlers.</note>
   <section xml:id="developing-against-jetty-api">
     <title>Developing Against the Jetty API</title>
     <para>You can develop both standard web applications and embedded web applications by writing code. The basic
     approach is to install the required [[Jetty/Reference/Dependencies|Jetty-7 jars and dependencies]] //TODO xref// on
-    your class path and then write and run a variation of one of the examples in 
-    <xref linkend="embedding" />
-    .</para>
+    your class path and then write and run a variation of one of the examples in <xref linkend="embedding" />.</para>
     <para>For more details about setting up your class path, see:</para>
     <itemizedlist>
       <listitem>
@@ -124,9 +121,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
       <para>You can embed Jetty in an application. This is an alternative to bundling your application as a standard
       WAR to be deployed in Jetty. Jetty is designed to work as a software component that can be instantiated and used
       in a Java program just like any any <link xl:href="http://en.wikipedia.org/wiki/Plain_Old_Java_Object">
-      POJO</link>. For more information and configuration instructions, see 
-      <xref linkend="embedding" />
-      .</para>
+      POJO</link>. For more information and configuration instructions, see <xref linkend="embedding" />.</para>
     </section>
     <section xml:id="master-using-jetty-maven-plugin">
       <title>Using the Jetty Maven Plugin</title>

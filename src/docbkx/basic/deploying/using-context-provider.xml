@@ -10,9 +10,8 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
   <para>You can use the <link xl:href="@JDURL@/org/eclipse/jetty/deploy/providers/ContextProvider.html">
     <code>ContextProvider</code>
   </link> to (hot) deploy an arbitrary context or web application with Jetty-specific configuration. To statically
-  deploy only standard web applications at startup, use the WebAppProvider (see 
-  <xref linkend="using-webapp-provider" />
-  ).</para>
+  deploy only standard web applications at startup, use the WebAppProvider (see <xref
+  linkend="using-webapp-provider" />).</para>
   <section xml:id="ucp-understanding-context-provider">
     <title>Understanding the ContextProvider</title>
     <para>A <filename>jetty.xml</filename> file typically defines a <code>ContextProvider</code>; within the stock

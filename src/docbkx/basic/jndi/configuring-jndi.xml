@@ -12,9 +12,8 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
   <section xml:id="quick-setup">
     <title>Quick Setup</title>
     <para>If you are using the standard distribution of jetty, and want to enable JNDI for all your webapps, complete
-    the steps in this section. If you need a more selective configuration, see 
-    <xref linkend="detailed-setup" />
-    .</para>
+    the steps in this section. If you need a more selective configuration, see <xref
+    linkend="detailed-setup" />.</para>
     <orderedlist>
       <listitem>
         <para>Edit the <filename>$JETTY_HOME/start.ini file</filename>.</para>
@@ -88,9 +87,7 @@ etc/jetty-plus.xml
 ]]>
         </programlisting>
       </informalexample>
-      <para>Now skip down to the section, 
-      <xref linkend="adding-jndi-implementation-jars-to-jetty-classpath" />
-      .</para>
+      <para>Now skip down to the section, <xref linkend="adding-jndi-implementation-jars-to-jetty-classpath" />.</para>
       <para>If you only want to use JNDI with specific webapps, read on.</para>
     </section>
     <section xml:id="applying-jndi-to-single-webapp">
@@ -122,9 +119,7 @@ etc/jetty-plus.xml
         </programlisting>
       </informalexample>
       <para>Now you're ready for the next step, which is to put the JNDI Jars onto the jetty classpath, described in
-      the next section, 
-      <xref linkend="adding-jndi-implementation-jars-to-jetty-classpath" />
-      .</para>
+      the next section, <xref linkend="adding-jndi-implementation-jars-to-jetty-classpath" />.</para>
     </section>
     <section xml:id="adding-jndi-implementation-jars-to-jetty-classpath">
       <title>Adding JNDI Implementation Jars to the Jetty Classpath</title>
@@ -164,15 +159,13 @@ resource-env-ref/
 ]]>
       </programlisting>
     </informalexample>
-    <para>Notice that 
-    <xref linkend="configuring-env-entries" />
-    shows you how to set up overrides for <code>env-entry</code> elements in <filename>web.xml</filename>, while 
-    <xref linkend="configuring-resource-refs-and-resorce-env-refs" />
-    discusses how to configure support resources such as <code>javax.sql.DataSource</code>.</para>
+    <para>Notice that <xref linkend="configuring-env-entries" />shows you how to set up overrides for <code>
+    env-entry</code> elements in <filename>web.xml</filename>, while <xref
+    linkend="configuring-resource-refs-and-resorce-env-refs" />discusses how to configure support resources such as
+    <code>javax.sql.DataSource</code>.</para>
     <para>You can also plug a JTA <code>javax.transaction.UserTransaction</code> implementation into Jetty so that
-    webapps can look up <code>java:comp/UserTransaction</code> to obtain a distributed transaction manager. See 
-    <xref linkend="configuring-xa-transactions" />
-    .</para>
+    webapps can look up <code>java:comp/UserTransaction</code> to obtain a distributed transaction manager. See <xref
+    linkend="configuring-xa-transactions" />.</para>
     <para>You can define your naming resources with three scopes:</para>
     <itemizedlist>
       <listitem>
@@ -185,11 +178,9 @@ resource-env-ref/
         <para>webapp scope&#8211;the name is unique to the WebAppContext instance.</para>
       </listitem>
     </itemizedlist>
-    <para>See 
-    <xref linkend="setting-jndi-entries-as-global-or-scoped" />
-    , which explains <emphasis>scoping</emphasis>, and shows you how to use it. Essentially, scoping ensures that JNDI
-    bindings from one webapp do not interfere with the JNDI bindings of another&#8211;unless of course you want them
-    to.</para>
+    <para>See <xref linkend="setting-jndi-entries-as-global-or-scoped" />, which explains <emphasis>scoping</emphasis>,
+    and shows you how to use it. Essentially, scoping ensures that JNDI bindings from one webapp do not interfere with
+    the JNDI bindings of another&#8211;unless of course you want them to.</para>
     <section xml:id="binding-objects-into-jetty-jndi">
       <title>Binding Objects into Jetty JNDI</title>
       <para>You can bind four types of object into Jetty JNDI:</para>
@@ -235,18 +226,14 @@ resource-env-ref/
           </listitem>
           <listitem>
             <para><code>org.eclipse.jetty.plus.jndi.Transaction</code> for a JTA manager. For detailed information, see
-            the 
-            <xref linkend="configuring-xa-transactions" />
-            .</para>
+            the <xref linkend="configuring-xa-transactions" />.</para>
           </listitem>
           <listitem>
             <para><code>org.eclipse.jetty.plus.jndi.Link</code> for link between a <filename>
             web.xml</filename> resource name and a <code>amingEntry</code>.</para>
           </listitem>
         </itemizedlist>
-        <para>For more information, see 
-        <xref linkend="configuring-links" />
-        .</para>
+        <para>For more information, see <xref linkend="configuring-links" />.</para>
         <para>You can define naming entries in three places:</para>
         <orderedlist>
           <listitem>
@@ -294,9 +281,7 @@ resource-env-ref/
         java:comp/env/mySpecialValue</code> for <emphasis>every</emphasis> web app deployed. Moreover, the boolean
         argument indicates that this value overrides an <code>env-entry</code> of the same name in <code>
         web.xml</code>. If you don't want to override, then omit this argument, or set it to <code>false</code>.</para>
-        <para>See 
-        <xref linkend="setting-jndi-entries-as-global-or-scoped" />
-        for information on other scopes.</para>
+        <para>See <xref linkend="setting-jndi-entries-as-global-or-scoped" />for information on other scopes.</para>
         <para>The Servlet Specification allows binding only the following object types to an <code>
         env-entry</code>:</para>
         <itemizedlist>
@@ -429,9 +414,7 @@ DataSource myDS = (DataSource)ic.lookup("java:comp/env/jdbc/myds");
         object you expect to look up in <code>java:comp/env</code>. For database connection factories, this means that
         the object you register as a Resource <emphasis>must</emphasis> implement the <code>
         javax.sql.DataSource</code> interface.</note>
-        <para>For more examples of datasource configurations, see 
-        <xref linkend="jndi-datasource-examples" />
-        .</para>
+        <para>For more examples of datasource configurations, see <xref linkend="jndi-datasource-examples" />.</para>
       </section>
       <section xml:id="configuring-jms-queues-topics-connectionfactories">
         <title>Configuring JMS Queues, Topics and ConnectionFactories</title>

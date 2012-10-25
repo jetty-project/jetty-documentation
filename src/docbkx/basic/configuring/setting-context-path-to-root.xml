@@ -9,9 +9,8 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
   <itemizedlist>
     <listitem>Java Servlet Specification 2.5 discourages an empty context path string, and Java Servlet Specification
     3.0 effectively forbids it.</listitem>
-    <listitem>In Jetty 7.x, the AppProviders assigned to the DeploymentManager (see 
-    <xref linkend="using-deployment-manager" />
-    ) handle context path assignment.</listitem>
+    <listitem>In Jetty 7.x, the AppProviders assigned to the DeploymentManager (see <xref
+    linkend="using-deployment-manager" />) handle context path assignment.</listitem>
     <listitem>By default on the Jetty Distribution, both the WebAppProvider and ContextProvider are enabled. This is
     important to know because it influences your decision on where to put the <filename>
     mywebapp.war</filename> file.</listitem>
@@ -20,24 +19,22 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
   </itemizedlist></note>
   <section xml:id="root-using-the-webapp-provider">
     <title>Using the WebAppProvider</title>
-    <para>The WebAppProvider's role (see 
-    <xref linkend="using-webapp-provider" />
-    ) is to look in the <filename>${jetty.home}/webapps/</filename> directory for any deployable applications (such as
-    *.war), and deploy them onto a context of the same name as the filename. For example, the WebAppProvider deploys
-    <filename>${jetty.home}/webapps/MyApp-2.4.war</filename> into the context <code>/MyApp-2.4</code>. There is also
-    the special <code>root.war</code> reserved word that deploys into the context / . While this is the easiest
-    deployment mechanism, it sacrifices control over deployment specifics.</para>
+    <para>The WebAppProvider's role (see <xref linkend="using-webapp-provider" />) is to look in the <filename>
+    ${jetty.home}/webapps/</filename> directory for any deployable applications (such as *.war), and deploy them onto a
+    context of the same name as the filename. For example, the WebAppProvider deploys <filename>
+    ${jetty.home}/webapps/MyApp-2.4.war</filename> into the context <code>/MyApp-2.4</code>. There is also the special
+    <code>root.war</code> reserved word that deploys into the context / . While this is the easiest deployment
+    mechanism, it sacrifices control over deployment specifics.</para>
   </section>
   <section xml:id="using-the-context-provider">
     <title>Using the ContextProvider</title>
-    <para>The ContextProvider's role (see 
-    <xref linkend="using-context -provider" />
-    ) is to look in the <filename>${jetty.home}/contexts/</filename> directory for any jetty-xml formatted, deployable
-    contexts. This deployment mechanism gives you the maximum control over the deployment, as this XML file can control
-    anything that is ultimately resolved to an <code>org.eclipse.jetty.server.handler.ContextHandler</code> base class,
-    of which WebAppContexts (WARs, servlets, etc.) are part. The most common use is to specify a WebAppContext-based
-    XML file, and control things such as what files and directories make up the web application, what temporary
-    directory to use, and even what Context Path to use.</para>
+    <para>The ContextProvider's role (see <xref linkend="using-context -provider" />) is to look in the <filename>
+    ${jetty.home}/contexts/</filename> directory for any jetty-xml formatted, deployable contexts. This deployment
+    mechanism gives you the maximum control over the deployment, as this XML file can control anything that is
+    ultimately resolved to an <code>org.eclipse.jetty.server.handler.ContextHandler</code> base class, of which
+    WebAppContexts (WARs, servlets, etc.) are part. The most common use is to specify a WebAppContext-based XML file,
+    and control things such as what files and directories make up the web application, what temporary directory to use,
+    and even what Context Path to use.</para>
   </section>
   <section xml:id="setting-context-path-with-contextprovider">
     <title>Setting the Context Path with the <code>ContextProvider</code></title>

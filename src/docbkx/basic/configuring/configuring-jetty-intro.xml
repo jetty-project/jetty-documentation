@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<section xml:id="configuring-jetty-intro" version="5.0" xmlns="http://docbook.org/ns/docbook"
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xl="http://www.w3.org/1999/xlink"
-xmlns:xi="http://www.w3.org/2001/XInclude"
-xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd">
+<section version="5.0"
+xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd"
+xml:id="configuring-jetty-intro" xmlns="http://docbook.org/ns/docbook"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
+xmlns:ns2="http://www.w3.org/1998/Math/MathML" xmlns:ns="http://docbook.org/ns/docbook">
   <title>Introduction to Configuring Jetty</title>
   <para>Since Jetty components are simply Plain Old Java Objects ( <link
   xl:href="http://en.wikipedia.org/wiki/Plain_Old_Java_Object">POJOs</link>), you can accomplish the assembly and
@@ -144,8 +146,9 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
       Jetty.</para>
       <section xml:id="configuring-jetty-with-spring">
         <title>Configuring Jetty with <link xl:href="http://www.springsource.org/">Spring</link></title>
-        <para>The jetty-spring module is included in jetty@codehaus with some convenience classes and a Main method to
-        run Jetty from Spring. For more information, see:</para>
+        <para>The jetty-spring module is included in the jetty project and contains both some convenience classes to
+        make some Jetty POJOs more suitable for spring configuration, plus an XmlConfiguration provider that allows any
+        file that could contain jetty style XML to be replace by an equivalent spring configuration file. See:</para>
         <itemizedlist>
           <listitem>
             <para>

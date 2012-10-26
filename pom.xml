@@ -218,6 +218,14 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
   </repositories>
   <pluginRepositories>
     <pluginRepository>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+      <id>sonatype-snapshots</id>
+      <name>Sonatype Jetty Snapshots</name>
+      <url>http://oss.sonatype.org/content/groups/jetty</url>
+    </pluginRepository>
+    <pluginRepository>
       <id>docbook-utils</id>
       <name>DocBook Utils</name>
       <url>http://docbook-utils.sourceforge.net/maven2</url>
@@ -229,6 +237,18 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
       </releases>
     </pluginRepository>
   </pluginRepositories>
+  <distributionManagement>
+    <repository>
+      <id>oss.sonatype.org</id>
+      <name>Sonatype OSS Nexus Repository</name>
+      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
+    </repository>
+    <snapshotRepository>
+      <id>oss.sonatype.org</id>
+      <name>Sonatype OSS SNAPSHOTS Nexus Repository</name>
+      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+    </snapshotRepository>
+  </distributionManagement>
   <profiles>
     <profile>
       <id>release</id>

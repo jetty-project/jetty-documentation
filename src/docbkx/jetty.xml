@@ -10,6 +10,16 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
       <year>2012</year>
       <holder>Intalio, Inc.</holder>
     </copyright>
+    <revhistory>
+      <revision>
+        <revnumber>9.0.0-SNAPSHOT</revnumber>
+        <date>
+          <?dbtimestamp format="Y-m-d H:M:S"?>
+        </date>
+        <revdescription>Latest SNAPSHOT version of documentation, updated frequently through
+        development</revdescription>
+      </revision>
+    </revhistory>
     <keywordset>
       <keyword>jetty</keyword>
       <keyword>servlet-api</keyword>

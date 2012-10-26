@@ -12,12 +12,14 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     </copyright>
     <revhistory>
       <revision>
-        <revnumber>9.0.0-SNAPSHOT</revnumber>
+        <revnumber>@JETTY_VERSION@</revnumber>
         <date>
           <?dbtimestamp format="Y-m-d H:M:S"?>
         </date>
-        <revdescription>Latest SNAPSHOT version of documentation, updated frequently through
-        development</revdescription>
+        <revdescription>This documentation is a work in progress, initially being largely structural and increasingly
+        populated with meaningful content on Jetty 9. Versions that contain SNAPSHOT are updated frequently by and
+        automated process while versions that contain M, RC, or v#### are durable releases for a specific version of
+        Jetty.</revdescription>
       </revision>
     </revhistory>
     <keywordset>

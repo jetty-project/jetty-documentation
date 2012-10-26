@@ -87,7 +87,7 @@ xmlns:l="http://docbook.sourceforge.net/xmlns/l10n/1.0"
 
   <xsl:template name="user.footer.navigation">
   <div style="background-color: #DFF2FD; text-align: left; font-size:80%; font-family: arial, sans; border:thin dotted blue; padding: 4px; ">
-  <span  style="font-style:oblique;font-size: 80%">
+    <span  style="font-style:oblique;font-size: 80%">
 See an error or something missing?<br/>
     </span>
     <span style="font-variant: small-caps; font-weight: bold">
@@ -96,7 +96,6 @@ See an error or something missing?<br/>
         </a>
     </span>
     <br/>
-    
    </div>
   </xsl:template>
   

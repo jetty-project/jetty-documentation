@@ -5,7 +5,7 @@ xmlns:xi="http://www.w3.org/2001/XInclude"
 xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd">
   <?dbhtml filename="index.html"?>
   <info>
-    <title>cdJetty : The Definitive Reference</title>
+    <title>Jetty : The Definitive Reference</title>
     <copyright>
       <year>2012</year>
       <holder>Intalio, Inc.</holder>

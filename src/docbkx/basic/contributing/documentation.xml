@@ -7,6 +7,8 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
   <para>This document is produced using a combination of maven, git, and docbook. We welcome anyone and everyone to
   contribute to the content of this book. Below is the information on how to obtain the source of this book and to
   build it as well as information on how to contribute back to it.</para>
+  <para>Note: All contributions to this documentation are under the EPL and the copyright is assigned to
+  Mortbay.</para>
   <section>
     <title>Tools</title>
     <para>You will need:</para>
@@ -159,6 +161,36 @@ $ git push
           like 'Prior to: ##' or 'In version: ##'</para>
         </listitem>
       </varlistentry>
+      <varlistentry>
+        <term>license blocks</term>
+        <listitem>
+          <para>each xml file should contain the license block that exists in the jetty.xml file and a copy has been
+          added to the bottom of this page as well for reference. It should occupy the second through eighteeth lines
+          while the first line should be the xml descriptor.</para>
+        </listitem>
+      </varlistentry>
     </variablelist>
+    <screen linenumbering="numbered">
+<![CDATA[
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+//  ========================================================================
+//  Copyright (c) 1995-2012 Mort Bay Consulting Pty. Ltd.
+//  ========================================================================
+//  All rights reserved. This program and the accompanying materials
+//  are made available under the terms of the Eclipse Public License v1.0
+//  and Apache License v2.0 which accompanies this distribution.
+//
+//      The Eclipse Public License is available at
+//      http://www.eclipse.org/legal/epl-v10.html
+//
+//      The Apache License v2.0 is available at
+//      http://www.opensource.org/licenses/apache2.0.php
+//
+//  You may elect to redistribute this code under either of these licenses.
+//  ========================================================================
+-->
+]]>
+    </screen>
   </section>
 </section>

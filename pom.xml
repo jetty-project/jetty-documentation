@@ -12,6 +12,11 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <build.support.version>1.2</build.support.version>
   </properties>
+  <scm>
+    <connection>scm:git:git@github.com:jetty-project/jetty-documentation.git</connection>
+    <developerConnection>scm:git:git@github.com:jetty-project/jetty-documentation.git</developerConnection>
+    <url>git@github.com:jetty-project/jetty-documentation.git</url>
+  </scm>
   <build>
     <plugins>
       <plugin>
@@ -168,6 +173,37 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
           </dependency>
         </dependencies>
       </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <configuration>
+          <descriptors>
+            <descriptor>src/main/assembly/html.xml</descriptor>
+          </descriptors>
+          <tarLongFileMode>gnu</tarLongFileMode>
+          <appendAssemblyId>false</appendAssemblyId>
+        </configuration>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>single</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-release-plugin</artifactId>
+        <version>2.1</version>
+        <configuration>
+          <autoVersionSubmodules>true</autoVersionSubmodules>
+          <mavenExecutorId>forked-path</mavenExecutorId>
+          <useReleaseProfile>true</useReleaseProfile>
+          <goals>deploy</goals>
+          <preparationGoals>clean install</preparationGoals>
+        </configuration>
+      </plugin>
     </plugins>
   </build>
   <repositories>
@@ -182,14 +218,6 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
   </repositories>
   <pluginRepositories>
     <pluginRepository>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-      <id>sonatype-snapshots</id>
-      <name>Sonatype Jetty Snapshots</name>
-      <url>http://oss.sonatype.org/content/groups/jetty</url>
-    </pluginRepository>
-    <pluginRepository>
       <id>docbook-utils</id>
       <name>DocBook Utils</name>
       <url>http://docbook-utils.sourceforge.net/maven2</url>
@@ -200,16 +228,28 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
         <checksumPolicy>warn</checksumPolicy>
       </releases>
     </pluginRepository>
-<!--pluginRepository>
-      <id>xmlfresh-plugin</id>
-      <name>XML Fresh Plugin Staged</name>
-      <url>https://oss.sonatype.org/content/repositories/neterdfelt-198/</url>
-      <layout>default</layout>
-      <releases>
-        <enabled>true</enabled>
-        <updatePolicy>daily</updatePolicy>
-        <checksumPolicy>warn</checksumPolicy>
-      </releases>
-    </pluginRepository-->
   </pluginRepositories>
+  <profiles>
+    <profile>
+      <id>release</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-gpg-plugin</artifactId>
+            <version>1.4</version>
+            <executions>
+              <execution>
+                <id>sign-artifacts</id>
+                <phase>verify</phase>
+                <goals>
+                  <goal>sign</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 </project>

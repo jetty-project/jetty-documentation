@@ -3,7 +3,7 @@
 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xl="http://www.w3.org/1999/xlink"
 xmlns:xi="http://www.w3.org/2001/XInclude"
 xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd">
-  <title>Introduction</title>
+  <title>Jetty Xml Syntax</title>
   <para>The Jetty XML syntax is a straightforward mapping of XML elements to a Java API so that POJOs can be
   instantiated and getters, setters and methods called. It is very similar to Inversion Of Control (IOC) or Dependency
   Injection (DI) frameworks like Spring or Plexus (but it predates all of them). Typically Jetty XML is used by
@@ -76,8 +76,8 @@ bar.getParent().setName("demo2");
     </section>
     <section>
       <title>Using Method Calls</title>
-      <para>You configure Java objects with a sequence of <xref linkend="jetty-xml-get"/>, <xref linkend="jetty-xml-set"/>, <xref linkend="jetty-xml-put"/> and <xref linkend="jetty-xml-call"/>
-      elements:</para>
+      <para>You configure Java objects with a sequence of <xref linkend="jetty-xml-get" />, <xref
+      linkend="jetty-xml-set" />, <xref linkend="jetty-xml-put" />and <xref linkend="jetty-xml-call" />elements:</para>
       <informalexample>
         <programlisting language="xml">
 <![CDATA[
@@ -110,7 +110,8 @@ new com.acme.MyStuff();
     <section>
       <title>Referring to an Object</title>
       <para>You can use the id attribute to store a reference to this object when first creating or referring to this
-      object. You can then use the <xref linkend="jetty-xml-ref"/> tag to reference the object later. The id must be unique for each object you create.</para>
+      object. You can then use the <xref linkend="jetty-xml-ref" />tag to reference the object later. The id must be
+      unique for each object you create.</para>
     </section>
   </section>
   <section xml:id="jetty-xml-configure">
@@ -131,9 +132,10 @@ new com.acme.MyStuff();
             <entry>id</entry>
             <entry>no</entry>
             <entry>
-              <para>a reference to the object that was created. If you define multiple <xref linkend="jetty-xml-configure"/> tags with the
-              same id, they will be treated as one object, even if they're in different files. You can use this to
-              break up configuration of an object (such as the Server) across multiple files.</para>
+              <para>a reference to the object that was created. If you define multiple <xref
+              linkend="jetty-xml-configure" />tags with the same id, they will be treated as one object, even if
+              they're in different files. You can use this to break up configuration of an object (such as the Server)
+              across multiple files.</para>
             </entry>
           </row>
           <row>

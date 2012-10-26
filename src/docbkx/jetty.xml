@@ -4,7 +4,7 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xl="http://www.w3.or
 xmlns:xi="http://www.w3.org/2001/XInclude"
 xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd">
   <?dbhtml filename="index.html"?>
-  <info>
+  <bookinfo>
     <title>Jetty : The Definitive Reference</title>
     <copyright>
       <year>2012</year>
@@ -16,10 +16,8 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
         <date>
           <?dbtimestamp format="Y-m-d H:M:S"?>
         </date>
-        <revdescription>This documentation is a work in progress, initially being largely structural and increasingly
-        populated with meaningful content on Jetty 9. Versions that contain SNAPSHOT are updated frequently by and
-        automated process while versions that contain M, RC, or v#### are durable releases for a specific version of
-        Jetty.</revdescription>
+        <revdescription>This documentation is produced and contributed to under the <link
+        xl:href="http://www.eclipse.org/legal/epl-v10.html">EPL</link></revdescription>
       </revision>
     </revhistory>
     <keywordset>
@@ -33,7 +31,31 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
       <keyword>java</keyword>
       <keyword>software</keyword>
     </keywordset>
-  </info>
+  </bookinfo>
+  <dedication>
+    <title>Welcome to the Jetty Documentation Hub!</title>
+    <para>This documentation is for Jetty 9 and is a work in progress, initially being largely structural and
+    increasingly being populated with meaningful content.</para>
+    <para>The version as indicated above containing SNAPSHOT are updated frequently by an automated process while
+    versions that contain M#, RC#, or v#### are durable releases for a specific version of Jetty.</para>
+    <para>If you need documentation on a previous release of Jetty the following list should direct you where you need
+    to go.</para>
+    <itemizedlist>
+      <listitem>
+        <para>
+          <link xl:href="http://wiki.eclipse.org/Jetty">Jetty 7 and 8 Wiki</link>
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          <link xl:href="http://docs.codehaus.org/display/JETTY/Jetty+Documentation">Jetty 6 Wiki</link>
+        </para>
+      </listitem>
+    </itemizedlist>
+    <para>This documentation is a community effort and is hosted at GitHub and we invite contributors to fork the
+    repository and contribute! More information can be found in the <xref
+    linkend="contributing-documentation" />section.</para>
+  </dedication>
 <!-- 
           BASIC: there is a directory called basic, this comprises the basic 
                 entry level information for jetty, suitable for someone that is perhaps new 

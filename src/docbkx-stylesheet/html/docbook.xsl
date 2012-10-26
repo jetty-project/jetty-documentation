@@ -16,7 +16,8 @@ xmlns:l="http://docbook.sourceforge.net/xmlns/l10n/1.0"
 
   <!-- tweak the generation of toc generation -->
   <xsl:param name="generate.section.toc.level" select="1"/>
-  <xsl:param name="toc.section.depth" select="1"/>  
+  <xsl:param name="toc.section.depth" select="1"/> 
+  <!--xsl:param name="chunk.tocs.and.lots" select="1"/--> 
   <xsl:param name="generate.toc">
     appendix  toc,title
     article/appendix  nop

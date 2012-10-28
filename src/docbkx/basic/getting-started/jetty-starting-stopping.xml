@@ -15,22 +15,25 @@ xmlns:ns2="http://www.w3.org/1998/Math/MathML" xmlns:ns="http://docbook.org/ns/d
     </para>
     <para>If everything goes correctly you should see about 20 lines of logged INFO statements that will include lines
     like the following, that inform you of the components being started:</para>
-    <screen>2012-10-22 16:02:24.988:INFO:oejs.Server:main: jetty-9.0.0-M2 2012-10-22 2012-10-22
-    16:02:25.040:INFO:oejs.NCSARequestLog:main: Opened
-    /home/gregw/src/jetty-9/jetty-distribution/target/distribution/logs/2012_10_22.request.log 2012-10-22 2012-10-22
-    16:02:25.115:INFO:oejs.ServerConnector:main: Started ServerConnector@6aeeafb{HTTP/1.1}{0.0.0.0:8080} 2012-10-22
-    2012-10-22 16:02:25.348:INFO:oejs.ServerConnector:main: Started ServerConnector@24a45e{SSL-http/1.1}{0.0.0.0:8443}
-    2012-10-22 2012-10-22 16:02:25.357:INFO:oejdp.ScanningAppProvider:main: Deployment monitor
-    [file:/home/gregw/src/jetty-9/jetty-distribution/target/distribution/webapps/] at interval 1 2012-10-22 2012-10-22
-    16:02:25.688:INFO:oejd.DeploymentManager:main: Deployable added:
-    /home/gregw/src/jetty-9/jetty-distribution/target/distribution/webapps/test.xml 2012-10-22 2012-10-22
-    16:02:25.725:INFO:oejw.WebInfConfiguration:main: Extract
-    jar:file:/home/gregw/src/jetty-9/jetty-distribution/target/distribution/webapps/test.war!/ to
-    /tmp/jetty-0.0.0.0-8080-test.war-_test-any-/webapp 2012-10-22 16:02:26.097:INFO:oejsh.ContextHandler:main: started
-    o.e.j.w.WebAppContext@4e3ceb07{/test,file:/tmp/jetty-0.0.0.0-8080-test.war-_test-any-/webapp/,AVAILABLE}{/test.war}</screen>
+    <informalexample>
+      <programlisting language="text">
+<![CDATA[2012-10-22 16:02:24.988:INFO:oejs.Server:main: jetty-9.0.0-M2
+2012-10-22 16:02:25.040:INFO:oejs.NCSARequestLog:main: Opened /home/gregw/src/jetty-9/jetty-distribution/target/distribution/logs/2012_10_22.request.log
+2012-10-22 16:02:25.115:INFO:oejs.ServerConnector:main: Started ServerConnector@6aeeafb{HTTP/1.1}{0.0.0.0:8080}
+2012-10-22 16:02:25.348:INFO:oejs.ServerConnector:main: Started ServerConnector@24a45e{SSL-http/1.1}{0.0.0.0:8443}
+2012-10-22 16:02:25.357:INFO:oejdp.ScanningAppProvider:main: Deployment monitor [file:/home/gregw/src/jetty-9/jetty-distribution/target/distribution/webapps/] at interval 1
+2012-10-22 16:02:25.688:INFO:oejd.DeploymentManager:main: Deployable added: /home/gregw/src/jetty-9/jetty-distribution/target/distribution/webapps/test.xml 
+2012-10-22 16:02:25.725:INFO:oejw.WebInfConfiguration:main: Extract jar:file:/home/gregw/src/jetty-9/jetty-distribution/target/distribution/webapps/test.war!/ to /tmp/jetty-0.0.0.0-8080-test.war-_test-any-/webapp
+2012-10-22 16:02:26.097:INFO:oejsh.ContextHandler:main: started o.e.j.w.WebAppContext@4e3ceb07{/test,file:/tmp/jetty-0.0.0.0-8080-test.war-_test-any-/webapp/,AVAILABLE}{/test.war} ]]>
+      </programlisting>
+    </informalexample>
     <para>You will also see some warnings like:</para>
-    <screen>2012-10-22 16:02:24.748:WARN::main: test-realm is deployed. DO NOT USE IN PRODUCTION! 2012-10-22 2012-10-22
-    16:02:25.582:WARN::main: async-rest webapp is deployed. DO NOT USE IN PRODUCTION!</screen>
+    <informalexample>
+      <programlisting language="text">
+<![CDATA[2012-10-22 16:02:24.748:WARN::main: test-realm is deployed. DO NOT USE IN PRODUCTION!
+2012-10-22 16:02:25.582:WARN::main: async-rest webapp is deployed. DO NOT USE IN PRODUCTION!  ]]>
+      </programlisting>
+    </informalexample>
     <para>These warnings are telling you that some demonstration web applications and services are deployed and that
     they should be removed before the server is put into production. These warnings can be ignored while testing, or
     you can see LINK:Deploying Web Applications to learn how to remove them.</para>
@@ -46,9 +49,15 @@ xmlns:ns2="http://www.w3.org/1998/Math/MathML" xmlns:ns="http://docbook.org/ns/d
       <para>If you see the following exception you already have something running on the port that jetty is configured
       to run on and you either need to shut down whatever that process is, or configure jetty to run on another
       port.</para>
-      <screen>Caused by: java.net.BindException: Address already in use at sun.nio.ch.Net.bind0(Native Method) at
-      sun.nio.ch.Net.bind(Net.java:344) at sun.nio.ch.Net.bind(Net.java:336) at
-      sun.nio.ch.ServerSocketChannelImpl.bind(ServerSocketChannelImpl.java:199)</screen>
+      <informalexample>
+        <programlisting language="text">
+<![CDATA[java.net.BindException: Address already in use 
+at sun.nio.ch.Net.bind0(Native Method) 
+at sun.nio.ch.Net.bind(Net.java:344) 
+at sun.nio.ch.Net.bind(Net.java:336) 
+at sun.nio.ch.ServerSocketChannelImpl.bind(ServerSocketChannelImpl.java:199) ]]>
+        </programlisting>
+      </informalexample>
       <para>Jetty can be made to run on a different port by adding setting the jetty.port Property on the command
       line:</para>
       <para>

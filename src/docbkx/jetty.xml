@@ -150,10 +150,8 @@ xmlns:ns="http://docbook.org/ns/docbook">
             as a specific section and give it justice
            -->
     <xi:include href="advanced/jmx/chapter.xml" />
-
 <!-- Information about the start.jar -->
     <xi:include href="advanced/jetty-start/chapter.xml" />
-
 <!-- How to use the jetty-maven-plugin is a big topic and is definitely 
                         in the advanced section of things. -->
     <xi:include href="advanced/maven/chapter.xml" />

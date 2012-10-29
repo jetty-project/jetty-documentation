@@ -16,10 +16,12 @@
 //  You may elect to redistribute this code under either of these licenses.
 //  ========================================================================
 -->
-<book xml:id="index" version="5.0" xmlns="http://docbook.org/ns/docbook"
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xl="http://www.w3.org/1999/xlink"
-xmlns:xi="http://www.w3.org/2001/XInclude"
-xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd">
+<book version="5.0" xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd"
+xml:id="index" xmlns="http://docbook.org/ns/docbook" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xl="http://www.w3.org/1999/xlink"
+xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xhtml="http://www.w3.org/1999/xhtml"
+xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns2="http://www.w3.org/1998/Math/MathML"
+xmlns:ns="http://docbook.org/ns/docbook">
   <?dbhtml filename="index.html"?>
   <bookinfo>
     <title>Jetty : The Definitive Reference</title>
@@ -59,14 +61,17 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     to go.</para>
     <itemizedlist>
       <listitem>
-        <para>
-          <link xl:href="http://wiki.eclipse.org/Jetty">Jetty 7 and 8 Wiki</link>
-        </para>
+        <para>Jetty 9 - This Document</para>
       </listitem>
       <listitem>
-        <para>
-          <link xl:href="http://docs.codehaus.org/display/JETTY/Jetty+Documentation">Jetty 6 Wiki</link>
-        </para>
+        <para>Jetty 8 - <link xl:href="http://wiki.eclipse.org/Jetty">The Eclipse Wiki</link></para>
+      </listitem>
+      <listitem>
+        <para>Jetty 7 - <link xl:href="http://wiki.eclipse.org/Jetty">The Eclipse Wiki</link></para>
+      </listitem>
+      <listitem>
+        <para>Jetty 6 - <link xl:href="http://docs.codehaus.org/display/JETTY/Jetty+Documentation">The Codehaus
+        Wiki</link></para>
       </listitem>
     </itemizedlist>
     <para>This documentation is a community effort and is hosted at GitHub and we invite contributors to fork the

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<section xml:id="what-is-jetty" version="5.0" xmlns="http://docbook.org/ns/docbook"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xl="http://www.w3.org/1999/xlink"
+xmlns:xi="http://www.w3.org/2001/XInclude"
+xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd">
+  <title>What is Jetty?</title>
+  <para>Jetty is an open-source project providing an HTTP server, HTTP client, and javax.servlet container. This
+  document is broken into two parts. The first part has an emphasis on beginning to use jetty from the context on the
+  distribution. It will provides information about downloading Jetty, basic configuration on how to change things like
+  the port jetty runs on and adjusting logging levels and configuring many of the most common servlet container
+  features like JNDI, JMX and session management. The second part of this document describes advanced usages of jetty,
+  specific indepth features like our highly scalable async client, proxy servlet configuration, or configuring the
+  jetty maven plugin or using jetty as an embedded server. The advanced section will include tutorials, howtos, videos,
+  and some reference materials.</para>
+</section>

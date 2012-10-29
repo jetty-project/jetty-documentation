@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<chapter xml:id="configuring-connectors" version="5.0"
+xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd"
+xmlns="http://docbook.org/ns/docbook" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xl="http://www.w3.org/1999/xlink"
+xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xhtml="http://www.w3.org/1999/xhtml"
+xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns2="http://www.w3.org/1998/Math/MathML"
+xmlns:ns="http://docbook.org/ns/docbook">
+  <title>Configuring Jetty Connectors</title>
+  <para>This chapter discusses various options for configuring Jetty connectors.</para>
+  <xi:include href="configuring-connectors.xml" />
+  <xi:include href="configuring-form-size.xml" />
+  <xi:include href="configuring-ssl.xml" />
+  <xi:include href="configuring-virtual-hosts.xml" />
+  <xi:include href="setting-port80-access-for-non-root-user.xml" />
+</chapter>

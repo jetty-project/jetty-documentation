@@ -150,6 +150,7 @@ xmlns:ns="http://docbook.org/ns/docbook">
             as a specific section and give it justice
            -->
     <xi:include href="advanced/jmx/chapter.xml" />
+
 <!-- Information about the start.jar -->
     <xi:include href="advanced/jetty-start/chapter.xml" />
 
@@ -174,7 +175,7 @@ xmlns:ns="http://docbook.org/ns/docbook">
     <xi:include href="advanced/troubleshooting/chapter.xml" />
   </part>
   <part xml:id="clients">
-    <title>Jetty Clientc Guide</title>
+    <title>Jetty Client Guide</title>
     <xi:include href="clients/http/chapter.xml" />
     <xi:include href="clients/websocket/chapter.xml" />
     <xi:include href="clients/spdy/chapter.xml" />

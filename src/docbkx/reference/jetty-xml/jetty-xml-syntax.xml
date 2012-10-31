@@ -7,11 +7,13 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
   <para>The Jetty XML syntax is a straightforward mapping of XML elements to a Java API so that POJOs can be
   instantiated and getters, setters, and methods called. It is very similar to Inversion Of Control (IOC) or Dependency
   Injection (DI) frameworks like Spring or Plexus (but it predates all of them). Typically Jetty XML is used by
-  <filename>jetty.xml</filename> to configure a Jetty server or by a <filename>context.xml</filename> file to configure a ContextHandler or subclass, but you can
-  also use the mechanism to configure arbitrary POJOs.</para>
-  <para>This page describes the basic syntax of Jetty XML configuration. See <!--
-// TODO Xref// --> jetty.xml Usage for information on how you
-  can use and combine Jetty XML. See configuration files for specific examples.</para>
+  <filename>jetty.xml</filename> to configure a Jetty server or by a <filename>context.xml</filename> file to configure
+  a ContextHandler or subclass, but you can also use the mechanism to configure arbitrary POJOs.</para>
+  <para>This page describes the basic syntax of Jetty XML configuration. See 
+<!--
+// TODO Xref// -->
+  jetty.xml Usage for information on how you can use and combine Jetty XML. See configuration files for specific
+  examples.</para>
   <section>
     <title>Basic Example</title>
     <para>The following XML configuration file creates some Java objects and sets some attributes:</para>
@@ -72,8 +74,8 @@ bar.getParent().setName("demo2");
       <para>The document type descriptor (DTD) describes all valid elements. The first two lines must reference the
       DTD, and you must substitute the appropriate class for the object you are trying to configure. See the
       appropriate jetty-*.xml references.</para>
-      <para>The <code>org.eclipse.jetty.xml.XmlConfiguration</code> class parses the Jetty XML files using the <code>configure.dtd</code>
-      descriptor.</para>
+      <para>The <code>org.eclipse.jetty.xml.XmlConfiguration</code> class parses the Jetty XML files using the <code>
+      configure.dtd</code> descriptor.</para>
     </section>
     <section>
       <title>Using Method Calls</title>
@@ -640,7 +642,7 @@ value text, <Get>, <Call>, <New>, <Ref>, <Array>, <Map>, <SystemProperty>, <Prop
       </section>
       <section>
         <title>As a Parameter</title>
-        <para>Here are a couple of examples of <xref linkend="jetty-xml-arg" /> being used as a parameter to methods and
+        <para>Here are a couple of examples of <xref linkend="jetty-xml-arg" />being used as a parameter to methods and
         to constructors:</para>
         <informalexample>
           <programlisting language="xml">
@@ -890,7 +892,8 @@ foo.setTest("1, 2, 3");
 ]]>
             </programlisting>
           </informalexample>
-          <para>Here is a more practical example, taken from the handler configuration section in <code>etc/jetty.xml<code>:</para>
+          <para>Here is a more practical example, taken from the handler configuration section in <code>
+          etc/jetty.xml</code>:</para>
           <informalexample>
             <programlisting language="xml">
 <![CDATA[
@@ -930,130 +933,127 @@ foo.setTest("1, 2, 3");
 ]]>
             </programlisting>
           </informalexample>
-        </section>
-      </section>
-    </section>
-    <section xml:id="jetty-xml-array">
-      <title>&lt;Array&gt;</title>
-      <para>An Array element allows the creation of a new array.</para>
-    </section>
-    <section>
-      <tgroup cols="3">
-        <thead>
-          <row>
-            <entry align="left">Attribute</entry>
-            <entry align="center">Required</entry>
-            <entry align="left">Description</entry>
-          </row>
-        </thead>
-        <tbody>
-          <row>
-            <entry>type</entry>
-            <entry>no</entry>
-            <entry>specify what types of items the array can contain.</entry>
-          </row>
-          <row>
-            <entry>id</entry>
-            <entry>no</entry>
-            <entry>unique identifier you can use to refer to the array later.</entry>
-          </row>
-        </tbody>
-      </tgroup>
-    </section>
-    <section>
-      <title>Can Contain</title>
-      <para>
-        <xref linkend="jetty-xml-item" />
-      </para>
-    </section>
+          <section xml:id="jetty-xml-array">
+            <title>&lt;Array&gt;</title>
+            <para>An Array element allows the creation of a new array.</para>
+          </section>
+          <section>
+            <tgroup cols="3">
+              <thead>
+                <row>
+                  <entry align="left">Attribute</entry>
+                  <entry align="center">Required</entry>
+                  <entry align="left">Description</entry>
+                </row>
+              </thead>
+              <tbody>
+                <row>
+                  <entry>type</entry>
+                  <entry>no</entry>
+                  <entry>specify what types of items the array can contain.</entry>
+                </row>
+                <row>
+                  <entry>id</entry>
+                  <entry>no</entry>
+                  <entry>unique identifier you can use to refer to the array later.</entry>
+                </row>
+              </tbody>
+            </tgroup>
+          </section>
+          <section>
+            <title>Can Contain</title>
+            <para>
+              <xref linkend="jetty-xml-item" />
+            </para>
+          </section>
 <!-- <Item> -->
-    <section>
-      <title>Example</title>
-      <informalexample>
-        <programlisting language="xml">
+          <section>
+            <title>Example</title>
+            <informalexample>
+              <programlisting language="xml">
 <![CDATA[
 <Array type="java.lang.String">
    <Item>value0</Item>
    <Item><New class="java.lang.String"><Arg>value1</Arg></New></Item>
  </Array>
  ]]>
-        </programlisting>
-      </informalexample>
-      <para>This is equivalent to:</para>
-      <informalexample>
-        <programlisting language="java">
+              </programlisting>
+            </informalexample>
+            <para>This is equivalent to:</para>
+            <informalexample>
+              <programlisting language="java">
 <![CDATA[
 String[] a = new String[] { "value0", new String("value1") };
 ]]>
-        </programlisting>
-      </informalexample>
-    </section>
-  </section>
-  <section xml:id="jetty-xml-item">
-    <title>&lt;Item&gt;</title>
-    <para>An Item element defines an entry for Array and Map elements.</para>
-    <section>
-      <tgroup cols="3">
-        <thead>
-          <row>
-            <entry align="left">Attribute</entry>
-            <entry align="center">Required</entry>
-            <entry align="left">Description</entry>
-          </row>
-        </thead>
-        <tbody>
-          <row>
-            <entry>type</entry>
-            <entry>no</entry>
-            <entry>force the types of value.</entry>
-          </row>
-          <row>
-            <entry>id</entry>
-            <entry>no</entry>
-            <entry>unique identifier that you can use to refer to the array later.</entry>
-          </row>
-        </tbody>
-      </tgroup>
-    </section>
-    <section>
-      <title>Can Contain</title>
-      <para><xref linkend="jetty-xml-get" />, <xref linkend="jetty-xml-call" />, <xref linkend="jetty-xml-new" />,
-      <xref linkend="jetty-xml-ref" />, <xref linkend="jetty-xml-array" />, <xref linkend="jetty-xml-map" />, <xref
-      linkend="jetty-xml-system-property" />, <xref linkend="jetty-xml-property" /></para>
-    </section>
-  </section>
+              </programlisting>
+            </informalexample>
+          </section>
+          <section xml:id="jetty-xml-item">
+            <title>&lt;Item&gt;</title>
+            <para>An Item element defines an entry for Array and Map elements.</para>
+            <section>
+              <tgroup cols="3">
+                <thead>
+                  <row>
+                    <entry align="left">Attribute</entry>
+                    <entry align="center">Required</entry>
+                    <entry align="left">Description</entry>
+                  </row>
+                </thead>
+                <tbody>
+                  <row>
+                    <entry>type</entry>
+                    <entry>no</entry>
+                    <entry>force the types of value.</entry>
+                  </row>
+                  <row>
+                    <entry>id</entry>
+                    <entry>no</entry>
+                    <entry>unique identifier that you can use to refer to the array later.</entry>
+                  </row>
+                </tbody>
+              </tgroup>
+            </section>
+            <section>
+              <title>Can Contain</title>
+              <para><xref linkend="jetty-xml-get" />, <xref linkend="jetty-xml-call" />, <xref
+              linkend="jetty-xml-new" />, <xref linkend="jetty-xml-ref" />, <xref linkend="jetty-xml-array" />, <xref
+              linkend="jetty-xml-map" />, <xref linkend="jetty-xml-system-property" />, <xref
+              linkend="jetty-xml-property" /></para>
+            </section>
+          </section>
 <!--value text, <Get>, <Call>, <New>, <Ref>, <Array>, <Map>, <SystemProperty>, <Property>-->
-  <section xml:id="jetty-xml-map">
-    <title>&lt;Map&gt;</title>
-    <para>A Map element allows the creation of a new HashMap and to populate it with (key, value) pairs.</para>
-    <section>
-      <tgroup cols="3">
-        <thead>
-          <row>
-            <entry align="left">Attribute</entry>
-            <entry align="center">Required</entry>
-            <entry align="left">Description</entry>
-          </row>
-        </thead>
-        <tbody>
-          <row>
-            <entry>id</entry>
-            <entry>no</entry>
-            <entry>unique identifier you can use to refer to the map later.</entry>
-          </row>
-        </tbody>
-      </tgroup>
-    </section>
-    <section>
-      <title>Can Contain</title>
-      <para>
-        <xref linkend="jetty-xml-entry" />
-      </para>
-    </section>
-    <section>
-      <title>Example</title>
-      <informalexample>
-        <programlisting language="xml">
+          <section xml:id="jetty-xml-map">
+            <title>&lt;Map&gt;</title>
+            <para>A Map element allows the creation of a new HashMap and to populate it with (key, value) pairs.</para>
+            <section>
+              <tgroup cols="3">
+                <thead>
+                  <row>
+                    <entry align="left">Attribute</entry>
+                    <entry align="center">Required</entry>
+                    <entry align="left">Description</entry>
+                  </row>
+                </thead>
+                <tbody>
+                  <row>
+                    <entry>id</entry>
+                    <entry>no</entry>
+                    <entry>unique identifier you can use to refer to the map later.</entry>
+                  </row>
+                </tbody>
+              </tgroup>
+            </section>
+            <section>
+              <title>Can Contain</title>
+              <para>
+                <xref linkend="jetty-xml-entry" />
+              </para>
+            </section>
+            <section>
+              <title>Example</title>
+              <informalexample>
+                <programlisting language="xml">
 <![CDATA[
 <Map>
   <Entry>
@@ -1062,128 +1062,129 @@ String[] a = new String[] { "value0", new String("value1") };
   </Entry>
 </Map>
 ]]>
-        </programlisting>
-      </informalexample>
-      <para>This is equivalent to:</para>
-      <informalexample>
-        <programlisting language="java">
+                </programlisting>
+              </informalexample>
+              <para>This is equivalent to:</para>
+              <informalexample>
+                <programlisting language="java">
 <![CDATA[
 Map m = new HashMap();
 m.put("keyName", new String("value1"));
 ]]>
-        </programlisting>
-      </informalexample>
-    </section>
-  </section>
-  <section xml:id="jetty-xml-entry">
-    <title>&lt;Entry&gt;</title>
-    <para>An Entry element contains a key-value <xref linkend="jetty-xml-item" />pair for a Map.</para>
-    <section>
-      <title>Can Contain</title>
-      <para>
-        <xref linkend="jetty-xml-item" />
-      </para>
-    </section>
-  </section>
-  <section xml:id="jetty-xml-system-property">
-    <title>&lt;SystemProperty&gt;</title>
-    <para>A SystemProperty element gets the value of a JVM system property. It can be used within elements that accept
-    values, such as Set, Put, Arg.</para>
-    <section>
-      <tgroup cols="3">
-        <thead>
-          <row>
-            <entry align="left">Attribute</entry>
-            <entry align="center">Required</entry>
-            <entry align="left">Description</entry>
-          </row>
-        </thead>
-        <tbody>
-          <row>
-            <entry>name</entry>
-            <entry>yes</entry>
-            <entry>property name</entry>
-          </row>
-          <row>
-            <entry>default</entry>
-            <entry>no</entry>
-            <entry>a default value as a fallback</entry>
-          </row>
-          <row>
-            <entry>id</entry>
-            <entry>no</entry>
-            <entry>unique identifier which you can use to refer to the array later.</entry>
-          </row>
-        </tbody>
-      </tgroup>
-    </section>
-    <section>
-      <title>Can Contain</title>
-      <para>Cannot contain anything.</para>
-    </section>
-    <section>
-      <title>Example</title>
-      <informalexample>
-        <programlisting language="xml">
+                </programlisting>
+              </informalexample>
+            </section>
+          </section>
+          <section xml:id="jetty-xml-entry">
+            <title>&lt;Entry&gt;</title>
+            <para>An Entry element contains a key-value <xref linkend="jetty-xml-item" />pair for a Map.</para>
+            <section>
+              <title>Can Contain</title>
+              <para>
+                <xref linkend="jetty-xml-item" />
+              </para>
+            </section>
+          </section>
+          <section xml:id="jetty-xml-system-property">
+            <title>&lt;SystemProperty&gt;</title>
+            <para>A SystemProperty element gets the value of a JVM system property. It can be used within elements that
+            accept values, such as Set, Put, Arg.</para>
+            <section>
+              <tgroup cols="3">
+                <thead>
+                  <row>
+                    <entry align="left">Attribute</entry>
+                    <entry align="center">Required</entry>
+                    <entry align="left">Description</entry>
+                  </row>
+                </thead>
+                <tbody>
+                  <row>
+                    <entry>name</entry>
+                    <entry>yes</entry>
+                    <entry>property name</entry>
+                  </row>
+                  <row>
+                    <entry>default</entry>
+                    <entry>no</entry>
+                    <entry>a default value as a fallback</entry>
+                  </row>
+                  <row>
+                    <entry>id</entry>
+                    <entry>no</entry>
+                    <entry>unique identifier which you can use to refer to the array later.</entry>
+                  </row>
+                </tbody>
+              </tgroup>
+            </section>
+            <section>
+              <title>Can Contain</title>
+              <para>Cannot contain anything.</para>
+            </section>
+            <section>
+              <title>Example</title>
+              <informalexample>
+                <programlisting language="xml">
 <![CDATA[
 <SystemProperty name="jetty.port" default="8080"/>
 ]]>
-        </programlisting>
-      </informalexample>
-      <para>That is equivalent to:</para>
-      <informalexample>
-        <programlisting language="java">
+                </programlisting>
+              </informalexample>
+              <para>That is equivalent to:</para>
+              <informalexample>
+                <programlisting language="java">
 <![CDATA[
 System.getProperty("jetty.port", "8080");
 ]]>
-        </programlisting>
-      </informalexample>
-      <para>Both try to retrieve the value of jetty.port. If jetty.port is not set, then 8080 is used.</para>
-    </section>
-  </section>
-  <section xml:id="jetty-xml-property">
-    <title>&lt;Property&gt;</title>
-    <para>A Property element allows arbitrary properties to be retrieved by name. It can contain a sequence of
-    elements, such as Set, Put, Call that act on the retrieved object.</para>
-    <section>
-      <tgroup cols="3">
-        <thead>
-          <row>
-            <entry align="left">Attribute</entry>
-            <entry align="center">Required</entry>
-            <entry align="left">Description</entry>
-          </row>
-        </thead>
-        <tbody>
-          <row>
-            <entry>name</entry>
-            <entry>yes</entry>
-            <entry>property name</entry>
-          </row>
-          <row>
-            <entry>default</entry>
-            <entry>no</entry>
-            <entry>a default value as a fallback</entry>
-          </row>
-          <row>
-            <entry>id</entry>
-            <entry>no</entry>
-            <entry>unique identifier which you can use to refer to the array later.</entry>
-          </row>
-        </tbody>
-      </tgroup>
-    </section>
-    <section>
-      <title>Can Contain</title>
-      <para><xref linkend="jetty-xml-set" />, <xref linkend="jetty-xml-get" />, <xref linkend="jetty-xml-put" />, <xref
-      linkend="jetty-xml-call" />, <xref linkend="jetty-xml-new" />, <xref linkend="jetty-xml-ref" />, <xref
-      linkend="jetty-xml-array" />, <xref linkend="jetty-xml-map" />, <xref linkend="jetty-xml-property" /></para>
-    </section>
+                </programlisting>
+              </informalexample>
+              <para>Both try to retrieve the value of jetty.port. If jetty.port is not set, then 8080 is used.</para>
+            </section>
+          </section>
+          <section xml:id="jetty-xml-property">
+            <title>&lt;Property&gt;</title>
+            <para>A Property element allows arbitrary properties to be retrieved by name. It can contain a sequence of
+            elements, such as Set, Put, Call that act on the retrieved object.</para>
+            <section>
+              <tgroup cols="3">
+                <thead>
+                  <row>
+                    <entry align="left">Attribute</entry>
+                    <entry align="center">Required</entry>
+                    <entry align="left">Description</entry>
+                  </row>
+                </thead>
+                <tbody>
+                  <row>
+                    <entry>name</entry>
+                    <entry>yes</entry>
+                    <entry>property name</entry>
+                  </row>
+                  <row>
+                    <entry>default</entry>
+                    <entry>no</entry>
+                    <entry>a default value as a fallback</entry>
+                  </row>
+                  <row>
+                    <entry>id</entry>
+                    <entry>no</entry>
+                    <entry>unique identifier which you can use to refer to the array later.</entry>
+                  </row>
+                </tbody>
+              </tgroup>
+            </section>
+            <section>
+              <title>Can Contain</title>
+              <para><xref linkend="jetty-xml-set" />, <xref linkend="jetty-xml-get" />, <xref
+              linkend="jetty-xml-put" />, <xref linkend="jetty-xml-call" />, <xref linkend="jetty-xml-new" />, <xref
+              linkend="jetty-xml-ref" />, <xref linkend="jetty-xml-array" />, <xref linkend="jetty-xml-map" />, <xref
+              linkend="jetty-xml-property" /></para>
+            </section>
 <!--<Set>,<Get>, <Put>, <Call>, <New>, <Ref>, <Array>, <Map>, <Property>-->
-    <section>
-      <title>Example</title>
-      <informalexample>
-        <programlisting language="xml">
+            <section>
+              <title>Example</title>
+              <informalexample>
+                <programlisting language="xml">
 <![CDATA[
 <Property name="Server">
   <Call id="jdbcIdMgr" name="getAttribute">
@@ -1191,8 +1192,12 @@ System.getProperty("jetty.port", "8080");
   </Call>
 </Property>
 ]]>
-        </programlisting>
-      </informalexample>
+                </programlisting>
+              </informalexample>
+            </section>
+          </section>
+        </section>
+      </section>
     </section>
   </section>
 </section>

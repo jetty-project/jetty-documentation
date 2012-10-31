@@ -3,14 +3,15 @@
 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xl="http://www.w3.org/1999/xlink"
 xmlns:xi="http://www.w3.org/2001/XInclude"
 xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd">
-  <title>Jetty Xml Syntax</title>
+  <title>Jetty XML Syntax</title>
   <para>The Jetty XML syntax is a straightforward mapping of XML elements to a Java API so that POJOs can be
-  instantiated and getters, setters and methods called. It is very similar to Inversion Of Control (IOC) or Dependency
+  instantiated and getters, setters, and methods called. It is very similar to Inversion Of Control (IOC) or Dependency
   Injection (DI) frameworks like Spring or Plexus (but it predates all of them). Typically Jetty XML is used by
-  jetty.xml to configure a Jetty server or by a context.xml file to configure a ContextHandler or subclass, but you can
+  <filename>jetty.xml</filename> to configure a Jetty server or by a <filename>context.xml</filename> file to configure a ContextHandler or subclass, but you can
   also use the mechanism to configure arbitrary POJOs.</para>
-  <para>This page describes the basic syntax of Jetty XML configuration. See jetty.xml Usage for information on how you
-  can use and combine Jetty XML. See Configuration Files for specific examples.</para>
+  <para>This page describes the basic syntax of Jetty XML configuration. See <!--
+// TODO Xref// --> jetty.xml Usage for information on how you
+  can use and combine Jetty XML. See configuration files for specific examples.</para>
   <section>
     <title>Basic Example</title>
     <para>The following XML configuration file creates some Java objects and sets some attributes:</para>
@@ -43,7 +44,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
 ]]>
       </programlisting>
     </informalexample>
-    <para>The XML above is equivalent to the following java code:</para>
+    <para>The XML above is equivalent to the following Java code:</para>
     <informalexample>
       <programlisting language="java">
 <![CDATA[
@@ -71,7 +72,7 @@ bar.getParent().setName("demo2");
       <para>The document type descriptor (DTD) describes all valid elements. The first two lines must reference the
       DTD, and you must substitute the appropriate class for the object you are trying to configure. See the
       appropriate jetty-*.xml references.</para>
-      <para>The org.eclipse.jetty.xml.XmlConfiguration class parses the Jetty XML files using the configure.dtd
+      <para>The <code>org.eclipse.jetty.xml.XmlConfiguration</code> class parses the Jetty XML files using the <code>configure.dtd</code>
       descriptor.</para>
     </section>
     <section>
@@ -117,7 +118,7 @@ new com.acme.MyStuff();
   <section xml:id="jetty-xml-configure">
     <title>&lt;Configure&gt;</title>
     <para>This is the root element that specifies the class of object that is to be configured. It is usually either
-    the Server, in jetty.xml , or a WebAppContext, in jetty-web.xml.</para>
+    the Server, in <code>jetty.xml</code>, or a WebAppContext in <code>jetty-web.xml</code>.</para>
     <section>
       <tgroup cols="3">
         <thead>
@@ -132,7 +133,7 @@ new com.acme.MyStuff();
             <entry>id</entry>
             <entry>no</entry>
             <entry>
-              <para>a reference to the object that was created. If you define multiple <xref
+              <para>A reference to the object that was created. If you define multiple <xref
               linkend="jetty-xml-configure" />tags with the same id, they will be treated as one object, even if
               they're in different files. You can use this to break up configuration of an object (such as the Server)
               across multiple files.</para>
@@ -141,7 +142,7 @@ new com.acme.MyStuff();
           <row>
             <entry>class</entry>
             <entry>no</entry>
-            <entry>the fully qualified classname of the object to be configured. Could be
+            <entry>The fully qualified classname of the object to be configured. Could be
             org.eclipse.jetty.server.Server, org.eclipse.jetty.webapp.WebAppContext, a handler, etc.</entry>
           </row>
         </tbody>
@@ -639,7 +640,7 @@ value text, <Get>, <Call>, <New>, <Ref>, <Array>, <Map>, <SystemProperty>, <Prop
       </section>
       <section>
         <title>As a Parameter</title>
-        <para>Here are a couple of examples of <xref linkend="jetty-xml-arg" />being used as a parameter to methods and
+        <para>Here are a couple of examples of <xref linkend="jetty-xml-arg" /> being used as a parameter to methods and
         to constructors:</para>
         <informalexample>
           <programlisting language="xml">
@@ -790,7 +791,7 @@ foo.setTest("1, 2, 3");
     <section xml:id="jetty-xml-ref">
       <title>&lt;Ref&gt;</title>
       <para>A Ref element allows a previously created object to be referenced by a unique id. It can contain a sequence
-      of elements, such as Set, Put, etc. which then act on the referenced object. You can also use a Ref element as a
+      of elements, such as Set or Put which then act on the referenced object. You can also use a Ref element as a
       value for other elements such as Set and Arg.</para>
       <para>The Ref element provides convenience and eases readability. You can usually achieve the effect of the Ref
       by nesting elements (method calls), but this can get complicated very easily. The Ref element makes it possible
@@ -889,7 +890,7 @@ foo.setTest("1, 2, 3");
 ]]>
             </programlisting>
           </informalexample>
-          <para>Here is a more practical example, taken from the handler configuration section in etc/jetty.xml:</para>
+          <para>Here is a more practical example, taken from the handler configuration section in <code>etc/jetty.xml<code>:</para>
           <informalexample>
             <programlisting language="xml">
 <![CDATA[
@@ -1009,7 +1010,7 @@ String[] a = new String[] { "value0", new String("value1") };
           <row>
             <entry>id</entry>
             <entry>no</entry>
-            <entry>unique identifier which you can use to refer to the array later.</entry>
+            <entry>unique identifier that you can use to refer to the array later.</entry>
           </row>
         </tbody>
       </tgroup>
@@ -1086,8 +1087,8 @@ m.put("keyName", new String("value1"));
   </section>
   <section xml:id="jetty-xml-system-property">
     <title>&lt;SystemProperty&gt;</title>
-    <para>A SystemProperty element gets the value of a JVM system property. It can be used within elements which accept
-    values, such as Set, Put, Arg, etc.</para>
+    <para>A SystemProperty element gets the value of a JVM system property. It can be used within elements that accept
+    values, such as Set, Put, Arg.</para>
     <section>
       <tgroup cols="3">
         <thead>
@@ -1137,13 +1138,13 @@ System.getProperty("jetty.port", "8080");
 ]]>
         </programlisting>
       </informalexample>
-      <para>Both try to retrieve the value of jetty.port. If jetty.port is not set, then 8080 will be used.</para>
+      <para>Both try to retrieve the value of jetty.port. If jetty.port is not set, then 8080 is used.</para>
     </section>
   </section>
   <section xml:id="jetty-xml-property">
     <title>&lt;Property&gt;</title>
     <para>A Property element allows arbitrary properties to be retrieved by name. It can contain a sequence of
-    elements, such as Set, Put, Call, etc., which act on the retrieved object.</para>
+    elements, such as Set, Put, Call that act on the retrieved object.</para>
     <section>
       <tgroup cols="3">
         <thead>

@@ -25,6 +25,10 @@ xmlns:ns2="http://www.w3.org/1998/Math/MathML" xmlns:ns="http://docbook.org/ns/d
 
 
 
+
+
+    
+    
     
     
     
@@ -35,6 +39,8 @@ xmlns:ns2="http://www.w3.org/1998/Math/MathML" xmlns:ns="http://docbook.org/ns/d
 <programlisting language="text" xml:space="preserve">
 2012-10-22 16:02:24.748:WARN::main: test-realm is deployed. DO NOT USE IN PRODUCTION!
 2012-10-22 16:02:25.582:WARN::main: async-rest webapp is deployed. DO NOT USE IN PRODUCTION!
+    
+    
     
     
     
@@ -64,6 +70,10 @@ xmlns:ns2="http://www.w3.org/1998/Math/MathML" xmlns:ns="http://docbook.org/ns/d
 
 
 
+
+
+      
+      
       
       
       

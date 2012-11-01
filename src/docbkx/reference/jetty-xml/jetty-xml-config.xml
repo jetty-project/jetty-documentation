@@ -38,7 +38,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
   SVN Repository</link>. The selection of which configuration files to use is controlled by <xref
   linkend="advanced-start-features" />and the process of merging configuration is described in <xref
   linkend="jetty-xml-usage" />.</para>
-  <section xml:id="root-element">
+  <section xml:id="root-element-jetty-xml">
     <title>Root Element</title>
     <para><filename>jetty.xml</filename> configures an instance of the <code>Jetty
     org.eclipse.jetty.server.Server.</code></para>

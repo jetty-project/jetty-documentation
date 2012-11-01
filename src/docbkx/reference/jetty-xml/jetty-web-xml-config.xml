@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<section xml:id="jetty-web-xml-config" version="5.0" xmlns="http://docbook.org/ns/docbook"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xl="http://www.w3.org/1999/xlink"
+xmlns:xi="http://www.w3.org/2001/XInclude"
+xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd">
+  <title>
+    <filename>jetty-web.xml</filename>
+  </title>
+  <para><filename>jetty-web.xml</filename> is a Jetty configuration file that you can bundle with a specific web
+  application. The format of <filename>jetty-web.xml</filename> is the same as <xref
+  linkend="jetty-xml-config" />&#8211; it is an XML mapping of the Jetty API.</para>
+  <para>This document offers an overview for using the <filename>jetty-web.xml</filename> configuration file. For a
+  more in-depth look at the syntax, see <xref linkend="jetty-xml-syntax" />.</para>
+  <section xml:id="root-element-jetty-web-xml">
+    <title>Root Element</title>
+    <para><filename>jetty-web.xml</filename> applies on a per-webapp basis, and configures an instance of <code>
+    org.eclipse.jetty.webapp.WebAppContext</code>.</para>
+    <informalexample>
+      <programlisting language="xml">
+<![CDATA[ 
+<?xml version="1.0"  encoding="ISO-8859-1"?>
+<!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure.dtd">
+
+<Configure class="org.eclipse.jetty.webapp.WebAppContext">
+ ..
+</Configure>
+]]>
+      </programlisting>
+    </informalexample>
+    <caution>Make sure you are applying the configuration to an instance of the proper class. <filename>
+    jetty-web.xml</filename> configures an instance of WebAppContext; <filename>jetty.xml</filename> configures an
+    instance of Server.</caution>
+  </section>
+  <section xml:id="using-jetty-web-xml">
+    <title>Using <filename>jetty-web.xml</filename></title>
+    <para>Place the <filename>jetty-web.xml</filename> into your web application's <filename>WEB-INF</filename> folder.
+    When Jetty deploys a web application, it looks for a file called <filename>WEB-INF/jetty-web.xml</filename> or
+    <filename>WEB-INF/web-jetty.xml</filename> within the web application (or WAR) and applies the configuration found
+    there. Be aware that <filename>jetty-web.xml</filename> is called <emphasis>after</emphasis> all other
+    configuration has been applied to the web application.</para>
+  </section>
+  <section xml:id="jetty-web-xml-examples">
+    <title><filename>jetty-web.xml</filename> Examples</title>
+    <para>The distribution contains an example of <filename>jetty-web.xml</filename> inside the WEB-INF folder of the
+    test webapp war (<filename>$JETTY_HOME/webapps/test.war/WEB-INF/jetty-web.xml</filename>).</para>
+  </section>
+  <section xml:id="additional-jetty-web-xml-resources">
+  <title>Additional <filename>jetty-web.xml</filename> Resources</title>&gt; 
+  <itemizedlist>
+    <listitem><xref linkend="jetty-xml-syntax" />&#8211;in-depth reference for Jetty-specific configuration XML
+    syntax.</listitem>
+    <listitem><xref linkend="jetty-xml-config" />&#8211;configuration file for configuring the entire server</listitem>
+  </itemizedlist></section>
+</section>

@@ -9,13 +9,10 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
   Injection (DI) frameworks like Spring or Plexus (but it predates all of them). Typically Jetty XML is used by
   <filename>jetty.xml</filename> to configure a Jetty server or by a <filename>context.xml</filename> file to configure
   a ContextHandler or subclass, but you can also use the mechanism to configure arbitrary POJOs.</para>
-  <para>This page describes the basic syntax of Jetty XML configuration. See 
-<!--
-// TODO Xref// -->
-  jetty.xml Usage for information on how you can use and combine Jetty XML. See configuration files for specific
-  examples.</para>
-  <section>
-    <title>Basic Example</title>
+  <para>This page describes the basic syntax of Jetty XML configuration. See <xref linkend="jetty-xml-usage" />for
+  information on how you can use and combine Jetty XML. See configuration files for specific examples.</para>
+  <section xml:id="basic-xml-configuration-file-eaxmple">
+    <title>Basic XML Configuration File Example</title>
     <para>The following XML configuration file creates some Java objects and sets some attributes:</para>
     <informalexample>
       <programlisting language="xml">

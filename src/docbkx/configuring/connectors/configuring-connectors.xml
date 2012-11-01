@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<section xml:id="jetty-connectors" version="5.0" xmlns="http://docbook.org/ns/docbook"
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xl="http://www.w3.org/1999/xlink"
-xmlns:xi="http://www.w3.org/2001/XInclude"
-xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd">
+<section version="5.0"
+xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd"
+xml:id="jetty-connectors" xmlns="http://docbook.org/ns/docbook" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xl="http://www.w3.org/1999/xlink"
+xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:ns2="http://www.w3.org/1998/Math/MathML"
+xmlns:ns="http://docbook.org/ns/docbook">
   <title>Configuring Connectors</title>
   <para>As listed in the Contents above, Jetty provides several types of connectors that allow you to tailor the server
   setup to suit your circumstances.</para>
@@ -48,166 +50,168 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     xl:href="@JDURL@/org/eclipse/jetty/ajp/Ajp13SocketConnector.html">javadoc</link>.</para>
   </section>
   <section xml:id="configuration-options">
-  <title>Configuration Options</title>You can fine tune your connector configuration using the following parameters. 
-  <table>
-    <title>Connector Configuration Parameters</title>
-    <tgroup cols="2">
-      <thead>
-        <row>
-          <entry align="left">Parameter</entry>
-          <entry align="left">Description</entry>
-        </row>
-      </thead>
-      <tbody>
-        <row>
-          <entry>acceptors</entry>
-          <entry>The number of threads dedicated to accepting incoming connections.</entry>
-        </row>
-        <row>
-          <entry>acceptQueueSize</entry>
-          <entry>Number of connection requests that can be queued up before the operating system starts to send
-          rejections.</entry>
-        </row>
-        <row>
-          <entry>acceptorPriority</entry>
-          <entry>Sets the priority of the acceptor threads relative to the other threads.</entry>
-        </row>
-        <row>
-          <entry>confidentialPort</entry>
-          <entry>The port to redirect to if there is a security constraint of CONFIDENTIAL.</entry>
-        </row>
-        <row>
-          <entry>confidentialScheme</entry>
-          <entry>https by default</entry>
-        </row>
-        <row>
-          <entry>forwarded</entry>
-          <entry>If true use 
-          <tt>hostHeader</tt>or else check the headers for retrieving information from the original request to control
-          what 
-          <tt>ServletRequest#getServerName()</tt>and 
-          <tt>ServletRequest#getServerPort()</tt>and 
-          <tt>ServletRequest#getRemoteAddr()</tt>return. Default is false. See [[Jetty/Howto/Configure mod_proxy|How to
-          Configure mod_proxy]].</entry>
-        </row>
-        <row>
-          <entry>forwardedHostHeader</entry>
-          <entry>The forwarded 
-          <tt>Host</tt>header to use. Default is 
-          <tt>X-Forwarded-Host</tt>. This value is used only if 
-          <tt>forwarded</tt>is true.</entry>
-        </row>
-        <row>
-          <entry>forwardedServerHeader</entry>
-          <entry>The forwarded server name header to use. Default is 
-          <tt>X-Forwarded-Server</tt>. This value is used only if 
-          <tt>forwarded</tt>is true.</entry>
-        </row>
-        <row>
-          <entry>forwardedForHeader</entry>
-          <entry>The forwarded for header to use. Default is 
-          <tt>X-Forwarded-For</tt>. This value is used only if 
-          <tt>forwarded</tt>is true.</entry>
-        </row>
-        <row>
-          <entry>headerBufferSize</entry>
-          <entry>Sets the size of the buffer for request and response headers. An idle connection at most has one
-          buffer of this size allocated. Default is 4K.</entry>
-        </row>
-        <row>
-          <entry>hostHeader</entry>
-          <entry>Set a forced valued for the 
-          <tt>Host</tt>header to control what 
-          <tt>ServletRequest#getServerName()</tt>and 
-          <tt>ServletRequest#getServerPort()</tt>return. This value is used only if 
-          <tt>forwarded</tt>is true.</entry>
-        </row>
-        <row>
-          <entry>host</entry>
-          <entry>The particular interface to listen on. If not set or 0.0.0.0, Jetty listens on 
-          <tt>port</tt>on all interfaces.</entry>
-        </row>
-        <row>
-          <entry>integralPort</entry>
-          <entry>The port to redirect to if there is a security constraint of INTEGRAL.</entry>
-        </row>
-        <row>
-          <entry>lowResourcesConnections</entry>
-          <entry>Sets the number of connections, which if exceeded places this connector in a low resources state. This
-          is not an exact measure as the connection count is averaged over the select sets. When in a low resources
-          state, different idle timeouts can apply on connections. See 
-          <tt>lowResourcesMaxIdleTime</tt>.</entry>
-        </row>
-        <row>
-          <entry>lowResourcesMaxIdleTime</entry>
-          <entry>Sets the period in ms that a connection is allowed to be idle when this there are more than 
-          <tt>lowResourcesConnections</tt>connections. This allows the server to rapidly close idle connections in
-          order to gracefully handle high load situations.</entry>
-        </row>
-        <row>
-          <entry>maxIdleTime</entry>
-          <entry>Set the maximum Idle time for a connection, which roughly translates to the Socket.setSoTimeout(int)
-          call, although with NIO implementations other mechanisms may be used to implement the timeout. The max idle
-          time is applied: when waiting for a new request to be received on a connection; when reading the headers and
-          content of a request; when writing the headers and content of a response. Jetty interprets this value as the
-          maximum time between some progress being made on the connection. So if a single byte is read or written, then
-          the timeout (if implemented by Jetty) is reset. However, in many instances, the reading/writing is delegated
-          to the JVM, and the semantic is more strictly enforced as the maximum time a single read/write operation can
-          take. Note that as Jetty supports writes of memory-mapped file buffers, a write may take many 10s of seconds
-          for large content written to a slow device.</entry>
-        </row>
-        <row>
-          <entry>name</entry>
-          <entry>The name of the connector. Can be used to make a WebAppContext respond only to requests on the named
-          connector via the 
-          <tt>WebAppContext.setConnectorNames(String[])</tt>method</entry>
-        </row>
-        <row>
-          <entry>port</entry>
-          <entry>The port to listen on. See also 
-          <tt>host</tt>.</entry>
-        </row>
-        <row>
-          <entry>requestBufferSize</entry>
-          <entry>Sets the size of the content buffer for receiving requests. These buffers are used only for active
-          connections that have requests with bodies that do not fit within the header buffer (see 
-          <tt>headerBufferSize</tt>). Default is 8K.</entry>
-        </row>
-        <row>
-          <entry>responseBufferSize</entry>
-          <entry>Sets the size of the content buffer for sending responses. These buffers are used only for active
-          connections that are sending responses with bodies that will not fit within the header buffer. Default is
-          32K.</entry>
-        </row>
-        <row>
-          <entry>resolveNames</entry>
-          <entry>If true, request IP addresses will be resolved to host names.</entry>
-        </row>
-        <row>
-          <entry>reuseAddress</entry>
-          <entry>True if the the server socket will be opened in SO_REUSEADDR mode.</entry>
-        </row>
-        <row>
-          <entry>soLingerTime</entry>
-          <entry>Sets SO_LINGER on the connection socket. Disabled by default.</entry>
-        </row>
-        <row>
-          <entry>statsOn</entry>
-          <entry>If true, enables statistics collection on connections. See
-          [[Jetty/Feature/Statistics|Statistics]].</entry>
-        </row>
-        <row>
-          <entry>useDirectBuffers</entry>
-          <entry>For nio connectors, determines whether direct byte buffers will be used or not. The default is
-          true.</entry>
-        </row>
-        <row>
-          <entry>threadPool</entry>
-          <entry>Sets the thread pool instance. By default this is the thread pool set on the
-          org.eclipse.jetty.server.Server instance, and is a org.eclipse.jetty.util.thread.QueuedThreadPool
-          instance.</entry>
-        </row>
-      </tbody>
-    </tgroup>
-  </table></section>
+    <title>Configuration Options</title>
+    <para>You can fine tune your connector configuration using the following parameters.</para>
+    <table>
+      <title>Connector Configuration Parameters</title>
+      <tgroup cols="2">
+        <thead>
+          <row>
+            <entry align="left">Parameter</entry>
+            <entry align="left">Description</entry>
+          </row>
+        </thead>
+        <tbody>
+          <row>
+            <entry>acceptors</entry>
+            <entry>The number of threads dedicated to accepting incoming connections.</entry>
+          </row>
+          <row>
+            <entry>acceptQueueSize</entry>
+            <entry>Number of connection requests that can be queued up before the operating system starts to send
+            rejections.</entry>
+          </row>
+          <row>
+            <entry>acceptorPriority</entry>
+            <entry>Sets the priority of the acceptor threads relative to the other threads.</entry>
+          </row>
+          <row>
+            <entry>confidentialPort</entry>
+            <entry>The port to redirect to if there is a security constraint of CONFIDENTIAL.</entry>
+          </row>
+          <row>
+            <entry>confidentialScheme</entry>
+            <entry>https by default</entry>
+          </row>
+          <row>
+            <entry>forwarded</entry>
+            <entry>If true use 
+            <tt>hostHeader</tt>or else check the headers for retrieving information from the original request to
+            control what 
+            <tt>ServletRequest#getServerName()</tt>and 
+            <tt>ServletRequest#getServerPort()</tt>and 
+            <tt>ServletRequest#getRemoteAddr()</tt>return. Default is false. See [[Jetty/Howto/Configure mod_proxy|How
+            to Configure mod_proxy]].</entry>
+          </row>
+          <row>
+            <entry>forwardedHostHeader</entry>
+            <entry>The forwarded 
+            <tt>Host</tt>header to use. Default is 
+            <tt>X-Forwarded-Host</tt>. This value is used only if 
+            <tt>forwarded</tt>is true.</entry>
+          </row>
+          <row>
+            <entry>forwardedServerHeader</entry>
+            <entry>The forwarded server name header to use. Default is 
+            <tt>X-Forwarded-Server</tt>. This value is used only if 
+            <tt>forwarded</tt>is true.</entry>
+          </row>
+          <row>
+            <entry>forwardedForHeader</entry>
+            <entry>The forwarded for header to use. Default is 
+            <tt>X-Forwarded-For</tt>. This value is used only if 
+            <tt>forwarded</tt>is true.</entry>
+          </row>
+          <row>
+            <entry>headerBufferSize</entry>
+            <entry>Sets the size of the buffer for request and response headers. An idle connection at most has one
+            buffer of this size allocated. Default is 4K.</entry>
+          </row>
+          <row>
+            <entry>hostHeader</entry>
+            <entry>Set a forced valued for the 
+            <tt>Host</tt>header to control what 
+            <tt>ServletRequest#getServerName()</tt>and 
+            <tt>ServletRequest#getServerPort()</tt>return. This value is used only if 
+            <tt>forwarded</tt>is true.</entry>
+          </row>
+          <row>
+            <entry>host</entry>
+            <entry>The particular interface to listen on. If not set or 0.0.0.0, Jetty listens on 
+            <tt>port</tt>on all interfaces.</entry>
+          </row>
+          <row>
+            <entry>integralPort</entry>
+            <entry>The port to redirect to if there is a security constraint of INTEGRAL.</entry>
+          </row>
+          <row>
+            <entry>lowResourcesConnections</entry>
+            <entry>Sets the number of connections, which if exceeded places this connector in a low resources state.
+            This is not an exact measure as the connection count is averaged over the select sets. When in a low
+            resources state, different idle timeouts can apply on connections. See 
+            <tt>lowResourcesMaxIdleTime</tt>.</entry>
+          </row>
+          <row>
+            <entry>lowResourcesMaxIdleTime</entry>
+            <entry>Sets the period in ms that a connection is allowed to be idle when this there are more than 
+            <tt>lowResourcesConnections</tt>connections. This allows the server to rapidly close idle connections in
+            order to gracefully handle high load situations.</entry>
+          </row>
+          <row>
+            <entry>maxIdleTime</entry>
+            <entry>Set the maximum Idle time for a connection, which roughly translates to the Socket.setSoTimeout(int)
+            call, although with NIO implementations other mechanisms may be used to implement the timeout. The max idle
+            time is applied: when waiting for a new request to be received on a connection; when reading the headers
+            and content of a request; when writing the headers and content of a response. Jetty interprets this value
+            as the maximum time between some progress being made on the connection. So if a single byte is read or
+            written, then the timeout (if implemented by Jetty) is reset. However, in many instances, the
+            reading/writing is delegated to the JVM, and the semantic is more strictly enforced as the maximum time a
+            single read/write operation can take. Note that as Jetty supports writes of memory-mapped file buffers, a
+            write may take many 10s of seconds for large content written to a slow device.</entry>
+          </row>
+          <row>
+            <entry>name</entry>
+            <entry>The name of the connector. Can be used to make a WebAppContext respond only to requests on the named
+            connector via the 
+            <tt>WebAppContext.setConnectorNames(String[])</tt>method</entry>
+          </row>
+          <row>
+            <entry>port</entry>
+            <entry>The port to listen on. See also 
+            <tt>host</tt>.</entry>
+          </row>
+          <row>
+            <entry>requestBufferSize</entry>
+            <entry>Sets the size of the content buffer for receiving requests. These buffers are used only for active
+            connections that have requests with bodies that do not fit within the header buffer (see 
+            <tt>headerBufferSize</tt>). Default is 8K.</entry>
+          </row>
+          <row>
+            <entry>responseBufferSize</entry>
+            <entry>Sets the size of the content buffer for sending responses. These buffers are used only for active
+            connections that are sending responses with bodies that will not fit within the header buffer. Default is
+            32K.</entry>
+          </row>
+          <row>
+            <entry>resolveNames</entry>
+            <entry>If true, request IP addresses will be resolved to host names.</entry>
+          </row>
+          <row>
+            <entry>reuseAddress</entry>
+            <entry>True if the the server socket will be opened in SO_REUSEADDR mode.</entry>
+          </row>
+          <row>
+            <entry>soLingerTime</entry>
+            <entry>Sets SO_LINGER on the connection socket. Disabled by default.</entry>
+          </row>
+          <row>
+            <entry>statsOn</entry>
+            <entry>If true, enables statistics collection on connections. See
+            [[Jetty/Feature/Statistics|Statistics]].</entry>
+          </row>
+          <row>
+            <entry>useDirectBuffers</entry>
+            <entry>For nio connectors, determines whether direct byte buffers will be used or not. The default is
+            true.</entry>
+          </row>
+          <row>
+            <entry>threadPool</entry>
+            <entry>Sets the thread pool instance. By default this is the thread pool set on the
+            org.eclipse.jetty.server.Server instance, and is a org.eclipse.jetty.util.thread.QueuedThreadPool
+            instance.</entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </table>
+  </section>
 </section>

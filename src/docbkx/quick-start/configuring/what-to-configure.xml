@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<section version="5.0"
+xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd"
+xml:id="quickstart-what-to-configure" xmlns="http://docbook.org/ns/docbook"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
+xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg"
+xmlns:ns2="http://www.w3.org/1998/Math/MathML" xmlns:ns="http://docbook.org/ns/docbook">
+  <title>What to Configure in Jetty</title>
+  <para>This section gives an overview of the what components of Jetty typically configured using the mechanisms
+  outline in the previous section. The structure of a Jetty server is described in <xref
+  linkend="basic-architecture" />which is good background reading to understand configuration and is vital to if you
+  wish to change the structure of the server as set up by the default configurations in the jetty distribution.
+  However, for most purposes, configuration is a matter of identifying the correct configuration file and modifying
+  existing configuration values.</para>
+  <section>
+    <title xml:id="intro-jetty-configuration-server">Configuring the Server</title>
+    <para>The Server instance is the central coordination object of a Jetty server and it provides services and life
+    cycle management for all other jetty server components. In the standard jetty distribution by the core server
+    configuration is in etc/jetty.xml file, but other server configuration may be mixed in (see below). Server
+    configuration can include:</para>
+    <variablelist>
+      <varlistentry>
+        <term>ThreadPool</term>
+        <listitem>
+          <para>The Server instance provides a ThreadPool instance that is the default Executor service used by other
+          Jetty server components. The prime configuration of the thread pool is the maximum and minimum size and is
+          set in etc/jetty.xml</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>Handlers</term>
+        <listitem>
+          <para>A Jetty Server can have only a single Handler instance to handle incoming HTTP requests. However a
+          Handler may be a container or wrapper of other handlers forming a tree of handlers that typically handle a
+          request request as a collaboration between the handlers from the a branch of the tree from root to leaf. The
+          default handler tree set up in the etc/jetty.xml file is a Handler Collection containing a Context Handler
+          Collection and the Default Handler. The Context Handler Collection selects the next handler by context path
+          and is where deployed Context Handler and Web Application Contexts are added to the handler tree. The Default
+          Handler handles any requests not already handled and generates the standard 404 page. Other configuration
+          files may add handlers to this tree (eg jetty-rewrite.xml, jetty-requestlog.xml ) or configure components to
+          hot deploy handlers (eg jetty-deploy.xml).</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>Server Attributes</term>
+        <listitem>
+          <para>The server holds a generic attribute map of Strings to Objects so that other jetty components may
+          associated named objects with the server and if the value objects implement the LifeCycle interface then they
+          are started and stopped with the server. Typically server attributes are used for holding server-wide default
+          values.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>Server fields</term>
+        <listitem>
+          <para>The server also has some specific configuration fields that are set in etc/jetty.xml for controlling
+          among other things, the sending of Dates and Versions in HTTP responses.</para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+  </section>
+  <section>
+    <title xml:id="intro-jetty-configuration-connectors">Configuring Connectors</title>
+    <para>A Jetty Server Connector is a network end point that accepts connections for one or more protocols that can
+    produce request and/or messages for the jetty server. In the standard Jetty Server distribution, there are several
+    configuration files provided that add connectors to the server for various protocols and combinations of protocols:
+    jetty-http.xml, jetty-https.xml and jetty-spdy.xml. The configuration needed for connectors is typically:</para>
+    <variablelist>
+      <varlistentry>
+        <term>port</term>
+        <listitem>
+          <para>The TCP/IP port on which the connector listens for connections is set using the the XML Property
+          element which looks up the jetty.port (or jetty.tls.port) property and if not found defaults to 8080 (or 8443
+          for TLS).</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>host</term>
+        <listitem>
+          <para>A host may be configured either as a host name or IP address to identify a specific network interface
+          on which to listen. If not set, or set to the value of 0.0.0.0, then all local interfaces are listened on.
+          The XML Property element is used to look up the host value from the jetty.host property.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>Idle Timeout</term>
+        <listitem>
+          <para>This is the time in milliseconds that a connection is allowed to be idle before the connector will take
+          actions to close the connection.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>HTTP Configuration</term>
+        <listitem>
+          <para>Connector types that accept HTTP semantics (including HTTP, HTTPS and SPDY) are configured with a
+          HttpConfiguration instance that contains common HTTP configuration that is independent of the specific wire
+          protocol used. Because these values are often common to multiple connector types, the standard Jetty Server
+          distribution creates a single HttpConfiguration in the jetty.xml file which is used via the XML Ref element
+          in the specific connector files.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>SSL Context Factory</term>
+        <listitem>
+          <para>The TLS connector types (HTTPS and SPDY) configure an SSL Context Factory with the location of the
+          server keystore and truststore for obtaining server certificates.</para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+    <note>
+      <para>Virtual Hosts are not configured on Connectors. Individual Contexts must be configured with the virtual
+      hosts to which they respond.</para>
+    </note>
+    <note>
+      <para>Prior to Jetty-9, the type of the connector was chosen to reflect both the protocol supported (e.g. HTTP,
+      HTTPS, AJP, SPDY) and the nature of the implementation (e.g. NIO or BIO). From Jetty-9 onwards there is only one
+      prime Connector type (ServerConnector), which is NIO based and uses Connection Factories to be able to handle one
+      or more protocols.</para>
+    </note>
+  </section>
+  <section>
+    <title xml:id="intro-jetty-configuration-deployers">Configuring the Deployer</title>
+    <para>The Jetty deployer is a service object that scans a directory for contexts and web applications to hot deploy
+    (see <link linkend="quickstart-deploying-webapps">quickstart</link>). A context is an instance of ContextHandler
+    that aggregates other handlers with common resources for handling HTTP requests (eg resource base, class loader,
+    configuration attributes). A standard Web Application is a specialized instance of a Context that uses standard
+    layouts and web.xml deployment descriptors to configure the context.</para>
+    <para>In the standard Jetty distribution the deployer is configured by jetty-deploy.xml and scans the webapps
+    directory.</para>
+  </section>
+  <section>
+    <title xml:id="intro-jetty-configuration-contexts">Configuring Contexts</title>
+    <para />
+  </section>
+  <section>
+    <title xml:id="intro-jetty-configuration-webapps">Configuring Web Applications</title>
+    <para />
+  </section>
+  <section>
+    <title xml:id="intro-jetty-configuration-other">Configuring Other</title>
+    <para />
+  </section>
+</section>

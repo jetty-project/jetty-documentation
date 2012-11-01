@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<section version="5.0"
+xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd"
+xml:id="quickstart-how-to-configure" xmlns="http://docbook.org/ns/docbook"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
+xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg"
+xmlns:ns2="http://www.w3.org/1998/Math/MathML" xmlns:ns="http://docbook.org/ns/docbook">
+  <title xml:id="intro-jetty-configuration-how">How to Configure Jetty</title>
+  <para>To understand Jetty Configuration, you need to understand the "How" - what configuration mechanisms exist; and
+  "What" the actual objects and fields that can be configured with those mechanisms.</para>
+  <section>
+    <title>Jetty POJO Configuration</title>
+    <para>The main components of Jetty are simply Plain Old Java Objects ( <link
+    xl:href="http://en.wikipedia.org/wiki/Plain_Old_Java_Object">POJOs</link>) and the process of configuring jetty can
+    be considered mostly as the process of instantiating, assembling and setting fields on the Jetty POJOs. This can be
+    achieved either by:</para>
+    <itemizedlist>
+      <listitem>
+        <para>Writing java code to directly instantiate and assemble Jetty objects. This is referred to as <xref
+        linkend="embedding" />Jetty.</para>
+      </listitem>
+      <listitem>
+        <para>Using Jetty XML Configuration, which is a <link
+        xl:href="http://en.wikipedia.org/wiki/Inversion_of_Control">Inversion of Control (IoC)</link> framework, to
+        instantiate and assemble Jetty object as XML objects</para>
+      </listitem>
+      <listitem>
+        <para>Using a third party <link xl:href="http://en.wikipedia.org/wiki/Inversion_of_Control">
+        IoC</link> framework like <link xl:href="http://en.wikipedia.org/wiki/Spring_Framework">Spring</link>, to
+        instantiate and assemble Jetty objects as spring beans.</para>
+      </listitem>
+    </itemizedlist>
+    <para>Because the main Jetty configuration is done by IoC, it is the <link
+    xl:href="http://download.eclipse.org/jetty/stable-9/apidocs/">Jetty API documentation</link> that is the ultimate
+    configuration reference.</para>
+  </section>
+  <section>
+    <title>Other Configuration Files</title>
+    <para>Some Jetty Components do have configuration files that are not IoC</para>
+    <variablelist>
+      <varlistentry>
+        <term>web.xml</term>
+        <listitem>
+          <para>The <link xl:href="???">Servlet</link> Specification defines the <link
+          xl:href="http://en.wikipedia.org/wiki/Web.xml">web.xml</link> deployment descriptor that defines and
+          configures the Filters, Servlets and resources used by a <link
+          xl:href="http://en.wikipedia.org/wiki/Web_application">Web Application</link>. The Jetty WebAppContext
+          component uses this XML format to:</para>
+          <itemizedlist>
+            <listitem>
+              <para>set up the default configuration of a web application context</para>
+            </listitem>
+            <listitem>
+              <para>interpret the application specific configuration supplied with a web application in the
+              WEB-INF/web.xml file</para>
+            </listitem>
+            <listitem>
+              <para>interpret descriptor fragments included in the META-INF directory of jar files within
+              WEB-INF/lib</para>
+            </listitem>
+          </itemizedlist>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>Property Files</term>
+        <listitem>
+          <para>Standard <link xl:href="http://en.wikipedia.org/wiki/Java_properties">java property files</link> are
+          also used for jetty configuration in several ways:</para>
+          <itemizedlist>
+            <listitem>
+              <para>to parameterize Jetty IoC XML via the use of the Property element</para>
+            </listitem>
+            <listitem>
+              <para>to configure the default logging mechanism (StdErrLog). Other logging frameworks may also be
+              plugged into jetty and also use property files (eg log4j)</para>
+            </listitem>
+            <listitem>
+              <para>as a simple database for login usernames and credentials</para>
+            </listitem>
+          </itemizedlist>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>Start.ini</term>
+        <listitem>
+          <para>The Jetty start mechanism uses a ini file to hold command line arguments that would otherwise have to
+          be passed to the command to start Jetty.</para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+  </section>
+  <section>
+    <title>Example Jetty Configuration</title>
+    <para>An example of a Jetty server assembled and configured in embedded style is:</para>
+    <programlisting language="rjava">
+      <filename>
+      http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/plain/examples/embedded/src/main/java/org/eclipse/jetty/embedded/ExampleServer.java</filename>
+    </programlisting>
+    <para>The exact same server configuration can be achieve with the Jetty XML file:</para>
+    <programlisting language="rxml">
+      <filename>
+      http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/plain/examples/embedded/src/main/resources/exampleserver.xml</filename>
+    </programlisting>
+    <para>In practise, most commonly used Jetty features have had xml files created for them that are included in the
+    standard distribution in the etc directory. Thus configuring Jetty is often a matter of just editing the existing
+    XML files and altering the configuration values within them.</para>
+  </section>
+</section>

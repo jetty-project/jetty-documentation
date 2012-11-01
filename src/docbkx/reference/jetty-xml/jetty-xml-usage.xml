@@ -4,54 +4,61 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xl="http://www.w3.or
 xmlns:xi="http://www.w3.org/2001/XInclude"
 xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd">
   <title>Jetty XML Usage</title>
-<para>Jetty provides an XML-based configuration. It is grounded in Java's Reflection API. Classes in the java.lang.reflect represent Java methods and classes, such that you can instantiate objects and invoke their methods based on their names and argument types. Behind the scenes, Jetty's XML config parser translates the XML elements and attributes into Reflection calls.</para>
-<section xml:id="using-jettyxml">
-<title>Using <filename>jetty.xml</filename></title>
-<para>
-To use <filename>jetty.xml</filename>, specify it as a configuration file when running Jetty.</para>
- <informalexample>
-    <programlisting language="java">
+  <para>Jetty provides an XML-based configuration. It is grounded in Java's Reflection API. Classes in the
+  java.lang.reflect represent Java methods and classes, such that you can instantiate objects and invoke their methods
+  based on their names and argument types. Behind the scenes, Jetty's XML config parser translates the XML elements and
+  attributes into Reflection calls.</para>
+  <section xml:id="using-jettyxml">
+    <title>Using <filename>jetty.xml</filename></title>
+    <para>To use <filename>jetty.xml</filename>, specify it as a configuration file when running Jetty.</para>
+    <informalexample>
+      <programlisting language="java">
 <![CDATA[ 
  java -jar start.jar etc/jetty.xml
 ]]>
-    </programlisting>
-  </informalexample>
-<note>If you start Jetty without specifying a configuration file, Jetty automatically locates and uses the default installation <filename>jetty.xml</filename> file. Therefore <code>java -jar start.jar</code> is equivalent to <code>java -jar start.jar etc/jetty.xml</code>.</note>
-</section>
-<section xml:id="using-multiple-configuration-files">
-<title>Using Multiple Configuration Files</title>
-<para>
-You are not limited to one configuration file; you can use multiple configuration files when running Jetty, and Jetty will configure the appropriate server instance. The ID of the server in the <code>&lt;Configure&gt;</code> tag specifies the instance you want to configure. Each server ID in a configuration file creates a new server instance within the same JVM. If you use the same ID across multiple configuration files, those configurations are all applied to the same server.</para>
-</section>
-<section xml:id="setting-parameters-in-configuration-files">
-<title>Setting Parameters in Configuration Files</title>
-<para>
-You can set parameters in configuration files either with system properties (using <code>&lt;SystemProperty&gt;</code>) or properties files (using <code>&lt;Property&gt;</code>) passed via the command line. For example, this code in <code>jetty.xml</code> allows the port to be defined on the command line, falling back onto <varname>8080</varname> if the port is not specified:
-</para>
-<informalexample>
-    <programlisting language="xml">
+      </programlisting>
+    </informalexample>
+    <note>If you start Jetty without specifying a configuration file, Jetty automatically locates and uses the default
+    installation <filename>jetty.xml</filename> file. Therefore <code>java -jar start.jar</code> is equivalent to
+    <code>java -jar start.jar etc/jetty.xml</code>.</note>
+  </section>
+  <section xml:id="using-multiple-configuration-files">
+    <title>Using Multiple Configuration Files</title>
+    <para>You are not limited to one configuration file; you can use multiple configuration files when running Jetty,
+    and Jetty will configure the appropriate server instance. The ID of the server in the <code>
+    &lt;Configure&gt;</code> tag specifies the instance you want to configure. Each server ID in a configuration file
+    creates a new server instance within the same JVM. If you use the same ID across multiple configuration files,
+    those configurations are all applied to the same server.</para>
+  </section>
+  <section xml:id="setting-parameters-in-configuration-files">
+    <title>Setting Parameters in Configuration Files</title>
+    <para>You can set parameters in configuration files either with system properties (using <code>
+    &lt;SystemProperty&gt;</code>) or properties files (using <code>&lt;Property&gt;</code>) passed via the command
+    line. For example, this code in <code>jetty.xml</code> allows the port to be defined on the command line, falling
+    back onto 
+    <varname>8080</varname>if the port is not specified:</para>
+    <informalexample>
+      <programlisting language="xml">
 <![CDATA[ 
   <Set name="port"><SystemProperty name="jetty.port" default="8080"/></Set>
 ]]>
-    </programlisting>
-  </informalexample>
-<para>
-Then you modify the port while running Jetty by using this command:</para>
- <informalexample>
-    <programlisting language="java">
+      </programlisting>
+    </informalexample>
+    <para>Then you modify the port while running Jetty by using this command:</para>
+    <informalexample>
+      <programlisting language="java">
 <![CDATA[ 
  java -Djetty.port=8888 -jar start.jar etc/jetty.xml
 ]]>
-    </programlisting>
-  </informalexample>
-<para>
-An example of defining both system properties and properties files from the command line:</para>
-<informalexample>
-    <programlisting language="java">
+      </programlisting>
+    </informalexample>
+    <para>An example of defining both system properties and properties files from the command line:</para>
+    <informalexample>
+      <programlisting language="java">
 <![CDATA[ 
  java -Djetty.port=8888 -jar start.jar myjetty.properties etc/jetty.xml etc/other.xml
 ]]>
-    </programlisting>
-  </informalexample>
-</section>
+      </programlisting>
+    </informalexample>
+  </section>
 </section>

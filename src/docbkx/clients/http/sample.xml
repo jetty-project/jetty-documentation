@@ -7,5 +7,10 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
   <section>
     <title>Sample Subsection</title>
     <para>More sample text.</para>
+    <informalexample>
+      <programlisting language="fetch">
+        <filename>http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/plain/header-template.txt</filename>
+      </programlisting>
+    </informalexample>
   </section>
 </section>

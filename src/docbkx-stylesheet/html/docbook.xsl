@@ -1,4 +1,5 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0"
+xmlns:jfetch="java:org.eclipse.jetty.xslt.tools.JavaSourceFetchExtension"
 xmlns:fetch="java:org.eclipse.jetty.xslt.tools.SourceFetchExtension"
 xmlns:d="http://docbook.org/ns/docbook"
 xmlns:l="http://docbook.sourceforge.net/xmlns/l10n/1.0"
@@ -132,20 +133,72 @@ See an error or something missing?<br/>
             <xsl:when test="$highlight.source != 0">
               <xsl:variable name="filename" select="./d:filename"/>
               <xsl:variable name="methodname" select="./d:methodname"/>
-              <xsl:variable name="newText" select="fetch:fetch($filename,$methodname)"/>
+              <xsl:variable name="newText" select="jfetch:fetch($filename,$methodname)"/>
               
               <xsl:value-of select="$newText"/>
               <!--xsl:call-template name="apply-highlighting"/-->
             </xsl:when>
             <xsl:otherwise>
             
-            <xsl:if test="function-available('fetch:fetch')">
+            <xsl:if test="function-available('jfetch:fetch')">
               <xsl:variable name="filename" select="./d:/filename"/>
               <xsl:variable name="methodname" select="./d:methodname"/>
-              <xsl:variable name="newText" select="fetch:fetch($filename,$methodname)"/>
+              <xsl:variable name="newText" select="jfetch:fetch($filename,$methodname)"/>
       
               <xsl:apply-templates select="$newText"/>
-      <xsl:value-of select="$newText"/>
+              <xsl:value-of select="$newText"/>
+           </xsl:if>
+           
+            </xsl:otherwise>
+          </xsl:choose>
+        </xsl:element>
+
+  </xsl:template>
+
+    <xsl:template match="d:programlisting[@language='fetch']">
+    
+    <xsl:param name="suppress-numbers" select="'0'"/>
+  
+    <xsl:call-template name="anchor"/>
+  
+    <xsl:variable name="div.element">pre</xsl:variable>
+  
+    <xsl:if test="$shade.verbatim != 0">
+      <xsl:message>
+        <xsl:text>The shade.verbatim parameter is deprecated. </xsl:text>
+        <xsl:text>Use CSS instead,</xsl:text>
+      </xsl:message>
+      <xsl:message>
+        <xsl:text>for example: pre.</xsl:text>
+        <xsl:value-of select="local-name(.)"/>
+        <xsl:text> { background-color: #E0E0E0; }</xsl:text>
+      </xsl:message>
+    </xsl:if>
+
+    <xsl:element name="{$div.element}">
+          <xsl:apply-templates select="." mode="common.html.attributes"/>
+          
+          <xsl:if test="@width != ''">
+            <xsl:attribute name="width">
+              <xsl:value-of select="@width"/>
+            </xsl:attribute>
+          </xsl:if>
+          <xsl:choose>
+            <xsl:when test="$highlight.source != 0">
+              <xsl:variable name="filename" select="./d:filename"/>
+              <xsl:variable name="newText" select="fetch:fetch($filename)"/>
+              
+              <xsl:value-of select="$newText"/>
+              <!--xsl:call-template name="apply-highlighting"/-->
+            </xsl:when>
+            <xsl:otherwise>
+            
+            <xsl:if test="function-available('jfetch:fetch')">
+              <xsl:variable name="filename" select="./d:/filename"/>
+              <xsl:variable name="newText" select="fetch:fetch($filename)"/>
+      
+              <xsl:apply-templates select="$newText"/>
+              <xsl:value-of select="$newText"/>
            </xsl:if>
            
             </xsl:otherwise>

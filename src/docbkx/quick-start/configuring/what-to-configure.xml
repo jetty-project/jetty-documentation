@@ -120,6 +120,101 @@ xmlns:ns2="http://www.w3.org/1998/Math/MathML" xmlns:ns="http://docbook.org/ns/d
     </note>
   </section>
   <section>
+    <title xml:id="intro-jetty-configuration-contexts">Configuring Contexts</title>
+    <para>A jetty context is a Handler that groups other Handlers under a context path together with associated
+    resources and is roughly equivalent to the standard ServletContext API. A context may contain either standard jetty
+    handlers or a custom application handler. Standard web applications based on the servlet specification are contexts
+    that include standard handlers for sessions, security and servlets, and are configured by using a standard
+    web.xml.</para>
+    <para>Configuration values that are common to all contexts are:</para>
+    <variablelist>
+      <varlistentry>
+        <term>contextPath</term>
+        <listitem>
+          <para>The context path is a URL prefix that is used to identify which context a HTTP request is destined for.
+          For example, if a context has a contextPath is <code>/foo</code> then requests to <code>/foo</code>, <code>
+          /foo/index.html</code>, <code>/foo/bar/</code> and <code>/foo/bar/image.png</code> will all be handled by the
+          context, but it will not handle requests like <code>/</code>, <code>/other/</code> or <code>
+          /favicon.ico</code>. A context with a context path of / is called the root context.</para>
+          <para>The context path can be set by default from the deployer (which uses the filename as the basis for the
+          context path); or in code; or it can be set by a Jetty IoC XML that is either applied by the deployer or
+          found in the <code>WEB-INF/jetty-web.xml</code> file of a standard web app context.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>virtualHost</term>
+        <listitem>
+          <para>A context may optionally have one or more virtual hosts set. Unlike the host set on a connector (which
+          selects the network interface on which to listen) a virtual host does not set any network parameters. Instead
+          a virtual hosts represents an alias assigned by a name service to an IP address, which may have many aliases.
+          To determine which virtual host a request is intended for, the HTTP client(browser) will includes in the
+          request the name used to lookup the network address. A context with a virtual host set will only handle
+          requests that have a matching virtual host in their request headers.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>classPath</term>
+        <listitem>
+          <para>A context may optionally have a classpath, so that any thread that execute a handler within the context
+          will have a Thread context classloader set with the classpath. A standard web application will have the
+          classpath initialized by the <code>WEB-INF/lib</code> and <code>WEB-INF/classes</code> directory and has
+          additional rules about delegating classloading to the parent classloader. All contexts may have additional
+          classpath entries added.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>attributes</term>
+        <listitem>
+          <para>Attributes are arbitrary named objects that are associated with a context and are frequently used to
+          pass entities between a web application and it's container. For example the attribute
+          javax.servlet.context.tempdir is used to pass the File instance that represents the assigned temporary
+          directory for a web application.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>resouceBase</term>
+        <listitem>
+          <para />
+        </listitem>
+      </varlistentry>
+    </variablelist>
+    <section>
+      <title>Context Configuration by API</title>
+      <para>In an embedded server, contexts are configured by directly calling the ContextHandler API as in the
+      following example:</para>
+      <informalexample>
+        <programlisting language="rjava">
+          <filename>
+          http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/plain/examples/embedded/src/main/java/org/eclipse/jetty/embedded/OneContext.java</filename>
+        </programlisting>
+      </informalexample>
+    </section>
+    <section>
+      <title>Context Configuration by IoC XML</title>
+      <para>A context can be created and configured entirely by IoC XML (either Jetty's or Spring). The deployer will
+      discover and hot deploy context IoC descriptors like the following that creates a context to serve the javadoc
+      from the jetty distribution:</para>
+      <informalexample>
+        <programlisting>
+          <filename>
+          http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/plain/jetty-distribution/src/main/resources/webapps/javadoc.xml</filename>
+        </programlisting>
+      </informalexample>
+    </section>
+    <section>
+      <title>Standard Web App Configuration</title>
+      <para />
+    </section>
+    <section>
+      <title>Standard Web App Configuration by IoC</title>
+      <para>Jetty IoC XML that is found in a WEB-INF/jetty-web.xml of a standard web application.</para>
+    </section>
+  </section>
+  <section>
+    <title xml:id="intro-jetty-configuration-webapps">Configuring Web Applications</title>
+    <para />
+  </section>
+  <section>
     <title xml:id="intro-jetty-configuration-deployers">Configuring the Deployer</title>
     <para>The Jetty deployer is a service object that scans a directory for contexts and web applications to hot deploy
     (see <link linkend="quickstart-deploying-webapps">quickstart</link>). A context is an instance of ContextHandler
@@ -128,14 +223,6 @@ xmlns:ns2="http://www.w3.org/1998/Math/MathML" xmlns:ns="http://docbook.org/ns/d
     layouts and web.xml deployment descriptors to configure the context.</para>
     <para>In the standard Jetty distribution the deployer is configured by jetty-deploy.xml and scans the webapps
     directory.</para>
-  </section>
-  <section>
-    <title xml:id="intro-jetty-configuration-contexts">Configuring Contexts</title>
-    <para />
-  </section>
-  <section>
-    <title xml:id="intro-jetty-configuration-webapps">Configuring Web Applications</title>
-    <para />
   </section>
   <section>
     <title xml:id="intro-jetty-configuration-other">Configuring Other</title>

@@ -42,7 +42,7 @@ xmlns:ns2="http://www.w3.org/1998/Math/MathML" xmlns:ns="http://docbook.org/ns/d
       <varlistentry>
         <term>web.xml</term>
         <listitem>
-          <para>The <link xl:href="???">Servlet</link> Specification defines the <link
+          <para>The <link xl:href="http://en.wikipedia.org/wiki/Servlet">Servlet</link> Specification defines the <link
           xl:href="http://en.wikipedia.org/wiki/Web.xml">web.xml</link> deployment descriptor that defines and
           configures the Filters, Servlets and resources used by a <link
           xl:href="http://en.wikipedia.org/wiki/Web_application">Web Application</link>. The Jetty WebAppContext
@@ -98,7 +98,7 @@ xmlns:ns2="http://www.w3.org/1998/Math/MathML" xmlns:ns="http://docbook.org/ns/d
       http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/plain/examples/embedded/src/main/java/org/eclipse/jetty/embedded/ExampleServer.java</filename>
     </programlisting>
     <para>The exact same server configuration can be achieve with the Jetty XML file:</para>
-    <programlisting language="rxml">
+    <programlisting>
       <filename>
       http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/plain/examples/embedded/src/main/resources/exampleserver.xml</filename>
     </programlisting>

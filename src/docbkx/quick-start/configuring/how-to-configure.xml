@@ -7,8 +7,10 @@ xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclud
 xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg"
 xmlns:ns2="http://www.w3.org/1998/Math/MathML" xmlns:ns="http://docbook.org/ns/docbook">
   <title xml:id="intro-jetty-configuration-how">How to Configure Jetty</title>
-  <para>To understand Jetty Configuration, you need to understand the "How" - what configuration mechanisms exist; and
-  "What" the actual objects and fields that can be configured with those mechanisms.</para>
+  <para>To understand Jetty Configuration, you need to understand the "How" and the "What". This section covers how to
+  configure Jetty in terms of what mechanisms exist to perform configuration. The <link
+  linkend="quickstart-what-to-configure">next section</link> will give an overview of the action components and fields
+  that can be configured with these mechanisms.</para>
   <section>
     <title>Jetty POJO Configuration</title>
     <para>The main components of Jetty are simply Plain Old Java Objects ( <link
@@ -98,7 +100,7 @@ xmlns:ns2="http://www.w3.org/1998/Math/MathML" xmlns:ns="http://docbook.org/ns/d
       http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/plain/examples/embedded/src/main/java/org/eclipse/jetty/embedded/ExampleServer.java</filename>
     </programlisting>
     <para>The exact same server configuration can be achieve with the Jetty XML file:</para>
-    <programlisting>
+    <programlisting language="fetch">
       <filename>
       http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/plain/examples/embedded/src/main/resources/exampleserver.xml</filename>
     </programlisting>

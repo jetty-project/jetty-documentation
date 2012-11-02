@@ -7,12 +7,12 @@ xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclud
 xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg"
 xmlns:ns2="http://www.w3.org/1998/Math/MathML" xmlns:ns="http://docbook.org/ns/docbook">
   <title>What to Configure in Jetty</title>
-  <para>This section gives an overview of the what components of Jetty typically configured using the mechanisms
-  outline in the previous section. The structure of a Jetty server is described in <xref
-  linkend="basic-architecture" />which is good background reading to understand configuration and is vital to if you
-  wish to change the structure of the server as set up by the default configurations in the jetty distribution.
-  However, for most purposes, configuration is a matter of identifying the correct configuration file and modifying
-  existing configuration values.</para>
+  <para>This section gives an overview of the what components of Jetty can be configured, using the mechanisms outline
+  in the <link linkend="quickstart-how-to-configure">previous section</link>. The structure of a Jetty server is
+  described in the <link linkend="architecture">architecture section</link>, which is good background reading to
+  understand configuration and is vital to if you wish to change the structure of the server as set up by the default
+  configurations in the jetty distribution. However, for most purposes, configuration is a matter of identifying the
+  correct configuration file and modifying existing configuration values.</para>
   <section>
     <title xml:id="intro-jetty-configuration-server">Configuring the Server</title>
     <para>The Server instance is the central coordination object of a Jetty server and it provides services and life
@@ -56,6 +56,23 @@ xmlns:ns2="http://www.w3.org/1998/Math/MathML" xmlns:ns="http://docbook.org/ns/d
         <listitem>
           <para>The server also has some specific configuration fields that are set in etc/jetty.xml for controlling
           among other things, the sending of Dates and Versions in HTTP responses.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>Connectors</term>
+        <listitem>
+          <para>It is the server that holds a collection of Connectors used to receive connections for HTTP and the
+          other protocols that Jetty supports. Configuration of the connectors themselves is described in the next
+          section. For the server you can either set the collection of all connectors or add/remove individual
+          connectors.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>Services</term>
+        <listitem>
+          <para>The server can hold additional service object, sometimes as attributes, but often as aggregated
+          LifeCycle bean. Examples of services are Login Services and DataSources, which are configured at the server
+          level and then injected into the web applications that use them.</para>
         </listitem>
       </varlistentry>
     </variablelist>
@@ -124,8 +141,8 @@ xmlns:ns2="http://www.w3.org/1998/Math/MathML" xmlns:ns="http://docbook.org/ns/d
     <para>A jetty context is a Handler that groups other Handlers under a context path together with associated
     resources and is roughly equivalent to the standard ServletContext API. A context may contain either standard jetty
     handlers or a custom application handler. Standard web applications based on the servlet specification are contexts
-    that include standard handlers for sessions, security and servlets, and are configured by using a standard
-    web.xml.</para>
+    that include standard handlers for sessions, security and servlets, and are configured by using a standard web.xml
+    and often need little or no additional configuration.</para>
     <para>Configuration values that are common to all contexts are:</para>
     <variablelist>
       <varlistentry>
@@ -172,9 +189,11 @@ xmlns:ns2="http://www.w3.org/1998/Math/MathML" xmlns:ns="http://docbook.org/ns/d
         </listitem>
       </varlistentry>
       <varlistentry>
-        <term>resouceBase</term>
+        <term>resourceBase</term>
         <listitem>
-          <para />
+          <para>The resource base is a directory (or collection of directories or URL) that contains the static
+          resources for the context. These can be images and HTML files ready to server or JSP source files ready to be
+          compiled. In traditional web servers this value is often called the docroot.</para>
         </listitem>
       </varlistentry>
     </variablelist>
@@ -195,23 +214,29 @@ xmlns:ns2="http://www.w3.org/1998/Math/MathML" xmlns:ns="http://docbook.org/ns/d
       discover and hot deploy context IoC descriptors like the following that creates a context to serve the javadoc
       from the jetty distribution:</para>
       <informalexample>
-        <programlisting>
+        <programlisting language="fetch">
           <filename>
           http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/plain/jetty-distribution/src/main/resources/webapps/javadoc.xml</filename>
         </programlisting>
       </informalexample>
+      <para>TODO talk about properties supplied by configuration manager</para>
     </section>
     <section>
       <title>Standard Web App Configuration</title>
+      <para>The majority of the configuration of a standard web application context is done by the <code>
+      WEB-INF/web.xml</code> deployment descriptor found within the WAR file.</para>
       <para />
-    </section>
-    <section>
-      <title>Standard Web App Configuration by IoC</title>
-      <para>Jetty IoC XML that is found in a WEB-INF/jetty-web.xml of a standard web application.</para>
+      <para>TODO talk about defaultweb.xml</para>
+      <para>TODO talk about jetty-web.xml</para>
+      <para>TODO Move this to 1.4 below ????</para>
+      <para />
     </section>
   </section>
   <section>
     <title xml:id="intro-jetty-configuration-webapps">Configuring Web Applications</title>
+    <para>TODO describe what is configured in web.xml entirely</para>
+    <para>TODO describe what needs server services (eg realms and data sources)</para>
+    <para />
     <para />
   </section>
   <section>

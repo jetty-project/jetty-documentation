@@ -1,256 +1,559 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section version="5.0"
-xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd"
-xml:id="quickstart-what-to-configure" xmlns="http://docbook.org/ns/docbook"
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema"
-xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
-xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg"
-xmlns:ns2="http://www.w3.org/1998/Math/MathML" xmlns:ns="http://docbook.org/ns/docbook">
+         xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd"
+         xml:id="quickstart-config-what" xmlns="http://docbook.org/ns/docbook"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:xs="http://www.w3.org/2001/XMLSchema"
+         xmlns:xl="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:xhtml="http://www.w3.org/1999/xhtml"
+         xmlns:svg="http://www.w3.org/2000/svg"
+         xmlns:ns2="http://www.w3.org/1998/Math/MathML"
+         xmlns:ns="http://docbook.org/ns/docbook">
   <title>What to Configure in Jetty</title>
-  <para>This section gives an overview of the what components of Jetty can be configured, using the mechanisms outline
-  in the <link linkend="quickstart-how-to-configure">previous section</link>. The structure of a Jetty server is
-  described in the <link linkend="architecture">architecture section</link>, which is good background reading to
-  understand configuration and is vital to if you wish to change the structure of the server as set up by the default
-  configurations in the jetty distribution. However, for most purposes, configuration is a matter of identifying the
-  correct configuration file and modifying existing configuration values.</para>
+
+  <para>This section gives an overview of the what components of Jetty can be
+  configured, using the mechanisms outline in the <link
+  linkend="quickstart-config-how">previous section</link>. The structure of a
+  Jetty server is described in the <link linkend="architecture">architecture
+  section</link>, which is good background reading to understand configuration
+  and is vital to if you wish to change the structure of the server as set up
+  by the default configurations in the jetty distribution. However, for most
+  purposes, configuration is a matter of identifying the correct configuration
+  file and modifying existing configuration values.</para>
+
   <section>
-    <title xml:id="intro-jetty-configuration-server">Configuring the Server</title>
-    <para>The Server instance is the central coordination object of a Jetty server and it provides services and life
-    cycle management for all other jetty server components. In the standard jetty distribution by the core server
-    configuration is in etc/jetty.xml file, but other server configuration may be mixed in (see below). Server
-    configuration can include:</para>
+    <title xml:id="intro-jetty-configuration-server">Configuring the
+    Server</title>
+
+    <para>The Server instance is the central coordination object of a Jetty
+    server and it provides services and life cycle management for all other
+    jetty server components. In the standard jetty distribution by the core
+    server configuration is in etc/jetty.xml file, but other server
+    configuration may be mixed in (see below). Server configuration can
+    include:</para>
+
     <variablelist>
       <varlistentry>
         <term>ThreadPool</term>
+
         <listitem>
-          <para>The Server instance provides a ThreadPool instance that is the default Executor service used by other
-          Jetty server components. The prime configuration of the thread pool is the maximum and minimum size and is
-          set in etc/jetty.xml</para>
+          <para>The Server instance provides a ThreadPool instance that is the
+          default Executor service used by other Jetty server components. The
+          prime configuration of the thread pool is the maximum and minimum
+          size and is set in etc/jetty.xml</para>
         </listitem>
       </varlistentry>
+
       <varlistentry>
         <term>Handlers</term>
+
         <listitem>
-          <para>A Jetty Server can have only a single Handler instance to handle incoming HTTP requests. However a
-          Handler may be a container or wrapper of other handlers forming a tree of handlers that typically handle a
-          request request as a collaboration between the handlers from the a branch of the tree from root to leaf. The
-          default handler tree set up in the etc/jetty.xml file is a Handler Collection containing a Context Handler
-          Collection and the Default Handler. The Context Handler Collection selects the next handler by context path
-          and is where deployed Context Handler and Web Application Contexts are added to the handler tree. The Default
-          Handler handles any requests not already handled and generates the standard 404 page. Other configuration
-          files may add handlers to this tree (eg jetty-rewrite.xml, jetty-requestlog.xml ) or configure components to
-          hot deploy handlers (eg jetty-deploy.xml).</para>
+          <para>A Jetty Server can have only a single Handler instance to
+          handle incoming HTTP requests. However a Handler may be a container
+          or wrapper of other handlers forming a tree of handlers that
+          typically handle a request request as a collaboration between the
+          handlers from the a branch of the tree from root to leaf. The
+          default handler tree set up in the etc/jetty.xml file is a Handler
+          Collection containing a Context Handler Collection and the Default
+          Handler. The Context Handler Collection selects the next handler by
+          context path and is where deployed Context Handler and Web
+          Application Contexts are added to the handler tree. The Default
+          Handler handles any requests not already handled and generates the
+          standard 404 page. Other configuration files may add handlers to
+          this tree (eg jetty-rewrite.xml, jetty-requestlog.xml ) or configure
+          components to hot deploy handlers (eg jetty-deploy.xml).</para>
         </listitem>
       </varlistentry>
+
       <varlistentry>
         <term>Server Attributes</term>
+
         <listitem>
-          <para>The server holds a generic attribute map of Strings to Objects so that other jetty components may
-          associated named objects with the server and if the value objects implement the LifeCycle interface then they
-          are started and stopped with the server. Typically server attributes are used for holding server-wide default
-          values.</para>
+          <para>The server holds a generic attribute map of Strings to Objects
+          so that other jetty components may associated named objects with the
+          server and if the value objects implement the LifeCycle interface
+          then they are started and stopped with the server. Typically server
+          attributes are used for holding server-wide default values.</para>
         </listitem>
       </varlistentry>
+
       <varlistentry>
         <term>Server fields</term>
+
         <listitem>
-          <para>The server also has some specific configuration fields that are set in etc/jetty.xml for controlling
-          among other things, the sending of Dates and Versions in HTTP responses.</para>
+          <para>The server also has some specific configuration fields that
+          are set in etc/jetty.xml for controlling among other things, the
+          sending of Dates and Versions in HTTP responses.</para>
         </listitem>
       </varlistentry>
+
       <varlistentry>
         <term>Connectors</term>
+
         <listitem>
-          <para>It is the server that holds a collection of Connectors used to receive connections for HTTP and the
-          other protocols that Jetty supports. Configuration of the connectors themselves is described in the next
-          section. For the server you can either set the collection of all connectors or add/remove individual
-          connectors.</para>
+          <para>It is the server that holds a collection of Connectors used to
+          receive connections for HTTP and the other protocols that Jetty
+          supports. Configuration of the connectors themselves is described in
+          the next section. For the server you can either set the collection
+          of all connectors or add/remove individual connectors.</para>
         </listitem>
       </varlistentry>
+
       <varlistentry>
         <term>Services</term>
+
         <listitem>
-          <para>The server can hold additional service object, sometimes as attributes, but often as aggregated
-          LifeCycle bean. Examples of services are Login Services and DataSources, which are configured at the server
-          level and then injected into the web applications that use them.</para>
+          <para>The server can hold additional service object, sometimes as
+          attributes, but often as aggregated LifeCycle bean. Examples of
+          services are Login Services and DataSources, which are configured at
+          the server level and then injected into the web applications that
+          use them.</para>
         </listitem>
       </varlistentry>
     </variablelist>
   </section>
+
   <section>
-    <title xml:id="intro-jetty-configuration-connectors">Configuring Connectors</title>
-    <para>A Jetty Server Connector is a network end point that accepts connections for one or more protocols that can
-    produce request and/or messages for the jetty server. In the standard Jetty Server distribution, there are several
-    configuration files provided that add connectors to the server for various protocols and combinations of protocols:
-    jetty-http.xml, jetty-https.xml and jetty-spdy.xml. The configuration needed for connectors is typically:</para>
+    <title xml:id="intro-jetty-configuration-connectors">Configuring
+    Connectors</title>
+
+    <para>A Jetty Server Connector is a network end point that accepts
+    connections for one or more protocols that can produce request and/or
+    messages for the jetty server. In the standard Jetty Server distribution,
+    there are several configuration files provided that add connectors to the
+    server for various protocols and combinations of protocols:
+    jetty-http.xml, jetty-https.xml and jetty-spdy.xml. The configuration
+    needed for connectors is typically:</para>
+
     <variablelist>
       <varlistentry>
         <term>port</term>
+
         <listitem>
-          <para>The TCP/IP port on which the connector listens for connections is set using the the XML Property
-          element which looks up the jetty.port (or jetty.tls.port) property and if not found defaults to 8080 (or 8443
-          for TLS).</para>
+          <para>The TCP/IP port on which the connector listens for connections
+          is set using the the XML Property element which looks up the
+          jetty.port (or jetty.tls.port) property and if not found defaults to
+          8080 (or 8443 for TLS).</para>
         </listitem>
       </varlistentry>
+
       <varlistentry>
         <term>host</term>
+
         <listitem>
-          <para>A host may be configured either as a host name or IP address to identify a specific network interface
-          on which to listen. If not set, or set to the value of 0.0.0.0, then all local interfaces are listened on.
-          The XML Property element is used to look up the host value from the jetty.host property.</para>
+          <para>A host may be configured either as a host name or IP address
+          to identify a specific network interface on which to listen. If not
+          set, or set to the value of 0.0.0.0, then all local interfaces are
+          listened on. The XML Property element is used to look up the host
+          value from the jetty.host property.</para>
         </listitem>
       </varlistentry>
+
       <varlistentry>
         <term>Idle Timeout</term>
+
         <listitem>
-          <para>This is the time in milliseconds that a connection is allowed to be idle before the connector will take
-          actions to close the connection.</para>
+          <para>This is the time in milliseconds that a connection is allowed
+          to be idle before the connector will take actions to close the
+          connection.</para>
         </listitem>
       </varlistentry>
+
       <varlistentry>
         <term>HTTP Configuration</term>
+
         <listitem>
-          <para>Connector types that accept HTTP semantics (including HTTP, HTTPS and SPDY) are configured with a
-          HttpConfiguration instance that contains common HTTP configuration that is independent of the specific wire
-          protocol used. Because these values are often common to multiple connector types, the standard Jetty Server
-          distribution creates a single HttpConfiguration in the jetty.xml file which is used via the XML Ref element
-          in the specific connector files.</para>
+          <para>Connector types that accept HTTP semantics (including HTTP,
+          HTTPS and SPDY) are configured with a HttpConfiguration instance
+          that contains common HTTP configuration that is independent of the
+          specific wire protocol used. Because these values are often common
+          to multiple connector types, the standard Jetty Server distribution
+          creates a single HttpConfiguration in the jetty.xml file which is
+          used via the XML Ref element in the specific connector files.</para>
         </listitem>
       </varlistentry>
+
       <varlistentry>
         <term>SSL Context Factory</term>
+
         <listitem>
-          <para>The TLS connector types (HTTPS and SPDY) configure an SSL Context Factory with the location of the
-          server keystore and truststore for obtaining server certificates.</para>
+          <para>The TLS connector types (HTTPS and SPDY) configure an SSL
+          Context Factory with the location of the server keystore and
+          truststore for obtaining server certificates.</para>
         </listitem>
       </varlistentry>
     </variablelist>
+
     <note>
-      <para>Virtual Hosts are not configured on Connectors. Individual Contexts must be configured with the virtual
-      hosts to which they respond.</para>
+      <para>Virtual Hosts are not configured on Connectors. Individual
+      Contexts must be configured with the virtual hosts to which they
+      respond.</para>
     </note>
+
     <note>
-      <para>Prior to Jetty-9, the type of the connector was chosen to reflect both the protocol supported (e.g. HTTP,
-      HTTPS, AJP, SPDY) and the nature of the implementation (e.g. NIO or BIO). From Jetty-9 onwards there is only one
-      prime Connector type (ServerConnector), which is NIO based and uses Connection Factories to be able to handle one
-      or more protocols.</para>
+      <para>Prior to Jetty-9, the type of the connector was chosen to reflect
+      both the protocol supported (e.g. HTTP, HTTPS, AJP, SPDY) and the nature
+      of the implementation (e.g. NIO or BIO). From Jetty-9 onwards there is
+      only one prime Connector type (ServerConnector), which is NIO based and
+      uses Connection Factories to be able to handle one or more
+      protocols.</para>
     </note>
   </section>
+
   <section>
-    <title xml:id="intro-jetty-configuration-contexts">Configuring Contexts</title>
-    <para>A jetty context is a Handler that groups other Handlers under a context path together with associated
-    resources and is roughly equivalent to the standard ServletContext API. A context may contain either standard jetty
-    handlers or a custom application handler. Standard web applications based on the servlet specification are contexts
-    that include standard handlers for sessions, security and servlets, and are configured by using a standard web.xml
-    and often need little or no additional configuration.</para>
+    <title xml:id="intro-jetty-configuration-contexts">Configuring
+    Contexts</title>
+
+    <para>A jetty context is a Handler that groups other Handlers under a
+    context path together with associated resources and is roughly equivalent
+    to the standard ServletContext API. A context may contain either standard
+    jetty handlers or a custom application handler.</para>
+
+    <note>
+      <para>The servlet specification defines a web applications. In Jetty a
+      standard web application is a specialized context that uses a standard
+      layout and WEB-INF/web.xml to instantiate and configure classpath,
+      resource base and handlers for sessions, security and servlets, plus
+      servlets for JSPs and static content. Standard web applications often
+      need little or no additional configuration, but the techniques used for
+      arbitrary contexts may also be used to refine or modify the
+      configuration of standard web applications.</para>
+    </note>
+
     <para>Configuration values that are common to all contexts are:</para>
+
     <variablelist>
       <varlistentry>
         <term>contextPath</term>
+
         <listitem>
-          <para>The context path is a URL prefix that is used to identify which context a HTTP request is destined for.
-          For example, if a context has a contextPath is <code>/foo</code> then requests to <code>/foo</code>, <code>
-          /foo/index.html</code>, <code>/foo/bar/</code> and <code>/foo/bar/image.png</code> will all be handled by the
-          context, but it will not handle requests like <code>/</code>, <code>/other/</code> or <code>
-          /favicon.ico</code>. A context with a context path of / is called the root context.</para>
-          <para>The context path can be set by default from the deployer (which uses the filename as the basis for the
-          context path); or in code; or it can be set by a Jetty IoC XML that is either applied by the deployer or
-          found in the <code>WEB-INF/jetty-web.xml</code> file of a standard web app context.</para>
+          <para>The context path is a URL prefix that is used to identify
+          which context a HTTP request is destined for. For example, if a
+          context has a contextPath is <code>/foo</code> then requests to
+          <code>/foo</code>, <code> /foo/index.html</code>,
+          <code>/foo/bar/</code> and <code>/foo/bar/image.png</code> will all
+          be handled by the context, but it will not handle requests like
+          <code>/</code>, <code>/other/</code> or <code> /favicon.ico</code>.
+          A context with a context path of / is called the root
+          context.</para>
+
+          <para>The context path can be set by default from the deployer
+          (which uses the filename as the basis for the context path); or in
+          code; or it can be set by a Jetty IoC XML that is either applied by
+          the deployer or found in the <code>WEB-INF/jetty-web.xml</code> file
+          of a standard web app context.</para>
         </listitem>
       </varlistentry>
+
       <varlistentry>
         <term>virtualHost</term>
+
         <listitem>
-          <para>A context may optionally have one or more virtual hosts set. Unlike the host set on a connector (which
-          selects the network interface on which to listen) a virtual host does not set any network parameters. Instead
-          a virtual hosts represents an alias assigned by a name service to an IP address, which may have many aliases.
-          To determine which virtual host a request is intended for, the HTTP client(browser) will includes in the
-          request the name used to lookup the network address. A context with a virtual host set will only handle
-          requests that have a matching virtual host in their request headers.</para>
+          <para>A context may optionally have one or more virtual hosts set.
+          Unlike the host set on a connector (which selects the network
+          interface on which to listen) a virtual host does not set any
+          network parameters. Instead a virtual hosts represents an alias
+          assigned by a name service to an IP address, which may have many
+          aliases. To determine which virtual host a request is intended for,
+          the HTTP client(browser) will includes in the request the name used
+          to lookup the network address. A context with a virtual host set
+          will only handle requests that have a matching virtual host in their
+          request headers.</para>
         </listitem>
       </varlistentry>
+
       <varlistentry>
         <term>classPath</term>
+
         <listitem>
-          <para>A context may optionally have a classpath, so that any thread that execute a handler within the context
-          will have a Thread context classloader set with the classpath. A standard web application will have the
-          classpath initialized by the <code>WEB-INF/lib</code> and <code>WEB-INF/classes</code> directory and has
-          additional rules about delegating classloading to the parent classloader. All contexts may have additional
-          classpath entries added.</para>
+          <para>A context may optionally have a classpath, so that any thread
+          that execute a handler within the context will have a Thread context
+          classloader set with the classpath. A standard web application will
+          have the classpath initialized by the <code>WEB-INF/lib</code> and
+          <code>WEB-INF/classes</code> directory and has additional rules
+          about delegating classloading to the parent classloader. All
+          contexts may have additional classpath entries added.</para>
         </listitem>
       </varlistentry>
+
       <varlistentry>
         <term>attributes</term>
+
         <listitem>
-          <para>Attributes are arbitrary named objects that are associated with a context and are frequently used to
-          pass entities between a web application and it's container. For example the attribute
-          javax.servlet.context.tempdir is used to pass the File instance that represents the assigned temporary
-          directory for a web application.</para>
+          <para>Attributes are arbitrary named objects that are associated
+          with a context and are frequently used to pass entities between a
+          web application and it's container. For example the attribute
+          javax.servlet.context.tempdir is used to pass the File instance that
+          represents the assigned temporary directory for a web
+          application.</para>
         </listitem>
       </varlistentry>
+
       <varlistentry>
         <term>resourceBase</term>
+
         <listitem>
-          <para>The resource base is a directory (or collection of directories or URL) that contains the static
-          resources for the context. These can be images and HTML files ready to server or JSP source files ready to be
-          compiled. In traditional web servers this value is often called the docroot.</para>
+          <para>The resource base is a directory (or collection of directories
+          or URL) that contains the static resources for the context. These
+          can be images and HTML files ready to server or JSP source files
+          ready to be compiled. In traditional web servers this value is often
+          called the docroot.</para>
         </listitem>
       </varlistentry>
     </variablelist>
+
     <section>
       <title>Context Configuration by API</title>
-      <para>In an embedded server, contexts are configured by directly calling the ContextHandler API as in the
-      following example:</para>
+
+      <para>In an embedded server, contexts are configured by directly calling
+      the ContextHandler API as in the following example:</para>
+
       <informalexample>
-        <programlisting language="rjava">
-          <filename>
-          http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/plain/examples/embedded/src/main/java/org/eclipse/jetty/embedded/OneContext.java</filename>
-        </programlisting>
+        <programlisting language="rjava"><filename>http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/plain/examples/embedded/src/main/java/org/eclipse/jetty/embedded/OneContext.java</filename></programlisting>
       </informalexample>
     </section>
+
     <section>
       <title>Context Configuration by IoC XML</title>
-      <para>A context can be created and configured entirely by IoC XML (either Jetty's or Spring). The deployer will
-      discover and hot deploy context IoC descriptors like the following that creates a context to serve the javadoc
-      from the jetty distribution:</para>
+
+      <para>A context can be created and configured entirely by IoC XML
+      (either Jetty's or Spring). The deployer will discover and hot deploy
+      context IoC descriptors like the following that creates a context to
+      serve the javadoc from the jetty distribution:</para>
+
       <informalexample>
-        <programlisting language="fetch">
-          <filename>
-          http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/plain/jetty-distribution/src/main/resources/webapps/javadoc.xml</filename>
-        </programlisting>
+        <programlisting language="fetch"><filename>http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/plain/jetty-distribution/src/main/resources/webapps/javadoc.xml</filename></programlisting>
       </informalexample>
-      <para>TODO talk about properties supplied by configuration manager</para>
     </section>
+  </section>
+
+  <section>
+    <title xml:id="intro-jetty-configuration-webapps">Configuring Web
+    Applications</title>
+
+    <para>The servlet specification defines a web applications, which when
+    packaged as a zip is called WAR file (Web application ARchive). In jetty
+    both WAR files and unpacked web applications are implemented as a
+    specialized context that configured by means of:</para>
+
+    <itemizedlist>
+      <listitem>
+        <para>a standard layout is used to set the location of the
+        resourceBase (the root of the WAR) and to initialize the classpath
+        from jars found in WEB-INF/lib and classes found in
+        WEB-INF/classes</para>
+      </listitem>
+
+      <listitem>
+        <para>the standard WEB-INF/web.xml deployment descriptor is parsed to
+        define and configure init parameters, filters, servlets, listeners,
+        security constraints, welcome files and resources to be
+        injected.</para>
+      </listitem>
+
+      <listitem>
+        <para>a default web.xml format deployment descriptor provided either
+        by jetty or in configuration is used to configure the JSP servlet and
+        the default servlet for handling static content. The standard web.xml
+        may override the default web.xml.</para>
+      </listitem>
+
+      <listitem>
+        <para>annotations discovered on classes in jars contained in
+        WEB-INF/lib can declare additional filters, servlets and
+        listeners.</para>
+      </listitem>
+
+      <listitem>
+        <para>standard deployment descriptor fragments discovered in jars
+        contained in WEB-INF/lib can declare additional init parameters,
+        filters, servlets, listeners, security constraints, welcome files and
+        resources to be injected.</para>
+      </listitem>
+
+      <listitem>
+        <para>an optional WEB-INF/jetty-web.xml file may contain Jetty IoC
+        configuration to configure the Jetty specific APIs of the context and
+        handlers.</para>
+      </listitem>
+    </itemizedlist>
+
+    <para>Because these configuration mechanisms are contained within the WAR
+    file (or unpacked web application), typically a web application contains
+    much of it's own configuration and deploying a WAR is often just a matter
+    of dropping the WAR file in to the webapps directory that is scanned by
+    the <link linkend="quickstart-config-deployer">jetty
+    deployer</link>.</para>
+
+    <para>If something needs to be configured within a web application, often
+    it is achieve by unpacking the WAR file and editing the web.xml and other
+    configuration files. However, both the servlet standard and some jetty
+    features allow for other configuration to be applied to a web application
+    externally from the WAR:</para>
+
+    <itemizedlist>
+      <listitem>
+        <para>Datasources and Security realms are configured in the server and
+        injected into a web applications either explicitly or by name
+        matching.</para>
+      </listitem>
+
+      <listitem>
+        <para>Jetty allows one or more override deployment descriptors, in
+        web.xml format, to be set on a context (via code or IoC XML ) to amend
+        the configuration set by the default and standard web.xml</para>
+      </listitem>
+
+      <listitem>
+        <para>The normal jetty java API may be called by code or IoC XML to
+        amend the configuration of a web application.</para>
+      </listitem>
+    </itemizedlist>
+
     <section>
-      <title>Standard Web App Configuration</title>
-      <para>The majority of the configuration of a standard web application context is done by the <code>
-      WEB-INF/web.xml</code> deployment descriptor found within the WAR file.</para>
-      <para />
-      <para>TODO talk about defaultweb.xml</para>
-      <para>TODO talk about jetty-web.xml</para>
-      <para>TODO Move this to 1.4 below ????</para>
-      <para />
+      <title>Setting the context path</title>
+
+      <para>The web application standard provides no configuration mechanism
+      for a web application or WAR file to set its own contextPath. By default
+      the deployer will use conventions to set the context path: if you deploy
+      a WAR file called foobar.WAR, then the context path will be /foobar; if
+      you deploy a WAR file called ROOT.WAR then the context path will be /.
+      However, it is often desirable to explicitly set the context path so
+      that information (eg version numbers) may be included in the filename of
+      the WAR. Jetty allows the context Path of a WAR file to be set
+      internally (by the WAR itself) or externally (by the deployer of the
+      WAR).</para>
+
+      <para>To set the contextPath from within the WAR file, you can include a
+      WEB-INF/jetty-web.xml file which contains IoC XML to set the context
+      path:</para>
+
+      <informalexample>
+        <programlisting language="xml"><![CDATA[<?xml version="1.0"  encoding="ISO-8859-1"?>
+<!DOCTYPE Configure PUBLIC "-" "http://www.eclipse.org/jetty/configure.dtd">
+<Configure class="org.eclipse.jetty.webapp.WebAppContext">
+  <Set name="contextPath">/contextpath</Set>
+</Configure>]]></programlisting>
+      </informalexample>
+
+      <para>Alternately, to configure the classpath externally without the
+      need to modify the WAR file itself, then instead of allowing the WAR
+      file to be discovered by the deployer, an IoC XML file may be deployed
+      that both sets the context path and declares the WAR file that it
+      applies to:</para>
+
+      <informalexample>
+        <programlisting language="xml"><![CDATA[<?xml version="1.0"  encoding="ISO-8859-1"?>
+<!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure.dtd">
+<Configure class="org.eclipse.jetty.webapp.WebAppContext">
+  <Set name="war"><SystemProperty name="jetty.home" default="."/>/webapps/test.war</Set>
+  <Set name="contextPath">/test</Set>
+</Configure>]]></programlisting>
+      </informalexample>
+
+      <para>An example of setting the context path is included with the jetty
+      distribution in $JETTY_HOME/webapps/test.xml.</para>
+    </section>
+
+    <section>
+      <title>Setting a Authentication Realm</title>
+
+      <para>The authentication method and realm name for a standard web
+      application may be set in the web.xml deployment descriptor with
+      elements like:</para>
+
+      <informalexample>
+        <programlisting language="xml"><![CDATA[  ...
+  <login-config>
+    <auth-method>BASIC</auth-method>
+    <realm-name>Test Realm</realm-name>
+  </login-config>
+  ...]]></programlisting>
+      </informalexample>
+
+      <para>This example declares that the BASIC authentication mechanism will
+      be used with credentials validated against a realm called "Test Realm".
+      However the standard does not describe how the realm itself is
+      implemented or configured. In Jetty, there are several realm
+      implementations (called LoginServices) and this simplest of these is the
+      HashLoginService, which can read usernames and credentials from a java
+      properties file.</para>
+
+      <para>To configure an instance of HashLoginService that matches the
+      "Test Realm" configured above, the following
+      $JETTY_HOME/etc/test-realm.xml IoC XML file (below) should be passed on
+      the command line or set in start.ini.</para>
+
+      <informalexample>
+        <programlisting language="fetch"><![CDATA[
+          ]]><filename>http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/plain/test-jetty-webapp/src/main/config/etc/test-realm.xml</filename><![CDATA[
+        ]]></programlisting>
+      </informalexample>
+
+      <para>This creates and configures the LoginService as an aggregate bean
+      on the server. When a web application is deployed that declares a realm
+      called "Test Realm", then the servers beans are searched for a matching
+      Login Service.</para>
     </section>
   </section>
+
   <section>
-    <title xml:id="intro-jetty-configuration-webapps">Configuring Web Applications</title>
-    <para>TODO describe what is configured in web.xml entirely</para>
-    <para>TODO describe what needs server services (eg realms and data sources)</para>
-    <para />
-    <para />
+    <title xml:id="quickstart-config-deployer">Configuring the
+    Deployer</title>
+
+    <para>The Jetty deployer is a service object that scans a directory for
+    contexts and web applications to hot deploy</para>
+
+    <itemizedlist>
+      <listitem>
+        <para>A directory called <code>example/</code> will be deployed as a
+        standard web application if it contains a <code>WEB-INF/</code>
+        subdirectory, otherwise it will be deployed as context of static
+        content. The context path will be <code>/example</code> (eg
+        <code>http://localhost:8080/example/</code>) unless the base name is
+        <code> root</code>, in which case the context path is /. If the
+        directory name ends with ".d" it is ignored (by may be used by
+        explicit configuration).</para>
+      </listitem>
+
+      <listitem>
+        <para>A file called <code>example.war</code> will be deployed as a
+        standard web application with the context path /example (eg
+        http://localhost:8080/example/). If he base name is root, then the
+        context path is /. If <code> example.war</code> and
+        <code>example/</code> exist, then only the WAR is deployed (which may
+        use the directory as an unpack location).</para>
+      </listitem>
+
+      <listitem>
+        <para>An XML file like <code>example.xml</code> will be deployed as a
+        context whose configuration is defined by the XML. The context path
+        must be set by the configuration itself. If <code>example.xml</code>
+        and <code> example.war</code> exist, then only the XML is deployed
+        (which may use the war in its configuration).</para>
+      </listitem>
+    </itemizedlist>
+
+    <para>(see <link
+    linkend="quickstart-deploying-webapps">quickstart</link>). A context is an
+    instance of ContextHandler that aggregates other handlers with common
+    resources for handling HTTP requests (eg resource base, class loader,
+    configuration attributes). A standard Web Application is a specialized
+    instance of a Context that uses standard layouts and web.xml deployment
+    descriptors to configure the context.</para>
+
+    <para>In the standard Jetty distribution the deployer is configured by
+    jetty-deploy.xml and scans the webapps directory.</para>
+
+    <para/>
+
+    <para/>
   </section>
-  <section>
-    <title xml:id="intro-jetty-configuration-deployers">Configuring the Deployer</title>
-    <para>The Jetty deployer is a service object that scans a directory for contexts and web applications to hot deploy
-    (see <link linkend="quickstart-deploying-webapps">quickstart</link>). A context is an instance of ContextHandler
-    that aggregates other handlers with common resources for handling HTTP requests (eg resource base, class loader,
-    configuration attributes). A standard Web Application is a specialized instance of a Context that uses standard
-    layouts and web.xml deployment descriptors to configure the context.</para>
-    <para>In the standard Jetty distribution the deployer is configured by jetty-deploy.xml and scans the webapps
-    directory.</para>
-  </section>
+
   <section>
     <title xml:id="intro-jetty-configuration-other">Configuring Other</title>
-    <para />
+
+    <para/>
   </section>
 </section>

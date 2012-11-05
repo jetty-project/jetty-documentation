@@ -1,140 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section version="5.0"
-         xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd"
-         xml:id="quickstart-running-jetty"
-         xmlns="http://docbook.org/ns/docbook"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xmlns:xs="http://www.w3.org/2001/XMLSchema"
-         xmlns:xl="http://www.w3.org/1999/xlink"
-         xmlns:xi="http://www.w3.org/2001/XInclude"
-         xmlns:ns2="http://www.w3.org/1998/Math/MathML"
-         xmlns:ns="http://docbook.org/ns/docbook">
+xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd"
+xml:id="quickstart-running-jetty" xmlns="http://docbook.org/ns/docbook"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
+xmlns:ns2="http://www.w3.org/1998/Math/MathML" xmlns:ns="http://docbook.org/ns/docbook">
   <title>Running Jetty</title>
-
-  <para>To start the jetty distribution on the default port of 8080 run the
-  following command:</para>
-
-  <para><code>&gt; java -jar start.jar</code></para>
-
-  <para>If everything goes correctly you should see about 20 lines of logged
-  INFO statements that will include lines like the following, that inform you
-  of the components being started:</para>
-
+  <para>To start the jetty distribution on the default port of 8080 run the following command:</para>
+  <para>
+    <code>&gt; java -jar start.jar</code>
+  </para>
+  <para>If everything goes correctly you should see about 20 lines of logged INFO statements that will include lines
+  like the following, that inform you of the components being started:</para>
   <informalexample>
-    <programlisting language="text" xml:space="preserve"><![CDATA[2012-10-22 16:02:24.988:INFO:oejs.Server:main: jetty-9.0.0-M2
+<programlisting language="text" xml:space="preserve">
+<![CDATA[2012-10-22 16:02:24.988:INFO:oejs.Server:main: jetty-9.0.0-M2
 2012-10-22 16:02:25.040:INFO:oejs.NCSARequestLog:main: Opened /home/gregw/src/jetty-9/jetty-distribution/target/distribution/logs/2012_10_22.request.log
 2012-10-22 16:02:25.115:INFO:oejs.ServerConnector:main: Started ServerConnector@6aeeafb{HTTP/1.1}{0.0.0.0:8080}
 2012-10-22 16:02:25.348:INFO:oejs.ServerConnector:main: Started ServerConnector@24a45e{SSL-http/1.1}{0.0.0.0:8443}
 2012-10-22 16:02:25.357:INFO:oejdp.ScanningAppProvider:main: Deployment monitor [file:/home/gregw/src/jetty-9/jetty-distribution/target/distribution/webapps/] at interval 1
 2012-10-22 16:02:25.688:INFO:oejd.DeploymentManager:main: Deployable added: /home/gregw/src/jetty-9/jetty-distribution/target/distribution/webapps/test.xml
 2012-10-22 16:02:25.725:INFO:oejw.WebInfConfiguration:main: Extract jar:file:/home/gregw/src/jetty-9/jetty-distribution/target/distribution/webapps/test.war!/ to /tmp/jetty-0.0.0.0-8080-test.war-_test-any-/webapp
-2012-10-22 16:02:26.097:INFO:oejsh.ContextHandler:main: started o.e.j.w.WebAppContext@4e3ceb07{/test,file:/tmp/jetty-0.0.0.0-8080-test.war-_test-any-/webapp/,AVAILABLE}{/test.war}    ]]></programlisting>
+2012-10-22 16:02:26.097:INFO:oejsh.ContextHandler:main: started o.e.j.w.WebAppContext@4e3ceb07{/test,file:/tmp/jetty-0.0.0.0-8080-test.war-_test-any-/webapp/,AVAILABLE}{/test.war}    ]]>
+    </programlisting>
   </informalexample>
-
   <para>You will also see some warnings like:</para>
-
   <informalexample>
-    <programlisting language="text" xml:space="preserve"><![CDATA[2012-10-22 16:02:24.748:WARN::main: test-realm is deployed. DO NOT USE IN PRODUCTION!
-2012-10-22 16:02:25.582:WARN::main: async-rest webapp is deployed. DO NOT USE IN PRODUCTION!    ]]></programlisting>
+<programlisting language="text" xml:space="preserve">
+<![CDATA[2012-10-22 16:02:24.748:WARN::main: test-realm is deployed. DO NOT USE IN PRODUCTION!
+2012-10-22 16:02:25.582:WARN::main: async-rest webapp is deployed. DO NOT USE IN PRODUCTION!    ]]>
+    </programlisting>
   </informalexample>
-
-  <para>These warnings are telling you that some demonstration web
-  applications and services are deployed and that they should be removed
-  before the server is put into production. These warnings can be ignored
-  while testing, or you can see <link
-  linkend="quickstart-deploying-webapps">Deploying Web Applications</link> to
-  learn how to remove them.</para>
-
-  <para>You can test the started Jetty by pointing a Browser or any HTTP
-  client at port 8080 of the machine. If you are running the browser on the
-  same machine as the Jetty instance, then the URL to use is:</para>
-
-  <para><code>http://localhost:8080/</code></para>
-
-  <para>Your browser or HTTP client should see the Jetty welcome page and be
-  able to follow the links to some test web applications.</para>
-
+  <para>These warnings are telling you that some demonstration web applications and services are deployed and that they
+  should be removed before the server is put into production. These warnings can be ignored while testing, or you can
+  see <link linkend="quickstart-deploying-webapps">Deploying Web Applications</link> to learn how to remove
+  them.</para>
+  <para>You can test the started Jetty by pointing a Browser or any HTTP client at port 8080 of the machine. If you are
+  running the browser on the same machine as the Jetty instance, then the URL to use is:</para>
+  <para>
+    <code>http://localhost:8080/</code>
+  </para>
+  <para>Your browser or HTTP client should see the Jetty welcome page and be able to follow the links to some test web
+  applications.</para>
   <section>
     <title>Changing the Jetty Port</title>
-
-    <para>If you see the following exception you already have something
-    running on the port that jetty is configured to run on and you either need
-    to shut down whatever that process is, or configure jetty to run on
-    another port.</para>
-
+    <para>If you see the following exception you already have something running on the port that jetty is configured to
+    run on and you either need to shut down whatever that process is, or configure jetty to run on another port.</para>
     <informalexample>
-      <programlisting language="text" xml:space="preserve"><![CDATA[java.net.BindException: Address already in use 
+<programlisting language="text" xml:space="preserve">
+<![CDATA[java.net.BindException: Address already in use 
   at sun.nio.ch.Net.bind0(Native Method) 
   at sun.nio.ch.Net.bind(Net.java:344)
   at sun.nio.ch.Net.bind(Net.java:336)
-  at sun.nio.ch.ServerSocketChannelImpl.bind(ServerSocketChannelImpl.java:199)      ]]></programlisting>
+  at sun.nio.ch.ServerSocketChannelImpl.bind(ServerSocketChannelImpl.java:199)      ]]>
+      </programlisting>
     </informalexample>
-
-    <para>Jetty can be made to run on a different port by adding setting the
-    jetty.port Property on the command line:</para>
-
-    <para><code>&gt; java -jar start.jar jetty.port=8081</code></para>
-
-    <para>This property can also be set in the <code>start.ini</code> file or
-    by editing the usage of the property in the
-    <code>etc/jetty-http.xml</code> configuration file. The way this works is
-    that it defines a Property that is used by the etc/jetty-http.xml
-    configuration file to inject a port value into the ServerConnector defined
-    there. For more information see the <link
-    linkend="quickstart-config">quickstart configuration guide</link> and
-    <link linkend="configuring-connectors">configuring
-    connectors</link>.</para>
+    <para>Jetty can be made to run on a different port by adding setting the jetty.port Property on the command
+    line:</para>
+    <para>
+      <code>&gt; java -jar start.jar jetty.port=8081</code>
+    </para>
+    <para>This property can also be set in the <code>start.ini</code> file or by editing the usage of the property in
+    the <code>etc/jetty-http.xml</code> configuration file. The way this works is that it defines a Property that is
+    used by the etc/jetty-http.xml configuration file to inject a port value into the ServerConnector defined there.
+    For more information see the <link linkend="quickstart-config">quickstart configuration guide</link> and <link
+    linkend="configuring-connectors">configuring connectors</link>.</para>
   </section>
-
   <section>
     <title>Starting HTTPS</title>
-
-    <para>By defaults set in the <code>start.ini</code> file, Jetty starts the
-    HTTP connector that is defined in <code> etc/jetty-http.xml</code>. To
-    also start the HTTPS connector defined in <code>etc/jetty-https.xml</code>
-    you can simply append this configuration file to the command line:</para>
-
-    <para><code>&gt; java -jar start.jar etc/jetty-https.xml</code></para>
-
+    <para>By defaults set in the <code>start.ini</code> file, Jetty starts the HTTP connector that is defined in <code>
+    etc/jetty-http.xml</code>. To also start the HTTPS connector defined in <code>etc/jetty-https.xml</code> you can
+    simply append this configuration file to the command line:</para>
+    <para>
+      <code>&gt; java -jar start.jar etc/jetty-https.xml</code>
+    </para>
     <para>You can now test this connector by pointing your browser to:</para>
-
-    <para><code>https://localhost:8443/</code></para>
-
-    <para>Alternately you can edit the <code>start.ini</code> file and
-    uncomment the line that includes the https configuration file and then
-    start jetty without any extra command line arguments. Note also that the
-    SSL port can be changed with the jetty.tls.port Property:</para>
-
-    <para><code>&gt; java -jar start.jar jetty.tls.port=8444
-    etc/jetty-https.xml</code></para>
-
-    <para>The job of the start.jar command is to interpret the command line
-    and start.ini arguments in order to build a java classpath and list of
-    properties and configuration files to pass to the main class of the Jetty
-    XML configuration mechanism. The start.jar mechanism has many options
-    which are documented in the <link linkend="advanced-jetty-start">advanced
-    jetty start section</link>. A start option summary can be seen with the
+    <para>
+      <code>https://localhost:8443/</code>
+    </para>
+    <para>Alternately you can edit the <code>start.ini</code> file and uncomment the line that includes the https
+    configuration file and then start jetty without any extra command line arguments. Note also that the SSL port can
+    be changed with the jetty.tls.port Property:</para>
+    <para>
+      <code>&gt; java -jar start.jar jetty.tls.port=8444 etc/jetty-https.xml</code>
+    </para>
+    <para>The job of the start.jar command is to interpret the command line and start.ini arguments in order to build a
+    java classpath and list of properties and configuration files to pass to the main class of the Jetty XML
+    configuration mechanism. The start.jar mechanism has many options which are documented in the <link
+    linkend="advanced-jetty-start">advanced jetty start section</link>. A start option summary can be seen with the
     command:</para>
-
-    <para><code>&gt; java -jar start.jar --help</code></para>
+    <para>
+      <code>&gt; java -jar start.jar --help</code>
+    </para>
   </section>
-
   <section>
     <title>Stopping Jetty</title>
-
-    <para>If jetty has been simply started from the command line, then it is
-    safe to stop it using the normal Ctrl-C key sequence to abort it. This
-    will trigger an orderly shutdown of the server.</para>
-
-    <para>However, the server may be started with some advanced start.jar
-    options so that it runs in the background:</para>
-
-    <para><code>&gt; java -jar start.jar STOP.PORT=8881 STOP.KEY=magic
-    --daemon &amp;</code></para>
-
+    <para>If jetty has been simply started from the command line, then it is safe to stop it using the normal Ctrl-C
+    key sequence to abort it. This will trigger an orderly shutdown of the server.</para>
+    <para>However, the server may be started with some advanced start.jar options so that it runs in the
+    background:</para>
+    <para>
+      <code>&gt; java -jar start.jar STOP.PORT=8881 STOP.KEY=magic --daemon &amp;</code>
+    </para>
     <para>This server may now be shutdown with the command:</para>
-
-    <para><code>&gt; java -jar start.jar STOP.PORT=8881 STOP.KEY=magic
-    --stop</code></para>
+    <para>
+      <code>&gt; java -jar start.jar STOP.PORT=8881 STOP.KEY=magic --stop</code>
+    </para>
   </section>
 </section>

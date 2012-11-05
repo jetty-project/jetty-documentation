@@ -16,106 +16,69 @@
 //  You may elect to redistribute this code under either of these licenses.
 //  ========================================================================
 -->
-<book version="5.0"
-      xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd"
-      xml:id="index" xmlns="http://docbook.org/ns/docbook"
-      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xmlns:xs="http://www.w3.org/2001/XMLSchema"
-      xmlns:xl="http://www.w3.org/1999/xlink"
-      xmlns:xi="http://www.w3.org/2001/XInclude"
-      xmlns:xhtml="http://www.w3.org/1999/xhtml"
-      xmlns:svg="http://www.w3.org/2000/svg"
-      xmlns:ns2="http://www.w3.org/1998/Math/MathML"
-      xmlns:ns="http://docbook.org/ns/docbook">
+<book version="5.0" xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd"
+xml:id="index" xmlns="http://docbook.org/ns/docbook" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xl="http://www.w3.org/1999/xlink"
+xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xhtml="http://www.w3.org/1999/xhtml"
+xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns2="http://www.w3.org/1998/Math/MathML"
+xmlns:ns="http://docbook.org/ns/docbook">
   <?dbhtml filename="index.html"?>
-
   <bookinfo>
     <title>Jetty : The Definitive Reference</title>
-
     <copyright>
       <year>2012</year>
-
       <holder>Intalio, Inc.</holder>
     </copyright>
-
     <revhistory>
       <revision>
         <revnumber>@JETTY_VERSION@</revnumber>
-
         <date>
           <?dbtimestamp format="Y-m-d H:M:S"?>
         </date>
-
-        <revdescription>This documentation is produced and contributed to
-        under the <link
+        <revdescription>This documentation is produced and contributed to under the <link
         xl:href="http://www.eclipse.org/legal/epl-v10.html">EPL</link></revdescription>
       </revision>
     </revhistory>
-
     <keywordset>
       <keyword>jetty</keyword>
-
       <keyword>servlet-api</keyword>
-
       <keyword>cometd</keyword>
-
       <keyword>http</keyword>
-
       <keyword>spdy</keyword>
-
       <keyword>eclipse</keyword>
-
       <keyword>maven</keyword>
-
       <keyword>java</keyword>
-
       <keyword>software</keyword>
     </keywordset>
   </bookinfo>
-
   <dedication>
     <title>Welcome to the Jetty Documentation Hub!</title>
-
-    <para>This documentation is for Jetty 9 and is a work in progress,
-    initially being largely structural and increasingly being populated with
-    meaningful content.</para>
-
-    <para>The version as indicated above containing SNAPSHOT are updated
-    frequently by an automated process while versions that contain M#, RC#, or
-    v#### are durable releases for a specific version of Jetty.</para>
-
-    <para>If you need documentation on a previous release of Jetty the
-    following list should direct you where you need to go.</para>
-
+    <para>This documentation is for Jetty 9 and is a work in progress, initially being largely structural and
+    increasingly being populated with meaningful content.</para>
+    <para>The version as indicated above containing SNAPSHOT are updated frequently by an automated process while
+    versions that contain M#, RC#, or v#### are durable releases for a specific version of Jetty.</para>
+    <para>If you need documentation on a previous release of Jetty the following list should direct you where you need
+    to go.</para>
     <itemizedlist>
       <listitem>
         <para>Jetty 9 - This Document</para>
       </listitem>
-
       <listitem>
-        <para>Jetty 8 - <link xl:href="http://wiki.eclipse.org/Jetty">The
-        Eclipse Wiki</link></para>
+        <para>Jetty 8 - <link xl:href="http://wiki.eclipse.org/Jetty">The Eclipse Wiki</link></para>
       </listitem>
-
       <listitem>
-        <para>Jetty 7 - <link xl:href="http://wiki.eclipse.org/Jetty">The
-        Eclipse Wiki</link></para>
+        <para>Jetty 7 - <link xl:href="http://wiki.eclipse.org/Jetty">The Eclipse Wiki</link></para>
       </listitem>
-
       <listitem>
-        <para>Jetty 6 - <link
-        xl:href="http://docs.codehaus.org/display/JETTY/Jetty+Documentation">The
-        Codehaus Wiki</link></para>
+        <para>Jetty 6 - <link xl:href="http://docs.codehaus.org/display/JETTY/Jetty+Documentation">The Codehaus
+        Wiki</link></para>
       </listitem>
     </itemizedlist>
-
-    <para>This documentation is a community effort and is hosted at GitHub and
-    we invite contributors to fork the repository and contribute! More
-    information can be found in the <xref
-    linkend="contributing-documentation"/>section.</para>
+    <para>This documentation is a community effort and is hosted at GitHub and we invite contributors to fork the
+    repository and contribute! More information can be found in the <xref
+    linkend="contributing-documentation" />section.</para>
   </dedication>
-
-  <!-- 
+<!-- 
           BASIC: there is a directory called basic, this comprises the basic 
                 entry level information for jetty, suitable for someone that is perhaps new 
                 to java, new to webapps, new to servlets, etc. Care should be taken in the 
@@ -129,162 +92,107 @@
                 information about the architecture of jetty, leveraging the jetty-client, 
                 osgi frameworks, etc. 
         -->
-
-  <!-- BASIC -->
-
+<!-- BASIC -->
   <part xml:id="quick-start">
     <title>Quick Start Guide</title>
-
-    <!-- 
+<!-- 
                 First we want a general introduction to what jetty is, perhaps a bit 
                         of history but fairly short and sweet explanation of the what and why for 
                         jetty. -->
-
-    <xi:include href="quick-start/introduction/chapter.xml"/>
-
-    <!-- Getting started gives the reader enough to download and run the most 
+    <xi:include href="quick-start/introduction/chapter.xml" />
+<!-- Getting started gives the reader enough to download and run the most 
                         simple example of jetty, the distribution which is a very common use case 
                         for someone new to jetty. If know they don't need the distribution then they 
                         are knowledgable enough to consult the TOC for what they want so we keep 
                         this simple and clear for people that don't know what they are doing yet. -->
-
-    <xi:include href="quick-start/getting-started/chapter.xml"/>
-
-    <!-- Next we have a section completely devoted to configuring the distribution, 
+    <xi:include href="quick-start/getting-started/chapter.xml" />
+<!-- Next we have a section completely devoted to configuring the distribution, 
                         targeted areas that are focused on the specific tangible scenarios that people 
                         working with the distribution will run across, if discussion goes to advanced 
                         topics just describe and link deeper into document. NOTE: some topics might 
                         be worth of breaking into a separate basic chapter, like sessions? -->
-
-    <xi:include href="quick-start/configuring/chapter.xml"/>
+    <xi:include href="quick-start/configuring/chapter.xml" />
   </part>
-
   <part xml:id="configuring">
     <title>Jetty Configuration Guide</title>
-
-    <!-- 
+<!-- 
                 Once someone has configured their container they will want to deploy 
                         their application so this chapter discusses how to deploy war files onto 
                         the container or how to link static resources, the context handling system, 
                         etc. 
                         -->
-
-    <xi:include href="configuring/connectors/chapter.xml"/>
-
-    <xi:include href="configuring/contexts/chapter.xml"/>
-
-    <xi:include href="configuring/deploying/chapter.xml"/>
-
-    <xi:include href="configuring/jsp/chapter.xml"/>
-
-    <xi:include href="configuring/logging/chapter.xml"/>
-
-    <xi:include href="configuring/websocket/chapter.xml"/>
-
-    <!-- Security topics could go here, if we want to go indepth on them, it 
+    <xi:include href="configuring/connectors/chapter.xml" />
+    <xi:include href="configuring/contexts/chapter.xml" />
+    <xi:include href="configuring/deploying/chapter.xml" />
+    <xi:include href="configuring/jsp/chapter.xml" />
+    <xi:include href="configuring/logging/chapter.xml" />
+    <xi:include href="configuring/websocket/chapter.xml" />
+<!-- Security topics could go here, if we want to go indepth on them, it 
                         would probably be a good idea. NOTE: or perhaps we should have one combo 
                         section on sessions and security. -->
-
-    <xi:include href="configuring/security/chapter.xml"/>
+    <xi:include href="configuring/security/chapter.xml" />
   </part>
-
-  <!-- ADVANCED -->
-
+<!-- ADVANCED -->
   <part xml:id="advanced">
     <title>Advanced Topics Guide</title>
-
-    <!-- 
+<!-- 
           Sessions are a huge part of many peoples applications and we should take care
           to detail out the options available with jetty session management.
            -->
-
-    <xi:include href="advanced/sessions/chapter.xml"/>
-
-    <!-- 
+    <xi:include href="advanced/sessions/chapter.xml" />
+<!-- 
             JNDI has been a source of a lot of questions so it makes sense to call it out
             as a specific section and give it justice
            -->
-
-    <xi:include href="advanced/jndi/chapter.xml"/>
-
-    <!-- 
+    <xi:include href="advanced/jndi/chapter.xml" />
+<!-- 
             JMX has been a source of a lot of questions as well so it makes sense to call it out
             as a specific section and give it justice
            -->
-
-    <xi:include href="advanced/jmx/chapter.xml"/>
-
-    <!-- Information about the start.jar -->
-
-    <xi:include href="advanced/jetty-start/chapter.xml"/>
-
-    <!-- How to use the jetty-maven-plugin is a big topic and is definitely 
+    <xi:include href="advanced/jmx/chapter.xml" />
+<!-- Information about the start.jar -->
+    <xi:include href="advanced/jetty-start/chapter.xml" />
+<!-- How to use the jetty-maven-plugin is a big topic and is definitely 
                         in the advanced section of things. -->
-
-    <xi:include href="advanced/maven/chapter.xml"/>
-
-    <!-- 
+    <xi:include href="advanced/maven/chapter.xml" />
+<!-- 
      How to write and wire up custom handlers
      -->
-
-    <xi:include href="advanced/handlers/chapter.xml"/>
-
-    <!-- 
+    <xi:include href="advanced/handlers/chapter.xml" />
+<!-- 
      Embedding jetty topics
      -->
-
-    <xi:include href="advanced/embedding/chapter.xml"/>
-
-    <!-- Using jetty in third party frame works like spring or osgi -->
-
-    <xi:include href="advanced/frameworks/chapter.xml"/>
-
-    <!-- What are good things to consider when running jetty, managing garbage 
+    <xi:include href="advanced/embedding/chapter.xml" />
+<!-- Using jetty in third party frame works like spring or osgi -->
+    <xi:include href="advanced/frameworks/chapter.xml" />
+<!-- What are good things to consider when running jetty, managing garbage 
                         collection, etc etc. -->
-
-    <xi:include href="advanced/tuning/chapter.xml"/>
-
-    <!-- Now that folks have their webapp deployed into jetty and everything 
+    <xi:include href="advanced/tuning/chapter.xml" />
+<!-- Now that folks have their webapp deployed into jetty and everything 
                         is supposed to be working, how do they debug issues and resolve them? -->
-
-    <xi:include href="advanced/troubleshooting/chapter.xml"/>
+    <xi:include href="advanced/troubleshooting/chapter.xml" />
   </part>
-
   <part xml:id="clients">
     <title>Jetty Client Guide</title>
-
-    <xi:include href="clients/http/chapter.xml"/>
-
-    <xi:include href="clients/websocket/chapter.xml"/>
-
-    <xi:include href="clients/spdy/chapter.xml"/>
+    <xi:include href="clients/http/chapter.xml" />
+    <xi:include href="clients/websocket/chapter.xml" />
+    <xi:include href="clients/spdy/chapter.xml" />
   </part>
-
   <part xml:id="reference">
     <title>Reference Guide</title>
-
-    <!-- How to contribute to jetty, to the documentation, to get additional 
+<!-- How to contribute to jetty, to the documentation, to get additional 
                         help -->
-
-    <!-- We should perhaps start off here with details about the architecture 
+<!-- We should perhaps start off here with details about the architecture 
                         of jetty, how it all comes together for the lifecycle of a request, how our 
                         pooling works, etc -->
-
-    <xi:include href="reference/architecture/chapter.xml"/>
-
-    <xi:include href="reference/contributing/chapter.xml"/>
-
-    <!-- Details on the jetty.xml syntax and conventions -->
-
-    <xi:include href="reference/jetty-xml/chapter.xml"/>
-
-    <!-- Notes about upgrading from previous versions of jetty. -->
-
-    <xi:include href="reference/upgrading/chapter.xml"/>
-
-    <!-- StackOverflow has a lot of information about common questions, we 
+    <xi:include href="reference/architecture/chapter.xml" />
+    <xi:include href="reference/contributing/chapter.xml" />
+<!-- Details on the jetty.xml syntax and conventions -->
+    <xi:include href="reference/jetty-xml/chapter.xml" />
+<!-- Notes about upgrading from previous versions of jetty. -->
+    <xi:include href="reference/upgrading/chapter.xml" />
+<!-- StackOverflow has a lot of information about common questions, we 
                         should mine it periodically to add to this section. NOTE: merge with troubleshooting? -->
-
-    <xi:include href="reference/faq/chapter.xml"/>
+    <xi:include href="reference/faq/chapter.xml" />
   </part>
 </book>

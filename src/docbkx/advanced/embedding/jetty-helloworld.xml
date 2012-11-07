@@ -1,4 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+//  ========================================================================
+//  Copyright (c) 1995-2012 Mort Bay Consulting Pty. Ltd.
+//  ========================================================================
+//  All rights reserved. This program and the accompanying materials
+//  are made available under the terms of the Eclipse Public License v1.0
+//  and Apache License v2.0 which accompanies this distribution.
+//
+//      The Eclipse Public License is available at
+//      http://www.eclipse.org/legal/epl-v10.html
+//
+//      The Apache License v2.0 is available at
+//      http://www.opensource.org/licenses/apache2.0.php
+//
+//  You may elect to redistribute this code under either of these licenses.
+//  ========================================================================
+-->
 <section xml:id="jetty-helloworld" version="5.0" xmlns="http://docbook.org/ns/docbook"
 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xl="http://www.w3.org/1999/xlink"
 xmlns:xi="http://www.w3.org/2001/XInclude"
@@ -30,7 +47,7 @@ wget -U none http://repo1.maven.org/maven2/javax/servlet/servlet-api/2.5/servlet
   </section>
   <section xml:id="writing-helloworld-example">
     <title>Writing a HelloWorld Example</title>
-    <para>The <xref linkend="embedding" xreflabel="Embedding" />tutorial contains many examples of writing against the
+    <para>The <xref linkend="embedding" xreflabel="Embedding" /> tutorial contains many examples of writing against the
     Jetty API. This tutorial uses a simple HelloWorld handler with a main method to run the server. In an editor, edit
     the file <filename>HelloWorld.java</filename> and add the following content:</para>
     <informalexample>
@@ -97,7 +114,7 @@ java -cp .:servlet-api-2.5.jar:jetty-all-$JETTY_VERSION.jar HelloWorld
     <title>Next Steps</title>
     <para>To learn more about Jetty, take these next steps:</para>
     <itemizedlist>
-      <listitem>Follow the examples in <xref linkend="embedding" />to better understand the jetty APIs.</listitem>
+      <listitem>Follow the examples in <xref linkend="embedding" /> to better understand the jetty APIs.</listitem>
       <listitem>Explore the complete <link xl:href="http://download.eclipse.org/jetty/stable-7/apidocs/">jetty
       javadoc</link></listitem>
       <listitem>Consider using Jetty and Maven (see <xref linkend="jetty-maven-helloworld" />) to manage your Jars and

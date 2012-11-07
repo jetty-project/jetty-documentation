@@ -1,4 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+//  ========================================================================
+//  Copyright (c) 1995-2012 Mort Bay Consulting Pty. Ltd.
+//  ========================================================================
+//  All rights reserved. This program and the accompanying materials
+//  are made available under the terms of the Eclipse Public License v1.0
+//  and Apache License v2.0 which accompanies this distribution.
+//
+//      The Eclipse Public License is available at
+//      http://www.eclipse.org/legal/epl-v10.html
+//
+//      The Apache License v2.0 is available at
+//      http://www.opensource.org/licenses/apache2.0.php
+//
+//  You may elect to redistribute this code under either of these licenses.
+//  ========================================================================
+-->
 <section xml:id="deploying-webapps" version="5.0" xmlns="http://docbook.org/ns/docbook"
 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xl="http://www.w3.org/1999/xlink"
 xmlns:xi="http://www.w3.org/2001/XInclude"
@@ -190,7 +207,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
         </programlisting>
       </informalexample>
       <para>The next example configures not only the web application context, but also a database connection pool (see
-      <xref linkedn="jndi-datasource-examples" />that our application can then use. If the <filename>
+      <xref linkedn="jndi-datasource-examples" /> that our application can then use. If the <filename>
       web.xml</filename> does not include a reference to this data source, you can use the override descriptor
       mechanism (the previous example), to include it.</para>
       <informalexample>

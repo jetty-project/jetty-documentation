@@ -1,4 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+//  ========================================================================
+//  Copyright (c) 1995-2012 Mort Bay Consulting Pty. Ltd.
+//  ========================================================================
+//  All rights reserved. This program and the accompanying materials
+//  are made available under the terms of the Eclipse Public License v1.0
+//  and Apache License v2.0 which accompanies this distribution.
+//
+//      The Eclipse Public License is available at
+//      http://www.eclipse.org/legal/epl-v10.html
+//
+//      The Apache License v2.0 is available at
+//      http://www.opensource.org/licenses/apache2.0.php
+//
+//  You may elect to redistribute this code under either of these licenses.
+//  ========================================================================
+-->
 <section version="5.0"
 xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd"
 xml:id="quickstart-running-jetty" xmlns="http://docbook.org/ns/docbook"
@@ -21,14 +38,20 @@ xmlns:ns2="http://www.w3.org/1998/Math/MathML" xmlns:ns="http://docbook.org/ns/d
 2012-10-22 16:02:25.357:INFO:oejdp.ScanningAppProvider:main: Deployment monitor [file:/home/gregw/src/jetty-9/jetty-distribution/target/distribution/webapps/] at interval 1
 2012-10-22 16:02:25.688:INFO:oejd.DeploymentManager:main: Deployable added: /home/gregw/src/jetty-9/jetty-distribution/target/distribution/webapps/test.xml
 2012-10-22 16:02:25.725:INFO:oejw.WebInfConfiguration:main: Extract jar:file:/home/gregw/src/jetty-9/jetty-distribution/target/distribution/webapps/test.war!/ to /tmp/jetty-0.0.0.0-8080-test.war-_test-any-/webapp
-2012-10-22 16:02:26.097:INFO:oejsh.ContextHandler:main: started o.e.j.w.WebAppContext@4e3ceb07{/test,file:/tmp/jetty-0.0.0.0-8080-test.war-_test-any-/webapp/,AVAILABLE}{/test.war}    ]]>
+2012-10-22 16:02:26.097:INFO:oejsh.ContextHandler:main: started o.e.j.w.WebAppContext@4e3ceb07{/test,file:/tmp/jetty-0.0.0.0-8080-test.war-_test-any-/webapp/,AVAILABLE}{/test.war}]]>
+
+
+    
+    
     </programlisting>
   </informalexample>
   <para>You will also see some warnings like:</para>
   <informalexample>
 <programlisting language="text" xml:space="preserve">
-<![CDATA[2012-10-22 16:02:24.748:WARN::main: test-realm is deployed. DO NOT USE IN PRODUCTION!
-2012-10-22 16:02:25.582:WARN::main: async-rest webapp is deployed. DO NOT USE IN PRODUCTION!    ]]>
+2012-10-22 16:02:24.748:WARN::main: test-realm is deployed. DO NOT USE IN PRODUCTION!
+2012-10-22 16:02:25.582:WARN::main: async-rest webapp is deployed. DO NOT USE IN PRODUCTION!
+    
+    
     </programlisting>
   </informalexample>
   <para>These warnings are telling you that some demonstration web applications and services are deployed and that they
@@ -52,7 +75,11 @@ xmlns:ns2="http://www.w3.org/1998/Math/MathML" xmlns:ns="http://docbook.org/ns/d
   at sun.nio.ch.Net.bind0(Native Method) 
   at sun.nio.ch.Net.bind(Net.java:344)
   at sun.nio.ch.Net.bind(Net.java:336)
-  at sun.nio.ch.ServerSocketChannelImpl.bind(ServerSocketChannelImpl.java:199)      ]]>
+  at sun.nio.ch.ServerSocketChannelImpl.bind(ServerSocketChannelImpl.java:199)i]]>
+
+
+      
+      
       </programlisting>
     </informalexample>
     <para>Jetty can be made to run on a different port by adding setting the jetty.port Property on the command
@@ -86,9 +113,8 @@ xmlns:ns2="http://www.w3.org/1998/Math/MathML" xmlns:ns="http://docbook.org/ns/d
     </para>
     <para>The job of the start.jar command is to interpret the command line and start.ini arguments in order to build a
     java classpath and list of properties and configuration files to pass to the main class of the Jetty XML
-    configuration mechanism. The start.jar mechanism has many options which are documented in the <link
-    linkend="advanced-jetty-start">advanced jetty start section</link>. A start option summary can be seen with the
-    command:</para>
+    configuration mechanism. The start.jar mechanism has many options which are documented in <xref
+    linkend="advanced-jetty-start" /> and can be seen in summary with the command:</para>
     <para>
       <code>&gt; java -jar start.jar --help</code>
     </para>

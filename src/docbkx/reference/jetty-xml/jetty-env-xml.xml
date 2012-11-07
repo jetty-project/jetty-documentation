@@ -7,12 +7,12 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     <filename>jetty-env.xml</filename>
   </title>
   <para><filename>jetty-env.xml</filename> is an optional Jetty file that configures JNDI resources for an individual
-  webapp. The format of <filename>jetty-env.xml</filename> is the same as <xref linkend="jetty-xml-config" />&#8211;it
+  webapp. The format of <filename>jetty-env.xml</filename> is the same as <xref linkend="jetty-xml-config" /> &#8211;it
   is an XML mapping of the Jetty API.</para>
   <para>When Jetty deploys a web application, it automatically looks for a file called <filename>
   WEB-INF/jetty-env.xml</filename> within the web application (or WAR), and sets up the webapp naming environment so
   that naming references in the <filename>WEB-INF/web.xml</filename> file can be resolved from the information provided
-  in the <filename>WEB-INF/jetty-env.xml</filename> and <xref linkend="jetty-xml-config" />files. You define global
+  in the <filename>WEB-INF/jetty-env.xml</filename> and <xref linkend="jetty-xml-config" /> files. You define global
   naming resources on the server via <filename>jetty.xml</filename>.</para>
   <section xml:id="jetty-env-root-element">
     <title><filename>jetty-env.xml</filename> Root Element</title>
@@ -78,7 +78,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
   <section xml:id="additional-jetty-env-xml-resources">
     <title>Additional <filename>jetty-env.xml</filename> Resources</title>
     <itemizedlist>
-      <listitem><xref linkend="jetty-xml-syntax" />&#8211;In-depth reference for Jetty-specific configuration XML
+      <listitem><xref linkend="jetty-xml-syntax" /> &#8211;In-depth reference for Jetty-specific configuration XML
       syntax.</listitem>
       <listitem>
       <sref linkend="jetty-xml-config" />

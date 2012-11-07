@@ -1,4 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+//  ========================================================================
+//  Copyright (c) 1995-2012 Mort Bay Consulting Pty. Ltd.
+//  ========================================================================
+//  All rights reserved. This program and the accompanying materials
+//  are made available under the terms of the Eclipse Public License v1.0
+//  and Apache License v2.0 which accompanies this distribution.
+//
+//      The Eclipse Public License is available at
+//      http://www.eclipse.org/legal/epl-v10.html
+//
+//      The Apache License v2.0 is available at
+//      http://www.opensource.org/licenses/apache2.0.php
+//
+//  You may elect to redistribute this code under either of these licenses.
+//  ========================================================================
+-->
 <section xml:id="jetty-xml-syntax" version="5.0" xmlns="http://docbook.org/ns/docbook"
 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xl="http://www.w3.org/1999/xlink"
 xmlns:xi="http://www.w3.org/2001/XInclude"
@@ -9,7 +26,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
   Injection (DI) frameworks like Spring or Plexus (but it predates all of them). Typically Jetty XML is used by
   <filename>jetty.xml</filename> to configure a Jetty server or by a <filename>context.xml</filename> file to configure
   a ContextHandler or subclass, but you can also use the mechanism to configure arbitrary POJOs.</para>
-  <para>This page describes the basic syntax of Jetty XML configuration. See <xref linkend="jetty-xml-usage" />for
+  <para>This page describes the basic syntax of Jetty XML configuration. See <xref linkend="jetty-xml-usage" /> for
   information on how you can use and combine Jetty XML. See configuration files for specific examples.</para>
   <section xml:id="basic-xml-configuration-file-eaxmple">
     <title>Basic XML Configuration File Example</title>
@@ -77,7 +94,8 @@ bar.getParent().setName("demo2");
     <section>
       <title>Using Method Calls</title>
       <para>You configure Java objects with a sequence of <xref linkend="jetty-xml-get" />, <xref
-      linkend="jetty-xml-set" />, <xref linkend="jetty-xml-put" />and <xref linkend="jetty-xml-call" />elements:</para>
+      linkend="jetty-xml-set" />, <xref linkend="jetty-xml-put" /> and <xref
+      linkend="jetty-xml-call" /> elements:</para>
       <informalexample>
         <programlisting language="xml">
 <![CDATA[
@@ -110,7 +128,7 @@ new com.acme.MyStuff();
     <section>
       <title>Referring to an Object</title>
       <para>You can use the id attribute to store a reference to this object when first creating or referring to this
-      object. You can then use the <xref linkend="jetty-xml-ref" />tag to reference the object later. The id must be
+      object. You can then use the <xref linkend="jetty-xml-ref" /> tag to reference the object later. The id must be
       unique for each object you create.</para>
     </section>
   </section>
@@ -133,7 +151,7 @@ new com.acme.MyStuff();
             <entry>no</entry>
             <entry>
               <para>A reference to the object that was created. If you define multiple <xref
-              linkend="jetty-xml-configure" />tags with the same id, they will be treated as one object, even if
+              linkend="jetty-xml-configure" /> tags with the same id, they will be treated as one object, even if
               they're in different files. You can use this to break up configuration of an object (such as the Server)
               across multiple files.</para>
             </entry>
@@ -575,7 +593,7 @@ com.acme.Environment.setPort( server.getPort() );
   <section xml:id="jetty-xml-arg">
     <title>&lt;Arg&gt;</title>
     <para>An Arg element can be an argument of either a method or a constructor. Use it within <xref
-    linkend="jetty-syntax-call" />and <xref linkend="jetty-syntax-new" />.</para>
+    linkend="jetty-syntax-call" /> and <xref linkend="jetty-syntax-new" />.</para>
     <para>It can contain text and/or elements, such as Call, New, SystemProperty, etc., as values. The optional type
     attribute can force the type of the value. If you don't specify a type, white space is trimmed out of the value. If
     it contains multiple elements as values, they are added as strings before being converted to any specified
@@ -639,8 +657,8 @@ value text, <Get>, <Call>, <New>, <Ref>, <Array>, <Map>, <SystemProperty>, <Prop
       </section>
       <section>
         <title>As a Parameter</title>
-        <para>Here are a couple of examples of <xref linkend="jetty-xml-arg" />being used as a parameter to methods and
-        to constructors:</para>
+        <para>Here are a couple of examples of <xref linkend="jetty-xml-arg" /> being used as a parameter to methods
+        and to constructors:</para>
         <informalexample>
           <programlisting language="xml">
 <![CDATA[
@@ -1074,7 +1092,7 @@ m.put("keyName", new String("value1"));
           </section>
           <section xml:id="jetty-xml-entry">
             <title>&lt;Entry&gt;</title>
-            <para>An Entry element contains a key-value <xref linkend="jetty-xml-item" />pair for a Map.</para>
+            <para>An Entry element contains a key-value <xref linkend="jetty-xml-item" /> pair for a Map.</para>
             <section>
               <title>Can Contain</title>
               <para>

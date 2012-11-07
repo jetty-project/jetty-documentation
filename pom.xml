@@ -58,7 +58,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
       <plugin>
         <groupId>net.erdfelt.maven</groupId>
         <artifactId>xmlfresh-maven-plugin</artifactId>
-        <version>2.2</version>
+        <version>2.3</version>
         <configuration>
           <tidy>
             <new-inline-tags>code,filename,emphasis,link,xref</new-inline-tags>
@@ -173,7 +173,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
           <dependency>
             <groupId>org.eclipse.jetty.toolchain</groupId>
             <artifactId>jetty-xslt-tools</artifactId>
-            <version>1.1</version>
+            <version>1.2</version>
             <scope>runtime</scope>
           </dependency>
         </dependencies>
@@ -226,9 +226,17 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
       <snapshots>
         <enabled>true</enabled>
       </snapshots>
-      <id>sonatype-snapshots</id>
+      <id>sonatype-jetty-snapshots</id>
       <name>Sonatype Jetty Snapshots</name>
       <url>http://oss.sonatype.org/content/groups/jetty</url>
+    </pluginRepository>
+    <pluginRepository>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+      <id>sonatype-snapshots</id>
+      <name>Sonatype Snapshots</name>
+      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
     </pluginRepository>
     <pluginRepository>
       <id>docbook-utils</id>

@@ -76,7 +76,7 @@ xmlns:ns="http://docbook.org/ns/docbook">
     </itemizedlist>
     <para>This documentation is a community effort and is hosted at GitHub and we invite contributors to fork the
     repository and contribute! More information can be found in the <xref
-    linkend="contributing-documentation" />section.</para>
+    linkend="contributing-documentation" /> section.</para>
   </dedication>
 <!-- 
           BASIC: there is a directory called basic, this comprises the basic 

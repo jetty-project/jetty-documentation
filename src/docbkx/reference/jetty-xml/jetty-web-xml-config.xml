@@ -1,4 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+//  ========================================================================
+//  Copyright (c) 1995-2012 Mort Bay Consulting Pty. Ltd.
+//  ========================================================================
+//  All rights reserved. This program and the accompanying materials
+//  are made available under the terms of the Eclipse Public License v1.0
+//  and Apache License v2.0 which accompanies this distribution.
+//
+//      The Eclipse Public License is available at
+//      http://www.eclipse.org/legal/epl-v10.html
+//
+//      The Apache License v2.0 is available at
+//      http://www.opensource.org/licenses/apache2.0.php
+//
+//  You may elect to redistribute this code under either of these licenses.
+//  ========================================================================
+-->
 <section xml:id="jetty-web-xml-config" version="5.0" xmlns="http://docbook.org/ns/docbook"
 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xl="http://www.w3.org/1999/xlink"
 xmlns:xi="http://www.w3.org/2001/XInclude"
@@ -8,7 +25,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
   </title>
   <para><filename>jetty-web.xml</filename> is a Jetty configuration file that you can bundle with a specific web
   application. The format of <filename>jetty-web.xml</filename> is the same as <xref
-  linkend="jetty-xml-config" />&#8211; it is an XML mapping of the Jetty API.</para>
+  linkend="jetty-xml-config" /> &#8211; it is an XML mapping of the Jetty API.</para>
   <para>This document offers an overview for using the <filename>jetty-web.xml</filename> configuration file. For a
   more in-depth look at the syntax, see <xref linkend="jetty-xml-syntax" />.</para>
   <section xml:id="root-element-jetty-web-xml">
@@ -47,8 +64,9 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
   <section xml:id="additional-jetty-web-xml-resources">
   <title>Additional <filename>jetty-web.xml</filename> Resources</title>&gt; 
   <itemizedlist>
-    <listitem><xref linkend="jetty-xml-syntax" />&#8211;in-depth reference for Jetty-specific configuration XML
+    <listitem><xref linkend="jetty-xml-syntax" /> &#8211;in-depth reference for Jetty-specific configuration XML
     syntax.</listitem>
-    <listitem><xref linkend="jetty-xml-config" />&#8211;configuration file for configuring the entire server</listitem>
+    <listitem><xref linkend="jetty-xml-config" /> &#8211;configuration file for configuring the entire
+    server</listitem>
   </itemizedlist></section>
 </section>

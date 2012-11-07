@@ -1,4 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+//  ========================================================================
+//  Copyright (c) 1995-2012 Mort Bay Consulting Pty. Ltd.
+//  ========================================================================
+//  All rights reserved. This program and the accompanying materials
+//  are made available under the terms of the Eclipse Public License v1.0
+//  and Apache License v2.0 which accompanies this distribution.
+//
+//      The Eclipse Public License is available at
+//      http://www.eclipse.org/legal/epl-v10.html
+//
+//      The Apache License v2.0 is available at
+//      http://www.opensource.org/licenses/apache2.0.php
+//
+//  You may elect to redistribute this code under either of these licenses.
+//  ========================================================================
+-->
 <section xml:id="configuring-jndi" version="5.0" xmlns="http://docbook.org/ns/docbook"
 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xl="http://www.w3.org/1999/xlink"
 xmlns:xi="http://www.w3.org/2001/XInclude"
@@ -159,9 +176,9 @@ resource-env-ref/
 ]]>
       </programlisting>
     </informalexample>
-    <para>Notice that <xref linkend="configuring-env-entries" />shows you how to set up overrides for <code>
+    <para>Notice that <xref linkend="configuring-env-entries" /> shows you how to set up overrides for <code>
     env-entry</code> elements in <filename>web.xml</filename>, while <xref
-    linkend="configuring-resource-refs-and-resorce-env-refs" />discusses how to configure support resources such as
+    linkend="configuring-resource-refs-and-resorce-env-refs" /> discusses how to configure support resources such as
     <code>javax.sql.DataSource</code>.</para>
     <para>You can also plug a JTA <code>javax.transaction.UserTransaction</code> implementation into Jetty so that
     webapps can look up <code>java:comp/UserTransaction</code> to obtain a distributed transaction manager. See <xref
@@ -281,7 +298,7 @@ resource-env-ref/
         java:comp/env/mySpecialValue</code> for <emphasis>every</emphasis> web app deployed. Moreover, the boolean
         argument indicates that this value overrides an <code>env-entry</code> of the same name in <code>
         web.xml</code>. If you don't want to override, then omit this argument, or set it to <code>false</code>.</para>
-        <para>See <xref linkend="setting-jndi-entries-as-global-or-scoped" />for information on other scopes.</para>
+        <para>See <xref linkend="setting-jndi-entries-as-global-or-scoped" /> for information on other scopes.</para>
         <para>The Servlet Specification allows binding only the following object types to an <code>
         env-entry</code>:</para>
         <itemizedlist>

@@ -1,4 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+//  ========================================================================
+//  Copyright (c) 1995-2012 Mort Bay Consulting Pty. Ltd.
+//  ========================================================================
+//  All rights reserved. This program and the accompanying materials
+//  are made available under the terms of the Eclipse Public License v1.0
+//  and Apache License v2.0 which accompanies this distribution.
+//
+//      The Eclipse Public License is available at
+//      http://www.eclipse.org/legal/epl-v10.html
+//
+//      The Apache License v2.0 is available at
+//      http://www.opensource.org/licenses/apache2.0.php
+//
+//  You may elect to redistribute this code under either of these licenses.
+//  ========================================================================
+-->
 <section xml:id="using-jmx" version="5.0" xmlns="http://docbook.org/ns/docbook"
 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xl="http://www.w3.org/1999/xlink"
 xmlns:xi="http://www.w3.org/2001/XInclude"
@@ -110,7 +127,7 @@ mbContainer.addBean(Log.getLog());
     </section>
     <section xml:id="jmx-using-jetty-maven-plugin">
       <title>Using the Jetty Maven Plugin with JMX</title>
-      <para>If you are using the <xref linkedn="jetty-maven-plugin" />you should copy the <filename>
+      <para>If you are using the <xref linkedn="jetty-maven-plugin" /> you should copy the <filename>
       etc/jetty-jmx.xml</filename> file into your webapp project somewhere, such as <filename>src/etc,</filename> then
       add a &lt;jettyconfig&gt; element to the plugin &lt;configuration&gt;:</para>
       <informalexample>

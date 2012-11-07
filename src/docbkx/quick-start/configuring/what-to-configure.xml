@@ -1,4 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+//  ========================================================================
+//  Copyright (c) 1995-2012 Mort Bay Consulting Pty. Ltd.
+//  ========================================================================
+//  All rights reserved. This program and the accompanying materials
+//  are made available under the terms of the Eclipse Public License v1.0
+//  and Apache License v2.0 which accompanies this distribution.
+//
+//      The Eclipse Public License is available at
+//      http://www.eclipse.org/legal/epl-v10.html
+//
+//      The Apache License v2.0 is available at
+//      http://www.opensource.org/licenses/apache2.0.php
+//
+//  You may elect to redistribute this code under either of these licenses.
+//  ========================================================================
+-->
 <section version="5.0"
 xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd"
 xml:id="quickstart-config-what" xmlns="http://docbook.org/ns/docbook"
@@ -7,12 +24,12 @@ xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclud
 xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg"
 xmlns:ns2="http://www.w3.org/1998/Math/MathML" xmlns:ns="http://docbook.org/ns/docbook">
   <title>What to Configure in Jetty</title>
-  <para>This section gives an overview of the what components of Jetty can be configured, using the mechanisms outline
-  in the <link linkend="quickstart-config-how">previous section</link>. The structure of a Jetty server is described in
-  the <link linkend="architecture">architecture section</link>, which is good background reading to understand
-  configuration and is vital to if you wish to change the structure of the server as set up by the default
-  configurations in the jetty distribution. However, for most purposes, configuration is a matter of identifying the
-  correct configuration file and modifying existing configuration values.</para>
+  <para>This section gives an overview of the what components of Jetty typically configured using the mechanisms
+  outline in the previous section. The structure of a Jetty server is described in <xref
+  linkend="basic-architecture" /> which is good background reading to understand configuration and is vital to if you
+  wish to change the structure of the server as set up by the default configurations in the jetty distribution.
+  However, for most purposes, configuration is a matter of identifying the correct configuration file and modifying
+  existing configuration values.</para>
   <section>
     <title xml:id="intro-jetty-configuration-server">Configuring the Server</title>
     <para>The Server instance is the central coordination object of a Jetty server and it provides services and life

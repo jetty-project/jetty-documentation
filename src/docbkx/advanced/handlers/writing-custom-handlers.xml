@@ -1,4 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+//  ========================================================================
+//  Copyright (c) 1995-2012 Mort Bay Consulting Pty. Ltd.
+//  ========================================================================
+//  All rights reserved. This program and the accompanying materials
+//  are made available under the terms of the Eclipse Public License v1.0
+//  and Apache License v2.0 which accompanies this distribution.
+//
+//      The Eclipse Public License is available at
+//      http://www.eclipse.org/legal/epl-v10.html
+//
+//      The Apache License v2.0 is available at
+//      http://www.opensource.org/licenses/apache2.0.php
+//
+//  You may elect to redistribute this code under either of these licenses.
+//  ========================================================================
+-->
 <section xml:id="writing-custom-handlers" version="5.0" xmlns="http://docbook.org/ns/docbook"
 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xl="http://www.w3.org/1999/xlink"
 xmlns:xi="http://www.w3.org/2001/XInclude"
@@ -11,7 +28,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
   for extension. However, some users might have special requirements or footprint concerns that prohibit the use of the
   full servlet API. For them implementing a Jetty handler is a straight forward way to provide dynamic web content with
   a minimum of fuss.</para>
-  <para>See <xref linkend="basic-architecture" />to understand more about Handlers vs. Servlets.</para>
+  <para>See <xref linkend="basic-architecture" /> to understand more about Handlers vs. Servlets.</para>
   <section xml:id="handler-api">
   <title>The Handler API</title>
   <para>The <link xl:href="@JDURL@/org/eclipse/jetty/server/Handler.html">Handler</link> interface provides Jetty's

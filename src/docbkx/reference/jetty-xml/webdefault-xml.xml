@@ -11,7 +11,7 @@ The <filename>webdefault.xml</filename> file saves web applications from having 
 <para>
 The <filename>webdefault.xml</filename> file is located in <filename>$(jetty.home)/etc/webdefault.xml</filename>.</para>
 <section xml:id="using-webdefault-xml">
-<title>Using <filename>webdefault.xml</filename><title>
+<title>Using <filename>webdefault.xml</filename></title>
 <para>
 You can specify a custom configuration file to use for specific webapps, or for all webapps. If you do not specify an alternate defaults descriptor,  Jetty automatically uses <filename>webdefault.xml</filename>.</para>
 <section xml:id="creating-custom-webdefault-xml-one-webapp">

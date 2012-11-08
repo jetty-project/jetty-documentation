@@ -62,11 +62,12 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     test webapp war (<filename>$JETTY_HOME/webapps/test.war/WEB-INF/jetty-web.xml</filename>).</para>
   </section>
   <section xml:id="additional-jetty-web-xml-resources">
-  <title>Additional <filename>jetty-web.xml</filename> Resources</title> 
-  <itemizedlist>
-    <listitem><xref linkend="jetty-xml-syntax" /> &#8211;in-depth reference for Jetty-specific configuration XML
-    syntax.</listitem>
-    <listitem><xref linkend="jetty-xml-config" /> &#8211;configuration file for configuring the entire
-    server</listitem>
-  </itemizedlist></section>
+    <title>Additional <filename>jetty-web.xml</filename> Resources</title>
+    <itemizedlist>
+      <listitem><xref linkend="jetty-xml-syntax" /> &#8211;in-depth reference for Jetty-specific configuration XML
+      syntax.</listitem>
+      <listitem><xref linkend="jetty-xml-config" /> &#8211;configuration file for configuring the entire
+      server</listitem>
+    </itemizedlist>
+  </section>
 </section>

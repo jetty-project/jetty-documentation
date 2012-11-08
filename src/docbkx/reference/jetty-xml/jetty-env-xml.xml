@@ -80,8 +80,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     <itemizedlist>
       <listitem><xref linkend="jetty-xml-syntax" /> &#8211;In-depth reference for Jetty-specific configuration XML
       syntax.</listitem>
-      <listitem>
-      <sref linkend="jetty-xml-config" />
+      <listitem><xref linkend="jetty-xml-config" />
       &#8211;Configuration file for configuring the entire server.</listitem>
     </itemizedlist>
   </section>

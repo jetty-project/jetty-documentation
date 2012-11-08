@@ -24,7 +24,8 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
   <xi:include href="jetty-xml-config.xml" />
   <xi:include href="jetty-web-xml-config.xml" />
   <xi:include href="jetty-env-xml.xml" />
-  <xi:include href="jetty-xml-usage.xml" />
   <xi:include href="webdefault-xml.xml" />
   <xi:include href="override-web-xml.xml" />
+  <xi:include href="jetty-xml-syntax.xml" />
+  <xi:include href="jetty-xml-usage.xml" />
 </chapter>

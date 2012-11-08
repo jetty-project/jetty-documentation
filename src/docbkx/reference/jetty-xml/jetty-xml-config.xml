@@ -48,7 +48,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
       <para>A request log.</para>
     </listitem>
   </itemizedlist>
-  <para>Not all Jetty features are configured in <filename>jetty.xml</filename>&gt;. There are several optional
+  <para>Not all Jetty features are configured in <filename>jetty.xml</filename>. There are several optional
   configuration files that share the same format as <filename>jetty.xml</filename> and, if specified, concatenate to
   it. These configuration files are also stored in <filename>$JETTY_HOME/etc/</filename>, and examples of them are in
   <link xl:href="http://dev.eclipse.org/viewsvn/index.cgi/jetty/trunk/jetty-server/src/main/config/etc/?root=RT_JETTY">
@@ -83,7 +83,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     <itemizedlist>
       <listitem><xref linkend="jetty-xml-syntax" /> &#8211;In-depth reference for Jetty-specific configuration XML
       syntax.</listitem>
-      <listitem><xref linkend="jetty-web.xml" /> &#8211;Configuration file for configuring a specific
+      <listitem><xref linkend="jetty-web-xml-config" /> &#8211;Configuration file for configuring a specific
       webapp.</listitem>
     </itemizedlist>
   </section>

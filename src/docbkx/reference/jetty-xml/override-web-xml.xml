@@ -24,7 +24,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
   <para>To deploy a web application or WAR into different environments, most likely you will need to customize the webapp for compatibility with each environment. The challenge is to do so without changing the webapp itself. You can use a <filename>jetty.xml</filename> file for some of this work since it is not part of the webapp. But there are some changes that <filename>jetty.xml</filename> cannot accomplish, for example, modifications to servlet init-params and context init-params. Using <filename>webdefault.xml</filename> is not an option because Jetty applies <filename>webdefault.xml</filename> to a web application <emphasis>before</emphasis> the application's own <filename>WEB-INF/web.xml</filename>, which means that it cannot override values inside the webapp's <filename>web.xml</filename>.</para>
   <para>
 The solution is <filename>override-web.xml</filename>. It is a <filename>web.xml</filename> file that Jetty applies to a web application <emphasis>after</emphasis> the application's own <filename>WEB-INF/web.xml</filename>, which means that it can override values or add new elements. You define it per-webapp, using the <xref linkend="jetty-xml-syntax" />.</para>
-<section xml:id="override-web-xml">
+<section xml:id="using-override-web-xml">
 <title>Using <filename>override-web.xml</filename></title>
 <para>
 You can specify the <filename>override-web.xml</filename> to use for an individual web application, in that webapp's <xref linkend="jetty-web-xml-config" />.</para>

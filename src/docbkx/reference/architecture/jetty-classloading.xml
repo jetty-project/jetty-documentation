@@ -83,43 +83,43 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
           <tbody>
             <row>
               <entry>java.</entry>
-              <entry>Java SE classes (per servlet spec v2.5 / SRV.9.7.2</entry>
+              <entry>Java SE classes (per servlet spec v2.5 / SRV.9.7.2).</entry>
             </row>
             <row>
               <entry>javax.</entry>
-              <entry>Java SE classes (per servlet spec v2.5 / SRV.9.7.2)</entry>
+              <entry>Java SE classes (per servlet spec v2.5 / SRV.9.7.2).</entry>
             </row>
             <row>
               <entry>org.xml.</entry>
-              <entry>needed by javax.xml</entry>
+              <entry>Needed by javax.xml.</entry>
             </row>
             <row>
               <entry>org.w3c.</entry>
-              <entry>needed by javax.xml</entry>
+              <entry>Needed by javax.xml.</entry>
             </row>
             <row>
               <entry>org.apache.commons.logging.</entry>
-              <entry>special case</entry>
+              <entry>Special case.</entry>
             </row>
             <row>
               <entry>org.eclipse.jetty.continuation.</entry>
-              <entry>webapp can see and not change continuation classes</entry>
+              <entry>Webapp can see and not change continuation classes.</entry>
             </row>
             <row>
               <entry>org.eclipse.jetty.jndi.</entry>
-              <entry>webapp can see and not change naming classes</entry>
+              <entry>Webapp can see and not change naming classes.</entry>
             </row>
             <row>
               <entry>org.eclipse.jetty.plus.jaas.</entry>
-              <entry>webapp can see and not change jaas classes</entry>
+              <entry>Webapp can see and not change JAAS classes.</entry>
             </row>
             <row>
               <entry>org.eclipse.jetty.websocket.</entry>
-              <entry>WebSocket is a jetty extension</entry>
+              <entry>WebSocket is a Jetty extension.</entry>
             </row>
             <row>
               <entry>org.eclipse.jetty.servlet.DefaultServlet</entry>
-              <entry>webapp can see and not change default servlet</entry>
+              <entry>Webapp can see and not change default servlet.</entry>
             </row>
           </tbody>
         </tgroup>
@@ -152,27 +152,27 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
           <tbody>
             <row>
               <entry>-org.eclipse.jetty.continuation.</entry>
-              <entry>don't hide continuation classes</entry>
+              <entry>Don't hide continuation classes.</entry>
             </row>
             <row>
               <entry>-org.eclipse.jetty.jndi.</entry>
-              <entry>don't hide naming classes</entry>
+              <entry>Don't hide naming classes.</entry>
             </row>
             <row>
               <entry>-org.eclipse.jetty.plus.jaas.</entry>
-              <entry>don't hide jaas classes</entry>
+              <entry>Don't hide jaas classes.</entry>
             </row>
             <row>
               <entry>-org.eclipse.jetty.websocket.</entry>
-              <entry>don't hide websocket extension</entry>
+              <entry>Don't hide websocket extension.</entry>
             </row>
             <row>
               <entry>-org.eclipse.jetty.servlet.DefaultServlet</entry>
-              <entry>don't hide default servlet</entry>
+              <entry>Don't hide default servlet.</entry>
             </row>
             <row>
               <entry>org.eclipse.jetty.</entry>
-              <entry>hide all other jetty classes</entry>
+              <entry>Hide all other Jetty classes.</entry>
             </row>
           </tbody>
         </tgroup>
@@ -197,8 +197,8 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     </section>
     <section xml:id="using-extra-classpath-method">
       <title>Using the extraClasspath() method</title>
-      <para>You can add an additional classpath to a context classloader by calling <link
-      xl:href="@JDURL@/org/eclipse/jetty/webapp/WebAppContext.html#setExtraClasspath(java.lang.String)">
+      <para>You can add an additional classpath to a context classloader by calling
+ <link xl:href="@JDURL@/org/eclipse/jetty/webapp/WebAppContext.html#setExtraClasspath(java.lang.String)">
       org.eclipse.jetty.webapp.WebAppContext.setExtraClasspath(String)</link> with a comma-separated list of paths. You
       can do so directly to the API via a context XML file such as the following:</para>
       <informalexample>
@@ -218,7 +218,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     <title>Using a Custom WebAppClassLoader</title>
     <para>If none of the alternatives already described meet your needs, you can always provide a custom classloader
     for your webapp. We recommend, but do not require, that your custom loader subclasses <link
-    xl:href="@JDURL@/org/eclipse/jetty/webappWebAppClassLoader.html">WebAppClassLoader</link>. You configure the
+    xl:href="@JDURL@/org/eclipse/jetty/webapp/WebAppClassLoader.html">WebAppClassLoader</link>. You configure the
     classloader for the webapp like so:</para>
     <informalexample>
       <programlisting language="java">
@@ -235,7 +235,7 @@ MyCleverClassLoader myCleverClassLoader = new MyCleverClassLoader();
   </section>
   <section xml:id="starting-jetty-custom-classloader">
     <title>Starting Jetty with a Custom ClassLoader</title>
-    <para>If you start a jetty server using a custom class loader&#8211;consider the jetty classes not being available
+    <para>If you start a Jetty server using a custom class loader&#8211;consider the Jetty classes not being available
     to the system class loader, only your custom class loader&#8211;you may run into class loading issues when the
     WebAppClassLoader kicks in. By default the WebAppClassLoader uses the system class loader as its parent, hence the
     problem. This is easy to fix, like so:</para>

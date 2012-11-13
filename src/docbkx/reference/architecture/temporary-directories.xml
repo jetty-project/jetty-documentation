@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+//  ========================================================================
+//  Copyright (c) 1995-2012 Mort Bay Consulting Pty. Ltd.
+//  ========================================================================
+//  All rights reserved. This program and the accompanying materials
+//  are made available under the terms of the Eclipse Public License v1.0
+//  and Apache License v2.0 which accompanies this distribution.
+//
+//      The Eclipse Public License is available at
+//      http://www.eclipse.org/legal/epl-v10.html
+//
+//      The Apache License v2.0 is available at
+//      http://www.opensource.org/licenses/apache2.0.php
+//
+//  You may elect to redistribute this code under either of these licenses.
+//  ========================================================================
+-->
+<section xml:id="temporary-directories" version="5.0" xmlns="http://docbook.org/ns/docbook"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xl="http://www.w3.org/1999/xlink"
+xmlns:xi="http://www.w3.org/2001/XInclude"
+xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd">
+  <title>Temporary Directories</title>
+  <para>
+Jetty itself has no temporary directories, but you can assign a directory for each web application, into which the WAR is unpacked, JSPs compiled on-the-fly, etc.</para>
+<para>
+The algorithm for determining a webapp's temporary directory location is as follows:</para>
+<orderedlist>
+<listitem>Try to use an explicit directory specifically for this webapp:
+<itemizedlist>
+<listitem>Iff <link xl:href="@JDURL@/org/eclipse/jetty/webapp/WebAppContext.html#setTempDirectory(java.io.File)"><filename>webapp.getTempDirectory()</filename></link> is set, use it. Do NOT delete it on JVM exit.</listitem>
+<listitem>Iff <filename>javax.servlet.context.tempdir</filename> context attribute is set for this webapp &amp;&amp; exists &amp;&amp; writeable, then use it. Do NOT delete on JVM exit.</listitem></itemizedlist></listitem>
+<listitem>Create a directory based on global settings. The new directory is called <filename>Jetty_<emphasis role="underline">host</emphasis> <emphasis role="underline">port</emphasis> <emphasis role="underline">context</emphasis> <emphasis role="bold">+virtualhost:</emphasis></filename>
+<itemizedlist>
+<listitem>
+ Iff <filename>$(jetty.home)/work</filename> exists, create the directory there. Do NOT delete on JVM exit. Do NOT delete contents if dir already exists.</listitem>
+<listitem>Iff <filename>WEB-INF/work</filename> exists, create the directory there. Do NOT delete on JVM exit. Do NOT delete contents if dir already exists.</listitem>
+<listitem>Else create dir in <filename>$(java.io.tmpdir)</filename>. Set delete on JVM exit. Delete contents if dir already exists.</listitem></itemizedlist></listitem></orderedlist>
+<para>
+Be aware that a temporary directory will have its contents deleted when the webapp is stopped unless <emphasis>either</emphasis></para>
+<itemizedlist>
+<listitem>
+It is called <emphasis>work</emphasis>.</listitem>
+<listitem>It pre-existed the deployment of the webapp.</listitem></itemizedlist>
+<para>
+Once a tempory directory has been allocated, a File instance for it is set and retrievable as the <filename>javax.servlet.context.tempdir</filename> attribute of the web application.</para>
+</section>

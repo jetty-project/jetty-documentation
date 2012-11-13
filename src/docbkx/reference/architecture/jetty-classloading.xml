@@ -21,160 +21,188 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xl="http://www.w3.or
 xmlns:xi="http://www.w3.org/2001/XInclude"
 xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd">
   <title>Jetty Classloading</title>
-  <para>Class loading in a web container is slightly more complex than a normal Java application. The normal configuration is that each web context (web application or WAR file) has its own classloader, which has the system classloader as its parent. Such a classloader hierarchy is normal in Java, however the servlet specification complicates the hierarchy because it requires the following:</para>
+  <para>Class loading in a web container is slightly more complex than a normal Java application. The normal
+  configuration is that each web context (web application or WAR file) has its own classloader, which has the system
+  classloader as its parent. Such a classloader hierarchy is normal in Java, however the servlet specification
+  complicates the hierarchy because it requires the following:</para>
   <itemizedlist>
-  <listitem>Classes contained within WEB-INF/lib or WEB-INF/classes have priority over classes on the parent classloader. This is the opposite of the normal behaviour of a Java 2 classloader.</listitem>
-<listitem>System classes such as <code>java.lang.String</code> are excluded from the webapp priority, and you may not replace them with classes in <filename>WEB-INF/lib</filename> or <code>WEB-INF/</code>classes. Unfortunately the specification does not clearly state what classes are <emphasis>System</emphasis> classes, and it is unclear if all javax classes should be treated as System classes.</listitem>
-<listitem>Server implementation classes like <link xl:href="@JDURL@org/eclipse/jetty/server/Server.html">Server</link> should be hidden from the web application and should not be available in any classloader. Unfortunately the specification does not state what classes are <emphasis>Server</emphasis> classes, and it is unclear if common libraries like the Xerces parser should be treated as Implementation classes.</listitem>
-</itemizedlist>
-<section xml:id="configuring-webapp-classloading">
-<title>Configuring Webapp Classloading</title>
-<para>
-Jetty provides configuration options to control the three webapp class loading issues identified above.</para> 
-<para>
-You can configure webapp classloading  by several methods on the <link xl:href="@JDURL@org/eclipse/jetty/webapp/WebAppContext.html">WebAppContext</link>. You can call these methods directly if you are working with the Jetty API, or you can inject methods from a context XML file if you are using the Context Provider (<xref linkend="using-context-provider" />). You CANNOT set these methods from a <filename>jetty-web.xml</filename> file, as it executes after the classloader configuration is set.</para>
-<section xml:id="controlling-webapp-classloader-priority"> 
-<title>Controlling Webapp Classloader Priority</title>
-<para>
-The method <link xl:href="@JDURL@org/eclipse/jetty/webapp/WebAppContext.html#isParentLoaderPriority()"> org.eclipse.jetty.webapp.WebAppContext.setParentLoaderPriority(boolean)</link> allows control over the priority given to webapp classes over system classes. If you set it to false (the default), Jetty uses standard webapp classloading priority. However, if in this mode some classes that are dependencies of other classes are loaded from the parent classloader (due to settings of system classes below), ambiguities might arise as both the webapp and system classloader versions can end up being loaded.</para> 
-<para>
-If set to true, Jetty uses normal JavaSE classloading priority, and gives priority to the parent/system classloader. This avoids the issues of multiple versions of a class within a webapp, but the version the parent/system loader provides must be the right version for all webapps you configure in this way.</para>
-</section>
-<section xml:id="classloading-setting-system-classes"> 
-<title>Setting System Classes</title>
-<para>
-You can call the methods <link xl:href="@JDURL@org/eclipse/jetty/webapp/WebAppContext.html#setSystemClasses%28java.lang.String%5B%5D%29"> org.eclipse.jetty.webapp.WebAppContext.setSystemClasses(String Array)</link> or <link xl:href="@JDURL@org/eclipse/jetty/webapp/WebAppContext.html#addSystemClass(java.lang.String)">org.eclipse.jetty.webapp.WebAppContext.addSystemClass(String)</link> to allow fine control over which classes are considered System classes.</para> 
-<itemizedlist>
-<listitem>A web application can see a System class.</listitem> 
-<listitem>A WEB-INF class cannot replace a System class.</listitem>
-</itemizedlist>
-<para>
-The default system classes are:</para>
-<table frame='all'>
-      <tgroup cols='2' align='left' colsep='1' rowsep='1'>
-        <colspec colnum="1" colname="col1" colwidth=".25*" />
-        <colspec colnum="2" colname="col2" colwidth="3*" />
-        <thead>
-          <row>
-            <entry namest="col1" nameend="col2" align="center">System Classes</entry>
-          </row>
-        </thead>
-        <tbody>
-          <row>
-            <entry>java.</entry>
-            <entry>Java SE classes (per servlet spec v2.5 / SRV.9.7.2</entry>
-          </row>
-          <row>
-          <entry>javax.</entry>
-          <entry>Java SE classes (per servlet spec v2.5 / SRV.9.7.2)</entry>
-          </row>
-          <row>
-          <entry>org.xml.</entry>
-          <entry>needed by javax.xml</entry>
-          </row>
-          <row>
-          <entry>org.w3c.</entry>
-          <entry>needed by javax.xml</entry>
-          </row>
-          <row>
-          <entry>org.apache.commons.logging.</entry>
-          <entry>special case</entry>
-          </row>
-          <row>
-          <entry>org.eclipse.jetty.continuation.</entry>
-          <entry>webapp can see and not change continuation classes</entry>
-          </row>
-          <row>
-          <entry>org.eclipse.jetty.jndi.</entry>
-          <entry>webapp can see and not change naming classes</entry>
-          </row>
-          <row>
-          <entry>org.eclipse.jetty.plus.jaas.</entry>
-          <entry>webapp can see and not change jaas classes</entry>
-          </row>
-          <row>
-          <entry>org.eclipse.jetty.websocket.</entry> 
-          <entry>WebSocket is a jetty extension</entry>
-          </row>
-          <row>
-          <entry>org.eclipse.jetty.servlet.DefaultServlet</entry>
-          <entry>webapp can see and not change default servlet</entry>
-          </row>
-        </tbody>
-      </tgroup>
-    </table>
-<para>
-Absolute classname can be passed, names ending with . are treated as packages names, and names starting with - are treated as negative matches and must be listed before any enclosing packages.</para>
-</section>
-<section xml:id="setting-server-classes">
-<title>Setting Server Classes</title>
-<para>
-You can call the methods <link xl:href="@JDURL@org/eclipse/jetty/webapp/WebAppContext.html#setServerClasses%28java.lang.String%5B%5D%29">org.eclipse.jetty.webapp.WebAppContext.setServerClasses(String Array)</link> or <link xl:href="@JDURL@org/eclipse/jetty/webapp/WebAppContext.html#addServerClass(java.lang.String)">org.eclipse.jetty.webapp.WebAppContext.addServerClass(String)</link> to allow fine control over which classes are considered Server classes.</para> 
-<itemizedlist>
-<listitem>A web application cannot see a Server class.</listitem>
-<listitem>A WEB-INF class can replace a Server class.</listitem> 
-</itemizedlist>
-<para>
-The default server classes are:</para> 
-<table frame='all'>
-      <tgroup cols='2' align='left' colsep='1' rowsep='1'>
-        <colspec colnum="1" colname="col1" colwidth=".25*" />
-        <colspec colnum="2" colname="col2" colwidth="3*" />
-        <thead>
-          <row>
-            <entry namest="col1" nameend="col2" align="center">Server Classes</entry>
-          </row>
-        </thead>
-        <tbody>
-          <row> 
-          <entry>-org.eclipse.jetty.continuation.</entry>
-          <entry>don't hide continuation classes</entry>
-          </row>
-          <row>
-          <entry>-org.eclipse.jetty.jndi.</entry>
-          <entry>don't hide naming classes</entry>
-          </row>
-          <row>
-          <entry>-org.eclipse.jetty.plus.jaas.</entry>
-          <entry>don't hide jaas classes</entry>
-          </row>
-          <row>
-          <entry>-org.eclipse.jetty.websocket.</entry>
-          <entry>don't hide websocket extension</entry>
-          </row>
-          <row>
-          <entry>-org.eclipse.jetty.servlet.DefaultServlet</entry>
-          <entry>don't hide default servlet</entry>
-          </row>
-          <row>
-          <entry>org.eclipse.jetty.</entry>
-          <entry>hide all other jetty classes</entry>
-          </row>
+    <listitem>Classes contained within WEB-INF/lib or WEB-INF/classes have priority over classes on the parent
+    classloader. This is the opposite of the normal behaviour of a Java 2 classloader.</listitem>
+    <listitem>System classes such as <code>java.lang.String</code> are excluded from the webapp priority, and you may
+    not replace them with classes in <filename>WEB-INF/lib</filename> or <code>WEB-INF/</code> classes. Unfortunately
+    the specification does not clearly state what classes are <emphasis>System</emphasis> classes, and it is unclear if
+    all javax classes should be treated as System classes.</listitem>
+    <listitem>Server implementation classes like <link xl:href="@JDURL@/org/eclipse/jetty/server/Server.html">
+    Server</link> should be hidden from the web application and should not be available in any classloader.
+    Unfortunately the specification does not state what classes are <emphasis>Server</emphasis> classes, and it is
+    unclear if common libraries like the Xerces parser should be treated as Implementation classes.</listitem>
+  </itemizedlist>
+  <section xml:id="configuring-webapp-classloading">
+    <title>Configuring Webapp Classloading</title>
+    <para>Jetty provides configuration options to control the three webapp class loading issues identified
+    above.</para>
+    <para>You can configure webapp classloading by several methods on the <link
+    xl:href="@JDURL@/org/eclipse/jetty/webapp/WebAppContext.html">WebAppContext</link>. You can call these methods
+    directly if you are working with the Jetty API, or you can inject methods from a context XML file if you are using
+    the Context Provider (<xref linkend="using-context-provider" />). You CANNOT set these methods from a <filename>
+    jetty-web.xml</filename> file, as it executes after the classloader configuration is set.</para>
+    <section xml:id="controlling-webapp-classloader-priority">
+      <title>Controlling Webapp Classloader Priority</title>
+      <para>The method <link xl:href="@JDURL@/org/eclipse/jetty/webapp/WebAppContext.html#isParentLoaderPriority()">
+      org.eclipse.jetty.webapp.WebAppContext.setParentLoaderPriority(boolean)</link> allows control over the priority
+      given to webapp classes over system classes. If you set it to false (the default), Jetty uses standard webapp
+      classloading priority. However, if in this mode some classes that are dependencies of other classes are loaded
+      from the parent classloader (due to settings of system classes below), ambiguities might arise as both the webapp
+      and system classloader versions can end up being loaded.</para>
+      <para>If set to true, Jetty uses normal JavaSE classloading priority, and gives priority to the parent/system
+      classloader. This avoids the issues of multiple versions of a class within a webapp, but the version the
+      parent/system loader provides must be the right version for all webapps you configure in this way.</para>
+    </section>
+    <section xml:id="classloading-setting-system-classes">
+      <title>Setting System Classes</title>
+      <para>You can call the methods <link
+      xl:href="@JDURL@/org/eclipse/jetty/webapp/WebAppContext.html#setSystemClasses%28java.lang.String%5B%5D%29">
+      org.eclipse.jetty.webapp.WebAppContext.setSystemClasses(String Array)</link> or <link
+      xl:href="@JDURL@/org/eclipse/jetty/webapp/WebAppContext.html#addSystemClass(java.lang.String)">
+      org.eclipse.jetty.webapp.WebAppContext.addSystemClass(String)</link> to allow fine control over which classes are
+      considered System classes.</para>
+      <itemizedlist>
+        <listitem>A web application can see a System class.</listitem>
+        <listitem>A WEB-INF class cannot replace a System class.</listitem>
+      </itemizedlist>
+      <para>The default system classes are:</para>
+      <table frame='all'>
+        <tgroup cols='2' align='left' colsep='1' rowsep='1'>
+          <colspec colnum="1" colname="col1" colwidth=".25*" />
+          <colspec colnum="2" colname="col2" colwidth="3*" />
+          <thead>
+            <row>
+              <entry namest="col1" nameend="col2" align="center">System Classes</entry>
+            </row>
+          </thead>
+          <tbody>
+            <row>
+              <entry>java.</entry>
+              <entry>Java SE classes (per servlet spec v2.5 / SRV.9.7.2</entry>
+            </row>
+            <row>
+              <entry>javax.</entry>
+              <entry>Java SE classes (per servlet spec v2.5 / SRV.9.7.2)</entry>
+            </row>
+            <row>
+              <entry>org.xml.</entry>
+              <entry>needed by javax.xml</entry>
+            </row>
+            <row>
+              <entry>org.w3c.</entry>
+              <entry>needed by javax.xml</entry>
+            </row>
+            <row>
+              <entry>org.apache.commons.logging.</entry>
+              <entry>special case</entry>
+            </row>
+            <row>
+              <entry>org.eclipse.jetty.continuation.</entry>
+              <entry>webapp can see and not change continuation classes</entry>
+            </row>
+            <row>
+              <entry>org.eclipse.jetty.jndi.</entry>
+              <entry>webapp can see and not change naming classes</entry>
+            </row>
+            <row>
+              <entry>org.eclipse.jetty.plus.jaas.</entry>
+              <entry>webapp can see and not change jaas classes</entry>
+            </row>
+            <row>
+              <entry>org.eclipse.jetty.websocket.</entry>
+              <entry>WebSocket is a jetty extension</entry>
+            </row>
+            <row>
+              <entry>org.eclipse.jetty.servlet.DefaultServlet</entry>
+              <entry>webapp can see and not change default servlet</entry>
+            </row>
           </tbody>
-      </tgroup>
-    </table>
-</section>
-</section>
-<section xml:id="adding-extra-classpaths">
-<title>Adding Extra Classpaths to Jetty</title>
-<para>
-You can add extra classpaths to Jetty in several ways.</para>
-<section xml:id="classpaths-using-start-jar">
-<title>Using <code>start.jar</code></title>
-<para>
-If you are using <xref linkend="advanced-start-features" />, at startup the jetty runtime automatically loads option Jars from the top level <filename>$jetty.home/lib</filename> directory. The default settings include:</para> 
-<itemizedlist>
-<listitem>Adding Jars under <filename>$jetty.home/lib/ext</filename> to the system classpath. You can place additional Jars here.</listitem> 
-<listitem>Adding the directory <filename>$jetty.home/resources</filename> to the classpath (may contain classes or other resources).</listitem> 
-<listitem>Adding a single path defined by the command line parameter <emphasis>path</emphasis>.</listitem>
-</itemizedlist>
-</section>
-<section xml:id="using-extra-classpath-method">
-<title>Using the extraClasspath() method</title>
-<para>
-You can add an additional classpath to a context classloader by calling <link xl:href="@JDURL@org/eclipse/jetty/webapp/WebAppContext.html#setExtraClasspath(java.lang.String)">org.eclipse.jetty.webapp.WebAppContext.setExtraClasspath(String)</link> with a comma-separated list of paths. You can do so directly to the API via a context XML file such as the following:</para>
-<informalexample>
-      <programlisting language="xml">
+        </tgroup>
+      </table>
+      <para>Absolute classname can be passed, names ending with . are treated as packages names, and names starting
+      with - are treated as negative matches and must be listed before any enclosing packages.</para>
+    </section>
+    <section xml:id="setting-server-classes">
+      <title>Setting Server Classes</title>
+      <para>You can call the methods <link
+      xl:href="@JDURL@/org/eclipse/jetty/webapp/WebAppContext.html#setServerClasses%28java.lang.String%5B%5D%29">
+      org.eclipse.jetty.webapp.WebAppContext.setServerClasses(String Array)</link> or <link
+      xl:href="@JDURL@/org/eclipse/jetty/webapp/WebAppContext.html#addServerClass(java.lang.String)">
+      org.eclipse.jetty.webapp.WebAppContext.addServerClass(String)</link> to allow fine control over which classes are
+      considered Server classes.</para>
+      <itemizedlist>
+        <listitem>A web application cannot see a Server class.</listitem>
+        <listitem>A WEB-INF class can replace a Server class.</listitem>
+      </itemizedlist>
+      <para>The default server classes are:</para>
+      <table frame='all'>
+        <tgroup cols='2' align='left' colsep='1' rowsep='1'>
+          <colspec colnum="1" colname="col1" colwidth=".25*" />
+          <colspec colnum="2" colname="col2" colwidth="3*" />
+          <thead>
+            <row>
+              <entry namest="col1" nameend="col2" align="center">Server Classes</entry>
+            </row>
+          </thead>
+          <tbody>
+            <row>
+              <entry>-org.eclipse.jetty.continuation.</entry>
+              <entry>don't hide continuation classes</entry>
+            </row>
+            <row>
+              <entry>-org.eclipse.jetty.jndi.</entry>
+              <entry>don't hide naming classes</entry>
+            </row>
+            <row>
+              <entry>-org.eclipse.jetty.plus.jaas.</entry>
+              <entry>don't hide jaas classes</entry>
+            </row>
+            <row>
+              <entry>-org.eclipse.jetty.websocket.</entry>
+              <entry>don't hide websocket extension</entry>
+            </row>
+            <row>
+              <entry>-org.eclipse.jetty.servlet.DefaultServlet</entry>
+              <entry>don't hide default servlet</entry>
+            </row>
+            <row>
+              <entry>org.eclipse.jetty.</entry>
+              <entry>hide all other jetty classes</entry>
+            </row>
+          </tbody>
+        </tgroup>
+      </table>
+    </section>
+  </section>
+  <section xml:id="adding-extra-classpaths">
+    <title>Adding Extra Classpaths to Jetty</title>
+    <para>You can add extra classpaths to Jetty in several ways.</para>
+    <section xml:id="classpaths-using-start-jar">
+      <title>Using <code>start.jar</code></title>
+      <para>If you are using <xref linkend="advanced-start-features" />, at startup the jetty runtime automatically
+      loads option Jars from the top level <filename>$jetty.home/lib</filename> directory. The default settings
+      include:</para>
+      <itemizedlist>
+        <listitem>Adding Jars under <filename>$jetty.home/lib/ext</filename> to the system classpath. You can place
+        additional Jars here.</listitem>
+        <listitem>Adding the directory <filename>$jetty.home/resources</filename> to the classpath (may contain classes
+        or other resources).</listitem>
+        <listitem>Adding a single path defined by the command line parameter <emphasis>path</emphasis>.</listitem>
+      </itemizedlist>
+    </section>
+    <section xml:id="using-extra-classpath-method">
+      <title>Using the extraClasspath() method</title>
+      <para>You can add an additional classpath to a context classloader by calling <link
+      xl:href="@JDURL@/org/eclipse/jetty/webapp/WebAppContext.html#setExtraClasspath(java.lang.String)">
+      org.eclipse.jetty.webapp.WebAppContext.setExtraClasspath(String)</link> with a comma-separated list of paths. You
+      can do so directly to the API via a context XML file such as the following:</para>
+      <informalexample>
+        <programlisting language="xml">
 <![CDATA[ 
 <Configure class="org.eclipse.jetty.webapp.WebAppContext">
  ...
@@ -182,16 +210,17 @@ You can add an additional classpath to a context classloader by calling <link xl
  </Set>
  ...
 ]]>
-      </programlisting>
-    </informalexample>
-</section>
-</section>
-<section xml:id="using-custom-webappclassloader">
-<title>Using a Custom WebAppClassLoader</title>
-<para>
-If none of the alternatives already described meet your needs, you can always provide a custom classloader for your webapp. We recommend, but do not require, that your custom loader subclasses <link xl:href="@JDURL@org/eclipse/jetty/webappWebAppClassLoader.html"> WebAppClassLoader</link>. You configure the classloader for the webapp like so:</para> 
-
-<informalexample>
+        </programlisting>
+      </informalexample>
+    </section>
+  </section>
+  <section xml:id="using-custom-webappclassloader">
+    <title>Using a Custom WebAppClassLoader</title>
+    <para>If none of the alternatives already described meet your needs, you can always provide a custom classloader
+    for your webapp. We recommend, but do not require, that your custom loader subclasses <link
+    xl:href="@JDURL@/org/eclipse/jetty/webappWebAppClassLoader.html">WebAppClassLoader</link>. You configure the
+    classloader for the webapp like so:</para>
+    <informalexample>
       <programlisting language="java">
 <![CDATA[ 
 MyCleverClassLoader myCleverClassLoader = new MyCleverClassLoader();
@@ -202,29 +231,28 @@ MyCleverClassLoader myCleverClassLoader = new MyCleverClassLoader();
 ]]>
       </programlisting>
     </informalexample>
-<para>
-You can also accomplish this in a context xml file.</para>
-</section>
-<section xml:id="starting-jetty-custom-classloader">
-<title>Starting Jetty with a Custom ClassLoader</title>
-<para>
-If you start a jetty server using a custom class loader&#8211;consider the jetty classes not being available to the system class loader, only your custom class loader&#8211;you may run into class loading issues when the WebAppClassLoader kicks in.  By default the WebAppClassLoader uses the system class loader as its parent, hence the problem.  This is easy to fix, like so:</para>
-<informalexample>
+    <para>You can also accomplish this in a context xml file.</para>
+  </section>
+  <section xml:id="starting-jetty-custom-classloader">
+    <title>Starting Jetty with a Custom ClassLoader</title>
+    <para>If you start a jetty server using a custom class loader&#8211;consider the jetty classes not being available
+    to the system class loader, only your custom class loader&#8211;you may run into class loading issues when the
+    WebAppClassLoader kicks in. By default the WebAppClassLoader uses the system class loader as its parent, hence the
+    problem. This is easy to fix, like so:</para>
+    <informalexample>
       <programlisting language="java">
 <![CDATA[
 context.setClassLoader(new WebAppClassLoader(this.getClass().getClassLoader(), context));
 ]]>
       </programlisting>
     </informalexample>
-<para>
-or 
-</para>
-<informalexample>
+    <para>or</para>
+    <informalexample>
       <programlisting language="java">
 <![CDATA[
 context.setClassLoader(new WebAppClassLoader(new MyCustomClassLoader(), context));
 ]]>
       </programlisting>
     </informalexample>
-    </section>
-    </section>
+  </section>
+</section>

@@ -197,8 +197,8 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     </section>
     <section xml:id="using-extra-classpath-method">
       <title>Using the extraClasspath() method</title>
-      <para>You can add an additional classpath to a context classloader by calling
- <link xl:href="@JDURL@/org/eclipse/jetty/webapp/WebAppContext.html#setExtraClasspath(java.lang.String)">
+      <para>You can add an additional classpath to a context classloader by calling <link
+      xl:href="@JDURL@/org/eclipse/jetty/webapp/WebAppContext.html#setExtraClasspath(java.lang.String)">
       org.eclipse.jetty.webapp.WebAppContext.setExtraClasspath(String)</link> with a comma-separated list of paths. You
       can do so directly to the API via a context XML file such as the following:</para>
       <informalexample>

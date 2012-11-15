@@ -22,15 +22,8 @@ xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclud
 xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg"
 xmlns:mth="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook">
   <title>Configuring Jetty Connectors</title>
-  <para />
-  <para>
-    <emphasis role="bold">THIS CHAPTER HAS NOT YET BEEN UPDATED FOR JETTY-9</emphasis>
-  </para>
-  <para />
   <para>This chapter discusses various options for configuring Jetty connectors.</para>
   <xi:include href="configuring-connectors.xml" />
-  <xi:include href="configuring-form-size.xml" />
   <xi:include href="configuring-ssl.xml" />
-  <xi:include href="configuring-virtual-hosts.xml" />
   <xi:include href="setting-port80-access-for-non-root-user.xml" />
 </chapter>

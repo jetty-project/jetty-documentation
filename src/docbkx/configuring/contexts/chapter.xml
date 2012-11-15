@@ -27,6 +27,8 @@ xmlns:ns="http://docbook.org/ns/docbook">
   <para>This chapter discusses various options for configuring Jetty contexts.</para>
   <xi:include href="setting-context-path.xml" />
   <xi:include href="setting-context-path-to-root.xml" />
+  <xi:include href="configuring-virtual-hosts.xml" />
   <xi:include href="custom-error-pages.xml" />
   <xi:include href="serving-webapp-from-particular-port.xml" />
+  <xi:include href="configuring-form-size.xml" />
 </chapter>

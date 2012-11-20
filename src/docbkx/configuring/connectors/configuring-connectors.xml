@@ -67,7 +67,7 @@ xmlns:ns="http://docbook.org/ns/docbook">
     <varlistentry>
       <term>
         <link
-        xl:href="http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/plain/jetty-spdy/spdy-example-webapp/src/main/config/etc/jetty-spdy.xml">jetty-spdy.xml</link>
+        xl:href="http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/plain/jetty-spdy/spdy-example-webapp/src/main/config/example-jetty-spdy.xml">example-jetty-spdy.xml</link>
       </term>
       <listitem>
         <para>Instantiates a <link
@@ -220,7 +220,7 @@ xmlns:ns="http://docbook.org/ns/docbook">
     <link
     xl:href="http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/plain/jetty-server/src/main/config/etc/jetty-https.xml">jetty-https.xml</link> and
     <link
-    xl:href="http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/plain/jetty-spdy/spdy-example-webapp/src/main/config/etc/jetty-spdy.xml">jetty-spdy.xml</link>.</para>
+    xl:href="http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/plain/jetty-spdy/spdy-example-webapp/src/main/config/example-jetty-spdy.xml">example-jetty-spdy.xml</link>.</para>
     <para>A typical configuration of <link
     xl:href="http://download.eclipse.org/jetty/stable-9/apidocs/org/eclipse/jetty/server/HttpConfiguration.html">
     HttpConfiguration</link> is: 
@@ -293,7 +293,7 @@ xmlns:ns="http://docbook.org/ns/docbook">
     signed test certificate) can be seen in <link
     xl:href="http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/plain/jetty-server/src/main/config/etc/jetty-https.xml">jetty-https.xml</link> and
     <link
-    xl:href="http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/plain/jetty-spdy/spdy-example-webapp/src/main/config/etc/jetty-spdy.xml">jetty-spdy.xml</link>.
+    xl:href="http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/plain/jetty-spdy/spdy-example-webapp/src/main/config/example-jetty-spdy.xml">example-jetty-spdy.xml</link>.
     Read more about SSL keystores in <link linkend="configuring-ssl">Configuring SSL</link>.</para>
   </section>
   <section>
@@ -323,7 +323,7 @@ http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/plain/jetty-server/
 <![CDATA[
         ]]>
         <filename>
-http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/plain/jetty-spdy/spdy-example-webapp/src/main/config/etc/jetty-spdy.xml</filename> 
+http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/plain/jetty-spdy/spdy-example-webapp/src/main/config/example-jetty-spdy.xml</filename> 
 <![CDATA[
       ]]>
       </programlisting>

@@ -358,7 +358,7 @@ xmlns:ns2="http://www.w3.org/1998/Math/MathML" xmlns:ns="http://docbook.org/ns/d
 <![CDATA[
           ]]>
           <filename>
-http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/plain/test-jetty-webapp/src/main/config/etc/test-realm.xml</filename> 
+http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/plain/tests/test-webapps/test-jetty-webapp/src/main/config/etc/test-realm.xml</filename> 
 <![CDATA[
         ]]>
         </programlisting>

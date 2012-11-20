@@ -20,7 +20,7 @@
 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xl="http://www.w3.org/1999/xlink"
 xmlns:xi="http://www.w3.org/2001/XInclude"
 xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd">
-  <title>Incoming Documentation</title>
+  <title>Spdy Clients</title>
   <para>These pages are works in progress that have not been moved to their respective sections yet.</para>
 <!-- the sample.xml will ultimately remain as a template that can be used
   as the basis of new documentation but should not be added into build and

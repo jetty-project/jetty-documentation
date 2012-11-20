@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+//  ========================================================================
+//  Copyright (c) 1995-2012 Mort Bay Consulting Pty. Ltd.
+//  ========================================================================
+//  All rights reserved. This program and the accompanying materials
+//  are made available under the terms of the Eclipse Public License v1.0
+//  and Apache License v2.0 which accompanies this distribution.
+//
+//      The Eclipse Public License is available at
+//      http://www.eclipse.org/legal/epl-v10.html
+//
+//      The Apache License v2.0 is available at
+//      http://www.opensource.org/licenses/apache2.0.php
+//
+//  You may elect to redistribute this code under either of these licenses.
+//  ========================================================================
+-->
+<section xml:id="jetty-ant" version="5.0" xmlns="http://docbook.org/ns/docbook"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xl="http://www.w3.org/1999/xlink"
+xmlns:xi="http://www.w3.org/2001/XInclude"
+xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd">
+  <title>Use Jetty with Ant</title>
+  <para>The Ant Jetty plugin is a part of Jetty 9 under the jetty-ant module. This plugin makes it possible to start a
+  Jetty web server directly from the Ant build script, and to embed the Jetty web server inside your build process. Its
+  purpose is to provide almost the same functionality as the Jetty plugin for Maven: dynamic application reloading,
+  working directly on web application sources, and a tight integration with the build system.</para>
+  <informalexample>
+    <programlisting language="xml">
+<![CDATA[ 
+ <dependency>
+   <groupId>org.eclipse.jetty</groupId>
+   <artifactId>jetty-ant</artifactId>
+ </dependency>
+]]>
+    </programlisting>
+  </informalexample>
+  <section xml:id="jetty-ant-preparation">
+    <title>Preparation</title>
+    <para>You will need a jetty distribution and the jetty-ant jar in order to set up your project for ant to run
+    jetty:</para>
+    <orderedlist>
+      <listitem>Get a jetty distribution and unpack it the local filesystem</listitem>
+      <listitem>Get the jetty-ant jar</listitem>
+      <listitem>Make a directory in your project called jetty-lib/</listitem>
+      <listitem>Copy all of the jars in your jetty distribution's lib directory, and all its subdirectories, into your
+      new jetty-lib dir. When copying the jars, DON'T preserve the jetty distro's lib dir hierarchy - all the jars
+      should be directly inside your jetty-lib dir.</listitem>
+      <listitem>Also copy the jetty-ant jar you downloaded earlier into the jetty-lib dir.</listitem>
+      <listitem>Make a directory in your project called jetty-temp</listitem>
+    </orderedlist>
+    <para>Now you're ready to edit or create your Ant build.xml file.</para>
+  </section>
+  <section>
+    <title>Preparing the <filename>build.xml</filename> file</title>
+    <para>Let's start with an empty build.xml:</para>
+    <informalexample>
+      <programlisting language="xml">
+<![CDATA[ 
+<project name="Jetty-Ant integration test" basedir=".">
+</project>
+]]>
+      </programlisting>
+    </informalexample>
+    <para>Then, you must define a jetty task:</para>
+    <informalexample>
+      <programlisting language="xml">
+<![CDATA[ 
+<project name="Jetty-Ant integration test" basedir=".">
+  <path id="jetty.plugin.classpath">
+     <fileset dir="jetty-lib" includes="*.jar"/>
+  </path>
+  <taskdef classpathref="jetty.plugin.classpath" resource="tasks.properties" loaderref="jetty.loader" />
+</project>
+]]>
+      </programlisting>
+    </informalexample>
+    <para>Now you are ready to add a new target with Jetty container declaration:</para>
+    <informalexample>
+      <programlisting language="xml">
+<![CDATA[ 
+<project name="Jetty-Ant integration test" basedir=".">
+  <path id="jetty.plugin.classpath">
+    <fileset dir="jetty-lib" includes="*.jar"/>
+  </path>
+  <taskdef classpathref="jetty.plugin.classpath" resource="tasks.properties" loaderref="jetty.loader" />
+ 
+  <target name="jetty.run">
+    <jetty />
+  </target>
+</project>
+]]>
+      </programlisting>
+    </informalexample>
+    <para>This is the minimal configuration need. You can now start jetty on the default port of 8080.</para>
+  </section>
+  <section>
+    <title>Starting Jetty via Ant</title>
+    <para>At the command line do:</para>
+    <screen>
+<![CDATA[ 
+> ant jetty.run
+]]>
+    </screen>
+  </section>
+  <section>
+    <title>Setting the Port</title>
+    <para>To configure the port that jetty will start up on you will need to define a connector. First you will need to
+    configure a typedef for the Connector class and then define the connector in the jetty tags.</para>
+    <informalexample>
+      <programlisting language="xml">
+<![CDATA[ 
+<project name="Jetty-Ant integration test" basedir=".">
+  <path id="jetty.plugin.classpath">
+    <fileset dir="jetty-lib" includes="*.jar"/>
+  </path>
+  <taskdef classpathref="jetty.plugin.classpath" resource="tasks.properties" loaderref="jetty.loader" />
+ 
+  <typedef name="connector" classname="org.eclipse.jetty.ant.types.Connector" 
+    classpathref="jetty.plugin.classpath" loaderref="jetty.loader" />
+
+  <target name="jetty.run">
+    <jetty>
+      <connectors>
+        <connector port="8090"/>
+      </connectors>
+    </jetty>
+  </target>
+</project>
+]]>
+      </programlisting>
+    </informalexample>
+    <tip>You can set the port to 0 which will start the jetty server connector up on an arbitrary available port.</tip>
+  </section>
+</section>

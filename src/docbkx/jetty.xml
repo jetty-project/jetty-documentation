@@ -51,9 +51,9 @@ xmlns:ns="http://docbook.org/ns/docbook">
       <keyword>software</keyword>
     </keywordset>
   </bookinfo>
-  <!--
-   -- This dedication served as the documentation hub before I added a custom page up a directory that contains this content...leaving it -- here for the time being as an example in case we want to add more content there eventually.
-   --
+<!--
+   == This dedication served as the documentation hub before I added a custom page up a directory that contains this content...leaving it == here for the time being as an example in case we want to add more content there eventually.
+   ==
   dedication>
     <title>Welcome to the Jetty Documentation Hub!</title>
     <para>This documentation is for Jetty 9 and is a work in progress, initially being largely structural and
@@ -155,9 +155,6 @@ xmlns:ns="http://docbook.org/ns/docbook">
     <xi:include href="advanced/jmx/chapter.xml" />
 <!-- Information about the start.jar -->
     <xi:include href="advanced/jetty-start/chapter.xml" />
-<!-- How to use the jetty-maven-plugin is a big topic and is definitely 
-                        in the advanced section of things. -->
-    <xi:include href="advanced/maven/chapter.xml" />
 <!-- 
      How to write and wire up custom handlers
      -->
@@ -166,6 +163,11 @@ xmlns:ns="http://docbook.org/ns/docbook">
      Embedding jetty topics
      -->
     <xi:include href="advanced/embedding/chapter.xml" />
+<!-- How to use the jetty-maven-plugin is a big topic and is definitely 
+                        in the advanced section of things. -->
+    <xi:include href="advanced/maven/chapter.xml" />
+<!-- How to use the jetty-ant module -->
+    <xi:include href="advanced/ant/chapter.xml" />
 <!-- Using jetty in third party frame works like spring or osgi -->
     <xi:include href="advanced/frameworks/chapter.xml" />
 <!-- What are good things to consider when running jetty, managing garbage 

@@ -51,7 +51,10 @@ xmlns:ns="http://docbook.org/ns/docbook">
       <keyword>software</keyword>
     </keywordset>
   </bookinfo>
-  <dedication>
+  <!--
+   -- This dedication served as the documentation hub before I added a custom page up a directory that contains this content...leaving it -- here for the time being as an example in case we want to add more content there eventually.
+   --
+  dedication>
     <title>Welcome to the Jetty Documentation Hub!</title>
     <para>This documentation is for Jetty 9 and is a work in progress, initially being largely structural and
     increasingly being populated with meaningful content.</para>
@@ -77,7 +80,7 @@ xmlns:ns="http://docbook.org/ns/docbook">
     <para>This documentation is a community effort and is hosted at GitHub and we invite contributors to fork the
     repository and contribute! More information can be found in the <xref
     linkend="contributing-documentation" /> section.</para>
-  </dedication>
+  </dedication-->
 <!-- 
           BASIC: there is a directory called basic, this comprises the basic 
                 entry level information for jetty, suitable for someone that is perhaps new 

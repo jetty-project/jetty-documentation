@@ -49,7 +49,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
       <listitem>Also copy the jetty-ant jar you downloaded earlier into the jetty-lib dir.</listitem>
       <listitem>Make a directory in your project called jetty-temp</listitem>
     </orderedlist>
-    <para>Now you're ready to edit or create your Ant build.xml file.</para>
+    <para>Now you're ready to edit or create your Ant <filename>build.xml</filename> file.</para>
   </section>
   <section>
     <title>Preparing the <filename>build.xml</filename> file</title>
@@ -130,6 +130,6 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
 ]]>
       </programlisting>
     </informalexample>
-    <tip>You can set the port to 0 which will start the jetty server connector up on an arbitrary available port.</tip>
+    <tip>You can set the port to 0 which will start the jetty server connector up on an arbitrary available port.  You can then access these values from system properties <emphasis>jetty.ant.server.port</emphasis> and <emphasis>jetty.ant.server.host</emphasis>.</tip>
   </section>
 </section>

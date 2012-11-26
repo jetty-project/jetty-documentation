@@ -230,7 +230,7 @@ xmlns:ns2="http://www.w3.org/1998/Math/MathML" xmlns:ns="http://docbook.org/ns/d
         </programlisting>
       </informalexample>
     </section>
-    <section>
+    <!--section>
       <title>Context Configuration by IoC XML</title>
       <para>A context can be created and configured entirely by IoC XML (either Jetty's or Spring). The deployer will
       discover and hot deploy context IoC descriptors like the following that creates a context to serve the javadoc
@@ -241,7 +241,7 @@ xmlns:ns2="http://www.w3.org/1998/Math/MathML" xmlns:ns="http://docbook.org/ns/d
           http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/plain/jetty-distribution/src/main/resources/webapps/javadoc.xml</filename>
         </programlisting>
       </informalexample>
-    </section>
+    </section-->
   </section>
   <section>
     <title xml:id="intro-jetty-configuration-webapps">Configuring Web Applications</title>

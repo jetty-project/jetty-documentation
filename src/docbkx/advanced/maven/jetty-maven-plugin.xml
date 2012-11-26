@@ -47,24 +47,16 @@
     <filename>pom.xml</filename> definition:</para>
 
     <informalexample>
-      <programlisting language="xml">
-
-&lt;plugin&gt;
+      <programlisting language="xml">&lt;plugin&gt;
   &lt;groupId&gt;org.eclipse.jetty&lt;/groupId&gt;
   &lt;artifactId&gt;jetty-maven-plugin&lt;/artifactId&gt;
-&lt;/plugin&gt;
-
-      </programlisting>
+&lt;/plugin&gt;</programlisting>
     </informalexample>
 
     <para>Then, from the same directory as your root
     <filename>pom.xml</filename>, type:</para>
 
-    <screen>
-
-  mvn jetty:run
-
-    </screen>
+    <screen>mvn jetty:run</screen>
 
     <para>This starts Jetty and serves up your project on
     http://localhost:8080/.</para>
@@ -74,12 +66,8 @@
     changes and recompile your class files, Jetty redeploys your webapp, and
     you can instantly test the changes you just made.</para>
 
-    <section xml:id="stopping-plugin">
-      <title>Stopping the Plugin</title>
-
-      <para>You can terminate the plugin with a <code>ctrl-c</code> in the
-      terminal window where it is running.</para>
-    </section>
+    <para>You can terminate the plugin with a <code>ctrl-c</code> in the
+    terminal window where it is running.</para>
   </section>
 
   <section xml:id="running-and-deploying">
@@ -98,11 +86,12 @@
     <para>To see a list of all goals supported by the Jetty Maven plugin,
     do:</para>
 
-    <screen>
+    <screen>mvn jetty:help</screen>
 
-  mvn jetty:help
+    <para>To see the detailed list of parameters that can be configured for a
+    particular goal, in addition to its description, do:</para>
 
-    </screen>
+    <screen>mvn jetty:help -Ddetail=true -Dgoal= goal-name</screen>
   </section>
 
   <section xml:id="configuring-jetty-container">
@@ -116,17 +105,16 @@
         <term><code>&lt;connectors&gt;</code></term>
 
         <listitem>
-          <para>A list of <code>org.eclipse.jetty.server.Connector</code>
-          objects, which are the port listeners for Jetty. If you don't
-          specify any, Jetty configures an
-          <code>org.eclipse.jetty.server.ServerConnector</code> on port 8080.
-          You can change this default port number by using the system property
-          <code>jetty.port</code> on the command line, for example, <code>mvn
-          -Djetty.port=9999 jetty:run</code>. You could instead configure the
-          connectors in a standard //TODO
-          xref//[[http://wiki.eclipse.org/Jetty/Reference/jetty.xml jetty xml
-          config]] file and put its location into the <code>jettyXml</code>
-          parameter.</para>
+          <para>Optional. A list of
+          <code>org.eclipse.jetty.server.Connector</code> objects, which are
+          the port listeners for Jetty. If you don't specify any, Jetty
+          configures an <code>org.eclipse.jetty.server.ServerConnector</code>
+          on port 8080. You can change this default port number by using the
+          system property <code>jetty.port</code> on the command line, for
+          example, <code>mvn -Djetty.port=9999 jetty:run</code>. You could
+          instead configure the connectors in a standard <link
+          linkend="jetty-xml-config">jetty xml config file</link> and put its
+          location into the <code>jettyXml</code> parameter.</para>
         </listitem>
       </varlistentry>
 
@@ -134,7 +122,8 @@
         <term><code>&lt;jettyXml&gt;</code></term>
 
         <listitem>
-          <para>The location of a <filename>jetty.xml</filename> file to apply
+          <para>Optional. The location of a <filename><link
+          linkend="jetty-xml-config">jetty.xml</link></filename> file to apply
           in addition to any plugin configuration parameters. You might use it
           if you have other webapps, handlers, specific types of connectors
           etc., to deploy, or if you have other Jetty objects that you cannot
@@ -154,10 +143,26 @@
       </varlistentry>
 
       <varlistentry>
+        <term>&lt;reload&gt;</term>
+
+        <listitem>
+          <para>Default value is "automatic", used in conjunction with a
+          non-zero <emphasis
+          role="bold"><emphasis><code>scanIntervalSeconds</code></emphasis></emphasis>
+          causes automatic hot redeploy when changes are detected. Set to
+          "manual" instead to trigger scanning by typing a linefeed in the
+          console running the plugin. This might be useful when you are doing
+          a series of changes that you want to ignore until you're done. In
+          that use, use the <code>reload</code> parameter.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
         <term>&lt;loginServices&gt;</term>
 
         <listitem>
-          <para>A list of <code>org.eclipse.jetty.security.LoginService</code>
+          <para>Optional. A list of
+          <code>org.eclipse.jetty.security.LoginService</code>
           implementations. Note that there is no default realm. If you use a
           realm in your <filename>web.xml</filename> you can specify a
           corresponding realm here. You could instead configure the login
@@ -170,7 +175,7 @@
         <term><code>&lt;requestLog&gt;</code></term>
 
         <listitem>
-          <para>An implementation of the
+          <para>Optional. An implementation of the
           <code>org.eclipse.jetty.server.RequestLog</code> request log
           interface. An implementation that respects the NCSA format is
           available as <code>org.eclipse.jetty.server.NCSARequestLog</code>.
@@ -208,11 +213,30 @@
       </varlistentry>
 
       <varlistentry>
+        <term>&lt;stopPort&gt;</term>
+
+        <listitem>
+          <para>Optional. Port to listen on for stop commands. Useful to use
+          in conjunction with the stop or run-forked goals.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>&lt;stopKey&gt;</term>
+
+        <listitem>
+          <para>Optional. Used in conjunction with stopPort for stopping
+          jetty. Useful when used in conjunction with the stop or run-forked
+          goals.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
         <term><code>&lt;systemProperties&gt;</code> </term>
 
         <listitem>
-          <para>Allows you to configure System properties for the execution of
-          the plugin. For more information, see <link
+          <para>Optional.Allows you to configure System properties for the
+          execution of the plugin. For more information, see <link
           linkend="sys_props">Setting System Properties</link>.</para>
         </listitem>
       </varlistentry>
@@ -221,13 +245,51 @@
         <term>&lt;systemPropertiesFile&gt;</term>
 
         <listitem>
-          <para>A file containing System properties to set for the execution
-          of the plugin. By default, settings that you make here <emphasis
-          role="bold">do not</emphasis> override any system properties already
-          set on the command line, by the JVM, or in the POM via
-          <code>systemProperties</code>. Read <link
+          <para>Optional. A file containing System properties to set for the
+          execution of the plugin. By default, settings that you make here
+          <emphasis role="bold">do not</emphasis> override any system
+          properties already set on the command line, by the JVM, or in the
+          POM via <code>systemProperties</code>. Read <link
           linkend="sys_props">Setting System Properties</link> for how to
           force overrides.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>&lt;skip&gt;</term>
+
+        <listitem>
+          <para>Default is false. If true, the execution of the plugin exits.
+          Same as setting the SystemProperty <code>-Djetty.skip</code> on the
+          command line. This is most useful when configuring Jetty for
+          execution during integration testing and you want to skip the
+          tests</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>&lt;useProvidedScope&gt;</term>
+
+        <listitem>
+          <para>Default value is <code>false</code>. If true, the dependencies
+          with <code>&lt;scope&gt;provided&lt;/scope&gt;</code> are placed
+          onto the <emphasis>container classpath</emphasis>. Be aware that
+          this is NOT the webapp classpath, as "provided" indicates that these
+          dependencies would normally be expected to be provided by the
+          container. You should very rarely ever need to use this. Instead,
+          you should copy the provided dependencies as explicit dependencies
+          of the <code>plugin</code> instead.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>&lt;excludedGoals&gt;</term>
+
+        <listitem>
+          <para>Optional. A list of jetty plugin goal names that will cause
+          the plugin to print an informative message and exit. Useful if you
+          want to prevent users from executing goals that you know cannot work
+          with your project.</para>
         </listitem>
       </varlistentry>
     </variablelist>
@@ -244,7 +306,7 @@
         <term>&lt;webApp&gt;</term>
 
         <listitem>
-          <para>Represents an extension to the class TODO <link
+          <para>Represents an extension to the class <link
           xl:href="@JDURL@/org/eclipse/jetty/webapp/WebAppContext.hml">org.eclipse.jetty.webapp.WebAppContext</link>.
           You can use any of the setter methods on this object to configure
           your webapp. Here are a few of the most useful ones: </para>
@@ -255,8 +317,7 @@
 
               <listitem>
                 <para>The context path for your webapp. By default, this is
-                set to the <code>/${project.artifactId}</code> from the
-                project's <filename>pom.xml</filename>.</para>
+                set to <code>/</code>.</para>
               </listitem>
             </varlistentry>
 
@@ -325,9 +386,11 @@
               <term>&lt;baseAppFirst&gt;</term>
 
               <listitem>
-                <para>Defaults to "true". Controls whether any overlayed wars
+                <para>Defaults to "true". Controls whether any overlaid wars
                 are added before or after the original base resource(s) of the
-                webapp.</para>
+                webapp. See the section on <link
+                linkend="using-overlaid-wars">overlaid wars</link> for more
+                information.</para>
               </listitem>
             </varlistentry>
           </variablelist>
@@ -343,59 +406,58 @@
         </listitem>
       </varlistentry>
     </variablelist>
+  </section>
 
-    <section xml:id="running-unassembled-webapp">
-      <title>jetty:run: Running an Unassembled Webapp</title>
+  <section xml:id="jetty-run-goal">
+    <title>jetty:run</title>
 
-      <para>The <code>run</code> goal runs on a webapp that does not have to
-      be built into a WAR. Instead, Jetty deploys the webapp from its
-      constituent sources. It looks for the constituent parts of a webapp in
-      the Maven default project locations, although you can override these in
-      the plugin configuration. For example, by default it looks for:</para>
+    <para>The <code>run</code> goal runs on a webapp that does not have to be
+    built into a WAR. Instead, Jetty deploys the webapp from its sources. It
+    looks for the constituent parts of a webapp in the Maven default project
+    locations, although you can override these in the plugin configuration.
+    For example, by default it looks for:</para>
 
-      <itemizedlist>
-        <listitem>
-          resources in 
+    <itemizedlist>
+      <listitem>
+        resources in 
 
-          <filename>${basedir}/src/main/webapp</filename>
-        </listitem>
+        <filename>${basedir}/src/main/webapp</filename>
+      </listitem>
 
-        <listitem>
-          classes in 
+      <listitem>
+        classes in 
 
-          <filename>${project.build.outputDirectory}</filename>
-        </listitem>
+        <filename>${project.build.outputDirectory}</filename>
+      </listitem>
 
-        <listitem>
-          <filename>web.xml</filename>
+      <listitem>
+        <filename>web.xml</filename>
 
-           in 
+         in 
 
-          <filename>${basedir}/src/main/webapp/WEB-INF/</filename>
-        </listitem>
-      </itemizedlist>
+        <filename>${basedir}/src/main/webapp/WEB-INF/</filename>
+      </listitem>
+    </itemizedlist>
 
-      <para>The plugin automatically ensures the classes are rebuilt and
-      up-to-date before deployment. If you change the source of a class and
-      your IDE automatically compiles it in the background, the plugin picks
-      up the changed class.</para>
+    <para>The plugin automatically ensures the classes are rebuilt and
+    up-to-date before deployment. If you change the source of a class and your
+    IDE automatically compiles it in the background, the plugin picks up the
+    changed class.</para>
 
-      <para>You do not ned to assemble the webapp into a WAR, saving time
-      during the development cycle. Once invoked, you can configure the plugin
-      to run continuously, scanning for changes in the project and
-      automatically performing a hot redeploy when necessary. Any changes you
-      make are immediately reflected in the running instance of Jetty, letting
-      you quickly jump from coding to testing, rather than going through the
-      cycle of: code, compile, reassemble, redeploy, test.</para>
+    <para>You do not need to assemble the webapp into a WAR, saving time
+    during the development cycle. Once invoked, you can configure the plugin
+    to run continuously, scanning for changes in the project and automatically
+    performing a hot redeploy when necessary. Any changes you make are
+    immediately reflected in the running instance of Jetty, letting you
+    quickly jump from coding to testing, rather than going through the cycle
+    of: code, compile, reassemble, redeploy, test.</para>
 
-      <para>Here is a small example, which turns on scanning for changes every
-      ten seconds, and sets the webapp context path to "/test":</para>
+    <para>Here is a small example, which turns on scanning for changes every
+    ten seconds, and sets the webapp context path to "/test":</para>
 
-      <informalexample>
-        <programlisting language="xml">
-
-&lt;plugin&gt;
-  &lt;groupId&gt;org.mortbay.jetty&lt;/groupId&gt;
+    <informalexample>
+      <programlisting language="xml">&lt;plugin&gt;
+  &lt;groupId&gt;org.eclipse.jetty&lt;/groupId&gt;
   &lt;artifactId&gt;jetty-maven-plugin&lt;/artifactId&gt;
   &lt;configuration&gt;
     &lt;scanIntervalSeconds&gt;10&lt;/scanIntervalSeconds&gt;
@@ -403,153 +465,110 @@
       &lt;contextPath&gt;/test&lt;/contextPath&gt;
     &lt;/webApp&gt;
   &lt;/configuration&gt;
-&lt;/plugin&gt;
-
-        </programlisting>
-      </informalexample>
-    </section>
+&lt;/plugin&gt; </programlisting>
+    </informalexample>
 
     <section xml:id="configuring-additional-parameters">
-      <title>Configuring Additional Parameters</title>
+      <title>Configuration</title>
 
-      <para>In addition to the <code>webApp</code> element that is common to
-      most goals, the <code> jetty:run</code> goal supports:</para>
+      <para>In addition to the <emphasis
+      role="bold"><code>&lt;webApp&gt;</code></emphasis> element that is
+      common to most goals, the <code>jetty:run</code> goal supports:</para>
 
-      <itemizedlist>
-        <listitem>
-          <code>classesDirectory</code>
+      <variablelist>
+        <varlistentry>
+          <term>&lt;classesDirectory&gt;</term>
 
-           –Location of your compiled classes for the webapp. You should rarely need to set this parameter. Instead, you should set 
+          <listitem>
+            <para>Location of your compiled classes for the webapp. You should
+            rarely need to set this parameter. Instead, you should set
+            <code>build outputDirectory</code> in your
+            <filename>pom.xml</filename>.</para>
+          </listitem>
+        </varlistentry>
 
-          <code>build outputDirectory</code>
+        <varlistentry>
+          <term>&lt;testClassesDirectory&gt;</term>
 
-           in your 
+          <listitem>
+            <para>Location of the compiled test classes for your webapp. By
+            default this is
+            <filename>${project.build.testOutputDirectory}</filename>.</para>
+          </listitem>
+        </varlistentry>
 
-          <filename>pom.xml</filename>
+        <varlistentry>
+          <term>&lt;useTestScope&gt;</term>
 
-          .
-        </listitem>
+          <listitem>
+            <para>If true, the classes from <code>testClassesDirectory</code>
+            and dependencies of scope "test" are placed first on the
+            classpath. By default this is false.</para>
+          </listitem>
+        </varlistentry>
 
-        <listitem>
-          <code>testClassesDirectory</code>
+        <varlistentry>
+          <term>&lt;webAppSourceDirectory&gt;</term>
 
-           –Location of the compiled test classes for your webapp. By default this is 
+          <listitem>
+            <para>By default, this is set to
+            <filename>${basedir}/src/main/webapp</filename>. If your static
+            sources are in a different location, set this parameter
+            accordingly.</para>
+          </listitem>
+        </varlistentry>
 
-          <filename>${project.build.testOutputDirectory}</filename>
+        <varlistentry>
+          <term>&lt;jettyEnvXml&gt;</term>
 
-          .
-        </listitem>
+          <listitem>
+            <para>Optional. Location of a <filename>jetty-env.xml</filename>
+            file, which allows you to make JNDI bindings that satisfy
+            <code>env-entry</code>, <code>resource-env-ref</code>, and
+            <code>resource-ref</code> linkages in the
+            <filename>web.xml</filename> that are scoped only to the webapp
+            and not shared with other webapps that you might be deploying at
+            the same time (for example, by using a <code>jettyConfig</code>
+            file).</para>
+          </listitem>
+        </varlistentry>
 
-        <listitem>
-          <code>useTestScope</code>
+        <varlistentry>
+          <term>&lt;scanTargets&gt;</term>
 
-           –If true, the classes from 
+          <listitem>
+            <para>Optional. A list of files and directories to periodically
+            scan in addition to those the plugin automatically scans.</para>
+          </listitem>
+        </varlistentry>
 
-          <code>testClassesDirectory</code>
+        <varlistentry>
+          <term>&lt;scanTargetPatterns&gt;</term>
 
-           and dependencies of scope "test" are placed first on the classpath. By default this is false.
-        </listitem>
-
-        <listitem>
-          <code>useProvidedScope</code>
-
-           –If true, the dependencies with scope "provided" are placed onto the 
-
-          <emphasis>container classpath</emphasis>
-
-          . Be aware that this is NOT the webapp classpath, as "provided" indicates that these dependencies would normally be expected to be provided by the container. You should very rarely ever need to use this. Instead, you should copy the provided dependencies as explicit dependencies of the 
-
-          <code>plugin</code>
-
-           instead.
-        </listitem>
-
-        <listitem>
-          <code>webAppSourceDirectory</code>
-
-           –By default, this is set to 
-
-          <filename>${basedir}/src/main/webapp</filename>
-
-          . If your static sources are in a different location, set this parameter accordingly.
-        </listitem>
-
-        <listitem>
-          <code>jettyEnvXml</code>
-
-           (Optional)–Location of a 
-
-          <filename>jetty-env.xml</filename>
-
-           file, which allows you to make JNDI bindings that satisfy 
-
-          <code>env-entry</code>
-
-          , 
-
-          <code>resource-env-ref</code>
-
-          , and 
-
-          <code>resource-ref</code>
-
-           linkages in the 
-
-          <filename>web.xml</filename>
-
-           that are scoped only to the webapp and not shared with other webapps that you might be deploying at the same time (for example, by using a 
-
-          <code>jettyConfig</code>
-
-           file).
-        </listitem>
-
-        <listitem>
-          <code>scanTargets</code>
-
-           (Optional)–A list of files and directories to periodically scan in addition to those the plugin automatically scans.
-        </listitem>
-
-        <listitem>
-          <code>scanTargetPatterns</code>
-
-           (Optional)–If you have a long list of extra files you want scanned, it is more convenient to use pattern matching expressions to specify them instead of enumerating them with the 
-
-          <code>scanTargetsList</code>
-
-           of 
-
-          <code>scanTargetPatterns</code>
-
-          , each consisting of a directory, and including and/or excluding parameters to specify the file matching patterns.
-        </listitem>
-
-        <listitem>
-          <code>skip</code>
-
-           (Optional)–Default is false. If true, the execution of the plugin exits. Same as setting the SystemProperty 
-
-          <code>-Djetty.skip</code>
-
-           on the command line.
-        </listitem>
-      </itemizedlist>
+          <listitem>
+            <para>Optional. If you have a long list of extra files you want
+            scanned, it is more convenient to use pattern matching expressions
+            to specify them instead of enumerating them with the
+            <code>scanTargetsList</code> of <code>scanTargetPatterns</code>,
+            each consisting of a directory, and including and/or excluding
+            parameters to specify the file matching patterns.</para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
 
       <para>Here's an example:</para>
 
       <informalexample>
-        <programlisting language="xml">
-
-&lt;project&gt;
+        <programlisting language="xml">&lt;project&gt;
   ...
   &lt;plugins&gt;
     ...
       &lt;plugin&gt;
-        &lt;groupId&gt;org.mortbay.jetty&lt;/groupId&gt;
+        &lt;groupId&gt;org.eclipse.jetty&lt;/groupId&gt;
         &lt;artifactId&gt;jetty-maven-plugin&lt;/artifactId&gt;
         &lt;configuration&gt;
           &lt;webAppSourceDirectory&gt;${basedir}/src/staticfiles&lt;/webAppSourceDirectory&gt;
-          &lt;webAppConfig&gt;
+          &lt;webApp&gt;
             &lt;contextPath&gt;/&lt;/contextPath&gt;
             &lt;descriptor&gt;${basedir}/src/over/here/web.xml&lt;/descriptor&gt;
             &lt;jettyEnvXml&gt;${basedir}/src/over/here/jetty-env.xml&lt;/jettyEnvXml&gt;
@@ -575,119 +594,136 @@
         &lt;/configuration&gt;
       &lt;/plugin&gt;
   &lt;/plugins&gt;
-&lt;/project&gt;
-
-        </programlisting>
+&lt;/project&gt;   </programlisting>
       </informalexample>
 
       <para>If, for whatever reason, you cannot run on an unassembled webapp,
       the goals <code>run-war</code> and <code> run-exploded</code> work on
       unassembled webapps.</para>
     </section>
+  </section>
 
-    <section xml:id="running-assembled-webapp-as-war">
-      <title>jetty:run-war: Running an Assembled Webapp as a WAR</title>
+  <section xml:id="running-assembled-webapp-as-war">
+    <title>jetty:run-war</title>
 
-      <para>This goal first packages your webapp as a WAR file and then
-      deploys it to Jetty. If you set a non-zero <code>scanInterval</code>,
-      Jetty watches your <filename>pom.xml</filename> and the WAR file; if
-      either changes, it redeploys the war.</para>
+    <para>This goal first packages your webapp as a WAR file and then deploys
+    it to Jetty. If you set a non-zero <code>scanInterval</code>, Jetty
+    watches your <filename>pom.xml</filename> and the WAR file; if either
+    changes, it redeploys the war.</para>
 
-      <section xml:id="configuring-war">
-        <title>Configuring the WAR</title>
+    <section xml:id="configuring-war">
+      <title>Configuration</title>
 
-        <para><code>war</code> is the location of the built WAR file. This
-        defaults to <code>
-        ${project.build.directory}/${project.build.finalName}.war</code>. If
-        this is not sufficient, set it to your custom location.</para>
+      <variablelist>
+        <varlistentry>
+          <term>&lt;war&gt;</term>
 
-        <para>Here's how to set it:</para>
+          <listitem>
+            <para>The location of the built WAR file. This defaults to
+            <code>${project.build.directory}/${project.build.finalName}.war</code>.
+            If this is not sufficient, set it to your custom location.</para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
 
-        <informalexample>
-          <programlisting language="xml">
+      <para>Here's how to set it:</para>
 
-&lt;project&gt;
+      <informalexample>
+        <programlisting language="xml">&lt;project&gt;
   ...
   &lt;plugins&gt;
     ...
       &lt;plugin&gt;
-        &lt;groupId&gt;org.mortbay.jetty&lt;/groupId&gt;
+        &lt;groupId&gt;org.eclipse.jetty&lt;/groupId&gt;
         &lt;artifactId&gt;jetty-maven-plugin&lt;/artifactId&gt;
         &lt;configuration&gt;
           &lt;war&gt;${basedir}/target/mycustom.war&lt;/war&gt;
         &lt;/configuration&gt;
       &lt;/plugin&gt;
   &lt;/plugins&gt;
-&lt;/project&gt;
-
-          </programlisting>
-        </informalexample>
-      </section>
+&lt;/project&gt;</programlisting>
+      </informalexample>
     </section>
+  </section>
 
-    <section xml:id="running-assembled-webapp-as-expanded-war">
-      <title>jetty:run-exploded: Running an Assembled Webapp as an Expanded
-      WAR</title>
+  <section xml:id="running-assembled-webapp-as-expanded-war">
+    <title>jetty:run-exploded</title>
 
-      <para>The run-exploded goal first assembles your webapp into an exploded
-      WAR file and then deploys it to Jetty. If you set a non-zero
-      <code>scanInterval</code>, Jetty watches your <filename>pom.xml,
-      WEB-INF/lib, WEB-INF/</filename> classes and
-      <filename>WEB-INF/web.xml</filename> for changes and redeploys when
-      necessary.</para>
+    <para>The run-exploded goal first assembles your webapp into an exploded
+    WAR file and then deploys it to Jetty. If you set a non-zero
+    <code>scanInterval</code>, Jetty watches your <filename>pom.xml,
+    WEB-INF/lib, WEB-INF/</filename> classes and
+    <filename>WEB-INF/web.xml</filename> for changes and redeploys when
+    necessary.</para>
 
-      <section xml:id="configuring-exploded-war">
-        <title>Configuring the Exploded WAR</title>
+    <section xml:id="configuring-exploded-war">
+      <title>Configuration</title>
 
-        <para><code>war</code> is the location of the exploded WAR. This
-        defaults to <code>
-        ${project.build.directory}/${project.build.finalName}</code>, but you
-        can override the default by setting this parameter.</para>
+      <variablelist>
+        <varlistentry>
+          <term>&lt;war&gt;</term>
 
-        <para>Here's how to set it:</para>
+          <listitem>
+            <para>The location of the exploded WAR. This defaults to
+            <code>${project.build.directory}/${project.build.finalName}</code>,
+            but you can override the default by setting this parameter.</para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
 
-        <informalexample>
-          <programlisting language="xml">
+      <para>Here's how to set it:</para>
 
-&lt;project&gt;
+      <informalexample>
+        <programlisting language="xml">&lt;project&gt;
   ...
   &lt;plugins&gt;
     ...
       &lt;plugin&gt;
-        &lt;groupId&gt;org.mortbay.jetty&lt;/groupId&gt;
+        &lt;groupId&gt;org.eclipse.jetty&lt;/groupId&gt;
         &lt;artifactId&gt;maven-jetty-plugin&lt;/artifactId&gt;
         &lt;configuration&gt;
           &lt;war&gt;${basedir}/target/myfunkywebapp&lt;/war&gt;
         &lt;/configuration&gt;
       &lt;/plugin&gt;
   &lt;/plugins&gt;
-&lt;/project&gt;
-
-          </programlisting>
-        </informalexample>
-      </section>
+&lt;/project&gt;  </programlisting>
+      </informalexample>
     </section>
+  </section>
 
-    <section xml:id="deploy-war-running-pre-assembled-war">
-      <title>jetty:deploy-war: Running a pre-assembled war</title>
+  <section xml:id="deploy-war-running-pre-assembled-war">
+    <title>jetty:deploy-war</title>
 
-      <para>This is basically the same as <code>jetty:run-war</code>, but
-      without assembling the WAR of the current module. Unlike
-      <code>run-war</code>, the phase in which this plugin executes is not
-      bound to the "package" phase.</para>
+    <para>This is basically the same as <code>jetty:run-war</code>, but
+    without assembling the WAR of the current module. Unlike
+    <code>run-war</code>, the phase in which this plugin executes is not bound
+    to the "package" phase. For example, you might want to start Jetty on the
+    "test-compile" phase and stop Jetty on the "test-phase". </para>
 
-      <para>For example, you might want to start Jetty on the test-compile
-      phase and stop Jetty on the test-phase. Here's the configuration:</para>
+    <section>
+      <title>Configuration</title>
+
+      <variablelist>
+        <varlistentry>
+          <term>&lt;war&gt;</term>
+
+          <listitem>
+            <para>The location of the WAR file. This defaults to
+            <code>${project.build.directory}/${project.build.finalName}</code>,
+            but you can override the default by setting this parameter.</para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+
+      <para>Here's the configuration:</para>
 
       <informalexample>
-        <programlisting language="xml">
-
-&lt;project&gt;
+        <programlisting language="xml">&lt;project&gt;
   ...
   &lt;plugins&gt;
     ...
       &lt;plugin&gt;
-        &lt;groupId&gt;org.mortbay.jetty&lt;/groupId&gt;
+        &lt;groupId&gt;org.eclipse.jetty&lt;/groupId&gt;
         &lt;artifactId&gt;jetty-maven-plugin&lt;/artifactId&gt;
         &lt;configuration&gt;
           &lt;war&gt;${basedir}/target/mycustom.war&lt;/war&gt;
@@ -714,260 +750,243 @@
         &lt;/executions&gt;
       &lt;/plugin&gt;
   &lt;/plugins&gt;
-&lt;/project&gt;
-
-        </programlisting>
+&lt;/project&gt;  </programlisting>
       </informalexample>
     </section>
   </section>
 
-  <section xml:id="running-unassembled-webapp-in-separate-jvm">
-    <title>jetty:run-forked: Running an Unassembled Webapp in a Separate
-    JVM</title>
+  <section xml:id="jetty-run-forked-goal">
+    <title>jetty:run-forked</title>
+
+    <para>This goal allows you to start the webapp in a new JVM, optionally
+    passing arguments to that new JVM. </para>
+
+    <section>
+      <title>Configuration</title>
+
+      <para>NOTE: unfortunately, unlike most of the other goals, this one does
+      NOT support a <emphasis role="bold">&lt;webApp&gt;</emphasis> parameter
+      to configure the webapp. Therefore, if your webapp requires a lot of
+      configuration, it will be difficult to switch between eg
+      <code>jetty:run</code> and <code>jetty:run-forked</code>
+      executions.</para>
+
+      <para>The available configuration parameters are:</para>
+
+      <variablelist>
+        <varlistentry>
+          <term>&lt;jettyXml&gt;</term>
+
+          <listitem>
+            <para>The locations of jetty xml configuration files used to
+            configure the container in the new JVM.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>&lt;contextXml&gt;</term>
+
+          <listitem>
+            <para>Optional. The location of a context xml file to configure
+            the webapp in the new JVM.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>&lt;contextPath&gt;</term>
+
+          <listitem>
+            <para>Optional. The context path for the webapp in the new JVM.
+            Defaults to <filename>/${project.artifactId}</filename>. Overrides
+            a setting inside a <code>contextXml</code> file.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>&lt;webAppSourceDirectory&gt;</term>
+
+          <listitem>
+            <para>Optional. The location of the static resources for your
+            webapp. Defaults to <filename>src/main/webapp</filename>.
+            Overrides a <code>Set name="baseResource"</code> setting inside a
+            <code>contextXml</code> file.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>&lt;resourceDirs&gt;</term>
+
+          <listitem>
+            <para>Optional. An array of directories containing static content
+            that form the resource base for your webapp, in conjunction with
+            the <filename>webAppSourceDirectory</filename>. See also
+            <code>baseAppFirst</code>.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>&lt;baseAppFirst&gt;</term>
+
+          <listitem>
+            <para>Defaults to "true". Controls whether the
+            <filename>webAppSourceDirectory</filename> or
+            <filename>resourceDirs</filename> are first on the list of
+            resources that form the base resource for the webapp.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>&lt;webXml&gt;</term>
+
+          <listitem>
+            <para>The location of the <filename>web.xml</filename> file.
+            Defaults to <filename>src/main/webapp/WEB-INF/web.xml</filename>.
+            Overrides a <code>Set name="descriptor"</code> inside a
+            <filename>contextXml</filename> file.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>&lt;tmpDirectory&gt;</term>
+
+          <listitem>
+            <para>Temporary directory to use for the webapp. Defaults to
+            <code>${project.build.directory/tmp</code>.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>&lt;classesDirectory&gt;</term>
+
+          <listitem>
+            <para>The location of the compiled classes for the webapp.
+            Defaults to
+            <filename>${project.build.outputDirectory}</filename>.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>&lt;testClassesDirectory&gt;</term>
 
-    <para>This goal was new in jetty-7.5.2. You can force Jetty to start the
-    webapp in a new JVM, optionally passing arguments to the JVM. Unlike the
-    other goals, this one does not share all the same configuration parameters
-    (although a lot of them are the same, so that you can use many of the
-    goals with the same configuration). The configuration options are:</para>
+          <listitem>
+            <para>The location of the compiled test classes for the webapp.
+            Defaults to
+            <filename>${project.build.testOutputDirectory}</filename>.</para>
+          </listitem>
+        </varlistentry>
 
-    <itemizedlist>
-      <listitem>
-        <filename>jettyXml</filename>
+        <varlistentry>
+          <term>&lt;useTestScope&gt;</term>
 
-         –The locations of jetty xml configuration files used to configure the container in the new JVM.
-      </listitem>
+          <listitem>
+            <para>–Defaults to "false". If true, the test classes and
+            dependencies of <code>&lt;scope&gt;test&gt;/scope&gt;</code> are
+            placed on the webapp's classpath.</para>
+          </listitem>
+        </varlistentry>
 
-      <listitem>
-        <filename>contextXml</filename>
+        <varlistentry>
+          <term>&lt;useProvidedScope&gt;</term>
 
-         (Optional&gt;–The location of a context xml file to configure the webapp in the new JVM.
-      </listitem>
+          <listitem>
+            <para>Defaults to "false". If true, the dependencies of scope
+            "provided" are placed on the jetty container's classpath.</para>
+          </listitem>
+        </varlistentry>
 
-      <listitem>
-        <filename>contextPath</filename>
+        <varlistentry>
+          <term>&lt;stopPort&gt;</term>
 
-         (Optional).–The context path for the webapp in the new JVM. Defaults to 
+          <listitem>
+            <para>Mandatory. A port number for jetty to listen on to receive a
+            stop command to cause it to shutdown. If configured, the stopKey
+            is used to authenticate an incoming stop command.</para>
+          </listitem>
+        </varlistentry>
 
-        <filename>/${project.artifactId}</filename>
+        <varlistentry>
+          <term>&lt;stopKey&gt;</term>
 
-        . Overrides a setting inside a 
+          <listitem>
+            <para>Mandatory. A string value that has to be sent to the
+            <code>stopPort</code> to authenticate the stop command.</para>
+          </listitem>
+        </varlistentry>
 
-        <code>contextXml</code>
+        <varlistentry>
+          <term>&lt;skip&gt;</term>
 
-        &gt; file.
-      </listitem>
+          <listitem>
+            <para>Optional. Defaults to false. If true, the execution of this
+            plugin is skipped.</para>
+          </listitem>
+        </varlistentry>
 
-      <listitem>
-        <filename>webAppSourceDirectory</filename>
+        <varlistentry>
+          <term>&lt;jvmArgs&gt;</term>
 
-         (Optional)–The location of the static resources for your webapp. Defaults to 
+          <listitem>
+            <para>Optional. A string representing arbitrary arguments to pass
+            to the forked JVM.</para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
 
-        <filename>src/main/webapp</filename>
+      <para>To deploy your unassembled web app to Jetty running in a new
+      JVM:</para>
 
-        . Overrides a 
+      <screen>mvn jetty:run-forked</screen>
 
-        <code>Set name="baseResource"</code>
+      <para>Jetty continues to execute until you either:</para>
 
-         setting inside a 
+      <itemizedlist>
+        <listitem>
+          Press 
 
-        <code>contextXml</code>
+          <code>cntrl-c</code>
 
-         file.
-      </listitem>
+           in the terminal window to stop the plugin, which also stops the forked JVM.
+        </listitem>
 
-      <listitem>
-        <filename>resourceDirs</filename>
+        <listitem>
+          Use jetty:stop to stop the forked JVM, which also stops the plugin.
+        </listitem>
+      </itemizedlist>
 
-         (Optional)–New in jetty-7.6.5. An array of directories containing static content that form the resource base for your webapp, in conjuction with the 
+      <note>
+        If you want to set a custom port, you need to specify it in a 
 
-        <filename>webAppSourceDirectory</filename>
+        <filename>jetty.xml</filename>
 
-        . See also 
+         file rather than setting the 
 
-        <code>baseAppFirst</code>
+        <connector>
+          <port/>
+        </connector>
 
-        .
-      </listitem>
+        tags. You can specify the location of the 
 
-      <listitem>
-        <code>baseAppFirst</code>
+        <filename>jetty.xml</filename>
 
-         (Optional)–New in jetty-7.6.5. Defaults to "true". Controls whether the 
+         using the 
 
-        <filename>webAppSourceDirectory</filename>
+        <code>jettyXml</code>
 
-         or 
-
-        <filename>resourceDirs</filename>
-
-         are first on the list of resources that form the base resource for the webapp.
-      </listitem>
-
-      <listitem>
-        <filename>webXml</filename>
-
-         (Optional)–The location of the 
-
-        <filename>web.xml</filename>
-
-         file. Defaults to 
-
-        <filename>src/main/webapp/WEB-INF/web.xml</filename>
-
-        . Overrides a 
-
-        <code>Set name="descriptor"</code>
-
-         inside a 
-
-        <filename>contextXml</filename>
-
-         file.
-      </listitem>
-
-      <listitem>
-        <filename>tmpDirectory</filename>
-
-         (Optional)–The location of the temporary work directory. Defaults to 
-
-        <filename>target/tmp</filename>
-
-        . Overrides a 
-
-        <filename>Set name="tempDirectory"</filename>
-
-        &gt; inside a 
-
-        <filename>contextXml</filename>
-
-         file.
-      </listitem>
-
-      <listitem>
-        <filename>classesDirectory</filename>
-
-         (Optional)–The location of the compiled classes for the webapp. Defaults to 
-
-        <filename>${project.build.outputDirectory}</filename>
-
-        .
-      </listitem>
-
-      <listitem>
-        <filename>testClassesDirectory</filename>
-
-         (Optional)–The location of the compiled test classes for the webapp. Defaults to 
-
-        <filename>${project.build.testOutputDirectory}</filename>
-
-        .
-      </listitem>
-
-      <listitem>
-        <code>useTestScope</code>
-
-         (Optional)–Defaults to "false". If true, the test classes and dependencies of scope "test" are placed on the webapp's classpath.
-      </listitem>
-
-      <listitem>
-        <code>useProvidedScope</code>
-
-         (Optional)–Defaults to "false". If true, the dependencies of scope "provided" are placed on the jetty container's classpath.
-      </listitem>
-
-      <listitem>
-        <code>stopPort</code>
-
-         (Mandatory)–A port number for jetty to listen on to receive a stop command to cause it to shutdown. If configured, the stopKey is used to authenticate an incoming stop command.
-      </listitem>
-
-      <listitem>
-        <code>stopKey&gt;</code>
-
-         (Mandatory)–A string value that has to be sent to the 
-
-        <code>stopPort</code>
-
-         to authenticate the stop command.
-      </listitem>
-
-      <listitem>
-        <code>skip</code>
-
-         (Optional)–Defaults to false. If true, the execution of this plugin is skipped.
-      </listitem>
-
-      <listitem>
-        <code>jvmArgs</code>
-
-         (Optional)–A string representing arbitrary arguments to pass to the forked JVM.
-      </listitem>
-    </itemizedlist>
-
-    <para>To deploy your unassembled web app to Jetty running in a new
-    JVM:</para>
-
-    <screen>
-
-    mvn jetty:run-forked
-
-    </screen>
-
-    <para>Jetty continues to execute until you either:</para>
-
-    <itemizedlist>
-      <listitem>
-        Press 
-
-        <code>cntrl-c</code>
-
-         in the terminal window to stop the plugin, which also stops the forked JVM.
-      </listitem>
-
-      <listitem>
-        Use 
-
-        <code>mvn jetty:stop</code>
-
-         to stop the forked JVM, which also stops the plugin.
-      </listitem>
-    </itemizedlist>
-
-    <note>
-      If you want to set a custom port, you need to specify it in a 
-
-      <filename>jetty.xml</filename>
-
-       file rather than setting the 
-
-      <connector>
-        <port/>
-      </connector>
-
-      tags. You can specify the location of the 
-
-      <filename>jetty.xml</filename>
-
-       using the 
-
-      <code>jettyXml</code>
-
-       parameter.
-    </note>
+         parameter.
+      </note>
+    </section>
   </section>
 
-  <section xml:id="starting-jetty-without-first-executing-build">
-    <title>jetty:start: Starting Jetty without First Executing the Build Up to
-    <emphasis> test-compile</emphasis> Phase</title>
+  <section xml:id="jetty-start-goal">
+    <title>jetty:start</title>
 
-    <para>This goal was new in jetty-7.6.0. We designed it to use with an
-    execution binding in your <filename> pom.xml</filename>. It is similar to
-    the <code>jetty:run</code> goal, however it does NOT first execute the
-    build up until the "test-compile" phase to ensure that all necessary
-    classes and files of the webapp have been generated. This is most useful
-    when you want to control the start and stop of Jetty via execution
-    bindings in your <filename> pom.xml</filename>.</para>
+    <para>This goal is for use with an execution binding in your
+    <filename>pom.xml</filename>. It is similar to the <code>jetty:run</code>
+    goal, however it does NOT first execute the build up until the
+    "test-compile" phase to ensure that all necessary classes and files of the
+    webapp have been generated. This is most useful when you want to control
+    the start and stop of Jetty via execution bindings in your <filename>
+    pom.xml</filename>.</para>
 
     <para>For example, you can configure the plugin to start your webapp at
     the beginning of your unit tests and stop at the end. To do this, you need
@@ -979,10 +998,8 @@
     execution and termination of Jetty:</para>
 
     <informalexample>
-      <programlisting language="xml">
-
-&lt;plugin&gt;
-  &lt;groupId&gt;org.mortbay.jetty&lt;/groupId&gt;
+      <programlisting language="xml">&lt;plugin&gt;
+  &lt;groupId&gt;org.eclipse.jetty&lt;/groupId&gt;
   &lt;artifactId&gt;jetty-maven-plugin&lt;/artifactId&gt;
   &lt;configuration&gt;
     &lt;scanIntervalSeconds&gt;10&lt;/scanIntervalSeconds&gt;
@@ -1009,9 +1026,7 @@
       &lt;/goals&gt;
     &lt;/execution&gt;
   &lt;/executions&gt;
-&lt;/plugin&gt;
-
-      </programlisting>
+&lt;/plugin&gt;</programlisting>
     </informalexample>
 
     <para>Of course, you can use this goal from the command line ( <code>mvn
@@ -1019,154 +1034,216 @@
     classes and files for your webapp are already present first.</para>
   </section>
 
-  <section xml:id="more-configuration-options">
-    <title>More Configuration Options</title>
+  <section xml:id="jetty-stop-goal">
+    <title>jetty:stop</title>
 
-    <para>The following sections provide information on additional
-    configuration options.</para>
+    <para>The stop goal stops a running instance of jetty. To use it, you need
+    to configure the plugin with a special port number and key. That same port
+    number and key will also be used by the <code><link
+    linkend="jetty-start-goal">start</link></code> goal.</para>
 
-    <section xml:id="excluded-goals">
-      <title>Excluded Goals</title>
-
-      <para>Your webapp might not work with one of the goals, for example
-      <code>jetty:run</code>. In this case, use the <code>excludedGoals</code>
-      parameter:</para>
-
-      <para><code>excludedGoals</code> (Optional)–Set to a comma-separated
-      list of Jetty goal names which, if executed, cause the plugin to print
-      an informative message and exit immediately:</para>
-
-      <informalexample>
-        <programlisting language="xml">
-
-&lt;configuration&gt;
-   &lt;excludedGoals&gt;run,run-exploded&lt;/excludedGoals&gt;
-&lt;/configuration&gt;
-
-        </programlisting>
-      </informalexample>
-    </section>
-
-    <section xml:id="manual-reload">
-      <title>Manual Reload</title>
-
-      <para>You might not want Jetty to automatically reload and redeploy your
-      webapp when something about it changes. For example, you might be doing
-      a series of changes that you want to ignore until you're done. In that
-      use, use the <code>reload</code> parameter:</para>
-
-      <para><code>reload</code> (Optional)–Default value is
-      <code>automatic</code>. If <code>manual</code>, a linefeed in the
-      console can reload the context. If <code>automatic</code>, traditional
-      reloading on changed files is enabled.</para>
-    </section>
-
-    <section xml:id="stopping-plugin-from-another-terminal-window">
-      <title>Stopping the Plugin from Another Terminal Window</title>
-
-      <para>If you want to use <code>mvn jetty:stop</code>, you need to
-      configure the plugin with a special port number and key that you also
-      supply by executing the <code>stop</code> goal:</para>
-
-      <itemizedlist>
-        <listitem>
-          <code>stopPort</code>
-
-           –A port number for jetty to listen on to receive a stop command to cause it to shutdown.
-        </listitem>
+    <variablelist>
+      <varlistentry>
+        <term>&lt;stopPort&gt;</term>
 
         <listitem>
-          <code>stopKey</code>
-
-           –A string value sent to the 
-
-          <code>stopPort</code>
-
-           to validate the stop command.
+          <para>A port number for jetty to listen on to receive a stop command
+          to cause it to shutdown.</para>
         </listitem>
-      </itemizedlist>
+      </varlistentry>
 
-      <para>Here's a configuration example:</para>
+      <varlistentry>
+        <term>&lt;stopKey&gt;</term>
 
-      <informalexample>
-        <programlisting language="xml">
+        <listitem>
+          <para>A string value sent to the <code>stopPort</code> to validate
+          the stop command.</para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
 
-&lt;plugin&gt;
-  &lt;groupId&gt;org.mortbay.jetty&lt;/groupId&gt;
+    <para>Here's a configuration example:</para>
+
+    <informalexample>
+      <programlisting language="xml">&lt;plugin&gt;
+  &lt;groupId&gt;org.eclipse.jetty&lt;/groupId&gt;
   &lt;artifactId&gt;jetty-maven-plugin&lt;/artifactId&gt;
   &lt;configuration&gt;
     &lt;stopPort&gt;9966&lt;/stopPort&gt;
     &lt;stopKey&gt;foo&lt;/stopKey&gt;
   &lt;/configuration&gt;
-&lt;/plugin&gt;
+&lt;/plugin&gt;   </programlisting>
+    </informalexample>
 
-        </programlisting>
-      </informalexample>
+    <para>Then, while Jetty is running (in another window), type:</para>
 
-      <para>Then, while Jetty is running, type:</para>
+    <screen>mvn jetty:stop</screen>
 
-      <screen>
+    <para>The <code>stopPort</code> must be free on the machine you are
+    running on. If this is not the case, you get an "Address already in use"
+    error message after the "Started SelectedChannelConnector ..."
+    message.</para>
+  </section>
 
-    mvn jetty:stop
+  <section xml:id="using-overlaid-wars">
+    <title>Using Overlaid wars</title>
 
-      </screen>
+    <para>If your webapp depends on other war files, the<link
+    linkend="jetty-run-goal"> jetty:run</link> and <link
+    linkend="jetty-run-forked-goal">jetty:run-forked</link> goals are able to
+    merge resources from all of them. It can do so based on the settings of
+    the <link
+    xl:href="http://maven.apache.org/plugins/maven-war-plugin/">maven-war-plugin</link>,
+    or if your project does not use the <link
+    xl:href="http://maven.apache.org/plugins/maven-war-plugin/">maven-war-plugin</link>
+    to handle the overlays, it can fall back to a simple algorithm to
+    determine the ordering of resources.</para>
 
-      <para>The <code>stopPort</code> must be free on the machine you are
-      running on. If this is not the case, you get an "Address already in use"
-      error message after the "Started SelectedChannelConnector ..."
-      message.</para>
+    <section>
+      <title>With maven-war-plugin</title>
+
+      <para>The maven-war-plugin has a rich set of capabilities for merging
+      resources. The jetty:run and jetty:run-forked goals are able to
+      interpret most of them and apply them during execution of your
+      unassembled webapp. This is probably best seen by looking at a concrete
+      example.</para>
+
+      <para>Suppose your webapp depends on the following wars:</para>
+
+      <para><informalexample>
+          <programlisting language="xml">&lt;dependency&gt;
+      &lt;groupId&gt;com.acme&lt;/groupId&gt;
+      &lt;artifactId&gt;X&lt;/artifactId&gt;
+      &lt;type&gt;war&lt;/type&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+      &lt;groupId&gt;com.acme&lt;/groupId&gt;
+      &lt;artifactId&gt;Y&lt;/artifactId&gt;
+      &lt;type&gt;war&lt;/type&gt;
+&lt;/dependency&gt;</programlisting>
+        </informalexample></para>
+
+      <para><parameter>Containing:</parameter><informalexample>
+          <programlisting language="text">WebAppX:
+
+/foo.jsp
+/bar.jsp
+/WEB-INF/web.xml
+
+
+
+WebAppY:
+
+/bar.jsp
+/baz.jsp
+/WEB-INF/web.xml
+/WEB-INF/special.xml   </programlisting>
+        </informalexample>They are configured for the <link
+      linkend="???"><link
+      xl:href="http://maven.apache.org/plugins/maven-war-plugin/overlays.html">maven-war-plugin</link></link>:<informalexample>
+          <para><programlisting language="xml">&lt;plugin&gt;
+  &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+  &lt;artifactId&gt;maven-war-plugin&lt;/artifactId&gt;
+  &lt;configuration&gt;
+    &lt;overlays&gt;
+      &lt;overlay&gt;
+        &lt;groupId&gt;com.acme&lt;/groupId&gt;
+        &lt;artifactId&gt;X&lt;/artifactId&gt;
+        &lt;excludes&gt;
+          &lt;exclude&gt;bar.jsp&lt;/exclude&gt;
+        &lt;/excludes&gt;
+      &lt;/overlay&gt;
+      &lt;overlay&gt;
+        &lt;groupId&gt;com.acme&lt;/groupId&gt;
+        &lt;artifactId&gt;Y&lt;/artifactId&gt;
+        &lt;excludes&gt;
+          &lt;exclude&gt;baz.jsp&lt;/exclude&gt;
+        &lt;/excludes&gt;        
+      &lt;/overlay&gt;
+      &lt;overlay&gt;&lt;/overlay&gt;
+    &lt;/overlays&gt;
+  &lt;/configuration&gt;
+&lt;/plugin&gt;    </programlisting></para>
+        </informalexample>Then executing jetty:run would yield the following
+      ordering of resources: <code>com.acme.X.war : com.acme.Y.war:
+      ${project.basedir}/src/main/webapp</code>. Note that the current
+      project's resources are placed last in the ordering due to the empty
+      &lt;overlay/&gt; element in the maven-war-plugin. You can either use
+      that, or specify the
+      <code>&lt;baseAppFirst&gt;false&lt;/baseAppFirst&gt;</code> parameter to
+      the jetty-maven-plugin. </para>
+
+      <para>Moreover, due to the <code>exclusions</code> specified above, a
+      request for the resource <code>bar.jsp</code> would only be satisfied
+      from <code>com.acme.Y.war.</code>Similarly as <code>baz.jsp</code> is
+      excluded, a request for it would result in a 404 error.</para>
     </section>
 
-    <section xml:id="using-mvn-jetty:help">
-      <title>Using <code>mvn jetty:help</code> for More Help</title>
+    <section>
+      <title>Without maven-war-plugin</title>
 
-      <para>For more help, use the <code>mvn jetty:help</code> command.</para>
+      <para>The algorithm is fairly simple, is based on the ordering of
+      declaration of the dependent wars, and does not support exclusions. The
+      configuration parameter <code>&lt;baseAppFirst&gt;</code> (see the
+      section on <link linkend="configuring-your-webapp">Configuring Your
+      Webapp</link> for more information) can be used to control whether your
+      webapp's resources are placed first or last on the resource path at
+      runtime. </para>
 
-      <itemizedlist>
-        <listitem>
-          <code>mvn jetty:help</code>
-
-           –Prints the list of goals for the jetty-maven-plugin, with a description of each goal.
-        </listitem>
-
-        <listitem>
-          <code>mvn jetty:help -Ddetail=true -Dgoal= goal-name</code>
-
-           –Prints a list of the properties you can set for that goal, in addition to its description.
-        </listitem>
-      </itemizedlist>
-    </section>
-
-    <section xml:id="skipping-execution-of-jetty">
-      <title>Skipping Execution of Jetty</title>
-
-      <para>Similar to the well known system property
-      <code>mvn.test.skip</code>, you can define the system property
-      <code>jetty.skip</code> to prevent Jetty running. This is most useful
-      when configuring Jetty for execution during integration testing and you
-      want to skip the tests:</para>
-
-      <screen>
-
-    mvn -Djetty.skip=true
-
-      </screen>
-
-      <para>You can also use the <code>skip</code> configuration parameter to
-      skip Jetty during certain executions (see above).</para>
-    </section>
-
-    <section xml:id="configuring-security-settings">
-      <title>Configuring Security Settings</title>
-
-      <para>You can configure LoginServices (known as UserRealms in Jetty 6)
-      in the plugin. Here's an example of setting up the HashLoginService for
-      a webapp:</para>
+      <para>For example, suppose our webapp depends on these two wars:</para>
 
       <informalexample>
-        <programlisting language="xml">
+        <programlisting language="xml">&lt;dependency&gt;
+      &lt;groupId&gt;com.acme&lt;/groupId&gt;
+      &lt;artifactId&gt;X&lt;/artifactId&gt;
+      &lt;type&gt;war&lt;/type&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+      &lt;groupId&gt;com.acme&lt;/groupId&gt;
+      &lt;artifactId&gt;Y&lt;/artifactId&gt;
+      &lt;type&gt;war&lt;/type&gt;
+&lt;/dependency&gt;</programlisting>
+      </informalexample>
 
-&lt;plugin&gt;
+      <para>Suppose the webapps contain:</para>
+
+      <informalexample>
+        <programlisting language="text">WebAppX:
+
+/foo.jsp
+/bar.jsp
+/WEB-INF/web.xml
+
+
+
+WebAppY:
+
+/bar.jsp
+/baz.jsp
+/WEB-INF/web.xml
+/WEB-INF/special.xml   </programlisting>
+      </informalexample>
+
+      <para>Then our webapp has available these additional resources:</para>
+
+      <informalexample>
+        <programlisting language="text">/foo.jsp (X)
+/bar.jsp (X)
+/baz.jsp (Y)
+/WEB-INF/web.xml (X)
+/WEB-INF/sitemesh.xml (Y) </programlisting>
+      </informalexample>
+    </section>
+  </section>
+
+  <section xml:id="configuring-security-settings">
+    <title>Configuring Security Settings</title>
+
+    <para>You can configure LoginServices in the plugin. Here's an example of
+    setting up the HashLoginService for a webapp:</para>
+
+    <informalexample>
+      <programlisting language="xml">&lt;plugin&gt;
   &lt;groupId&gt;org.mortbay.jetty&lt;/groupId&gt;
   &lt;artifactId&gt;jetty-maven-plugin&lt;/artifactId&gt;
   &lt;configuration&gt;
@@ -1181,129 +1258,23 @@
       &lt;/loginService&gt;
     &lt;/loginServices&gt;
   &lt;/configuration&gt;
-&lt;/plugin&gt;
+&lt;/plugin&gt;    </programlisting>
+    </informalexample>
+  </section>
 
-        </programlisting>
-      </informalexample>
-    </section>
+  <section xml:id="using-multiple-webapp-root-directories">
+    <title>Using Multiple Webapp Root Directories</title>
 
-    <section xml:id="configuring-connectors-jetty-maven-plugin">
-      <title>Configuring Connectors for Jetty Maven Plugin</title>
+    <para>If you have external resources that you want to incorporate in the
+    execution of a webapp, but which are not assembled into WARs, you can't
+    use the overlaid wars method described above, but you can tell Jetty the
+    directories in which these external resources are located. At runtime,
+    when Jetty receives a request for a resource, it searches all the
+    locations to retrieve the resource. It's a lot like the overlaid war
+    situation, but without the war. Here's a configuration example:</para>
 
-      <para>You can configure a list of
-      <code>org.eclipse.jetty.server.Connector</code> objects for the plugin.
-      If you don't specify any, an NIO
-      <code>org.eclipse.jetty.server.nio.SelectChannelConnector</code> is
-      configured on port 8080. You can change this default port number by
-      using the system property <code>jetty.port</code> on the command line,
-      for example <code>mvn -Djetty.port=9999 jetty:run</code>. Alternatively,
-      you can specify as many connectors as you like. Here's an example of
-      configuring a connector on a different port number:</para>
-
-      <informalexample>
-        <programlisting language="xml">
-
-&lt;plugin&gt;
-  &lt;groupId&gt;org.mortbay.jetty&lt;/groupId&gt;
-  &lt;artifactId&gt;jetty-maven-plugin&lt;/artifactId&gt;
-  &lt;configuration&gt;
-    &lt;scanIntervalSeconds&gt;10&lt;/scanIntervalSeconds&gt;
-    &lt;webApp&gt;
-      &lt;contextPath&gt;/test&lt;/contextPath&gt;
-    &lt;/webApp&gt;
-    &lt;connectors&gt;
-       &lt;connector implementation="org.eclipse.jetty.server.nio.SelectChannelConnector"&gt;
-          &lt;port&gt;9090&lt;/port&gt;
-          &lt;maxIdleTime&gt;60000&lt;/maxIdleTime&gt;
-       &lt;/connector&gt;
-     &lt;/connectors&gt;
-  &lt;/configuration&gt;
-&lt;/plugin&gt;
-
-        </programlisting>
-      </informalexample>
-    </section>
-
-    <section xml:id="using-overlaid-wars">
-      <title>Using Overlaid WARs</title>
-
-      <para>If your webapp depends on other WAR files, the Jetty Maven plugin
-      is able to merge resources from all of them. The merging is fairly
-      simple and does not support exclusions. The ordering of dependencies is
-      important if you have defined the same resource in multiple files. There
-      is no special configuration for this beyond simply declaring the
-      dependencies.</para>
-
-      <para>For example, suppose our webapp depends on these two WARs:</para>
-
-      <informalexample>
-        <programlisting language="xml">
-
-&lt;dependency&gt;
-      &lt;groupId&gt;com.acme&lt;/groupId&gt;
-      &lt;artifactId&gt;X&lt;/artifactId&gt;
-      &lt;type&gt;war&lt;/type&gt;
-&lt;/dependency&gt;
-&lt;dependency&gt;
-      &lt;groupId&gt;com.acme&lt;/groupId&gt;
-      &lt;artifactId&gt;Y&lt;/artifactId&gt;
-      &lt;type&gt;war&lt;/type&gt;
-&lt;/dependency&gt;
-
-        </programlisting>
-      </informalexample>
-
-      <para>Suppose the webapps contain:</para>
-
-      <informalexample>
-        <programlisting language="text">
-
-WebAppX:
-
-/foo.jsp
-/bar.jsp
-/WEB-INF/web.xml
-
-
-
-WebAppY:
-
-/bar.jsp
-/baz.jsp
-/WEB-INF/web.xml
-/WEB-INF/special.xml
-
-        </programlisting>
-      </informalexample>
-
-      <para>Then the webapp has available these additional resources:</para>
-
-      <informalexample>
-        <programlisting language="text">
-
-/foo.jsp (X)
-/bar.jsp (X)
-/baz.jsp (Y)
-/WEB-INF/web.xml (X)
-/WEB-INF/sitemesh.xml (Y)
-
-        </programlisting>
-      </informalexample>
-    </section>
-
-    <section xml:id="using-multiple-webapp-root-directories">
-      <title>Using Multiple Webapp Root Directories</title>
-
-      <para>If you have external resources that you want to incorporate in the
-      execution of a webapp, but which are not assembled into WARs, you can't
-      use the overlaid WARs method described above, but you can tell Jetty the
-      directories in which these external resources are located. At runtime,
-      when Jetty receives a request for a resource, it searches all the
-      locations to retrieve the resource. It's a lot like the overlaid WAR
-      situation, but without the WAR. Here's a configuration example:</para>
-
-      <informalexample>
-        <programlisting language="xml">
+    <informalexample>
+      <programlisting language="xml">
 
 &lt;configuration&gt;
   &lt;webApp&gt;
@@ -1315,82 +1286,23 @@ WebAppY:
 &lt;/configuration&gt;
 
         </programlisting>
-      </informalexample>
-    </section>
+    </informalexample>
+  </section>
 
-    <section xml:id="using-gzip-compression">
-      <title>Using GZip Compression and Other Jetty Extensions</title>
+  <section xml:id="running-more-than-one-webapp">
+    <title>Running More than One Webapp</title>
 
-      <para>You must explicitly enable GZip compression and other Jetty
-      extensions by adding a dependency on jetty-servlets:</para>
+    <para>You can use either a <filename>jetty.xml</filename> file to
+    configure extra (pre-compiled) webapps that you want to deploy, or you can
+    use the <code>&lt;contextHandlers&gt;</code> configuration element to do
+    so. If you want to deploy webapp A, and webapps B and C in the same Jetty
+    instance:</para>
 
-      <informalexample>
-        <programlisting language="xml">
+    <para>Putting the configuration in webapp A's <code>pom.xml</code>:</para>
 
-      &lt;plugin&gt;
-        &lt;groupId&gt;org.mortbay.jetty&lt;/groupId&gt;
-        &lt;artifactId&gt;jetty-maven-plugin&lt;/artifactId&gt;
-        &lt;version&gt;7.0.1.v20091125&lt;/version&gt;
-        &lt;configuration&gt;
-          [...]
-        &lt;/configuration&gt;
-        &lt;dependencies&gt;
-          &lt;dependency&gt;
-            &lt;groupId&gt;org.eclipse.jetty&lt;/groupId&gt;
-            &lt;artifactId&gt;jetty-servlets&lt;/artifactId&gt;
-            &lt;version&gt;7.0.1.v20091125&lt;/version&gt;
-          &lt;/dependency&gt;
-        &lt;/dependencies&gt;
-      &lt;/plugin&gt;
-      
-        </programlisting>
-      </informalexample>
-
-      <note>
-        Setting the 
-
-        <code>groupId</code>
-
-        : Maven by default looks for plugins with a groupId of 
-
-        <code>org.apache.maven.plugins</code>
-
-        , even if the groupId is declared differently as above. To instruct Maven to look for the plugin in the groupId as defined, set a plugin group in a profile in 
-
-        <filename>settings.xml</filename>
-
-        :
-      </note>
-
-      <screen>
-
-&lt;profile&gt;
-  ...
-  &lt;pluginGroups&gt;
-    &lt;pluginGroup&gt;org.mortbay.jetty&lt;/pluginGroup&gt;
-  &lt;/pluginGroups&gt;
-&lt;/profile&gt;
-
-      </screen>
-    </section>
-
-    <section xml:id="running-more-than-one-webapp">
-      <title>Running More than One Webapp</title>
-
-      <para>You can use either a <filename>jetty.xml</filename> file to
-      configure extra (pre-compiled) webapps that you want to deploy, or you
-      can use the <code>contextHandlers</code> configuration element in the
-      Jetty plugin configuration to do so. If you want to deploy webapp A, and
-      webapps B and C in the same Jetty instance:</para>
-
-      <para>Putting the configuration in webapp A's
-      <code>pom.xml</code>:</para>
-
-      <informalexample>
-        <programlisting language="xml">
-
-&lt;plugin&gt;
-  &lt;groupId&gt;org.mortbay.jetty&lt;/groupId&gt;
+    <informalexample>
+      <programlisting language="xml">&lt;plugin&gt;
+  &lt;groupId&gt;org.eclipse.jetty&lt;/groupId&gt;
   &lt;artifactId&gt;jetty-maven-plugin&lt;/artifactId&gt;
   &lt;configuration&gt;
     &lt;scanIntervalSeconds&gt;10&lt;/scanIntervalSeconds&gt;
@@ -1408,49 +1320,40 @@ WebAppY:
             &lt;/contextHandler&gt;
           &lt;/contextHandlers&gt; 
   &lt;/configuration&gt;
-&lt;/plugin&gt;
+&lt;/plugin&gt;   </programlisting>
+    </informalexample>
 
-        </programlisting>
-      </informalexample>
+    <para>Alternatively, add a <filename>jetty.xml</filename> file to webapp
+    A. Copy the <filename>jetty.xml</filename> file from the jetty
+    distribution, and then add WebAppContexts for the other 2 webapps:</para>
 
-      <para>Alternatively, add a <filename>jetty.xml</filename> file to webapp
-      A. Copy the <filename> jetty.xml</filename> file from the jetty
-      distribution, and then add WebAppContexts for the other 2
-      webapps:</para>
+    <informalexample>
+      <programlisting language="xml">&lt;Ref id="Contexts"&gt;
+     &lt;Call name="addHandler"&gt;
+       &lt;Arg&gt;
+         &lt;New class="org.eclipse.jetty.webapp.WebAppContext"&gt;
+           &lt;Set name="contextPath"&gt;/B&lt;/Set&gt;
+           &lt;Set name="war"&gt;../../B.war&lt;/Set&gt;
+         &lt;/New&gt;
+       &lt;/Arg&gt;
+     &lt;/Call&gt;
+     &lt;Call&gt;
+       &lt;Arg&gt;
+         &lt;New class="org.eclipse.jetty.webapp.WebAppContext"&gt;
+           &lt;Set name="contextPath"&gt;/C&lt;/Set&gt;
+           &lt;Set name="war"&gt;../../C.war&lt;/Set&gt;
+        &lt;/New&gt;
+       &lt;/Arg&gt;
+     &lt;/Call&gt;
+&lt;/Ref&gt;    </programlisting>
+    </informalexample>
 
-      <informalexample>
-        <programlisting language="xml">
+    <para>Then configure the location of this <filename>jetty.xml</filename>
+    file into webapp A's jetty plugin:</para>
 
-   &lt;Ref id="Contexts"&gt;
-       &lt;Call name="addHandler"&gt;
-         &lt;Arg&gt;
-           &lt;New class="org.eclipse.jetty.webapp.WebAppContext"&gt;
-             &lt;Set name="contextPath"&gt;/B&lt;/Set&gt;
-             &lt;Set name="war"&gt;../../B.war&lt;/Set&gt;
-           &lt;/New&gt;
-         &lt;/Arg&gt;
-       &lt;/Call&gt;
-       &lt;Call&gt;
-         &lt;Arg&gt;
-           &lt;New class="org.eclipse.jetty.webapp.WebAppContext"&gt;
-             &lt;Set name="contextPath"&gt;/C&lt;/Set&gt;
-             &lt;Set name="war"&gt;../../C.war&lt;/Set&gt;
-          &lt;/New&gt;
-         &lt;/Arg&gt;
-       &lt;/Call&gt;
-   &lt;/Ref&gt;
-
-        </programlisting>
-      </informalexample>
-
-      <para>Then configure the location of this <filename>jetty.xml</filename>
-      file into webapp A's jetty plugin:</para>
-
-      <informalexample>
-        <programlisting language="xml">
-
-&lt;plugin&gt;
-  &lt;groupId&gt;org.mortbay.jetty&lt;/groupId&gt;
+    <informalexample>
+      <programlisting language="xml">&lt;plugin&gt;
+  &lt;groupId&gt;org.eclipse.jetty&lt;/groupId&gt;
   &lt;artifactId&gt;jetty-maven-plugin&lt;/artifactId&gt;
   &lt;configuration&gt;
     &lt;scanIntervalSeconds&gt;10&lt;/scanIntervalSeconds&gt;
@@ -1459,38 +1362,34 @@ WebAppY:
     &lt;/webApp&gt;
      &lt;jettyXml&gt;src/main/etc/jetty.xml&lt;/jettyXml&gt;
    &lt;/configuration&gt;
-&lt;/plugin&gt;
+&lt;/plugin&gt;</programlisting>
+    </informalexample>
 
-        </programlisting>
-      </informalexample>
+    <para>For either of these solutions, the other webapps must already have
+    been built, and they are not automatically monitored for changes. You can
+    refer either to the packed WAR file of the pre-built webapps or to their
+    expanded equivalents.</para>
+  </section>
 
-      <para>For either of these solutions, the other webapps must already have
-      been built, and they are not automatically monitored for changes. You
-      can refer either to the packed WAR file of the pre-built webapps or to
-      their expanded equivalents.</para>
-    </section>
+  <section xml:id="setting-system-properties">
+    <title linkend="sys_props">Setting System Properties</title>
 
-    <section xml:id="setting-system-properties">
-      <title linkend="sys_props">Setting System Properties</title>
+    <para>You can specify property name/value pairs that Jetty sets as System
+    properties for the execution of the plugin. Note that if a System property
+    is already set (for example, from the command line or by the JVM itself),
+    then by default these configured properties DO NOT override them. This
+    feature is useful to tidy up the command line and save a lot of
+    typing.</para>
 
-      <para>You can specify property name/value pairs that Jetty sets as
-      System properties for the execution of the plugin. Note that if a System
-      property is already set (for example, from the command line or by the
-      JVM itself), then these configured properties DO NOT override them. This
-      feature is useful to tidy up the command line and save a lot of
-      typing.</para>
+    <section xml:id="specifying-properties-in-pom">
+      <title>Specifying System Properties in the POM</title>
 
-      <section xml:id="specifying-properties-in-pom">
-        <title>Specifying System Properties in the POM</title>
+      <para>Here's an example of how to specify System properties in the
+      POM:</para>
 
-        <para>Here's an example of how to specify System properties in the
-        POM:</para>
-
-        <informalexample>
-          <programlisting language="xml">
-
-&lt;plugin&gt;
-  &lt;groupId&gt;org.mortbay.jetty&lt;/groupId&gt;
+      <informalexample>
+        <programlisting language="xml">&lt;plugin&gt;
+  &lt;groupId&gt;org.eclipse.jetty&lt;/groupId&gt;
   &lt;artifactId&gt;jetty-maven-plugin&lt;/artifactId&gt;
   &lt;configuration&gt;
     &lt;systemProperties&gt;
@@ -1503,20 +1402,16 @@ WebAppY:
       &lt;contextPath&gt;/test&lt;/contextPath&gt;
     &lt;/webApp&gt;
    &lt;/configuration&gt;
-&lt;/plugin&gt;
+&lt;/plugin&gt;</programlisting>
+      </informalexample>
 
-          </programlisting>
-        </informalexample>
+      <para>To change the default behaviour so that these system properties
+      override those on the command line, use the &lt;<code>force&gt;</code>
+      parameter:</para>
 
-        <para>As of jetty-7.6.5, you CAN cause the system properties defined
-        in the POM to override those on the command line by using the
-        <code>force</code> parameter:</para>
-
-        <informalexample>
-          <programlisting language="xml">
-
-&lt;plugin&gt;
-  &lt;groupId&gt;org.mortbay.jetty&lt;/groupId&gt;
+      <informalexample>
+        <programlisting language="xml">&lt;plugin&gt;
+  &lt;groupId&gt;org.eclipse.jetty&lt;/groupId&gt;
   &lt;artifactId&gt;jetty-maven-plugin&lt;/artifactId&gt;
   &lt;configuration&gt;
     &lt;systemProperties&gt;
@@ -1530,40 +1425,32 @@ WebAppY:
       &lt;contextPath&gt;/test&lt;/contextPath&gt;
     &lt;/webApp&gt;
    &lt;/configuration&gt;
-&lt;/plugin&gt;
+&lt;/plugin&gt;       </programlisting>
+      </informalexample>
+    </section>
 
-          </programlisting>
-        </informalexample>
-      </section>
+    <section xml:id="specifying-properties-in-file">
+      <title>Specifying System Properties in a File</title>
 
-      <section xml:id="specifying-properties-in-file">
-        <title>Specifying System Properties in a File</title>
+      <para>You can also specify your System properties in a file. System
+      properties you specify in this way DO NOT override System properties
+      that set on the command line, by the JVM, or directly in the POM
+      via<code> systemProperties</code>.</para>
 
-        <para>You can also specify your System properties in a file. System
-        properties you specify in this way DO NOT override System properties
-        that set on the command line, by the JVM, or directly in the POM via
-        <code> systemProperties</code>.</para>
+      <para>Suppose we have a file called <code>mysys.props</code> which
+      contains the following:</para>
 
-        <para>Here's an example of the file:</para>
+      <informalexample>
+        <programlisting language="text">fooprop=222      </programlisting>
+      </informalexample>
 
-        <informalexample>
-          <programlisting language="text">
+      <para>This can be configured on the plugin like so:</para>
 
-fooprop=222
-
-          </programlisting>
-        </informalexample>
-
-        <para>Here's an example of configuring the file for the plugin,
-        although you can instead specify the file by setting the System
-        property (!) <filename>jetty.systemPropertiesFile</filename> on the
-        command line:</para>
-
-        <informalexample>
-          <programlisting language="xml">
+      <informalexample>
+        <programlisting language="xml">
 
 &lt;plugin&gt;
-  &lt;groupId&gt;org.mortbay.jetty&lt;/groupId&gt;
+  &lt;groupId&gt;org.eclipse.jetty&lt;/groupId&gt;
   &lt;artifactId&gt;jetty-maven-plugin&lt;/artifactId&gt;
   &lt;configuration&gt;
     &lt;systemPropertiesFile&gt;${basedir}/mysys.props&lt;/systemPropertiesFile&gt;
@@ -1574,8 +1461,11 @@ fooprop=222
 &lt;/plugin&gt;
 
           </programlisting>
-        </informalexample>
-      </section>
+      </informalexample>
+
+      <para> You can instead specify the file by setting the System property
+      (!) <filename>jetty.systemPropertiesFile</filename> on the command
+      line.</para>
     </section>
   </section>
 </section>

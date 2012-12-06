@@ -16,7 +16,7 @@ xmlns:l="http://docbook.sourceforge.net/xmlns/l10n/1.0"
   <xsl:param name="use.id.as.filename" select="1"/>
 
   <xsl:param name="draft.mode">maybe</xsl:param>
-  <xsl:param name="draft.watermark.image">images/draft.png</xsl:param>
+  <xsl:param name="draft.watermark.image">images/draft-ribbon.png</xsl:param>
 
   <!-- tweak the generation of toc generation -->
   <xsl:param name="generate.section.toc.level" select="1"/>

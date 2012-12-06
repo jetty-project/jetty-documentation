@@ -24,17 +24,6 @@ xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclud
 xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg"
 xmlns:ns2="http://www.w3.org/1998/Math/MathML" xmlns:ns="http://docbook.org/ns/docbook">
   <title>How to Configure Jetty</title>
-  <remark>This is a test of remarks.</remark>
-  <revhistory>
-    <revision>
-      <revnumber>@JETTY_VERSION@</revnumber>
-      <date>
-        <?dbtimestamp format="Y-m-d H:M:S"?>
-      </date>
-      <revdescription>This documentation is produced and contributed to under the <link
-      xl:href="http://www.eclipse.org/legal/epl-v10.html">EPL</link></revdescription>
-    </revision>
-  </revhistory>
   <para>To understand Jetty Configuration, you need to understand the "How" and the "What". This section covers how to
   configure Jetty in terms of what mechanisms exist to perform configuration. The <link
   linkend="quickstart-config-what">next section</link> will give an overview of the action components and fields that

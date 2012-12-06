@@ -22,7 +22,7 @@ xmlns="http://docbook.org/ns/docbook" xmlns:xsi="http://www.w3.org/2001/XMLSchem
 xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xl="http://www.w3.org/1999/xlink"
 xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xhtml="http://www.w3.org/1999/xhtml"
 xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns2="http://www.w3.org/1998/Math/MathML"
-xmlns:ns="http://docbook.org/ns/docbook">
+xmlns:ns="http://docbook.org/ns/docbook" status="draft">
   <title>Configuring WebSockets</title>
   <para>This chapter discusses various options for configuring Jetty.</para>
   <xi:include href="configuring-websockets.xml" />

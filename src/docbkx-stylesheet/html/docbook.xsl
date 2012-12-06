@@ -15,6 +15,9 @@ xmlns:l="http://docbook.sourceforge.net/xmlns/l10n/1.0"
   <!-- use the xml:id on the chapter and sections when rendering chunked output" -->
   <xsl:param name="use.id.as.filename" select="1"/>
 
+  <xsl:param name="draft.mode">maybe</xsl:param>
+  <xsl:param name="draft.watermark.image">images/draft.png</xsl:param>
+
   <!-- tweak the generation of toc generation -->
   <xsl:param name="generate.section.toc.level" select="1"/>
   <xsl:param name="toc.section.depth" select="1"/> 

@@ -168,6 +168,8 @@ xmlns:ns="http://docbook.org/ns/docbook">
     <xi:include href="advanced/maven/chapter.xml" />
 <!-- How to use the jetty-ant module -->
     <xi:include href="advanced/ant/chapter.xml" />
+    <!-- How to enable jetty setuid on linux and osx -->
+    <xi:include href="advanced/setuid/chapter.xml" />
 <!-- Using jetty in third party frame works like spring or osgi -->
     <xi:include href="advanced/frameworks/chapter.xml" />
 <!-- What are good things to consider when running jetty, managing garbage 

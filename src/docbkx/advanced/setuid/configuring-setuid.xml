@@ -21,5 +21,127 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xl="http://www.w3.or
 xmlns:xi="http://www.w3.org/2001/XInclude"
 xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd">
   <title>Configuring Setuid</title>
-  <para>To Be Added</para>
+  <para>On Unix based systems, port 80 is protected and can usually only be opened by the superuser root. As it is not
+  desirable to run the server as root (for security reasons), the solution options are as follows:</para>
+  <itemizedlist>
+    <listitem>
+      <para>Start Jetty as the root user, and use Jetty's setuid mechanism to switch to a non-root user after
+      startup.</para>
+    </listitem>
+    <listitem>
+      <para>Configure the server to run as a normal user on port 8080 (or some other non protected port). Then,
+      configure the operating system to redirect port 80 to 8080 using ipchains, iptables, ipfw or a similar
+      mechanism.</para>
+    </listitem>
+  </itemizedlist>
+  <para>The latter has traditionally been the solution, however Jetty 9 has Setuid feature.</para>
+  <para>If you are using Solaris 10, you may not need to use this feature, as Solaris provides a User Rights Management
+  framework that can permit users and processes superuser-like abilities. Please refer to the Solaris documentation for
+  more information.</para>
+  <section>
+    <title>Configuring the Setuid feature</title>
+    <para>In the Jetty <filename>etc</filename> directory you will find the following jetty-setuid.xml file which can
+    be modified to suit your needs.</para>
+    <informalexample>
+      <programlisting language="xml">
+<![CDATA[
+<?xml version="1.0"?>
+<!DOCTYPE Configure PUBLIC "-//Mort Bay Consulting//DTD Configure//EN" "http://www.eclipse.org/jetty/configure.dtd">
+
+<!-- ================================================================ -->
+<!-- Configure the Jetty SetUIDServer                                 -->
+<!-- This configuration file *must* be specified first in the list of -->
+<!-- configuration files and should be used in combination with other -->
+<!-- configuration files eg jetty.xml                                 -->
+<!-- ================================================================ -->
+<Configure id="Server" class="org.eclipse.jetty.setuid.SetUIDServer">
+  <Set name="startServerAsPrivileged">false</Set>
+  <Set name="umask">2</Set>
+  <Set name="username">jetty</Set>
+  <Set name="groupname">jetty</Set>
+<!-- uncomment to change the limits on number of open file descriptors for root -->
+<!--
+    <Call name="setRLimitNoFiles">
+    <Arg>
+        <New class="org.eclipse.jetty.setuid.RLimit">
+          <Set name="soft">20000</Set>
+          <Set name="hard">40000</Set>
+        </New>
+    </Arg>
+  </Call>
+-->
+</Configure>
+]]>
+      </programlisting>
+    </informalexample>
+    <para>Options:</para>
+    <variablelist>
+      <varlistentry>
+        <term>startServerAsPrivileged</term>
+        <listitem>
+          <para>set this to true if you will start the server up as the root user</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>umask</term>
+        <listitem>
+          <para>the umask setting you would like the process to have, optionally you may remove this line to leave it
+          unchanged.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>username</term>
+        <listitem>
+          <para>the name of the user you would like tthe process to run under after starting, set to <emphasis>
+          jetty</emphasis> by default</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>groupname</term>
+        <listitem>
+          <para>the name of the group you would like the process to run under after starting, set to <emphasis>
+          jetty</emphasis> by default</para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+    <para>Additionally if you would like to set the file descriptor limits in the process you can uncomment the
+    appropriate section above and set the soft and hard values accordingly.</para>
+  </section>
+  <section>
+    <title>Enabling SetUID on startup</title>
+    <para>The <filename>jetty-setuid.xml</filename> file runs as a wrapper around the typical Jetty server
+    configuration so you must set this xml file to be processed before any others. This is already configured yet
+    commented out in the normal <filename>start.ini</filename> file in the root of the jetty-distribution.</para>
+    <para>Open the <filename>start.ini</filename> file and look for the following section:</para>
+    <informalexample>
+      <programlisting language="xml">
+<![CDATA[       
+#===========================================================
+# Enable SetUID
+# To enable setuid you must have the jetty-setuid.xml as the
+# first xml file to be processed.
+# The default user and group is 'jetty' and if you are
+# starting as root you must change the run privledged to true
+#-----------------------------------------------------------
+# OPTIONS=setuid
+# etc/jetty-setuid.xml
+#===========================================================
+]]>
+      </programlisting>
+    </informalexample>
+    <para>Uncomment the OPTIONS line which will set the setuid libraries to be loaded when Jetty starts along with the
+    line following which will process the <filename>jetty-setuid.xml</filename> file when jetty starts up. Take care
+    when modifying this file when the SetUID feature is in play as it <emphasis>MUST</emphasis> be the first xml file
+    to be processed.</para>
+  </section>
+  <section>
+    <title>Supported Operating Systems</title>
+    <para>The Setuid feature leverages the the JNI setup with the jvm so part of the feature is C code compiled for the
+    appropriate operating environment. By default we ship with <filename>.so</filename> files for both Linux and Mac OS
+    X. The code for the entire SetUID feature is located in the <link
+    xl:href="http://git.eclipse.org/c/jetty/org.eclipse.jetty.toolchain.git/">Jetty toolchain</link>. The Linux file is
+    built on a release machine, most typically an Ubunutu machine with a fairly standard setup. If the existing
+    distributed binaries do not work you can look to this project and fiddle with the appropriate linker and compiler
+    options until it works.</para>
+  </section>
 </section>

@@ -17,9 +17,8 @@
 //  ========================================================================
 -->
 <section xml:id="http-client-api" version="5.0" xmlns="http://docbook.org/ns/docbook"
-         xmlns:xl="http://www.w3.org/1999/xlink"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd   http://www.w3.org/1999/xlink http://docbook.org/xml/5.0/xsd/xlink.xsd">
+xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd http://www.w3.org/1999/xlink http://docbook.org/xml/5.0/xsd/xlink.xsd">
   <info>
     <title>API Usage</title>
   </info>
@@ -179,7 +178,7 @@ httpClient.newRequest("http://domain.com/path")
       </info>
       <para>Jetty HTTP client provides a number of utility classes off the shelf to handle request content.</para>
       <para>You can provide request content as <code>String</code>, <code>byte[]</code>, <code>ByteBuffer</code>,
-      <code>java.nio.file.Path</code>, <code>InputStream</code>, and provide your own implementation of
+      <code>java.nio.file.Path</code>, <code>InputStream</code>, and provide your own implementation of 
       <classname>org.eclipse.jetty.client.api.ContentProvider</classname>. Here&#8217;s an example that provides the
       request content using <code>java.nio.file.Paths</code>:</para>
       <informalexample>
@@ -239,7 +238,7 @@ ContentResponse response = httpClient.newRequest("http://domain.com/upload")
       <xref linkend="http-client-blocking" />) and the content is buffered within a <code>ContentResponse</code> up to
       2 MiB.</para>
       <para>If you want to control the length of the response content (for example limiting to values smaller than the
-      default of 2 MiB), then you can use a
+      default of 2 MiB), then you can use a 
       <classname>org.eclipse.jetty.client.util.BlockingResponseListener</classname>in this way:</para>
       <informalexample>
         <programlisting language="java">

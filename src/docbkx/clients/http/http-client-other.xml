@@ -17,9 +17,8 @@
 //  ========================================================================
 -->
 <section xml:id="http-client-other" version="5.0" xmlns="http://docbook.org/ns/docbook"
-         xmlns:xl="http://www.w3.org/1999/xlink"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd   http://www.w3.org/1999/xlink http://docbook.org/xml/5.0/xsd/xlink.xsd">
+xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd http://www.w3.org/1999/xlink http://docbook.org/xml/5.0/xsd/xlink.xsd">
   <info>
     <title>Other Features</title>
   </info>

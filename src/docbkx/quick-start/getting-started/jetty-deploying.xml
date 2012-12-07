@@ -23,32 +23,34 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.or
 xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
 xmlns:ns2="http://www.w3.org/1998/Math/MathML" xmlns:ns="http://docbook.org/ns/docbook">
   <title>Deploying Web Applications</title>
-  <para>Jetty by default includes the <code>etc/jetty-deploy.xml</code> file in <code>start.ini</code>, which
-  configures a web application Deployer that hot deploys files found in the <code>webapps</code> directory. Standard
-  WAR files and jetty configuration files that are placed in the <code>webapps</code> directory will be hot deployed to
-  the server with the following conventions:</para>
+  <para>Jetty by default includes the <filename>etc/jetty-deploy.xml</filename> file in <filename>start.ini</filename>,
+  which configures a web application deployer that hot deploys files found in the <filename>
+  webapps</filename> directory. Standard WAR files and jetty configuration files that are placed in the <filename>
+  webapps</filename> directory are hot deployed to the server with the following conventions:</para>
   <itemizedlist>
     <listitem>
-      <para>A directory called <code>example/</code> will be deployed as a standard web application if it contains a
-      <code>WEB-INF/</code> subdirectory, otherwise it will be deployed as context of static content. The context path
-      will be <code>/example</code> (eg <code>http://localhost:8080/example/</code>) unless the base name is ROOT (case
-      insensitive), in which case the context path is /. If the directory name ends with ".d" it is ignored (by may be
-      used by explicit configuration).</para>
+      <para>A directory called <filename>example/</filename> is deployed as a standard web application if it contains a
+      <filename>WEB-INF/</filename> subdirectory, otherwise it is deployed as context of static content. The context
+      path is <filename>/example</filename> (that is, <filename>http://localhost:8080/example/</filename>) unless the
+      base name is ROOT (case insensitive), in which case the context path is /. If the directory name ends with ".d"
+      it is ignored (but may be used by explicit configuration).</para>
     </listitem>
     <listitem>
-      <para>A file called <code>example.war</code> will be deployed as a standard web application with the context path
-      <code>/example</code> (eg <code>http://localhost:8080/example/</code>). If the base name is <code>
-      ROOT</code> (case insensitive), then the context path is /. If <code>example.war</code> and <code>
-      example/</code> exist, then only the WAR is deployed (which may use the directory as an unpack location).</para>
+      <para>A file called <filename>example.war</filename> is deployed as a standard web application with the context
+      path <filename>/example</filename> (that is, <filename>http://localhost:8080/example/</filename>). If the base
+      name is <filename>ROOT</filename> (case insensitive), then the context path is /. If <filename>
+      example.war</filename> and <filename>example/</filename> exist, then only the WAR is deployed (which may use the
+      directory as an unpack location).</para>
     </listitem>
     <listitem>
-      <para>An XML file like <code>example.xml</code> will be deployed as a context whose configuration is defined by
-      the XML. The context path must be set by the configuration itself. If <code>example.xml</code> and <code>
-      example.war</code> exist, then only the XML is deployed (which may use the war in its configuration).</para>
+      <para>An XML file like <filename>example.xml</filename> is deployed as a context whose configuration is defined
+      by the XML. The configuration itself must set the context path. If <filename>example.xml</filename> and
+      <filename>example.war</filename> exist, then only the XML is deployed (which may use the War in its
+      configuration).</para>
     </listitem>
   </itemizedlist>
-  <para>If you have a standard web application, it can hot deployed into jetty by copying it into the <code>
-  webapps</code> directory. Alternately, to test deployment you can copy the test web application provided:</para>
+  <para>If you have a standard web application, you can hot deploy it into Jetty by copying it into the <filename>
+  webapps</filename> directory. Alternately, to test deployment you can copy the test web application provided:</para>
   <para>
     <code>&gt; cp webapps/test.war webapps/myapp.war</code>
   </para>
@@ -63,20 +65,20 @@ xmlns:ns2="http://www.w3.org/1998/Math/MathML" xmlns:ns="http://docbook.org/ns/d
     <varlistentry>
       <term>test.xml</term>
       <listitem>
-        <para>The configuration file that deploys the demonstration web application in <code>test.war</code> using the
-        extra configuration contained within <code>test.d</code></para>
+        <para>The configuration file that deploys the demonstration web application in <filename>
+        test.war</filename> using the extra configuration contained within <filename>test.d</filename></para>
       </listitem>
     </varlistentry>
     <varlistentry>
       <term>test.war</term>
       <listitem>
-        <para>The demonstration web application that is configured and deployed by <code>test.xml</code></para>
+        <para>The demonstration web application that is configured and deployed by <filename>test.xml</filename></para>
       </listitem>
     </varlistentry>
     <varlistentry>
       <term>test.d</term>
       <listitem>
-        <para>A directory containing additional configuration files used by <code>test.xml</code></para>
+        <para>A directory containing additional configuration files used by <filename>test.xml</filename></para>
       </listitem>
     </varlistentry>
     <varlistentry>
@@ -88,13 +90,14 @@ xmlns:ns2="http://www.w3.org/1998/Math/MathML" xmlns:ns="http://docbook.org/ns/d
     <varlistentry>
       <term>javadoc.xml</term>
       <listitem>
-        <para>A context configuration that deploys as static content the javadoc directory found at <code>
-        $jetty.home/javadoc</code></para>
+        <para>A context configuration that deploys as static content the javadoc directory found at <filename>
+        $jetty.home/javadoc</filename></para>
       </listitem>
     </varlistentry>
   </variablelist>
   <para>
-    <emphasis role="bold">These demonstration web applications should be removed before using Jetty in
-    production.</emphasis>
+    <emphasis role="bold">
+      <important>You should remove these demonstration web applications before using Jetty in production.</important>
+    </emphasis>
   </para>
 </section>

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+//  ========================================================================
+//  Copyright (c) 1995-2012 Mort Bay Consulting Pty. Ltd.
+//  ========================================================================
+//  All rights reserved. This program and the accompanying materials
+//  are made available under the terms of the Eclipse Public License v1.0
+//  and Apache License v2.0 which accompanies this distribution.
+//
+//      The Eclipse Public License is available at
+//      http://www.eclipse.org/legal/epl-v10.html
+//
+//      The Apache License v2.0 is available at
+//      http://www.opensource.org/licenses/apache2.0.php
+//
+//  You may elect to redistribute this code under either of these licenses.
+//  ========================================================================
+-->
+<section xml:id="http-client-intro" version="5.0" xmlns="http://docbook.org/ns/docbook"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd">
+  <info>
+    <title>Introduction</title>
+  </info>
+  <para>The Jetty HTTP client module provides easy-to-use APIs, utility classes and a high performance, asynchronous
+  implementation to perform HTTP and HTTPS requests.</para>
+  <para>The Jetty HTTP client module requires Java version 1.7 or superior and it is Java 1.8 lambda compliant, that
+  is, Java 1.8 applications can use lambda expressions in many of the HTTP client APIs.</para>
+  <para>Jetty HTTP client is implemented and offers an asynchronous API, that is a programming interface that never
+  blocks for I/O events, thus making it very efficient in thread utilization and well suited for load testing and
+  parallel computation.</para>
+  <para>However, sometimes all you need to do is to perform a GET request to a resource, and Jetty HTTP client offers
+  also a synchronous API, that is a programming interface where the thread that issued the request blocks until the
+  request/response conversation is complete.</para>
+  <para>Out of the box features that you get with the Jetty HTTP client are:</para>
+  <itemizedlist>
+    <listitem>
+      <para>Redirect support; redirect codes such as 302 or 303 are automatically followed</para>
+    </listitem>
+    <listitem>
+      <para>Cookies support; cookies sent by servers are stored and sent back to servers in matching requests</para>
+    </listitem>
+    <listitem>
+      <para>Authentication support; HTTP "Basic" and "Digest" authentications are supported, others are
+      pluggable</para>
+    </listitem>
+  </itemizedlist>
+  <section xml:id="http-client-init">
+    <info>
+      <title>Initialization</title>
+    </info>
+    <para>The main class is named, as in Jetty 7 and Jetty 8,
+    <classname>org.eclipse.jetty.client.HttpClient</classname>(although it is not backward compatible with the same
+    class in Jetty 7 and Jetty 8).</para>
+    <para>You can think of an <code>HttpClient</code> instance as a browser instance. Like a browser, it can make
+    requests to different domains, it manages redirects, cookies and authentication, you can configure it with a proxy,
+    and it provides you with the responses to the requests you make.</para>
+    <para>In order to use <code>HttpClient</code>, you must instantiate it, configure it, and then start it:</para>
+    <informalexample>
+      <programlisting language="java">
+<![CDATA[
+// Instantiate HttpClient
+HttpClient httpClient = new HttpClient();
+
+// Configure HttpClient
+httpClient.setFollowRedirects(false);
+
+// Start HttpClient
+httpClient.start();
+]]>
+      </programlisting>
+    </informalexample>
+    <para>You can create multiple instances of <code>HttpClient</code>; the reason to do this is that you want to
+    specify different configuration parameters (for example, one instance is configured with a forward proxy while
+    another is not), or because you want the two instances to behave like two different browsers and hence have
+    different cookies, different authentication credentials and so on.</para>
+    <para>When you create a <code>HttpClient</code> instance using the parameterless constructor, you will only be able
+    to perform plain HTTP requests, and you will not be able to perform HTTPS requests.</para>
+    <para>In order to perform HTTPS requests, you should create first a <code>SslContextFactory</code> (see <xref
+    linkend="ssl" />
+<!--TODO: cross link SslContextFactory docs-->
+    ), configure it, and pass it to <code>HttpClient</code>'s constructor. When created with a <code>
+    SslContextFactory</code>, the <code>HttpClient</code> will be able to perform both HTTP and HTTPS requests to any
+    domain.</para>
+    <informalexample>
+      <programlisting language="java">
+<![CDATA[
+// Instantiate and configure the SslContextFactory
+SslContextFactory sslContextFactory = new SslContextFactory();
+
+// Instantiate HttpClient with the SslContextFactory
+HttpClient httpClient = new HttpClient(sslContextFactory);
+
+// Configure HttpClient
+httpClient.setFollowRedirects(false);
+
+// Start HttpClient
+httpClient.start();
+]]>
+      </programlisting>
+    </informalexample>
+  </section>
+</section>

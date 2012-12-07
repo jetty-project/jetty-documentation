@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+//  ========================================================================
+//  Copyright (c) 1995-2012 Mort Bay Consulting Pty. Ltd.
+//  ========================================================================
+//  All rights reserved. This program and the accompanying materials
+//  are made available under the terms of the Eclipse Public License v1.0
+//  and Apache License v2.0 which accompanies this distribution.
+//
+//      The Eclipse Public License is available at
+//      http://www.eclipse.org/legal/epl-v10.html
+//
+//      The Apache License v2.0 is available at
+//      http://www.opensource.org/licenses/apache2.0.php
+//
+//  You may elect to redistribute this code under either of these licenses.
+//  ========================================================================
+-->
+<section xml:id="http-client-other" version="5.0" xmlns="http://docbook.org/ns/docbook"
+         xmlns:xl="http://www.w3.org/1999/xlink"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd   http://www.w3.org/1999/xlink http://docbook.org/xml/5.0/xsd/xlink.xsd">
+  <info>
+    <title>Other Features</title>
+  </info>
+  <section xml:id="http-client-cookie">
+    <info>
+      <title>Cookies Support</title>
+    </info>
+    <para>Jetty HTTP client supports cookies out of the box. The <code>HttpClient</code> instance receives cookies from
+    HTTP responses and stores them in a <code>CookieStore</code>. When new requests are made, the cookie store is
+    consulted and if there are matching cookies (that is, cookies that are not expired and that match domain and path
+    of the request) then they are added to the requests.</para>
+    <para>Applications can programmatically access the cookie store to find the cookies that have been set:</para>
+    <informalexample>
+      <programlisting language="java">
+<![CDATA[
+Destination destination = httpClient.getDestination("http", "domain.com", 80);
+CookieStore cookieStore = httpClient.getCookieStore();
+List<HttpCookie> cookies = cookieStore.findCookies(destination, "/path");
+]]>
+      </programlisting>
+    </informalexample>
+    <para>Applications can also programmatically set cookies as if they were returned from a HTTP response:</para>
+    <informalexample>
+      <programlisting language="java">
+<![CDATA[
+Destination destination = httpClient.getDestination("http", "domain.com", 80);
+CookieStore cookieStore = httpClient.getCookieStore();
+HttpCookie cookie = new HttpCookie("foo", "bar");
+boolean added = cookieStore.addCookie(destination, cookie);
+]]>
+      </programlisting>
+    </informalexample>
+    <para>You can remove cookies that you do not want to be sent in future HTTP requests:</para>
+    <informalexample>
+      <programlisting language="java">
+<![CDATA[
+Destination destination = httpClient.getDestination("http", "domain.com", 80);
+CookieStore cookieStore = httpClient.getCookieStore();
+List<HttpCookie> cookies = cookieStore.findCookies(destination, "/");
+for (HttpCookie cookie : cookies)
+    cookieStore.removeCookie(destination, cookie);
+]]>
+      </programlisting>
+    </informalexample>
+    <para>If you want to totally disable cookie handling, you can install a <code>CookieStore.Empty</code> instance in
+    this way:</para>
+    <informalexample>
+      <programlisting language="java">
+<![CDATA[
+httpClient.setCookieStore(new CookieStore.Empty());
+]]>
+      </programlisting>
+    </informalexample>
+  </section>
+  <section xml:id="http-client-authentication">
+    <info>
+      <title>Authentication Support</title>
+    </info>
+    <para>Jetty HTTP client supports the "Basic" and "Digest" authentication mechanisms defined by <link
+    xl:href="http://www.ietf.org/rfc/rfc2617.txt">RFC 2617</link>.</para>
+    <para>You can configure authentication credentials in the HTTP client instance as follows:</para>
+    <informalexample>
+      <programlisting language="java">
+<![CDATA[
+String uri = "http://domain.com/secure";
+String realm = "MyRealm";
+String user = "username";
+String pass = "password";
+
+// Add authentication credentials
+AuthenticationStore auth = httpClient.getAuthenticationStore();
+auth.addAuthentication(new BasicAuthentication(uri, realm, user, pass));
+
+ContentResponse response = httpClient
+        .newRequest(uri)
+        .send()
+        .get(5, TimeUnit.SECONDS);
+]]>
+      </programlisting>
+    </informalexample>
+    <para>Jetty HTTP client tests authentication credentials against the challenge(s) the server issues, and if they
+    match it automatically sends the right authentication headers to the server for authentication. If the
+    authentication is successful, it caches the result and reuses it for subsequent requests for the same domain and
+    matching URIs.</para>
+    <para>Successful authentications are cached, but it is possible to clear them in order to force authentication
+    again:</para>
+    <informalexample>
+      <programlisting language="java">
+<![CDATA[
+httpClient.getAuthenticationStore().clearAuthenticationResults();
+]]>
+      </programlisting>
+    </informalexample>
+  </section>
+  <section xml:id="http-client-proxy">
+    <info>
+      <title>Proxy Support</title>
+    </info>
+    <para>Jetty HTTP client can be configured to use a forward proxy:</para>
+    <informalexample>
+      <programlisting language="java">
+<![CDATA[
+ProxyConfiguration proxyConfig = new ProxyConfiguration("proxyHost", proxyPort);
+// Do not proxy requests for localhost:8080
+proxyConfig.getExcludedOrigins().add("localhost:8080");
+
+httpClient.setProxyConfiguration(proxyConfig);
+
+ContentResponse response = httpClient.GET(uri).get(5, TimeUnit.SECONDS);
+]]>
+      </programlisting>
+    </informalexample>
+    <para>You specify the proxy host and port, and optionally also the origins that you do not want to be proxied, and
+    then set the proxy configuration on the <code>HttpClient</code> instance.</para>
+    <para>Configured in this way, <code>HttpClient</code> makes requests to the proxy (for plain-text HTTP requests) or
+    establishes a tunnel via HTTP CONNECT (for encrypted HTTPS requests).</para>
+  </section>
+</section>

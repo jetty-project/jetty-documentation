@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+//  ========================================================================
+//  Copyright (c) 1995-2012 Mort Bay Consulting Pty. Ltd.
+//  ========================================================================
+//  All rights reserved. This program and the accompanying materials
+//  are made available under the terms of the Eclipse Public License v1.0
+//  and Apache License v2.0 which accompanies this distribution.
+//
+//      The Eclipse Public License is available at
+//      http://www.eclipse.org/legal/epl-v10.html
+//
+//      The Apache License v2.0 is available at
+//      http://www.opensource.org/licenses/apache2.0.php
+//
+//  You may elect to redistribute this code under either of these licenses.
+//  ========================================================================
+-->
+<section xml:id="http-client-api" version="5.0" xmlns="http://docbook.org/ns/docbook"
+         xmlns:xl="http://www.w3.org/1999/xlink"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd   http://www.w3.org/1999/xlink http://docbook.org/xml/5.0/xsd/xlink.xsd">
+  <info>
+    <title>API Usage</title>
+  </info>
+  <section xml:id="http-client-blocking">
+    <info>
+      <title>Blocking APIs</title>
+    </info>
+    <para>The simpler way to perform a HTTP request is the following:</para>
+    <informalexample>
+      <programlisting language="java">
+<![CDATA[
+ContentResponse response = httpClient.GET("http://domain.com/path?query").get(5, TimeUnit.SECONDS);
+]]>
+      </programlisting>
+    </informalexample>
+    <para>Method <code>HttpClient.GET(...)</code> performs a HTTP GET request to the given URI and returns a <code>
+    Future&lt;ContentResponse&gt;</code> that you can use to cancel the request or to impose a total timeout for the
+    request/response conversation (in the example above, of 5 seconds).</para>
+    <para>When the request/response conversation completes successfully, the <code>ContentResponse</code> object is
+    returned, containing the HTTP response information: status code, headers and possibly a content. The content length
+    is limited by default to 2 MiB; for larger content see <xref linkend="http-client-response-content" />.</para>
+    <para>If you want to customize the request, for example by issuing a HEAD request instead of a GET, and simulating
+    a browser user agent, you can do it in this way:</para>
+    <informalexample>
+      <programlisting language="java">
+<![CDATA[
+ContentResponse response = httpClient.newRequest("http://domain.com/path?query")
+        .method(HttpMethod.HEAD)
+        .agent("Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:17.0) Gecko/20100101 Firefox/17.0")
+        .send()
+        .get(5, TimeUnit.SECONDS);
+]]>
+      </programlisting>
+    </informalexample>
+    <para>This is a shorthand for:</para>
+    <informalexample>
+      <programlisting language="java">
+<![CDATA[
+Request request = httpClient.newRequest("http://domain.com/path?query");
+Future<ContentResponse> future = request
+        .method(HttpMethod.HEAD)
+        .agent("Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:17.0) Gecko/20100101 Firefox/17.0")
+        .send();
+ContentResponse response = future.get(5, TimeUnit.SECONDS);
+]]>
+      </programlisting>
+    </informalexample>
+    <para>You first create a request object using <code>httpClient.newRequest(...)</code>, and then you customize it
+    using the fluent API style (that is, chained invocation of methods on the request object). When the request object
+    is customized, you call <code>Request.send()</code> that produces a <code>Future</code> that can be used to wait
+    for the request/response conversation to complete or to cancel the request/response conversation.</para>
+    <para>Simple POST requests also have a shortcut method:</para>
+    <informalexample>
+      <programlisting language="java">
+<![CDATA[
+ContentResponse response = httpClient.POST("http://domain.com/entity/1")
+        .param("p", "value")
+        .send()
+        .get(5, TimeUnit.SECONDS);
+]]>
+      </programlisting>
+    </informalexample>
+    <para>The POST request is sent with the <code>application/x-www-form-urlencoded</code> content type, and POST
+    parameter values are automatically URL-encoded.</para>
+    <para>Jetty HTTP client automatically follows redirects, so automatically handles the typical web pattern <link
+    xl:href="http://en.wikipedia.org/wiki/Post/Redirect/Get">POST/Redirect/GET</link>, and the response object contains
+    the content of the response of the GET request. Following redirects is a feature that you can enable/disable on a
+    per-request basis or globally.</para>
+    <para>File uploads also require one line, and make use of JDK 7&#8242;s <code>java.nio.file</code> classes:</para>
+    <informalexample>
+      <programlisting language="java">
+<![CDATA[
+ContentResponse response = httpClient.newRequest("http://domain.com/upload")
+        .file(Paths.get("file_to_upload.txt"), "text/plain")
+        .send()
+        .get(5, TimeUnit.SECONDS);
+]]>
+      </programlisting>
+    </informalexample>
+  </section>
+  <section xml:id="http-client-async">
+    <info>
+      <title>Asynchronous APIs</title>
+    </info>
+    <para>So far we have shown how to use Jetty HTTP client in a blocking style, that is the thread that issues the
+    request blocks until the request/response conversation is complete. In this section we will look at Jetty HTTP
+    client asynchronous, non-blocking, APIs that are perfectly suited for large content downloads, for parallel
+    processing of requests/responses and in all those cases where performance and efficient thread and resource
+    utilization is a key factor.</para>
+    <para>A simple asynchronous GET request can be written in this way:</para>
+    <informalexample>
+      <programlisting language="java">
+<![CDATA[
+httpClient.newRequest("http://domain.com/path")
+        .send(new Response.CompleteListener()
+        {
+            @Override
+            public void onComplete(Result result)
+            {
+                // Your logic here
+            }
+        });
+]]>
+      </programlisting>
+    </informalexample>
+    <para>Method <code>Request.send(Response.CompleteListener)</code> returns void and does not block; the <code>
+    Response.CompleteListener</code> provided as a parameter is notified when the request/response conversation is
+    complete, and the <code>Result</code> parameter allows you to access the response object.</para>
+    <para>You can write the same code using JDK 8&#8242;s lambda expressions:</para>
+    <informalexample>
+      <programlisting language="java">
+<![CDATA[
+httpClient.newRequest("http://domain.com/path")
+        .send((result) -> { /* Your logic here */ });
+]]>
+      </programlisting>
+    </informalexample>
+    <para>The HTTP client APIs use listeners extensively to provide hooks for all possible request and response events,
+    and with JDK 8&#8242;s lambda expressions they&#8217;re even more fun to use:</para>
+    <informalexample>
+      <programlisting language="java">
+<![CDATA[
+httpClient.newRequest("http://domain.com/path")
+        // Add request hooks
+        .onRequestQueued((request) -> { ... })
+        .onRequestBegin((request) -> { ... })
+        ... // More request hooks available
+
+        // Add response hooks
+        .onResponseBegin((response) -> { ... })
+        .onResponseHeaders((response) -> { ... })
+        .onResponseContent((response, buffer) -> { ... })
+        ... // More response hooks available
+
+        .send((result) -> { ... });
+]]>
+      </programlisting>
+    </informalexample>
+    <para>This makes Jetty HTTP client suitable for HTTP load testing because, for example, you can accurately time
+    every step of the request/response conversation (thus knowing where the request/response time is really
+    spent).</para>
+    <para>Have a look at the <link
+    xl:href="http://download.eclipse.org/jetty/stable-9/apidocs/org/eclipse/jetty/client/api/Request.Listener.html">
+      <code>Request.Listener</code>
+    </link> class to know about request events, and to the <link
+    xl:href="http://download.eclipse.org/jetty/stable-9/apidocs/org/eclipse/jetty/client/api/Response.Listener.html">
+      <code>Response.Listener</code>
+    </link> class to know about response events.</para>
+  </section>
+  <section xml:id="http-client-content">
+    <info>
+      <title>Content Handling</title>
+    </info>
+    <section xml:id="http-client-request-content">
+      <info>
+        <title>Request Content Handling</title>
+      </info>
+      <para>Jetty HTTP client provides a number of utility classes off the shelf to handle request content.</para>
+      <para>You can provide request content as <code>String</code>, <code>byte[]</code>, <code>ByteBuffer</code>,
+      <code>java.nio.file.Path</code>, <code>InputStream</code>, and provide your own implementation of
+      <classname>org.eclipse.jetty.client.api.ContentProvider</classname>. Here&#8217;s an example that provides the
+      request content using <code>java.nio.file.Paths</code>:</para>
+      <informalexample>
+        <programlisting language="java">
+<![CDATA[
+ContentResponse response = httpClient.newRequest("http://domain.com/upload")
+        .file(Paths.get("file_to_upload.txt"), "text/plain")
+        .send()
+        .get(5, TimeUnit.SECONDS);
+]]>
+        </programlisting>
+      </informalexample>
+      <para>This is equivalent to using the <code>PathContentProvider</code> utility class:</para>
+      <informalexample>
+        <programlisting language="java">
+<![CDATA[
+ContentResponse response = httpClient.newRequest("http://domain.com/upload")
+        .content(new PathContentProvider(Paths.get("file_to_upload.txt")), "text/plain")
+        .send()
+        .get(5, TimeUnit.SECONDS);
+]]>
+        </programlisting>
+      </informalexample>
+      <para>Alternatively, you can use <code>FileInputStream</code> via the <code>
+      InputStreamContentProvider</code> utility class:</para>
+      <informalexample>
+        <programlisting language="java">
+<![CDATA[
+ContentResponse response = httpClient.newRequest("http://domain.com/upload")
+        .content(new InputStreamContentProvider(new FileInputStream("file_to_upload.txt")), "text/plain")
+        .send()
+        .get(5, TimeUnit.SECONDS);
+]]>
+        </programlisting>
+      </informalexample>
+      <para>If you have already read the content in memory, you can pass it as a <code>byte[]</code> using the <code>
+      BytesContentProvider</code> utility class:</para>
+      <informalexample>
+        <programlisting language="java">
+<![CDATA[
+byte[] bytes = ...;
+ContentResponse response = httpClient.newRequest("http://domain.com/upload")
+        .content(new BytesContentProvider(bytes), "text/plain")
+        .send()
+        .get(5, TimeUnit.SECONDS);
+]]>
+        </programlisting>
+      </informalexample>
+      <para>Other utility classes are available for the most common types.</para>
+    </section>
+    <section xml:id="http-client-response-content">
+      <info>
+        <title>Response Content Handling</title>
+      </info>
+      <para>Jetty HTTP client allows applications to handle response content in different ways.</para>
+      <para>The first way is to buffer the response content in memory; this is done when using the blocking APIs (see
+      <xref linkend="http-client-blocking" />) and the content is buffered within a <code>ContentResponse</code> up to
+      2 MiB.</para>
+      <para>If you want to control the length of the response content (for example limiting to values smaller than the
+      default of 2 MiB), then you can use a
+      <classname>org.eclipse.jetty.client.util.BlockingResponseListener</classname>in this way:</para>
+      <informalexample>
+        <programlisting language="java">
+<![CDATA[
+Request request = httpClient.newRequest("http://domain.com/path");
+
+// Limit response content buffer to 512 KiB
+BlockingResponseListener listener = new BlockingResponseListener(request, 512 * 1024);
+
+request.send(listener);
+
+ContentResponse response = listener.get(5, TimeUnit.SECONDS);
+]]>
+        </programlisting>
+      </informalexample>
+      <para>If the response content length is exceeded, the response will be aborted, and an exception will be thrown
+      by method <code>get()</code>.</para>
+      <para>If you are using the asynchronous APIs (see <xref linkend="http-client-async" />), you can use the <code>
+      BufferingResponseListener</code> utility class:</para>
+      <informalexample>
+        <programlisting language="java">
+<![CDATA[
+httpClient.newRequest("http://domain.com/path")
+        // Buffer response content up to 8 MiB
+        .send(new BufferingResponseListener(8 * 1024 * 1024)
+        {
+            @Override
+            public void onComplete(Result result)
+            {
+                if (!result.isFailed())
+                {
+                    byte[] responseContent = getContent();
+                    // Your logic here
+                }
+            }
+        });
+]]>
+        </programlisting>
+      </informalexample>
+      <para>The second way is the most efficient (because it avoids content copies) and allows you to specify a <code>
+      Response.ContentListener</code>, or a subclass, to handle the content as soon as it arrives:</para>
+      <informalexample>
+        <programlisting language="java">
+<![CDATA[
+ContentResponse response = httpClient
+        .newRequest("http://domain.com/path")
+        .send(new Response.Listener.Empty()
+        {
+            @Override
+            public void onContent(Response response, ByteBuffer buffer)
+            {
+                // Your logic here
+            }
+        });
+]]>
+        </programlisting>
+      </informalexample>
+      <para>The third way allows you to wait for the response and then stream the content using the <code>
+      InputStreamResponseListener</code> utility class:</para>
+      <informalexample>
+        <programlisting language="java">
+<![CDATA[
+InputStreamResponseListener listener = new InputStreamResponseListener();
+httpClient.newRequest("http://domain.com/path")
+        .send(listener);
+// Wait for the response headers to arrive
+Response response = listener.get(5, TimeUnit.SECONDS);
+// Look at the response
+if (response.getStatus() == 200)
+{
+    InputStream responseContent = listener.getInputStream();
+    // Your logic here
+}
+]]>
+        </programlisting>
+      </informalexample>
+    </section>
+  </section>
+</section>

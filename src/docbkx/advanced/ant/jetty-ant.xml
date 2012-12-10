@@ -16,122 +16,780 @@
 //  You may elect to redistribute this code under either of these licenses.
 //  ========================================================================
 -->
-<section xml:id="jetty-ant" version="5.0" xmlns="http://docbook.org/ns/docbook"
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xl="http://www.w3.org/1999/xlink"
-xmlns:xi="http://www.w3.org/2001/XInclude"
-xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd">
+<section version="5.0"
+         xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd"
+         xml:id="jetty-ant" xmlns="http://docbook.org/ns/docbook"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:xs="http://www.w3.org/2001/XMLSchema"
+         xmlns:xl="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:ns2="http://www.w3.org/1998/Math/MathML"
+         xmlns:ns="http://docbook.org/ns/docbook">
   <title>Use Jetty with Ant</title>
-  <para>The Ant Jetty plugin is a part of Jetty 9 under the jetty-ant module. This plugin makes it possible to start a
-  Jetty web server directly from the Ant build script, and to embed the Jetty web server inside your build process. Its
-  purpose is to provide almost the same functionality as the Jetty plugin for Maven: dynamic application reloading,
-  working directly on web application sources, and a tight integration with the build system.</para>
+
+  <para>The Ant Jetty plugin is a part of Jetty 9 under the jetty-ant module.
+  This plugin makes it possible to start a Jetty web server directly from the
+  Ant build script, and to embed the Jetty web server inside your build
+  process. Its purpose is to provide almost the same functionality as the
+  Jetty plugin for Maven: dynamic application reloading, working directly on
+  web application sources, and a tight integration with the build
+  system.</para>
+
   <informalexample>
-    <programlisting language="xml">
-<![CDATA[ 
- <dependency>
+    <programlisting language="xml"><![CDATA[<dependency>
    <groupId>org.eclipse.jetty</groupId>
    <artifactId>jetty-ant</artifactId>
- </dependency>
-]]>
-    </programlisting>
+ </dependency>]]></programlisting>
   </informalexample>
+
   <section xml:id="jetty-ant-preparation">
     <title>Preparation</title>
-    <para>You will need a jetty distribution and the jetty-ant jar in order to set up your project for ant to run
-    jetty:</para>
+
+    <para>You will need a jetty distribution and the jetty-ant jar in order to
+    set up your project for ant to run jetty:</para>
+
     <orderedlist>
-      <listitem>Get a jetty distribution and unpack it the local filesystem</listitem>
-      <listitem>Get the jetty-ant jar</listitem>
-      <listitem>Make a directory in your project called jetty-lib/</listitem>
-      <listitem>Copy all of the jars in your jetty distribution's lib directory, and all its subdirectories, into your
-      new jetty-lib dir. When copying the jars, DON'T preserve the jetty distro's lib dir hierarchy - all the jars
-      should be directly inside your jetty-lib dir.</listitem>
-      <listitem>Also copy the jetty-ant jar you downloaded earlier into the jetty-lib dir.</listitem>
-      <listitem>Make a directory in your project called jetty-temp</listitem>
+      <listitem>
+        <para><link
+        xl:href="http://download.eclipse.org/jetty/">Download</link> a jetty
+        distribution and unpack it in the local filesystem</para>
+      </listitem>
+
+      <listitem>
+        <para><link
+        xl:href="http://repo1.maven.org/maven2/org/eclipse/jetty/jetty-ant/">Get</link>
+        the jetty-ant jar</para>
+      </listitem>
+
+      <listitem>
+        <para>Make a directory in your project called
+        <code>jetty-lib/</code></para>
+      </listitem>
+
+      <listitem>
+        <para>Copy all of the jars in your jetty distribution's lib directory,
+        and all its subdirectories, into your new <code>jetty-lib</code> dir.
+        When copying the jars, <emphasis>don't</emphasis> preserve the jetty
+        distribution's lib dir hierarchy - all the jars should be directly
+        inside your <code>jetty-lib</code> dir.</para>
+      </listitem>
+
+      <listitem>
+        <para>Also copy the jetty-ant jar you downloaded earlier into the
+        <code>jetty-lib</code> dir.</para>
+      </listitem>
+
+      <listitem>
+        <para>Make a directory in your project called
+        <code>jetty-temp</code></para>
+      </listitem>
     </orderedlist>
-    <para>Now you're ready to edit or create your Ant <filename>build.xml</filename> file.</para>
+
+    <para>Now you're ready to edit or create your Ant
+    <filename>build.xml</filename> file.</para>
   </section>
+
   <section>
     <title>Preparing the <filename>build.xml</filename> file</title>
+
     <para>Let's start with an empty build.xml:</para>
+
     <informalexample>
-      <programlisting language="xml">
-<![CDATA[ 
-<project name="Jetty-Ant integration test" basedir=".">
-</project>
-]]>
-      </programlisting>
+      <programlisting language="xml"><![CDATA[<project name="Jetty-Ant integration test" basedir=".">
+</project>  ]]></programlisting>
     </informalexample>
-    <para>Then, you must define a jetty task:</para>
+
+    <para>Then, you must add a <code>&lt;taskdef&gt;</code> that will import
+    all available jetty tasks:</para>
+
     <informalexample>
-      <programlisting language="xml">
-<![CDATA[ 
-<project name="Jetty-Ant integration test" basedir=".">
+      <programlisting language="xml"><![CDATA[<project name="Jetty-Ant integration test" basedir=".">
+
   <path id="jetty.plugin.classpath">
      <fileset dir="jetty-lib" includes="*.jar"/>
   </path>
+
   <taskdef classpathref="jetty.plugin.classpath" resource="tasks.properties" loaderref="jetty.loader" />
-</project>
-]]>
-      </programlisting>
+
+</project> ]]></programlisting>
     </informalexample>
-    <para>Now you are ready to add a new target with Jetty container declaration:</para>
+
+    <para>Now you are ready to add a new target for running Jetty:</para>
+
     <informalexample>
-      <programlisting language="xml">
-<![CDATA[ 
-<project name="Jetty-Ant integration test" basedir=".">
+      <programlisting language="xml"><![CDATA[<project name="Jetty-Ant integration test" basedir=".">
+
   <path id="jetty.plugin.classpath">
     <fileset dir="jetty-lib" includes="*.jar"/>
   </path>
+
   <taskdef classpathref="jetty.plugin.classpath" resource="tasks.properties" loaderref="jetty.loader" />
  
   <target name="jetty.run">
-    <jetty />
+    <jetty.run />
   </target>
-</project>
-]]>
-      </programlisting>
+
+</project>]]></programlisting>
     </informalexample>
-    <para>This is the minimal configuration need. You can now start jetty on the default port of 8080.</para>
+
+    <para>This is the minimal configuration need. You can now start jetty on
+    the default port of 8080.</para>
   </section>
+
   <section>
     <title>Starting Jetty via Ant</title>
+
     <para>At the command line do:</para>
-    <screen>
-<![CDATA[ 
-> ant jetty.run
-]]>
-    </screen>
+
+    <screen>&gt; ant jetty.run</screen>
   </section>
+
   <section>
-    <title>Setting the Port</title>
-    <para>To configure the port that jetty will start up on you will need to define a connector. First you will need to
-    configure a typedef for the Connector class and then define the connector in the jetty tags.</para>
-    <informalexample>
-      <programlisting language="xml">
-<![CDATA[ 
-<project name="Jetty-Ant integration test" basedir=".">
+    <title>Configuring the Jetty Container</title>
+
+    <para>There are a number of configuration options that will help you set
+    up the jetty environment so that your web application has all the
+    resources it needs:</para>
+
+    <variablelist>
+      <varlistentry>
+        <term>ports and connectors:</term>
+
+        <listitem>
+          <para>To configure the port that jetty will start up on you will
+          need to define a connector. First you will need to configure a
+          <code>&lt;typedef&gt;</code> for the Connector class and then define
+          the connector in the jetty tags:<informalexample>
+              <programlisting language="xml"><![CDATA[<project name="Jetty-Ant integration test" basedir=".">
+
   <path id="jetty.plugin.classpath">
     <fileset dir="jetty-lib" includes="*.jar"/>
   </path>
+
   <taskdef classpathref="jetty.plugin.classpath" resource="tasks.properties" loaderref="jetty.loader" />
  
   <typedef name="connector" classname="org.eclipse.jetty.ant.types.Connector" 
-    classpathref="jetty.plugin.classpath" loaderref="jetty.loader" />
+           classpathref="jetty.plugin.classpath" loaderref="jetty.loader" />
 
   <target name="jetty.run">
-    <jetty>
+    <jetty.run>
       <connectors>
         <connector port="8090"/>
       </connectors>
-    </jetty>
+    </jetty.run>
   </target>
-</project>
-]]>
-      </programlisting>
+
+</project>]]></programlisting>
+            </informalexample><tip>
+              You can set the port to 0 which will start the jetty server connector up on an arbitrary available port. You can then access these values from system properties 
+
+              <emphasis>jetty.ant.server.port</emphasis>
+
+               and 
+
+              <emphasis>jetty.ant.server.host</emphasis>
+
+              .
+            </tip></para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>login services:</term>
+
+        <listitem>
+          <para>If your web application requires authentication and
+          authorization services, then you can configure these on the jetty
+          container. Here's an example of how to set up an <link
+          xl:href="org.eclipse.jetty.security.HashLoginService">org.eclipse.jetty.security.HashLoginService</link>:</para>
+
+          <informalexample>
+            <programlisting><![CDATA[<project name="Jetty-Ant integration test" basedir=".">
+
+  <path id="jetty.plugin.classpath">
+    <fileset dir="jetty-lib" includes="*.jar"/>
+  </path>
+
+ <taskdef classpathref="jetty.plugin.classpath" resource="tasks.properties" loaderref="jetty.loader" />
+
+ <typedef name="hashLoginService" classname="org.eclipse.jetty.security.HashLoginService"
+          classpathref="jetty.plugin.classpath" loaderref="jetty.loader" />
+
+  <target name="jetty.run">
+    <jetty.run>
+      <loginServices>
+        <hashLoginService name="Test Realm" config="${basedir}/realm.properties"/>
+      </loginServices>
+    </jetty.run>
+  </target>
+
+</project>]]></programlisting>
+          </informalexample>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>request log:</term>
+
+        <listitem>
+          <para>The <code>requestLog</code> option allows you to specify a
+          request logger for the jetty instance. You can either use the <link
+          xl:href="http://download.eclipse.org/jetty/stable-9/apidocs/org/eclipse/jetty/server/NCSARequestLog.html">org.eclipse.jetty.server.NCSARequestLog</link>
+          class, or supply the name of your custom class:</para>
+
+          <informalexample>
+            <programlisting><![CDATA[<project name="Jetty-Ant integration test" basedir=".">
+
+  <path id="jetty.plugin.classpath">
+    <fileset dir="jetty-lib" includes="*.jar"/>
+  </path>
+
+ <taskdef classpathref="jetty.plugin.classpath" resource="tasks.properties" loaderref="jetty.loader" />
+
+  <target name="jetty.run">
+    <jetty.run requestLog="com.acme.MyFancyRequestLog">
+    </jetty.run>
+  </target>
+
+</project>]]></programlisting>
+          </informalexample>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>temporary directory:</term>
+
+        <listitem>
+          <para>You can configure a directory to be used as a temporary file
+          store for expanding files, compiling jsps etc by supplying the
+          <code>tempDirectory</code> option:</para>
+
+          <informalexample>
+            <programlisting><![CDATA[<project name="Jetty-Ant integration test" basedir=".">
+
+  <path id="jetty.plugin.classpath">
+    <fileset dir="jetty-lib" includes="*.jar"/>
+  </path>
+
+ <taskdef classpathref="jetty.plugin.classpath" resource="tasks.properties" loaderref="jetty.loader" />
+
+  <target name="jetty.run">
+    <jetty.run tempDirectory="${basedir}/jetty-temp">
+    </jetty.run>
+  </target>
+
+</project>]]></programlisting>
+          </informalexample>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>other context handlers:</term>
+
+        <listitem>
+          <para>Sometimes, you may need to configure some other context
+          handlers to run at the same time as your web application. These
+          other context handlers can be specified using the
+          <code>&lt;contextHandlers&gt;</code> element. You will need to
+          supply a <code>&lt;typedef&gt;</code> for it before you can use
+          it:</para>
+
+          <informalexample>
+            <programlisting><![CDATA[<project name="Jetty-Ant integration test" basedir=".">
+
+  <path id="jetty.plugin.classpath">
+    <fileset dir="jetty-lib" includes="*.jar"/>
+  </path>
+
+ <taskdef classpathref="jetty.plugin.classpath" 
+          resource="tasks.properties" loaderref="jetty.loader" />
+
+ <typedef name="contextHandlers" classname="org.eclipse.jetty.ant.types.ContextHandlers"
+          classpathref="jetty.plugin.classpath" loaderref="jetty.loader" />
+
+  <target name="jetty.run">
+    <jetty.run>
+     <contextHandlers>
+       <contextHandler resourceBase="${basedir}/stuff" contextPath="/stuff"/>
+     </contextHandlers>
+    </jetty.run>
+  </target>
+
+</project>]]></programlisting>
+          </informalexample>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>system properties:</term>
+
+        <listitem>
+          <para>As a convenience, you can configure system properties by using
+          the <code>&lt;systemProperties&gt;</code> element. Note, however,
+          that depending on the purpose of the system property, setting it
+          from within the Ant execution may mean that it is evaluated to late,
+          as the jvm evaluates some system properties on entry.</para>
+
+          <informalexample>
+            <programlisting><![CDATA[<project name="Jetty-Ant integration test" basedir=".">
+
+  <path id="jetty.plugin.classpath">
+    <fileset dir="jetty-lib" includes="*.jar"/>
+  </path>
+
+ <taskdef classpathref="jetty.plugin.classpath" resource="tasks.properties" loaderref="jetty.loader" />
+
+  <target name="jetty.run">
+    <jetty.run>
+      <systemProperties>
+        <systemProperty name="foo" value="bar"/>
+      </systemProperties>
+    </jetty.run>
+  </target>
+
+</project>]]></programlisting>
+          </informalexample>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>jetty xml file:</term>
+
+        <listitem>
+          <para>If you have a lot of configuration to apply to the jetty
+          container, it can be more convenient to put it into a standard jetty
+          xml configuration file and have the ant plugin apply it before
+          starting jetty:</para>
+
+          <informalexample>
+            <programlisting><![CDATA[<project name="Jetty-Ant integration test" basedir=".">
+
+  <path id="jetty.plugin.classpath">
+    <fileset dir="jetty-lib" includes="*.jar"/>
+  </path>
+
+ <taskdef classpathref="jetty.plugin.classpath" resource="tasks.properties" loaderref="jetty.loader" />
+
+  <target name="jetty.run">
+    <jetty.run jettyXml="${basedir}/jetty.xml">
+    </jetty.run>
+  </target>
+
+</project>]]></programlisting>
+          </informalexample>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>scanning for changes:</term>
+
+        <listitem>
+          <para>The most useful mode in which to run the ant plugin is for it
+          to continue to execute jetty and automatically restart your web
+          application if any part of it changes (for example your IDE
+          recompiles the classes of the web application). The
+          <code>scanIntervalSeconds</code> option controls how frequently the
+          <code>&lt;jetty.run&gt;</code> task will scan your web
+          application/war file for changes. The default value of
+          <code>"0"</code> disables scanning. Here's an example where jetty
+          will check for changes every 5 seconds:</para>
+
+          <informalexample>
+            <programlisting><![CDATA[<project name="Jetty-Ant integration test" basedir=".">
+
+  <path id="jetty.plugin.classpath">
+    <fileset dir="jetty-lib" includes="*.jar"/>
+  </path>
+
+ <taskdef classpathref="jetty.plugin.classpath" resource="tasks.properties" loaderref="jetty.loader" />
+
+  <target name="jetty.run">
+    <jetty.run scanIntervalSeconds="5">
+    </jetty.run>
+  </target>
+
+</project>]]></programlisting>
+          </informalexample>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>stopping:</term>
+
+        <listitem>
+          <para>In normal mode (ie <code>daemon="false"</code>), the<code>
+          &lt;jetty.run&gt;</code> task will run until you
+          <code>cntrl-c</code> it. Sometimes, it may be useful to be able to
+          script both the stop AND the start of jetty. In this case, we
+          provide the <code>&lt;jetty.stop&gt;</code> task.</para>
+
+          <para>In order to use it, you need to provide a port and a
+          identifying string to both the <code>&lt;jetty.run&gt;</code> and
+          the <code>&lt;jetty.stop&gt;</code> tasks.
+          <code>&lt;jetty.run&gt;</code> will listen on the given port for a
+          "stop" message containing the given string, and cleanly stop jetty
+          when it is received. The <code>&lt;jetty.stop&gt;</code> task sends
+          this "stop" message. You can also optionally provide a
+          <code>stopWait</code> value (in seconds), which will be the length
+          of time the <code>&lt;jetty.stop&gt;</code> wait task will wait for
+          confirmation that the stop succeeded:</para>
+
+          <informalexample>
+            <programlisting><![CDATA[<project name="Jetty-Ant integration test" basedir=".">
+
+  <path id="jetty.plugin.classpath">
+    <fileset dir="jetty-lib" includes="*.jar"/>
+  </path>
+
+ <taskdef classpathref="jetty.plugin.classpath" resource="tasks.properties" loaderref="jetty.loader" />
+
+  <target name="jetty.run">
+    <jetty.run stopPort="9999" stopKey="9999">
+    </jetty.run>
+  </target>
+
+  <target name="jetty.stop">
+   <jetty.stop stopPort="9999" stopKey="9999" stopWait="10"/>
+  </target>
+
+</project>]]></programlisting>
+          </informalexample>
+
+          <para>Then, to stop jetty via Ant, do:</para>
+
+          <informalexample>
+            <programlisting><![CDATA[> ant jetty.stop]]></programlisting>
+          </informalexample>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>execution without pausing ant:</term>
+
+        <listitem>
+          <para>Usually, the <code>&lt;jetty.run&gt;</code> task will run
+          until you <code>cntrl-c</code> it, pausing the execution of Ant as
+          it does so. In some cases, it may be useful to let Ant continue
+          executing. For example, you may need other tasks to execute while
+          jetty is running in order to run your unit tests. For this case, we
+          provide the <code>daemon</code> option. This defaults to
+          <code>"false"</code>. When <code>"true"</code>, Ant will continue to
+          execute after starting Jetty. If Ant exits, so will Jetty. Note that
+          this option does <emphasis>not </emphasis>fork a new process for
+          jetty.</para>
+
+          <informalexample>
+            <programlisting><![CDATA[<project name="Jetty-Ant integration test" basedir=".">
+
+  <path id="jetty.plugin.classpath">
+    <fileset dir="jetty-lib" includes="*.jar"/>
+  </path>
+
+ <taskdef classpathref="jetty.plugin.classpath" resource="tasks.properties" loaderref="jetty.loader" />
+
+  <target name="jetty.run">
+    <jetty.run daemon="true">
+    </jetty.run>
+  </target>
+
+</project>]]></programlisting>
+          </informalexample>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+  </section>
+
+  <section>
+    <title>Deploying a Web Application</title>
+
+    <para>Add a <code>&lt;typedef&gt;</code> for the
+    org.eclipse.jetty.ant.AntWebAppContext class with name webApp, then add a
+    <code>&lt;webApp&gt;</code> element to <code>&lt;jetty.run&gt;</code> to
+    describe your web application. The following example deploys a web
+    application that is expanded in the local directory <code>"foo/"</code> to
+    context path <code>"/"</code>:</para>
+
+    <informalexample>
+      <programlisting><![CDATA[<project name="Jetty-Ant integration test" basedir=".">
+
+  <path id="jetty.plugin.classpath">
+    <fileset dir="jetty-lib" includes="*.jar"/>
+  </path>
+
+ <taskdef classpathref="jetty.plugin.classpath" resource="tasks.properties" loaderref="jetty.loader" />
+ 
+ <typedef name="webApp" classname="org.eclipse.jetty.ant.AntWebAppContext" 
+          classpathref="jetty.plugin.classpath" loaderref="jetty.loader" />
+
+  <target name="jetty.run">
+    <jetty.run>
+      <webApp war="${basedir}/foo" contextPath="/"/>
+    </jetty.run>
+  </target>
+
+</project>]]></programlisting>
     </informalexample>
-    <tip>You can set the port to 0 which will start the jetty server connector up on an arbitrary available port. You
-    can then access these values from system properties <emphasis>jetty.ant.server.port</emphasis> and <emphasis>
-    jetty.ant.server.host</emphasis>.</tip>
+
+    <variablelist>
+      <varlistentry>
+        <term>deploying a war file:</term>
+
+        <listitem>
+          <para>Note that it is not necessary that the web application is
+          expanded into a directory. You can equally as well deploy it as a
+          war file:</para>
+
+          <informalexample>
+            <programlisting><![CDATA[<project name="Jetty-Ant integration test" basedir=".">
+
+  <path id="jetty.plugin.classpath">
+    <fileset dir="jetty-lib" includes="*.jar"/>
+  </path>
+
+ <taskdef classpathref="jetty.plugin.classpath" resource="tasks.properties" loaderref="jetty.loader" />
+ 
+ <typedef name="webApp" classname="org.eclipse.jetty.ant.AntWebAppContext" 
+          classpathref="jetty.plugin.classpath" loaderref="jetty.loader" />
+
+  <target name="jetty.run">
+    <jetty.run>
+      <webApp war="${basedir}/foo.war" contextPath="/"/>
+    </jetty.run>
+  </target>
+
+</project>]]></programlisting>
+          </informalexample>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>deploying more than one web application:</term>
+
+        <listitem>
+          <para>You can also deploy more than one web application:</para>
+
+          <informalexample>
+            <programlisting><![CDATA[<project name="Jetty-Ant integration test" basedir=".">
+
+  <path id="jetty.plugin.classpath">
+    <fileset dir="jetty-lib" includes="*.jar"/>
+  </path>
+
+ <taskdef classpathref="jetty.plugin.classpath" resource="tasks.properties" loaderref="jetty.loader" />
+ 
+ <typedef name="webApp" classname="org.eclipse.jetty.ant.AntWebAppContext" 
+          classpathref="jetty.plugin.classpath" loaderref="jetty.loader" />
+
+  <target name="jetty.run">
+    <jetty.run>
+      <webApp war="${basedir}/foo.war" contextPath="/"/>
+      <webApp war="${basedir}/other    contextPath="/other"/>
+      <webApp war="${basedir}/bar.war" contextPath="/bar"/>
+    </jetty.run>
+  </target>
+
+</project>]]></programlisting>
+          </informalexample>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+
+    <section>
+      <title>Configuring the Web Application</title>
+
+      <para>As the org.eclipse.jetty.ant.AntWebAppContext class is an
+      extension of the <link
+      xl:href="org.eclipse.jetty.webapp.WebAppContext">org.eclipse.jetty.webapp.WebAppContext</link>
+      class, you can configure it by adding attributes of the same name
+      (without the "set" or "add" prefix) as the setter methods. </para>
+
+      <para>Here's an example where we specify the location of the
+      <code>web.xml</code> file (equivalent to method <link
+      xl:href="http://download.eclipse.org/jetty/stable-9/apidocs/org/eclipse/jetty/webapp/WebAppContext.html#setDescriptor%28java.lang.String%29">AntWebAppContext.setDescriptor()</link>)
+      and the web application's temporary directory (equivalent to method
+      <link
+      xl:href="http://download.eclipse.org/jetty/stable-9/apidocs/org/eclipse/jetty/webapp/WebAppContext.html#setTempDirectory%28java.io.File%29">AntWebAppContext.setTempDirectory()</link>):</para>
+
+      <informalexample>
+        <programlisting><![CDATA[<project name="Jetty-Ant integration test" basedir=".">
+
+  <path id="jetty.plugin.classpath">
+    <fileset dir="jetty-lib" includes="*.jar"/>
+  </path>
+
+ <taskdef classpathref="jetty.plugin.classpath" resource="tasks.properties" loaderref="jetty.loader" />
+ 
+ <typedef name="webApp" classname="org.eclipse.jetty.ant.AntWebAppContext" 
+          classpathref="jetty.plugin.classpath" loaderref="jetty.loader" />
+
+  <target name="jetty.run">
+    <jetty.run>
+      <webApp descriptor="${basedir}/web.xml" tempDirectory="${basedir}/my-temp" war="${basedir}/foo" contextPath="/"/>
+    </jetty.run>
+  </target>
+
+</project>]]></programlisting>
+      </informalexample>
+
+      <para>There are some other extra configuration options for the
+      AntWebAppContext:</para>
+
+      <variablelist>
+        <varlistentry>
+          <term>extra classes and jars:</term>
+
+          <listitem>
+            <para>If your web application's classes and jars do not reside
+            inside WEB-INF of the resource base directory, then you can use
+            the &lt;classes&gt; and &lt;jar&gt; elements to tell Ant where to
+            find them. Here's an example:</para>
+
+            <informalexample>
+              <programlisting><![CDATA[<project name="Jetty-Ant integration test" basedir=".">
+
+  <path id="jetty.plugin.classpath">
+    <fileset dir="jetty-lib" includes="*.jar"/>
+  </path>
+
+ <taskdef classpathref="jetty.plugin.classpath" resource="tasks.properties" loaderref="jetty.loader" />
+ 
+ <typedef name="webApp" classname="org.eclipse.jetty.ant.AntWebAppContext" 
+          classpathref="jetty.plugin.classpath" loaderref="jetty.loader" />
+
+  <target name="jetty.run">
+    <jetty.run>
+      <webApp descriptor="${basedir}/web.xml" tempDirectory="${basedir}/my-temp" war="${basedir}/foo" contextPath="/">
+        <classes dir="${basedir}/classes">
+          <include name="**/*.class"/>
+          <include name="**/*.properties"/>
+        </classes>
+        <lib dir="${basedir}/jars">
+          <include name="**/*.jar"/>
+          <exclude name="**/*.dll"/>
+        </lib> 
+      </webApp>
+    </jetty.run>
+  </target>
+
+</project>]]></programlisting>
+            </informalexample>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>context attributes:</term>
+
+          <listitem>
+            <para>Jetty allows you to set up ServletContext attributes on your
+            web application. These are configured in a context xml file that
+            is applied to your WebAppContext instance prior to starting it.
+            For convenience, the ant plugin permits you to configure these
+            directly in the build file. Here's an example:</para>
+
+            <informalexample>
+              <programlisting><![CDATA[<project name="Jetty-Ant integration test" basedir=".">
+
+  <path id="jetty.plugin.classpath">
+    <fileset dir="jetty-lib" includes="*.jar"/>
+  </path>
+
+ <taskdef classpathref="jetty.plugin.classpath" resource="tasks.properties" loaderref="jetty.loader" />
+ 
+ <typedef name="webApp" classname="org.eclipse.jetty.ant.AntWebAppContext" 
+          classpathref="jetty.plugin.classpath" loaderref="jetty.loader" />
+
+  <target name="jetty.run">
+    <jetty.run>
+      <webApp war="${basedir}/foo" contextPath="/">
+        <attributes>
+          <attribute name="my.param" value="123"/>
+        </attributes>
+      </webApp>
+    </jetty.run>
+  </target>
+
+</project>]]></programlisting>
+            </informalexample>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>jetty-env.xml file:</term>
+
+          <listitem>
+            <para>If you are using features such as <link
+            linkend="configuring_jndi">JNDI</link> with you web application,
+            you may need to configure a <code><link
+            linkend="using_jndi">WEB-INF/jetty-env.xml</link></code> file to
+            define resources. If the structure of your web application project
+            is such that the source of<code> jetty-env.xml</code> file resides
+            somewhere other than <code>WEB-INF</code>, you can use the
+            <code>jettyEnvXml </code>attribute to tell Ant where to find it:
+            </para>
+
+            <informalexample>
+              <programlisting><![CDATA[<project name="Jetty-Ant integration test" basedir=".">
+
+  <path id="jetty.plugin.classpath">
+    <fileset dir="jetty-lib" includes="*.jar"/>
+  </path>
+
+ <taskdef classpathref="jetty.plugin.classpath" resource="tasks.properties" loaderref="jetty.loader" />
+ 
+ <typedef name="webApp" classname="org.eclipse.jetty.ant.AntWebAppContext" 
+          classpathref="jetty.plugin.classpath" loaderref="jetty.loader" />
+
+  <target name="jetty.run">
+    <jetty.run>
+      <webApp war="${basedir}/foo" contextPath="/" jettyEnvXml="${basedir}/jetty-env.xml">
+        <attributes>
+      </webApp>
+    </jetty.run>
+  </target>
+
+</project>]]></programlisting>
+            </informalexample>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>context xml file:</term>
+
+          <listitem>
+            <para>You may prefer or even require to do some advanced
+            configuration of your web application outside of the Ant build
+            file. In this case, you can use a standard context xml
+            configuration file and the Ant plugin will apply it to your web
+            application before it is deployed. Note that the settings from the
+            context xml file will <emphasis>override</emphasis> those of the
+            attributes and nested elements you defined in the build
+            file.</para>
+
+            <informalexample>
+              <programlisting><![CDATA[project name="Jetty-Ant integration test" basedir=".">
+
+  <path id="jetty.plugin.classpath">
+    <fileset dir="jetty-lib" includes="*.jar"/>
+  </path>
+
+ <taskdef classpathref="jetty.plugin.classpath" resource="tasks.properties" loaderref="jetty.loader" />
+ 
+ <typedef name="webApp" classname="org.eclipse.jetty.ant.AntWebAppContext" 
+          classpathref="jetty.plugin.classpath" loaderref="jetty.loader" />
+
+  <target name="jetty.run">
+    <jetty.run>
+      <webApp war="${basedir}/foo" contextPath="/" contextXml="${basedir}/jetty-env.xml">
+        <attributes>
+      </webApp>
+    </jetty.run>
+  </target>
+
+</project>]]></programlisting>
+            </informalexample>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </section>
   </section>
 </section>

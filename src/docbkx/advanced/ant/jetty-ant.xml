@@ -124,7 +124,7 @@ xmlns:ns="http://docbook.org/ns/docbook">
         <listitem>
           <para>To configure the port that jetty will start up on you will need to define a connector. First you will
           need to configure a <code>&lt;typedef&gt;</code> for the Connector class and then define the connector in the
-          jetty tags:
+          jetty tags: 
           <informalexample>
             <programlisting language="xml">
 <![CDATA[<project name="Jetty-Ant integration test" basedir=".">

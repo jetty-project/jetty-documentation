@@ -399,8 +399,7 @@ http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/plain/tests/test-we
         configuration).</para>
       </listitem>
     </itemizedlist>
-    <para>For more information, see <link linkend="quickstart-deploying-webapps">Deploying Web
-    Applications.</link>).</para>
+    <para>For more information, see <xref linkend="quickstart-deploying-webapps" />.</para>
     <para>A context is an instance of ContextHandler that aggregates other handlers with common resources for handling
     HTTP requests (such as resource base, class loader, configuration attributes). A standard web application is a
     specialized instance of a context that uses standard layouts and <filename>web.xml</filename> deployment

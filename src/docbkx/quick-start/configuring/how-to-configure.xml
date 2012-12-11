@@ -42,7 +42,7 @@ xmlns:ns2="http://www.w3.org/1998/Math/MathML" xmlns:ns="http://docbook.org/ns/d
       <listitem>
         <para>Using Jetty XML configuration, which is an <link
         xl:href="http://en.wikipedia.org/wiki/Inversion_of_Control">Inversion of Control (IoC)</link> framework, to
-        instantiate and assemble Jetty objects. as XML objects</para>
+        instantiate and assemble Jetty objects as XML objects.</para>
       </listitem>
       <listitem>
         <para>Using a third party <link xl:href="http://en.wikipedia.org/wiki/Inversion_of_Control">
@@ -79,7 +79,7 @@ xmlns:ns2="http://www.w3.org/1998/Math/MathML" xmlns:ns="http://docbook.org/ns/d
             </listitem>
             <listitem>
               <para>Interpret descriptor fragments included in the <filename>META-INF</filename> directory of Jar files
-              within <filename>WEB-INF/lib</filename></para>
+              within <filename>WEB-INF/lib.</filename></para>
             </listitem>
           </itemizedlist>
         </listitem>

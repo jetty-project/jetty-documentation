@@ -136,12 +136,10 @@ httpClient.newRequest("http://domain.com/path")
 ]]>
       </programlisting>
     </informalexample>
-      <para>
-          You can impose a total timeout for the request/response conversation by using the utility class
-          <code>TimedResponseListener</code>, in this way:
-      </para>
-      <informalexample>
-        <programlisting language="java">
+    <para>You can impose a total timeout for the request/response conversation by using the utility class <code>
+    TimedResponseListener</code>, in this way:</para>
+    <informalexample>
+      <programlisting language="java">
 <![CDATA[
 Request request = httpClient.newRequest("http://domain.com/path");
 request.send(new TimedResponseListener(3, TimeUnit.SECONDS, request, new Response.CompleteListener()
@@ -155,9 +153,7 @@ request.send(new TimedResponseListener(3, TimeUnit.SECONDS, request, new Respons
 ]]>
       </programlisting>
     </informalexample>
-  <para>
-      The example above will impose a total timeout of 3 seconds on the request/response conversation.
-  </para>
+    <para>The example above will impose a total timeout of 3 seconds on the request/response conversation.</para>
     <para>The HTTP client APIs use listeners extensively to provide hooks for all possible request and response events,
     and with JDK 8&#8242;s lambda expressions they&#8217;re even more fun to use:</para>
     <informalexample>

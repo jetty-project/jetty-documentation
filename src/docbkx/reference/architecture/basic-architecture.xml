@@ -52,7 +52,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
         <para>In code. See the examples in the Jetty 7 Latest Source XRef.</para>
       </listitem>
       <listitem>
-        <para>With Jetty XML&#8218;dependency injection style XML format.</para>
+        <para>With Jetty XML#8211dependency injection style XML format.</para>
       </listitem>
       <listitem>
         <para>With your dependency injection framework of choice: Spring or XBean.</para>
@@ -102,23 +102,23 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     </mediaobject>
     <itemizedlist>
       <listitem>
-        <para>SocketConnector&#8218;for few busy connections or when NIO is not available</para>
+        <para>SocketConnector&#8211;for few busy connections or when NIO is not available</para>
       </listitem>
       <listitem>
-        <para>BlockingChannelConnector&#8218;for few busy connections when NIO is available</para>
+        <para>BlockingChannelConnector&#8211;for few busy connections when NIO is available</para>
       </listitem>
       <listitem>
-        <para>SelectChannelConnector&#8218;for many mostly idle connections or asynchronous handling of Ajax
+        <para>SelectChannelConnector&#8211;for many mostly idle connections or asynchronous handling of Ajax
         requests</para>
       </listitem>
       <listitem>
-        <para>SslSocketConnector&#8218;SSL without NIO</para>
+        <para>SslSocketConnector&#8211;SSL without NIO</para>
       </listitem>
       <listitem>
-        <para>SslSelectChannelConnector&#8218;SSL with non blocking NIO support</para>
+        <para>SslSelectChannelConnector&#8211;SSL with non blocking NIO support</para>
       </listitem>
       <listitem>
-        <para>AJPConnector&#8218;AJP protocol support for connections from apache mod_jk or mod_proxy_ajp</para>
+        <para>AJPConnector&#8211;AJP protocol support for connections from apache mod_jk or mod_proxy_ajp</para>
       </listitem>
     </itemizedlist>
   </section>
@@ -146,17 +146,17 @@ public void handle(String target, Request baseRequest, HttpServletRequest reques
     <para>Parameters:</para>
     <itemizedlist>
       <listitem>
-        <para>target&#8218;The target of the request, either a URI or a name.</para>
+        <para>target&#8211;The target of the request, either a URI or a name.</para>
       </listitem>
       <listitem>
-        <para>baseRequest&#8218;The original unwrapped request object.</para>
+        <para>baseRequest&#8211;The original unwrapped request object.</para>
       </listitem>
       <listitem>
-        <para>request&#8218;The request either as the Request object or a wrapper of that request. You can use the
+        <para>request&#8211;The request either as the Request object or a wrapper of that request. You can use the
         HttpConnection.getCurrentConnection() method to access the Request object if required.</para>
       </listitem>
       <listitem>
-        <para>response&#8218;The response as the Response object or a wrapper of that request. You can use the
+        <para>response&#8211;The response as the Response object or a wrapper of that request. You can use the
         HttpConnection.getCurrentConnection() method to access the Response object if required.</para>
       </listitem>
     </itemizedlist>
@@ -164,15 +164,15 @@ public void handle(String target, Request baseRequest, HttpServletRequest reques
     or it might modify and/or wrap the request and then pass it on. This gives three styles of Handler:</para>
     <itemizedlist>
       <listitem>
-        <para>Coordinating Handlers&#8218;Handlers that route requests to other handlers (HandlerCollection,
+        <para>Coordinating Handlers&#8211;Handlers that route requests to other handlers (HandlerCollection,
         ContextHandlerCollection)</para>
       </listitem>
       <listitem>
-        <para>Filtering Handlers&#8218;Handlers that augment a request and pass it on to other handlers
+        <para>Filtering Handlers&#8211;Handlers that augment a request and pass it on to other handlers
         (HandlerWrapper, ContextHandler, SessionHandler)</para>
       </listitem>
       <listitem>
-        <para>Generating Handlers&#8218;Handlers that produce content (ResourceHandler and ServletHandler)</para>
+        <para>Generating Handlers&#8211;Handlers that produce content (ResourceHandler and ServletHandler)</para>
       </listitem>
     </itemizedlist>
     <section>
@@ -194,7 +194,7 @@ public void handle(String target, Request baseRequest, HttpServletRequest reques
       for this model is Handler Collection.</para>
       <para>Nested handlers are called according to a before/invokeNext/after pattern. The main class for nested
       handlers is Handler Wrapper. Nested handlers are much more common than those called in sequence.</para>
-      <para>See also <xref linkend="writing-handlers" />.</para>
+      <para>See also <xref linkend="writing-custom-handlers" />.</para>
     </section>
     <section>
       <title>Servlet Handler</title>

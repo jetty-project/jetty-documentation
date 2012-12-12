@@ -27,10 +27,10 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
       <title>Cookies Support</title>
     </info>
     <para>Jetty HTTP client supports cookies out of the box. The <code>HttpClient</code> instance receives cookies from
-    HTTP responses and stores them in a <classname>java.net.CookieStore</classname>, a class that is part of the JDK.
-        When new requests are made, the cookie store is
-    consulted and if there are matching cookies (that is, cookies that are not expired and that match domain and path
-    of the request) then they are added to the requests.</para>
+    HTTP responses and stores them in a 
+    <classname>java.net.CookieStore</classname>, a class that is part of the JDK. When new requests are made, the
+    cookie store is consulted and if there are matching cookies (that is, cookies that are not expired and that match
+    domain and path of the request) then they are added to the requests.</para>
     <para>Applications can programmatically access the cookie store to find the cookies that have been set:</para>
     <informalexample>
       <programlisting language="java">
@@ -65,8 +65,8 @@ for (HttpCookie cookie : cookies)
 ]]>
       </programlisting>
     </informalexample>
-    <para>If you want to totally disable cookie handling, you can install a <code>HttpCookieStore.Empty</code> instance in
-    this way:</para>
+    <para>If you want to totally disable cookie handling, you can install a <code>HttpCookieStore.Empty</code> instance
+    in this way:</para>
     <informalexample>
       <programlisting language="java">
 <![CDATA[
@@ -74,11 +74,10 @@ httpClient.setCookieStore(new HttpCookieStore.Empty());
 ]]>
       </programlisting>
     </informalexample>
-      <para>
-          You can enable cookie filtering by installing a cookie store that performs the filtering logic in this way:
-      </para>
-      <informalexample>
-        <programlisting language="java">
+    <para>You can enable cookie filtering by installing a cookie store that performs the filtering logic in this
+    way:</para>
+    <informalexample>
+      <programlisting language="java">
 <![CDATA[
 httpClient.setCookieStore(new GoogleOnlyCookieStore());
 
@@ -92,11 +91,10 @@ public class GoogleOnlyCookieStore extends HttpCookieStore
     }
 }
 ]]>
-        </programlisting>
-      </informalexample>
-      <para>
-          The example above will retain only cookies that come from the <code>google.com</code> domain or sub-domains.
-      </para>
+      </programlisting>
+    </informalexample>
+    <para>The example above will retain only cookies that come from the <code>google.com</code> domain or
+    sub-domains.</para>
   </section>
   <section xml:id="http-client-authentication">
     <info>

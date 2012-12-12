@@ -24,9 +24,9 @@ xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:ns2="http://www.w3.org/1998/Mat
 xmlns:ns="http://docbook.org/ns/docbook">
   <title>Connector Configuration Overview</title>
   <para>Connectors are the mechanism through which Jetty accepts network connections for various protocols. Configuring
-  a connector is a combination of configuring the network parameters on the connector itself (eg port), configuring the
-  services used by the connector (e.g. executors &amp; schedulers) and configuration of the connection factories used
-  to instantiate and configure the protocol for an accepted connection. Jetty primarily uses a single connector type
+  a connector is a combination of configuring the network parameters on the connector itself (the port), configuring
+  the services used by the connector (executors &amp; schedulers) and configuration of the connection factories used to
+  instantiate and configure the protocol for an accepted connection. Jetty primarily uses a single connector type
   called <link
   xl:href="http://download.eclipse.org/jetty/stable-9/apidocs/org/eclipse/jetty/server/ServerConnector.html">
   ServerConnector</link>.</para>
@@ -35,7 +35,7 @@ xmlns:ns="http://docbook.org/ns/docbook">
     (eg NIO vs blocking IO). In Jetty-9 the is only an NIO connector and the protocol is now configured by a collection
     of <link
     xl:href="http://download.eclipse.org/jetty/stable-9/apidocs/org/eclipse/jetty/server/ConnectionFactory.html">
-    ConnectionFactory</link> s on the connector. Thus Jetty-9 primarily uses a single connector type:
+    ConnectionFactories</link> on the connector. Thus Jetty 9 primarily uses a single connector type:
     ServerConnector</para>
   </note>
   <para>The standard jetty distribution comes with the following Jetty IoC XML files that create and configure

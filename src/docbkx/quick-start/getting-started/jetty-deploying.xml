@@ -45,7 +45,7 @@ xmlns:ns2="http://www.w3.org/1998/Math/MathML" xmlns:ns="http://docbook.org/ns/d
     <listitem>
       <para>An XML file like <filename>example.xml</filename> is deployed as a context whose configuration is defined
       by the XML. The configuration itself must set the context path. If <filename>example.xml</filename> and
-      <filename>example.war</filename> exist, then only the XML is deployed (which may use the War in its
+      <filename>example.war</filename> exist, then only the XML is deployed (which may use the WAR in its
       configuration).</para>
     </listitem>
   </itemizedlist>
@@ -57,38 +57,50 @@ xmlns:ns2="http://www.w3.org/1998/Math/MathML" xmlns:ns="http://docbook.org/ns/d
   <para>The Jetty distribution comes with the following deployed in the webapps directory:</para>
   <variablelist>
     <varlistentry>
-      <term>ROOT/</term>
+      <term>
+        <filename>ROOT/</filename>
+      </term>
       <listitem>
         <para>The Jetty welcome page served as static content.</para>
       </listitem>
     </varlistentry>
     <varlistentry>
-      <term>test.xml</term>
+      <term>
+        <filename>test.xml</filename>
+      </term>
       <listitem>
         <para>The configuration file that deploys the demonstration web application in <filename>
         test.war</filename> using the extra configuration contained within <filename>test.d</filename></para>
       </listitem>
     </varlistentry>
     <varlistentry>
-      <term>test.war</term>
+      <term>
+        <filename>test.war</filename>
+      </term>
       <listitem>
         <para>The demonstration web application that is configured and deployed by <filename>test.xml</filename></para>
       </listitem>
     </varlistentry>
     <varlistentry>
-      <term>test.d</term>
+      <term>
+        <filename>test.d</filename>
+      </term>
       <listitem>
         <para>A directory containing additional configuration files used by <filename>test.xml</filename></para>
       </listitem>
     </varlistentry>
     <varlistentry>
-      <term>async-rest.war</term>
+      <term>
+        <filename>async-rest.war</filename>
+      </term>
       <listitem>
         <para>A web application demonstration of asynchronous REST to eBay.</para>
       </listitem>
     </varlistentry>
     <varlistentry>
-      <term>javadoc.xml</term>
+      <term>
+        <filename>javadoc.xml</filename>
+      </term>
       <listitem>
         <para>A context configuration that deploys as static content the javadoc directory found at <filename>
         $jetty.home/javadoc</filename></para>

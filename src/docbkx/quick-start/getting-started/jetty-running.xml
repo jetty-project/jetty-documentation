@@ -23,7 +23,7 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.or
 xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
 xmlns:ns2="http://www.w3.org/1998/Math/MathML" xmlns:ns="http://docbook.org/ns/docbook">
   <title>Running Jetty</title>
-  <para>To start Jetty on the default port of 8080, run the following command:</para>
+  <para>To start Jetty on the default port of 8080, navigate to JETTY_HOME and run the following command:</para>
   <para>
     <code>&gt; java -jar start.jar</code>
   </para>

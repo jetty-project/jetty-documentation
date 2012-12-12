@@ -27,16 +27,16 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
       <title>Cookies Support</title>
     </info>
     <para>Jetty HTTP client supports cookies out of the box. The <code>HttpClient</code> instance receives cookies from
-    HTTP responses and stores them in a <code>CookieStore</code>. When new requests are made, the cookie store is
+    HTTP responses and stores them in a <classname>java.net.CookieStore</classname>, a class that is part of the JDK.
+        When new requests are made, the cookie store is
     consulted and if there are matching cookies (that is, cookies that are not expired and that match domain and path
     of the request) then they are added to the requests.</para>
     <para>Applications can programmatically access the cookie store to find the cookies that have been set:</para>
     <informalexample>
       <programlisting language="java">
 <![CDATA[
-Destination destination = httpClient.getDestination("http", "domain.com", 80);
 CookieStore cookieStore = httpClient.getCookieStore();
-List<HttpCookie> cookies = cookieStore.findCookies(destination, "/path");
+List<HttpCookie> cookies = cookieStore.get(URI.create("http://domain.com/path"));
 ]]>
       </programlisting>
     </informalexample>
@@ -44,10 +44,12 @@ List<HttpCookie> cookies = cookieStore.findCookies(destination, "/path");
     <informalexample>
       <programlisting language="java">
 <![CDATA[
-Destination destination = httpClient.getDestination("http", "domain.com", 80);
 CookieStore cookieStore = httpClient.getCookieStore();
 HttpCookie cookie = new HttpCookie("foo", "bar");
-boolean added = cookieStore.addCookie(destination, cookie);
+cookie.setDomain("domain.com");
+cookie.setPath("/");
+cookie.setMaxAge(TimeUnit.DAYS.toSeconds(1));
+cookieStore.add(URI.create("http://domain.com"), cookie);
 ]]>
       </programlisting>
     </informalexample>
@@ -55,23 +57,46 @@ boolean added = cookieStore.addCookie(destination, cookie);
     <informalexample>
       <programlisting language="java">
 <![CDATA[
-Destination destination = httpClient.getDestination("http", "domain.com", 80);
 CookieStore cookieStore = httpClient.getCookieStore();
-List<HttpCookie> cookies = cookieStore.findCookies(destination, "/");
+URI uri = URI.create("http://domain.com");
+List<HttpCookie> cookies = cookieStore.get(uri);
 for (HttpCookie cookie : cookies)
-    cookieStore.removeCookie(destination, cookie);
+    cookieStore.remove(uri, cookie);
 ]]>
       </programlisting>
     </informalexample>
-    <para>If you want to totally disable cookie handling, you can install a <code>CookieStore.Empty</code> instance in
+    <para>If you want to totally disable cookie handling, you can install a <code>HttpCookieStore.Empty</code> instance in
     this way:</para>
     <informalexample>
       <programlisting language="java">
 <![CDATA[
-httpClient.setCookieStore(new CookieStore.Empty());
+httpClient.setCookieStore(new HttpCookieStore.Empty());
 ]]>
       </programlisting>
     </informalexample>
+      <para>
+          You can enable cookie filtering by installing a cookie store that performs the filtering logic in this way:
+      </para>
+      <informalexample>
+        <programlisting language="java">
+<![CDATA[
+httpClient.setCookieStore(new GoogleOnlyCookieStore());
+
+public class GoogleOnlyCookieStore extends HttpCookieStore
+{
+    @Override
+    public void add(URI uri, HttpCookie cookie)
+    {
+        if (uri.getHost().endsWith("google.com"))
+            super.add(uri, cookie);
+    }
+}
+]]>
+        </programlisting>
+      </informalexample>
+      <para>
+          The example above will retain only cookies that come from the <code>google.com</code> domain or sub-domains.
+      </para>
   </section>
   <section xml:id="http-client-authentication">
     <info>

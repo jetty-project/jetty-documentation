@@ -20,10 +20,10 @@
 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xl="http://www.w3.org/1999/xlink"
 xmlns:xi="http://www.w3.org/2001/XInclude"
 xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd">
-  <title>What version do I use?</title>
-  <para>Jetty 9 is the most recent version of Jetty and has a great many improvements over the previous versions. One
-  improvement being this documentation which is focused on Jetty 9. While many people continue to use older versions of
-  Jetty we generally recommend using Jetty 9 as it represents the version of Jetty that we will actively maintain and
+  <title>What Version Do I Use?</title>
+  <para>Jetty 9 is the most recent version of Jetty and has a great many improvements over previous versions. One
+  improvement is this documentation which focuses on Jetty 9. While many people continue to use older versions of
+  Jetty, we generally recommend using Jetty 9 as it represents the version of Jetty that we will actively maintain and
   improve over the next few years.</para>
   <table>
     <title>Jetty Versions</title>

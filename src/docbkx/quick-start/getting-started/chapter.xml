@@ -22,9 +22,9 @@ xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclud
 xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg"
 xmlns:mth="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook">
   <title>Quick Start Jetty</title>
-  <para>Jetty can be used in many different ways ranging from being embedded in applications, launched from different
-  build systems, from different jvm based languages, or as a standalone distribution. This documentation covers the
-  latter, a standalone distribution suitable for deploying web applications.</para>
+  <para>You can use Jetty in many different ways ranging from embedding Jetty in applications, launching it from
+  different build systems, from different JVM-based languages, or as a standalone distribution. This documentation
+  covers the latter, a standalone distribution suitable for deploying web applications.</para>
   <xi:include href="jetty-installing.xml" />
   <xi:include href="jetty-running.xml" />
   <xi:include href="jetty-deploying.xml" />

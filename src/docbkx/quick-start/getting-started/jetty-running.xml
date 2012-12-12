@@ -44,7 +44,7 @@ xmlns:ns2="http://www.w3.org/1998/Math/MathML" xmlns:ns="http://docbook.org/ns/d
     /tmp/jetty-0.0.0.0-8080-test.war-_test-any-/webapp 2012-10-22 16:02:26.097:INFO:oejsh.ContextHandler:main: started
     o.e.j.w.WebAppContext@4e3ceb07{/test,file:/tmp/jetty-0.0.0.0-8080-test.war-_test-any-/webapp/,AVAILABLE}{/test.war}</programlisting>
   </informalexample>
-  <para>You will also see some warnings like:</para>
+  <para>You also see some warnings like:</para>
   <informalexample>
     <programlisting language="text">2012-10-22 16:02:24.748:WARN::main: test-realm is deployed. DO NOT USE IN
     PRODUCTION! 2012-10-22 16:02:25.582:WARN::main: async-rest webapp is deployed. DO NOT USE IN
@@ -77,10 +77,11 @@ xmlns:ns2="http://www.w3.org/1998/Math/MathML" xmlns:ns="http://docbook.org/ns/d
       <code>&gt; java -jar start.jar jetty.port=8081</code>
     </para>
     <para>As alternatives, you can set this property in the <filename>start.ini</filename> file or by editing the use
-    of the property in the <code>etc/jetty-http.xml</code> configuration file. The way this works is that it defines a
-    property that is the etc/jetty-http.xml configuration file uses to inject a port value into the ServerConnector
-    defined there. For more information see the <link linkend="quickstart-config">Quickstart Configuration
-    Guide</link> and <link linkend="configuring-connectors">Configuring Connectors</link>.</para>
+    of the property in the <filename>etc/jetty-http.xml</filename> configuration file. The way this works is that it
+    defines a property that is the <filename>etc/jetty-http.xml</filename> configuration file uses to inject a port
+    value into the ServerConnector defined there. For more information see the <link linkend="quickstart-config">
+    Quickstart Configuration Guide</link> and <link linkend="configuring-connectors">Configuring
+    Connectors</link>.</para>
   </section>
   <section xml:id="starting-https">
     <title>Starting HTTPS</title>

@@ -22,7 +22,7 @@ xmlns:xi="http://www.w3.org/2001/XInclude"
 xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd">
   <title>Aliased Files</title>
   <para>There are two aspects to serving aliased files with Jetty: alias detection and alias serving.</para>
-  <section>
+  <section xml:id="file-alias-detection">
     <title>Alias detection</title>
     <para>Jetty runs in a mode where all file accesses are checked for aliases, such as case insensitivity, short
     names, symbolic links and extra characters (Eg %00).</para>
@@ -49,7 +49,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     recommended that a restrictive constraint be applied to a whole subtree of URL space and then selective constraints
     be applied to relax security only for specific URLs.</para>
   </section>
-  <section>
+  <section xml:id="file-alias-serving">
     <title>Alias serving</title>
     <para>By default, Jetty checks for alias and disallows the serving of aliased files. If instead you wish to allow
     aliased files to be served, then you set the &lt;init-param&gt; called "aliases" to "true" for the

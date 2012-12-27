@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+//  ========================================================================
+//  Copyright (c) 1995-2012 Mort Bay Consulting Pty. Ltd.
+//  ========================================================================
+//  All rights reserved. This program and the accompanying materials
+//  are made available under the terms of the Eclipse Public License v1.0
+//  and Apache License v2.0 which accompanies this distribution.
+//
+//      The Eclipse Public License is available at
+//      http://www.eclipse.org/legal/epl-v10.html
+//
+//      The Apache License v2.0 is available at
+//      http://www.opensource.org/licenses/apache2.0.php
+//
+//  You may elect to redistribute this code under either of these licenses.
+//  ========================================================================
+-->
+<section xml:id="serving-aliased-files" version="5.0" xmlns="http://docbook.org/ns/docbook"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xl="http://www.w3.org/1999/xlink"
+xmlns:xi="http://www.w3.org/2001/XInclude"
+xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd">
+  <title>Aliased Files</title>
+  <para>There are two aspects to serving aliased files with Jetty: alias detection and alias serving.</para>
+  <section>
+    <title>Alias detection</title>
+    <para>Jetty runs in a mode where all file accesses are checked for aliases, such as case insensitivity, short
+    names, symbolic links and extra characters (Eg %00).</para>
+    <para>Alias requests are a security problem because web application security constraints are applied with case
+    sensitive URL patterns. For example, if a security constraint is place on a /mySecretFolder/* and alias checking
+    was not implemented then on a win32 system the following requests could retrieve files from that URL:</para>
+    <itemizedlist>
+      <listitem>
+        <para>/MySeCrEtFoLdEr/secret.html</para>
+      </listitem>
+      <listitem>
+        <para>/mysec~a0.dir/secret.html</para>
+      </listitem>
+      <listitem>
+        <para>/mySecretFolder/secret.html%00</para>
+      </listitem>
+    </itemizedlist>
+    <para>File name aliases come in many forms including case insensitivity, VMS version numbers, Unix symbolic links,
+    8.3 short names, etc. While some of these aliases (eg symbolic links) are deliberate, there is no general way to
+    tell this in portable 100% java.</para>
+    <para>Jetty detects aliases by comparing the file's absolutePath with its canonicalPath.</para>
+    <para>Alias detection can be turned off by setting the System Property org.eclipse.jetty.util.FileResource.checkAliases
+    to false. If alias checking is not used, then greater care is needed when designing security constraints. It is
+    recommended that a restrictive constraint be applied to a whole subtree of URL space and then selective constraints
+    be applied to relax security only for specific URLs.</para>
+  </section>
+  <section>
+    <title>Alias serving</title>
+    <para>By default, Jetty checks for alias and disallows the serving of aliased files. If instead you wish to allow
+    aliased files to be served, then you set the &lt;init-param&gt; called "aliases" to "true" for the
+    org.eclipse.jetty.servlet.DefaultServlet in webdefault.xml:</para>
+    <informalexample>
+      <programlisting language="xml">
+<![CDATA[ 
+<servlet>
+  <servlet-name>DefaultServlet</servlet-name>
+  <servlet-class>org.eclipse.jetty.servlet.DefaultServlet</servlet-class>
+  . . .
+  <init-param>
+    <param-name>aliases</param-name>
+    <param-value>true</param-value>
+  </init-param>
+  . . .
+<sevlet>
+]]>
+      </programlisting>
+    </informalexample>
+  </section>
+</section>

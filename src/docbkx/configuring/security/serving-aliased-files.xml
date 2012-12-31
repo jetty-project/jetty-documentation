@@ -44,10 +44,10 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     8.3 short names, etc. While some of these aliases (eg symbolic links) are deliberate, there is no general way to
     tell this in portable 100% java.</para>
     <para>Jetty detects aliases by comparing the file's absolutePath with its canonicalPath.</para>
-    <para>Alias detection can be turned off by setting the System Property org.eclipse.jetty.util.FileResource.checkAliases
-    to false. If alias checking is not used, then greater care is needed when designing security constraints. It is
-    recommended that a restrictive constraint be applied to a whole subtree of URL space and then selective constraints
-    be applied to relax security only for specific URLs.</para>
+    <para>Alias detection can be turned off by setting the System Property
+    org.eclipse.jetty.util.FileResource.checkAliases to false. If alias checking is not used, then greater care is
+    needed when designing security constraints. It is recommended that a restrictive constraint be applied to a whole
+    subtree of URL space and then selective constraints be applied to relax security only for specific URLs.</para>
   </section>
   <section xml:id="file-alias-serving">
     <title>Alias serving</title>

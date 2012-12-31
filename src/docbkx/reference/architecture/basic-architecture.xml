@@ -24,8 +24,9 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
   <section>
     <title>View from 20,000 feet</title>
     <para>The Jetty <link
-  xl:href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/server/Server.html">Server</link> is the plumbing between a collection of Connectors that accept HTTP connections and a
-    collection of Handlers that service requests from the connections and produce responses, with threads from a thread pool doing the work.</para>
+    xl:href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/server/Server.html">Server</link> is
+    the plumbing between a collection of Connectors that accept HTTP connections and a collection of Handlers that
+    service requests from the connections and produce responses, with threads from a thread pool doing the work.</para>
     <mediaobject>
       <info>
         <othercredit>
@@ -42,9 +43,9 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     Servlet Handler. If servlets are not required, there is very little overhead in the use of the servlet
     request/response APIs. Thus you can build a Jetty server using only connectors and handlers, without using
     servlets.</para>
-    <para>The job of configuring Jetty is building a network of connectors and handlers and providing their
-    individual configurations. As Jetty components are simply Plain Old Java Objects (POJOs), you can accomplish this
-    assembly and configuration of components by a variety of techniques:</para>
+    <para>The job of configuring Jetty is building a network of connectors and handlers and providing their individual
+    configurations. As Jetty components are simply Plain Old Java Objects (POJOs), you can accomplish this assembly and
+    configuration of components by a variety of techniques:</para>
     <para>deeper <xref linkend="wh-deeplink" /></para>
     <para>deepest <link linkend="wh-deepest">this is custom</link></para>
     <itemizedlist>
@@ -66,7 +67,8 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     <title>Patterns</title>
     <para>The implementation of Jetty follows some fairly standard patterns. Most abstract concepts such as Connector,
     Handler and Buffer are captured by interfaces. Generic handling for those interfaces is then provided in an
-    Abstract implementation such as <code>AbstractConnector</code>, <code>AbstractHandler</code> and <code>AbstractBuffer</code>.</para>
+    Abstract implementation such as <code>AbstractConnector</code>, <code>AbstractHandler</code> and <code>
+    AbstractBuffer</code>.</para>
     <mediaobject>
       <info>
         <othercredit>
@@ -77,16 +79,16 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
         <imagedata align="center" width="6in" format="PNG" fileref="images/basic-architecture-patterns.png" />
       </imageobject>
     </mediaobject>
-    <para>The JSR77 inspired life cycle of most Jetty components is represented by the <code>LifeCycle</code> interface and the
-    <code>AbstractLifeCycle</code> implementation used as the base of many Jetty components.</para>
+    <para>The JSR77 inspired life cycle of most Jetty components is represented by the <code>LifeCycle</code> interface
+    and the <code>AbstractLifeCycle</code> implementation used as the base of many Jetty components.</para>
     <para>Jetty provides its own IO Buffering abstract over String, byte arrays and NIO buffers. This allows for
     greater portability of Jetty as well as hiding some of the complexity of the NIO layer and its advanced
     features.</para>
   </section>
   <section>
     <title>Connectors</title>
-    <para>This diagram is a little out of date, as a Connection interface has been extracted out of <code>HttpConnector</code> to
-    allow support for the AJP protocol.</para>
+    <para>This diagram is a little out of date, as a Connection interface has been extracted out of <code>
+    HttpConnector</code> to allow support for the AJP protocol.</para>
     <para>The connectors represent the protocol handlers that accept connections, parse requests and generate
     responses. The different types of connectors available are based on the protocols, scheduling model, and IO APIs
     used:</para>
@@ -102,23 +104,24 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     </mediaobject>
     <itemizedlist>
       <listitem>
-        <para><code>SocketConnector</code>&#8211;for few busy connections or when NIO is not available</para>
+        <para><code>SocketConnector</code> &#8211;for few busy connections or when NIO is not available</para>
       </listitem>
       <listitem>
-        <para><code>BlockingChannelConnector</code>&#8211;for few busy connections when NIO is available</para>
+        <para><code>BlockingChannelConnector</code> &#8211;for few busy connections when NIO is available</para>
       </listitem>
       <listitem>
-        <para><code>SelectChannelConnector</code>&#8211;for many mostly idle connections or asynchronous handling of Ajax
-        requests</para>
+        <para><code>SelectChannelConnector</code> &#8211;for many mostly idle connections or asynchronous handling of
+        Ajax requests</para>
       </listitem>
       <listitem>
-        <para><code>SslSocketConnector</code>&#8211;SSL without NIO</para>
+        <para><code>SslSocketConnector</code> &#8211;SSL without NIO</para>
       </listitem>
       <listitem>
-        <para><code>SslSelectChannelConnector</code>&#8211;SSL with non blocking NIO support</para>
+        <para><code>SslSelectChannelConnector</code> &#8211;SSL with non blocking NIO support</para>
       </listitem>
       <listitem>
-        <para><code>AJPConnector</code>&#8211;AJP protocol support for connections from apache mod_jk or mod_proxy_ajp</para>
+        <para><code>AJPConnector</code> &#8211;AJP protocol support for connections from apache mod_jk or
+        mod_proxy_ajp</para>
       </listitem>
     </itemizedlist>
   </section>

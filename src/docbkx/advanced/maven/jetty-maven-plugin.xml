@@ -34,10 +34,12 @@ xmlns:ns="http://docbook.org/ns/docbook">
     <para>First, add <code>jetty-maven-plugin</code> to your <filename>pom.xml</filename> definition:</para>
     <informalexample>
       <programlisting language="xml">
-<![CDATA[<plugin>
+<![CDATA[
+<plugin>
   <groupId>org.eclipse.jetty</groupId>
   <artifactId>jetty-maven-plugin</artifactId>
-</plugin>]]>
+</plugin>
+      ]]>
       </programlisting>
     </informalexample>
     <para>Then, from the same directory as your root <filename>pom.xml</filename>, type:</para>
@@ -304,7 +306,8 @@ xmlns:ns="http://docbook.org/ns/docbook">
     path to "/test":</para>
     <informalexample>
       <programlisting language="xml">
-<![CDATA[<plugin>
+<![CDATA[
+<plugin>
   <groupId>org.eclipse.jetty</groupId>
   <artifactId>jetty-maven-plugin</artifactId>
   <configuration>
@@ -313,7 +316,8 @@ xmlns:ns="http://docbook.org/ns/docbook">
       <contextPath>/test</contextPath>
     </webApp>
   </configuration>
-</plugin>]]>
+</plugin>
+      ]]>
       </programlisting>
     </informalexample>
     <section xml:id="configuring-additional-parameters">
@@ -380,7 +384,8 @@ xmlns:ns="http://docbook.org/ns/docbook">
       <para>Here's an example:</para>
       <informalexample>
         <programlisting language="xml">
-<![CDATA[<project>
+<![CDATA[
+<project>
 ... 
   <plugins>
 ... 
@@ -415,7 +420,8 @@ xmlns:ns="http://docbook.org/ns/docbook">
       </configuration>
     </plugin>
   </plugins>
-</project>]]>
+</project>
+        ]]>
         </programlisting>
       </informalexample>
       <para>If, for whatever reason, you cannot run on an unassembled webapp, the goals <code>run-war</code> and <code>
@@ -442,7 +448,8 @@ xmlns:ns="http://docbook.org/ns/docbook">
       <para>Here's how to set it:</para>
       <informalexample>
         <programlisting language="xml">
-<![CDATA[<project>
+<![CDATA[
+<project>
 ... 
   <plugins>
 ...
@@ -454,7 +461,8 @@ xmlns:ns="http://docbook.org/ns/docbook">
       </configuration>
     </plugin>
   </plugins>
-</project>]]>
+</project>
+        ]]>
         </programlisting>
       </informalexample>
     </section>
@@ -480,7 +488,8 @@ xmlns:ns="http://docbook.org/ns/docbook">
       <para>Here's how to set it:</para>
       <informalexample>
         <programlisting language="xml">
-<![CDATA[<project> 
+<![CDATA[
+<project> 
 ... 
   <plugins>
 ... 
@@ -492,7 +501,8 @@ xmlns:ns="http://docbook.org/ns/docbook">
       </configuration>
     </plugin>
   </plugins>
-</project>]]>
+</project>
+        ]]>
         </programlisting>
       </informalexample>
     </section>
@@ -517,7 +527,8 @@ xmlns:ns="http://docbook.org/ns/docbook">
       <para>Here's the configuration:</para>
       <informalexample>
         <programlisting language="xml">
-<![CDATA[<project>
+<![CDATA[
+<project>
 ... 
   <plugins>
 ... 
@@ -549,7 +560,8 @@ xmlns:ns="http://docbook.org/ns/docbook">
      </executions>
     </plugin>
   </plugins>
-</project>]]>
+</project>
+        ]]>
         </programlisting>
       </informalexample>
     </section>
@@ -709,7 +721,8 @@ xmlns:ns="http://docbook.org/ns/docbook">
     phases to trigger the execution and termination of Jetty:</para>
     <informalexample>
       <programlisting language="xml">
-<![CDATA[<plugin>
+<![CDATA[
+<plugin>
   <groupId>org.eclipse.jetty</groupId>
   <artifactId>jetty-maven-plugin</artifactId>
   <configuration>
@@ -737,7 +750,8 @@ xmlns:ns="http://docbook.org/ns/docbook">
        </goals>
      </execution>
   </executions>
-</plugin>]]>
+</plugin>
+      ]]>
       </programlisting>
     </informalexample>
     <para>Of course, you can use this goal from the command line ( <code>mvn jetty:start</code>), however you need to
@@ -766,14 +780,16 @@ xmlns:ns="http://docbook.org/ns/docbook">
     <para>Here's a configuration example:</para>
     <informalexample>
       <programlisting language="xml">
-<![CDATA[<plugin>
+<![CDATA[
+<plugin>
   <groupId>org.eclipse.jetty</groupId>
   <artifactId>jetty-maven-plugin</artifactId>
   <configuration>
     <stopPort>9966</stopPort>
     <stopKey>foo</stopKey>
   </configuration>
-</plugin>]]>
+</plugin>
+      ]]>
       </programlisting>
     </informalexample>
     <para>Then, while Jetty is running (in another window), type:</para>
@@ -798,7 +814,8 @@ xmlns:ns="http://docbook.org/ns/docbook">
       <para>
         <informalexample>
           <programlisting language="xml">
-<![CDATA[<dependency>
+<![CDATA[
+<dependency>
   <groupId>com.acme</groupId>
   <artifactId>X</artifactId>
   <type>war</type>
@@ -807,7 +824,8 @@ xmlns:ns="http://docbook.org/ns/docbook">
   <groupId>com.acme</groupId>
   <artifactId>Y</artifactId>
   <type>war</type>
-</dependency>]]>
+</dependency>
+          ]]>
           </programlisting>
         </informalexample>
       </para>
@@ -815,7 +833,8 @@ xmlns:ns="http://docbook.org/ns/docbook">
       <parameter>Containing:</parameter>
       <informalexample>
         <programlisting language="text">
-<![CDATA[WebAppX: 
+<![CDATA[
+WebAppX: 
 
  /foo.jsp 
  /bar.jsp 
@@ -826,7 +845,8 @@ WebAppY:
  /bar.jsp
  /baz.jsp
  /WEB-INF/web.xml
- /WEB-INF/special.xml]]>
+ /WEB-INF/special.xml
+        ]]>
         </programlisting>
       </informalexample>They are configured for the <link linkend="???">
         <link xl:href="http://maven.apache.org/plugins/maven-war-plugin/overlays.html">maven-war-plugin</link>
@@ -834,7 +854,8 @@ WebAppY:
       <informalexample>
         <para>
           <programlisting language="xml">
-<![CDATA[<plugin>
+<![CDATA[
+<plugin>
   <groupId>org.apache.maven.plugins</groupId>
   <artifactId>maven-war-plugin</artifactId>
   <configuration>
@@ -857,7 +878,8 @@ WebAppY:
       </overlay>
     </overlays>
   </configuration>
-</plugin>]]>
+</plugin>
+          ]]>
           </programlisting>
         </para>
       </informalexample>Then executing jetty:run would yield the following ordering of resources: <code>com.acme.X.war
@@ -878,7 +900,8 @@ WebAppY:
       <para>For example, suppose our webapp depends on these two wars:</para>
       <informalexample>
         <programlisting language="xml">
-<![CDATA[<dependency>
+<![CDATA[
+<dependency>
   <groupId>com.acme</groupId>
   <artifactId>X</artifactId>
   <type>war</type>
@@ -887,13 +910,15 @@ WebAppY:
   <groupId>com.acme</groupId>
   <artifactId>Y</artifactId>
   <type>war</type>
-</dependency>]]>
+</dependency>
+        ]]>
         </programlisting>
       </informalexample>
       <para>Suppose the webapps contain:</para>
       <informalexample>
         <programlisting language="text">
-<![CDATA[WebAppX: 
+<![CDATA[
+WebAppX: 
 
  /foo.jsp 
  /bar.jsp 
@@ -904,17 +929,20 @@ WebAppY:
  /bar.jsp 
  /baz.jsp
  /WEB-INF/web.xml 
- /WEB-INF/special.xml]]>
+ /WEB-INF/special.xml
+        ]]>
         </programlisting>
       </informalexample>
       <para>Then our webapp has available these additional resources:</para>
       <informalexample>
         <programlisting language="text">
-<![CDATA[/foo.jsp (X) 
+<![CDATA[
+/foo.jsp (X) 
 /bar.jsp (X) 
 /baz.jsp (Y) 
 /WEB-INF/web.xml (X)
-/WEB-INF/special.xml (Y)]]>
+/WEB-INF/special.xml (Y)
+        ]]>
         </programlisting>
       </informalexample>
     </section>
@@ -925,7 +953,8 @@ WebAppY:
     webapp:</para>
     <informalexample>
       <programlisting language="xml">
-<![CDATA[<plugin>
+<![CDATA[
+<plugin>
   <groupId>org.eclipse.jetty</groupId>
   <artifactId>jetty-maven-plugin</artifactId>
   <configuration>
@@ -940,7 +969,8 @@ WebAppY:
       </loginService>
     </loginServices>
   </configuration>
-</plugin>]]>
+</plugin>
+      ]]>
       </programlisting>
     </informalexample>
   </section>
@@ -953,14 +983,16 @@ WebAppY:
     war. Here's a configuration example:</para>
     <informalexample>
       <programlisting language="xml">
-<![CDATA[<configuration>
+<![CDATA[
+<configuration>
   <webApp>
     <contextPath>/${build.finalName}</contextPath>
     <baseResource implementation="org.eclipse.jetty.util.resource.ResourceCollection">
       <resourcesAsCSV>src/main/webapp,/home/johndoe/path/to/my/other/source,/yet/another/folder</resourcesAsCSV>
     </baseResource>
   </webApp>
-</configuration>]]>
+</configuration>
+      ]]>
       </programlisting>
     </informalexample>
   </section>
@@ -972,7 +1004,8 @@ WebAppY:
     <para>Putting the configuration in webapp A's <code>pom.xml</code>:</para>
     <informalexample>
       <programlisting language="xml">
-<![CDATA[<plugin>
+<![CDATA[
+<plugin>
   <groupId>org.eclipse.jetty</groupId>
   <artifactId>jetty-maven-plugin</artifactId>
   <configuration>
@@ -991,14 +1024,16 @@ WebAppY:
       </contextHandler>
     </contextHandlers>
   </configuration>
-</plugin>]]>
+</plugin>
+      ]]>
       </programlisting>
     </informalexample>
     <para>Alternatively, add a <filename>jetty.xml</filename> file to webapp A. Copy the <filename>
     jetty.xml</filename> file from the jetty distribution, and then add WebAppContexts for the other 2 webapps:</para>
     <informalexample>
       <programlisting language="xml">
-<![CDATA[<Ref id="Contexts">
+<![CDATA[
+<Ref id="Contexts">
   <Call name="addHandler">
     <Arg>
       <New class="org.eclipse.jetty.webapp.WebAppContext">
@@ -1015,13 +1050,15 @@ WebAppY:
       </New>
     </Arg>
   </Call>
-</Ref>]]>
+</Ref>
+      ]]>
       </programlisting>
     </informalexample>
     <para>Then configure the location of this <filename>jetty.xml</filename> file into webapp A's jetty plugin:</para>
     <informalexample>
       <programlisting language="xml">
-<![CDATA[<plugin>
+<![CDATA[
+<plugin>
   <groupId>org.eclipse.jetty</groupId>
   <artifactId>jetty-maven-plugin</artifactId>
   <configuration>
@@ -1031,7 +1068,8 @@ WebAppY:
     </webApp>
     <jettyXml>src/main/etc/jetty.xml</jettyXml>
   </configuration>
-</plugin>]]>
+</plugin>
+      ]]>
       </programlisting>
     </informalexample>
     <para>For either of these solutions, the other webapps must already have been built, and they are not automatically
@@ -1041,15 +1079,47 @@ WebAppY:
   <section xml:id="setting-system-properties">
     <title linkend="sys_props">Setting System Properties</title>
     <para>You can specify property name/value pairs that Jetty sets as System properties for the execution of the
-    plugin. Note that if a System property is already set (for example, from the command line or by the JVM itself),
-    then by default these configured properties DO NOT override them. This feature is useful to tidy up the command
-    line and save a lot of typing.</para>
+    plugin. This feature is useful to tidy up the command line and save a lot of typing.</para>
+    <para>However, sometimes it is not possible to use this feature to set System properties - sometimes the software
+    component using the System property is already initialized by the time that maven runs (in which case you will need
+    to provide the System property on the command line), or by the time that jetty runs. In the latter case, you can
+    use the <link xl:href="http://mojo.codehaus.org/properties-maven-plugin/">maven properties plugin</link> to define
+    the system properties instead. Here's an example that configures the logback logging system as the jetty
+    logger:</para>
+    <informalexample>
+      <programlisting>
+<![CDATA[<plugin>
+  <groupId>org.codehaus.mojo</groupId>
+  <artifactId>properties-maven-plugin</artifactId>
+  <version>1.0-alpha-2</version>
+  <executions>
+    <execution>
+      <goals>
+        <goal>set-system-properties</goal>
+      </goals>
+      <configuration>
+        <properties>
+          <property>
+            <name>logback.configurationFile</name>
+            <value>${project.baseUri}/resources/logback.xml</value>
+          </property>
+        </properties>
+      </configuration>
+    </execution>
+  </executions>
+</plugin>]]>
+      </programlisting>
+    </informalexample>
+    <para>Note that if a System property is already set (for example, from the command line or by the JVM itself), then
+    by default these configured properties DO NOT override them (see below for use of the &lt;force&gt;
+    parameter).</para>
     <section xml:id="specifying-properties-in-pom">
       <title>Specifying System Properties in the POM</title>
       <para>Here's an example of how to specify System properties in the POM:</para>
       <informalexample>
         <programlisting language="xml">
-<![CDATA[<plugin> 
+<![CDATA[
+<plugin> 
   <groupId>org.eclipse.jetty</groupId>
   <artifactId>jetty-maven-plugin</artifactId>
   <configuration> 
@@ -1063,14 +1133,16 @@ WebAppY:
       <contextPath>/test</contextPath>
     </webApp>
   </configuration> 
-</plugin>]]>
+</plugin>
+        ]]>
         </programlisting>
       </informalexample>
       <para>To change the default behaviour so that these system properties override those on the command line, use the
       &lt;<code>force&gt;</code> parameter:</para>
       <informalexample>
         <programlisting language="xml">
-<![CDATA[<plugin> 
+<![CDATA[
+<plugin> 
   <groupId>org.eclipse.jetty</groupId>
   <artifactId>jetty-maven-plugin</artifactId>
   <configuration>
@@ -1085,7 +1157,8 @@ WebAppY:
       <contextPath>/test</contextPath>
     </webApp>
   </configuration>
-</plugin>]]>
+</plugin>
+        ]]>
         </programlisting>
       </informalexample>
     </section>
@@ -1097,13 +1170,16 @@ WebAppY:
       <para>Suppose we have a file called <code>mysys.props</code> which contains the following:</para>
       <informalexample>
         <programlisting language="text">
-<![CDATA[fooprop=222]]>
+<![CDATA[
+fooprop=222
+        ]]>
         </programlisting>
       </informalexample>
       <para>This can be configured on the plugin like so:</para>
       <informalexample>
         <programlisting language="xml">
-<![CDATA[<plugin>
+<![CDATA[
+<plugin>
   <groupId>org.eclipse.jetty</groupId>
   <artifactId>jetty-maven-plugin</artifactId>
   <configuration>
@@ -1112,7 +1188,8 @@ WebAppY:
       <contextPath>/test</contextPath>
     </webApp>
   </configuration>
-</plugin>]]>
+</plugin>
+        ]]>
         </programlisting>
       </informalexample>
       <para>You can instead specify the file by setting the System property (!) <filename>

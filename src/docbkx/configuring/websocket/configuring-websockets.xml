@@ -325,7 +325,7 @@ class TestEchoBroadcastWebSocket implements WebSocket.OnTextMessage
       </programlisting>
     </informalexample>
   </section>
-  <section xml:id="Don't-do-it">
+  <section xml:id="do-not-do-it">
     <title>Don&#8217;t do it this way!</title>
     <para>Now you know the basics of how WebSockets work, we repeat the warning that you should not do it this
     way&#8211;unless you are a framework developer. Even then, you probably want to use the <link

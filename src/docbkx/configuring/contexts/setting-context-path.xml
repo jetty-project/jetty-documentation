@@ -63,8 +63,8 @@ xmlns:ns="http://docbook.org/ns/docbook">
 <![CDATA[<Configure class="org.eclipse.jetty.webapp.WebAppContext">
   <Set name="contextPath">/test</Set>
   ...
-
-</Configure>]]>
+</Configure>
+]]>
     </programlisting>
   </section>
   <section xml:id="embedding-web-inf-jetty-web.xml-file">

@@ -116,20 +116,37 @@ xmlns:ns="http://docbook.org/ns/docbook">
       <section xml:id="generating-key-pairs-and-certificates-JDK-keytool">
         <title>Generating Keys and Certificates with JDK Keytool</title>
         <para>The following command generates a key pair and certificate directly into a keystore:</para>
-        <screen>keytool -keystore keystore -alias jetty -genkey -keyalg RSA</screen>
+        <screen>
+<![CDATA[> keytool -keystore keystore -alias jetty -genkey -keyalg RSA]]>
+        </screen>
         <note>The DSA key algorithm certificate produces an error after loading several pages. In a browser, it
         displays a message "Could not establish an encrypted connection because certificate presented by localhost has
         an invalid signature." The solution is to use RSA for the key algorithm.</note>
         <para>This command prompts for information about the certificate and for passwords to protect both the keystore
         and the keys within it. The only mandatory response is to provide the fully qualified host name of the server
         at the "first and last name" prompt. For example:</para>
-        <screen>keytool -keystore keystore -alias jetty -genkey -keyalg RSA Enter keystore password: password What is
-        your first and last name? [Unknown]: jetty.eclipse.org What is the name of your organizational unit? [Unknown]:
-        Jetty What is the name of your organization? [Unknown]: Mort Bay Consulting Pty. Ltd. What is the name of your
-        City or Locality? [Unknown]: What is the name of your State or Province? [Unknown]: What is the two-letter
-        country code for this unit? [Unknown]: Is CN=jetty.eclipse.org, OU=Jetty, O=Mort Bay Consulting Pty. Ltd.,
-        L=Unknown, ST=Unknown, C=Unknown correct? [no]: yes Enter key password for &lt;jetty&gt; (RETURN if same as
-        keystore password): password</screen>
+        <screen>
+<![CDATA[> keytool -keystore keystore -alias jetty -genkey -keyalg RSA
+ Enter keystore password:  password
+ What is your first and last name?
+   [Unknown]:  jetty.eclipse.org
+ What is the name of your organizational unit?
+   [Unknown]:  Jetty
+ What is the name of your organization?
+   [Unknown]:  Mort Bay Consulting Pty. Ltd.
+ What is the name of your City or Locality?
+   [Unknown]:
+ What is the name of your State or Province?
+   [Unknown]:
+ What is the two-letter country code for this unit?
+   [Unknown]:
+ Is CN=jetty.eclipse.org, OU=Jetty, O=Mort Bay Consulting Pty. Ltd.,
+ L=Unknown, ST=Unknown, C=Unknown correct?
+   [no]:  yes
+ 
+ Enter key password for <jetty>
+         (RETURN if same as keystore password):  password]]>
+        </screen>
         <para>You now have the minimal requirements to run an SSL connection and could proceed directly to <xref
         linked="configuring-ssl-parameters" /> to configure an SSL connector. However the browser will not trust the
         certificate you have generated, and prompts the user to this effect. While what you have at this point is often
@@ -139,25 +156,47 @@ xmlns:ns="http://docbook.org/ns/docbook">
       <section xml:id="generating-keys-and-certificates-openssl">
         <title>Generating Keys and Certificates with OpenSSL</title>
         <para>The following command generates a key pair in the file <filename>jetty.key</filename>:</para>
-        <screen>openssl genrsa -des3 -out jetty.key</screen>
+        <screen>
+<![CDATA[> openssl genrsa -des3 -out jetty.key]]>
+        </screen>
         <para>You might also want to use the <filename>-rand</filename> file argument to provide an arbitrary file that
         helps seed the random number generator.</para>
         <para>The following command generates a certificate for the key into the file <filename>
         jetty.crt</filename>:</para>
-        <screen>openssl req -new -x509 -key jetty.key -out jetty.crt</screen>
+        <screen>
+<![CDATA[> openssl req -new -x509 -key jetty.key -out jetty.crt]]>
+        </screen>
         <para>The next command prompts for information about the certificate and for passwords to protect both the
         keystore and the keys within it. The only mandatory response is to provide the fully qualified host name of the
         server at the ''Common Name'' prompt. For example:</para>
-        <screen>openssl genrsa -des3 -out jetty.key Generating RSA private key, 512 bit long modulus
-        ...........................++++++++++++ ..++++++++++++ e is 65537 (0x10001) Enter pass phrase for jetty.key:
-        Verifying - Enter pass phrase for jetty.key: # openssl req -new -x509 -key jetty.key -out jetty.crt Enter pass
-        phrase for jetty.key: You are about to be asked to enter information to be incorporated into your certificate
-        request. What you are about to enter is what is called a Distinguished Name or a DN. There are quite a few
-        fields but you can leave some blank For some fields there is a default value, If you enter '.', the field is
-        left blank. ----- Country Name (2 letter code) [AU]:. State or Province Name (full name) [Some-State]:.
-        Locality Name (eg, city) []:. Organization Name (eg, company) [Internet Widgets Pty Ltd]:Mort Bay Consulting
-        Pty. Ltd. Organizational Unit Name (eg, section) []:Jetty Common Name (eg, YOUR name) []:jetty.eclipse.org
-        Email Address []: #</screen>
+        <screen>
+<![CDATA[> openssl genrsa -des3 -out jetty.key
+ Generating RSA private key, 512 bit long modulus
+ ...........................++++++++++++
+ ..++++++++++++
+ e is 65537 (0x10001)
+ Enter pass phrase for jetty.key:
+ Verifying - Enter pass phrase for jetty.key:
+ 
+> openssl req -new -x509 -key jetty.key -out jetty.crt
+ Enter pass phrase for jetty.key:
+ You are about to be asked to enter information to be incorporated
+ into your certificate request.
+ What you are about to enter is what is called a Distinguished Name or a DN.
+ There are quite a few fields but you can leave some blank
+ For some fields there is a default value,
+ If you enter '.', the field is left blank.
+ -----
+ Country Name (2 letter code) [AU]:.
+ State or Province Name (full name) [Some-State]:.
+ Locality Name (eg, city) []:.
+ Organization Name (eg, company) [Internet Widgets Pty Ltd]:Mort Bay Consulting Pty. Ltd.
+ Organizational Unit Name (eg, section) []:Jetty
+ Common Name (eg, YOUR name) []:jetty.eclipse.org
+ Email Address []:
+
+>]]>
+        </screen>
         <para>You now have the minimal requirements to run an SSL connection and could proceed directly to <xref
         linkend="loading-keys-and-certificates" /> to load these keys and certificates into a JSSE keystore. However
         the browser will not trust the certificate you have generated, and prompts the user to this effect. While what
@@ -183,13 +222,17 @@ xmlns:ns="http://docbook.org/ns/docbook">
         <title>Generating a CSR from Keytool</title>
         <para>The following command generates the file <filename>jetty.csr</filename> using Keytool for a key/cert
         already in the keystore:</para>
-        <screen>keytool -certreq -alias jetty -keystore keystore -file jetty.csr</screen>
+        <screen>
+<![CDATA[> keytool -certreq -alias jetty -keystore keystore -file jetty.csr]]>
+        </screen>
       </section>
       <section xml:id="generating-csr-from-openssl">
         <title>Generating a CSR from OpenSSL</title>
         <para>The following command generates the file <filename>jetty.csr</filename> using OpenSSL for a key in the
         file <filename>jetty.key</filename>:</para>
-        <screen>openssl req -new -key jetty.key -out jetty.csr</screen>
+        <screen>
+<![CDATA[> openssl req -new -key jetty.key -out jetty.csr]]>
+        </screen>
         <para>Notice that this command uses only the existing key from <filename>jetty.keyfile</filename>, and not a
         certificate in <filename>jetty.crt</filename> as generated with OpenSSL. You need to enter the details for the
         certificate again.</para>
@@ -208,26 +251,35 @@ xmlns:ns="http://docbook.org/ns/docbook">
         <para>You can use Keytool to load a certificate in PEM form directly into a keystore. The PEM format is a text
         encoding of certificates; it is produced by OpenSSL, and is returned by some CAs. An example PEM file
         is:</para>
-        <screen>jetty.crt -----BEGIN CERTIFICATE----- MIICSDCCAfKgAwIBAgIBADANBgkqhkiG9w0BAQQFADBUMSYwJAYDVQQKEx1Nb3J0
-        IEJheSBDb25zdWx0aW5nIFB0eS4gTHRkLjEOMAwGA1UECxMFSmV0dHkxGjAYBgNV
-        BAMTEWpldHR5Lm1vcnRiYXkub3JnMB4XDTAzMDQwNjEzMTk1MFoXDTAzMDUwNjEz
-        MTk1MFowVDEmMCQGA1UEChMdTW9ydCBCYXkgQ29uc3VsdGluZyBQdHkuIEx0ZC4x
-        DjAMBgNVBAsTBUpldHR5MRowGAYDVQQDExFqZXR0eS5tb3J0YmF5Lm9yZzBcMA0G
-        CSqGSIb3DQEBAQUAA0sAMEgCQQC5V4oZeVdhdhHqa9L2/ZnKySPWUqqy81riNfAJ
-        7uALW0kEv/LtlG34dOOcVVt/PK8/bU4dlolnJx1SpiMZbKsFAgMBAAGjga4wgasw
-        HQYDVR0OBBYEFFV1gbB1XRvUx1UofmifQJS/MCYwMHwGA1UdIwR1MHOAFFV1gbB1
-        XRvUx1UofmifQJS/MCYwoVikVjBUMSYwJAYDVQQKEx1Nb3J0IEJheSBDb25zdWx0
-        aW5nIFB0eS4gTHRkLjEOMAwGA1UECxMFSmV0dHkxGjAYBgNVBAMTEWpldHR5Lm1v
-        cnRiYXkub3JnggEAMAwGA1UdEwQFMAMBAf8wDQYJKoZIhvcNAQEEBQADQQA6NkaV
-        OtXzP4ayzBcgK/qSCmF44jdcARmrXhiXUcXzjxsLjSJeYPJojhUdC2LQKy+p4ki8 Rcz6oCRvCGCe5kDB -----END
-        CERTIFICATE-----</screen>
+        <screen>
+<![CDATA[jetty.crt 
+-----BEGIN CERTIFICATE----- 
+MIICSDCCAfKgAwIBAgIBADANBgkqhkiG9w0BAQQFADBUMSYwJAYDVQQKEx1Nb3J0
+IEJheSBDb25zdWx0aW5nIFB0eS4gTHRkLjEOMAwGA1UECxMFSmV0dHkxGjAYBgNV
+BAMTEWpldHR5Lm1vcnRiYXkub3JnMB4XDTAzMDQwNjEzMTk1MFoXDTAzMDUwNjEz
+MTk1MFowVDEmMCQGA1UEChMdTW9ydCBCYXkgQ29uc3VsdGluZyBQdHkuIEx0ZC4x
+DjAMBgNVBAsTBUpldHR5MRowGAYDVQQDExFqZXR0eS5tb3J0YmF5Lm9yZzBcMA0G
+CSqGSIb3DQEBAQUAA0sAMEgCQQC5V4oZeVdhdhHqa9L2/ZnKySPWUqqy81riNfAJ
+7uALW0kEv/LtlG34dOOcVVt/PK8/bU4dlolnJx1SpiMZbKsFAgMBAAGjga4wgasw
+HQYDVR0OBBYEFFV1gbB1XRvUx1UofmifQJS/MCYwMHwGA1UdIwR1MHOAFFV1gbB1
+XRvUx1UofmifQJS/MCYwoVikVjBUMSYwJAYDVQQKEx1Nb3J0IEJheSBDb25zdWx0
+aW5nIFB0eS4gTHRkLjEOMAwGA1UECxMFSmV0dHkxGjAYBgNVBAMTEWpldHR5Lm1v
+cnRiYXkub3JnggEAMAwGA1UdEwQFMAMBAf8wDQYJKoZIhvcNAQEEBQADQQA6NkaV
+OtXzP4ayzBcgK/qSCmF44jdcARmrXhiXUcXzjxsLjSJeYPJojhUdC2LQKy+p4ki8
+Rcz6oCRvCGCe5kDB 
+-----END CERTIFICATE-----]]>
+        </screen>
         <para>The following command loads a PEM encoded certificate in the <filename>jetty.crt</filename> file into a
         JSSE keystore:</para>
-        <screen>keytool -keystore keystore -import -alias jetty -file jetty.crt -trustcacerts</screen>
+        <screen>
+<![CDATA[> keytool -keystore keystore -import -alias jetty -file jetty.crt -trustcacerts]]>
+        </screen>
         <para>Depending on the situation, you might not require the <code>-trustcacerts</code> option. Try the
         operation without it if you like. If the certificate you receive from the CA is not in a format that Keytool
         understands, you can use the <code>openssl</code> command to convert formats:</para>
-        <screen>openssl x509 -in jetty.der -inform DER -outform PEM -out jetty.crt</screen>
+        <screen>
+<![CDATA[> openssl x509 -in jetty.der -inform DER -outform PEM -out jetty.crt]]>
+        </screen>
       </section>
       <section xml:id="loading-keys-and-certificates-via-pkcks12">
         <title>Loading Keys and Certificates via PKCS12</title>
@@ -236,22 +288,22 @@ xmlns:ns="http://docbook.org/ns/docbook">
         response to your CSR.</para>
         <para>The following OpenSSL command combines the keys in <filename>jetty.key</filename> and the certificate in
         the <filename>jetty.crt</filename> file into the <filename>jetty.pkcs12</filename> file:</para>
-        <screen>openssl pkcs12 -inkey jetty.key -in jetty.crt -export -out jetty.pkcs12</screen>
+        <screen>
+<![CDATA[> openssl pkcs12 -inkey jetty.key -in jetty.crt -export -out jetty.pkcs12]]>
+        </screen>
         <para>If you have a chain of certificates, because your CA is an intermediary, build the PKCS12 file as
         follows:</para>
-        <screen># cat example.crt intermediate.crt [intermediate2.crt]... rootCA.crt &gt; cert-chain.txt # openssl
-        pkcs12 -export -inkey example.key -in cert-chain.txt -out example.pkcs12</screen>
+        <screen>
+<![CDATA[> cat example.crt intermediate.crt [intermediate2.crt]... rootCA.crt > cert-chain.txt 
+> openssl pkcs12 -export -inkey example.key -in cert-chain.txt -out example.pkcs12]]>
+        </screen>
         <para>The order of certificates must be from server to rootCA, as per RFC2246 section 7.4.2.</para>
         <para>OpenSSL asks for an <emphasis>export password</emphasis>. A non-empty password seems to be required to
         make the next step work. Then load the resulting PKCS12 file into a JSSE keystore with the following jetty
         utility class:</para>
         <informalexample>
           <programlisting language="java">
-<![CDATA[
-
- java -classpath $JETTY_HOME/lib/jetty-util-6.1-SNAPSHOT.jar:$JETTY_HOME/lib/jetty-6.1-SNAPSHOT.jar org.eclipse.jetty.security.PKCS12Import jetty.pkcs12 keystore
-
-          ]]>
+<![CDATA[> java -classpath $JETTY_HOME/lib/jetty-util-6.1-SNAPSHOT.jar:$JETTY_HOME/lib/jetty-6.1-SNAPSHOT.jar org.eclipse.jetty.security.PKCS12Import jetty.pkcs12 keystore        ]]>
           </programlisting>
         </informalexample>
         <para>This asks for two passphrases. Give the password from the last step as the input passphrase and you are
@@ -259,7 +311,9 @@ xmlns:ns="http://docbook.org/ns/docbook">
         Password and KeyPassword of the SunJsseListener that uses the certificate.</para>
         <para>You can also use Keytool (starting form jdk1.6) to import a PKCS12 file with the following
         command:</para>
-        <screen>keytool -importkeystore -srckeystore jetty.pkcs12 -srcstoretype PKCS12 -destkeystore keystore</screen>
+        <screen>
+<![CDATA[> keytool -importkeystore -srckeystore jetty.pkcs12 -srcstoretype PKCS12 -destkeystore keystore]]>
+        </screen>
       </section>
     </section>
     <section xml:id="configuring-ssl-parameters">
@@ -277,13 +331,15 @@ xmlns:ns="http://docbook.org/ns/docbook">
       <para>These configuration files create an SslContextFactory instance with the ID "sslContextFactory":</para>
       <informalexample>
         <programlisting language="xml">
-<![CDATA[  <New id="sslContextFactory" class="org.eclipse.jetty.util.ssl.SslContextFactory">
+<![CDATA[
+  <New id="sslContextFactory" class="org.eclipse.jetty.util.ssl.SslContextFactory">
     <Set name="KeyStorePath"><Property name="jetty.home" default="." />/etc/keystore</Set>
     <Set name="KeyStorePassword">OBF:1vny1zlo1x8e1vnw1vn61x8g1zlu1vn4</Set>
     <Set name="KeyManagerPassword">OBF:1u2u1wml1z7s1z7a1wnl1u2g</Set>
     <Set name="TrustStorePath"><Property name="jetty.home" default="." />/etc/keystore</Set>
     <Set name="TrustStorePassword">OBF:1vny1zlo1x8e1vnw1vn61x8g1zlu1vn4</Set>
-  </New>]]>
+  </New>
+        ]]>
         </programlisting>
       </informalexample>
       <para>This example uses the keystore distributed with jetty. To use your own keystore you need to update at least
@@ -317,7 +373,8 @@ xmlns:ns="http://docbook.org/ns/docbook">
       xl:href="http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/plain/jetty-server/src/main/config/etc/jetty-https.xml">jetty-https.xml</link>:</para>
       <informalexample>
         <programlisting language="xml">
-<![CDATA[  <Call id="sslConnector" name="addConnector">
+<![CDATA[
+  <Call id="sslConnector" name="addConnector">
     <Arg>
       <New class="org.eclipse.jetty.server.ServerConnector">
         <Arg name="server"><Ref id="Server" /></Arg>
@@ -341,7 +398,8 @@ xmlns:ns="http://docbook.org/ns/docbook">
           <Set name="idleTimeout">30000</Set>
         </New>
     </Arg>
-  </Call>]]>
+  </Call>
+        ]]>
         </programlisting>
       </informalexample>
       <para>Note also that the SSL connectors port is set directly on the ServerConnector instance.</para>

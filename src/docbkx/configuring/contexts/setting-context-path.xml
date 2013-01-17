@@ -16,44 +16,67 @@
 //  You may elect to redistribute this code under either of these licenses.
 //  ========================================================================
 -->
-<section xml:id="setting-context-path" version="5.0" xmlns="http://docbook.org/ns/docbook"
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xl="http://www.w3.org/1999/xlink"
-xmlns:xi="http://www.w3.org/2001/XInclude"
-xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd">
+<section version="5.0"
+         xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd"
+         xml:id="setting-context-path" xmlns="http://docbook.org/ns/docbook"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:xs="http://www.w3.org/2001/XMLSchema"
+         xmlns:xl="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:ns="http://docbook.org/ns/docbook">
   <title>Setting a Context Path</title>
-  <para>The context path is the prefix of a URL path that Jetty uses to select the web application to which it routes
-  an incoming request. Typically a URL in a Java servlet server is of the format <filename>
-  http://hostname.com/contextPath/servletPath/pathInfo</filename>, where each of the path elements can be zero or more
-  / separated elements. If there is no context path, the context is referred to as the <emphasis>
+
+  <para>The context path is the prefix of a URL path that Jetty uses to select
+  the web application to which it routes an incoming request. Typically a URL
+  in a Java servlet server is of the format <filename>
+  http://hostname.com/contextPath/servletPath/pathInfo</filename>, where each
+  of the path elements can be zero or more / separated elements. If there is
+  no context path, the context is referred to as the <emphasis>
   root</emphasis> context.</para>
-  <para>How you set the context path depends on how you deploy the web application (or ContextHandler):</para>
+
+  <para>How you set the context path depends on how you deploy the web
+  application (or ContextHandler):</para>
+
   <section xml:id="using-embedded-deployment">
     <title>Using Embedded Deployment</title>
-    <para>If you run Jetty from code as an embedded server (see <xref linkend="embedding" />), setting the context path
-    is a matter of calling the <code>setContextPath</code> method on the <code>ContextHandler</code> instance (or
-    <code>WebAppContext</code> instance).</para>
+
+    <para>If you run Jetty from code as an embedded server (see <xref
+    linkend="embedding"/>), setting the context path is a matter of calling
+    the <code>setContextPath</code> method on the <code>ContextHandler</code>
+    instance (or <code>WebAppContext</code> instance).</para>
   </section>
+
   <section xml:id="usng-the-context-provider">
     <title>Using the Context Provider</title>
-    <para>If you deploy the web application/context by <xref linkend="using-context-provider" />, you set the
-    contextPath within the <filename>context.xml</filename> file.</para>
-    <screen>
-<![CDATA[
-      <Configure class="org.eclipse.jetty.webapp.WebAppContext">
-      <Set name="contextPath">/foo</Set>...</Configure>
-    ]]>
-    </screen>
+
+    <para>If you deploy the web application/context by <xref
+    linkend="using-context-provider"/>, you set the contextPath within the
+    <filename>context.xml</filename> file.</para>
+
+    <screen><![CDATA[<Configure class="org.eclipse.jetty.webapp.WebAppContext">
+  ...
+  <Set name="contextPath">/foo</Set>
+  ...
+</Configure>    ]]></screen>
   </section>
-  <section xml:id="context path-using-the-webapp-provider">
+
+  <section xml:id="using-the-webapp-provider">
     <title>Using the Webapp Provider</title>
-    <para>If you deploy the web application by <xref linkend="using-webapp-provider" />, by default the name of the WAR
-    file forms the context path. So if the filename is <filename>foobar.war</filename>, the context path is <filename>
-    /foobar</filename>. There is a special case for webapps called <filename>root.war</filename> which are mapped to
-    the root / context. See <xref linkend="setting-context-path-to-root" />.</para>
+
+    <para>If you deploy the web application by <xref
+    linkend="using-webapp-provider"/>, by default the name of the WAR file
+    forms the context path. So if the filename is
+    <filename>foobar.war</filename>, the context path is <filename>
+    /foobar</filename>. There is a special case for webapps called
+    <filename>root.war</filename> which are mapped to the root / context. See
+    <xref linkend="setting-context-path-to-root"/>.</para>
   </section>
+
   <section xml:id="embedding-web-inf-jetty-web.xml-file">
     <title>Embedding a WEB-INF/jetty-web.xml File</title>
-    <para>You can also set the context path for webapps by embedding a <filename>WEB-INF/jetty-web.xml</filename> file
-    in the WAR. This is not a preferred method.</para>
+
+    <para>You can also set the context path for webapps by embedding a
+    <filename>WEB-INF/jetty-web.xml</filename> file in the WAR. This is not a
+    preferred method.</para>
   </section>
 </section>

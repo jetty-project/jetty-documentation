@@ -88,7 +88,6 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
         <groupId>net.erdfelt.maven</groupId>
         <artifactId>xmlfresh-maven-plugin</artifactId>
         <version>2.3</version> 
-
         <configuration>
           <excludes>
             <exclude>pom.xml</exclude>

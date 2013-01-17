@@ -61,7 +61,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     precede any rule that accepts the packet, otherwise the redirection won't occur. You can insert as many rules as
     required if your server needs to listen on multiple ports, as for HTTPS.</para>
   </section>
-  <section xml:id="configuring-jetty's-setuid-feature">
+  <section xml:id="configuring-jetty-setuid-feature">
     <title>Configuring Jetty's SetUID Feature</title>
     <para>The SetUID feature is among the Jetty 7 modules that remain at Codehaus, and it retains the mortbay.org
     package naming. It does use the Jetty 7 package modules at <link xl:href="http://download.eclipse.org/jetty/">

@@ -17,63 +17,50 @@
 //  ========================================================================
 -->
 <section version="5.0"
-         xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd"
-         xml:id="configuring-form-size" xmlns="http://docbook.org/ns/docbook"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xmlns:xs="http://www.w3.org/2001/XMLSchema"
-         xmlns:xl="http://www.w3.org/1999/xlink"
-         xmlns:xi="http://www.w3.org/2001/XInclude"
-         xmlns:ns="http://docbook.org/ns/docbook">
+xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd"
+xml:id="configuring-form-size" xmlns="http://docbook.org/ns/docbook"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
+xmlns:ns="http://docbook.org/ns/docbook">
   <title>Limiting Form Content</title>
-
-  <para>Form content sent to the server is processed by Jetty into a map of
-  parameters to be used by the web application. This can be vulnerable to
-  denial of service (DOS) attacks since significant memory and CPU can be
-  consumed if a malicious clients sends very large form content or large
-  number of form keys. Thus Jetty limits the amount of data and keys that can
-  be in a form posted to Jetty. </para>
-
-  <para>The default maximum size Jetty permits is 200000 bytes and 1000 keys.
-  You can change this default for a particular webapp or for all webapps on a
-  particular Server instance.</para>
-
+  <para>Form content sent to the server is processed by Jetty into a map of parameters to be used by the web
+  application. This can be vulnerable to denial of service (DOS) attacks since significant memory and CPU can be
+  consumed if a malicious clients sends very large form content or large number of form keys. Thus Jetty limits the
+  amount of data and keys that can be in a form posted to Jetty.</para>
+  <para>The default maximum size Jetty permits is 200000 bytes and 1000 keys. You can change this default for a
+  particular webapp or for all webapps on a particular Server instance.</para>
   <section>
     <title>Configuring Form Limits for a Webapp</title>
-
-    <para>To configure the form limits for a sinlge webapplication, the
-    context handler (or webappContext) instance must be configured using the
-    following methods:</para>
-
+    <para>To configure the form limits for a sinlge webapplication, the context handler (or webappContext) instance
+    must be configured using the following methods:</para>
     <informalexample>
-      <programlisting language="java"><![CDATA[ContextHandler.setMaxFormContentSize(int maxSizeInBytes);
-ContextHandler.setMaxFormKeys(int formKeys);    ]]></programlisting>
+      <programlisting language="java">
+<![CDATA[ContextHandler.setMaxFormContentSize(int maxSizeInBytes);
+ContextHandler.setMaxFormKeys(int formKeys);    ]]>
+      </programlisting>
     </informalexample>
-
-    <para>These methods may be called directly when embedding jetty, but more
-    commonly are configured from a context XML file or WEB-INF/jetty-web.xml
-    file:</para>
-
+    <para>These methods may be called directly when embedding jetty, but more commonly are configured from a context
+    XML file or WEB-INF/jetty-web.xml file:</para>
     <informalexample>
-      <programlisting language="xml"><![CDATA[<Configure class="org.eclipse.jetty.webapp.WebAppContext">
+      <programlisting language="xml">
+<![CDATA[<Configure class="org.eclipse.jetty.webapp.WebAppContext">
 
   ...
  
   <Set name="maxFormContentSize">200000</Set>
   <Set name="maxFormKeys">200</Set>
-</Configure>    ]]></programlisting>
+</Configure>    ]]>
+      </programlisting>
     </informalexample>
   </section>
-
   <section>
     <title>Configuring Form Limits for the Server</title>
-
-    <para>If a context does not have specific form limits configured, then the
-    server attributes are inspected to see if a server wide limit has been set
-    on the size or keys. The following XML shows how these attributes can be
-    set in jetty.xml:</para>
-
+    <para>If a context does not have specific form limits configured, then the server attributes are inspected to see
+    if a server wide limit has been set on the size or keys. The following XML shows how these attributes can be set in
+    jetty.xml:</para>
     <informalexample>
-      <programlisting language="xml"><![CDATA[<configure class="org.eclipse.jetty.server.Server">
+      <programlisting language="xml">
+<![CDATA[<configure class="org.eclipse.jetty.server.Server">
 
   ...
 
@@ -85,7 +72,8 @@ ContextHandler.setMaxFormKeys(int formKeys);    ]]></programlisting>
     <Arg>org.eclipse.jetty.server.Request.maxFormKeys</Arg>
     <Arg>2000</Arg>
    </Call>
-</configure>      ]]></programlisting>
+</configure>      ]]>
+      </programlisting>
     </informalexample>
   </section>
 </section>

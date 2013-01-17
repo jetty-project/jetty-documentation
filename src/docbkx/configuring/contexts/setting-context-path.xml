@@ -17,85 +17,61 @@
 //  ========================================================================
 -->
 <section version="5.0"
-         xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd"
-         xml:id="setting-context-path" xmlns="http://docbook.org/ns/docbook"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xmlns:xs="http://www.w3.org/2001/XMLSchema"
-         xmlns:xl="http://www.w3.org/1999/xlink"
-         xmlns:xi="http://www.w3.org/2001/XInclude"
-         xmlns:ns="http://docbook.org/ns/docbook">
+xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd"
+xml:id="setting-context-path" xmlns="http://docbook.org/ns/docbook"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
+xmlns:ns="http://docbook.org/ns/docbook">
   <title>Setting a Context Path</title>
-
-  <para>The context path is the prefix of a URL path that is used to select
-  the context(s) to which an incoming request is passed. Typically a URL in a
-  Java servlet server is of the format <filename>
-  http://hostname.com/contextPath/servletPath/pathInfo</filename>, where each
-  of the path elements can be zero or more / separated elements. If there is
-  no context path, the context is referred to as the <emphasis>
-  root</emphasis> context. The root context must be configured as "/" but is
-  reported as the empty string by the servlet API getContextPath()
-  method.</para>
-
-  <para>How you set the context path depends on how you deploy the web
-  application (or ContextHandler):</para>
-
+  <para>The context path is the prefix of a URL path that is used to select the context(s) to which an incoming request
+  is passed. Typically a URL in a Java servlet server is of the format <filename>
+  http://hostname.com/contextPath/servletPath/pathInfo</filename>, where each of the path elements can be zero or more
+  / separated elements. If there is no context path, the context is referred to as the <emphasis>
+  root</emphasis> context. The root context must be configured as "/" but is reported as the empty string by the
+  servlet API getContextPath() method.</para>
+  <para>How you set the context path depends on how you deploy the web application (or ContextHandler):</para>
   <section xml:id="using-embedded-deployment">
     <title>Using Embedded Deployment</title>
-
-    <para>If you run Jetty from code as an embedded server (see <xref
-    linkend="embedding"/>), setting the context path is a matter of calling
-    the <code>setContextPath</code> method on the <code>ContextHandler</code>
-    instance (or <code>WebAppContext</code> instance).</para>
+    <para>If you run Jetty from code as an embedded server (see <xref linkend="embedding" />), setting the context path
+    is a matter of calling the <code>setContextPath</code> method on the <code>ContextHandler</code> instance (or
+    <code>WebAppContext</code> instance).</para>
   </section>
-
   <section xml:id="usng-the-context-provider">
     <title>By naming convention</title>
-
-    <para>If a web application is deployed using the WebAppProvider of the
-    DeployentManager without an XML IoC file, then the name of the WAR file is
-    used to set the context path:</para>
-
+    <para>If a web application is deployed using the WebAppProvider of the DeployentManager without an XML IoC file,
+    then the name of the WAR file is used to set the context path:</para>
     <itemizedlist>
       <listitem>
-        <para>If the WAR file is named myapp.war, then the context will be
-        deployed with a context path of /myapp</para>
+        <para>If the WAR file is named myapp.war, then the context will be deployed with a context path of
+        /myapp</para>
       </listitem>
-
       <listitem>
-        <para>If the WAR file is named ROOT.WAR (or any case insensitive
-        variation), then the context will be deployed with a context path of
-        /</para>
+        <para>If the WAR file is named ROOT.WAR (or any case insensitive variation), then the context will be deployed
+        with a context path of /</para>
       </listitem>
-
       <listitem>
-        <para>If the WAR file is named ROOT-foobar.war ( or any case
-        insensitive variation), then the context will be deployed with a
-        context path of / and a virtual host of "foobar"</para>
+        <para>If the WAR file is named ROOT-foobar.war ( or any case insensitive variation), then the context will be
+        deployed with a context path of / and a virtual host of "foobar"</para>
       </listitem>
     </itemizedlist>
   </section>
-
   <section xml:id="using-the-webapp-provider">
     <title>By Deployer configuration</title>
-
-    <para>If a web application is deployed using the WebAppProvider of the the
-    DeploymentManager with an XML IoC file to configure the context, then the
-    setContextPath method can be called within that file. For example:</para>
-
-    <programlisting><![CDATA[<Configure class="org.eclipse.jetty.webapp.WebAppContext">
+    <para>If a web application is deployed using the WebAppProvider of the the DeploymentManager with an XML IoC file
+    to configure the context, then the setContextPath method can be called within that file. For example:</para>
+    <programlisting>
+<![CDATA[
+<Configure class="org.eclipse.jetty.webapp.WebAppContext">
   <Set name="contextPath">/test</Set>
   ...
-
-</Configure>]]></programlisting>
+</Configure>
+]]>
+    </programlisting>
   </section>
-
   <section xml:id="embedding-web-inf-jetty-web.xml-file">
     <title>Embedding a WEB-INF/jetty-web.xml File</title>
-
-    <para>You can also set the context path for webapps by embedding a
-    <filename>WEB-INF/jetty-web.xml</filename> file in the WAR, which uses the
-    same XML IoC format as the deployer example above. However this is not the
-    preferred method as it requires the web application to be modified.
-    </para>
+    <para>You can also set the context path for webapps by embedding a <filename>WEB-INF/jetty-web.xml</filename> file
+    in the WAR, which uses the same XML IoC format as the deployer example above. However this is not the preferred
+    method as it requires the web application to be modified.</para>
   </section>
 </section>

@@ -35,8 +35,10 @@ xmlns:ns="http://docbook.org/ns/docbook">
         <date>
           <?dbtimestamp format="Y-m-d H:M:S"?>
         </date>
-        <revdescription>This documentation is produced and contributed to under the <link
-        xl:href="http://www.eclipse.org/legal/epl-v10.html">EPL</link></revdescription>
+        <revdescription>
+          <para>This documentation is produced and contributed to under the <link
+          xl:href="http://www.eclipse.org/legal/epl-v10.html">EPL</link></para>
+        </revdescription>
       </revision>
     </revhistory>
     <keywordset>
@@ -51,36 +53,6 @@ xmlns:ns="http://docbook.org/ns/docbook">
       <keyword>software</keyword>
     </keywordset>
   </bookinfo>
-<!--
-   == This dedication served as the documentation hub before I added a custom page up a directory that contains this content...leaving it == here for the time being as an example in case we want to add more content there eventually.
-   ==
-  dedication>
-    <title>Welcome to the Jetty Documentation Hub!</title>
-    <para>This documentation is for Jetty 9 and is a work in progress, initially being largely structural and
-    increasingly being populated with meaningful content.</para>
-    <para>The version as indicated above containing SNAPSHOT are updated frequently by an automated process while
-    versions that contain M#, RC#, or v#### are durable releases for a specific version of Jetty.</para>
-    <para>If you need documentation on a previous release of Jetty the following list should direct you where you need
-    to go.</para>
-    <itemizedlist>
-      <listitem>
-        <para>Jetty 9 - This Document</para>
-      </listitem>
-      <listitem>
-        <para>Jetty 8 - <link xl:href="http://wiki.eclipse.org/Jetty">The Eclipse Wiki</link></para>
-      </listitem>
-      <listitem>
-        <para>Jetty 7 - <link xl:href="http://wiki.eclipse.org/Jetty">The Eclipse Wiki</link></para>
-      </listitem>
-      <listitem>
-        <para>Jetty 6 - <link xl:href="http://docs.codehaus.org/display/JETTY/Jetty+Documentation">The Codehaus
-        Wiki</link></para>
-      </listitem>
-    </itemizedlist>
-    <para>This documentation is a community effort and is hosted at GitHub and we invite contributors to fork the
-    repository and contribute! More information can be found in the <xref
-    linkend="contributing-documentation" /> section.</para>
-  </dedication-->
 <!-- 
           BASIC: there is a directory called basic, this comprises the basic 
                 entry level information for jetty, suitable for someone that is perhaps new 

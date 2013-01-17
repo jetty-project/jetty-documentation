@@ -30,5 +30,4 @@ xmlns:ns="http://docbook.org/ns/docbook" status="draft">
   <xi:include href="configuring-virtual-hosts.xml" />
   <xi:include href="custom-error-pages.xml" />
   <xi:include href="serving-webapp-from-particular-port.xml" />
-  <xi:include href="configuring-form-size.xml" />
 </chapter>

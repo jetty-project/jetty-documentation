@@ -16,59 +16,175 @@
 //  You may elect to redistribute this code under either of these licenses.
 //  ========================================================================
 -->
-<section xml:id="serving-aliased-files" version="5.0" xmlns="http://docbook.org/ns/docbook"
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xl="http://www.w3.org/1999/xlink"
-xmlns:xi="http://www.w3.org/2001/XInclude"
-xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd">
-  <title>Aliased Files</title>
-  <para>There are two aspects to serving aliased files with Jetty: alias detection and alias serving.</para>
+<section version="5.0"
+         xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd"
+         xml:id="serving-aliased-files" xmlns="http://docbook.org/ns/docbook"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:xs="http://www.w3.org/2001/XMLSchema"
+         xmlns:xl="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:ns="http://docbook.org/ns/docbook">
+  <title>Aliased Files and Symbolic links</title>
+
+  <para>Web applciations will often server static content from the file system
+  provided by the operating system running underneatth the JVM. However
+  because file systems often implement multiple aliased names for the same
+  file, then security constraints and other servlet URI space mappings my
+  inadvertantly be bypassed by aliases.</para>
+
+  <para>I key example of this is case insensitivety and 8.3 names implemented
+  by the Windows File system. If a file within a webapplication called
+  <code>/mysecretfile.txt</code> is protected by a security constraint on the
+  URI <code>/mysecretfile.txt</code>, then a request to
+  <code>/MySecretFile.TXT</code> will not match the URI constraint because
+  URIs are case sensitive, but the windows file system will report that a file
+  does exist at that name and it will be served despite the security
+  constraint. Less well known than case insensitivity is that windows files
+  systems also support <link
+  xl:href="http://en.wikipedia.org/wiki/8.3_filename">8.3 filenames</link> for
+  compatibility with legacy programs. Thus a request to a URI like
+  <code>/MYSECR~1.TXT</code> will again not match the security constraint, but
+  will be reported as an existing file by the file system and served.</para>
+
+  <para>There are many examples of aliases, not just on windows:</para>
+
+  <itemizedlist>
+    <listitem>
+      <para>OpenVMS support file versionig so that
+      <code>/mysecret.txt;N</code> refers to version N of
+      <code>/mysecret.txt</code> and is essentially an alias.</para>
+    </listitem>
+
+    <listitem>
+      <para>The clearcase software configuration management system provides a
+      file system where @@ in a file name is an alias to a specific
+      version.</para>
+    </listitem>
+
+    <listitem>
+      <para>The unix files system supports <code>/./foo.txt</code> as and
+      alias for <code>/foo.txt</code></para>
+    </listitem>
+
+    <listitem>
+      <para>Many JVM implementations incorrectly assume the null character is
+      a string terminator, so that a file name resulting from
+      <code>/foobar.txt%00</code> is an alias for
+      <code>/foobar.txt</code></para>
+    </listitem>
+
+    <listitem>
+      <para>Unix symbolic links and hard links are a form of aliases that
+      allow the same file or directory to have multiple names.</para>
+    </listitem>
+  </itemizedlist>
+
+  <para>In addition, it is not just URI security constraints that can be
+  bypassed. For example the mapping of the URI pattern <code>*.jsp</code> to
+  the JSP Servlet may be bypassed by an a request to an alias like
+  <code>/foobar.jsp%00</code>, thus rather than execute the JSP, the source
+  code of the JSP is returned by the file system.</para>
+
+  <section>
+    <title>Good Security Practise</title>
+
+    <para>Part of the problem with aliases is that the standard webapplication
+    security model is to allow all requests except the ones that are
+    specifically denied by security constraints. A best practise for security
+    is to deny all requests and to permit only those that are specifically
+    identified as allowable. While it is possible to design web application
+    security constraints in this style, it can be difficult in all
+    circumstances and it is not the default. Thus it is important for Jetty to
+    be able to detect and deny requests to aliased static content.</para>
+  </section>
+
   <section xml:id="file-alias-detection">
     <title>Alias detection</title>
-    <para>Jetty runs in a mode where all file accesses are checked for aliases, such as case insensitivity, short
-    names, symbolic links and extra characters (Eg %00).</para>
-    <para>Alias requests are a security problem because web application security constraints are applied with case
-    sensitive URL patterns. For example, if a security constraint is place on a /mySecretFolder/* and alias checking
-    was not implemented then on a win32 system the following requests could retrieve files from that URL:</para>
-    <itemizedlist>
-      <listitem>
-        <para>/MySeCrEtFoLdEr/secret.html</para>
-      </listitem>
-      <listitem>
-        <para>/mysec~a0.dir/secret.html</para>
-      </listitem>
-      <listitem>
-        <para>/mySecretFolder/secret.html%00</para>
-      </listitem>
-    </itemizedlist>
-    <para>File name aliases come in many forms including case insensitivity, VMS version numbers, Unix symbolic links,
-    8.3 short names, etc. While some of these aliases (eg symbolic links) are deliberate, there is no general way to
-    tell this in portable 100% java.</para>
-    <para>Jetty detects aliases by comparing the file's absolutePath with its canonicalPath.</para>
-    <para>Alias detection can be turned off by setting the System Property
-    org.eclipse.jetty.util.FileResource.checkAliases to false. If alias checking is not used, then greater care is
-    needed when designing security constraints. It is recommended that a restrictive constraint be applied to a whole
-    subtree of URL space and then selective constraints be applied to relax security only for specific URLs.</para>
+
+    <para>It is impossible for Jetty to know of all the aliases that may be
+    implemented by the file system running beneath it, thus it does not
+    attempt to make any specific checks for any know aliases. Instead jetty
+    detects aliases by using the canonical path of a file. If a file resource
+    handled by jetty has a canonical name that differs from the name used to
+    request the resource, then Jetty determines that the resource is an
+    aliased request and it will not be returned by the
+    <code>ServletContext.getResource(String)</code> method (or similar) and
+    thus will not be served as static content nor used as the basis of a
+    JSP.</para>
+
+    <para>This if Jetty is running on a windows operation system, then a file
+    called <code>/MySecret.TXT</code> will have a cannonical name that exactly
+    matches that case. So while a request to <code>/mysecret.txt</code> or
+    <code>/MYSECR~1.TXT</code> will result in a File Resource that matches the
+    file, the different canonical name will indicate that those requests are
+    aliases and they will not be served as static content and instead a 404
+    response returned.</para>
+
+    <para>Unfortunately this approach denies all aliases, including symbolic
+    links, which can be useful in assembling complex web applications.</para>
   </section>
+
   <section xml:id="file-alias-serving">
-    <title>Alias serving</title>
-    <para>By default, Jetty checks for alias and disallows the serving of aliased files. If instead you wish to allow
-    aliased files to be served, then you set the &lt;init-param&gt; called "aliases" to "true" for the
-    org.eclipse.jetty.servlet.DefaultServlet in webdefault.xml:</para>
+    <title>Serving Aliases and Symbolic Links</title>
+
+    <para>Not all aliases are bad nor should be seen as attempts to subvert
+    security constratints. Specifically symbolic links can be very useful when
+    assembling complex web applications, yet by default Jetty will not serve
+    them. Thus Jetty contexts support an extensible AliasCheck mechanism to
+    allow aliases resources to be inspected an conditionally served. In this
+    way, "good" aliases can be detected and served. Jetty provides several
+    utility implementations of the AliasCheck interface as nested classes with
+    ContextHandler:</para>
+
+    <variablelist>
+      <varlistentry>
+        <term>ApproveAliases</term>
+
+        <listitem>
+          <para>Approve all aliases (USE WITH CAUTION!).</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>ApproveSameSuffixAliases</term>
+
+        <listitem>
+          <para>Approve Aliases with same suffix. Eg. a symbolic link from
+          /foobar.html to /somewhere/wibble.html would be approved because
+          both the resource and alias end with ".html".</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>ApprovePathPrefixAliases</term>
+
+        <listitem>
+          <para>Approve Aliases with a path prefix. Eg. a symbolic link from
+          /dirA/foobar.html to /dirB/foobar.html would be approved because
+          both the resource and alias end with "/foobar.html".</para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+
+    <para>An application is free to implement its own Alias checking. Alias
+    Checkers can be installed in a context via the following XML used in a
+    context deployer file or <code>WEB-INF/jetty-web.xml</code> :</para>
+
     <informalexample>
-      <programlisting language="xml">
-<![CDATA[ 
-<servlet>
-  <servlet-name>DefaultServlet</servlet-name>
-  <servlet-class>org.eclipse.jetty.servlet.DefaultServlet</servlet-class>
-  . . .
-  <init-param>
-    <param-name>aliases</param-name>
-    <param-value>true</param-value>
-  </init-param>
-  . . .
-<sevlet>
-]]>
-      </programlisting>
+      <programlisting language="xml"><![CDATA[  ...
+
+  <!-- Allow directory symbolic links  -->
+  <Call name="addAliasCheck">
+    <Arg>
+      <New class="org.eclipse.jetty.server.handler.ContextHandler$ApprovePathPrefixAliases"/>
+    </Arg>
+  </Call>
+  <!-- Allow file symbolic links  -->
+  <Call name="addAliasCheck">
+    <Arg>
+      <New class="org.eclipse.jetty.server.handler.ContextHandler$ApproveSameSuffixAliases"/>
+    </Arg>
+  </Call>]]></programlisting>
     </informalexample>
   </section>
 </section>

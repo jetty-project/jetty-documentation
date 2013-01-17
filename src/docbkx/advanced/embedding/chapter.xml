@@ -23,5 +23,4 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
   <title>Embedding</title>
   <xi:include href="embedding-jetty.xml" />
   <xi:include href="jetty-helloworld.xml" />
-  <xi:include href="configuring-overlay-deployer.xml" />
 </chapter>

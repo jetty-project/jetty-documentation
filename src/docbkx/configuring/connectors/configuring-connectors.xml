@@ -22,7 +22,7 @@ xml:id="jetty-connectors" xmlns="http://docbook.org/ns/docbook" xmlns:xsi="http:
 xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xl="http://www.w3.org/1999/xlink"
 xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:ns2="http://www.w3.org/1998/Math/MathML"
 xmlns:ns="http://docbook.org/ns/docbook">
-  <title>Connector Configuration Overview</title>
+  <title xml:id="how-to-configure-connectors">Connector Configuration Overview</title>
   <para>Connectors are the mechanism through which Jetty accepts network connections for various protocols. Configuring
   a connector is a combination of configuring the following: 
   <itemizedlist>
@@ -111,6 +111,7 @@ xmlns:ns="http://docbook.org/ns/docbook">
     <informalexample>
       <programlisting language="xml">
 <![CDATA[
+
 <New class="org.eclipse.jetty.server.ServerConnector">
   <Arg name="server"><Ref id="Server" /></Arg>
   <Arg name="factories">
@@ -120,6 +121,7 @@ xmlns:ns="http://docbook.org/ns/docbook">
   </Arg>
   <!-- set connector fields here -->
 </New> 
+      
       ]]>
       </programlisting>
     </informalexample>
@@ -135,12 +137,14 @@ xmlns:ns="http://docbook.org/ns/docbook">
     <informalexample>
       <programlisting language="xml">
 <![CDATA[
+
 <New class="org.eclipse.jetty.server.ServerConnector">
   <Arg name="server"><Ref id="Server" /></Arg>
   <Arg name="factories"><!-- insert one or more factories here --></Arg>
 
   <Set name="port">8080</Set>
 </New>    
+      
       ]]>
       </programlisting>
     </informalexample>
@@ -149,12 +153,14 @@ xmlns:ns="http://docbook.org/ns/docbook">
     <informalexample>
       <programlisting language="xml">
 <![CDATA[
+
 <New class="org.eclipse.jetty.server.ServerConnector">
   <Arg name="server"><Ref id="Server" /></Arg>
   <Arg name="factories"><!-- insert one or more factories here --></Arg>
 
   <Set name="port"><Property name="jetty.port" default="8080"/></Set>
 </New>    
+      
       ]]>
       </programlisting>
     </informalexample>
@@ -247,6 +253,7 @@ xmlns:ns="http://docbook.org/ns/docbook">
     <informalexample>
       <programlisting language="xml">
 <![CDATA[
+
     <New id="httpConfig" class="org.eclipse.jetty.server.HttpConfiguration">
       <Set name="secureScheme">https</Set>
       <Set name="securePort"><Property name="jetty.tls.port" default="8443" /></Set>
@@ -258,6 +265,7 @@ xmlns:ns="http://docbook.org/ns/docbook">
         <Arg><New class="org.eclipse.jetty.server.ForwardedRequestCustomizer"/></Arg>
       </Call>
     </New>
+      
       ]]>
       </programlisting>
     </informalexample>This example adds a <link
@@ -269,6 +277,7 @@ xmlns:ns="http://docbook.org/ns/docbook">
     <informalexample>
       <programlisting language="xml">
 <![CDATA[
+
   <Call name="addConnector">
     <Arg>
       <New class="org.eclipse.jetty.server.ServerConnector">
@@ -286,6 +295,7 @@ xmlns:ns="http://docbook.org/ns/docbook">
       </New>
     </Arg>
   </Call>
+      
       ]]>
       </programlisting>
     </informalexample>For SSL based connectors (in <filename>jetty-https.xml</filename> and <filename>
@@ -294,12 +304,14 @@ xmlns:ns="http://docbook.org/ns/docbook">
     <informalexample>
       <programlisting language="xml">
 <![CDATA[
+
   <New id="tlsHttpConfig" class="org.eclipse.jetty.server.HttpConfiguration">
     <Arg><Ref id="httpConfig"/></Arg>
     <Call name="addCustomizer">
       <Arg><New class="org.eclipse.jetty.server.SecureRequestCustomizer"/></Arg>
     </Call>
   </New>
+      
       ]]>
       </programlisting>
     </informalexample>This adds a <code>SecureRequestCustomizer</code> which adds SSL Session IDs and certificate
@@ -336,10 +348,14 @@ xmlns:ns="http://docbook.org/ns/docbook">
     <informalexample>
       <programlisting language="fetch">
 <![CDATA[
+
+        
         ]]>
         <filename>
 http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/plain/jetty-server/src/main/config/etc/jetty-http.xml</filename> 
-<![CDATA[
+<![CDATA[ 
+
+      
       ]]>
       </programlisting>
     </informalexample>
@@ -349,10 +365,14 @@ http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/plain/jetty-server/
     <informalexample>
       <programlisting language="fetch">
 <![CDATA[
+
+        
         ]]>
         <filename>
 http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/plain/jetty-spdy/spdy-example-webapp/src/main/config/example-jetty-spdy.xml</filename> 
-<![CDATA[
+<![CDATA[ 
+
+      
       ]]>
       </programlisting>
     </informalexample>

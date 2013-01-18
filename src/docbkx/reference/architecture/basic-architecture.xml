@@ -16,10 +16,11 @@
 //  You may elect to redistribute this code under either of these licenses.
 //  ========================================================================
 -->
-<section xml:id="basic-architecture" version="5.0" xmlns="http://docbook.org/ns/docbook"
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xl="http://www.w3.org/1999/xlink"
-xmlns:xi="http://www.w3.org/2001/XInclude"
-xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd">
+<section version="5.0"
+xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd"
+xml:id="basic-architecture" xmlns="http://docbook.org/ns/docbook" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xl="http://www.w3.org/1999/xlink"
+xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:ns="http://docbook.org/ns/docbook">
   <title>Jetty 7 Architecture</title>
   <section>
     <title>View from 20,000 feet</title>
@@ -34,7 +35,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
         </othercredit>
       </info>
       <imageobject>
-        <imagedata align="center" width="6in" format="PNG" fileref="images/jetty-high-level-architecture.png" />
+        <imagedata align="center" fileref="images/jetty-high-level-architecture.png" format="PNG" width="6in" />
       </imageobject>
     </mediaobject>
     <para>While the Jetty request/responses are derived from the Servlet API, the full features of the Servlet API are
@@ -76,7 +77,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
         </othercredit>
       </info>
       <imageobject>
-        <imagedata align="center" width="6in" format="PNG" fileref="images/basic-architecture-patterns.png" />
+        <imagedata align="center" fileref="images/basic-architecture-patterns.png" format="PNG" width="6in" />
       </imageobject>
     </mediaobject>
     <para>The JSR77 inspired life cycle of most Jetty components is represented by the <code>LifeCycle</code> interface
@@ -99,7 +100,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
         </othercredit>
       </info>
       <imageobject>
-        <imagedata align="center" width="6in" format="PNG" fileref="images/basic-architecture-connectors.png" />
+        <imagedata align="center" fileref="images/basic-architecture-connectors.png" format="PNG" width="6in" />
       </imageobject>
     </mediaobject>
     <itemizedlist>
@@ -136,14 +137,16 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
         </othercredit>
       </info>
       <imageobject>
-        <imagedata align="center" width="6in" format="PNG" fileref="images/basic-architecture-handlers.png" />
+        <imagedata align="center" fileref="images/basic-architecture-handlers.png" format="PNG" width="6in" />
       </imageobject>
     </mediaobject>
     <informalexample>
       <programlisting language="java">
 <![CDATA[
+
 public void handle(String target, Request baseRequest, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException
-]]>
+
+      ]]>
       </programlisting>
     </informalexample>
     <para>Parameters:</para>
@@ -189,7 +192,7 @@ public void handle(String target, Request baseRequest, HttpServletRequest reques
           </othercredit>
         </info>
         <imageobject>
-          <imagedata align="center" width="6in" format="PNG" fileref="images/basic-architecture-nested-handlers.png" />
+          <imagedata align="center" fileref="images/basic-architecture-nested-handlers.png" format="PNG" width="6in" />
         </imageobject>
       </mediaobject>
       <para>Handlers called in sequence perform actions that do not depend on the next invocation, nor on the handler
@@ -210,7 +213,7 @@ public void handle(String target, Request baseRequest, HttpServletRequest reques
           </othercredit>
         </info>
         <imageobject>
-          <imagedata align="center" width="6in" format="PNG" fileref="images/basic-architecture-servlet-handler.png" />
+          <imagedata align="center" fileref="images/basic-architecture-servlet-handler.png" format="PNG" width="6in" />
         </imageobject>
       </mediaobject>
       <para>A ServletHandler is normally deployed within the scope of a servlet Context, which is a ContextHandler that
@@ -220,7 +223,7 @@ public void handle(String target, Request baseRequest, HttpServletRequest reques
     </section>
   </section>
   <section>
-    <title>Contexts</title>
+    <title xml:id="what-is-a-context">Contexts</title>
     <para>Contexts are handlers that group other handlers below a particular URI context path or a virtual host.
     Typcially a context can have :</para>
     <itemizedlist>
@@ -265,7 +268,7 @@ public void handle(String target, Request baseRequest, HttpServletRequest reques
         </othercredit>
       </info>
       <imageobject>
-        <imagedata align="center" width="6in" format="PNG" fileref="images/basic-architecture-web-application.png" />
+        <imagedata align="center" fileref="images/basic-architecture-web-application.png" format="PNG" width="6in" />
       </imageobject>
     </mediaobject>
     <para>Essentially the WebAppContext is a convenience class that assists the construction and configuration of other

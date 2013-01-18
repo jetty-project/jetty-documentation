@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+//  ========================================================================
+//  Copyright (c) 1995-2013 Mort Bay Consulting Pty. Ltd.
+//  ========================================================================
+//  All rights reserved. This program and the accompanying materials
+//  are made available under the terms of the Eclipse Public License v1.0
+//  and Apache License v2.0 which accompanies this distribution.
+//
+//      The Eclipse Public License is available at
+//      http://www.eclipse.org/legal/epl-v10.html
+//
+//      The Apache License v2.0 is available at
+//      http://www.opensource.org/licenses/apache2.0.php
+//
+//  You may elect to redistribute this code under either of these licenses.
+//  ========================================================================
+-->
+<section version="5.0"
+xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd"
+xml:id="configuring-security-authorization" xmlns="http://docbook.org/ns/docbook"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
+xmlns:ns="http://docbook.org/ns/docbook">
+  <title>Authorization</title>
+  <para>There are two aspects to securing a web application(or context) within Jetty:</para>
+  <variablelist>
+    <varlistentry>
+      <term>Authentication</term>
+      <listitem>
+        <para>The web application can be configured with a mechanism to determine the identity of the user. See <link
+        linkend="configuring-security-authentication">Configurating Security - Authentication</link>.</para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>Authorization</term>
+      <listitem>
+        <para>Once the identify of the user is known (or not known), the web application can be configured with
+        security constraints that declare what resources that user may access. This is covered in this section.</para>
+      </listitem>
+    </varlistentry>
+  </variablelist>
+  <section>
+    <title>Blah blah blah</title>
+    <para>blah blah blah</para>
+  </section>
+  <section>
+    <title>Blah blah blah</title>
+    <para>blah blah blah</para>
+  </section>
+</section>

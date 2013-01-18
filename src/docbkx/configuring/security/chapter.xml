@@ -22,7 +22,9 @@ xml:id="configuring-security" xmlns="http://docbook.org/ns/docbook"
 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema"
 xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
 xmlns:ns="http://docbook.org/ns/docbook">
-  <title>Security Topics</title>
+  <title>Configuring Security</title>
+  <xi:include href="authentication.xml" />
+  <xi:include href="authorization.xml" />
   <xi:include href="configuring-form-size.xml" />
   <xi:include href="serving-aliased-files.xml" />
 </chapter>

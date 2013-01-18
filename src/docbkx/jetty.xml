@@ -98,14 +98,11 @@ xmlns:ns="http://docbook.org/ns/docbook">
                         -->
     <xi:include href="configuring/connectors/chapter.xml" />
     <xi:include href="configuring/contexts/chapter.xml" />
+    <xi:include href="configuring/security/chapter.xml" />
     <xi:include href="configuring/deploying/chapter.xml" />
     <xi:include href="configuring/jsp/chapter.xml" />
     <xi:include href="configuring/logging/chapter.xml" />
     <xi:include href="configuring/websocket/chapter.xml" />
-<!-- Security topics could go here, if we want to go indepth on them, it 
-                        would probably be a good idea. NOTE: or perhaps we should have one combo 
-                        section on sessions and security. -->
-    <xi:include href="configuring/security/chapter.xml" />
   </part>
 <!-- ADVANCED -->
   <part xml:id="advanced">

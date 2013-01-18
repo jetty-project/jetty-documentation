@@ -16,10 +16,11 @@
 //  You may elect to redistribute this code under either of these licenses.
 //  ========================================================================
 -->
-<section xml:id="deploying-webapps" version="5.0" xmlns="http://docbook.org/ns/docbook"
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xl="http://www.w3.org/1999/xlink"
-xmlns:xi="http://www.w3.org/2001/XInclude"
-xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd">
+<section version="5.0"
+xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd"
+xml:id="deploying-webapps" xmlns="http://docbook.org/ns/docbook" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xl="http://www.w3.org/1999/xlink"
+xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:ns="http://docbook.org/ns/docbook">
   <title>Deploying WebApps</title>
   <para>You can make Jetty aware of web applications to deploy in two ways:</para>
   <itemizedlist>
@@ -110,6 +111,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
       <informalexample>
         <programlisting language="xml">
 <![CDATA[
+
 <?xml version="1.0"  encoding="ISO-8859-1"?>
 <!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure.dtd">
 
@@ -117,7 +119,8 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
   <Set name="contextPath">/wiki</Set>
   <Set name="war">/opt/myapp/myapp.war</Set>
 </Configure>
-]]>
+
+        ]]>
         </programlisting>
       </informalexample>
       <note>
@@ -128,6 +131,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
       <informalexample>
         <programlisting language="xml">
 <![CDATA[
+
 <?xml version="1.0"  encoding="ISO-8859-1"?>
 <!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure.dtd">
 
@@ -135,7 +139,8 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
   <Set name="contextPath">/wiki</Set>
   <Set name="war"><SystemProperty name="myapp.home"/>/myapp.war</Set>
 </Configure>
-]]>
+
+        ]]>
         </programlisting>
       </informalexample>
       <para>If you need to change the home path for your application, you can simply change the system property. This
@@ -154,6 +159,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
       <informalexample>
         <programlisting language="xml">
 <![CDATA[
+
 <?xml version="1.0"  encoding="ISO-8859-1"?>
 <!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure.dtd">
 
@@ -162,7 +168,8 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
   <Set name="war"><SystemProperty name="myapp.home"/>/myapp.war</Set>
   <Set name="extractWAR">false</Set>
 </Configure>
-]]>
+
+        ]]>
         </programlisting>
       </informalexample>
       <para>The next example retrieves the JavaEE Servlet context and sets an initialization parameter on it. You can
@@ -172,6 +179,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
       <informalexample>
         <programlisting language="xml">
 <![CDATA[
+
 <?xml version="1.0"  encoding="ISO-8859-1"?>
 <!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure.dtd">
 
@@ -185,7 +193,8 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     </Call>
   </Get>
 </Configure>
-]]>
+
+        ]]>
         </programlisting>
       </informalexample>
       <para>The following example sets a special <filename>web.xml</filename> override descriptor. This descriptor is
@@ -195,6 +204,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
       <informalexample>
         <programlisting language="xml">
 <![CDATA[
+
 <?xml version="1.0"  encoding="ISO-8859-1"?>
 <!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure.dtd">
 
@@ -203,16 +213,18 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
   <Set name="war"><SystemProperty name="myapp.home"/>/myapp.war</Set>
   <Set name="overrideDescriptor">/opt/myapp/overlay-web.xml</Set>
 </Configure>
-]]>
+
+        ]]>
         </programlisting>
       </informalexample>
       <para>The next example configures not only the web application context, but also a database connection pool (see
-      <xref linkedn="jndi-datasource-examples" /> that our application can then use. If the <filename>
+      <xref linkend="jndi-datasource-examples" /> that our application can then use. If the <filename>
       web.xml</filename> does not include a reference to this data source, you can use the override descriptor
       mechanism (the previous example), to include it.</para>
       <informalexample>
         <programlisting language="xml">
 <![CDATA[
+
 <?xml version="1.0"  encoding="ISO-8859-1"?>
 <!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure.dtd">
 
@@ -233,7 +245,8 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     </New>
   </Arg>
 </New>
-]]>
+
+        ]]>
         </programlisting>
       </informalexample>
     </section>

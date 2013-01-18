@@ -16,16 +16,16 @@
 //  You may elect to redistribute this code under either of these licenses.
 //  ========================================================================
 -->
-<chapter xml:id="configuring-deployment" version="5.0" xmlns="http://docbook.org/ns/docbook"
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xl="http://www.w3.org/1999/xlink"
-xmlns:xi="http://www.w3.org/2001/XInclude"
-xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd" status="draft">
+<chapter status="draft" version="5.0"
+xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd"
+xml:id="configuring-deployment" xmlns="http://docbook.org/ns/docbook"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
+xmlns:ns="http://docbook.org/ns/docbook">
   <title>Deploying Jetty</title>
-  <section>
-    <para>This chapter discusses various ways to deploy applications with Jetty. Topics range from deployment bindings
-    to deploying third party products. It also includes information about the Deployment Manager, ContextProvider,
-    WebApp Provider, and Overlay Deployer.</para>
-  </section>
+  <para>This chapter discusses various ways to deploy applications with Jetty. Topics range from deployment bindings to
+  deploying third party products. It also includes information about the Deployment Manager, ContextProvider, WebApp
+  Provider, and Overlay Deployer.</para>
   <xi:include href="basic-webapp-layout.xml" />
   <xi:include href="using-deployment-manager.xml" />
   <xi:include href="setting-deployment-bindings.xml" />

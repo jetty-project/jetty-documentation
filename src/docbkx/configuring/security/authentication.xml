@@ -23,30 +23,171 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.or
 xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
 xmlns:ns="http://docbook.org/ns/docbook">
   <title>Authentication</title>
-  <para>There are two aspects to securing a web application(or context) within Jetty:</para>
+  <para>There are two aspects to securing a web application(or context) within the Jetty server:</para>
   <variablelist>
     <varlistentry>
       <term>Authentication</term>
       <listitem>
         <para>The web application can be configured with a mechanism to determine the identity of the user. This is
-        covered in this section.</para>
+        configured by a mix of standard declarations and jetty specific mechanisms and is covered in this
+        section.</para>
       </listitem>
     </varlistentry>
     <varlistentry>
       <term>Authorization</term>
       <listitem>
-        <para>Once the identify of the user is known (or not known), the web application can be configured with
-        security constraints that declare what resources that user may access. See <link
+        <para>Once the identify of the user is known (or not known), the web application can be configured via standard
+        descriptors with security constraints that declare what resources that user may access. See <link
         linkend="configuring-security-authorization">Configurating Security - Authorization</link></para>
       </listitem>
     </varlistentry>
   </variablelist>
   <section>
-    <title>Blah blah blah</title>
-    <para>blah blah blah</para>
+    <title>Configuring an Authentication mechanism</title>
+    <para>The jetty server supports several standard authentication mechanisms: <link
+    xl:href="http://en.wikipedia.org/wiki/Basic_access_authentication">BASIC</link>; <link
+    xl:href="http://en.wikipedia.org/wiki/Digest_authentication">DIGEST</link>; <link
+    xl:href="http://en.wikipedia.org/wiki/Form-based_authentication">FORM</link>; CLIENT-CERT; and other mechanisms can
+    be plugged in using the extensible <link xl:href="http://docs.oracle.com/cd/E19462-01/819-6717/gcszc/index.html">
+    JASPI</link> or <link xl:href="http://en.wikipedia.org/wiki/SPNEGO">SPNEGO</link> mechanisms.</para>
+    <para>Internally, configurating an authentication mechanism is done by setting an instance of a the <link
+    xl:href="http://download.eclipse.org/jetty/stable-9/apidocs/org/eclipse/jetty/security/Authenticator.html">
+    Authenticator</link> interface onto the <link
+    xl:href="http://download.eclipse.org/jetty/stable-9/apidocs/org/eclipse/jetty/security/SecurityHandler.html">
+    SecurityHandler</link> of the context, but in most cases it is done by declaring a <code>&lt;<link
+    xl:href="http://docs.oracle.com/cd/E14571_01/web.1111/e13712/web_xml.htm#i1023261">
+    login-config</link>&gt;</code> element in the standard web.xml descriptor or via annotations.</para>
+    <para>Below is an example taken from the <link
+    xl:href="http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/tree/tests/test-webapps/test-jetty-webapp/src/main/webapp/WEB-INF/web.xml?h=release-9">jetty-test-webapp
+    web.xml</link> that configures BASIC authentication:</para>
+    <programlisting>
+<![CDATA[  <login-config>
+    <auth-method>BASIC</auth-method>
+    <realm-name>Test Realm</realm-name>
+  </login-config>]]>
+    </programlisting>
+    <para>The <link
+    xl:href="http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/tree/tests/test-webapps/test-jetty-webapp/src/main/webapp/WEB-INF/web.xml?h=release-9">jetty-test-webapp
+    web.xml</link> also includes commented out examples of other DIGEST and FORM configuration:</para>
+    <programlisting>
+<![CDATA[  <login-config>
+    <auth-method>FORM</auth-method>
+    <realm-name>Test Realm</realm-name>
+    <form-login-config>
+       <form-login-page>/logon.html?param=test</form-login-page>
+       <form-error-page>/logonError.html?param=test</form-error-page>
+    </form-login-config>
+  </login-config>]]>
+    </programlisting>
+    <para>With FORM Authentication, you must also configure URLs of pages to generate a login form and handle errors.
+    Below is a simple HTML form from the <link
+    xl:href="http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/tree/tests/test-webapps/test-jetty-webapp/src/main/webapp/logon.html?h=release-9">test
+    webapp logon.html</link>:</para>
+    <programlisting>
+<![CDATA[<HTML>
+<H1>FORM Authentication demo</H1>
+<form method="POST" action="j_security_check">
+<table border="0" cellspacing="2" cellpadding="1">
+<tr>
+  <td>Username:</td>
+  <td><input size="12" value="" name="j_username" maxlength="25" type="text"></td>
+</tr>
+<tr>
+  <td>Password:</td>
+  <td><input size="12" value="" name="j_password" maxlength="25" type="password"></td>
+</tr>
+<tr>
+  <td colspan="2" align="center">
+    <input name="submit" type="submit" value="Login">
+  </td>
+</tr>
+</table>
+</form>
+</HTML>]]>
+    </programlisting>
+    <para>The Authentication mechanism declared for a context / web application defines how the server obtain
+    authentication credentials from the client, but it does not define how the server checks if those credentials are
+    valid. To check credentials, the server and/or context also need to be configured with a <link
+    xl:href="http://download.eclipse.org/jetty/stable-9/apidocs/org/eclipse/jetty/security/LoginService.html">
+    LoginService</link> instance, which may be matched by the declared realm-name.</para>
   </section>
   <section>
-    <title>Blah blah blah</title>
-    <para>blah blah blah</para>
+    <title>Configuring a LoginService</title>
+    <para>A <link
+    xl:href="http://download.eclipse.org/jetty/stable-9/apidocs/org/eclipse/jetty/security/LoginService.html">
+    LoginService</link> instance is required by each context/webapp that has a authentication mechanism, which is used
+    to check the validity of the username and credentials collected by the authentication mechanism. Jetty provides the
+    following implementations of LoginService:</para>
+    <variablelist>
+      <varlistentry>
+        <term>
+          <link
+          xl:href="http://download.eclipse.org/jetty/stable-9/apidocs/org/eclipse/jetty/security/HashLoginService.html">HashLoginService</link>
+        </term>
+        <listitem>
+          <para>A user realm that is backed by a hash map that is filled programatically or from a java properties
+          file.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>
+          <link
+          xl:href="http://download.eclipse.org/jetty/stable-9/apidocs/org/eclipse/jetty/security/JDBCLoginService.html">JDBCLoginService</link>
+        </term>
+        <listitem>
+          <para>Uses a JDBC connection to an SQL database for authentication</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>
+          <link
+          xl:href="http://download.eclipse.org/jetty/stable-9/apidocs/org/eclipse/jetty/plus/security/DataSourceLoginService.html">DataSourceLoginService</link>
+        </term>
+        <listitem>
+          <para>Uses a JNDI defined datasource for authentication</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>
+          <link
+          xl:href="http://download.eclipse.org/jetty/stable-9/apidocs/org/eclipse/jetty/jaas/JAASLoginService.html">
+          JAASLoginService</link>
+        </term>
+        <listitem>
+          <para>Uses a <link xl:href="http://en.wikipedia.org/wiki/Java_Authentication_and_Authorization_Service">
+          JAAS</link> provider for authentication</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>
+          <link
+          xl:href="http://download.eclipse.org/jetty/stable-9/apidocs/org/eclipse/jetty/security/SpnegoLoginService.html">SpnegoLoginService</link>
+        </term>
+        <listitem>
+          <para><link xl:href="http://en.wikipedia.org/wiki/SPNEGO">SPNEGO</link> Authentication</para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+    <para>An instance of a LoginService can be matched to a context/webapp either by:</para>
+    <itemizedlist>
+      <listitem>
+        <para>A LoginService instance may be set directly on the SecurityHandler instance via embedded code or IoC
+        XML</para>
+      </listitem>
+      <listitem>
+        <para>Matching the realm-name defined in web.xml with the name of a LoginService instance that has been added
+        to the Server instance as a dependent bean.</para>
+      </listitem>
+      <listitem>
+        <para>If only a single LoginService instance has been set on the Server then it is used as the login service
+        for the context.</para>
+      </listitem>
+    </itemizedlist>
+    <section>
+      <title>Configuring a HashLoginService</title>
+      <para>The HashLoginService is a simple and efficient login service that loads usernames and credentials from a
+      java properties file in the format:</para>
+      <screen></screen>
+    </section>
   </section>
 </section>

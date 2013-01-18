@@ -46,7 +46,7 @@ xmlns:ns="http://docbook.org/ns/docbook">
     </listitem>
     <listitem>
       <para><code>GlobalWebappConfigBinding</code> (deploying)&#8211;Allows the user to override various settings of a
-      webapp's context globally for all contexts.
+      webapp's context globally for all contexts. 
       <informalexample>
         <programlisting language="xml">
 <![CDATA[        <Call name="addLifeCycleBinding">

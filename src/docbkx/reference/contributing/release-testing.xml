@@ -25,16 +25,9 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
   <orderedlist>
     <listitem>
       <para>Download the staged release:</para>
-      <para>For Jetty 7:</para>
       <screen>
 <![CDATA[
- wget https://oss.sonatype.org/content/repositories/jetty-[reponumber]/org/eclipse/jetty/jetty-distribution/[jetty-version]/ jetty-distribution-7.[jetty-minor-version].tar.gz
- ]]>
-      </screen>
-      <para>For Jetty 8:</para>
-      <screen>
-<![CDATA[
- wget https://oss.sonatype.org/content/repositories/jetty-[reponumber]/org/eclipse/jetty/jetty-distribution/[jetty-version]/jetty-distribution-8.[jetty-minor-version].tar.gz
+ wget https://oss.sonatype.org/content/repositories/jetty-[reponumber]/org/eclipse/jetty/jetty-distribution/[jetty-version]/jetty-distribution-9.[jetty-minor-version].tar.gz
 ]]>
       </screen>
     </listitem>
@@ -45,7 +38,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
       <para>Start jetty:</para>
       <screen>
 <![CDATA[
- cd [installdir] ; java -jar start.jar OPTIONS=rewrite etc/jetty-rewrite.xml etc/jetty-ssl.xml
+ cd [installdir] ; java -jar start.jar OPTIONS=rewrite etc/jetty-rewrite.xml etc/jetty-https.xml
  ]]>
       </screen>
     </listitem>
@@ -53,7 +46,8 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
       <para>If there are no exceptions, proceed. Otherwise, investigate.</para>
     </listitem>
     <listitem>
-      <para>Open http://localhost:8080/ in a browser. You should see the <filename>test.war</filename> webapp.</para>
+      <para>Open http://localhost:8080/ in a browser. In the examples section click "Test Jetty Webapp". You should see
+      the <filename>test.war</filename> webapp.</para>
     </listitem>
     <listitem>
       <para>Go through ALL the tests and verify that everything works as expected.</para>
@@ -69,6 +63,29 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     </listitem>
     <listitem>
       <para>Verify that <filename>test.war</filename> gets redeployed in <filename>STDOUT</filename>.</para>
+    </listitem>
+    <listitem>
+      <para>Verify that the spdy example webapp and spdy-proxy do work</para>
+      <screen>
+<![CDATA[
+ cd jetty_src/jetty-spdy/spdy-example-webapp
+ mvn jetty:run-forked
+ ]]>
+      </screen>
+    </listitem>
+    <listitem>
+      <para>Browse to https://localhost:8443 and verify that all looks ok</para>
+    </listitem>
+    <listitem>
+      <para>Stop the server with CTRL+C and restart it in proxy mode:</para>
+      <screen>
+<![CDATA[
+ mvn -Pproxy jetty:run-forked
+ ]]>
+      </screen>
+    </listitem>
+    <listitem>
+      <para>Browse to http://localhost:8080 and https://localhost:8443 and verify that all looks ok</para>
     </listitem>
   </orderedlist>
   <section xml:id="testing-cometd">

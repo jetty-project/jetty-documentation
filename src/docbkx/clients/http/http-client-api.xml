@@ -251,7 +251,43 @@ ContentResponse response = httpClient.newRequest("http://domain.com/upload")
 ]]>
         </programlisting>
       </informalexample>
-      <para>Other utility classes are available for the most common types.</para>
+      <para>If the request content is not immediately available, but your application will be notified of the
+      content to send, you can use <classname>DeferredContentProvider</classname> in this way:</para>
+      <informalexample>
+        <programlisting language="java">
+<![CDATA[
+DeferredContentProvider content = new DeferredContentProvider();
+httpClient.newRequest("http://domain.com/upload")
+        .content(content)
+        .send(new Response.CompleteListener()
+        {
+            @Override
+            public void onComplete(Result result)
+            {
+                // Your logic here
+            }
+        });
+
+// Content not available yet here
+
+...
+
+// An event happens, now content is available
+byte[] bytes = ...;
+content.offer(ByteBuffer.wrap(bytes));
+
+...
+
+// All content has arrived
+content.close();
+]]>
+        </programlisting>
+      </informalexample>
+      <para>While the request content is awaited and consequently uploaded by the client application, the server
+      may be able to respond (at least with the response headers) completely asynchronously.
+      In this case, <code>Response.Listener</code> callbacks will be invoked before the request is fully sent.
+      This allows fine-grained control of the request/response conversation: for example the server may reject
+      contents that are too big, send a response to the client, which in turn may stop the content upload.</para>
     </section>
     <section xml:id="http-client-response-content">
       <info>

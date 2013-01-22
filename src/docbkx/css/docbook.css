@@ -53,8 +53,8 @@ dl {
 }
 
 pre {
-  font-family: Courier New, monospace; 
-  font-size: 10pt; 
+  font-family: Courier New, monospace;
+  font-size: 10pt;
   margin-bottom: 1.5em;
   overflow-x: auto;
 }
@@ -68,8 +68,8 @@ h2.subtitle {
 }
 
 h3.author {
-  font-variant: normal; 
-  margin-top: 2em; 
+  font-variant: normal;
+  margin-top: 2em;
   margin-bottom: 0;
 }
 
@@ -85,8 +85,8 @@ h3.author {
 }
 
 .caption p {
- margin: 0; 
- text-align: right; 
+ margin: 0;
+ text-align: right;
 }
 
 .navfooter table tr td {
@@ -120,24 +120,33 @@ div.variablelist {
 }
 
 .programlisting .hl-tag {
-  color: #881280 !important;
+  color: #881280;
   font-weight: normal;
+}
+
+.programlisting .hl-string {
+  color: green;
+  font-weight: bold;
 }
 
 .programlisting .hl-keyword {
-  color: #6a6a6a !important;
-  font-weight: normal;
+  color: #009;
+  font-weight: bold;
 }
 
 .programlisting .hl-attribute {
-  color: #fc390e !important;
+  color: #fc390e;
 }
 
 .programlisting .hl-value {
-  color: #1a1aa6 !important;
+  color: #1a1aa6;
+}
+
+.programlisting .hl-annotation {
+  color: #880;
 }
 
 .programlisting .hl-comment {
-  color: gray !important;
+  color: gray;
+  font-style: italic;
 }
-

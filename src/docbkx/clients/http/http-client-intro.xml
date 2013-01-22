@@ -44,13 +44,16 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
       <para>Authentication support; HTTP "Basic" and "Digest" authentications are supported, others are
       pluggable</para>
     </listitem>
+    <listitem>
+      <para>Forward proxy support</para>
+    </listitem>
   </itemizedlist>
   <section xml:id="http-client-init">
     <info>
       <title>Initialization</title>
     </info>
-    <para>The main class is named, as in Jetty 7 and Jetty 8, 
-    <classname>org.eclipse.jetty.client.HttpClient</classname>(although it is not backward compatible with the same
+    <para>The main class is named, as in Jetty 7 and Jetty 8,
+    <classname>org.eclipse.jetty.client.HttpClient</classname> (although it is not backward compatible with the same
     class in Jetty 7 and Jetty 8).</para>
     <para>You can think of an <code>HttpClient</code> instance as a browser instance. Like a browser, it can make
     requests to different domains, it manages redirects, cookies and authentication, you can configure it with a proxy,
@@ -62,7 +65,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
 // Instantiate HttpClient
 HttpClient httpClient = new HttpClient();
 
-// Configure HttpClient
+// Configure HttpClient, for example:
 httpClient.setFollowRedirects(false);
 
 // Start HttpClient
@@ -77,7 +80,7 @@ httpClient.start();
     <para>When you create a <code>HttpClient</code> instance using the parameterless constructor, you will only be able
     to perform plain HTTP requests, and you will not be able to perform HTTPS requests.</para>
     <para>In order to perform HTTPS requests, you should create first a <code>SslContextFactory</code> (see <xref
-    linkend="ssl" /> 
+    linkend="ssl" />
 <!--TODO: cross link SslContextFactory docs-->
     ), configure it, and pass it to <code>HttpClient</code>'s constructor. When created with a <code>
     SslContextFactory</code>, the <code>HttpClient</code> will be able to perform both HTTP and HTTPS requests to any
@@ -91,7 +94,7 @@ SslContextFactory sslContextFactory = new SslContextFactory();
 // Instantiate HttpClient with the SslContextFactory
 HttpClient httpClient = new HttpClient(sslContextFactory);
 
-// Configure HttpClient
+// Configure HttpClient, for example:
 httpClient.setFollowRedirects(false);
 
 // Start HttpClient

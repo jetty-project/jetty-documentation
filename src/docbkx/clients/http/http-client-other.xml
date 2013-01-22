@@ -27,7 +27,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
       <title>Cookies Support</title>
     </info>
     <para>Jetty HTTP client supports cookies out of the box. The <code>HttpClient</code> instance receives cookies from
-    HTTP responses and stores them in a 
+    HTTP responses and stores them in a
     <classname>java.net.CookieStore</classname>, a class that is part of the JDK. When new requests are made, the
     cookie store is consulted and if there are matching cookies (that is, cookies that are not expired and that match
     domain and path of the request) then they are added to the requests.</para>
@@ -150,7 +150,7 @@ proxyConfig.getExcludedOrigins().add("localhost:8080");
 
 httpClient.setProxyConfiguration(proxyConfig);
 
-ContentResponse response = httpClient.GET(uri).get(5, TimeUnit.SECONDS);
+ContentResponse response = httpClient.GET(uri);
 ]]>
       </programlisting>
     </informalexample>

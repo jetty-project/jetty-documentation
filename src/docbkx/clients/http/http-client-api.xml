@@ -30,16 +30,15 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     <informalexample>
       <programlisting language="java">
 <![CDATA[
-ContentResponse response = httpClient.GET("http://domain.com/path?query").get(5, TimeUnit.SECONDS);
+ContentResponse response = httpClient.GET("http://domain.com/path?query");
 ]]>
       </programlisting>
     </informalexample>
-    <para>Method <code>HttpClient.GET(...)</code> performs a HTTP GET request to the given URI and returns a <code>
-    Future&lt;ContentResponse&gt;</code> that you can use to cancel the request or to impose a total timeout for the
-    request/response conversation (in the example above, of 5 seconds).</para>
-    <para>When the request/response conversation completes successfully, the <code>ContentResponse</code> object is
-    returned, containing the HTTP response information: status code, headers and possibly a content. The content length
-    is limited by default to 2 MiB; for larger content see <xref linkend="http-client-response-content" />.</para>
+    <para>Method <code>HttpClient.GET(...)</code> performs a HTTP GET request to the given URI and returns a
+    <code>ContentResponse</code> when the request/response conversation completes successfully.</para>
+    <para>The <code>ContentResponse</code> object contains the HTTP response information: status code, headers
+    and possibly a content. The content length is limited by default to 2 MiB; for larger content see
+    <xref linkend="http-client-response-content" />.</para>
     <para>If you want to customize the request, for example by issuing a HEAD request instead of a GET, and simulating
     a browser user agent, you can do it in this way:</para>
     <informalexample>
@@ -48,8 +47,7 @@ ContentResponse response = httpClient.GET("http://domain.com/path?query").get(5,
 ContentResponse response = httpClient.newRequest("http://domain.com/path?query")
         .method(HttpMethod.HEAD)
         .agent("Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:17.0) Gecko/20100101 Firefox/17.0")
-        .send()
-        .get(5, TimeUnit.SECONDS);
+        .send();
 ]]>
       </programlisting>
     </informalexample>
@@ -58,26 +56,23 @@ ContentResponse response = httpClient.newRequest("http://domain.com/path?query")
       <programlisting language="java">
 <![CDATA[
 Request request = httpClient.newRequest("http://domain.com/path?query");
-Future<ContentResponse> future = request
-        .method(HttpMethod.HEAD)
-        .agent("Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:17.0) Gecko/20100101 Firefox/17.0")
-        .send();
-ContentResponse response = future.get(5, TimeUnit.SECONDS);
+request.method(HttpMethod.HEAD);
+request.agent("Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:17.0) Gecko/20100101 Firefox/17.0");
+ContentResponse response = request.send();
 ]]>
       </programlisting>
     </informalexample>
     <para>You first create a request object using <code>httpClient.newRequest(...)</code>, and then you customize it
     using the fluent API style (that is, chained invocation of methods on the request object). When the request object
-    is customized, you call <code>Request.send()</code> that produces a <code>Future</code> that can be used to wait
-    for the request/response conversation to complete or to cancel the request/response conversation.</para>
+    is customized, you call <code>Request.send()</code> that produces the <code>ContentResponse</code> when
+    the request/response conversation is complete.</para>
     <para>Simple POST requests also have a shortcut method:</para>
     <informalexample>
       <programlisting language="java">
 <![CDATA[
 ContentResponse response = httpClient.POST("http://domain.com/entity/1")
         .param("p", "value")
-        .send()
-        .get(5, TimeUnit.SECONDS);
+        .send();
 ]]>
       </programlisting>
     </informalexample>
@@ -93,11 +88,23 @@ ContentResponse response = httpClient.POST("http://domain.com/entity/1")
 <![CDATA[
 ContentResponse response = httpClient.newRequest("http://domain.com/upload")
         .file(Paths.get("file_to_upload.txt"), "text/plain")
-        .send()
-        .get(5, TimeUnit.SECONDS);
+        .send();
 ]]>
       </programlisting>
     </informalexample>
+    <para>It is possible to impose a total timeout for the request/response conversation using the
+    <code>Request.timeout(...)</code> method, in this way:</para>
+    <informalexample>
+      <programlisting language="java">
+<![CDATA[
+ContentResponse response = httpClient.newRequest("http://domain.com/path?query")
+        .timeout(5, TimeUnit.SECONDS)
+        .send();
+]]>
+      </programlisting>
+    </informalexample>
+    <para>In the example above, when the 5 seconds expire, the request is aborted and a
+    <classname>java.util.concurrent.TimeoutException</classname> is thrown.</para>
   </section>
   <section xml:id="http-client-async">
     <info>
@@ -136,20 +143,21 @@ httpClient.newRequest("http://domain.com/path")
 ]]>
       </programlisting>
     </informalexample>
-    <para>You can impose a total timeout for the request/response conversation by using the utility class <code>
-    TimedResponseListener</code>, in this way:</para>
+    <para>You can impose a total timeout for the request/response conversation in the same way used by the
+    synchronous API:</para>
     <informalexample>
       <programlisting language="java">
 <![CDATA[
-Request request = httpClient.newRequest("http://domain.com/path");
-request.send(new TimedResponseListener(3, TimeUnit.SECONDS, request, new Response.CompleteListener()
-{
-    @Override
-    public void onComplete(Result result)
-    {
-        // Your logic here
-    }
-}));
+Request request = httpClient.newRequest("http://domain.com/path")
+        .timeout(3, TimeUnit.SECONDS)
+        .send(new Response.CompleteListener()
+        {
+            @Override
+            public void onComplete(Result result)
+            {
+                // Your logic here
+            }
+        });
 ]]>
       </programlisting>
     </informalexample>
@@ -196,7 +204,7 @@ httpClient.newRequest("http://domain.com/path")
       </info>
       <para>Jetty HTTP client provides a number of utility classes off the shelf to handle request content.</para>
       <para>You can provide request content as <code>String</code>, <code>byte[]</code>, <code>ByteBuffer</code>,
-      <code>java.nio.file.Path</code>, <code>InputStream</code>, and provide your own implementation of 
+      <code>java.nio.file.Path</code>, <code>InputStream</code>, and provide your own implementation of
       <classname>org.eclipse.jetty.client.api.ContentProvider</classname>. Here&#8217;s an example that provides the
       request content using <code>java.nio.file.Paths</code>:</para>
       <informalexample>
@@ -204,8 +212,7 @@ httpClient.newRequest("http://domain.com/path")
 <![CDATA[
 ContentResponse response = httpClient.newRequest("http://domain.com/upload")
         .file(Paths.get("file_to_upload.txt"), "text/plain")
-        .send()
-        .get(5, TimeUnit.SECONDS);
+        .send();
 ]]>
         </programlisting>
       </informalexample>
@@ -215,8 +222,7 @@ ContentResponse response = httpClient.newRequest("http://domain.com/upload")
 <![CDATA[
 ContentResponse response = httpClient.newRequest("http://domain.com/upload")
         .content(new PathContentProvider(Paths.get("file_to_upload.txt")), "text/plain")
-        .send()
-        .get(5, TimeUnit.SECONDS);
+        .send();
 ]]>
         </programlisting>
       </informalexample>
@@ -227,11 +233,12 @@ ContentResponse response = httpClient.newRequest("http://domain.com/upload")
 <![CDATA[
 ContentResponse response = httpClient.newRequest("http://domain.com/upload")
         .content(new InputStreamContentProvider(new FileInputStream("file_to_upload.txt")), "text/plain")
-        .send()
-        .get(5, TimeUnit.SECONDS);
+        .send();
 ]]>
         </programlisting>
       </informalexample>
+      <para>Since <code>InputStream</code> is blocking, then also the send of the request will block if the
+      input stream blocks, even in case of usage of the asynchronous <code>HttpClient</code> APIs.</para>
       <para>If you have already read the content in memory, you can pass it as a <code>byte[]</code> using the <code>
       BytesContentProvider</code> utility class:</para>
       <informalexample>
@@ -240,8 +247,7 @@ ContentResponse response = httpClient.newRequest("http://domain.com/upload")
 byte[] bytes = ...;
 ContentResponse response = httpClient.newRequest("http://domain.com/upload")
         .content(new BytesContentProvider(bytes), "text/plain")
-        .send()
-        .get(5, TimeUnit.SECONDS);
+        .send();
 ]]>
         </programlisting>
       </informalexample>
@@ -256,15 +262,15 @@ ContentResponse response = httpClient.newRequest("http://domain.com/upload")
       <xref linkend="http-client-blocking" />) and the content is buffered within a <code>ContentResponse</code> up to
       2 MiB.</para>
       <para>If you want to control the length of the response content (for example limiting to values smaller than the
-      default of 2 MiB), then you can use a 
-      <classname>org.eclipse.jetty.client.util.BlockingResponseListener</classname>in this way:</para>
+      default of 2 MiB), then you can use a
+      <classname>org.eclipse.jetty.client.util.FutureResponseListener</classname>in this way:</para>
       <informalexample>
         <programlisting language="java">
 <![CDATA[
 Request request = httpClient.newRequest("http://domain.com/path");
 
 // Limit response content buffer to 512 KiB
-BlockingResponseListener listener = new BlockingResponseListener(request, 512 * 1024);
+FutureResponseListener listener = new FutureResponseListener(request, 512 * 1024);
 
 request.send(listener);
 

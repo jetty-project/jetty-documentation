@@ -16,14 +16,24 @@
 //  You may elect to redistribute this code under either of these licenses.
 //  ========================================================================
 -->
-<chapter xml:id="maven-and-jetty" version="5.0" xmlns="http://docbook.org/ns/docbook"
-xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
-xmlns:svg="http://www.w3.org/2000/svg" xmlns:mth="http://www.w3.org/1998/Math/MathML"
-xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook" status="draft">
+<chapter version="5.0" xml:id="maven-and-jetty"
+         xmlns="http://docbook.org/ns/docbook"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:xs="http://www.w3.org/2001/XMLSchema"
+         xmlns:xl="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:xhtml="http://www.w3.org/1999/xhtml"
+         xmlns:svg="http://www.w3.org/2000/svg"
+         xmlns:mth="http://www.w3.org/1998/Math/MathML"
+         xmlns:db="http://docbook.org/ns/docbook">
   <title>Maven and Jetty</title>
+
   <section>
-    <para>This chapter explains how to use Jetty with Maven and the Jetty MAven plugin.</para>
+    <para>This chapter explains how to use Jetty with Maven and the Jetty
+    Maven plugin.</para>
   </section>
-  <xi:include href="jetty-maven-plugin.xml" />
-  <xi:include href="jetty-maven-helloworld.xml" />
+
+  <xi:include href="jetty-maven-helloworld.xml"/>
+
+  <xi:include href="jetty-maven-plugin.xml"/>
 </chapter>

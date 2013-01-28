@@ -116,11 +116,11 @@ xmlns:ns2="http://www.w3.org/1998/Math/MathML" xmlns:ns="http://docbook.org/ns/d
     <para>However, you might have started the server with some advanced <code>start.jar</code> options so that it runs
     in the background:</para>
     <para>
-      <code>&gt; java -jar start.jar STOP.PORT=8881 STOP.KEY=magic --daemon &amp;</code>
+      <code>&gt; java -jar start.jar -DSTOP.PORT=8881 -DSTOP.KEY=magic --daemon &amp;</code>
     </para>
     <para>You should shut down this server with the command:</para>
     <para>
-      <code>&gt; java -jar start.jar STOP.PORT=8881 STOP.KEY=magic --stop</code>
+      <code>&gt; java -jar start.jar -DSTOP.PORT=8881 -DSTOP.KEY=magic --stop</code>
     </para>
   </section>
 </section>

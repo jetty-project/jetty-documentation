@@ -377,18 +377,18 @@ Rcz6oCRvCGCe5kDB
   <Call id="sslConnector" name="addConnector">
     <Arg>
       <New class="org.eclipse.jetty.server.ServerConnector">
-        <Arg name="server"><Ref id="Server" /></Arg>
+        <Arg name="server"><Ref refid="Server" /></Arg>
           <Arg name="factories">
             <Array type="org.eclipse.jetty.server.ConnectionFactory">
               <Item>
                 <New class="org.eclipse.jetty.server.SslConnectionFactory">
                   <Arg name="next">http/1.1</Arg>
-                  <Arg name="sslContextFactory"><Ref id="sslContextFactory"/></Arg>
+                  <Arg name="sslContextFactory"><Ref refid="sslContextFactory"/></Arg>
                 </New>
               </Item>
               <Item>
                 <New class="org.eclipse.jetty.server.HttpConnectionFactory">
-                  <Arg name="config"><Ref id="tlsHttpConfig"/></Arg>
+                  <Arg name="config"><Ref refid="tlsHttpConfig"/></Arg>
                 </New>
               </Item>
             </Array>

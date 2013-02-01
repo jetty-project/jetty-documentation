@@ -135,7 +135,7 @@ etc/jetty-plus.xml    ]]></programlisting>
   </Array>
 
   <Set name="war"><SystemProperty name="jetty.home" default="."/>/webapps/my-cool-webapp</Set>
-  <Set name="configurationClasses"><Ref id="plusConfig"/></Set>
+  <Set name="configurationClasses"><Ref refid="plusConfig"/></Set>
 
 </Configure>]]></programlisting>
       </informalexample>
@@ -163,7 +163,7 @@ etc/jetty-plus.xml    ]]></programlisting>
   <!-- Uncomment the following to set up a deployer that will      -->
   <!-- deploy webapps from a directory called webapps-plus. Note   -->
   <!-- that you will need to create this directory first!          -->
-  <Ref id="DeploymentManager">
+  <Ref refid="DeploymentManager">
       <Call name="addAppProvider">
         <Arg>
           <New class="org.eclipse.jetty.deploy.providers.WebAppProvider">
@@ -172,7 +172,7 @@ etc/jetty-plus.xml    ]]></programlisting>
             <Set name="scanInterval">5</Set>
             <Set name="parentLoaderPriority">false</Set>
             <Set name="extractWars">true</Set>
-            <Set name="configurationClasses"><Ref id="plusConfig"/></Set>
+            <Set name="configurationClasses"><Ref refid="plusConfig"/></Set>
           </New>
         </Arg>
       </Call>
@@ -389,7 +389,7 @@ resource-env-ref/]]></programlisting>
                 <programlisting><![CDATA[<Configure id="Server" class="org.eclipse.jetty.Server">
 
 <New id="cf" class="org.eclipse.jetty.plus.jndi.Resource">
-  <Arg><Ref id="Server"/></Arg>  <!-- reference to Server instance -->
+  <Arg><Ref refid="Server"/></Arg>  <!-- reference to Server instance -->
   <Arg>jms/connectionFactory</Arg>
   <Arg>
     <New class="org.apache.activemq.ActiveMQConnectionFactory">
@@ -416,7 +416,7 @@ resource-env-ref/]]></programlisting>
                 <programlisting><![CDATA[<Configure id='wac' class="org.eclipse.jetty.webapp.WebAppContext">
 
 <New id="cf" class="org.eclipse.jetty.plus.jndi.Resource">
-  <Arg><Ref id='wac'/></Arg> <!-- reference to WebAppContext -->
+  <Arg><Ref refid='wac'/></Arg> <!-- reference to WebAppContext -->
   <Arg>jms/connectionFactory</Arg>
   <Arg>
     <New class="org.apache.activemq.ActiveMQConnectionFactory">
@@ -631,7 +631,7 @@ Integer mySpecialValue = (Integer)ic.lookup("java:comp/env/mySpecialValue");    
           <programlisting language="xml"><![CDATA[<Configure id='wac' class="org.eclipse.jetty.webapp.WebAppContext">
 
 <New id="myds" class="org.eclipse.jetty.plus.jndi.Resource">
-  <Arg><Ref id="wac"/></Arg>
+  <Arg><Ref refid="wac"/></Arg>
   <Arg>jdbc/myds</Arg>
   <Arg>
     <New class="org.apache.derby.jdbc.EmbeddedDataSource">
@@ -707,7 +707,7 @@ DataSource myDS = (DataSource)ic.lookup("java:comp/env/jdbc/myds");     ]]></pro
           <programlisting language="xml"><![CDATA[<Configure id='wac' class="org.eclipse.jetty.webapp.WebAppContext">
 
 <New id="cf" class="org.eclipse.jetty.plus.jndi.Resource">
-  <Arg><Ref id='wac'/></Arg>
+  <Arg><Ref refid='wac'/></Arg>
   <Arg>jms/connectionFactory</Arg>
   <Arg>
     <New class="org.apache.activemq.ActiveMQConnectionFactory">
@@ -742,7 +742,7 @@ DataSource myDS = (DataSource)ic.lookup("java:comp/env/jdbc/myds");     ]]></pro
           <programlisting language="xml"><![CDATA[<Configure id='wac' class="org.eclipse.jetty.webapp.WebAppContext">
 
 <New id="mail" class="org.eclipse.jetty.plus.jndi.Resource">
-     <Arg><Ref id="wac"/></Arg>
+     <Arg><Ref refid="wac"/></Arg>
      <Arg>mail/Session</Arg>
      <Arg>
        <New class="org.eclipse.jetty.jndi.factories.MailSessionReference">
@@ -813,7 +813,7 @@ DataSource myDS = (DataSource)ic.lookup("java:comp/env/jdbc/myds");     ]]></pro
           <programlisting language="xml"><![CDATA[<Configure id='wac' class="org.eclipse.jetty.webapp.WebAppContext">
 
 <New id="myds" class="org.eclipse.jetty.plus.jndi.Resource">
-  <Arg><Ref id="wac"/></Arg>
+  <Arg><Ref refid="wac"/></Arg>
   <Arg>jdbc/mydatasource</Arg>
   <Arg>
     <New class="org.apache.derby.jdbc.EmbeddedDataSource">
@@ -853,7 +853,7 @@ DataSource myDS = (DataSource)ic.lookup("java:comp/env/jdbc/myds");     ]]></pro
           <programlisting language="xml"><![CDATA[<Configure id='wac' class="org.eclipse.jetty.webapp.WebAppContext">
 
 <New id="myds" class="org.eclipse.jetty.plus.jndi.Resource">
-  <Arg><Ref id="wac"/></Arg>
+  <Arg><Ref refid="wac"/></Arg>
   <Arg>jdbc/mydatasource</Arg>
   <Arg>
     <New class="org.apache.derby.jdbc.EmbeddedDataSource">
@@ -872,7 +872,7 @@ DataSource myDS = (DataSource)ic.lookup("java:comp/env/jdbc/myds");     ]]></pro
 
         <informalexample>
           <programlisting language="xml"><![CDATA[<New id="map1" class="org.eclipse.jetty.plus.jndi.Link">
-    <Arg><Ref id='wac'/></Arg>
+    <Arg><Ref refid='wac'/></Arg>
     <Arg>jdbc/mydatasource1</Arg> <!-- name in web.xml -->
     <Arg>jdbc/mydatasource</Arg>  <!-- name in container environment -->
 </New>   ]]></programlisting>

@@ -113,7 +113,7 @@ xmlns:ns="http://docbook.org/ns/docbook">
 <![CDATA[
 
 <New class="org.eclipse.jetty.server.ServerConnector">
-  <Arg name="server"><Ref id="Server" /></Arg>
+  <Arg name="server"><Ref refid="Server" /></Arg>
   <Arg name="factories">
     <Array type="org.eclipse.jetty.server.ConnectionFactory">
       <!-- insert one or more factories here -->
@@ -139,7 +139,7 @@ xmlns:ns="http://docbook.org/ns/docbook">
 <![CDATA[
 
 <New class="org.eclipse.jetty.server.ServerConnector">
-  <Arg name="server"><Ref id="Server" /></Arg>
+  <Arg name="server"><Ref refid="Server" /></Arg>
   <Arg name="factories"><!-- insert one or more factories here --></Arg>
 
   <Set name="port">8080</Set>
@@ -155,7 +155,7 @@ xmlns:ns="http://docbook.org/ns/docbook">
 <![CDATA[
 
 <New class="org.eclipse.jetty.server.ServerConnector">
-  <Arg name="server"><Ref id="Server" /></Arg>
+  <Arg name="server"><Ref refid="Server" /></Arg>
   <Arg name="factories"><!-- insert one or more factories here --></Arg>
 
   <Set name="port"><Property name="jetty.port" default="8080"/></Set>
@@ -281,12 +281,12 @@ xmlns:ns="http://docbook.org/ns/docbook">
   <Call name="addConnector">
     <Arg>
       <New class="org.eclipse.jetty.server.ServerConnector">
-        <Arg name="server"><Ref id="Server" /></Arg>
+        <Arg name="server"><Ref refid="Server" /></Arg>
         <Arg name="factories">
           <Array type="org.eclipse.jetty.server.ConnectionFactory">
             <Item>
               <New class="org.eclipse.jetty.server.HttpConnectionFactory">
-                <Arg name="config"><Ref id="httpConfig" /></Arg>
+                <Arg name="config"><Ref refid="httpConfig" /></Arg>
               </New>
             </Item>
           </Array>
@@ -306,7 +306,7 @@ xmlns:ns="http://docbook.org/ns/docbook">
 <![CDATA[
 
   <New id="tlsHttpConfig" class="org.eclipse.jetty.server.HttpConfiguration">
-    <Arg><Ref id="httpConfig"/></Arg>
+    <Arg><Ref refid="httpConfig"/></Arg>
     <Call name="addCustomizer">
       <Arg><New class="org.eclipse.jetty.server.SecureRequestCustomizer"/></Arg>
     </Call>

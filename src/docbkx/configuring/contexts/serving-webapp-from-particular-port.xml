@@ -56,7 +56,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     <Call name="addLifeCycle">
       <Arg>
         <New class="org.eclipse.jetty.deploy.providers.ContextProvider">
-          <Set name="contexts"><Ref id="Contexts"/></Set>
+          <Set name="contexts"><Ref refid="Contexts"/></Set>
           <Set name="configurationDir"><SystemProperty name="jetty.home" default="."/>/contextsA</Set>
           <Set name="scanInterval">5</Set>
         </New>
@@ -95,7 +95,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
      <!-- set up a context provider for ServerB -->
       <Arg>
         <New class="org.eclipse.jetty.deploy.providers.ContextProvider">
-          <Set name="contexts"><Ref id="Contexts"/></Set>
+          <Set name="contexts"><Ref refid="Contexts"/></Set>
           <Set name="configurationDir"><SystemProperty name="jetty.home" default="."/>/contextsB</Set>
           <Set name="scanInterval">5</Set>
         </New>
@@ -195,7 +195,7 @@ java -jar start.jar jettyA.xml jettyB.xml
      <!-- set up a context provider -->
       <Arg>
         <New class="org.eclipse.jetty.deploy.providers.ContextProvider">
-          <Set name="contexts"><Ref id="Contexts"/></Set>
+          <Set name="contexts"><Ref refid="Contexts"/></Set>
           <Set name="configurationDir"><SystemProperty name="jetty.home" default="."/>/contexts</Set>
           <Set name="scanInterval">5</Set>
         </New>

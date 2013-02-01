@@ -37,7 +37,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
       <programlisting language="xml">
 <![CDATA[ 
  <Configure id="Server" class="org.eclipse.jetty.server.Server">
-        <Ref id="DeploymentManager">
+        <Ref refid="DeploymentManager">
           <Call name="addAppProvider">
             <Arg>
               <New class="org.eclipse.jetty.deploy.providers.ContextProvider">
@@ -89,7 +89,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
       <programlisting language="xml">
 <![CDATA[ 
  <Configure id="Server" class="org.eclipse.jetty.server.Server">
-        <Ref id="DeploymentManager">
+        <Ref refid="DeploymentManager">
           <Call name="addAppProvider">
             <Arg>
               <New class="org.eclipse.jetty.deploy.providers.ContextProvider">

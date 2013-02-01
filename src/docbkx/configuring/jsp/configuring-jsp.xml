@@ -445,7 +445,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
         <programlisting language="xml">
 <![CDATA[
 <New class="org.eclipse.jetty.webapp.WebAppContext">
-  <Arg><Ref id="Contexts"/></Arg>
+  <Arg><Ref refid="Contexts"/></Arg>
   <Arg><SystemProperty name="jetty.home" default="."/>/webapps/test.war</Arg>
   <Arg>/test</Arg>
    <Call name="setAttribute">
@@ -513,7 +513,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
 <![CDATA[
  <New id="DeploymentManager" class="org.eclipse.jetty.deploy.DeploymentManager">
           <Set name="contexts">
-            <Ref id="Contexts" />
+            <Ref refid="Contexts" />
           </Set>
           <Call name="setContextAttribute">
             <Arg>org.eclipse.jetty.server.webapp.ContainerIncludeJarPattern</Arg>

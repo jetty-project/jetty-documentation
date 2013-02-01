@@ -71,7 +71,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     </Set>
   </New>
 </Set>
-<Ref id="RequestLog">
+<Ref refid="RequestLog">
   <Set name="requestLog">
     <New id="RequestLogImpl" class="org.eclipse.jetty.server.NCSARequestLog">
       <Arg><SystemProperty name="jetty.logs" default="./logs"/>/yyyy_mm_dd.request.log</Arg>

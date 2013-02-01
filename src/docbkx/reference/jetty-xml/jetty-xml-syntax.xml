@@ -26,14 +26,14 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
       <Arg>true</Arg>
       <Set name="wibble">10</Set>
       <Set name="wobble">xyz</Set>
-      <Set name="parent"><Ref id="foo"/></Set>
+      <Set name="parent"><Ref refid="foo"/></Set>
       <Call name="init">
          <Arg>false</Arg>
       </Call>
     </New>
   </Set>
  
-  <Ref id="bar">
+  <Ref refid="bar">
     <Set name="wibble">20</Set>
     <Get name="parent">
       <Set name="name">demo2</Set>
@@ -554,7 +554,7 @@ com.acme.Foo.setString("somestring");
   <Call name="getPort" id="port" />
   <Call class="com.acme.Environment" name="setPort">
     <Arg>
-      <Ref id="port"/>
+      <Ref refid="port"/>
     </Arg>
   </Call>
 </Configure>
@@ -620,7 +620,7 @@ value text, <Get>, <Call>, <New>, <Ref>, <Array>, <Map>, <SystemProperty>, <Prop
 <Arg>foo</Arg> <!== String ->
 <Arg>true</Arg> <!== Boolean ->
 <Arg>1</Arg> <!== int, long, short, float, double ->
-<Arg><Ref id="foo" /></Arg>  <!== any object; reference a previously created object with id "foo", and pass it as a parameter ->
+<Arg><Ref refid="foo" /></Arg>  <!== any object; reference a previously created object with id "foo", and pass it as a parameter ->
 <Arg></Arg> <!== null value ->
 <Arg type="String"></Arg> <!== empty string "" ->
 ]]>
@@ -831,7 +831,7 @@ foo.setTest("1, 2, 3");
             <programlisting language="xml">
 <![CDATA[
 <Get id="foo" name="xFoo" />
-<Set name="test"><Ref id="foo"/></Set>
+<Set name="test"><Ref refid="foo"/></Set>
 ]]>
             </programlisting>
           </informalexample>
@@ -851,7 +851,7 @@ setSomeMethod(foo);
             <programlisting language="xml">
 <![CDATA[
 <Get id="foo" name="xFoo" />
-<Ref id="foo">
+<Ref refid="foo">
   <Set name="test">1, 2, 3</Set>
 </Ref>
 ]]>
@@ -877,7 +877,7 @@ foo.setTest("1, 2, 3");
 <!== using Ref in conjunction with Get ->
 <Configure id="Server" class="org.eclipse.jetty.server.Server">
   <Get id="Logger" class="org.eclipse.jetty.util.log.Log" name="log"/>
-  <Ref id="Logger">
+  <Ref refid="Logger">
     <Set name="debugEnabled">true</Set>
   </Ref>
 </Configure>
@@ -919,13 +919,13 @@ foo.setTest("1, 2, 3");
   <Arg>
     <New class="org.eclipse.jetty.deploy.ContextDeployer">
       <!== pass in the ContextHandlerCollection object ("Contexts") that was created earlier, as an argument ->
-      <Set name="contexts"><Ref id="Contexts"/></Set>
+      <Set name="contexts"><Ref refid="Contexts"/></Set>
     </New>
   </Arg>
 </Call>
  
 <!== configure the RequestLogHandler object ("RequestLog") that we created earlier ->
-<Ref id="RequestLog">
+<Ref refid="RequestLog">
   ....
 </Ref>
 ]]>

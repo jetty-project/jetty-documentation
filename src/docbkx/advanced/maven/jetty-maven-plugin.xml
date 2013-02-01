@@ -1389,7 +1389,7 @@ WebAppY:
     <informalexample>
       <programlisting language="xml"><![CDATA[
 
-<Ref id="Contexts">
+<Ref refid="Contexts">
   <Call name="addHandler">
     <Arg>
       <New class="org.eclipse.jetty.webapp.WebAppContext">

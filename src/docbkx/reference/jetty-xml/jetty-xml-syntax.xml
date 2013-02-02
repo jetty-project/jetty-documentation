@@ -261,7 +261,7 @@ server.setPort(8080);          ]]></programlisting>
 
         <informalexample>
           <programlisting language="xml"><![CDATA[<Configure id="Server" class="org.eclipse.jetty.server.Server">
-  <!== basic configuration here ->
+  <!-- basic configuration here -->
 </Configure>          ]]></programlisting>
         </informalexample>
 
@@ -269,7 +269,7 @@ server.setPort(8080);          ]]></programlisting>
 
         <informalexample>
           <programlisting language="xml"><![CDATA[<Configure id="Server" class="org.eclipse.jetty.server.Server">
-  <!== assumes that you have the basic server configuration set up; this file only contains additional configuration for logging ->
+  <!-- assumes that you have the basic server configuration set up; this file only contains additional configuration for logging -->
 </Configure>         ]]></programlisting>
         </informalexample>
 
@@ -783,12 +783,12 @@ value text, <Get>, <Call>, <New>, <Ref>, <Array>, <Map>, <SystemProperty>, <Prop
         <title>Basic examples</title>
 
         <informalexample>
-          <programlisting language="xml"><![CDATA[<Arg>foo</Arg> <!== String ->
-<Arg>true</Arg> <!== Boolean ->
-<Arg>1</Arg> <!== int, long, short, float, double ->
-<Arg><Ref refid="foo" /></Arg>  <!== any object; reference a previously created object with id "foo", and pass it as a parameter ->
-<Arg></Arg> <!== null value ->
-<Arg type="String"></Arg> <!== empty string "" ->          ]]></programlisting>
+          <programlisting language="xml"><![CDATA[<Arg>foo</Arg> <!-- String -->
+<Arg>true</Arg> <!-- Boolean -->
+<Arg>1</Arg> <!-- int, long, short, float, double -->
+<Arg><Ref refid="foo" /></Arg>  <!-- any object; reference a previously created object with id "foo", and pass it as a parameter -->
+<Arg></Arg> <!-- null value -->
+<Arg type="String"></Arg> <!-- empty string "" ->          ]]></programlisting>
         </informalexample>
       </section>
 
@@ -1065,14 +1065,14 @@ foo.setTest("1, 2, 3");            ]]></programlisting>
         equivalent:</para>
 
         <informalexample>
-          <programlisting language="xml"><![CDATA[<!== using Ref in conjunction with Get ->
+          <programlisting language="xml"><![CDATA[<!-- using Ref in conjunction with Get -->
 <Configure id="Server" class="org.eclipse.jetty.server.Server">
   <Get id="Logger" class="org.eclipse.jetty.util.log.Log" name="log"/>
   <Ref refid="Logger">
     <Set name="debugEnabled">true</Set>
   </Ref>
 </Configure>
-<!== calling the setter directly on the object returned by Get ->
+<!-- calling the setter directly on the object returned by Get -->
 <Configure id="Server" class="org.eclipse.jetty.server.Server">
   <Get class="org.eclipse.jetty.util.log.Log" name="log">
     <Set name="debugEnabled">true</Set>
@@ -1089,14 +1089,14 @@ foo.setTest("1, 2, 3");            ]]></programlisting>
     <Set name="handlers">
       <Array type="org.eclipse.jetty.server.Handler">
         <Item>
-          <!== create a new instance of a ContextHandlerCollection named "Contexts" ->
+          <!-- create a new instance of a ContextHandlerCollection named "Contexts" -->
           <New id="Contexts" class="org.eclipse.jetty.server.handler.ContextHandlerCollection"/>
         </Item>
         <Item>
           <New id="DefaultHandler" class="org.eclipse.jetty.server.handler.DefaultHandler"/>
         </Item>
         <Item>
-          <!== create a new instance of a RequestLogHandler named "RequestLog"->
+          <!-- create a new instance of a RequestLogHandler named "RequestLog" -->
           <New id="RequestLog" class="org.eclipse.jetty.server.handler.RequestLogHandler"/>
         </Item>
       </Array>
@@ -1107,13 +1107,13 @@ foo.setTest("1, 2, 3");            ]]></programlisting>
 <Call name="addBean">
   <Arg>
     <New class="org.eclipse.jetty.deploy.ContextDeployer">
-      <!== pass in the ContextHandlerCollection object ("Contexts") that was created earlier, as an argument ->
+      <!-- pass in the ContextHandlerCollection object ("Contexts") that was created earlier, as an argument -->
       <Set name="contexts"><Ref refid="Contexts"/></Set>
     </New>
   </Arg>
 </Call>
  
-<!== configure the RequestLogHandler object ("RequestLog") that we created earlier ->
+<!-- configure the RequestLogHandler object ("RequestLog") that we created earlier -->
 <Ref refid="RequestLog">
   ....
 </Ref>            ]]></programlisting>

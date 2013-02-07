@@ -84,6 +84,10 @@ h3.author {
   display: inline-block;
 }
 
+code { 
+  font-size: 10pt; 
+}
+
 .caption p {
  margin: 0;
  text-align: right;

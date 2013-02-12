@@ -19,8 +19,15 @@
 <chapter xml:id="jndi" version="5.0" xmlns="http://docbook.org/ns/docbook"
 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xl="http://www.w3.org/1999/xlink"
 xmlns:xi="http://www.w3.org/2001/XInclude"
-xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd" status="draft">
-  <title>JNDI</title>
-  <xi:include href="configuring-jndi.xml" />
-  <xi:include href="configuring-jndi-datasource.xml" />
+xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd">
+  <title>Configuring JNDI</title>
+
+  <para>Jetty supports <code>java:comp/env</code> lookups in web apps. This is
+  an optional feature for which you need to do some setup. </para>
+
+  <xi:include href="quick-jndi-setup.xml"/>
+  <xi:include href="detailed-jndi-setup.xml"/>
+  <xi:include href="using-jndi.xml"/>
+  <xi:include href="jndi-configuration.xml" />
+  <xi:include href="jndi-datasources.xml" />
 </chapter>

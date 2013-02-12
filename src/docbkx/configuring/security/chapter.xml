@@ -27,4 +27,5 @@ xmlns:ns="http://docbook.org/ns/docbook">
   <xi:include href="authorization.xml" />
   <xi:include href="configuring-form-size.xml" />
   <xi:include href="serving-aliased-files.xml" />
+  <xi:include href="secure-passwords.xml"/>
 </chapter>

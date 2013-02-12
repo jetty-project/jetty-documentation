@@ -20,10 +20,10 @@
 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xl="http://www.w3.org/1999/xlink"
 xmlns:xi="http://www.w3.org/2001/XInclude"
 xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd">
-  <title>JNDI Datasource Examples</title>
+  <title>Datasource Examples</title>
   <para>Here are examples of configuring a JNDI datasource for various databases.</para>
   <note>
-    <para>Read <xref linkend="configuring-datasources" /> in <xref linkend="configuring-jndi" /> for more information
+    <para>Read <xref linkend="configuring-datasources" /> in <xref linkend="jndi-configuration"/> for more information
     about configuring datasources.</para>
   </note>
   <para>All of these examples correspond to a <code>resource-ref</code> in <filename>web.xml</filename>.</para>
@@ -39,19 +39,30 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
 ]]>
     </programlisting>
   </informalexample>
-  <para>These examples assume that all of the datasources are declared at the JVM scope, but you can, of course, use
-  other scopes. You can configure all JNDI resources in a <filename>jetty.xml</filename> file or in a <filename>
-  WEB-INF/jetty-env.xml</filename> file, or a context XML file.</para>
+  <para>These examples assume that all of the datasources are declared at the JVM scope, but you can use
+  other scopes if desired. You can configure all JNDI resources in a <filename>jetty.xml</filename> file or in a <filename>
+  WEB-INF/jetty-env.xml</filename> file, or a context XML file.  See the section <xref linkend="jndi-where-to-declare"/> for more information.</para>
   <important>
     <para>You must provide jetty with the libraries necessary to instantiate the datasource you have configured by
-    putting the corresponding jar in jetty_home/lib/ext.</para>
+    putting the corresponding jar in <filename>JETTY_HOME/lib/ext</filename>.</para>
   </important>
   <section xml:id="pooling-datasources">
     <title>Pooling DataSources</title>
     <para>Pooling datasources enables connection pooling, which lets you reuse an existing connection instead of
     creating a new connection to the database. This is highly efficient in terms of memory allocation and speed of the
     request to the database. We highly recommend this option for production environments.</para>
-    <section xml:id="bonecp">
+    <para>The following is a list of the pooled datasource examples we have worked with in the past:</para>
+    <itemizedlist>
+      <listitem><para><xref linkend="bonecp-datasource"/></para></listitem>
+      <listitem><para><xref linkend="c3p0-datasource"/></para></listitem>
+      <listitem><para><xref linkend="dbcp-datasource"/></para></listitem>
+      <listitem><para><xref linkend="atomikos-datasource"/></para></listitem>
+      <listitem><para><xref linkend="mysql-pooled-datasource"/></para></listitem>
+      <listitem><para><xref linkend="postgreSQL-pooled-datasource"/></para></listitem>
+      <listitem><para><xref linkend="DB2-pooled-datasource"/></para></listitem>
+    </itemizedlist>
+
+    <section xml:id="bonecp-datasource">
       <title>BoneCP</title>
       <para>Connection pooling, available at <link
       xl:href="http://jolbox.com/index.html?page=http://jolbox.com/download.html">BoneCP Download</link>. All
@@ -81,7 +92,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
         </programlisting>
       </informalexample>
     </section>
-    <section xml:id="c3p0">
+    <section xml:id="c3p0-datasource">
       <title>c3p0</title>
       <para>Connection pooling, available at <link
       xl:href="http://repo1.maven.org/maven2/c3p0/c3p0/0.9.1.2/c3p0-0.9.1.2.jar">c3p0 Jar</link>.</para>
@@ -104,7 +115,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
         </programlisting>
       </informalexample>
     </section>
-    <section xml:id="dbcp">
+    <section xml:id="dbcp-datasource">
       <title>dbcp</title>
       <para>Connection pooling, available at <link
       xl:href="http://repo1.maven.org/maven2/commons-dbcp/commons-dbcp/1.2/commons-dbcp-1.2.jar">dbcp
@@ -128,7 +139,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
         </programlisting>
       </informalexample>
     </section>
-    <section xml:id="atomikos">
+    <section xml:id="atomikos-datasource">
       <title>Atomikos 3.3.2+</title>
       <para>Connection pooling + XA transactions.</para>
       <informalexample>
@@ -164,11 +175,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
         </programlisting>
       </informalexample>
     </section>
-  </section>
-  <section xml:id="non-pooling-datasources">
-    <title>Non-pooling DataSources</title>
-    <para>If you are deploying in a production environment, use the Pooling DataSources instead.</para>
-    <section xml:id="mysql">
+    <section xml:id="mysql-pooled-datasource">
       <title>MySQL</title>
       <para>Implements javax.sql.DataSource, javax.sql.ConnectionPoolDataSource.</para>
       <informalexample>
@@ -189,7 +196,67 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
         </programlisting>
       </informalexample>
     </section>
-    <section xml:id="sql-server-2000">
+    <section xml:id="postgreSQL-pooled-datasource">
+      <title>PostgreSQL</title>
+      <para>Implements javax.sql.ConnectionPoolDataSource</para>
+      <informalexample>
+        <programlisting language="xml">
+<![CDATA[
+  <New id="DSTest" class="org.eclipse.jetty.plus.jndi.Resource">
+     <Arg></Arg>
+     <Arg>jdbc/DSTest</Arg>
+     <Arg>
+        <New class="org.postgresql.ds.PGConnectionPoolDataSource">
+           <Set name="User">user</Set>
+           <Set name="Password">pass</Set>
+           <Set name="DatabaseName">dbname</Set>
+           <Set name="ServerName">localhost</Set>
+           <Set name="PortNumber">5432</Set>
+ 
+        </New>
+     </Arg>
+  </New>
+]]>
+        </programlisting>
+      </informalexample>
+    </section>
+    <section xml:id="DB2-pooled-datasource">
+      <title>DB2</title>
+      <para>Implements javax.sql.ConnectionPoolDataSource</para>
+      <informalexample>
+        <programlisting language="xml">
+<![CDATA[
+  <New id="DSTest" class="org.eclipse.jetty.plus.jndi.Resource">
+     <Arg></Arg>
+     <Arg>jdbc/DSTest</Arg>
+     <Arg>
+        <New class="com.ibm.db2.jcc.DB2ConnectionPoolDataSource">
+           <Set name="DatabaseName">dbname</Set>
+           <Set name="User">user</Set>
+           <Set name="Password">pass</Set>
+           <Set name="ServerName">servername</Set>
+           <Set name="PortNumber">50000</Set>
+        </New>
+     </Arg>
+  </New>
+]]>
+        </programlisting>
+      </informalexample>
+    </section>
+  </section>
+  <section xml:id="non-pooling-datasources">
+    <title>Non-pooling DataSources</title>
+    <para>If you are deploying in a production environment, we highly recommend using a Pooling DataSource instead.  However since that is not always an option we have a handful of examples for non-pooling datasources listed here as well.</para>
+    <para>The following is a list of the non-pooled datasource examples:</para>
+    <itemizedlist>
+      <listitem><para><xref linkend="sql-server-2000-datasource"/></para></listitem>
+      <listitem><para><xref linkend="oracle-9i10g-datasource"/></para></listitem>
+      <listitem><para><xref linkend="postgreSQL-datasource"/></para></listitem>
+      <listitem><para><xref linkend="sybase-datasource"/></para></listitem>
+      <listitem><para><xref linkend="DB2-datasource"/></para></listitem>
+    </itemizedlist>
+
+    <section xml:id="sql-server-2000-datasource">
       <title>SQL Server 2000</title>
       <para>Implements javax.sql.DataSource, javax.sql.ConnectionPoolDataSource.</para>
       <informalexample>
@@ -212,12 +279,12 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
         </programlisting>
       </informalexample>
     </section>
-    <section xml:id="oracle-9i10g">
+    <section xml:id="oracle-9i10g-datasource">
     <title>Oracle 9i/10g</title>
     <para>Implements javax.sql.DataSource, javax.sql.ConnectionPoolDataSource.</para>
     <informalexample>
       <programlisting language="xml">
-<![CDATA[> 
+<![CDATA[
   <New id="DSTest" class="org.eclipse.jetty.plus.jndi.Resource">
     <Arg></Arg>
     <Arg>jdbc/DSTest</Arg>
@@ -246,12 +313,12 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     <para>For more information, refer to:</para><link
     xl:href="http://docs.oracle.com/cd/B14117_01/java.101/b10979/conncache.htm">Oracle Database JDBC
     documentation</link>.</section>
-    <section xml:id="postgreSQL">
+    <section xml:id="postgreSQL-datasource">
       <title>PostgreSQL</title>
       <para>Implements javax.sql.DataSource.</para>
       <informalexample>
         <programlisting language="xml">
-<![CDATA[> 
+<![CDATA[
   <New id="DSTest" class="org.eclipse.jetty.plus.jndi.Resource">
      <Arg></Arg>
      <Arg>jdbc/DSTest</Arg>
@@ -268,34 +335,13 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
 ]]>
         </programlisting>
       </informalexample>
-      <para>Implements javax.sql.ConnectionPoolDataSource.</para>
-      <informalexample>
-        <programlisting language="xml">
-<![CDATA[> 
-  <New id="DSTest" class="org.eclipse.jetty.plus.jndi.Resource">
-     <Arg></Arg>
-     <Arg>jdbc/DSTest</Arg>
-     <Arg>
-        <New class="org.postgresql.ds.PGConnectionPoolDataSource">
-           <Set name="User">user</Set>
-           <Set name="Password">pass</Set>
-           <Set name="DatabaseName">dbname</Set>
-           <Set name="ServerName">localhost</Set>
-           <Set name="PortNumber">5432</Set>
- 
-        </New>
-     </Arg>
-  </New>
-]]>
-        </programlisting>
-      </informalexample>
     </section>
-    <section xml:id="sybase">
+    <section xml:id="sybase-datasource">
       <title>Sybase</title>
       <para>Implements javax.sql.DataSource.</para>
       <informalexample>
         <programlisting language="xml">
-<![CDATA[> 
+<![CDATA[
   <New id="DSTest" class="org.eclipse.jetty.plus.jndi.Resource">
      <Arg></Arg>
      <Arg>jdbc/DSTest</Arg>
@@ -313,36 +359,17 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
         </programlisting>
       </informalexample>
     </section>
-    <section xml:id="DB2">
+    <section xml:id="DB2-datasource">
+      <title>DB2</title>
       <para>Implements javax.sql.DataSource.</para>
       <informalexample>
         <programlisting language="xml">
-<![CDATA[> 
+<![CDATA[
   <New id="DSTest" class="org.eclipse.jetty.plus.jndi.Resource">
      <Arg></Arg>
      <Arg>jdbc/DSTest</Arg>
      <Arg>
         <New class="com.ibm.db2.jcc.DB2SimpleDataSource">
-           <Set name="DatabaseName">dbname</Set>
-           <Set name="User">user</Set>
-           <Set name="Password">pass</Set>
-           <Set name="ServerName">servername</Set>
-           <Set name="PortNumber">50000</Set>
-        </New>
-     </Arg>
-  </New>
-]]>
-        </programlisting>
-      </informalexample>
-      <para>Implements javax.sql.ConnectionPoolDataSource.</para>
-      <informalexample>
-        <programlisting language="xml">
-<![CDATA[>
-  <New id="DSTest" class="org.eclipse.jetty.plus.jndi.Resource">
-     <Arg></Arg>
-     <Arg>jdbc/DSTest</Arg>
-     <Arg>
-        <New class="com.ibm.db2.jcc.DB2ConnectionPoolDataSource">
            <Set name="DatabaseName">dbname</Set>
            <Set name="User">user</Set>
            <Set name="Password">pass</Set>

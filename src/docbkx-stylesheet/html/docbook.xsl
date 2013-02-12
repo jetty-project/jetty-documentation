@@ -44,6 +44,10 @@ xmlns:xslthl="http://xslthl.sf.net"
   </xsl:param>
 
   <!--
+  <xsl:param name="variablelist.as.table" select="1"/>
+  -->
+
+  <!--
     Important links:
     - http://www.sagehill.net/docbookxsl/
     - http://docbkx-tools.sourceforge.net/

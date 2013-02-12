@@ -88,6 +88,19 @@ code {
   font-size: 90%; 
 }
 
+div.variablelist dd p {
+  margin: 0px;
+  margin-top: 0px;
+  margin-bottom: 1em;
+  margin-left: 1em;
+}
+
+span.term {
+  font-weight:bold;
+  padding-left:3px; 
+  padding-right:3px;
+}
+
 .caption p {
  margin: 0;
  text-align: right;

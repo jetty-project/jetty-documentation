@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+//  ========================================================================
+//  Copyright (c) 1995-2012 Mort Bay Consulting Pty. Ltd.
+//  ========================================================================
+//  All rights reserved. This program and the accompanying materials
+//  are made available under the terms of the Eclipse Public License v1.0
+//  and Apache License v2.0 which accompanies this distribution.
+//
+//      The Eclipse Public License is available at
+//      http://www.eclipse.org/legal/epl-v10.html
+//
+//      The Apache License v2.0 is available at
+//      http://www.opensource.org/licenses/apache2.0.php
+//
+//  You may elect to redistribute this code under either of these licenses.
+//  ========================================================================
+-->
+<section xml:id="spdy-configuring" version="5.0" xmlns="http://docbook.org/ns/docbook"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xl="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude"
+         xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd">
+
+    <title>Configuring SPDY</title>
+
+    <para>The
+    <filename>spdy-jetty-http</filename>
+    module provides an out-of-the-box server connector that performs the SPDY to HTTP conversion and vice versa (HTTP
+    over SPDY). You can use this connector instead of Jetty's SslSelectChannelConnector (that only speaks HTTP), and it
+    falls back to HTTPS if SPDY is not negotiated.</para>
+
+    <para>An example <filename>jetty-spdy.xml</filename> file that you can use instead of jetty-ssl.xml follows:</para>
+
+    <informalexample>
+        <programlisting language="xml">
+            <![CDATA[
+    <?xml version="1.0" encoding="UTF-8"?>
+    <!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure.dtd">
+
+    <Configure id="Server" class="org.eclipse.jetty.server.Server">
+
+        <New id="sslContextFactory" class="org.eclipse.jetty.util.ssl.SslContextFactory">
+            <Set name="keyStorePath">your_keystore.jks</Set>
+            <Set name="keyStorePassword">storepwd</Set>
+            <Set name="includeProtocols">TLSv1</Set>
+        </New>
+
+        <Call name="addConnector">
+            <Arg>
+                <New class="org.eclipse.jetty.spdy.http.HTTPSPDYServerConnector">
+                    <Arg>
+                        <Ref id="sslContextFactory"/>
+                    </Arg>
+                    <Set name="Port">8443</Set>
+                </New>
+            </Arg>
+        </Call>
+
+    </Configure>
+  ]]>
+        </programlisting>
+    </informalexample>
+
+    <para>This is sufficient to enable your Jetty server to speak SPDY to browsers that support it. Old
+        browsers or browsers that don't support SPDY yet will speak plain HTTP on the same connector.</para>
+
+    <para>Remember, however, that SPDY over SSL (as set up like the configuration above) requires that you set up NPN
+    correctly; in particular, you need to start the JVM with the NPN boot jar in the boot classpath (follow the
+    instructions at the NPN documentation page).</para>
+
+    <para>Additionally, NPN is only supported for the TLS protocol, version 1 or greater; this means that it cannot be used
+    with SSLv2, which implies that you have to configure the SslContextFactory to use TLSv1 or above, since the JDK
+    usually sends a SSLv2 ClientHello message to secure servers. This is done by specifying the "includeProtocols"
+    property to contain at least the value "TLSv1" (see above).</para>
+
+</section>

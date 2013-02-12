@@ -122,6 +122,8 @@ xmlns:ns="http://docbook.org/ns/docbook">
             as a specific section and give it justice
            -->
     <xi:include href="advanced/jmx/chapter.xml" />
+<!-- SPDY -->
+    <xi:include href="advanced/spdy/chapter.xml" />
 <!-- Information about the start.jar -->
     <xi:include href="advanced/jetty-start/chapter.xml" />
 <!-- 

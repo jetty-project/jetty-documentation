@@ -24,7 +24,7 @@
 
     <warning>
         <para>
-            To have SPDY working in Jetty you need to add NPN to the boot classpath.
+            To have SPDY working in Jetty you need to add <link linkend="npn">NPN</link> to the boot classpath.
         </para>
     </warning>
 

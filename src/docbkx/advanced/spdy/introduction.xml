@@ -22,11 +22,9 @@
          xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd">
     <title>SPDY Introduction</title>
 
-    <warning>
-        <para>
+    <important>
             To have SPDY working in Jetty you need to add <link linkend="npn">NPN</link> to the boot classpath.
-        </para>
-    </warning>
+    </important>
 
     <para>Jetty supports both a client and a server implementation for the
         <link xl:href="http://www.chromium.org/spdy">SPDY</link>

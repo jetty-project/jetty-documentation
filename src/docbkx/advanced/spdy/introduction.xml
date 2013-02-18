@@ -22,6 +22,12 @@
          xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd">
     <title>SPDY Introduction</title>
 
+    <warning>
+        <para>
+            To have SPDY working in Jetty you need to add NPN to the boot classpath.
+        </para>
+    </warning>
+
     <para>Jetty supports both a client and a server implementation for the
         <link xl:href="http://www.chromium.org/spdy">SPDY</link>
         protocol, beginning with versions 7.6.2 and 8.1.2. As Jetty 7 and 8 are now feature freezed, we'd recommend
@@ -58,7 +64,9 @@
             <listitem>
                 <para>
                     <filename>spdy-jetty</filename>
-                    module – binds the <filename>spdy-core</filename> module to Jetty's NIO framework to provide
+                    module – binds the
+                    <filename>spdy-core</filename>
+                    module to Jetty's NIO framework to provide
                     asynchronous socket I/O. This module uses Jetty internals, but Java SPDY client applications can
                     also use it to
                     communicate with a SPDY server.
@@ -75,8 +83,11 @@
                 </para>
             </listitem>
             <listitem>
-                <para><filename>spdy-jetty-http-webapp</filename> module – provides a demo application for the a
-                        <filename>spdy-jetty-http</filename> module.
+                <para>
+                    <filename>spdy-jetty-http-webapp</filename>
+                    module – provides a demo application for the a
+                    <filename>spdy-jetty-http</filename>
+                    module.
                 </para>
             </listitem>
         </orderedlist>

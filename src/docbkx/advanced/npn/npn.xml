@@ -32,7 +32,7 @@
 
         <para>
             NPN currently negotiates using SPDY as an application level protocol on port 443, and also negotiates the
-            SPDY version. However, NPN is not SPDY specific in any way. Jetty's NPN implementation, although hosted
+            SPDY version. However, NPN is not SPDY-specific in any way. Jetty's NPN implementation, although hosted
             under the umbrella of the Jetty project, is independent of Jetty (the servlet container); you can use it in
             any other Java network server.
         </para>
@@ -54,12 +54,12 @@
         <para>
             where
             <filename>path_to_npn_boot_jar</filename>
-            is the path on the file system for the NPN Boot jar file,
+            is the path on the file system for the NPN Boot Jar file,
             for example, one at the Maven coordinates org.mortbay.jetty.npn:npn-boot.
         </para>
 
         <para>
-            (Note that the current versions of the npn packages no longer align with Jetty versions. Look at the dates
+            (Be aware that the current versions of the npn packages no longer align with Jetty versions. Look at the dates
             in those file paths before looking at the version number.)
         </para>
 
@@ -77,14 +77,14 @@
         <para>
             To implement this interaction, Jetty's NPN implementation provides an API to applications, hosted at Maven
             coordinates org.eclipse.jetty.npn:npn-api. You need to declare this dependency as provided, because the
-            npn-boot jar already includes it (see the previous section), and it is therefore available in the boot
+            npn-boot Jar already includes it (see the previous section), and it is therefore available in the boot
             classpath.
         </para>
 
         <para>
-            The API consists of a single class, org.eclipse.jetty.npn.NextProtoNego, and applications need to register
+            The API consists of a single class, <code>org.eclipse.jetty.npn.NextProtoNego</code>, and applications need to register
             instances of SSLSocket or SSLEngine with a ClientProvider or ServerProvider (depending on whether the
-            application is a client or server application). Refer to NextProtoNego javadocs and to the examples below
+            application is a client or server application). Refer to NextProtoNego Javadocs and to the examples below
             for further details about client and server provider methods.
         </para>
     </section>
@@ -125,8 +125,8 @@
         </example>
 
         <para>
-            The NPN implementation calls NextProtoNego.ClientProvider methods supports(), unsupported() and
-            selectProtocol(List&lt;String&gt;), so that the client application can decide:
+            The NPN implementation calls <code>NextProtoNego.ClientProvider</code> methods <code>supports(), unsupported()</code> and
+            <code>selectProtocol(List&lt;String&gt;)</code>, so that the client application can decide:
         </para>
 
         <itemizedlist>
@@ -144,16 +144,15 @@
 
     <section xml:id="server-example">
         <title>
-            Client Example
+            Server Example
         </title>
 
         <para>
             The example for SSLEngine is identical, and you just need to replace the SSLSocket instance with an
-            SSLEngine
-            instance.
+            SSLEngine instance.
         </para>
 
-        <example title="client example">
+        <example title="server example">
             <programlisting language="java"><![CDATA[
                 SSLSocket sslSocket = ...;
                 NextProtoNego.put(sslSocket, new NextProtoNego.ServerProvider()
@@ -204,18 +203,18 @@
 
         <para>
             It is common that the NextProtoNego.ServerProvider (and the NextProtoNego.ClientProvider) are implemented as
-            (anonymous) inner classes, and that their method's implementations require references to the the sslSocket
+            (anonymous) inner classes, and that their methods' implementations require references to the the sslSocket
             (or sslEngine), either directly or indirectly.
         </para>
 
         <para>
             Since the NextProtoNego class holds [sslSocket/sslEngine, provider] pairs in a WeakHashMap, if the value
-            (i.e. the provider implementation) holds a strong (even indirect) reference to the key, then the WeakHashMap
-            entries will never be removed, leading to a memory leak.
+            (that is, the provider implementation) holds a strong (even indirect) reference to the key, then the WeakHashMap
+            entries are never removed, leading to a memory leak.
         </para>
 
         <para>
-            For example in Jetty the implementation of NextProtoNego.ServerProvider requires a reference to a
+            For example, in Jetty the implementation of NextProtoNego.ServerProvider requires a reference to an
             org.eclipse.jetty.io.nio.SslConnection that in turn holds a reference to the sslEngine. Therefore the
             NextProtoNego.ServerProvider implementation does not use the SslConnection directly, but instead via an
             AtomicReference that is cleared upon connection close.
@@ -224,7 +223,7 @@
         <para>
             Note that declaring the SslConnection as a final local variable and referencing it from within the anonymous
             NextProtoNego.ServerProvider class generates a hidden field in the anonymous inner class, causing the memory
-            leak, so it must be avoided.
+            leak, so you must avoid doing so.
         </para>
     </section>
 
@@ -277,7 +276,7 @@
 
         <para>You can enable debug logging for the NPN implementation in this way:</para>
 
-        <filename>NextProtoNego.debug = true;</filename>
+        <code>NextProtoNego.debug = true;</code>
 
         <para>Since the NextProtoNego class is in the boot classpath, we chose not to use logging libraries because we
             do not want to override application logging library choices; therefore the logging is performed directly on
@@ -292,7 +291,7 @@
         </title>
 
         <para>The NPN implementation relies on modification of a few OpenJDK classes and on a few new classes that need
-            to live in the sun.security.ssl package. These classes are released under the same GPLv2+exception license
+            to live in the <filename>sun.security.ssl</filename> package. These classes are released under the same GPLv2+exception license
             of OpenJDK.
         </para>
 

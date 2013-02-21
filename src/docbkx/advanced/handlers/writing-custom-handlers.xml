@@ -16,152 +16,255 @@
 //  You may elect to redistribute this code under either of these licenses.
 //  ========================================================================
 -->
-<section xml:id="writing-custom-handlers" version="5.0" xmlns="http://docbook.org/ns/docbook"
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xl="http://www.w3.org/1999/xlink"
-xmlns:xi="http://www.w3.org/2001/XInclude"
-xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd">
+<section version="5.0"
+         xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd"
+         xml:id="writing-custom-handlers"
+         xmlns="http://docbook.org/ns/docbook"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:xs="http://www.w3.org/2001/XMLSchema"
+         xmlns:xl="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:ns="http://docbook.org/ns/docbook">
   <title>Writing Custom Handlers</title>
-  <para>The Handler is the Jetty component that deals with received requests.</para>
-  <para>Many users of Jetty never need to write a Jetty Handler, but instead use the <link
+
+  <para>The Handler is the Jetty component that deals with received
+  requests.</para>
+
+  <para>Many users of Jetty never need to write a Jetty Handler, but instead
+  use the <link
   xl:href="http://download.eclipse.org/jetty/stable-7/xref/org/eclipse/jetty/servlet/package-summary.html">Servlet
-  API.</link> You can reuse the existing Jetty handlers for context, security, sessions and servlets without the need
-  for extension. However, some users might have special requirements or footprint concerns that prohibit the use of the
-  full servlet API. For them implementing a Jetty handler is a straight forward way to provide dynamic web content with
-  a minimum of fuss.</para>
-  <para>See <xref linkend="basic-architecture" /> to understand more about Handlers vs. Servlets.</para>
+  API.</link> You can reuse the existing Jetty handlers for context, security,
+  sessions and servlets without the need for extension. However, some users
+  might have special requirements or footprint concerns that prohibit the use
+  of the full servlet API. For them implementing a Jetty handler is a straight
+  forward way to provide dynamic web content with a minimum of fuss.</para>
+
+  <para>See <xref linkend="basic-architecture"/> to understand more about
+  Handlers vs. Servlets.</para>
+
   <section xml:id="handler-api">
-  <title>The Handler API</title>
-  <para>The <link xl:href="@JDURL@/org/eclipse/jetty/server/Handler.html">Handler</link> interface provides Jetty's
-  core of content generation or manipulation. Classes that implement this interface are used to coordinate requests,
-  filter requests and generate content.</para>The core API of the Handler interface is: 
-  <informalexample>
-    <programlisting language="java">
-<![CDATA[ 
-public void handle(String target, Request baseRequest, HttpServletRequest request, HttpServletResponse response)
-    throws IOException, ServletException
-]]>
-    </programlisting>
-  </informalexample>
-  <para>An implementation of this method can handle a request, pass the request onto another handler (or servlet), or
-  it can modify and/or wrap the request and then pass it on. This gives three styles of handler:</para>
-  <itemizedlist>
-    <listitem>Coordinating Handlers - Handlers that route requests to other handlers (HandlerCollection,
-    ContextHandlerCollection)</listitem>
-    <listitem>Filtering Handlers - Handlers that augment a request and pass it on to other handlers (HandlerWrapper,
-    ContextHandler, SessionHandler)</listitem>
-    <listitem>Generating Handlers - Handlers that produce content (ResourceHandler and ServletHandler)</listitem>
-  </itemizedlist>
-  <section xml:id="target">
-    <title>The Target</title>
-    <para>The target of a handler is an identifier for the resource that should handle the passed request. This is
-    normally the URI that is parsed from an HTTP Request. However, in two key circumstances the target may differ from
-    the URI of the passed request:</para>
-    <itemizedlist>
-      <listitem>If the request has been dispatched to a named resource, such as a named servlet, the target is the name
-      of that resource.</listitem>
-      <listitem>If the request is being made by a call to <link
-      xl:href="http://download.oracle.com/docs/cd/E17477_01/javaee/5/api/javax/servlet/RequestDispatcher.html">Request
-      Dispatcher</link>, the target is the URI of the included resource and is different to the URI of the actual
-      request.</listitem>
-    </itemizedlist>
-  </section>
-  <section xml:id="request-and-response">
-    <title>The Request and Response</title>
-    <para>The request and response objects used in the signature of the handle method are <link
-    xl:href="http://download.oracle.com/docs/cd/E17477_01/javaee/5/api/javax/servlet/http/HttpServletRequest.html">
-    Servlet Request</link> and <link
-    xl:href="http://download.oracle.com/docs/cd/E17477_01/javaee/5/api/javax/servlet/http/HttpServletResponse.html">
-    Servlet Response</link>. These are the standard APIs and are moderately restricted in what they can do to the
-    request and response. More often than not, access to the Jetty implementations of these classes is required: <link
-    xl:href="@JDURL@/org/eclipse/jetty/server/Request.html">Request</link> and <link
-    xl:href="@JDURL@/org/eclipse/jetty/server/Response.html">Response</link>. However, as the request and response may
-    be wrapped by handlers, filters and servlets, it is not possible to pass the implementation directly. The following
-    mantra retrieves the core implementation objects from under any wrappers:</para>
+    <title>The Handler API</title>
+
+    <para>The <link
+    xl:href="@JDURL@/org/eclipse/jetty/server/Handler.html">Handler</link>
+    interface provides Jetty's core of content generation or manipulation.
+    Classes that implement this interface are used to coordinate requests,
+    filter requests and generate content.</para>
+
+    <para>The core API of the Handler interface is: </para>
+
     <informalexample>
-      <programlisting language="java">
-<![CDATA[ 
-Request base_request = request instanceof Request ? (Request)request : HttpConnection.getCurrentConnection().getRequest();
-Response base_response = response instanceof Response ? (Response)response : HttpConnection.getCurrentConnection().getResponse();
-]]>
-      </programlisting>
+      <programlisting language="java"><![CDATA[public void handle(String target, Request baseRequest, HttpServletRequest request, HttpServletResponse response)
+    throws IOException, ServletException]]></programlisting>
     </informalexample>
-    <para>Notice that if the handler passes the request on to another handler, it should use the request/response
-    objects passed in, and not the base objects. This is to preserve any wrapping done by up stream handlers.</para>
-  </section>
-  <section xml:id="dispatch">
-    <title>The Dispatch</title>
-    <para>The dispatch argument indicates the state of the handling of the call and may be:</para>
+
+    <para>An implementation of this method can handle a request, pass the
+    request onto another handler (or servlet), or it can modify and/or wrap
+    the request and then pass it on. This gives three styles of
+    handler:</para>
+
     <itemizedlist>
-      <listitem>REQUEST == 1 - An original request received from a connector.</listitem>
-      <listitem>FORWARD == 2 - A request being forwarded by a RequestDispatcher.</listitem>
-      <listitem>INCLUDE == 4 - A request being included by a RequestDispatcher.</listitem>
-      <listitem>ERROR == 8 - A request being forwarded to a error handler by the container.</listitem>
+      <listitem>
+        <para>Coordinating Handlers - Handlers that route requests to other
+        handlers (HandlerCollection, ContextHandlerCollection)</para>
+      </listitem>
+
+      <listitem>
+        <para>Filtering Handlers - Handlers that augment a request and pass it
+        on to other handlers (HandlerWrapper, ContextHandler,
+        SessionHandler)</para>
+      </listitem>
+
+      <listitem>
+        <para>Generating Handlers - Handlers that produce content
+        (ResourceHandler and ServletHandler)</para>
+      </listitem>
     </itemizedlist>
-    <para>These mostly have significance for servlet and related handlers. For example, the security handler only
-    applies authentication and authorization to REQUEST dispatches.</para>
-  </section></section>
+
+    <section xml:id="target">
+      <title>The Target</title>
+
+      <para>The target of a handler is an identifier for the resource that
+      should handle the passed request. This is normally the URI that is
+      parsed from an HTTP Request. However, in two key circumstances the
+      target may differ from the URI of the passed request:</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>If the request has been dispatched to a named resource, such
+          as a named servlet, the target is the name of that resource.</para>
+        </listitem>
+
+        <listitem>
+          <para>If the request is being made by a call to <link
+          xl:href="http://download.oracle.com/docs/cd/E17477_01/javaee/5/api/javax/servlet/RequestDispatcher.html">Request
+          Dispatcher</link>, the target is the URI of the included resource
+          and is different to the URI of the actual request.</para>
+        </listitem>
+      </itemizedlist>
+    </section>
+
+    <section xml:id="request-and-response">
+      <title>The Request and Response</title>
+
+      <para>The request and response objects used in the signature of the
+      handle method are <link
+      xl:href="http://download.oracle.com/docs/cd/E17477_01/javaee/5/api/javax/servlet/http/HttpServletRequest.html">
+      Servlet Request</link> and <link
+      xl:href="http://download.oracle.com/docs/cd/E17477_01/javaee/5/api/javax/servlet/http/HttpServletResponse.html">
+      Servlet Response</link>. These are the standard APIs and are moderately
+      restricted in what they can do to the request and response. More often
+      than not, access to the Jetty implementations of these classes is
+      required: <link
+      xl:href="@JDURL@/org/eclipse/jetty/server/Request.html">Request</link>
+      and <link
+      xl:href="@JDURL@/org/eclipse/jetty/server/Response.html">Response</link>.
+      However, as the request and response may be wrapped by handlers, filters
+      and servlets, it is not possible to pass the implementation directly.
+      The following mantra retrieves the core implementation objects from
+      under any wrappers:</para>
+
+      <informalexample>
+        <programlisting language="java"><![CDATA[Request base_request = request instanceof Request ? (Request)request : HttpConnection.getCurrentConnection().getRequest();
+Response base_response = response instanceof Response ? (Response)response : HttpConnection.getCurrentConnection().getResponse();]]></programlisting>
+      </informalexample>
+
+      <para>Notice that if the handler passes the request on to another
+      handler, it should use the request/response objects passed in, and not
+      the base objects. This is to preserve any wrapping done by up stream
+      handlers.</para>
+    </section>
+
+    <section xml:id="dispatch">
+      <title>The Dispatch</title>
+
+      <para>The dispatch argument indicates the state of the handling of the
+      call and may be:</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>REQUEST == 1 - An original request received from a
+          connector.</para>
+        </listitem>
+
+        <listitem>
+          <para>FORWARD == 2 - A request being forwarded by a
+          RequestDispatcher.</para>
+        </listitem>
+
+        <listitem>
+          <para>INCLUDE == 4 - A request being included by a
+          RequestDispatcher.</para>
+        </listitem>
+
+        <listitem>
+          <para>ERROR == 8 - A request being forwarded to a error handler by
+          the container.</para>
+        </listitem>
+      </itemizedlist>
+
+      <para>These mostly have significance for servlet and related handlers.
+      For example, the security handler only applies authentication and
+      authorization to REQUEST dispatches.</para>
+    </section>
+  </section>
+
   <section xml:id="handling-requests">
     <title>Handling Requests</title>
+
     <para>A Handler may handle a request by:</para>
+
     <itemizedlist>
       <listitem>
-        <xref linkend="generating-response" />
+        <para><xref linkend="generating-response"/></para>
       </listitem>
+
       <listitem>
-        <xref linkend="filtering-request-or-response" />
+        <para><xref linkend="filtering-request-or-response"/></para>
       </listitem>
+
       <listitem>
-        <xref linkend="passing-request-and-response" />
+        <para><xref linkend="passing-request-and-response"/></para>
       </listitem>
     </itemizedlist>
+
     <section xml:id="generating-response">
       <title>Generating a Response</title>
-      <para>The <link xl:href="@JDURL@/org/eclipse/jetty/embedded/OneHandler.html">OneHandler</link> embedded example
-      shows how a simple handler can generate a response.</para>
-      <para>You can use the normal servlet response API, which will typically set some status, content headers and then
-      write out the content:</para>
+
+      <para>The <link
+      xl:href="@JDURL@/org/eclipse/jetty/embedded/OneHandler.html">OneHandler</link>
+      embedded example shows how a simple handler can generate a
+      response.</para>
+
+      <para>You can use the normal servlet response API, which will typically
+      set some status, content headers and then write out the content:</para>
+
       <informalexample>
-        <programlisting language="java">
-<![CDATA[
- response.setContentType("text/html");
+        <programlisting language="java"><![CDATA[ response.setContentType("text/html");
  response.setStatus(HttpServletResponse.SC_OK);
- response.getWriter().println("<h1>Hello OneHandler</h1>");
-]]>
-        </programlisting>
+ response.getWriter().println("<h1>Hello OneHandler</h1>");]]></programlisting>
       </informalexample>
-      <para>It is also very important that a handler indicate that it has completed handling the request and that the
-      request should not be passed to other handlers:</para>
+
+      <para>It is also very important that a handler indicate that it has
+      completed handling the request and that the request should not be passed
+      to other handlers:</para>
+
       <informalexample>
-        <programlisting language="java">
-<![CDATA[
- Request base_request = (request instanceof Request) ? (Request)request:HttpConnection.getCurrentConnection().getRequest();
+        <programlisting language="java"><![CDATA[ Request base_request = (request instanceof Request) ? (Request)request:HttpConnection.getCurrentConnection().getRequest();
  base_request.setHandled(true);              
-]]>
-        </programlisting>
+]]></programlisting>
       </informalexample>
     </section>
+
     <section xml:id="filtering-request-or-response">
       <title>Filtering the Request and/or Response</title>
-      <para>Once the base request or response object is obtained, you can modify it. Typically you would make
-      modifications to accomplish:</para>
+
+      <para>Once the base request or response object is obtained, you can
+      modify it. Typically you would make modifications to accomplish:</para>
+
       <itemizedlist>
-        <listitem>Breaking the URI into contextPath, servletPath and pathInfo components.</listitem>
-        <listitem>Associating a resource base with a request for static content.</listitem>
-        <listitem>Associating a session with a request.</listitem>
-        <listitem>Associating a security principal with a request.</listitem>
-        <listitem>Changing the URI and paths during a request dispatch forward to another resource.</listitem>
+        <listitem>
+          <para>Breaking the URI into contextPath, servletPath and pathInfo
+          components.</para>
+        </listitem>
+
+        <listitem>
+          <para>Associating a resource base with a request for static
+          content.</para>
+        </listitem>
+
+        <listitem>
+          <para>Associating a session with a request.</para>
+        </listitem>
+
+        <listitem>
+          <para>Associating a security principal with a request.</para>
+        </listitem>
+
+        <listitem>
+          <para>Changing the URI and paths during a request dispatch forward
+          to another resource.</para>
+        </listitem>
       </itemizedlist>
+
       <para>You can also update the context of the request:</para>
+
       <itemizedlist>
-        <listitem>Setting the current threads context classloader.</listitem>
-        <listitem>Setting thread locals to identify the current ServletContext.</listitem>
+        <listitem>
+          <para>Setting the current threads context classloader.</para>
+        </listitem>
+
+        <listitem>
+          <para>Setting thread locals to identify the current
+          ServletContext.</para>
+        </listitem>
       </itemizedlist>
-      <para>Typically Jetty passes a modified request to another handler and undoes modifications in a finally block
-      afterwards:</para>
+
+      <para>Typically Jetty passes a modified request to another handler and
+      undoes modifications in a finally block afterwards:</para>
+
       <informalexample>
-        <programlisting language="java">
-<![CDATA[
- try
+        <programlisting language="java"><![CDATA[ try
  {
     base_request.setSession(a_session);
     next_handler.handle(target,request,response,dispatch);
@@ -169,39 +272,62 @@ Response base_response = response instanceof Response ? (Response)response : Htt
  finally
  {
     base_request.setSession(old_session);
- }
-]]>
-        </programlisting>
+ }]]></programlisting>
       </informalexample>
+
       <para>The classes that implement the <link
-      xl:href="@JDURL@/org/eclipse/jetty/server/handler/HandlerWrapper.html">HandlerWrapper</link> class are typically
-      handler filters of this style.</para>
+      xl:href="@JDURL@/org/eclipse/jetty/server/handler/HandlerWrapper.html">HandlerWrapper</link>
+      class are typically handler filters of this style.</para>
     </section>
+
     <section xml:id="passing-request-and-response">
       <title>Passing the Request and Response to Another Handler</title>
-      <para>A handler might simply inspect the request and use the target, request URI or other information to select
-      another handler to pass the request to. These handlers typically implement the <link
-      xl:href="@JDURL@/org/eclipse/jetty/server/HandlerContainer.html">HandlerContainer</link> interface.</para>
+
+      <para>A handler might simply inspect the request and use the target,
+      request URI or other information to select another handler to pass the
+      request to. These handlers typically implement the <link
+      xl:href="@JDURL@/org/eclipse/jetty/server/HandlerContainer.html">HandlerContainer</link>
+      interface.</para>
+
       <para>Examples include:</para>
+
       <itemizedlist>
-        <listitem><link xl:href="@JDURL@/org/eclipse/jetty/server/handler/HandlerCollection.html">Class Handler
-        Collection</link> - A collection of handlers, where each handler is called regardless of the state of the
-        request. This is typically used to pass a request to a <link
-        xl:href="@JDURL@/org/eclipse/jetty/server/handler/ContextHandlerCollection.html">
-        ContextHandlerCollection,</link> and then the <link
-        xl:href="@JDURL@/org/eclipse/jetty/server/handler/RequestLogHandler.html">RequestLogHandler.</link></listitem>
-        <listitem><link xl:href="@JDURL@/org/eclipse/jetty/server/handler/HandlerList.html">HandlerList</link> - A list
-        of handlers that are called in turn until the request state is set as handled.</listitem>
-        <listitem><link xl:href="@JDURL@/org/eclipse/jetty/server/handler/ContextHandlerCollection.html">
-        ContextHandlerCollection</link> - A collection of Handlers, of which one is selected by best match for the
-        context path.</listitem>
+        <listitem>
+          <para><link
+          xl:href="@JDURL@/org/eclipse/jetty/server/handler/HandlerCollection.html">Class
+          Handler Collection</link> - A collection of handlers, where each
+          handler is called regardless of the state of the request. This is
+          typically used to pass a request to a <link
+          xl:href="@JDURL@/org/eclipse/jetty/server/handler/ContextHandlerCollection.html">ContextHandlerCollection,</link>
+          and then the <link
+          xl:href="@JDURL@/org/eclipse/jetty/server/handler/RequestLogHandler.html">RequestLogHandler.</link></para>
+        </listitem>
+
+        <listitem>
+          <para><link
+          xl:href="@JDURL@/org/eclipse/jetty/server/handler/HandlerList.html">HandlerList</link>
+          - A list of handlers that are called in turn until the request state
+          is set as handled.</para>
+        </listitem>
+
+        <listitem>
+          <para><link
+          xl:href="@JDURL@/org/eclipse/jetty/server/handler/ContextHandlerCollection.html">ContextHandlerCollection</link>
+          - A collection of Handlers, of which one is selected by best match
+          for the context path.</para>
+        </listitem>
       </itemizedlist>
     </section>
   </section>
+
   <section xml:id="more-about-handlers">
     <title>More About Handlers</title>
-    <para>See <link xl:href="http://download.eclipse.org/jetty/stable-7/xref/">Jetty 7 Latest Source XRef</link> and
-    <link xl:href="http://download.eclipse.org/jetty/stable-7/apidocs/">Jetty 7 Latest JavaDoc</link> for detailed
-    information on each Jetty handler.</para>
+
+    <para>See <link
+    xl:href="http://download.eclipse.org/jetty/stable-7/xref/">Jetty 7 Latest
+    Source XRef</link> and <link
+    xl:href="http://download.eclipse.org/jetty/stable-7/apidocs/">Jetty 7
+    Latest JavaDoc</link> for detailed information on each Jetty
+    handler.</para>
   </section>
 </section>

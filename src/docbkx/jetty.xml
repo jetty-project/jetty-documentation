@@ -23,7 +23,7 @@ xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xhtml="http://www.w3.org/1999/x
 xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns2="http://www.w3.org/1998/Math/MathML"
 xmlns:ns="http://docbook.org/ns/docbook">
   <?dbhtml filename="index.html"?>
-  <bookinfo>
+  <info>
     <title>Jetty : The Definitive Reference</title>
     <copyright>
       <year>2012</year>
@@ -52,7 +52,7 @@ xmlns:ns="http://docbook.org/ns/docbook">
       <keyword>java</keyword>
       <keyword>software</keyword>
     </keywordset>
-  </bookinfo>
+  </info>
 <!--
           BASIC: there is a directory called basic, this comprises the basic
                 entry level information for jetty, suitable for someone that is perhaps new

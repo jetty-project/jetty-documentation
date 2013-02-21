@@ -16,87 +16,75 @@
 //  You may elect to redistribute this code under either of these licenses.
 //  ========================================================================
 -->
-<section xml:id="npn" version="5.0" xmlns="http://docbook.org/ns/docbook"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xl="http://www.w3.org/1999/xlink"
+<section version="5.0"
+         xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd"
+         xml:id="npn" xmlns="http://docbook.org/ns/docbook"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:xs="http://www.w3.org/2001/XMLSchema"
+         xmlns:xl="http://www.w3.org/1999/xlink"
          xmlns:xi="http://www.w3.org/2001/XInclude"
-         xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd">
+         xmlns:ns="http://docbook.org/ns/docbook">
+  <section xml:id="npn-introduction">
+    <title>Introduction</title>
 
-    <section xml:id="npn-introduction">
-        <title>Introduction</title>
+    <para>The Jetty project provides an implementation of the Next Protocol
+    Negotiation TLS Extension (NPN) for OpenJDK 7 or greater. NPN allows the
+    application layer to negotiate which protocol to use over the secure
+    connection.</para>
 
-        <para>
-            The Jetty project provides an implementation of the Next Protocol Negotiation TLS Extension (NPN) for
-            OpenJDK 7 or greater. NPN allows the application layer to negotiate which protocol to use over the secure
-            connection.
-        </para>
+    <para>NPN currently negotiates using SPDY as an application level protocol
+    on port 443, and also negotiates the SPDY version. However, NPN is not
+    SPDY-specific in any way. Jetty's NPN implementation, although hosted
+    under the umbrella of the Jetty project, is independent of Jetty (the
+    servlet container); you can use it in any other Java network
+    server.</para>
+  </section>
 
-        <para>
-            NPN currently negotiates using SPDY as an application level protocol on port 443, and also negotiates the
-            SPDY version. However, NPN is not SPDY-specific in any way. Jetty's NPN implementation, although hosted
-            under the umbrella of the Jetty project, is independent of Jetty (the servlet container); you can use it in
-            any other Java network server.
-        </para>
+  <section xml:id="npn-starting">
+    <title>Starting the JVM</title>
 
-    </section>
+    <para>To enable NPN support, you need to start the JVM with:</para>
 
-    <section xml:id="npn-starting">
+    <informalexample>
+      <programlisting><![CDATA[java -Xbootclasspath/p:<path_to_npn_boot_jar> ...            ]]></programlisting>
+    </informalexample>
 
-        <title>Starting the JVM</title>
+    <para>where <filename>path_to_npn_boot_jar</filename> is the path on the
+    file system for the NPN Boot Jar file, for example, one at the Maven
+    coordinates org.mortbay.jetty.npn:npn-boot.</para>
 
-        <para>To enable NPN support, you need to start the JVM with:</para>
+    <para>(Be aware that the current versions of the npn packages no longer
+    align with Jetty versions. Look at the dates in those file paths before
+    looking at the version number.)</para>
+  </section>
 
-        <informalexample>
-            <programlisting><![CDATA[
-                java -Xbootclasspath/p:<path_to_npn_boot_jar> ...
-            ]]></programlisting>
-        </informalexample>
+  <section xml:id="npn-understanding">
+    <title>Understanding the NPN API</title>
 
-        <para>
-            where
-            <filename>path_to_npn_boot_jar</filename>
-            is the path on the file system for the NPN Boot Jar file,
-            for example, one at the Maven coordinates org.mortbay.jetty.npn:npn-boot.
-        </para>
+    <para>Applications need to interact with NPN TLS extension protocol
+    negotiations. For example, server applications need to know whether the
+    client supports NPN, and client applications needs to know the list of
+    protocols the server supports, and so on.</para>
 
-        <para>
-            (Be aware that the current versions of the npn packages no longer align with Jetty versions. Look at the dates
-            in those file paths before looking at the version number.)
-        </para>
+    <para>To implement this interaction, Jetty's NPN implementation provides
+    an API to applications, hosted at Maven coordinates
+    org.eclipse.jetty.npn:npn-api. You need to declare this dependency as
+    provided, because the npn-boot Jar already includes it (see the previous
+    section), and it is therefore available in the boot classpath.</para>
 
-    </section>
+    <para>The API consists of a single class,
+    <code>org.eclipse.jetty.npn.NextProtoNego</code>, and applications need to
+    register instances of SSLSocket or SSLEngine with a ClientProvider or
+    ServerProvider (depending on whether the application is a client or server
+    application). Refer to NextProtoNego Javadocs and to the examples below
+    for further details about client and server provider methods.</para>
+  </section>
 
-    <section xml:id="npn-understanding">
-        <title>Understanding the NPN API</title>
+  <section xml:id="client-example">
+    <title>Client Example</title>
 
-        <para>
-            Applications need to interact with NPN TLS extension protocol negotiations. For example, server applications
-            need to know whether the client supports NPN, and client applications needs to know the list of protocols
-            the server supports, and so on.
-        </para>
-
-        <para>
-            To implement this interaction, Jetty's NPN implementation provides an API to applications, hosted at Maven
-            coordinates org.eclipse.jetty.npn:npn-api. You need to declare this dependency as provided, because the
-            npn-boot Jar already includes it (see the previous section), and it is therefore available in the boot
-            classpath.
-        </para>
-
-        <para>
-            The API consists of a single class, <code>org.eclipse.jetty.npn.NextProtoNego</code>, and applications need to register
-            instances of SSLSocket or SSLEngine with a ClientProvider or ServerProvider (depending on whether the
-            application is a client or server application). Refer to NextProtoNego Javadocs and to the examples below
-            for further details about client and server provider methods.
-        </para>
-    </section>
-
-    <section xml:id="client-example">
-        <title>
-            Client Example
-        </title>
-
-        <example title="client example">
-            <programlisting language="java"><![CDATA[
-                SSLContext sslContext = ...;
+    <example label="Client Example">
+      <programlisting language="java"><![CDATA[                SSLContext sslContext = ...;
                 SSLSocket sslSocket = (SSLSocket)context.getSocketFactory().createSocket("localhost",
                 server.getLocalPort());
 
@@ -120,125 +108,113 @@
                 {
                 return protocols.get(0);
                 }
-                });
-            ]]></programlisting>
-        </example>
+                });]]></programlisting>
+    </example>
 
-        <para>
-            The NPN implementation calls <code>NextProtoNego.ClientProvider</code> methods <code>supports(), unsupported()</code> and
-            <code>selectProtocol(List&lt;String&gt;)</code>, so that the client application can decide:
-        </para>
+    <para>The NPN implementation calls
+    <code>NextProtoNego.ClientProvider</code> methods <code>supports(),
+    unsupported()</code> and <code>selectProtocol(List&lt;String&gt;)</code>,
+    so that the client application can decide:</para>
 
-        <itemizedlist>
-            <listitem>
-                whether to support NPN.
-            </listitem>
-            <listitem>
-                whether the server supports NPN.
-            </listitem>
-            <listitem>
-                to select one of the protocols the server supports.
-            </listitem>
-        </itemizedlist>
-    </section>
+    <itemizedlist>
+      <listitem>
+        <para>whether to support NPN.</para>
+      </listitem>
 
-    <section xml:id="server-example">
-        <title>
-            Server Example
-        </title>
+      <listitem>
+        <para>whether the server supports NPN.</para>
+      </listitem>
 
-        <para>
-            The example for SSLEngine is identical, and you just need to replace the SSLSocket instance with an
-            SSLEngine instance.
-        </para>
+      <listitem>
+        <para>to select one of the protocols the server supports.</para>
+      </listitem>
+    </itemizedlist>
+  </section>
 
-        <example title="server example">
-            <programlisting language="java"><![CDATA[
-                SSLSocket sslSocket = ...;
-                NextProtoNego.put(sslSocket, new NextProtoNego.ServerProvider()
-                {
-                @Override
-                public void unsupported()
-                {
-                }
+  <section xml:id="server-example">
+    <title>Server Example</title>
 
-                @Override
-                public List
-                <String>protocols()
-                {
-                return Arrays.asList("http/1.1");
-                }
+    <para>The example for SSLEngine is identical, and you just need to replace
+    the SSLSocket instance with an SSLEngine instance.</para>
 
-                @Override
-                public void protocolSelected(String protocol)
-                {
-                System.out.println("Protocol Selected is: " + protocol);
-                }
-                });
-            ]]></programlisting>
-        </example>
+    <example label="Server Example">
+      <programlisting language="java"><![CDATA[  SSLSocket sslSocket = ...;
+  NextProtoNego.put(sslSocket, new NextProtoNego.ServerProvider()
+  {
+    @Override
+    public void unsupported()
+    {
+    }
 
-        <para>
-            The NPN implementation calls NextProtoNego.ServerProvider methods unsupported(), protocols() and
-            protocolSelected(String), so that the server application can
-        </para>
+    @Override
+    public List <String>protocols()
+    {
+       return Arrays.asList("http/1.1");
+    }
 
-        <itemizedlist>
-            <listitem>
-                know whether the client supports NPN.
-            </listitem>
-            <listitem>
-                provide the list of protocols the server supports.
-            </listitem>
-            <listitem>
-                know which protocol the client chooses.
-            </listitem>
-        </itemizedlist>
-    </section>
+    @Override
+    public void protocolSelected(String protocol)
+    {
+       System.out.println("Protocol Selected is: " + protocol);
+    }
+});]]></programlisting>
+    </example>
 
-    <section xml:id="npn-implementation">
-        <title>
-            Implementation Details
-        </title>
+    <para>The NPN implementation calls NextProtoNego.ServerProvider methods
+    unsupported(), protocols() and protocolSelected(String), so that the
+    server application can</para>
 
-        <para>
-            It is common that the NextProtoNego.ServerProvider (and the NextProtoNego.ClientProvider) are implemented as
-            (anonymous) inner classes, and that their methods' implementations require references to the the sslSocket
-            (or sslEngine), either directly or indirectly.
-        </para>
+    <itemizedlist>
+      <listitem>
+        <para>know whether the client supports NPN.</para>
+      </listitem>
 
-        <para>
-            Since the NextProtoNego class holds [sslSocket/sslEngine, provider] pairs in a WeakHashMap, if the value
-            (that is, the provider implementation) holds a strong (even indirect) reference to the key, then the WeakHashMap
-            entries are never removed, leading to a memory leak.
-        </para>
+      <listitem>
+        <para>provide the list of protocols the server supports.</para>
+      </listitem>
 
-        <para>
-            For example, in Jetty the implementation of NextProtoNego.ServerProvider requires a reference to an
-            org.eclipse.jetty.io.nio.SslConnection that in turn holds a reference to the sslEngine. Therefore the
-            NextProtoNego.ServerProvider implementation does not use the SslConnection directly, but instead via an
-            AtomicReference that is cleared upon connection close.
-        </para>
+      <listitem>
+        <para>know which protocol the client chooses.</para>
+      </listitem>
+    </itemizedlist>
+  </section>
 
-        <para>
-            Note that declaring the SslConnection as a final local variable and referencing it from within the anonymous
-            NextProtoNego.ServerProvider class generates a hidden field in the anonymous inner class, causing the memory
-            leak, so you must avoid doing so.
-        </para>
-    </section>
+  <section xml:id="npn-implementation">
+    <title>Implementation Details</title>
 
-    <section xml:id="npn-tests">
-        <title>
-            Using Unit Tests
-        </title>
+    <para>It is common that the NextProtoNego.ServerProvider (and the
+    NextProtoNego.ClientProvider) are implemented as (anonymous) inner
+    classes, and that their methods' implementations require references to the
+    the sslSocket (or sslEngine), either directly or indirectly.</para>
 
-        <para>
-            You can write and run unit tests that use the NPN implementation. The solution that we use with Maven is to
-            specify an additional command line argument to the Surefire plugin:
-        </para>
+    <para>Since the NextProtoNego class holds [sslSocket/sslEngine, provider]
+    pairs in a WeakHashMap, if the value (that is, the provider
+    implementation) holds a strong (even indirect) reference to the key, then
+    the WeakHashMap entries are never removed, leading to a memory
+    leak.</para>
 
-        <informalexample>
-            <programlisting language="xml"><![CDATA[
+    <para>For example, in Jetty the implementation of
+    NextProtoNego.ServerProvider requires a reference to an
+    org.eclipse.jetty.io.nio.SslConnection that in turn holds a reference to
+    the sslEngine. Therefore the NextProtoNego.ServerProvider implementation
+    does not use the SslConnection directly, but instead via an
+    AtomicReference that is cleared upon connection close.</para>
+
+    <para>Note that declaring the SslConnection as a final local variable and
+    referencing it from within the anonymous NextProtoNego.ServerProvider
+    class generates a hidden field in the anonymous inner class, causing the
+    memory leak, so you must avoid doing so.</para>
+  </section>
+
+  <section xml:id="npn-tests">
+    <title>Using Unit Tests</title>
+
+    <para>You can write and run unit tests that use the NPN implementation.
+    The solution that we use with Maven is to specify an additional command
+    line argument to the Surefire plugin:</para>
+
+    <informalexample>
+      <programlisting language="xml"><![CDATA[
                 <project ...>
 
                 <properties>
@@ -265,75 +241,78 @@
 
             </project>
             ]]></programlisting>
-        </informalexample>
+    </informalexample>
+  </section>
 
-    </section>
+  <section xml:id="npn-debugging">
+    <title>Debugging</title>
 
-    <section xml:id="npn-debugging">
-        <title>
-            Debugging
-        </title>
+    <para>You can enable debug logging for the NPN implementation in this
+    way:</para>
 
-        <para>You can enable debug logging for the NPN implementation in this way:</para>
+    <screen><![CDATA[NextProtoNego.debug = true;]]></screen>
 
-        <code>NextProtoNego.debug = true;</code>
+    <para>Since the NextProtoNego class is in the boot classpath, we chose not
+    to use logging libraries because we do not want to override application
+    logging library choices; therefore the logging is performed directly on
+    System.err.</para>
+  </section>
 
-        <para>Since the NextProtoNego class is in the boot classpath, we chose not to use logging libraries because we
-            do not want to override application logging library choices; therefore the logging is performed directly on
-            System.err.
-        </para>
+  <section xml:id="npn-license-details">
+    <title>License Details</title>
 
-    </section>
+    <para>The NPN implementation relies on modification of a few OpenJDK
+    classes and on a few new classes that need to live in the
+    <filename>sun.security.ssl</filename> package. These classes are released
+    under the same GPLv2+exception license of OpenJDK.</para>
 
-    <section xml:id="">
-        <title>
-            License Details
-        </title>
+    <para>The NextProtoNego class is released under same license as the
+    classes of the Jetty project.</para>
+  </section>
 
-        <para>The NPN implementation relies on modification of a few OpenJDK classes and on a few new classes that need
-            to live in the <filename>sun.security.ssl</filename> package. These classes are released under the same GPLv2+exception license
-            of OpenJDK.
-        </para>
+  <section>
+    <title>Versions</title>
 
-        <para>The NextProtoNego class is released under same license as the classes of the Jetty project.</para>
-    </section>
-    <section>
-        <title>
-            Versions
-        </title>
+    <para>The NPN implementation, relying on modifications of OpenJDK classes,
+    updates every time there are updates to the modified OpenJDK
+    classes.</para>
 
-        <para>
-            The NPN implementation, relying on modifications of OpenJDK classes, updates every time there are updates to
-            the
-            modified OpenJDK classes.
-        </para>
-    </section>
+    <table frame="all">
+      <title>NPN vs. OpenJDK versions</title>
 
-    <table frame='all'>
-        <title>NPN vs. OpenJDK versions</title>
-        <tgroup cols='2' align='left' colsep='1' rowsep='1'>
-            <colspec colname='npn'/>
-            <colspec colname='openjdk'/>
-            <thead>
-                <row>
-                    <entry>NPN version</entry>
-                    <entry>OpenJDK version</entry>
-                </row>
-            </thead>
-            <tbody>
-                <row>
-                    <entry>1.0.0.v20120402</entry>
-                    <entry>1.7.0 - 1.7.0u2 - 1.7.0u3</entry>
-                </row>
-                <row>
-                    <entry>1.1.0.v20120525</entry>
-                    <entry>1.7.0u4 - 1.7.0u5</entry>
-                </row>
-                <row>
-                    <entry>1.1.1.v20121030</entry>
-                    <entry>1.7.0u6 - 1.7.0u7</entry>
-                </row>
-            </tbody>
-        </tgroup>
+      <tgroup align="left" cols="2" colsep="1" rowsep="1">
+        <colspec colname="npn"/>
+
+        <colspec colname="openjdk"/>
+
+        <thead>
+          <row>
+            <entry>NPN version</entry>
+
+            <entry>OpenJDK version</entry>
+          </row>
+        </thead>
+
+        <tbody>
+          <row>
+            <entry>1.0.0.v20120402</entry>
+
+            <entry>1.7.0 - 1.7.0u2 - 1.7.0u3</entry>
+          </row>
+
+          <row>
+            <entry>1.1.0.v20120525</entry>
+
+            <entry>1.7.0u4 - 1.7.0u5</entry>
+          </row>
+
+          <row>
+            <entry>1.1.1.v20121030</entry>
+
+            <entry>1.7.0u6 - 1.7.0u7</entry>
+          </row>
+        </tbody>
+      </tgroup>
     </table>
+  </section>
 </section>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+//  ========================================================================
+//  Copyright (c) 1995-2012 Mort Bay Consulting Pty. Ltd.
+//  ========================================================================
+//  All rights reserved. This program and the accompanying materials
+//  are made available under the terms of the Eclipse Public License v1.0
+//  and Apache License v2.0 which accompanies this distribution.
+//
+//      The Eclipse Public License is available at
+//      http://www.eclipse.org/legal/epl-v10.html
+//
+//      The Apache License v2.0 is available at
+//      http://www.opensource.org/licenses/apache2.0.php
+//
+//  You may elect to redistribute this code under either of these licenses.
+//  ========================================================================
+-->
+<section version="5.0"
+         xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd"
+         xml:id="limit-load" xmlns="http://docbook.org/ns/docbook"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:xs="http://www.w3.org/2001/XMLSchema"
+         xmlns:xl="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:ns="http://docbook.org/ns/docbook">
+  <title>Limiting Load</title>
+
+  <para>To achieve optimal fair handling for all users of a server, it can be
+  necessary to limit the resources that each user/connection can utilize so as
+  to maximize throughput for the server or to ensure that the entire server
+  runs within the limitations of it's runtime</para>
+
+  <section>
+    <title>Low Resources Monitor</title>
+
+    <para>An instance of <link
+    xl:href="http://download.eclipse.org/jetty/stable-9/apidocs/org/eclipse/jetty/server/LowResourcesMonitor.html">LowResourcesMonitor</link>
+    may be added to a Jetty Server to monitor for low resources situations and
+    to take action to limit the number of idle connections on the server. To
+    configure the low resources monitor, you can uncomment the
+    jetty-lowresources.xml line from the start.ini configuration file, which
+    has the effect of including the following XML configuration:</para>
+
+    <programlisting language="fetch"><filename>http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/plain/jetty-server/src/main/config/etc/jetty-lowresources.xml</filename></programlisting>
+
+    <para>The monitor is configured with a period in milliseconds at which it
+    will scan the server looking for a low resources condition, which may be
+    one of:</para>
+
+    <itemizedlist>
+      <listitem>
+        <para>If monitorThreads is configured as true and a connectors
+        Executor is an instance of <link
+        xl:href="http://download.eclipse.org/jetty/stable-9/apidocs/org/eclipse/jetty/util/thread/ThreadPool.html">ThreadPool</link>,
+        then its isLowOnThreads() method is used to detect low
+        resources.</para>
+      </listitem>
+
+      <listitem>
+        <para>If maxConnections is configured to a number &gt;0 then if the
+        total number of connections from all monitored connectors exceeds this
+        value, then low resources state is entered.</para>
+      </listitem>
+
+      <listitem>
+        <para>If the maxMemory field is configured to a number of bytes &gt;0
+        then if the JVMs total memory minus its idle memory exceeds this
+        value, then low resources state is entered.</para>
+      </listitem>
+    </itemizedlist>
+
+    <para>Once low resoureces state is detected, then the monitor will iterate
+    over all existing connections and set their IdleTimeout to its configured
+    lowResourcesIdleTimeout in milliseconds. This allows the idle time of
+    existing connections to be reduced so that the connection is quickly
+    closed if no further request are received.</para>
+
+    <para>If the low resources state persists longer than the time in
+    milliseconds configured for the maxLowResourcesTime field, the the
+    lowResourcesIdleTimeout is repeatedly applied so that new connections as
+    well as existing connections will be limited.</para>
+  </section>
+
+  <section>
+    <title>Denial Of Service Filter</title>
+
+    <para>TBD (see <link
+    xl:href="http://wiki.eclipse.org/Jetty/Reference/DoSFilter">DoSFilter</link>).</para>
+  </section>
+</section>

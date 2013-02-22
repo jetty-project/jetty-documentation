@@ -16,79 +16,74 @@
 //  You may elect to redistribute this code under either of these licenses.
 //  ========================================================================
 -->
-<section xml:id="spdy-introduction" version="5.0" xmlns="http://docbook.org/ns/docbook"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xl="http://www.w3.org/1999/xlink"
+<section version="5.0"
+         xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd"
+         xml:id="spdy-introduction" xmlns="http://docbook.org/ns/docbook"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:xs="http://www.w3.org/2001/XMLSchema"
+         xmlns:xl="http://www.w3.org/1999/xlink"
          xmlns:xi="http://www.w3.org/2001/XInclude"
-         xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd">
-    <title>SPDY Introduction</title>
+         xmlns:ns="http://docbook.org/ns/docbook">
+  <title>SPDY Introduction</title>
 
-    <important>
-            To have SPDY working in Jetty you need to add <link linkend="npn">NPN</link> to the boot classpath.
-    </important>
+  <important>
+    <para> To have SPDY working in Jetty you need to add <link
+    linkend="npn">NPN</link> to the boot classpath. </para>
+  </important>
 
-    <para>Jetty supports both a client and a server implementation for the
-        <link xl:href="http://www.chromium.org/spdy">SPDY</link>
-        protocol, beginning with versions 7.6.2 and 8.1.2. As Jetty 7 and 8 are now feature freezed, we'd recommend
-        to use Jetty 9 if you intend to use SPDY. Not all features described here might exist in 7/8. To provide the
-        best support possible for SPDY, the Jetty project also provides an implementation for<link
-                xl:href="http://wiki.eclipse.org/Jetty/Feature/NPN">NPN
-        </link>. Both the SPDY and the NPN implementation require OpenJDK1.7 or greater.
-    </para>
+  <para>Jetty supports both a client and a server implementation for the <link
+  xl:href="http://www.chromium.org/spdy">SPDY</link> protocol, beginning with
+  versions 7.6.2 and 8.1.2. As Jetty 7 and 8 are now feature freezed, we'd
+  recommend to use Jetty 9 if you intend to use SPDY. Not all features
+  described here might exist in 7/8. To provide the best support possible for
+  SPDY, the Jetty project also provides an implementation for<link
+  xl:href="http://wiki.eclipse.org/Jetty/Feature/NPN">NPN </link>. Both the
+  SPDY and the NPN implementation require OpenJDK1.7 or greater.</para>
 
-    <para>A server deployed over TLS normally advertises the SPDY protocol, via the Next Protocol Negotiation
-        TLS Extension (NPN).
-    </para>
+  <para>A server deployed over TLS normally advertises the SPDY protocol, via
+  the Next Protocol Negotiation TLS Extension (NPN).</para>
 
-    <para>See a
-        <link xl:href="http://webtide.intalio.com/2012/10/spdy-push-demo-from-javaone-2012/">SPDY Push
-            Demonstration video from Java One 2012.
-        </link>
-    </para>
+  <para>See a <link
+  xl:href="http://webtide.intalio.com/2012/10/spdy-push-demo-from-javaone-2012/">SPDY
+  Push Demonstration video from Java One 2012. </link></para>
 
-    <section xml:id="spdy-modules">
-        <title>Jetty's SPDY modules</title>
+  <section xml:id="spdy-modules">
+    <title>Jetty's SPDY modules</title>
 
-        <para>Jetty's SPDY implementation consists of four modules:</para>
+    <para>Jetty's SPDY implementation consists of four modules:</para>
 
-        <orderedlist>
-            <listitem>
-                <para>
-                    <filename>spdy-core</filename>
-                    – contains the SPDY API and a partial implementation. This module is independent of
-                    Jetty (the servlet container), and you can reuse it with other Java SPDY implementations. One of the
-                    goals of this module is to standardize the SPDY Java API.
-                </para>
-            </listitem>
-            <listitem>
-                <para>
-                    <filename>spdy-jetty</filename>
-                    module – binds the
-                    <filename>spdy-core</filename>
-                    module to Jetty's NIO framework to provide
-                    asynchronous socket I/O. This module uses Jetty internals, but Java SPDY client applications can
-                    also use it to
-                    communicate with a SPDY server.
-                </para>
-            </listitem>
-            <listitem>
-                <para>
-                    <filename>spdy-jetty-http</filename>
-                    module – provides a server-side layering of HTTP over SPDY. This module allows any SPDY compliant
-                    browser, such as Chromium/Chrome, to talk SPDY to a Jetty server that deploys a standard web
-                    application made of servlets, filters and JSPs. This module performs the conversion SPDY to HTTP and
-                    vice versa so that for the web application it is as if a normal HTTP request has arrived, and a
-                    normal HTTP response is returned.
-                </para>
-            </listitem>
-            <listitem>
-                <para>
-                    <filename>spdy-jetty-http-webapp</filename>
-                    module – provides a demo application for the a
-                    <filename>spdy-jetty-http</filename>
-                    module.
-                </para>
-            </listitem>
-        </orderedlist>
-    </section>
+    <orderedlist>
+      <listitem>
+        <para><filename>spdy-core</filename> – contains the SPDY API and a
+        partial implementation. This module is independent of Jetty (the
+        servlet container), and you can reuse it with other Java SPDY
+        implementations. One of the goals of this module is to standardize the
+        SPDY Java API.</para>
+      </listitem>
 
+      <listitem>
+        <para><filename>spdy-jetty</filename> module – binds the
+        <filename>spdy-core</filename> module to Jetty's NIO framework to
+        provide asynchronous socket I/O. This module uses Jetty internals, but
+        Java SPDY client applications can also use it to communicate with a
+        SPDY server.</para>
+      </listitem>
+
+      <listitem>
+        <para><filename>spdy-jetty-http</filename> module – provides a
+        server-side layering of HTTP over SPDY. This module allows any SPDY
+        compliant browser, such as Chromium/Chrome, to talk SPDY to a Jetty
+        server that deploys a standard web application made of servlets,
+        filters and JSPs. This module performs the conversion SPDY to HTTP and
+        vice versa so that for the web application it is as if a normal HTTP
+        request has arrived, and a normal HTTP response is returned.</para>
+      </listitem>
+
+      <listitem>
+        <para><filename>spdy-jetty-http-webapp</filename> module – provides a
+        demo application for the a <filename>spdy-jetty-http</filename>
+        module.</para>
+      </listitem>
+    </orderedlist>
+  </section>
 </section>

@@ -37,7 +37,7 @@
   away.</para>
 
   <important>
-    You need to use Maven 3 for jetty-7.5.3 and later releases.
+    <para> You need to use Maven 3 for jetty-7.5.3 and later releases. </para>
   </important>
 
   <section xml:id="get-up-and-running">
@@ -186,27 +186,17 @@
           There are three other ways to configure the RequestLog:
           <itemizedlist>
               <listitem>
-                In a jetty xml config file, as specified in the 
-
-                <code>jettyXml</code>
-
-                 parameter.
+                <para> In a jetty xml config file, as specified in the
+                <code>jettyXml</code> parameter. </para>
               </listitem>
 
               <listitem>
-                In a context xml config file, as specified in the 
-
-                <code>contextXml</code>
-
-                 parameter.
+                <para> In a context xml config file, as specified in the
+                <code>contextXml</code> parameter. </para>
               </listitem>
 
               <listitem>
-                In the 
-
-                <code>webApp</code>
-
-                 element.
+                <para> In the <code>webApp</code> element. </para>
               </listitem>
             </itemizedlist><parameter>See <link
           linkend="configuring-jetty-request-logs">Configuring Request
@@ -422,23 +412,18 @@
 
     <itemizedlist>
       <listitem>
-        resources in 
-
-        <filename>${basedir}/src/main/webapp</filename>
+        <para> resources in <filename>${basedir}/src/main/webapp</filename>
+        </para>
       </listitem>
 
       <listitem>
-        classes in 
-
-        <filename>${project.build.outputDirectory}</filename>
+        <para> classes in
+        <filename>${project.build.outputDirectory}</filename> </para>
       </listitem>
 
       <listitem>
-        <filename>web.xml</filename>
-
-         in 
-
-        <filename>${basedir}/src/main/webapp/WEB-INF/</filename>
+        <para> <filename>web.xml</filename> in
+        <filename>${basedir}/src/main/webapp/WEB-INF/</filename> </para>
       </listitem>
     </itemizedlist>
 
@@ -963,38 +948,22 @@
 
       <itemizedlist>
         <listitem>
-          Press 
-
-          <code>cntrl-c</code>
-
-           in the terminal window to stop the plugin, which also stops the forked JVM.
+          <para> Press <code>cntrl-c</code> in the terminal window to stop the
+          plugin, which also stops the forked JVM. </para>
         </listitem>
 
         <listitem>
-          Use jetty:stop to stop the forked JVM, which also stops the plugin.
+          <para> Use jetty:stop to stop the forked JVM, which also stops the
+          plugin. </para>
         </listitem>
       </itemizedlist>
 
       <note>
-        If you want to set a custom port, you need to specify it in a 
-
-        <filename>jetty.xml</filename>
-
-         file rather than setting the 
-
-        <connector>
-          <port/>
-        </connector>
-
-        tags. You can specify the location of the 
-
-        <filename>jetty.xml</filename>
-
-         using the 
-
-        <code>jettyXml</code>
-
-         parameter.
+        <para> If you want to set a custom port, you need to specify it in a
+        <filename>jetty.xml</filename> file rather than setting the connector
+        and port tags. You can specify the location of the
+        <filename>jetty.xml</filename> using the <code>jettyXml</code>
+        parameter. </para>
       </note>
     </section>
   </section>
@@ -1013,11 +982,12 @@
     <para>For example, you can configure the plugin to start your webapp at
     the beginning of your unit tests and stop at the end. To do this, you need
     to set up a couple of <code>execution</code> scenarios for the Jetty
-    plugin and use the <code> <daemon>true</daemon> </code> configuration
-    option to force Jetty to execute only while Maven is running, instead of
-    running indefinitely. You use the <code>pre-integration-test</code> and
-    <code>post-integration-test</code> Maven build phases to trigger the
-    execution and termination of Jetty:</para>
+    plugin and use the <code>&lt;daemon&gt;true&lt;/daemon&gt; </code>
+    configuration option to force Jetty to execute only while Maven is
+    running, instead of running indefinitely. You use the
+    <code>pre-integration-test</code> and <code>post-integration-test</code>
+    Maven build phases to trigger the execution and termination of
+    Jetty:</para>
 
     <informalexample>
       <programlisting language="xml"><![CDATA[
@@ -1173,13 +1143,10 @@ WebAppY:
  /WEB-INF/special.xml
         
         ]]></programlisting>
-        </informalexample>They are configured for the <link linkend="???">
-      <link
-      xl:href="http://maven.apache.org/plugins/maven-war-plugin/overlays.html">maven-war-plugin</link>
-      </link>: <informalexample>
-          <para><programlisting language="xml"><![CDATA[
-
-<plugin>
+        </informalexample>They are configured for the <link
+      xl:href="http://maven.apache.org/plugins/maven-war-plugin/overlays.html">maven-war-plugin</link>:
+      <informalexample>
+          <para><programlisting language="xml"><![CDATA[<plugin>
   <groupId>org.apache.maven.plugins</groupId>
   <artifactId>maven-war-plugin</artifactId>
   <configuration>
@@ -1202,9 +1169,7 @@ WebAppY:
       </overlay>
     </overlays>
   </configuration>
-</plugin>
-          
-          ]]></programlisting></para>
+</plugin>]]></programlisting></para>
         </informalexample>Then executing jetty:run would yield the following
       ordering of resources: <code>com.acme.X.war : com.acme.Y.war:
       ${project.basedir}/src/main/webapp</code>. Note that the current
@@ -1234,9 +1199,7 @@ WebAppY:
       <para>For example, suppose our webapp depends on these two wars:</para>
 
       <informalexample>
-        <programlisting language="xml"><![CDATA[
-
-<dependency>
+        <programlisting language="xml"><![CDATA[<dependency>
   <groupId>com.acme</groupId>
   <artifactId>X</artifactId>
   <type>war</type>
@@ -1245,17 +1208,13 @@ WebAppY:
   <groupId>com.acme</groupId>
   <artifactId>Y</artifactId>
   <type>war</type>
-</dependency>
-        
-        ]]></programlisting>
+</dependency>]]></programlisting>
       </informalexample>
 
       <para>Suppose the webapps contain:</para>
 
       <informalexample>
-        <programlisting language="text"><![CDATA[
-
-WebAppX: 
+        <programlisting language="text"><![CDATA[WebAppX: 
 
  /foo.jsp 
  /bar.jsp 
@@ -1267,7 +1226,6 @@ WebAppY:
  /baz.jsp
  /WEB-INF/web.xml 
  /WEB-INF/special.xml
-        
         ]]></programlisting>
       </informalexample>
 
@@ -1275,14 +1233,12 @@ WebAppY:
 
       <informalexample>
         <programlisting language="text"><![CDATA[
-
 /foo.jsp (X) 
 /bar.jsp (X) 
 /baz.jsp (Y) 
 /WEB-INF/web.xml (X)
 /WEB-INF/special.xml (Y)
-        
-        ]]></programlisting>
+                ]]></programlisting>
       </informalexample>
     </section>
   </section>
@@ -1295,7 +1251,6 @@ WebAppY:
 
     <informalexample>
       <programlisting language="xml"><![CDATA[
-
 <plugin>
   <groupId>org.eclipse.jetty</groupId>
   <artifactId>jetty-maven-plugin</artifactId>
@@ -1312,8 +1267,7 @@ WebAppY:
     </loginServices>
   </configuration>
 </plugin>
-      
-      ]]></programlisting>
+           ]]></programlisting>
     </informalexample>
   </section>
 
@@ -1330,7 +1284,6 @@ WebAppY:
 
     <informalexample>
       <programlisting language="xml"><![CDATA[
-
 <configuration>
   <webApp>
     <contextPath>/${build.finalName}</contextPath>
@@ -1338,8 +1291,7 @@ WebAppY:
       <resourcesAsCSV>src/main/webapp,/home/johndoe/path/to/my/other/source,/yet/another/folder</resourcesAsCSV>
     </baseResource>
   </webApp>
-</configuration>
-      
+</configuration>      
       ]]></programlisting>
     </informalexample>
   </section>
@@ -1357,7 +1309,6 @@ WebAppY:
 
     <informalexample>
       <programlisting language="xml"><![CDATA[
-
 <plugin>
   <groupId>org.eclipse.jetty</groupId>
   <artifactId>jetty-maven-plugin</artifactId>
@@ -1378,8 +1329,7 @@ WebAppY:
     </contextHandlers>
   </configuration>
 </plugin>
-      
-      ]]></programlisting>
+            ]]></programlisting>
     </informalexample>
 
     <para>Alternatively, add a <filename>jetty.xml</filename> file to webapp
@@ -1388,7 +1338,6 @@ WebAppY:
 
     <informalexample>
       <programlisting language="xml"><![CDATA[
-
 <Ref refid="Contexts">
   <Call name="addHandler">
     <Arg>
@@ -1406,8 +1355,7 @@ WebAppY:
       </New>
     </Arg>
   </Call>
-</Ref>
-      
+</Ref>      
       ]]></programlisting>
     </informalexample>
 
@@ -1416,7 +1364,6 @@ WebAppY:
 
     <informalexample>
       <programlisting language="xml"><![CDATA[
-
 <plugin>
   <groupId>org.eclipse.jetty</groupId>
   <artifactId>jetty-maven-plugin</artifactId>
@@ -1427,8 +1374,7 @@ WebAppY:
     </webApp>
     <jettyXml>src/main/etc/jetty.xml</jettyXml>
   </configuration>
-</plugin>
-      
+</plugin>      
       ]]></programlisting>
     </informalexample>
 
@@ -1493,7 +1439,6 @@ WebAppY:
 
       <informalexample>
         <programlisting language="xml"><![CDATA[
-
 <plugin> 
   <groupId>org.eclipse.jetty</groupId>
   <artifactId>jetty-maven-plugin</artifactId>
@@ -1509,8 +1454,7 @@ WebAppY:
     </webApp>
   </configuration> 
 </plugin>
-        
-        ]]></programlisting>
+                ]]></programlisting>
       </informalexample>
 
       <para>To change the default behaviour so that these system properties
@@ -1519,7 +1463,6 @@ WebAppY:
 
       <informalexample>
         <programlisting language="xml"><![CDATA[
-
 <plugin> 
   <groupId>org.eclipse.jetty</groupId>
   <artifactId>jetty-maven-plugin</artifactId>
@@ -1536,8 +1479,7 @@ WebAppY:
     </webApp>
   </configuration>
 </plugin>
-        
-        ]]></programlisting>
+                ]]></programlisting>
       </informalexample>
     </section>
 
@@ -1554,17 +1496,14 @@ WebAppY:
 
       <informalexample>
         <programlisting language="text"><![CDATA[
-
 fooprop=222
-        
-        ]]></programlisting>
+                ]]></programlisting>
       </informalexample>
 
       <para>This can be configured on the plugin like so:</para>
 
       <informalexample>
         <programlisting language="xml"><![CDATA[
-
 <plugin>
   <groupId>org.eclipse.jetty</groupId>
   <artifactId>jetty-maven-plugin</artifactId>
@@ -1575,8 +1514,7 @@ fooprop=222
     </webApp>
   </configuration>
 </plugin>
-        
-        ]]></programlisting>
+                ]]></programlisting>
       </informalexample>
 
       <para>You can instead specify the file by setting the System property

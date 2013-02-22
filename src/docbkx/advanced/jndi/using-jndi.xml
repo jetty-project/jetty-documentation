@@ -28,12 +28,12 @@
     <title>Working with Jetty JNDI</title>
 
     <section>
-      <title>Defining in the web.xml</title>
+      <title>Defining the web.xml</title>
     <para>You can configure naming resources to reference in a
-    <code>web.xml</code> file and access from within the
+    <filename>web.xml</filename> file and access from within the
     <code>java:comp/env</code> naming environment of the webapp during
     execution. Specifically, you can configure support for the following
-    <code>web.xml</code> elements:</para>
+    <filename>web.xml</filename> elements:</para>
 
     <informalexample>
       <programlisting language="xml">
@@ -49,14 +49,14 @@
     env-entries</link> shows you how to set up overrides for <code>
     env-entry</code> elements in <filename>web.xml</filename>, while <link
     linkend="configuring-resource-refs-and-resource-env-refs">Configuring
-    resource-refs and resource-env-refs</link> discusses how to configure
+    <code>resource-refs</code> and <code>resource-env-refs</code></link> discusses how to configure
     support resources such as <code>javax.sql.DataSource</code>.</para>
 
     <para>You can also plug a JTA
     <code>javax.transaction.UserTransaction</code> implementation into Jetty
     so that webapps can look up <code>java:comp/UserTransaction</code> to
     obtain a distributed transaction manager: see <link
-    linkend="configuring-jndi-xa-transactions">Configuring XA
+    linkend="configuring-xa-transactions">Configuring XA
     Transactions</link>.</para>
   </section>
   
@@ -64,8 +64,8 @@
     <title>Declaring Resources</title>
 
       <para>You must declare the objects you want bound into the Jetty
-      environment so that you can then hook into your webapp via env-entry,
-      resource-ref and resource-env-refs in web.xml. You create these bindings
+      environment so that you can then hook into your webapp via <code>env-entry,
+      resource-ref</code> and <code>resource-env-refs</code> in <filename>web.xml</filename>. You create these bindings
       by using declarations of the following types:</para>
 
       <variablelist>
@@ -112,13 +112,13 @@
         </programlisting>
       </informalexample>
 
-      <para>These declarations can generally be placed into three different
+      <para>You can place these declarations into three different
       files, depending on your needs and the <link
       linkend="jndi-name-scope">scope</link> of the resources being
       declared.</para>
     </section>
       <section xml:id="jndi-where-to-declare">
-        <title>Where to Declare Resources?</title>
+        <title>Deciding Where to Declare Resources</title>
 
         <para>You can define naming resources in three places:</para>
 
@@ -130,10 +130,10 @@
               <para>Naming resources defined in a
               <filename>jetty.xml</filename> file are <link
               linkend="jndi-name-scope">scoped</link> at either the JVM level
-              or the Server level. Note that the classes for the resource must
+              or the Server level. The classes for the resource must
               be visible at the Jetty container level. If the classes for the
-              resource only exist inside your webapp, it must be declared in a
-              WEB-INF/jetty-env.xml file.</para>
+              resource only exist inside your webapp, you must declare it in a
+              <filename>WEB-INF/jetty-env.xml</filename> file.</para>
             </listitem>
           </varlistentry>
 
@@ -146,8 +146,8 @@
               linkend="jndi-name-scope">scoped</link> to the web app in which
               the file resides. While you can enter JVM or Server scopes if
               you choose, we do not recommend doing so. The resources defined
-              here may use classes from inside your webapp.  Note that this is
-              a Jetty specific mechanism.</para>
+              here may use classes from inside your webapp. This is
+              a Jetty-specific mechanism.</para>
             </listitem>
           </varlistentry>
 
@@ -159,7 +159,7 @@
               linkend="jndi-name-scope">scoped</link> at the level of the
               webapp to which they apply, although you can supply a less
               strict scoping level of Server or JVM if you choose. As with
-              resources declared in a jetty.xml file, classes associated with
+              resources declared in a <filename>jetty.xml</filename> file, classes associated with
               the resource must be visible on the container's classpath.</para>
             </listitem>
           </varlistentry>
@@ -177,10 +177,10 @@
             <term>JVM scope</term>
 
             <listitem>
-              <para>the name will be unique across the JVM instance, and is
-              visible to all application code. This scope is represented by a
+              <para>The name is unique across the JVM instance, and is
+              visible to all application code. You represent this scope by a
               <code>null</code> first parameter to the resource declaration. 
-              For Example:</para>
+              For example:</para>
 
               <informalexample>
                 <programlisting language="xml">
@@ -204,9 +204,8 @@
             <term>Server scope</term>
 
             <listitem>
-              <para>the name will be unique to a Server instance, and is only
-              visible to code associated with that instance. This scope is
-              represented by referencing the Server instance as the first
+              <para>The name is unique to a Server instance, and is only
+              visible to code associated with that instance. You represent this scope by referencing the Server instance as the first
               parameter to the resource declaration. For example:</para>
 
               <informalexample>
@@ -233,9 +232,8 @@
             <term>Webapp scope</term>
 
             <listitem>
-              <para>the name will be unique to the WebAppContext instance, and
-              is only visible to code associated with that instance. This
-              scope is represented by referencing the WebAppContext instance
+              <para>The name is unique to the WebAppContext instance, and
+              is only visible to code associated with that instance. You represent this scope by referencing the WebAppContext instance
               as the first parameter to the resource declaration. 
               For example:</para>
 

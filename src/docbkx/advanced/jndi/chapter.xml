@@ -22,7 +22,7 @@ xmlns:xi="http://www.w3.org/2001/XInclude"
 xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd">
   <title>Configuring JNDI</title>
 
-  <para>Jetty supports <code>java:comp/env</code> lookups in web apps. This is
+  <para>Jetty supports <code>java:comp/env</code> lookups in webapps. This is
   an optional feature for which you need to do some setup. </para>
 
   <xi:include href="quick-jndi-setup.xml"/>

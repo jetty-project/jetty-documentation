@@ -27,10 +27,8 @@
          xmlns:ns="http://docbook.org/ns/docbook">
   <title>Quick Setup</title>
 
-  <para>If you are using the standard distribution of jetty, and want to
-  enable JNDI for all your webapps it is very simple to enable.</para>
-
-  <para>Edit the <filename>$JETTY_HOME/start.ini</filename> file and uncomment the following two lines: </para>
+  <para>If you are using the standard distribution of Jetty, and want to
+  enable JNDI for <emphasis>all</emphasis> your webapps, edit the <filename>$JETTY_HOME/start.ini</filename> file and uncomment the following two lines:</para>
   <informalexample>
     <programlisting language="bash">
 <![CDATA[

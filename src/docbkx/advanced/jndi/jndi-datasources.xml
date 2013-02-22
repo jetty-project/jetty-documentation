@@ -59,8 +59,8 @@
   section <xref linkend="jndi-where-to-declare"/> for more information.</para>
 
   <important>
-    <para>You must provide jetty with the libraries necessary to instantiate
-    the datasource you have configured by putting the corresponding jar in
+    <para>You must provide Jetty with the libraries necessary to instantiate
+    the datasource you have configured by putting the corresponding Jar in
     <filename>JETTY_HOME/lib/ext</filename>.</para>
   </important>
 
@@ -168,7 +168,7 @@
     </section>
 
     <section xml:id="dbcp-datasource">
-      <title>dbcp</title>
+      <title>DBCP</title>
 
       <para>Connection pooling, available at <link
       xl:href="http://repo1.maven.org/maven2/commons-dbcp/commons-dbcp/1.2/commons-dbcp-1.2.jar">dbcp
@@ -236,8 +236,8 @@
     <section xml:id="mysql-pooled-datasource">
       <title>MySQL</title>
 
-      <para>Implements javax.sql.DataSource,
-      javax.sql.ConnectionPoolDataSource.</para>
+      <para>Implements <code>javax.sql.DataSource,
+      javax.sql.ConnectionPoolDataSource.</code></para>
 
       <informalexample>
         <programlisting language="xml"><![CDATA[
@@ -261,7 +261,7 @@
     <section xml:id="postgreSQL-pooled-datasource">
       <title>PostgreSQL</title>
 
-      <para>Implements javax.sql.ConnectionPoolDataSource</para>
+      <para>Implements <code>javax.sql.ConnectionPoolDataSource</code></para>
 
       <informalexample>
         <programlisting language="xml"><![CDATA[
@@ -288,7 +288,7 @@
     <section xml:id="DB2-pooled-datasource">
       <title>DB2</title>
 
-      <para>Implements javax.sql.ConnectionPoolDataSource</para>
+      <para>Implements <code>javax.sql.ConnectionPoolDataSource</code></para>
 
       <informalexample>
         <programlisting language="xml"><![CDATA[
@@ -316,7 +316,7 @@
     <title>Non-pooling DataSources</title>
 
     <para>If you are deploying in a production environment, we highly
-    recommend using a Pooling DataSource instead. However since that is not
+    recommend using a Pooling DataSource. Since that is not
     always an option we have a handful of examples for non-pooling datasources
     listed here as well.</para>
 
@@ -348,8 +348,8 @@
     <section xml:id="sql-server-2000-datasource">
       <title>SQL Server 2000</title>
 
-      <para>Implements javax.sql.DataSource,
-      javax.sql.ConnectionPoolDataSource.</para>
+      <para>Implements <code>javax.sql.DataSource,
+      javax.sql.ConnectionPoolDataSource.</code></para>
 
       <informalexample>
         <programlisting language="xml"><![CDATA[  <New id="DSTest" class="org.eclipse.jetty.plus.jndi.Resource">
@@ -371,8 +371,8 @@
     <section xml:id="oracle-9i10g-datasource">
       <title>Oracle 9i/10g</title>
 
-      <para>Implements javax.sql.DataSource,
-      javax.sql.ConnectionPoolDataSource.</para>
+      <para>Implements <code>javax.sql.DataSource,
+      javax.sql.ConnectionPoolDataSource.</code></para>
 
       <informalexample>
         <programlisting language="xml"><![CDATA[  <New id="DSTest" class="org.eclipse.jetty.plus.jndi.Resource">
@@ -407,7 +407,7 @@
     <section xml:id="postgreSQL-datasource">
       <title>PostgreSQL</title>
 
-      <para>Implements javax.sql.DataSource.</para>
+      <para>Implements <code>javax.sql.DataSource.</code></para>
 
       <informalexample>
         <programlisting language="xml"><![CDATA[  <New id="DSTest" class="org.eclipse.jetty.plus.jndi.Resource">
@@ -429,7 +429,7 @@
     <section xml:id="sybase-datasource">
       <title>Sybase</title>
 
-      <para>Implements javax.sql.DataSource.</para>
+      <para>Implements <code>javax.sql.DataSource.</code></para>
 
       <informalexample>
         <programlisting language="xml"><![CDATA[  <New id="DSTest" class="org.eclipse.jetty.plus.jndi.Resource">
@@ -451,7 +451,7 @@
     <section xml:id="DB2-datasource">
       <title>DB2</title>
 
-      <para>Implements javax.sql.DataSource.</para>
+      <para>Implements <code>javax.sql.DataSource.</code></para>
 
       <informalexample>
         <programlisting language="xml"><![CDATA[  <New id="DSTest" class="org.eclipse.jetty.plus.jndi.Resource">

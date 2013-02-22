@@ -25,10 +25,10 @@
          xmlns:xi="http://www.w3.org/2001/XInclude"
          xmlns:ns2="http://www.w3.org/1998/Math/MathML"
          xmlns:ns="http://docbook.org/ns/docbook">
-  <title>JNDI Configuration</title>
+  <title>Configuring JNDI</title>
 
   <section xml:id="configuring-jndi-env-entries">
-    <title>Configuring <code>env-entries</code></title>
+    <title>Configuring JNDI <code>env-entries</code></title>
 
     <para>Sometimes it is useful to pass configuration information to a webapp
     at runtime that you either cannot or cannot conveniently code into a
@@ -51,7 +51,7 @@
     <code> java:comp/env/mySpecialValue</code> for <emphasis>every</emphasis>
     web app deployed. Moreover, the boolean argument indicates that this value
     overrides an <code>env-entry</code> of the same name in
-    <code>web.xml</code>. If you don't want to override, then omit this
+    <code>web.xml</code>. If you don't want to override, omit this
     argument, or set it to <code>false</code>.</para>
 
     <para>The Servlet Specification allows binding only the following object
@@ -98,14 +98,14 @@
     <para>That being said, Jetty is a little more flexible and allows you to
     also bind custom POJOs, <link
     xl:href="http://docs.oracle.com/javase/1.5.0/docs/api/javax/naming/Reference.html">
-    javax.naming.References</link> and <link
+    <code>javax.naming.References</code></link> and <link
     xl:href="http://docs.oracle.com/javase/1.5.0/docs/api/javax/naming/Referenceable.html">
-    javax.naming.Referenceables</link>. Note: Be aware that if you take
+    <code>javax.naming.Referenceables</code></link>. Be aware that if you take
     advantage of this feature, your web application is <emphasis>not
     portable</emphasis>.</para>
 
     <para>To use the <code>env-entry</code> configured above, use code in your
-    servlet/filter/etc., such as:</para>
+    <filename>servlet/filter/etc.</filename>, such as:</para>
 
     <informalexample>
       <programlisting language="java"><![CDATA[import javax.naming.InitialContext;
@@ -122,7 +122,7 @@ public class MyClass {
     </informalexample>
   </section>
 
-  <section xml:id="configuring-resource-refs-and-resorce-env-refs">
+  <section xml:id="configuring-resource-refs-and-resource-env-refs">
     <title>Configuring <code>resource-refs</code> and
     <code>resource-env-refs</code></title>
 
@@ -137,7 +137,7 @@ public class MyClass {
 
     <para>The <link
     xl:href="http://jcp.org/aboutJava/communityprocess/pr/jsr244/index.html">J2EE
-    Specification</link> recommends that DataSources be stored in
+    Specification</link> recommends storing DataSources in
     <code>java:comp/env/jdbc</code>, JMS connection factories under
     <code>java:comp/env/jms</code>, JavaMail connection factories under <code>
     java:comp/env/mail</code> and URL connection factories under
@@ -187,7 +187,7 @@ public class MyClass {
   </section>
 
   <section xml:id="configuring-datasources">
-    <title>DataSource Configuration</title>
+    <title>Configuring DataSources</title>
 
     <para>Here is an example of configuring a
     <code>javax.sql.DataSource</code>. Jetty can use any DataSource
@@ -232,7 +232,7 @@ public class MyClass {
 </resource-ref>  ]]></programlisting>
     </informalexample>
 
-    <para>To look up your DataSource in your servlet/filter/etc.:</para>
+    <para>To look up your DataSource in your <filename>servlet/filter/etc.</filename>:</para>
 
     <informalexample>
       <programlisting language="java"><![CDATA[import javax.naming.InitialContext;
@@ -256,7 +256,7 @@ public class MyClass {
       <code>java:comp/env</code>. For database connection factories, this
       means that the object you register as a Resource
       <emphasis>must</emphasis> implement the
-      <code>javax.sql.DataSource</code>interface.</para>
+      <code>javax.sql.DataSource</code>&#160;interface.</para>
     </note>
 
     <para>For more examples of datasource configurations, see <xref
@@ -264,7 +264,7 @@ public class MyClass {
   </section>
 
   <section xml:id="configuring-jms-queues-topics-connectionfactories">
-    <title>JMS Queues, Topics and ConnectionFactory Configuration</title>
+    <title>Configuring JMS Queues, Topics and ConnectionFactories</title>
 
     <para>Jetty can bind any implementation of the JMS destinations and
     connection factories. You just need to ensure the implementation Jars are
@@ -286,7 +286,7 @@ public class MyClass {
 </Configure>]]></programlisting>
     </informalexample>
 
-    <para>The entry in web.xml would be:</para>
+    <para>The entry in <filename>web.xml</filename> would be:</para>
 
     <informalexample>
       <programlisting language="xml"><![CDATA[<resource-ref>
@@ -300,7 +300,7 @@ public class MyClass {
   </section>
 
   <section xml:id="configuring-mail-with-jndi">
-    <title>Mail Configuration</title>
+    <title>Configuring Mail</title>
 
     <para>Jetty also provides infrastructure for access to
     <code>javax.mail.Sessions</code> from within an application:</para>
@@ -332,27 +332,26 @@ public class MyClass {
     its setter methods to set up the authentication for the mail system, and
     populates a set of Properties, setting them on the <code>
     MailSessionReference</code> instance. The result is that an application
-    can look up <code> java:comp/env/mail/Session</code> at runtime and obtain
-    access to a <code>javax.mail.Session</code> that has the necessary
+    can look up <code> java:comp/env/mail/Session</code>&#160; at runtime and obtain
+    access to a <code>javax.mail.Session</code>&#160; that has the necessary
     configuration to permit it to send email via SMTP.</para>
 
     <tip>
       <para>You can set the password to be plain text, or use Jetty's <link
       linkend="configuring-security-secure-passwords">Secure Password
       Obfuscation</link> (OBF:) mechanism to make the config file a little
-      more secure from prying eyes. Remember you cannot use the other Jetty
-      encryption mechanisms of MD5 and Crypt because then the original
-      password cannot be recovered, which is necessary for the mail
-      system.</para>
+      more secure from prying eyes. Remember that you cannot use the other Jetty
+      encryption mechanisms of MD5 and Crypt because they do not allow you to recover the original
+      password, which the mail system requires.</para>
     </tip>
   </section>
 
   <section xml:id="configuring-xa-transactions">
-    <title>XA Transaction Configuration</title>
+    <title>Configuring XA Transactions</title>
 
     <para>If you want to perform distributed transactions with your resources,
     you need a <emphasis>transaction manager</emphasis> that supports the JTA
-    interfaces that you can look up as <code> java:comp/UserTransaction</code>
+    interfaces, and that you can look up as <code>java:comp/UserTransaction</code>
     in your webapp. Jetty does not ship with one as standard, but you can plug
     in the one you prefer. You can configure a transaction manager using the
     <link xl:href="@JDURL@/org/eclipse/jetty/plus/jndi/Transaction.html">JNDI
@@ -370,10 +369,10 @@ public class MyClass {
   </section>
 
   <section xml:id="configuring-links">
-    <title>Link Configuration</title>
+    <title>Configuring Links</title>
 
     <para>Generally, the name you set for your <code>Resource</code> should be
-    the same name you use for it in <code>web.xml</code>. For example:</para>
+    the same name you use for it in <filename>web.xml</filename>. For example:</para>
 
     <para>In a context xml file:</para>
 
@@ -392,7 +391,7 @@ public class MyClass {
 </Configure>]]></programlisting>
     </informalexample>
 
-    <para>In <code>web.xml</code>:</para>
+    <para>In <filename>web.xml</filename>:</para>
 
     <informalexample>
       <programlisting language="xml"><![CDATA[<resource-ref>
@@ -406,7 +405,7 @@ public class MyClass {
 </resource-ref>]]></programlisting>
     </informalexample>
 
-    <para>However, you can refer to it in <code>web.xml</code> by a different
+    <para>However, you can refer to it in <filename>web.xml</filename> by a different
     name, and link it to the name in your <code>
     org.eclipse.jetty.plus.jndi.Resource</code> by using an
     <code>org.eclipse.jetty.plus.jndi.Link</code>. For the example above, you
@@ -431,8 +430,8 @@ public class MyClass {
     </informalexample>
 
     <para>Then in a <filename>WEB-INF/jetty-env.xml</filename> file, link the
-    name <code>jdbc/mydatasource</code> to the name you wish to reference it
-    as in web.xml, which in this case is
+    name <code>jdbc/mydatasource</code> to the name you want to reference it
+    as in <filename>web.xml</filename>, which in this case is
     <code>jdbc/mydatasource1</code>:</para>
 
     <informalexample>
@@ -444,7 +443,7 @@ public class MyClass {
     </informalexample>
 
     <para>Now you can refer to <code>jdbc/mydatasource1</code> in the
-    <filename>web.xml like this:</filename></para>
+    <filename>web.xml</filename> like this:</para>
 
     <informalexample>
       <programlisting language="xml"><![CDATA[<resource-ref>
@@ -458,7 +457,7 @@ public class MyClass {
 </resource-ref>]]></programlisting>
     </informalexample>
 
-    <para>This can be useful when you cannot change a jndi resource directy in
+    <para>This can be useful when you cannot change a JNDI resource directly in
     the <filename>web.xml</filename> but need to link it to a specific
     resource in your deployment environment.</para>
   </section>

@@ -29,13 +29,13 @@
   <para><link xl:href="http://maven.apache.org/">Apache Maven</link> is a
   software project management and comprehension tool. Based on the concept of
   a project object model (POM), Maven can manage a project's build, reporting
-  and documentation from a central piece of information. </para>
+  and documentation from a central piece of information.</para>
 
   <para>It is an ideal tool to build a web application project, and such
   projects can use the <link
   linkend="jetty-maven-plugin">jetty-maven-plugin</link> to easily run the web
   application and save time in development. You can also use Maven to build,
-  test and run a project which embeds Jetty. </para>
+  test and run a project which embeds Jetty.</para>
 
   <para>First we'll have a look at a very simple HelloWorld java application
   that embeds Jetty, then a simple webapp which makes use of the <link
@@ -62,7 +62,7 @@
 
     <para>Maven uses convention over configuration, so it is best to use the
     project structure Maven recommends. You can use <emphasis><link
-    linkend="???"><link
+    linkend="archetypes"><link
     xl:href="http://maven.apache.org/guides/introduction/introduction-to-archetypes.html">archetypes</link></link></emphasis>
     to quickly setup Maven projects, but we will set up the structure manually
     for this simple tutorial example:</para>

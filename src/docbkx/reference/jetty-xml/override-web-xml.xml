@@ -16,30 +16,46 @@
 //  You may elect to redistribute this code under either of these licenses.
 //  ========================================================================
 -->
-<section xml:id="override-web-xml" version="5.0" xmlns="http://docbook.org/ns/docbook"
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xl="http://www.w3.org/1999/xlink"
-xmlns:xi="http://www.w3.org/2001/XInclude"
-xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd">
+<section version="5.0"
+         xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd"
+         xml:id="override-web-xml" xmlns="http://docbook.org/ns/docbook"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:xs="http://www.w3.org/2001/XMLSchema"
+         xmlns:xl="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:ns="http://docbook.org/ns/docbook">
   <title>Jetty <filename>override-web.xml</filename></title>
-  <para>To deploy a web application or WAR into different environments, most likely you will need to customize the
-  webapp for compatibility with each environment. The challenge is to do so without changing the webapp itself. You can
-  use a <filename>jetty.xml</filename> file for some of this work since it is not part of the webapp. But there are
-  some changes that <filename>jetty.xml</filename> cannot accomplish, for example, modifications to servlet init-params
-  and context init-params. Using <filename>webdefault.xml</filename> is not an option because Jetty applies <filename>
-  webdefault.xml</filename> to a web application <emphasis>before</emphasis> the application's own <filename>
-  WEB-INF/web.xml</filename>, which means that it cannot override values inside the webapp's <filename>
-  web.xml</filename>.</para>
-  <para>The solution is <filename>override-web.xml</filename>. It is a <filename>web.xml</filename> file that Jetty
-  applies to a web application <emphasis>after</emphasis> the application's own <filename>WEB-INF/web.xml</filename>,
-  which means that it can override values or add new elements. You define it per-webapp, using the <xref
-  linkend="jetty-xml-syntax" />.</para>
+
+  <para>To deploy a web application or WAR into different environments, most
+  likely you will need to customize the webapp for compatibility with each
+  environment. The challenge is to do so without changing the webapp itself.
+  You can use a <filename>jetty.xml</filename> file for some of this work
+  since it is not part of the webapp. But there are some changes that
+  <filename>jetty.xml</filename> cannot accomplish, for example, modifications
+  to servlet init-params and context init-params. Using
+  <filename>webdefault.xml</filename> is not an option because Jetty applies
+  <filename> webdefault.xml</filename> to a web application
+  <emphasis>before</emphasis> the application's own <filename>
+  WEB-INF/web.xml</filename>, which means that it cannot override values
+  inside the webapp's <filename> web.xml</filename>.</para>
+
+  <para>The solution is <filename>override-web.xml</filename>. It is a
+  <filename>web.xml</filename> file that Jetty applies to a web application
+  <emphasis>after</emphasis> the application's own
+  <filename>WEB-INF/web.xml</filename>, which means that it can override
+  values or add new elements. You define it per-webapp, using the <xref
+  linkend="jetty-xml-syntax"/>.</para>
+
   <section xml:id="using-override-web-xml">
     <title>Using <filename>override-web.xml</filename></title>
-    <para>You can specify the <filename>override-web.xml</filename> to use for an individual web application, in that
-    webapp's <xref linkend="jetty-web-xml-config" />.</para>
+
+    <para>You can specify the <filename>override-web.xml</filename> to use for
+    an individual web application, in that webapp's <xref
+    linkend="jetty-web-xml-config"/>.</para>
+
     <informalexample>
-      <programlisting language="xml">
-<![CDATA[
+      <programlisting language="xml"><![CDATA[
+
 <Configure class="org.eclipse.jetty.webapp.WebAppContext">
   ...
   <!-- Set up the path to the custom override descriptor, 
@@ -47,13 +63,15 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
   <Set name="overrideDescriptor"><SystemProperty name="jetty.home" default="."/>/my/path/to/override-web.xml</Set>
   ...
 </Configure>
-]]>
-      </programlisting>
+
+      ]]></programlisting>
     </informalexample>
+
     <para>The equivalent in code is:</para>
+
     <informalexample>
-      <programlisting language="java">
-<![CDATA[
+      <programlisting language="java"><![CDATA[
+
 import org.eclipse.jetty.webapp.WebAppContext;
 
     ...
@@ -63,18 +81,24 @@ import org.eclipse.jetty.webapp.WebAppContext;
     //Set the path to the override descriptor, based on your $(jetty.home) directory
     wac.setOverrideDescriptor(System.getProperty("jetty.home")+"/my/path/to/override-web.xml");
     ...
-]]>
-      </programlisting>
+
+      ]]></programlisting>
     </informalexample>
-    <para>Alternatively, use the classloader (<xref linkend="jetty-classloading" />) to get the path to the override
-    descriptor as a resource.</para>
+
+    <para>Alternatively, use the classloader (<xref
+    linkend="jetty-classloading"/>) to get the path to the override descriptor
+    as a resource.</para>
   </section>
+
   <section xml:id="override-using-jetty-maven-plugin">
     <title>Using the Jetty Maven Plugin</title>
-    <para>Use the <code>&lt;overrideDescriptor&gt;</code> tag as follows:</para>
+
+    <para>Use the <code>&lt;overrideDescriptor&gt;</code> tag as
+    follows:</para>
+
     <informalexample>
-      <programlisting language="xml">
-<![CDATA[
+      <programlisting language="xml"><![CDATA[
+
 <project>
     ...
     <plugins>
@@ -92,17 +116,25 @@ import org.eclipse.jetty.webapp.WebAppContext;
     </plugins>
     ...
 </project>
-]]>
-      </programlisting>
+
+      ]]></programlisting>
     </informalexample>
   </section>
+
   <section xml:id="override-web-xml-additional-resources">
     <title>Additional Resources</title>
+
     <itemizedlist>
-      <listitem><xref linkend="webdefault-xml" /> &#8211;Information for this <filename>web.xml</filename> -formatted
-      file, applied before the webapp's <filename>web.xml</filename> webapp.</listitem>
-      <listitem><xref linkend="jetty-xml-config" /> &#8211;Reference for <filename>
-      jetty.xml</filename> files</listitem>
+      <listitem>
+        <para><xref linkend="webdefault-xml"/> –Information for this
+        <filename>web.xml</filename> -formatted file, applied before the
+        webapp's <filename>web.xml</filename> webapp.</para>
+      </listitem>
+
+      <listitem>
+        <para><xref linkend="jetty-xml-config"/> –Reference for
+        <filename>jetty.xml</filename> files</para>
+      </listitem>
     </itemizedlist>
   </section>
 </section>

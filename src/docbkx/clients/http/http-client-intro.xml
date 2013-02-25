@@ -80,7 +80,7 @@ httpClient.start();
     <para>When you create a <code>HttpClient</code> instance using the parameterless constructor, you will only be able
     to perform plain HTTP requests, and you will not be able to perform HTTPS requests.</para>
     <para>In order to perform HTTPS requests, you should create first a
-    <link xl:href="http://download.eclipse.org/jetty/stable-9/apidocs/org/eclipse/jetty/util/ssl/SslContextFactory.html"><code>SslContextFactory</code></link>,
+    <link xl:href="@JDURL@/org/eclipse/jetty/util/ssl/SslContextFactory.html"><code>SslContextFactory</code></link>,
     configure it, and pass it to <code>HttpClient</code>'s constructor. When created with a <code>
     SslContextFactory</code>, the <code>HttpClient</code> will be able to perform both HTTP and HTTPS requests to any
     domain.</para>

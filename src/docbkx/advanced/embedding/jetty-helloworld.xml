@@ -17,13 +17,10 @@
 //  ========================================================================
 -->
 <section version="5.0"
-         xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd"
          xml:id="jetty-helloworld" xmlns="http://docbook.org/ns/docbook"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xmlns:xs="http://www.w3.org/2001/XMLSchema"
          xmlns:xl="http://www.w3.org/1999/xlink"
-         xmlns:xi="http://www.w3.org/2001/XInclude"
-         xmlns:ns="http://docbook.org/ns/docbook">
+        >
   <title>Jetty Embedded HelloWorld</title>
 
   <para>This section provides a tutorial that shows how you can quickly
@@ -54,12 +51,12 @@ wget -O servlet-api.jar -U none http://repo1.maven.org/maven2/org/eclipse/jetty/
     contains many examples of writing against the Jetty API. This tutorial
     uses a simple HelloWorld handler with a main method to run the server. You
     can either <link
-    xl:href="http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/plain/examples/embedded/src/main/java/HelloWorld.java">download</link>
+    xl:href="@GITURL@/examples/embedded/src/main/java/HelloWorld.java">download</link>
     or create in an editor the file <filename>HelloWorld.java</filename> with
     the following content:</para>
 
     <informalexample>
-      <programlisting language="rjava"><filename>http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/plain/examples/embedded/src/main/java/HelloWorld.java</filename></programlisting>
+      <programlisting language="rjava"><filename>@GITURL@/examples/embedded/src/main/java/HelloWorld.java</filename></programlisting>
     </informalexample>
   </section>
 

@@ -17,14 +17,10 @@
 //  ========================================================================
 -->
 <section version="5.0"
-         xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd"
          xml:id="configuring-ssl" xmlns="http://docbook.org/ns/docbook"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xmlns:xs="http://www.w3.org/2001/XMLSchema"
          xmlns:xl="http://www.w3.org/1999/xlink"
-         xmlns:xi="http://www.w3.org/2001/XInclude"
-         xmlns:ns2="http://www.w3.org/1998/Math/MathML"
-         xmlns:ns="http://docbook.org/ns/docbook">
+        >
   <title>Configuring SSL</title>
 
   <para>This document provides an overview of how to configure SSL (aka TLS)
@@ -221,7 +217,7 @@
  Is CN=jetty.eclipse.org, OU=Jetty, O=Mort Bay Consulting Pty. Ltd.,
  L=Unknown, ST=Unknown, C=Unknown correct?
    [no]:  yes
- 
+
  Enter key password for <jetty>
          (RETURN if same as keystore password):  password        ]]></screen>
 
@@ -265,7 +261,7 @@
  e is 65537 (0x10001)
  Enter pass phrase for jetty.key:
  Verifying - Enter pass phrase for jetty.key:
- 
+
 > openssl req -new -x509 -key jetty.key -out jetty.crt
  Enter pass phrase for jetty.key:
  You are about to be asked to enter information to be incorporated
@@ -374,8 +370,8 @@
         is produced by OpenSSL, and is returned by some CAs. An example PEM
         file is:</para>
 
-        <screen><![CDATA[jetty.crt 
------BEGIN CERTIFICATE----- 
+        <screen><![CDATA[jetty.crt
+-----BEGIN CERTIFICATE-----
 MIICSDCCAfKgAwIBAgIBADANBgkqhkiG9w0BAQQFADBUMSYwJAYDVQQKEx1Nb3J0
 IEJheSBDb25zdWx0aW5nIFB0eS4gTHRkLjEOMAwGA1UECxMFSmV0dHkxGjAYBgNV
 BAMTEWpldHR5Lm1vcnRiYXkub3JnMB4XDTAzMDQwNjEzMTk1MFoXDTAzMDUwNjEz
@@ -388,7 +384,7 @@ XRvUx1UofmifQJS/MCYwoVikVjBUMSYwJAYDVQQKEx1Nb3J0IEJheSBDb25zdWx0
 aW5nIFB0eS4gTHRkLjEOMAwGA1UECxMFSmV0dHkxGjAYBgNVBAMTEWpldHR5Lm1v
 cnRiYXkub3JnggEAMAwGA1UdEwQFMAMBAf8wDQYJKoZIhvcNAQEEBQADQQA6NkaV
 OtXzP4ayzBcgK/qSCmF44jdcARmrXhiXUcXzjxsLjSJeYPJojhUdC2LQKy+p4ki8
-Rcz6oCRvCGCe5kDB 
+Rcz6oCRvCGCe5kDB
 -----END CERTIFICATE-----        ]]></screen>
 
         <para>The following command loads a PEM encoded certificate in the
@@ -423,7 +419,7 @@ Rcz6oCRvCGCe5kDB
         <para>If you have a chain of certificates, because your CA is an
         intermediary, build the PKCS12 file as follows:</para>
 
-        <screen><![CDATA[> cat example.crt intermediate.crt [intermediate2.crt]... rootCA.crt > cert-chain.txt 
+        <screen><![CDATA[> cat example.crt intermediate.crt [intermediate2.crt]... rootCA.crt > cert-chain.txt
 > openssl pkcs12 -export -inkey example.key -in cert-chain.txt -out example.pkcs12        ]]></screen>
 
         <para>The order of certificates must be from server to rootCA, as per
@@ -456,13 +452,13 @@ Rcz6oCRvCGCe5kDB
 
       <para>The generated SSL certificates held in the key store are
       configured on Jetty by injection an instance of <link
-      xl:href="http://download.eclipse.org/jetty/stable-9/apidocs/org/eclipse/jetty/util/ssl/SslContextFactory.html">
+      xl:href="@JDURL@/org/eclipse/jetty/util/ssl/SslContextFactory.html">
       SslContextFactory</link> object and passing it to the connector's
       SslConnectionFactory, which is done in the jetty distribution by both in
       <link
-      xl:href="http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/plain/jetty-server/src/main/config/etc/jetty-https.xml">jetty-https.xml</link>
+      xl:href="@GITURL@/jetty-server/src/main/config/etc/jetty-https.xml">jetty-https.xml</link>
       and <link
-      xl:href="http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/plain/jetty-spdy/spdy-example-webapp/src/main/config/etc/jetty-spdy.xml">jetty-spdy.xml</link>.
+      xl:href="@GITURL@/jetty-spdy/spdy-example-webapp/src/main/config/etc/jetty-spdy.xml">jetty-spdy.xml</link>.
       Since SPDY is able to handle HTTPS also, typically you will configure
       jetty to use one of these configuration files or the other, which can be
       done other on the command line or by editing the start.ini file.</para>
@@ -503,7 +499,7 @@ Rcz6oCRvCGCe5kDB
             <para>The keystore password may be set here in plain text, or as
             some protection from casual observation, it may be obfuscated
             using the <link
-            xl:href="http://download.eclipse.org/jetty/stable-9/apidocs/org/eclipse/jetty/util/security/Password.html">
+            xl:href="@JDURL@/org/eclipse/jetty/util/security/Password.html">
             Password</link> class.</para>
           </listitem>
         </varlistentry>
@@ -520,7 +516,7 @@ Rcz6oCRvCGCe5kDB
       SslConnectionFactory instance to be used when accepting network
       connections, which in turn is injected into an Instance of
       ServerConnector. For example from <link
-      xl:href="http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/plain/jetty-server/src/main/config/etc/jetty-https.xml">jetty-https.xml</link>:</para>
+      xl:href="@GITURL@/jetty-server/src/main/config/etc/jetty-https.xml">jetty-https.xml</link>:</para>
 
       <informalexample>
         <programlisting language="xml"><![CDATA[  <Call id="sslConnector" name="addConnector">

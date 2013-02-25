@@ -17,12 +17,9 @@
 //  ========================================================================
 -->
 <section version="5.0"
-xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd"
-xml:id="quickstart-config-what" xmlns="http://docbook.org/ns/docbook"
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema"
-xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
-xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg"
-xmlns:ns2="http://www.w3.org/1998/Math/MathML" xmlns:ns="http://docbook.org/ns/docbook">
+         xml:id="quickstart-config-what" xmlns="http://docbook.org/ns/docbook"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        >
   <title>What to Configure in Jetty</title>
   <para>This section gives an overview of the what components of Jetty you typically configure using the mechanisms
   outlined in the previous section. <xref linkend="basic-architecture" /> describes the structure of a Jetty server,
@@ -228,7 +225,7 @@ xmlns:ns2="http://www.w3.org/1998/Math/MathML" xmlns:ns="http://docbook.org/ns/d
       <informalexample>
         <programlisting language="rjava">
           <filename>
-          http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/plain/examples/embedded/src/main/java/org/eclipse/jetty/embedded/OneContext.java</filename>
+          @GITURL@/examples/embedded/src/main/java/org/eclipse/jetty/embedded/OneContext.java</filename>
         </programlisting>
       </informalexample>
     </section>
@@ -240,7 +237,7 @@ xmlns:ns2="http://www.w3.org/1998/Math/MathML" xmlns:ns="http://docbook.org/ns/d
       <informalexample>
         <programlisting language="fetch">
           <filename>
-          http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/plain/jetty-distribution/src/main/resources/webapps/javadoc.xml</filename>
+          @GITURL@/jetty-distribution/src/main/resources/webapps/javadoc.xml</filename>
         </programlisting>
       </informalexample>
     </section>
@@ -363,7 +360,7 @@ xmlns:ns2="http://www.w3.org/1998/Math/MathML" xmlns:ns="http://docbook.org/ns/d
 <![CDATA[
           ]]>
           <filename>
-http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/plain/tests/test-webapps/test-jetty-webapp/src/main/config/etc/test-realm.xml</filename> 
+@GITURL@/tests/test-webapps/test-jetty-webapp/src/main/config/etc/test-realm.xml</filename>
 <![CDATA[
         ]]>
         </programlisting>

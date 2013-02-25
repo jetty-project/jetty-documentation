@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section version="5.0"
-         xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd"
          xml:id="jetty-xml-syntax" xmlns="http://docbook.org/ns/docbook"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xmlns:xs="http://www.w3.org/2001/XMLSchema"
          xmlns:xl="http://www.w3.org/1999/xlink"
-         xmlns:xi="http://www.w3.org/2001/XInclude"
-         xmlns:ns="http://docbook.org/ns/docbook">
+        >
   <title>Jetty XML Syntax</title>
 
   <para>The Jetty XML syntax is a straightforward mapping of XML elements to a
@@ -45,7 +42,7 @@
       </Call>
     </New>
   </Set>
- 
+
   <Ref refid="bar">
     <Set name="wibble">20</Set>
     <Get name="parent">
@@ -60,15 +57,15 @@
     <informalexample>
       <programlisting language="java"><![CDATA[com.acme.Foo foo = new com.acme.Foo();
 foo.setName("demo");
- 
+
 com.acme.Bar bar = new com.acme.Bar(true);
 bar.setWibble(10);
 bar.setWobble("xyz");
 bar.setParent(foo);
 bar.init(false);
- 
+
 foo.setNested(bar);
- 
+
 bar.setWibble(20);
 bar.getParent().setName("demo2");      ]]></programlisting>
     </informalexample>
@@ -86,7 +83,7 @@ bar.getParent().setName("demo2");      ]]></programlisting>
       Jetty IoC format. The first two lines of an XML must reference the DTD
       to be used to validate the XML like:</para>
 
-      <programlisting><![CDATA[<?xml version="1.0"  encoding="ISO-8859-1"?> 
+      <programlisting><![CDATA[<?xml version="1.0"  encoding="ISO-8859-1"?>
 <!DOCTYPE Configure PUBLIC "-//Mort Bay Consulting//DTD Configure//EN" "http://www.eclipse.org/jetty/configure_9_0.dtd">
 ...]]></programlisting>
 
@@ -99,7 +96,7 @@ bar.getParent().setName("demo2");      ]]></programlisting>
 
       <para>Files that conform to the configure.dtd format are processed in
       Jetty by the <code><link
-      xl:href="http://download.eclipse.org/jetty/stable-9/apidocs/org/eclipse/jetty/xml/XmlConfiguration.html">XmlConfiguration</link></code>
+      xl:href="@JDURL@/org/eclipse/jetty/xml/XmlConfiguration.html">XmlConfiguration</link></code>
       class which may also validate the XML (using a version of the DTD from
       the classes jar file), but is by default run in a forgiving mode that
       tries to work around validation failures.</para>
@@ -394,11 +391,11 @@ value text, <Get>, <Call>, <New>, <Ref>, <Array>, <Map>, <SystemProperty>, <Prop
 
         <informalexample>
           <programlisting language="java"><![CDATA[org.eclipse.jetty.server.Server server = new org.eclipse.jetty.server.Server();
- 
+
 org.eclipse.jetty.util.thread.QueuedThreadPool threadPool = new org.eclipse.jetty.util.thread.QueuedThreadPool();
 threadPool.setMinThreads(10);
 threadPool.setMaxThreads(1000);
- 
+
 server.setThreadPool(threadPool);          ]]></programlisting>
         </informalexample>
       </section>
@@ -1103,7 +1100,7 @@ foo.setTest("1, 2, 3");            ]]></programlisting>
     </Set>
   </New>
 </Set>
- 
+
 <Call name="addBean">
   <Arg>
     <New class="org.eclipse.jetty.deploy.ContextDeployer">
@@ -1112,7 +1109,7 @@ foo.setTest("1, 2, 3");            ]]></programlisting>
     </New>
   </Arg>
 </Call>
- 
+
 <!-- configure the RequestLogHandler object ("RequestLog") that we created earlier -->
 <Ref refid="RequestLog">
   ....

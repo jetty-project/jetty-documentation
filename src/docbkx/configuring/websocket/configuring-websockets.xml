@@ -17,9 +17,8 @@
 //  ========================================================================
 -->
 <section xml:id="websocket-support" version="5.0" xmlns="http://docbook.org/ns/docbook"
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xl="http://www.w3.org/1999/xlink"
-xmlns:xi="http://www.w3.org/2001/XInclude"
-xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd">
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xl="http://www.w3.org/1999/xlink"
+         xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd">
   <title>Configuring WebSockets</title>
   <para>The <link xl:href="http://en.wikipedia.org/wiki/WebSockets">WebSockets</link> protocol and API is an emerging
   standard that seeks to provide high-quality, bidirectional communication between a browser (or other web client) and
@@ -98,7 +97,7 @@ wget --user-agent=demo \
       </listitem>
       <listitem>
         <para>Put into it the following contents which you can download from <link
-        xl:href="http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/plain/jetty-websocket/src/test/webapp/index.html">jetty-websocket/src/test/webapp/index.html.</link>&gt;This
+        xl:href="@GITURL@/jetty-websocket/src/test/webapp/index.html">jetty-websocket/src/test/webapp/index.html.</link>&gt;This
         index file contains the HTML, CSS and Javascript for a basic chat room.</para>
       </listitem>
     </itemizedlist>
@@ -153,7 +152,7 @@ _send: function(user,message){
   if (this._ws)
     this._ws.send(user+':'+message);
 },
- 
+
 chat: function(text) {
   if (text != null &amp;&amp; text.length&gt;0 )
      room._send(room._username,text);
@@ -228,7 +227,7 @@ _onmessage: function(m) {
     _connector = new SelectChannelConnector();
     _connector.setPort(port);
     addConnector(_connector);
- 
+
     _wsHandler = new WebSocketHandler()
     {
         public WebSocket doWebSocketConnect(HttpServletRequest request, String protocol)
@@ -238,7 +237,7 @@ _onmessage: function(m) {
         }
     };
     setHandler(_wsHandler);
- 
+
     _rHandler=new ResourceHandler();
     _rHandler.setDirectoriesListed(true);
     _rHandler.setResourceBase(_docroot);
@@ -295,7 +294,7 @@ ConcurrentLinkedQueue _broadcast =
 class TestEchoBroadcastWebSocket implements WebSocket.OnTextMessage
 {
     protected Connection _connection;
- 
+
     public void onOpen(Connection connection)
     {
         _connection=connection;

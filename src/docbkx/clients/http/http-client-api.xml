@@ -187,10 +187,10 @@ httpClient.newRequest("http://domain.com/path")
     every step of the request/response conversation (thus knowing where the request/response time is really
     spent).</para>
     <para>Have a look at the <link
-    xl:href="http://download.eclipse.org/jetty/stable-9/apidocs/org/eclipse/jetty/client/api/Request.Listener.html">
+    xl:href="@JDURL@/org/eclipse/jetty/client/api/Request.Listener.html">
       <code>Request.Listener</code>
     </link> class to know about request events, and to the <link
-    xl:href="http://download.eclipse.org/jetty/stable-9/apidocs/org/eclipse/jetty/client/api/Response.Listener.html">
+    xl:href="@JDURL@/org/eclipse/jetty/client/api/Response.Listener.html">
       <code>Response.Listener</code>
     </link> class to know about response events.</para>
   </section>

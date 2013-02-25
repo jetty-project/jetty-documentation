@@ -17,11 +17,10 @@
 //  ========================================================================
 -->
 <section version="5.0"
-xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd" xml:id="jetty-ant"
-xmlns="http://docbook.org/ns/docbook" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xl="http://www.w3.org/1999/xlink"
-xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:ns2="http://www.w3.org/1998/Math/MathML"
-xmlns:ns="http://docbook.org/ns/docbook">
+         xml:id="jetty-ant"
+         xmlns="http://docbook.org/ns/docbook" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:xl="http://www.w3.org/1999/xlink"
+        >
   <title>Use Jetty with Ant</title>
   <para>The Ant Jetty plugin is a part of Jetty 9 under the jetty-ant module. This plugin makes it possible to start a
   Jetty web server directly from the Ant build script, and to embed the Jetty web server inside your build process. Its
@@ -99,7 +98,7 @@ xmlns:ns="http://docbook.org/ns/docbook">
   </path>
 
   <taskdef classpathref="jetty.plugin.classpath" resource="tasks.properties" loaderref="jetty.loader" />
- 
+
   <target name="jetty.run">
     <jetty.run />
   </target>
@@ -124,7 +123,7 @@ xmlns:ns="http://docbook.org/ns/docbook">
         <listitem>
           <para>To configure the port that jetty will start up on you will need to define a connector. First you will
           need to configure a <code>&lt;typedef&gt;</code> for the Connector class and then define the connector in the
-          jetty tags: 
+          jetty tags:
           <informalexample>
             <programlisting language="xml">
 <![CDATA[<project name="Jetty-Ant integration test" basedir=".">
@@ -134,8 +133,8 @@ xmlns:ns="http://docbook.org/ns/docbook">
   </path>
 
   <taskdef classpathref="jetty.plugin.classpath" resource="tasks.properties" loaderref="jetty.loader" />
- 
-  <typedef name="connector" classname="org.eclipse.jetty.ant.types.Connector" 
+
+  <typedef name="connector" classname="org.eclipse.jetty.ant.types.Connector"
            classpathref="jetty.plugin.classpath" loaderref="jetty.loader" />
 
   <target name="jetty.run">
@@ -159,7 +158,7 @@ xmlns:ns="http://docbook.org/ns/docbook">
         <listitem>
           <para>If your web application requires authentication and authorization services, then you can configure
           these on the jetty container. Here's an example of how to set up an <link
-          xl:href="org.eclipse.jetty.security.HashLoginService">
+          xl:href="@JDURL@/org/eclipse/jetty/security/HashLoginService.html">
           org.eclipse.jetty.security.HashLoginService</link>:</para>
           <informalexample>
             <programlisting>
@@ -192,7 +191,7 @@ xmlns:ns="http://docbook.org/ns/docbook">
         <listitem>
           <para>The <code>requestLog</code> option allows you to specify a request logger for the jetty instance. You
           can either use the <link
-          xl:href="http://download.eclipse.org/jetty/stable-9/apidocs/org/eclipse/jetty/server/NCSARequestLog.html">
+          xl:href="@JDURL@/org/eclipse/jetty/server/NCSARequestLog.html">
           org.eclipse.jetty.server.NCSARequestLog</link> class, or supply the name of your custom class:</para>
           <informalexample>
             <programlisting>
@@ -254,7 +253,7 @@ xmlns:ns="http://docbook.org/ns/docbook">
     <fileset dir="jetty-lib" includes="*.jar"/>
   </path>
 
- <taskdef classpathref="jetty.plugin.classpath" 
+ <taskdef classpathref="jetty.plugin.classpath"
           resource="tasks.properties" loaderref="jetty.loader" />
 
  <typedef name="contextHandlers" classname="org.eclipse.jetty.ant.types.ContextHandlers"
@@ -445,8 +444,8 @@ xmlns:ns="http://docbook.org/ns/docbook">
   </path>
 
  <taskdef classpathref="jetty.plugin.classpath" resource="tasks.properties" loaderref="jetty.loader" />
- 
- <typedef name="webApp" classname="org.eclipse.jetty.ant.AntWebAppContext" 
+
+ <typedef name="webApp" classname="org.eclipse.jetty.ant.AntWebAppContext"
           classpathref="jetty.plugin.classpath" loaderref="jetty.loader" />
 
   <target name="jetty.run">
@@ -473,8 +472,8 @@ xmlns:ns="http://docbook.org/ns/docbook">
   </path>
 
  <taskdef classpathref="jetty.plugin.classpath" resource="tasks.properties" loaderref="jetty.loader" />
- 
- <typedef name="webApp" classname="org.eclipse.jetty.ant.AntWebAppContext" 
+
+ <typedef name="webApp" classname="org.eclipse.jetty.ant.AntWebAppContext"
           classpathref="jetty.plugin.classpath" loaderref="jetty.loader" />
 
   <target name="jetty.run">
@@ -501,8 +500,8 @@ xmlns:ns="http://docbook.org/ns/docbook">
   </path>
 
  <taskdef classpathref="jetty.plugin.classpath" resource="tasks.properties" loaderref="jetty.loader" />
- 
- <typedef name="webApp" classname="org.eclipse.jetty.ant.AntWebAppContext" 
+
+ <typedef name="webApp" classname="org.eclipse.jetty.ant.AntWebAppContext"
           classpathref="jetty.plugin.classpath" loaderref="jetty.loader" />
 
   <target name="jetty.run">
@@ -522,14 +521,14 @@ xmlns:ns="http://docbook.org/ns/docbook">
     <section>
       <title>Configuring the Web Application</title>
       <para>As the org.eclipse.jetty.ant.AntWebAppContext class is an extension of the <link
-      xl:href="org.eclipse.jetty.webapp.WebAppContext">org.eclipse.jetty.webapp.WebAppContext</link> class, you can
+      xl:href="@JDURL@/org/eclipse/jetty/webapp/WebAppContext.html">org.eclipse.jetty.webapp.WebAppContext</link> class, you can
       configure it by adding attributes of the same name (without the "set" or "add" prefix) as the setter
       methods.</para>
       <para>Here's an example where we specify the location of the <code>web.xml</code> file (equivalent to method
       <link
-      xl:href="http://download.eclipse.org/jetty/stable-9/apidocs/org/eclipse/jetty/webapp/WebAppContext.html#setDescriptor%28java.lang.String%29">AntWebAppContext.setDescriptor()</link>)
+      xl:href="@JDURL@/org/eclipse/jetty/webapp/WebAppContext.html#setDescriptor%28java.lang.String%29">AntWebAppContext.setDescriptor()</link>)
       and the web application's temporary directory (equivalent to method <link
-      xl:href="http://download.eclipse.org/jetty/stable-9/apidocs/org/eclipse/jetty/webapp/WebAppContext.html#setTempDirectory%28java.io.File%29">AntWebAppContext.setTempDirectory()</link>):</para>
+      xl:href="@JDURL@/org/eclipse/jetty/webapp/WebAppContext.html#setTempDirectory%28java.io.File%29">AntWebAppContext.setTempDirectory()</link>):</para>
       <informalexample>
         <programlisting>
 <![CDATA[<project name="Jetty-Ant integration test" basedir=".">
@@ -539,8 +538,8 @@ xmlns:ns="http://docbook.org/ns/docbook">
   </path>
 
  <taskdef classpathref="jetty.plugin.classpath" resource="tasks.properties" loaderref="jetty.loader" />
- 
- <typedef name="webApp" classname="org.eclipse.jetty.ant.AntWebAppContext" 
+
+ <typedef name="webApp" classname="org.eclipse.jetty.ant.AntWebAppContext"
           classpathref="jetty.plugin.classpath" loaderref="jetty.loader" />
 
   <target name="jetty.run">
@@ -569,8 +568,8 @@ xmlns:ns="http://docbook.org/ns/docbook">
   </path>
 
  <taskdef classpathref="jetty.plugin.classpath" resource="tasks.properties" loaderref="jetty.loader" />
- 
- <typedef name="webApp" classname="org.eclipse.jetty.ant.AntWebAppContext" 
+
+ <typedef name="webApp" classname="org.eclipse.jetty.ant.AntWebAppContext"
           classpathref="jetty.plugin.classpath" loaderref="jetty.loader" />
 
   <target name="jetty.run">
@@ -583,7 +582,7 @@ xmlns:ns="http://docbook.org/ns/docbook">
         <lib dir="${basedir}/jars">
           <include name="**/*.jar"/>
           <exclude name="**/*.dll"/>
-        </lib> 
+        </lib>
       </webApp>
     </jetty.run>
   </target>
@@ -608,8 +607,8 @@ xmlns:ns="http://docbook.org/ns/docbook">
   </path>
 
  <taskdef classpathref="jetty.plugin.classpath" resource="tasks.properties" loaderref="jetty.loader" />
- 
- <typedef name="webApp" classname="org.eclipse.jetty.ant.AntWebAppContext" 
+
+ <typedef name="webApp" classname="org.eclipse.jetty.ant.AntWebAppContext"
           classpathref="jetty.plugin.classpath" loaderref="jetty.loader" />
 
   <target name="jetty.run">
@@ -645,8 +644,8 @@ xmlns:ns="http://docbook.org/ns/docbook">
   </path>
 
  <taskdef classpathref="jetty.plugin.classpath" resource="tasks.properties" loaderref="jetty.loader" />
- 
- <typedef name="webApp" classname="org.eclipse.jetty.ant.AntWebAppContext" 
+
+ <typedef name="webApp" classname="org.eclipse.jetty.ant.AntWebAppContext"
           classpathref="jetty.plugin.classpath" loaderref="jetty.loader" />
 
   <target name="jetty.run">
@@ -679,8 +678,8 @@ xmlns:ns="http://docbook.org/ns/docbook">
   </path>
 
  <taskdef classpathref="jetty.plugin.classpath" resource="tasks.properties" loaderref="jetty.loader" />
- 
- <typedef name="webApp" classname="org.eclipse.jetty.ant.AntWebAppContext" 
+
+ <typedef name="webApp" classname="org.eclipse.jetty.ant.AntWebAppContext"
           classpathref="jetty.plugin.classpath" loaderref="jetty.loader" />
 
   <target name="jetty.run">

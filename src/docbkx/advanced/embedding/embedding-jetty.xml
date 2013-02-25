@@ -17,13 +17,10 @@
 //  ========================================================================
 -->
 <section version="5.0"
-         xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd"
          xml:id="embedding-jetty" xmlns="http://docbook.org/ns/docbook"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xmlns:xs="http://www.w3.org/2001/XMLSchema"
          xmlns:xl="http://www.w3.org/1999/xlink"
-         xmlns:xi="http://www.w3.org/2001/XInclude"
-         xmlns:ns="http://docbook.org/ns/docbook">
+        >
   <title>Embedding Jetty</title>
 
   <para>Jetty has a slogan, "<emphasis>Don't deploy your application in Jetty,
@@ -48,20 +45,20 @@
     <orderedlist>
       <listitem>
         <para>Create a <link
-        xl:href="http://download.eclipse.org/jetty/stable-9/apidocs/org/eclipse/jetty/server/Server.html">Server</link>
+        xl:href="@JDURL@/org/eclipse/jetty/server/Server.html">Server</link>
         instance</para>
       </listitem>
 
       <listitem>
         <para>Add/Configure <link
-        xl:href="http://download.eclipse.org/jetty/stable-9/apidocs/org/eclipse/jetty/server/Connector.html">Connector</link>s</para>
+        xl:href="@JDURL@/org/eclipse/jetty/server/Connector.html">Connector</link>s</para>
       </listitem>
 
       <listitem>
         <para>Add/Configure <link
-        xl:href="http://download.eclipse.org/jetty/stable-9/apidocs/org/eclipse/jetty/server/Handler.html">Handler</link>s
+        xl:href="@JDURL@/org/eclipse/jetty/server/Handler.html">Handler</link>s
         and/or <link
-        xl:href="http://download.eclipse.org/jetty/stable-9/apidocs/org/eclipse/jetty/server/handler/ContextHandler.html">Context</link>s
+        xl:href="@JDURL@/org/eclipse/jetty/server/handler/ContextHandler.html">Context</link>s
         and/or <link
         xl:href="http://docs.oracle.com/javaee/6/api/javax/servlet/Servlet.html">Servlet</link>s</para>
       </listitem>
@@ -85,7 +82,7 @@
     the simplest possible Jetty server:</para>
 
     <informalexample>
-      <programlisting language="rjava"><filename>http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/plain/examples/embedded/src/main/java/org/eclipse/jetty/embedded/SimplestServer.java</filename></programlisting>
+      <programlisting language="rjava"><filename>@GITURL@/examples/embedded/src/main/java/org/eclipse/jetty/embedded/SimplestServer.java</filename></programlisting>
     </informalexample>
 
     <para>This runs an HTTP server on port 8080. It is not a very useful
@@ -97,7 +94,7 @@
     <title>Using Handlers</title>
 
     <para>To produce a response to a request, Jetty requires a <link
-    xl:href="http://download.eclipse.org/jetty/stable-9/apidocs/org/eclipse/jetty/server/Handler.html">Handler</link>
+    xl:href="@JDURL@/org/eclipse/jetty/server/Handler.html">Handler</link>
     to be set on the server. A handler may:</para>
 
     <itemizedlist>
@@ -126,7 +123,7 @@
       world handler:</para>
 
       <informalexample>
-        <programlisting language="rjava"><filename>http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/plain/examples/embedded/src/main/java/org/eclipse/jetty/embedded/HelloHandler.java</filename></programlisting>
+        <programlisting language="rjava"><filename>@GITURL@/examples/embedded/src/main/java/org/eclipse/jetty/embedded/HelloHandler.java</filename></programlisting>
       </informalexample>
 
       <para>The parameters passed to the handle method are:</para>
@@ -166,7 +163,7 @@
       Jetty server can use the HelloWorld handler:</para>
 
       <informalexample>
-        <programlisting language="rjava"><filename>http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/plain/examples/embedded/src/main/java/org/eclipse/jetty/embedded/OneHandler.java</filename><methodname>main</methodname></programlisting>
+        <programlisting language="rjava"><filename>@GITURL@/examples/embedded/src/main/java/org/eclipse/jetty/embedded/OneHandler.java</filename><methodname>main</methodname></programlisting>
       </informalexample>
 
       <para>All request handling in Jetty is done by one or more handlers.
@@ -190,13 +187,13 @@
       <para>Complex request handling is typically built from multiple Handlers
       that can be combined in various ways. Jetty has several implementations
       of the <link
-      xl:href="http://download.eclipse.org/jetty/stable-9/apidocs/org/eclipse/jetty/server/HandlerContainer.html">HandlerContainer</link>
+      xl:href="@JDURL@/org/eclipse/jetty/server/HandlerContainer.html">HandlerContainer</link>
       interface:</para>
 
       <variablelist>
         <varlistentry>
           <term><link
-          xl:href="http://download.eclipse.org/jetty/stable-9/apidocs/org/eclipse/jetty/server/handler/HandlerCollection.html">HandlerCollection</link></term>
+          xl:href="@JDURL@/org/eclipse/jetty/server/handler/HandlerCollection.html">HandlerCollection</link></term>
 
           <listitem>
             <para>Holds a collection of other handlers and calls each handler
@@ -207,7 +204,7 @@
 
         <varlistentry>
           <term><link
-          xl:href="http://download.eclipse.org/jetty/stable-9/apidocs/org/eclipse/jetty/server/handler/HandlerList.html">HandlerList</link></term>
+          xl:href="@JDURL@/org/eclipse/jetty/server/handler/HandlerList.html">HandlerList</link></term>
 
           <listitem>
             <para>A Handler Collection that calls each handler in turn until
@@ -220,7 +217,7 @@
 
         <varlistentry>
           <term><link
-          xl:href="http://download.eclipse.org/jetty/stable-9/apidocs/org/eclipse/jetty/server/handler/HandlerWrapper.html">HandlerWrapper</link></term>
+          xl:href="@JDURL@/org/eclipse/jetty/server/handler/HandlerWrapper.html">HandlerWrapper</link></term>
 
           <listitem>
             <para>A Handler base class that can be used to daisy chain
@@ -232,7 +229,7 @@
 
         <varlistentry>
           <term><link
-          xl:href="http://download.eclipse.org/jetty/stable-9/apidocs/org/eclipse/jetty/server/handler/ContextHandlerCollection.html">ContextHandlerCollection</link></term>
+          xl:href="@JDURL@/org/eclipse/jetty/server/handler/ContextHandlerCollection.html">ContextHandlerCollection</link></term>
 
           <listitem>
             <para>A sepcialized HandlerCollection that uses the longest prefix
@@ -258,7 +255,7 @@
       method returns the correct value.</para>
 
       <para>The HandlerWrapper is specialized to the <link
-      xl:href="http://download.eclipse.org/jetty/stable-9/xref/org/eclipse/jetty/server/handler/ScopedHandler.html">ScopedHandler</link>
+      xl:href="@JXURL@/org/eclipse/jetty/server/handler/ScopedHandler.html">ScopedHandler</link>
       abstract class, which supports a daisy chain of scopes. For example if a
       ServletHandler is nested withing a ContextHandler, then the order and
       nesting of execution of methods is:</para>
@@ -278,11 +275,11 @@
       <title>Resource Handler</title>
 
       <para>The <link
-      xl:href="http://download.eclipse.org/jetty/stable-9/xref/org/eclipse/jetty/embedded/FileServer.html">FileServer
+      xl:href="@JXURL@/org/eclipse/jetty/embedded/FileServer.html">FileServer
       example</link> shows how a ResourceHandler can be used to serve static
       content from the current working directory:</para>
 
-      <programlisting language="rjava"><filename>http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/plain/examples/embedded/src/main/java/org/eclipse/jetty/embedded/FileServer.java</filename></programlisting>
+      <programlisting language="rjava"><filename>@GITURL@/examples/embedded/src/main/java/org/eclipse/jetty/embedded/FileServer.java</filename></programlisting>
 
       <para>Note that a HandlerList is used with the ResourceHandler and a
       DefaultHandler, so that the DefaultHandler will generate a good 404
@@ -303,15 +300,15 @@
       <title>One Connector</title>
 
       <para>In the following example, <link
-      xl:href="http://download.eclipse.org/jetty/stable-9/xref/org/eclipse/jetty/embedded/OneConnector.html">OneConnector.java</link>,
+      xl:href="@JXURL@/org/eclipse/jetty/embedded/OneConnector.html">OneConnector.java</link>,
       a single HTTP connector instance is instantiated, configured and added
       to the server:</para>
 
-      <programlisting language="rjava"><filename>http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/plain/examples/embedded/src/main/java/org/eclipse/jetty/embedded/OneConnector.java</filename></programlisting>
+      <programlisting language="rjava"><filename>@GITURL@/examples/embedded/src/main/java/org/eclipse/jetty/embedded/OneConnector.java</filename></programlisting>
 
       <para>In this example the connector handles the HTTP protocol as that is
       the default for the <link
-      xl:href="http://download.eclipse.org/jetty/stable-9/xref/org/eclipse/jetty/server/ServerConnector.html">ServerConnector</link>
+      xl:href="@JXURL@/org/eclipse/jetty/server/ServerConnector.html">ServerConnector</link>
       class.</para>
     </section>
 
@@ -325,17 +322,17 @@
       HTTP configuration.</para>
 
       <para>In the <link
-      xl:href="http://download.eclipse.org/jetty/stable-9/xref/org/eclipse/jetty/embedded/ManyConnectors.html">ManyConnectors
+      xl:href="@JXURL@/org/eclipse/jetty/embedded/ManyConnectors.html">ManyConnectors
       example</link>, a server is configured with two ServerConnector
       instances: the http connector has a <link
-      xl:href="http://download.eclipse.org/jetty/stable-9/xref/org/eclipse/jetty/server/HttpConnectionFactory.html">HTTPConnectionFactory</link>
+      xl:href="@JXURL@/org/eclipse/jetty/server/HttpConnectionFactory.html">HTTPConnectionFactory</link>
       instance; the https connector has a SslConnectionFactory chained to a
       HttpConnectionFactory. Both HttpConnectionFactories are configured based
       on the same <link
-      xl:href="http://download.eclipse.org/jetty/stable-9/xref/org/eclipse/jetty/server/HttpConfiguration.html">HttpConfiguration</link>
+      xl:href="@JXURL@/org/eclipse/jetty/server/HttpConfiguration.html">HttpConfiguration</link>
       instance, however the HTTPS factory uses a wrapped configuration so that
       a <link
-      xl:href="http://download.eclipse.org/jetty/stable-9/xref/org/eclipse/jetty/server/SecureRequestCustomizer.html">SecureRequestCustomizer</link>
+      xl:href="@JXURL@/org/eclipse/jetty/server/SecureRequestCustomizer.html">SecureRequestCustomizer</link>
       may be added.</para>
     </section>
 
@@ -343,7 +340,7 @@
       <title>SPDY Connectors</title>
 
       <para>The <link
-      xl:href="http://download.eclipse.org/jetty/stable-9/xref/org/eclipse/jetty/embedded/SpdyConnector.html">SPDYConnector
+      xl:href="@JXURL@/org/eclipse/jetty/embedded/SpdyConnector.html">SPDYConnector
       example</link> is a similar to the HTTPS connector except that the
       SslConnectionFactory is chained NPNConnectionFactory that negotiates if
       the next protocol will be SPDY/2, SPDY/3 or HTTPS. </para>
@@ -359,24 +356,24 @@
     Servlets are similar to a Jetty Handler except that the request object is
     not mutable and thus cannot be modified. Servlets are handled in Jetty by
     a <link
-    xl:href="http://download.eclipse.org/jetty/stable-9/xref/org/eclipse/jetty/embedded/MinimalServlets.html">ServletHandler</link>
+    xl:href="@JXURL@/org/eclipse/jetty/embedded/MinimalServlets.html">ServletHandler</link>
     that: uses standard path mappings to match a Servlet to a request; sets
     the requests servletPath and pathInfo; passes the request to the servlet,
     possibly via Filters to produce a response.</para>
 
     <para>The <link
-    xl:href="http://download.eclipse.org/jetty/stable-9/xref/org/eclipse/jetty/embedded/MinimalServlets.html">MinimalServlets
+    xl:href="@JXURL@/org/eclipse/jetty/embedded/MinimalServlets.html">MinimalServlets
     example</link> creates a ServletHandler instance and configures a single
     HelloServlet: </para>
 
-    <programlisting language="rjava"><filename>http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/plain/examples/embedded/src/main/java/org/eclipse/jetty/embedded/MinimalServlets.java</filename></programlisting>
+    <programlisting language="rjava"><filename>@GITURL@/examples/embedded/src/main/java/org/eclipse/jetty/embedded/MinimalServlets.java</filename></programlisting>
   </section>
 
   <section>
     <title>Embedding Contexts</title>
 
     <para>A <link
-    xl:href="http://download.eclipse.org/jetty/stable-9/xref/org/eclipse/jetty/embedded/OneContext.html">ContextHandler</link>
+    xl:href="@JXURL@/org/eclipse/jetty/embedded/OneContext.html">ContextHandler</link>
     is a ScopedHandler that responds only to requests that have a URI prefix
     that matches the configured context path. Requests that match the context
     path have their path methods updated accordingly and the contexts scope is
@@ -413,53 +410,53 @@
     </itemizedlist>
 
     <para>The following <link
-    xl:href="http://download.eclipse.org/jetty/stable-9/xref/org/eclipse/jetty/embedded/OneContext.html">OneContext
+    xl:href="@JXURL@/org/eclipse/jetty/embedded/OneContext.html">OneContext
     example</link> shows a context being established that wraps the <link
-    xl:href="http://download.eclipse.org/jetty/stable-9/xref/org/eclipse/jetty/embedded/HelloHandler.html">HelloHandler</link>:</para>
+    xl:href="@JXURL@/org/eclipse/jetty/embedded/HelloHandler.html">HelloHandler</link>:</para>
 
-    <programlisting language="rjava"><filename>http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/plain/examples/embedded/src/main/java/org/eclipse/jetty/embedded/OneContext.java</filename></programlisting>
+    <programlisting language="rjava"><filename>@GITURL@/examples/embedded/src/main/java/org/eclipse/jetty/embedded/OneContext.java</filename></programlisting>
 
     <para>When many contexts are present, a ContextHandlerCollection can be
     embedded to efficiently examine a request URI to then select the matching
     ContextHandler(s) for the request. The <link
-    xl:href="http://download.eclipse.org/jetty/stable-9/xref/org/eclipse/jetty/embedded/ManyContexts.html">ManyContexts
+    xl:href="@JXURL@/org/eclipse/jetty/embedded/ManyContexts.html">ManyContexts
     example</link> shows how many such contexts can be configured:</para>
 
-    <programlisting language="rjava"><filename>http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/plain/examples/embedded/src/main/java/org/eclipse/jetty/embedded/ManyContexts.java</filename></programlisting>
+    <programlisting language="rjava"><filename>@GITURL@/examples/embedded/src/main/java/org/eclipse/jetty/embedded/ManyContexts.java</filename></programlisting>
   </section>
 
   <section>
     <title>Embedding ServletContexts</title>
 
     <para>A <link
-    xl:href="http://download.eclipse.org/jetty/stable-9/xref/org/eclipse/jetty/servlet/ServletContextHandler.html">ServletContextHandler</link>
+    xl:href="@JXURL@/org/eclipse/jetty/servlet/ServletContextHandler.html">ServletContextHandler</link>
     is a specialization of ContextHandler with support for standard sessions
     and Servlets. The following <link
-    xl:href="http://download.eclipse.org/jetty/stable-9/xref/org/eclipse/jetty/embedded/OneServletContext.html">OneServletContext
+    xl:href="@JXURL@/org/eclipse/jetty/embedded/OneServletContext.html">OneServletContext
     example</link> instantiates a <link
-    xl:href="http://download.eclipse.org/jetty/stable-9/xref/org/eclipse/jetty/servlet/DefaultServlet.html">DefaultServlet</link>
+    xl:href="@JXURL@/org/eclipse/jetty/servlet/DefaultServlet.html">DefaultServlet</link>
     to server static content from /tmp/ and a <link
     xl:href="???">DumpServlet</link> that creates a session and dumps basic
     details about the request:</para>
 
-    <programlisting language="rjava"><filename>http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/plain/examples/embedded/src/main/java/org/eclipse/jetty/embedded/OneServletContext.java</filename></programlisting>
+    <programlisting language="rjava"><filename>@GITURL@/examples/embedded/src/main/java/org/eclipse/jetty/embedded/OneServletContext.java</filename></programlisting>
   </section>
 
   <section>
     <title>Embedding Web Applications</title>
 
     <para>A <link
-    xl:href="http://download.eclipse.org/jetty/stable-9/xref/org/eclipse/jetty/webapp/WebAppContext.html">WebAppContext</link>
+    xl:href="@JXURL@/org/eclipse/jetty/webapp/WebAppContext.html">WebAppContext</link>
     is an extension of a ServletContextHandler that uses the <link
     xl:href="http://en.wikipedia.org/wiki/WAR_%28Sun_file_format%29">standard
     layout</link> and web.xml to configure the servlets, filters and other
     features from a web.xml and/or annotations. The following <link
-    xl:href="http://download.eclipse.org/jetty/stable-9/xref/org/eclipse/jetty/embedded/OneWebApp.html">OneWebApp
+    xl:href="@JXURL@/org/eclipse/jetty/embedded/OneWebApp.html">OneWebApp
     example</link> configures the jetty test webapp. Web application can use
     resources provided by the container and in this case a LoginService is
     needed and also configured:</para>
 
-    <programlisting language="rjava"><filename>http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/plain/examples/embedded/src/main/java/org/eclipse/jetty/embedded/OneWebApp.java</filename></programlisting>
+    <programlisting language="rjava"><filename>@GITURL@/examples/embedded/src/main/java/org/eclipse/jetty/embedded/OneWebApp.java</filename></programlisting>
   </section>
 
   <section>
@@ -470,7 +467,7 @@
     the Jetty XML configuration format is just a simple rendering of what can
     be done in code, thus it is very simple to write embedded code that does
     precisely what the jetty.xml configuration does. The <link
-    xl:href="http://download.eclipse.org/jetty/stable-9/xref/org/eclipse/jetty/embedded/LikeJettyXml.html">LikeJettyXml
+    xl:href="@JXURL@/org/eclipse/jetty/embedded/LikeJettyXml.html">LikeJettyXml
     example</link> following renders in code the behaviour obtained from the
     configuration files:</para>
 
@@ -521,6 +518,6 @@
       </listitem>
     </itemizedlist>
 
-    <programlisting language="rjava"><filename>http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/plain/examples/embedded/src/main/java/org/eclipse/jetty/embedded/LikeJettyXml.java</filename></programlisting>
+    <programlisting language="rjava"><filename>@GITURL@/examples/embedded/src/main/java/org/eclipse/jetty/embedded/LikeJettyXml.java</filename></programlisting>
   </section>
 </section>

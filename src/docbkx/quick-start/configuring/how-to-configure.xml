@@ -17,12 +17,10 @@
 //  ========================================================================
 -->
 <section version="5.0"
-xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd"
-xml:id="quickstart-config-how" xmlns="http://docbook.org/ns/docbook"
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema"
-xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
-xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg"
-xmlns:ns2="http://www.w3.org/1998/Math/MathML" xmlns:ns="http://docbook.org/ns/docbook">
+         xml:id="quickstart-config-how" xmlns="http://docbook.org/ns/docbook"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:xl="http://www.w3.org/1999/xlink"
+        >
   <title>How to Configure Jetty</title>
   <para>To understand Jetty configuration, you need to understand the "How" and the "What". This section covers how to
   configure Jetty in terms of what mechanisms exist to perform configuration. The <link
@@ -51,7 +49,7 @@ xmlns:ns2="http://www.w3.org/1998/Math/MathML" xmlns:ns="http://docbook.org/ns/d
       </listitem>
     </itemizedlist>
     <para>Because the main Jetty configuration is done by IoC, the <link
-    xl:href="http://download.eclipse.org/jetty/stable-9/apidocs/">Jetty API documentation</link> is the ultimate
+    xl:href="@JDURL@/">Jetty API documentation</link> is the ultimate
     configuration reference.</para>
   </section>
   <section>
@@ -119,12 +117,12 @@ xmlns:ns2="http://www.w3.org/1998/Math/MathML" xmlns:ns="http://docbook.org/ns/d
     <para>An example of a Jetty server assembled and configured in embedded style is:</para>
     <programlisting language="rjava">
       <filename>
-      http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/plain/examples/embedded/src/main/java/org/eclipse/jetty/embedded/ExampleServer.java</filename>
+      @GITURL@/examples/embedded/src/main/java/org/eclipse/jetty/embedded/ExampleServer.java</filename>
     </programlisting>
     <para>You can achieve the exact same server configuration with the Jetty XML file:</para>
     <programlisting language="fetch">
       <filename>
-      http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/plain/examples/embedded/src/main/resources/exampleserver.xml</filename>
+      @GITURL@/examples/embedded/src/main/resources/exampleserver.xml</filename>
     </programlisting>
     <para>In practise, most commonly used Jetty features have XML files that are included in the standard distribution
     in the <filename>etc</filename> directory. Thus configuring Jetty is often a matter of just editing existing XML

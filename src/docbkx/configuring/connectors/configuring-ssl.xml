@@ -18,14 +18,12 @@
 -->
 <section version="5.0"
          xml:id="configuring-ssl" xmlns="http://docbook.org/ns/docbook"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xmlns:xl="http://www.w3.org/1999/xlink"
         >
   <title>Configuring SSL</title>
 
-  <para>This document provides an overview of how to configure SSL (aka TLS)
-  for Jetty, which uses Sun's reference implementation for the Java Secure
-  Sockets Extension (JSSE).</para>
+  <para>This document provides an overview of how to configure SSL (also known as TLS)
+  for Jetty.</para>
 
   <section xml:id="understanding-certificates-and-keys">
     <title>Understanding Certificates and Keys</title>
@@ -59,13 +57,13 @@
         <itemizedlist>
           <listitem>
             <para><link
-            xl:href="http://docs.oracle.com/javase/1.4.2/docs/tooldocs/solaris/keytool.html">Keytool
+            xl:href="http://docs.oracle.com/javase/7/docs/technotes/tools/solaris/keytool.html">Keytool
             for Unix</link></para>
           </listitem>
 
           <listitem>
             <para><link
-            xl:href="http://docs.oracle.com/javase/1.5.0/docs/tooldocs/windows/keytool.html">Keytool
+            xl:href="http://docs.oracle.com/javase/7/docs/technotes/tools/windows/keytool.html">Keytool
             for Windows</link></para>
           </listitem>
         </itemizedlist>
@@ -104,23 +102,19 @@
     <section xml:id="openssl-vs-keytool">
       <title>OpenSSL vs. Keytool</title>
 
-      <para>For testing, Keytool probably provides the simplest way to
+      <para>For testing, the <code>keytool</code> utility bundled with the JDK provides the simplest way to
       generate the key and certificate you need.</para>
 
       <para>You can also use the OpenSSL tools to generate keys and
       certificates, or to convert those that you have used with Apache or
       other servers. Since Apache and other servers commonly use the OpenSSL
       tool suite to generate and manipulate keys and certificates, you might
-      already have some keys and certificates created by OpenSSL. Also,
-      OpenSSL might be more trusted than Keytool or some certificate
-      authorities. You might also prefer the formats OpenSSL produces.</para>
+      already have some keys and certificates created by OpenSSL, or
+      you might also prefer the formats OpenSSL produces.</para>
 
       <para>If you want the option of using the same certificate with Jetty or
       a web server such as Apache not written in Java, you might prefer to
-      generate your private key and certificate with OpenSSL. The Java Keytool
-      does not provide options for exporting private keys, and Apache needs
-      the private key. If you create the key and certificate with OpenSSL,
-      your non-Java web server has ready access to it.</para>
+      generate your private key and certificate with OpenSSL.</para>
     </section>
 
     <section xml:id="configuring-jetty-for-ssl">
@@ -143,7 +137,7 @@
         </listitem>
 
         <listitem>
-          <para><xref linkend="configuring-ssl-parameters"/></para>
+          <para><xref linkend="configuring-sslcontextfactory"/></para>
         </listitem>
       </itemizedlist>
     </section>
@@ -152,13 +146,13 @@
       <title>Generating Key Pairs and Certificates</title>
 
       <para>The simplest way to generate keys and certificates is to use the
-      Keytool application that comes with the JDK, as it generates keys and
+      <code>keytool</code> application that comes with the JDK, as it generates keys and
       certificates directly into the keystore. See <xref
       linkend="generating-key-pairs-and-certificates-JDK-keytool"/>.</para>
 
       <para>If you already have keys and certificates, see <xref
-      linkend="loading-keys-and-certificates"/> to load them into a JSSE key
-      store. This section also applies if you have a renewal certificate to
+      linkend="loading-keys-and-certificates"/> to load them into a JSSE keystore.
+      This section also applies if you have a renewal certificate to
       replace one that is expiring.</para>
 
       <para>The examples below generate only basic keys and certificates. You
@@ -167,25 +161,25 @@
 
       <itemizedlist>
         <listitem>
-          <para>Key size.</para>
+          <para>the key size</para>
         </listitem>
 
         <listitem>
-          <para>Certificate expiry.</para>
+          <para>the certificate expiration date</para>
         </listitem>
 
         <listitem>
-          <para>Alternate security providers.</para>
+          <para>alternate security providers</para>
         </listitem>
       </itemizedlist>
 
       <section xml:id="generating-key-pairs-and-certificates-JDK-keytool">
-        <title>Generating Keys and Certificates with JDK Keytool</title>
+        <title>Generating Keys and Certificates with JDK's keytool</title>
 
         <para>The following command generates a key pair and certificate
-        directly into a keystore:</para>
+        directly into file <filename>keystore</filename>:</para>
 
-        <screen><![CDATA[> keytool -keystore keystore -alias jetty -genkey -keyalg RSA        ]]></screen>
+        <screen><![CDATA[$ keytool -keystore keystore -alias jetty -genkey -keyalg RSA]]></screen>
 
         <note>
           <para>The DSA key algorithm certificate produces an error after
@@ -200,7 +194,7 @@
         only mandatory response is to provide the fully qualified host name of
         the server at the "first and last name" prompt. For example:</para>
 
-        <screen><![CDATA[> keytool -keystore keystore -alias jetty -genkey -keyalg RSA
+        <screen><![CDATA[$ keytool -keystore keystore -alias jetty -genkey -keyalg RSA
  Enter keystore password:  password
  What is your first and last name?
    [Unknown]:  jetty.eclipse.org
@@ -219,17 +213,18 @@
    [no]:  yes
 
  Enter key password for <jetty>
-         (RETURN if same as keystore password):  password        ]]></screen>
+         (RETURN if same as keystore password):
+ $]]></screen>
 
         <para>You now have the minimal requirements to run an SSL connection
         and could proceed directly to <link
-        linkend="configuring-ssl-parameters">configure an SSL
+        linkend="configuring-sslcontextfactory">configure an SSL
         connector</link>. However the browser will not trust the certificate
         you have generated, and prompts the user to this effect. While what
         you have at this point is often sufficient for testing, most public
         sites need a trusted certificate, as shown in the section <link
-        linkend="generating-csr-from-keytool">generating CSR from
-        Keytool</link>.</para>
+        linkend="generating-csr-from-keytool">generating a CSR with
+        keytool</link>.</para>
       </section>
 
       <section xml:id="generating-keys-and-certificates-openssl">
@@ -238,7 +233,7 @@
         <para>The following command generates a key pair in the file
         <filename>jetty.key</filename>:</para>
 
-        <screen><![CDATA[> openssl genrsa -des3 -out jetty.key        ]]></screen>
+        <screen><![CDATA[$ openssl genrsa -des3 -out jetty.key]]></screen>
 
         <para>You might also want to use the <filename>-rand</filename> file
         argument to provide an arbitrary file that helps seed the random
@@ -247,14 +242,14 @@
         <para>The following command generates a certificate for the key into
         the file <filename> jetty.crt</filename>:</para>
 
-        <screen><![CDATA[> openssl req -new -x509 -key jetty.key -out jetty.crt        ]]></screen>
+        <screen><![CDATA[$ openssl req -new -x509 -key jetty.key -out jetty.crt]]></screen>
 
         <para>The next command prompts for information about the certificate
         and for passwords to protect both the keystore and the keys within it.
         The only mandatory response is to provide the fully qualified host
-        name of the server at the ''Common Name'' prompt. For example:</para>
+        name of the server at the "Common Name" prompt. For example:</para>
 
-        <screen><![CDATA[> openssl genrsa -des3 -out jetty.key
+        <screen><![CDATA[$ openssl genrsa -des3 -out jetty.key
  Generating RSA private key, 512 bit long modulus
  ...........................++++++++++++
  ..++++++++++++
@@ -262,7 +257,7 @@
  Enter pass phrase for jetty.key:
  Verifying - Enter pass phrase for jetty.key:
 
-> openssl req -new -x509 -key jetty.key -out jetty.crt
+$ openssl req -new -x509 -key jetty.key -out jetty.crt
  Enter pass phrase for jetty.key:
  You are about to be asked to enter information to be incorporated
  into your certificate request.
@@ -279,7 +274,7 @@
  Common Name (eg, YOUR name) []:jetty.eclipse.org
  Email Address []:
 
->        ]]></screen>
+$]]></screen>
 
         <para>You now have the minimal requirements to run an SSL connection
         and could proceed directly to <xref
@@ -304,7 +299,7 @@
     <section xml:id="requesting-trusted-certificate">
       <title>Requesting a Trusted Certificate</title>
 
-      <para>The keys and certificates generated with the JDK Keytool and
+      <para>The keys and certificates generated with JDK's <code>keytool</code> and
       OpenSSL are sufficient to run an SSL connector. However the browser will
       not trust the certificate you have generated, and it will prompt the
       user to this effect.</para>
@@ -318,15 +313,13 @@
       request (CSR).</para>
 
       <section xml:id="generating-csr-from-keytool">
-        <title>Generating a CSR from Keytool</title>
+        <title>Generating a CSR with keytool</title>
 
         <para>The following command generates the file
-        <filename>jetty.csr</filename> using Keytool for a key/cert already in
+        <filename>jetty.csr</filename> using <code>keytool</code> for a key/cert already in
         the keystore:</para>
 
-        <screen><![CDATA[
-> keytool -certreq -alias jetty -keystore keystore -file jetty.csr
-        ]]></screen>
+        <screen><![CDATA[$ keytool -certreq -alias jetty -keystore keystore -file jetty.csr]]></screen>
       </section>
 
       <section xml:id="generating-csr-from-openssl">
@@ -336,10 +329,10 @@
         <filename>jetty.csr</filename> using OpenSSL for a key in the file
         <filename>jetty.key</filename>:</para>
 
-        <screen><![CDATA[> openssl req -new -key jetty.key -out jetty.csr  ]]></screen>
+        <screen><![CDATA[$ openssl req -new -key jetty.key -out jetty.csr]]></screen>
 
         <para>Notice that this command uses only the existing key from
-        <filename>jetty.keyfile</filename>, and not a certificate in
+        <filename>jetty.key</filename> file, and not a certificate in
         <filename>jetty.crt</filename> as generated with OpenSSL. You need to
         enter the details for the certificate again.</para>
       </section>
@@ -349,23 +342,23 @@
       <title>Loading Keys and Certificates</title>
 
       <para>Once a CA has sent you a certificate, or if you generated your own
-      certificate without Keytool, you need to load it into a JSSE
+      certificate without <code>keytool</code>, you need to load it into a JSSE
       keystore.</para>
 
       <note>
-        <para>You need both the private key and the certificate in the
+        <para>You need both the private key and the certificate in the JSSE
         keystore. You should load the certificate into the keystore used to
-        generate the CSR with Keytool. If your key pair is not in a keystore
-        (generated with OpenSSL), you need to use the PKCS12 format to load
+        generate the CSR with <code>keytool</code>. If your key pair is not already in a keystore
+        (for example, because it has been generated with OpenSSL), you need to use the PKCS12 format to load
         both key and certificate (see <link
         linkend="loading-keys-and-certificates-via-pkcks12">PKCKS12 Keys &amp;
         Certificates</link>).</para>
       </note>
 
       <section xml:id="loading-certificates-with-keytool">
-        <title>Loading Certificates with Keytool</title>
+        <title>Loading Certificates with keytool</title>
 
-        <para>You can use Keytool to load a certificate in PEM form directly
+        <para>You can use <code>keytool</code> to load a certificate in PEM form directly
         into a keystore. The PEM format is a text encoding of certificates; it
         is produced by OpenSSL, and is returned by some CAs. An example PEM
         file is:</para>
@@ -385,20 +378,18 @@ aW5nIFB0eS4gTHRkLjEOMAwGA1UECxMFSmV0dHkxGjAYBgNVBAMTEWpldHR5Lm1v
 cnRiYXkub3JnggEAMAwGA1UdEwQFMAMBAf8wDQYJKoZIhvcNAQEEBQADQQA6NkaV
 OtXzP4ayzBcgK/qSCmF44jdcARmrXhiXUcXzjxsLjSJeYPJojhUdC2LQKy+p4ki8
 Rcz6oCRvCGCe5kDB
------END CERTIFICATE-----        ]]></screen>
+-----END CERTIFICATE-----]]></screen>
 
         <para>The following command loads a PEM encoded certificate in the
         <filename>jetty.crt</filename> file into a JSSE keystore:</para>
 
-        <screen><![CDATA[> keytool -keystore keystore -import -alias jetty -file jetty.crt -trustcacerts        ]]></screen>
+        <screen><![CDATA[$ keytool -keystore keystore -import -alias jetty -file jetty.crt -trustcacerts]]></screen>
 
-        <para>Depending on the situation, you might not require the
-        <code>-trustcacerts</code> option. Try the operation without it if you
-        like. If the certificate you receive from the CA is not in a format
-        that Keytool understands, you can use the <code>openssl</code> command
+        <para>If the certificate you receive from the CA is not in a format
+        that <code>keytool</code> understands, you can use the <code>openssl</code> command
         to convert formats:</para>
 
-        <screen><![CDATA[> openssl x509 -in jetty.der -inform DER -outform PEM -out jetty.crt        ]]></screen>
+        <screen><![CDATA[$ openssl x509 -in jetty.der -inform DER -outform PEM -out jetty.crt]]></screen>
       </section>
 
       <section xml:id="loading-keys-and-certificates-via-pkcks12">
@@ -414,41 +405,28 @@ Rcz6oCRvCGCe5kDB
         <filename>jetty.crt</filename> file into the
         <filename>jetty.pkcs12</filename> file:</para>
 
-        <screen><![CDATA[> openssl pkcs12 -inkey jetty.key -in jetty.crt -export -out jetty.pkcs12        ]]></screen>
+        <screen><![CDATA[$ openssl pkcs12 -inkey jetty.key -in jetty.crt -export -out jetty.pkcs12]]></screen>
 
         <para>If you have a chain of certificates, because your CA is an
         intermediary, build the PKCS12 file as follows:</para>
 
-        <screen><![CDATA[> cat example.crt intermediate.crt [intermediate2.crt]... rootCA.crt > cert-chain.txt
-> openssl pkcs12 -export -inkey example.key -in cert-chain.txt -out example.pkcs12        ]]></screen>
+        <screen><![CDATA[$ cat example.crt intermediate.crt [intermediate2.crt] ... rootCA.crt > cert-chain.txt
+$ openssl pkcs12 -export -inkey example.key -in cert-chain.txt -out example.pkcs12]]></screen>
 
         <para>The order of certificates must be from server to rootCA, as per
         RFC2246 section 7.4.2.</para>
 
         <para>OpenSSL asks for an <emphasis>export password</emphasis>. A
-        non-empty password seems to be required to make the next step work.
-        Then load the resulting PKCS12 file into a JSSE keystore with the
-        following jetty utility class:</para>
+        non-empty password is required to make the next step work.
+        Then load the resulting PKCS12 file into a JSSE keystore with <code>keytool</code>:</para>
 
-        <informalexample>
-          <programlisting language="java"><![CDATA[> java -classpath $JETTY_HOME/lib/jetty-util-6.1-SNAPSHOT.jar:$JETTY_HOME/lib/jetty-6.1-SNAPSHOT.jar org.eclipse.jetty.security.PKCS12Import jetty.pkcs12 keystore                  ]]></programlisting>
-        </informalexample>
+        <screen><![CDATA[$ keytool -importkeystore -srckeystore jetty.pkcs12 -srcstoretype PKCS12 -destkeystore keystore]]></screen>
 
-        <para>This asks for two passphrases. Give the password from the last
-        step as the input passphrase and you are set. The "output passphrase"
-        must appear in your <filename>jetty.xml</filename> config file as both
-        the Password and KeyPassword of the SunJsseListener that uses the
-        certificate.</para>
-
-        <para>You can also use Keytool (starting form jdk1.6) to import a
-        PKCS12 file with the following command:</para>
-
-        <screen><![CDATA[> keytool -importkeystore -srckeystore jetty.pkcs12 -srcstoretype PKCS12 -destkeystore keystore        ]]></screen>
       </section>
     </section>
 
-    <section xml:id="configuring-ssl-parameters">
-      <title>Configuring SSL Keystore</title>
+    <section xml:id="configuring-sslcontextfactory">
+      <title>Configuring SslContextFactory</title>
 
       <para>The generated SSL certificates held in the key store are
       configured on Jetty by injection an instance of <link
@@ -467,13 +445,13 @@ Rcz6oCRvCGCe5kDB
       with the ID "sslContextFactory":</para>
 
       <informalexample>
-        <programlisting language="xml"><![CDATA[  <New id="sslContextFactory" class="org.eclipse.jetty.util.ssl.SslContextFactory">
-    <Set name="KeyStorePath"><Property name="jetty.home" default="." />/etc/keystore</Set>
-    <Set name="KeyStorePassword">OBF:1vny1zlo1x8e1vnw1vn61x8g1zlu1vn4</Set>
-    <Set name="KeyManagerPassword">OBF:1u2u1wml1z7s1z7a1wnl1u2g</Set>
-    <Set name="TrustStorePath"><Property name="jetty.home" default="." />/etc/keystore</Set>
-    <Set name="TrustStorePassword">OBF:1vny1zlo1x8e1vnw1vn61x8g1zlu1vn4</Set>
-  </New>]]></programlisting>
+        <programlisting language="xml"><![CDATA[<New id="sslContextFactory" class="org.eclipse.jetty.util.ssl.SslContextFactory">
+  <Set name="KeyStorePath"><Property name="jetty.home" default="." />/etc/keystore</Set>
+  <Set name="KeyStorePassword">OBF:1vny1zlo1x8e1vnw1vn61x8g1zlu1vn4</Set>
+  <Set name="KeyManagerPassword">OBF:1u2u1wml1z7s1z7a1wnl1u2g</Set>
+  <Set name="TrustStorePath"><Property name="jetty.home" default="." />/etc/keystore</Set>
+  <Set name="TrustStorePassword">OBF:1vny1zlo1x8e1vnw1vn61x8g1zlu1vn4</Set>
+</New>]]></programlisting>
       </informalexample>
 
       <para>This example uses the keystore distributed with jetty. To use your
@@ -509,44 +487,44 @@ Rcz6oCRvCGCe5kDB
       typically set to the same keystore.</para>
     </section>
 
-    <section xml:id="configuring-ssl-for-earlier-versions-of-jetty">
+    <section>
       <title>Configuring SSL Connector and Port</title>
 
-      <para>This SslContextFactory instance created above is injected into a
-      SslConnectionFactory instance to be used when accepting network
-      connections, which in turn is injected into an Instance of
-      ServerConnector. For example from <link
+      <para>This <code>SslContextFactory</code> instance created above is injected into a
+      <code>SslConnectionFactory</code> instance to be used when accepting network
+      connections, which in turn is injected into an instance of
+      <code>ServerConnector</code>. For example from <link
       xl:href="@GITURL@/jetty-server/src/main/config/etc/jetty-https.xml">jetty-https.xml</link>:</para>
 
       <informalexample>
-        <programlisting language="xml"><![CDATA[  <Call id="sslConnector" name="addConnector">
-    <Arg>
-      <New class="org.eclipse.jetty.server.ServerConnector">
-        <Arg name="server"><Ref refid="Server" /></Arg>
-          <Arg name="factories">
-            <Array type="org.eclipse.jetty.server.ConnectionFactory">
-              <Item>
-                <New class="org.eclipse.jetty.server.SslConnectionFactory">
-                  <Arg name="next">http/1.1</Arg>
-                  <Arg name="sslContextFactory"><Ref refid="sslContextFactory"/></Arg>
-                </New>
-              </Item>
-              <Item>
-                <New class="org.eclipse.jetty.server.HttpConnectionFactory">
-                  <Arg name="config"><Ref refid="tlsHttpConfig"/></Arg>
-                </New>
-              </Item>
-            </Array>
-          </Arg>
-          <Set name="host"><Property name="jetty.host" /></Set>
-          <Set name="port"><Property name="jetty.tls.port" default="8443" /></Set>
-          <Set name="idleTimeout">30000</Set>
-        </New>
-    </Arg>
-  </Call>]]></programlisting>
+        <programlisting language="xml"><![CDATA[<Call id="sslConnector" name="addConnector">
+  <Arg>
+    <New class="org.eclipse.jetty.server.ServerConnector">
+      <Arg name="server"><Ref refid="Server" /></Arg>
+        <Arg name="factories">
+          <Array type="org.eclipse.jetty.server.ConnectionFactory">
+            <Item>
+              <New class="org.eclipse.jetty.server.SslConnectionFactory">
+                <Arg name="next">http/1.1</Arg>
+                <Arg name="sslContextFactory"><Ref refid="sslContextFactory"/></Arg>
+              </New>
+            </Item>
+            <Item>
+              <New class="org.eclipse.jetty.server.HttpConnectionFactory">
+                <Arg name="config"><Ref refid="tlsHttpConfig"/></Arg>
+              </New>
+            </Item>
+          </Array>
+        </Arg>
+        <Set name="host"><Property name="jetty.host" /></Set>
+        <Set name="port"><Property name="jetty.tls.port" default="8443" /></Set>
+        <Set name="idleTimeout">30000</Set>
+      </New>
+  </Arg>
+</Call>]]></programlisting>
       </informalexample>
 
-      <para>Note also that the SSL connectors port is set directly on the
+      <para>Note also that the SSL connector port is set directly on the
       ServerConnector instance.</para>
     </section>
 

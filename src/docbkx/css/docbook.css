@@ -63,6 +63,30 @@ strong {
   color: #000;
 }
 
+table {
+  border: 1px solid #036;
+  padding: 0;
+  border-collapse: collapse;
+}
+tr {
+  border: 0;
+  padding: 0;
+}
+tr:nth-child(even) {
+  background-color: #EEE;
+}
+th {
+  padding: 5px;
+  background: #036;
+  color: white;
+  text-align: center;
+  font-weight: bold;
+}
+td {
+  border: 1px solid #CCC;
+  padding: 5px;
+}
+
 h2.subtitle {
   font-variant: normal;
 }

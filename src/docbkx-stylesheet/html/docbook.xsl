@@ -76,10 +76,10 @@ xmlns:xslthl="http://xslthl.sf.net"
   </xsl:template>
 
   <xsl:template name="user.header.content">
-    <div style="background-color: #DFF2FD; text-align: left; font-size:80%; font-family: arial, sans; border:thin dotted blue; padding: 4px; ">
+    <div style="background-color: #DEF; text-align: left; font-size:80%; font-family: arial, sans; border:thin dotted blue; padding: 4px; ">
     <span style="font-variant: small-caps; font-weight: bold">
         <a href="http://www.webtide.com/support.jsp" style="text-decoration:none">Contact the core Jetty developers at
-          <span style="color:#fd360b"> www.webtide.com</span>
+          <span style="color:#F3A"> www.webtide.com</span>
         </a>
     </span>
     <br/>
@@ -96,13 +96,13 @@ xmlns:xslthl="http://xslthl.sf.net"
   </xsl:template>
 
   <xsl:template name="user.footer.navigation">
-  <div style="background-color: #DFF2FD; text-align: left; font-size:80%; font-family: arial, sans; border:thin dotted blue; padding: 4px; ">
+  <div style="background-color: #DEF; text-align: left; font-size:80%; font-family: arial, sans; border:thin dotted blue; padding: 4px; ">
     <span  style="font-style:oblique;font-size: 80%">
 See an error or something missing?<br/>
     </span>
     <span style="font-variant: small-caps; font-weight: bold">
         <a href="http://github.com/jetty-project/jetty-documentation" style="text-decoration:none">Contribute to this documentation at
-          <span style="color:#fd360b"> Github!</span>
+        <span style="color:#F3A"> Github!</span>
         </a>
     </span>
     <br/>

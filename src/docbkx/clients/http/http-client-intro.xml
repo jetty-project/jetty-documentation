@@ -17,7 +17,7 @@
 //  ========================================================================
 -->
 <section xml:id="http-client-intro" version="5.0" xmlns="http://docbook.org/ns/docbook"
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd">
   <info>
     <title>Introduction</title>
@@ -79,10 +79,9 @@ httpClient.start();
     different cookies, different authentication credentials and so on.</para>
     <para>When you create a <code>HttpClient</code> instance using the parameterless constructor, you will only be able
     to perform plain HTTP requests, and you will not be able to perform HTTPS requests.</para>
-    <para>In order to perform HTTPS requests, you should create first a <code>SslContextFactory</code> (see <xref
-    linkend="ssl" />
-<!--TODO: cross link SslContextFactory docs-->
-    ), configure it, and pass it to <code>HttpClient</code>'s constructor. When created with a <code>
+    <para>In order to perform HTTPS requests, you should create first a
+    <link xl:href="http://download.eclipse.org/jetty/stable-9/apidocs/org/eclipse/jetty/util/ssl/SslContextFactory.html"><code>SslContextFactory</code></link>,
+    configure it, and pass it to <code>HttpClient</code>'s constructor. When created with a <code>
     SslContextFactory</code>, the <code>HttpClient</code> will be able to perform both HTTP and HTTPS requests to any
     domain.</para>
     <informalexample>

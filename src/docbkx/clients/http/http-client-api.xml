@@ -288,6 +288,37 @@ content.close();
       In this case, <code>Response.Listener</code> callbacks will be invoked before the request is fully sent.
       This allows fine-grained control of the request/response conversation: for example the server may reject
       contents that are too big, send a response to the client, which in turn may stop the content upload.</para>
+      <para>Another way to provide request content is by using an <code>OutputStreamContentProvider</code>, which
+      allows applications to write request content when it is available to the <code>OutputStream</code> provided by
+      <code>OutputStreamContentProvider</code>:</para>
+        <informalexample>
+          <programlisting language="java">
+<![CDATA[
+OutputStreamContentProvider content = new OutputStreamContentProvider();
+
+// Use try-with-resources to close the OutputStream when all content is written
+try (OutputStream output = content.getOutputStream())
+{
+    client.newRequest("localhost", 8080)
+            .content(content)
+            .send(new Response.CompleteListener()
+            {
+                @Override
+                public void onComplete(Result result)
+                {
+                    // Your logic here
+                }
+            });
+
+    ...
+
+    // Write content
+    writeContent(output);
+}
+// End of try-with-resource, output.close() called automatically to signal end of content
+]]>
+          </programlisting>
+        </informalexample>
     </section>
     <section xml:id="http-client-response-content">
       <info>

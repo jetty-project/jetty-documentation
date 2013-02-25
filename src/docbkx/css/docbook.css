@@ -1,10 +1,10 @@
 a {
   text-decoration: none;
-  color: #006699;
+  color: #069;
 }
 
 a:visited {
-  color: #003366;
+  color: #036;
 }
 
 body {
@@ -14,8 +14,8 @@ body {
   width: 960px;
   margin-left: auto;
   margin-right: auto;
-  background-color: #ffffff;
-  color: #444444;
+  background-color: #FFF;
+  color: #444;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -60,7 +60,7 @@ pre {
 }
 
 strong {
-  color: #000000;
+  color: #000;
 }
 
 h2.subtitle {
@@ -84,20 +84,20 @@ h3.author {
   display: inline-block;
 }
 
-code { 
-  font-size: 90%; 
+code {
+  font-size: 90%;
 }
 
 div.variablelist dd p {
-  margin: 0px;
-  margin-top: 0px;
+  margin: 0;
+  margin-top: 0;
   margin-bottom: 1em;
   margin-left: 1em;
 }
 
 span.term {
   font-weight:bold;
-  padding-left:3px; 
+  padding-left:3px;
   padding-right:3px;
 }
 
@@ -156,7 +156,7 @@ div.variablelist {
 }
 
 .programlisting .hl-value {
-  color: #1a1aa6;
+  color: #009;
 }
 
 .programlisting .hl-annotation {
@@ -166,4 +166,9 @@ div.variablelist {
 .programlisting .hl-comment {
   color: gray;
   font-style: italic;
+}
+
+.caution, .important, .note, .tip, .warning {
+    border: 2px solid #069;
+    padding: 0 20px;
 }

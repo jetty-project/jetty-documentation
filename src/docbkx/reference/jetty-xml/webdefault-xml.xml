@@ -31,8 +31,9 @@
 
     <para>You can specify a custom configuration file to use for specific
     webapps, or for all webapps. If you do not specify an alternate defaults
-    descriptor, Jetty automatically uses
-    <filename>webdefault.xml</filename>.</para>
+    descriptor, the $JETTY-HOME/etc/jetty-deploy.xml file will configure jetty
+    to automatically use
+    $JETTY_HOME/etc/<filename>webdefault.xml</filename>.</para>
 
     <section xml:id="creating-custom-webdefault-xml-one-webapp">
       <title>Creating a Custom <filename>webdefault.xml</filename> for One
@@ -84,31 +85,19 @@ import org.eclipse.jetty.webapp.WebAppContext;
 
       <para>If you want to apply the same custom
       <filename>webdefault.xml</filename> to a number of webapps, provide the
-      path to the file in <xref linkend="jetty-xml-config"/> either to the hot
-      deployer (<xref linkend="using-context-provider"/>) or the static
-      deployer (<xref linkend="using-webapp-provider"/>). For example:</para>
+      path to the file in <xref linkend="jetty-xml-config"/> in the
+      $JETTY_HOME/etc/jetty-deploy.xml file:</para>
 
       <informalexample>
-        <programlisting language="xml"><![CDATA[
- 
-<Configure class="org.eclipse.jetty.webapp.WebAppContext">
-    ...
-    <New class="org.eclipse.jetty.deploy.WebAppDeployer">
-        ...
-        <Set name="defaultsDescriptor">/my/path/to/webdefault.xml</Set>
-    </New>
-    ...
-</Configure>
-
-        ]]></programlisting>
+        <programlisting language="xml"><![CDATA[   <Set name="defaultsDescriptor"><Property name="jetty.home" default="." />/other/path/to/another/webdefault.xml</Set>]]></programlisting>
       </informalexample>
     </section>
 
     <section xml:id="webdefault-xml-using-jetty-maven-plugin">
       <title>Using the Jetty Maven Plugin</title>
 
-      <para>Similarly, when using the Jetty Maven Plugin (<xref
-      linkend="jetty-maven-plugin"/>), you provide a customized
+      <para>Similarly, when using the <link linkend="jetty-maven-plugin">Jetty
+      Maven Plugin</link> you provide a customized
       <filename>webdefault.xml</filename> file for your webapp as
       follows:</para>
 

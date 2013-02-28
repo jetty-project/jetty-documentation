@@ -35,25 +35,28 @@
     need a Java compiler. You can acquire a Java compiler from the JVM if you
     are using a full JDK, or from a third party Jar.</para>
 
-    <para>In versions of Jetty prior to 7.5.0, the JSP infrastructure uses the
-    Eclipse Java Compiler ( <code> ecj.jar</code>) which is supplied in
-    <filename>$JETTY_HOME/lib/jsp</filename>. For jetty-7.5.0 and later we
-    upgraded the version of JSP to <code>jsp-impl-2.1.3.b10</code> (from
-    Glassfish). In this version, the JSP infrastructure ALWAYS tries to
-    acquire a Java compiler from the JVM if the version of Java is 1.6 or
-    above. Therefore, if you are using a JRE, JSPs are unable to compile, so
-    you must use a full JDK. Alternatively, you can precompile your JSPs
-    (which is preferable in a production deployment in any case). The
-    [[Jetty/Feature/Jetty_Jspc_Maven_Plugin|Jetty JSPC Maven Plugin]] TODO
-    xref// is helpful for precompilation.</para>
+    <para>By default, the jsp engine used by Jetty will try to use the
+    compiler that is part of the JDK. </para>
 
-    <para>If you are using jetty-7.5.5 or later (including jetty-8.x), you can
-    use <emphasis>either</emphasis> a full JDK <emphasis>or</emphasis> a JRE
-    in combination with a third party Java compiler (such as ecj which we
-    distribute in <filename>$JETTY_HOME/lib/jsp</filename>). To use the ecj
-    compiler, you need to set a <code> SystemProperty</code>. You can do this
-    either in your code or in a jetty config file. Here's the snippet that you
-    can put into <filename>jetty.xml</filename>:</para>
+    <para>If you do not have a full JDK, then you can configure the jsp engine
+    to use the Eclipse Java Compiler that Jetty ships in the distro in
+    $JETTY_HOME/lib/jsp/org.eclipse.jdt.core-3.7.1.jar. You will need to
+    define a SystemProperty that prevents the jsp engine from defaulting to
+    the in-JVM compiler. </para>
+
+    <para>Here's the property definition to add to
+    $JETTY_HOME/start.ini:</para>
+
+    <informalexample>
+      <programlisting language="text"><![CDATA[
+
+ -Dorg.apache.jasper.compiler.disablejsr199=true
+
+      ]]></programlisting>
+    </informalexample>
+
+    <para>Alternatively, you can define this SystemProperty in a
+    $JETTY_HOME/etc/jetty.xml file:</para>
 
     <informalexample>
       <programlisting language="xml"><![CDATA[
@@ -66,31 +69,31 @@
       ]]></programlisting>
     </informalexample>
 
-    <para>Alternatively, you can put this <code>SystemProperty</code> into
-    <filename>start.ini</filename>:</para>
+    <para>If you are using the <link linkend="jetty-maven-plugin">Maven Jetty
+    Plugin</link>, then you have a number of options:</para>
 
-    <informalexample>
-      <programlisting language="text"><![CDATA[
+    <itemizedlist>
+      <listitem>
+        <para>define the SystemProperty inside the pom.xml of your webapp
+        using either the <link
+        xl:href="http://mojo.codehaus.org/properties-maven-plugin/">Properties
+        Maven Plugin</link> or the <link linkend="jetty-maven-plugin">Maven
+        Jetty Plugin's</link> own <link
+        linkend="setting-system-properties">system properties
+        configuration</link></para>
+      </listitem>
 
- -Dorg.apache.jasper.compiler.disablejsr199=true
+      <listitem>
+        <para>add a jetty.xml config file and define the SystemProperty in
+        there</para>
+      </listitem>
 
-      ]]></programlisting>
-    </informalexample>
-
-    <section xml:id="jsp-using-jetty-maven-plugin">
-      <title>Using the Jetty Maven Plugin with JSP</title>
-
-      <para>For jetty-7.5.0 and later we upgraded the version of JSP to
-      <filename>jsp-impl-2.1.3.b10</filename> (from Glassfish). In this
-      version, the JSP infrastructure ALWAYS tries to acquire a Java compiler
-      from the JVM if the version of Java is 1.6 or above. Therefore, if you
-      are using a JRE, JSPs are unable to compile, so you must use a full
-      JDK.</para>
-
-      <para>We hope to be able to introduce a patch to allow the use of third
-      party Jars in an upcoming release of the plugin. We will update this
-      page when we have more information.</para>
-    </section>
+      <listitem>
+        <para>add the SystemProperty definition to maven's <link
+        xl:href="http://maven.apache.org/download.cgi">MAVEN_OPTS</link>
+        environment variable</para>
+      </listitem>
+    </itemizedlist>
   </section>
 
   <section xml:id="configuring-jsp-for-jetty">
@@ -98,31 +101,20 @@
 
     <para>The JSP engine has many configuration parameters. Some parameters
     affect only precompilation, and some affect runtime recompilation
-    checking. Parameters also differ between the 2.0 and 2.1 release of the
-    JSP engine. This page lists the configuration parameters, their meanings
-    and their default settings.</para>
+    checking. Parameters also differ between the various versions of the JSP
+    engine. This page lists the configuration parameters, their meanings and
+    their default settings. All parameters are set on the
+    <code>org.apache.jasper.JspServlet</code> instance defined in the <link
+    linkend="webdefault-xml">webdefault.xml</link> file.</para>
 
     <note>
-      <para>Be careful:</para>
-
-      <itemizedlist>
-        <listitem>
-          <para>For all of the parameters below, if the value you set doesn't
-          take effect, try using all lower case instead of camel case, as JSP
-          is inconsistent in its parameter naming strategy.</para>
-        </listitem>
-
-        <listitem>
-          <para>Be aware that for JDK1.6, the default for
-          <emphasis>keepgenerated</emphasis> is <emphasis>false</emphasis>;
-          therefore <filename>.java</filename> files are left after
-          compilation only if a compilation error occurs.</para>
-        </listitem>
-      </itemizedlist>
+      <para>Be careful: for all of the parameters below, if the value you set
+      doesn't take effect, try using all lower case instead of camel case, as
+      JSP is inconsistent in its parameter naming strategy.</para>
     </note>
 
     <table>
-      <title>Understanding JSP 2.1 Parameters</title>
+      <title>Understanding JSP Parameters</title>
 
       <tgroup cols="4">
         <thead>
@@ -508,14 +500,14 @@
   <section xml:id="modifying-configuration">
     <title>Modifying the Configuration</title>
 
-    <para>There are several options for modifying the Jasper JSP servlet
+    <para>There are several options for modifying the JspServlet
     configuration.</para>
 
     <section xml:id="overriding-webdefault.xml">
       <title>Overriding <filename>webdefault.xml</filename></title>
 
-      <para>You can make a copy of the
-      [[Jetty/Reference/webdefault.xml|webdefault.xml]] //TODO xref//that
+      <para>You can make a copy of the <link
+      linkend="webdefault-xml">$JETTY_HOME/etc/webdefault.xml</link> that
       ships with Jetty, apply your changes, and use it instead of the shipped
       version. The example below shows how to do this when using the Jetty
       Maven plugin.</para>
@@ -524,25 +516,24 @@
         <programlisting language="xml"><![CDATA[
 
   <plugin>
-    <groupId>org.mortbay.jetty</groupId>
+    <groupId>org.eclipse.jetty</groupId>
     <artifactId>jetty-maven-plugin</artifactId>
     <configuration>
-    <webAppConfig>
-      <defaultsDescriptor>src/main/resources/webdefault.xml</defaultsDescriptor>
-    </webAppConfig>
-    <connectors>
-    ..
-
-
+      <webApp>
+        <defaultsDescriptor>src/main/resources/webdefault.xml</defaultsDescriptor>
+      </webApp>
+  </plugin>
         ]]></programlisting>
       </informalexample>
 
-      <para>If you're using Jetty standalone, and you want to change the JSP
+      <para>If you're using the Jetty distro, and you want to change the JSP
       settings for just one or a few of your webapps, copy the
-      <filename>$JETTY_HOME/etc/webdefault.xml</filename> file somewhere,
-      modify it, and then use a [[Jetty/Feature/ContextDeployer|context xml]]
-      //TODO xref// file to set this file as the <code> webdefaults</code> for
-      your webapp. Here's a snippet:</para>
+      <filename>$<link
+      linkend="webdefault-xml">JETTY_HOME/etc/webdefault.xml</link></filename>
+      file somewhere, modify it, and then use a <link
+      linkend="intro-jetty-configuration-contexts">context xml</link> file to
+      set this file as the defaultsDescriptor for your webapp. Here's a
+      snippet:</para>
 
       <informalexample>
         <programlisting language="xml"><![CDATA[
@@ -558,19 +549,20 @@
         ]]></programlisting>
       </informalexample>
 
-      <para>If you want to change the JSP settings for all of the webapps,
-      edit the <filename> $JETTY_HOME/etc/webdefaults.xml</filename> file
-      directly instead.</para>
+      <para>If you want to change the JSP settings for all webapps, edit
+      the<filename> $JETTY_HOME/etc/webdefaults.xml</filename> file directly
+      instead.</para>
     </section>
 
     <section xml:id="configuring-jsp-servlet-in-web.xml">
       <title>Configuring the JSP Servlet in
       <filename>web.xml</filename></title>
 
-      <para>Another option is to add an entry for the Jasper JSP servlet to
-      the <filename>web.xml</filename> file of your webapp. You can use the
-      entry in [[Jetty/Reference/webdefault.xml|webdefault.xml]]//TODO xref//
-      as a starting point.</para>
+      <para>Another option is to add an entry for the JSPServlet to the
+      <filename>WEB-INF/web.xml</filename> file of your webapp. You can use
+      the entry in <link
+      linkend="webdefault-xml">$JETTY_HOME/etc/webdefault.xml</link> as a
+      starting point.</para>
 
       <informalexample>
         <programlisting language="xml"><![CDATA[
@@ -619,75 +611,11 @@
   </section>
 
   <section xml:id="using-jstl-taglibs-for-jetty7-jetty8">
-    <title>Using JSTL Taglibs for Jetty 7.x and 8.x</title>
+    <title>Using JSTL Taglibs</title>
 
-    <para>There are some differences in how you use JSTL taglibs in Jetty 7
-    and Jetty 8.</para>
-
-    <section xml:id="using-jstl-taglibs-for-jetty7.x">
-      <title>Using JSTL Taglibs for Jetty 7.x</title>
-
-      <para>The JSTL tags are present in the
-      <code>org.apache.taglibs.standard.glassfish</code> Jar in <filename>
-      $JETTY_HOME/lib/jsp</filename>. For the Jetty/JSP integration to find
-      them, you need to configure a pattern that defines the names of files in
-      the container's classpath that contain <filename>.tld</filename> files.
-      You must define the pattern as a context attribute on
-      <emphasis>each</emphasis> context that you deploy. The context attribute
-      and pattern is:</para>
-
-      <screen><![CDATA[
-
-  attribute: org.eclipse.jetty.server.webapp.ContainerIncludeJarPattern
-  value: .*/.*jsp-api-[^/]*\.jar$|.*/.*jsp-[^/]*\.jar$|.*/.*taglibs[^/]*\.jar$
-
-      ]]></screen>
-
-      <para>If you are using the Jetty deployers (that is, your
-      <filename>start.ini</filename> file contains <filename>
-      etc/jetty-deploy.xml</filename>), you don't need to do anything, as the
-      pattern is pre-defined in <filename> etc/jetty-deploy.xml</filename>,
-      and the deployer makes sure the attribute is set on each and every
-      context it deploys. If you are NOT using the deployers, you need to
-      configure the attribute on <emphasis> each</emphasis> context you set.
-      Here's an example:</para>
-
-      <informalexample>
-        <programlisting language="xml"><![CDATA[
-
-<New class="org.eclipse.jetty.webapp.WebAppContext">
-  <Arg><Ref refid="Contexts"/></Arg>
-  <Arg><SystemProperty name="jetty.home" default="."/>/webapps/test.war</Arg>
-  <Arg>/test</Arg>
-   <Call name="setAttribute">
-            <Arg>org.eclipse.jetty.server.webapp.ContainerIncludeJarPattern</Arg>
-            <Arg>.*/.*jsp-api-[^/]*\.jar$|.*/.*jsp-[^/]*\.jar$|.*/.*taglibs[^/]*\.jar$</Arg>
-   </Call>
-</New>
-
-        ]]></programlisting>
-      </informalexample>
-
-      <note>
-        <para>You can use the
-        <filename>org.eclipse.jetty.server.webapp.ContainerIncludeJarPattern</filename>
-        for more than identifying Jars that contain tlds. Its purpose is to
-        supply a pattern of names of Jars on the container's classpath whose
-        /META-INF directories should be scanned for resources, for fragments,
-        or for TLDs.</para>
-      </note>
-    </section>
-
-    <section xml:id="using-jstl-taglibs-for-jetty8.x">
-      <title>Using JSTL Taglibs for Jetty 8.x</title>
-
-      <para>The version of JSP 2.2 engine that Jetty uses employs a Servlet
-      3.0 way of finding TLDs ( <link
-      xl:href="http://docs.oracle.com/javaee/6/api/javax/servlet/ServletContainerInitializer.html">
-      ServletContainerInitializer</link>), and thus does
-      <emphasis>not</emphasis> require that you define <code>
-      org.eclipse.jetty.server.webapp.ContainerIncludeJarPattern</code>.</para>
-    </section>
+    <para>The JavaServer Pages Standlard Tag Library (JSTL) is part of the
+    jetty distribution (in <code>$JETTY_HOME/lib/jsp</code>) and is
+    automatically on the classpath.</para>
   </section>
 
   <section xml:id="using-jsf-taglibs">
@@ -697,101 +625,37 @@
     with Jetty Standalone and the Jetty Maven Plugin.</para>
 
     <section xml:id="using-jsf-taglibs-with-jetty-standalone">
-      <title>Using JSF Taglibs with Jetty Standalone</title>
+      <title>Using JSF Taglibs with Jetty Distribution</title>
 
       <para>If you want to use JSF with your webapp, you need to copy the jsf
       implementation Jar (whichever Jar contains the
       <filename>META-INF/*.tld</filename> files from your chosen JSF
       implementation) into <filename> $JETTY_HOME/lib/jsp</filename>. This is
-      because the version of the JSP engine from Glassfish that we are using
+      because the version of the jsp engine from Glassfish that we are using
       <emphasis>requires</emphasis> that the JSF tags are on the container's
       classpath, and <emphasis>not</emphasis> on the webapp's
       classpath.</para>
-
-      <para>If you are using Jetty 7.x, add the JSF implementation Jar to the
-      set of container Jars that are scanned for TLDs. The set of Jars is
-      specified as a Java Pattern as the value of the <code>ContextAttribute
-      org.eclipse.jetty.server.webapp.ContainerIncludeJarPattern</code>. You
-      must add a pattern that matches the name of the implementation
-      Jar.</para>
-
-      <para>You can set this <code>ContextAttribute</code> on just a
-      particular webapp, or for all webapps.</para>
-
-      <para>To set it on just one webapp, create or edit a
-      [[Jetty/Feature/ContextDeployer|context xml]] //TODO xref// file that
-      describes your webapp. For example, assuming the implementation Jar is
-      called <code> javax.faces-2.1.6.jar</code>:</para>
-
-      <informalexample>
-        <programlisting language="xml"><![CDATA[
-
-<Configure class="org.eclipse.jetty.webapp.WebAppContext">
-
-    <Call name="setAttribute">
-      <Arg>org.eclipse.jetty.server.webapp.ContainerIncludeJarPattern</Arg>
-      <Arg>.*/.*javax.faces-[^/]*\.jar$|.*/.*jsp-api-[^/]*\.jar$|.*/.*jsp-[^/]*\.jar$|.*/.*taglibs[^/]*\.jar$</Arg>
-    </Call>
-
-</Configure>
-
-        ]]></programlisting>
-      </informalexample>
-
-      <para>If you're deploying via code, the equivalent is to call the <link
-      xl:href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/webapp/WebAppContext.html">
-      <code>WebAppContext.setAttribute(String name, String value)</code>
-      </link> method.</para>
-
-      <para>If you want to use JSF with all of your webapps, <xref
-      linkend="using-deployment-manager"/>, edit
-      <filename>$JETTY_HOME/etc/jetty-deploy.xml</filename>. For example,
-      assuming the implementation Jar is named
-      <code>javax.faces-2.1.6.jar</code>:</para>
-
-      <informalexample>
-        <programlisting language="xml"><![CDATA[
-
- <New id="DeploymentManager" class="org.eclipse.jetty.deploy.DeploymentManager">
-          <Set name="contexts">
-            <Ref refid="Contexts" />
-          </Set>
-          <Call name="setContextAttribute">
-            <Arg>org.eclipse.jetty.server.webapp.ContainerIncludeJarPattern</Arg>
-            <Arg>.*/.*javax.faces-[^/]*\.jar$|.*/.*jsp-api-[^/]*\.jar$|.*/.*jsp-[^/]*\.jar$|.*/.*taglibs[^/]*\.jar$</Arg>
-          </Call>
-
-        ]]></programlisting>
-      </informalexample>
-
-      <para>If you are using Jetty 8.x you do not need to add this pattern
-      because Servlet Spec. 3.0 uses a different method to find TLD
-      descriptors.</para>
     </section>
 
     <section xml:id="using-jsf-taglibs-with-jetty-maven-plugin">
       <title>Using JSF Taglibs with Jetty Maven Plugin</title>
 
-      <para>For Jetty versions prior to 7.5.0, your JSF Jars should be normal
-      webapp dependencies. You do not need to do anything else to use Jetty
-      with JSF.</para>
-
-      <para>From versions 7.5.0 and later, the version of the JSP engine from
-      Glassfish that we are using requires that the JSF tags be on the
-      container classpath, and not on the webapp classpath, so you need to
-      make your JSF Jars dependencies of the plugin and
-      <emphasis>not</emphasis> the webapp itself. For example:</para>
+      <para>The version of the JSP engine from Glassfish that we are using
+      requires that the JSF tags be on the container classpath, and not on the
+      webapp classpath, so you need to make your JSF jars dependencies of the
+      plugin and <emphasis>not</emphasis> the webapp itself. For
+      example:</para>
 
       <informalexample>
         <programlisting language="xml"><![CDATA[
 
    <plugin>
-    <groupId>org.mortbay.jetty</groupId>
+    <groupId>org.eclipse.jetty</groupId>
     <artifactId>jetty-maven-plugin</artifactId>
     <configuration>
-       <webAppConfig>
+       <webApp>
          <contextPath>/${artifactId}</contextPath>
-       </webAppConfig>
+       </webApp>
        <scanIntervalSeconds>5</scanIntervalSeconds>
     </configuration>
     <dependencies>
@@ -810,40 +674,6 @@
 
         ]]></programlisting>
       </informalexample>
-
-      <para>For versions 7.5.0 to 7.6.1, the Jetty Maven plugin does not scan
-      the JSF dependency Jars for the TLDs containing the startup listeners.
-      If you are using these versions, we recommend you upgrade to a more
-      recent version. If this is not possible, you should define the relevant
-      listener in your <filename> web.xml</filename>:</para>
-
-      <para>For MyFaces:</para>
-
-      <informalexample>
-        <programlisting language="xml"><![CDATA[
-
- <listener>
-     <listener-class>org.apache.myfaces.webapp.StartupServletContextListener</listener-class>
- </listener>
-
-        ]]></programlisting>
-      </informalexample>
-
-      <para>For Mojarra:</para>
-
-      <informalexample>
-        <programlisting language="xml"><![CDATA[
-
-  <listener>
-       <listener-class>com.sun.faces.config.ConfigureListener</listener-class>
-    </listener>
-
-        ]]></programlisting>
-      </informalexample>
-
-      <para>For version 7.6.2 and later, the Jetty Maven plugin ensures that
-      the TLDs containing the startup listeners from the two most common JSF
-      implementations (Mojarra and MyFaces) are automatically detected.</para>
     </section>
   </section>
 </section>

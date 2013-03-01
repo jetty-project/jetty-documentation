@@ -1,45 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<section xml:id="webdefault-xml" version="5.0" xmlns="http://docbook.org/ns/docbook"
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xl="http://www.w3.org/1999/xlink"
-xmlns:xi="http://www.w3.org/2001/XInclude"
-xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd">
-  <title>
-    <filename>webdefault.xml</filename>
-  </title>
-  <para>The <filename>webdefault.xml</filename> file saves web applications from having to define a lot of
-  house-keeping and container-specific elements in their own <filename>web.xml</filename> files. For example, you can
-  use it to set up mime-type mappings and JSP servlet-mappings. Jetty applies <filename>webdefault.xml</filename> to a
-  web application <emphasis>before</emphasis> the application's own <filename>WEB-INF/web.xml</filename>, which means
-  that it cannot override values inside the webapp's <filename>web.xml</filename>. It uses the <xref
-  linkend="jetty-xml-config" /> syntax. Generally, it is convenient for all webapps in a Jetty instance to share the
-  same <filename>webdefault.xml</filename> file. However, it is certainly possible to provide differentiated <filename>
-  webdefault.xml</filename> files for individual web applications.</para>
+<section version="5.0"
+         xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd"
+         xml:id="webdefault-xml" xmlns="http://docbook.org/ns/docbook"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:xs="http://www.w3.org/2001/XMLSchema"
+         xmlns:xl="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:ns="http://docbook.org/ns/docbook">
+  <title><filename>webdefault.xml</filename></title>
+
+  <para>The <filename>webdefault.xml</filename> file saves web applications
+  from having to define a lot of house-keeping and container-specific elements
+  in their own <filename>web.xml</filename> files. For example, you can use it
+  to set up mime-type mappings and JSP servlet-mappings. Jetty applies
+  <filename>webdefault.xml</filename> to a web application
+  <emphasis>before</emphasis> the application's own
+  <filename>WEB-INF/web.xml</filename>, which means that it cannot override
+  values inside the webapp's <filename>web.xml</filename>. It uses the <xref
+  linkend="jetty-xml-config"/> syntax. Generally, it is convenient for all
+  webapps in a Jetty instance to share the same
+  <filename>webdefault.xml</filename> file. However, it is certainly possible
+  to provide differentiated <filename> webdefault.xml</filename> files for
+  individual web applications.</para>
+
   <para>The <filename>webdefault.xml</filename> file is located in <filename>
   $(jetty.home)/etc/webdefault.xml</filename>.</para>
+
   <section xml:id="using-webdefault-xml">
     <title>Using <filename>webdefault.xml</filename></title>
-    <para>You can specify a custom configuration file to use for specific webapps, or for all webapps. If you do not
-    specify an alternate defaults descriptor, Jetty automatically uses <filename>webdefault.xml</filename>.</para>
+
+    <para>You can specify a custom configuration file to use for specific
+    webapps, or for all webapps. If you do not specify an alternate defaults
+    descriptor, the $JETTY-HOME/etc/jetty-deploy.xml file will configure jetty
+    to automatically use
+    $JETTY_HOME/etc/<filename>webdefault.xml</filename>.</para>
+
     <section xml:id="creating-custom-webdefault-xml-one-webapp">
-      <title>Creating a Custom <filename>webdefault.xml</filename> for One WebApp</title>
-      <para>You can specify a custom <filename>webdefault.xml</filename> for an individual web application in that
-      webapp's <xref linkend="jetty-xml-config" /> as follows:</para>
+      <title>Creating a Custom <filename>webdefault.xml</filename> for One
+      WebApp</title>
+
+      <para>You can specify a custom <filename>webdefault.xml</filename> for
+      an individual web application in that webapp's <xref
+      linkend="jetty-xml-config"/> as follows:</para>
+
       <informalexample>
-        <programlisting language="xml">
-<![CDATA[ 
+        <programlisting language="xml"><![CDATA[
+ 
 <Configure class="org.eclipse.jetty.webapp.WebAppContext">
   ...
   <!-- Set up the absolute path to the custom webdefault.xml -->
   <Set name="defaultsDescriptor">/my/path/to/webdefault.xml</Set>
   ...
 </Configure>
-]]>
-        </programlisting>
+
+        ]]></programlisting>
       </informalexample>
+
       <para>The equivalent in code is:</para>
+
       <informalexample>
-        <programlisting language="java">
-<![CDATA[ 
+        <programlisting language="java"><![CDATA[
+ 
 import org.eclipse.jetty.webapp.WebAppContext;
 
     ...
@@ -49,40 +70,40 @@ import org.eclipse.jetty.webapp.WebAppContext;
     //Set up the absolute path to the custom webdefault.xml.
     wac.setDefaultsDescriptor("/my/path/to/webdefault.xml");
     ...
-]]>
-        </programlisting>
+
+        ]]></programlisting>
       </informalexample>
-      <para>Alternatively, you can use a <xref linkend="jetty-classloading" /> to find the resource representing your
-      custom <filename>webdefault.xml</filename>.</para>
+
+      <para>Alternatively, you can use a <xref linkend="jetty-classloading"/>
+      to find the resource representing your custom
+      <filename>webdefault.xml</filename>.</para>
     </section>
+
     <section xml:id="creating-custom-webdefault-xml-multiple-webapps">
-      <title>Creating a Custom <filename>webdefault.xml</filename> for Multiple WebApps</title>
-      <para>If you want to apply the same custom <filename>webdefault.xml</filename> to a number of webapps, provide
-      the path to the file in <xref linkend="jetty-xml-config" /> either to the hot deployer (<xref
-      linkend="using-context-provider" />) or the static deployer (<xref linkend="using-webapp-provider" />). For
-      example:</para>
+      <title>Creating a Custom <filename>webdefault.xml</filename> for
+      Multiple WebApps</title>
+
+      <para>If you want to apply the same custom
+      <filename>webdefault.xml</filename> to a number of webapps, provide the
+      path to the file in <xref linkend="jetty-xml-config"/> in the
+      $JETTY_HOME/etc/jetty-deploy.xml file:</para>
+
       <informalexample>
-        <programlisting language="xml">
-<![CDATA[ 
-<Configure class="org.eclipse.jetty.webapp.WebAppContext">
-    ...
-    <New class="org.eclipse.jetty.deploy.WebAppDeployer">
-        ...
-        <Set name="defaultsDescriptor">/my/path/to/webdefault.xml</Set>
-    </New>
-    ...
-</Configure>
-]]>
-        </programlisting>
+        <programlisting language="xml"><![CDATA[   <Set name="defaultsDescriptor"><Property name="jetty.home" default="." />/other/path/to/another/webdefault.xml</Set>]]></programlisting>
       </informalexample>
     </section>
+
     <section xml:id="webdefault-xml-using-jetty-maven-plugin">
       <title>Using the Jetty Maven Plugin</title>
-      <para>Similarly, when using the Jetty Maven Plugin (<xref linkend="jetty-maven-plugin" />), you provide a
-      customized <filename>webdefault.xml</filename> file for your webapp as follows:</para>
+
+      <para>Similarly, when using the <link linkend="jetty-maven-plugin">Jetty
+      Maven Plugin</link> you provide a customized
+      <filename>webdefault.xml</filename> file for your webapp as
+      follows:</para>
+
       <informalexample>
-        <programlisting language="xml">
-<![CDATA[ 
+        <programlisting language="xml"><![CDATA[
+ 
 <project>
     ...
     <plugins>
@@ -100,19 +121,30 @@ import org.eclipse.jetty.webapp.WebAppContext;
     </plugins>
     ...
 </project>
-]]>
-        </programlisting>
+
+        ]]></programlisting>
       </informalexample>
     </section>
+
     <section xml:id="webdefault-xml-additional-resources">
       <title>Additional Resources</title>
+
       <itemizedlist>
-        <listitem><xref linkend="jetty-web-xml-config" /> &#8211;Reference for <filename>
-        web.xml</filename> files</listitem>
-        <listitem><xref linkend="override-web-xml" /> &#8211;Information for this <filename>
-        web.xml</filename> -formatted file, applied after the webapp's <filename>web.xml</filename> webapp.</listitem>
-        <listitem><xref linkend="jetty-xml-config" /> &#8211;Reference for <filename>
-        jetty.xml</filename> files</listitem>
+        <listitem>
+          <para><xref linkend="jetty-web-xml-config"/> –Reference for
+          <filename>web.xml</filename> files</para>
+        </listitem>
+
+        <listitem>
+          <para><xref linkend="override-web-xml"/> –Information for this
+          <filename>web.xml</filename> -formatted file, applied after the
+          webapp's <filename>web.xml</filename> webapp.</para>
+        </listitem>
+
+        <listitem>
+          <para><xref linkend="jetty-xml-config"/> –Reference for
+          <filename>jetty.xml</filename> files</para>
+        </listitem>
       </itemizedlist>
     </section>
   </section>

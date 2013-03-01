@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<section version="5.0"
-         xml:id="jetty-xml-syntax" xmlns="http://docbook.org/ns/docbook"
+<section version="5.0" xml:id="jetty-xml-syntax"
+         xmlns="http://docbook.org/ns/docbook"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xmlns:xl="http://www.w3.org/1999/xlink"
-        >
+         xmlns:ns5="http://www.w3.org/2000/svg"
+         xmlns:ns4="http://www.w3.org/1999/xhtml"
+         xmlns:ns3="http://www.w3.org/1998/Math/MathML"
+         xmlns:ns="http://docbook.org/ns/docbook">
   <title>Jetty XML Syntax</title>
 
   <para>The Jetty XML syntax is a straightforward mapping of XML elements to a
@@ -171,7 +174,7 @@ bar.getParent().setName("demo2");      ]]></programlisting>
     <code>jetty.xml</code>, or a WebAppContext in
     <code>jetty-web.xml</code>.</para>
 
-    <section>
+    <informaltable>
       <tgroup cols="3">
         <thead>
           <row>
@@ -189,14 +192,12 @@ bar.getParent().setName("demo2");      ]]></programlisting>
 
             <entry>no</entry>
 
-            <entry>
-              <para>A reference to the object that was created. If you define
-              multiple <link linkend="jetty-xml-configure">Configure
-              element</link>s with the same id, they will be treated as one
-              object, even if they're in different files. You can use this to
-              break up configuration of an object (such as the Server) across
-              multiple files.</para>
-            </entry>
+            <entry><para>A reference to the object that was created. If you
+            define multiple <link linkend="jetty-xml-configure">Configure
+            element</link>s with the same id, they will be treated as one
+            object, even if they're in different files. You can use this to
+            break up configuration of an object (such as the Server) across
+            multiple files.</para></entry>
           </row>
 
           <row>
@@ -210,7 +211,7 @@ bar.getParent().setName("demo2");      ]]></programlisting>
           </row>
         </tbody>
       </tgroup>
-    </section>
+    </informaltable>
 
     <section>
       <title>Can Contain</title>
@@ -288,7 +289,7 @@ server.setPort(8080);          ]]></programlisting>
     as values, they are added as strings before being converted to any
     specified type.</para>
 
-    <section>
+    <informaltable>
       <tgroup cols="3">
         <thead>
           <row>
@@ -331,7 +332,7 @@ server.setPort(8080);          ]]></programlisting>
           </row>
         </tbody>
       </tgroup>
-    </section>
+    </informaltable>
 
     <section>
       <title>Can Contain</title>
@@ -419,7 +420,7 @@ server.setThreadPool(threadPool);          ]]></programlisting>
     current object. It can contain nested elements such as Set, Put, Call,
     etc.; these act on the object returned by the Get call.</para>
 
-    <section>
+    <informaltable>
       <tgroup cols="3">
         <thead>
           <row>
@@ -461,7 +462,7 @@ server.setThreadPool(threadPool);          ]]></programlisting>
           </row>
         </tbody>
       </tgroup>
-    </section>
+    </informaltable>
 
     <section>
       <title>Can Contain</title>
@@ -525,7 +526,7 @@ server.setThreadPool(threadPool);          ]]></programlisting>
     contains multiple elements as values, they are added as strings before
     being converted to any specified type.</para>
 
-    <section>
+    <informaltable>
       <tgroup cols="3">
         <thead>
           <row>
@@ -556,7 +557,7 @@ server.setThreadPool(threadPool);          ]]></programlisting>
           </row>
         </tbody>
       </tgroup>
-    </section>
+    </informaltable>
 
     <section>
       <title>Can Contain</title>
@@ -595,7 +596,7 @@ value text, <Get>, <Call>, <New>, <Ref>, <Array>, <Map>, <SystemProperty>, <Prop
     passed as arguments to the method; the sequence of configuration elements
     act on the object returned by the original call.</para>
 
-    <section>
+    <informaltable>
       <tgroup cols="3">
         <thead>
           <row>
@@ -636,7 +637,7 @@ value text, <Get>, <Call>, <New>, <Ref>, <Array>, <Map>, <SystemProperty>, <Prop
           </row>
         </tbody>
       </tgroup>
-    </section>
+    </informaltable>
 
     <section>
       <title>Can Contain</title>
@@ -730,7 +731,7 @@ com.acme.Environment.setPort( server.getPort() );          ]]></programlisting>
     of the value. If it contains multiple elements as values, they are added
     as strings before being converted to any specified type.</para>
 
-    <section>
+    <informaltable>
       <tgroup cols="3">
         <thead>
           <row>
@@ -754,7 +755,7 @@ com.acme.Environment.setPort( server.getPort() );          ]]></programlisting>
           </row>
         </tbody>
       </tgroup>
-    </section>
+    </informaltable>
 
     <section>
       <title>Can Contain</title>
@@ -852,7 +853,7 @@ value text, <Get>, <Call>, <New>, <Ref>, <Array>, <Map>, <SystemProperty>, <Prop
     created. The sequence of configuration elements then acts on the
     newly-created object.</para>
 
-    <section>
+    <informaltable>
       <tgroup cols="3">
         <thead>
           <row>
@@ -884,7 +885,7 @@ value text, <Get>, <Call>, <New>, <Ref>, <Array>, <Map>, <SystemProperty>, <Prop
           </row>
         </tbody>
       </tgroup>
-    </section>
+    </informaltable>
 
     <section>
       <title>Can Contain</title>
@@ -973,7 +974,7 @@ foo.setTest("1, 2, 3");]]></programlisting>
     passing it into multiple methods. It also makes it possible to split up
     configuration across multiple files.</para>
 
-    <section>
+    <informaltable>
       <tgroup cols="3">
         <thead>
           <row>
@@ -996,7 +997,7 @@ foo.setTest("1, 2, 3");]]></programlisting>
           </row>
         </tbody>
       </tgroup>
-    </section>
+    </informaltable>
 
     <section>
       <title>Can Contain</title>
@@ -1124,7 +1125,7 @@ foo.setTest("1, 2, 3");            ]]></programlisting>
 
     <para>An Array element allows the creation of a new array.</para>
 
-    <section>
+    <informaltable>
       <tgroup cols="3">
         <thead>
           <row>
@@ -1155,7 +1156,7 @@ foo.setTest("1, 2, 3");            ]]></programlisting>
           </row>
         </tbody>
       </tgroup>
-    </section>
+    </informaltable>
 
     <section>
       <title>Can Contain</title>
@@ -1188,7 +1189,7 @@ foo.setTest("1, 2, 3");            ]]></programlisting>
 
     <para>An Item element defines an entry for Array and Map elements.</para>
 
-    <section>
+    <informaltable>
       <tgroup cols="3">
         <thead>
           <row>
@@ -1219,7 +1220,7 @@ foo.setTest("1, 2, 3");            ]]></programlisting>
           </row>
         </tbody>
       </tgroup>
-    </section>
+    </informaltable>
 
     <section>
       <title>Can Contain</title>
@@ -1243,7 +1244,7 @@ foo.setTest("1, 2, 3");            ]]></programlisting>
     <para>A Map element allows the creation of a new HashMap and to populate
     it with (key, value) pairs.</para>
 
-    <section>
+    <informaltable>
       <tgroup cols="3">
         <thead>
           <row>
@@ -1266,7 +1267,7 @@ foo.setTest("1, 2, 3");            ]]></programlisting>
           </row>
         </tbody>
       </tgroup>
-    </section>
+    </informaltable>
 
     <section>
       <title>Can Contain</title>
@@ -1315,7 +1316,7 @@ m.put("keyName", new String("value1"));                ]]></programlisting>
     can be used within elements that accept values, such as Set, Put,
     Arg.</para>
 
-    <section>
+    <informaltable>
       <tgroup cols="3">
         <thead>
           <row>
@@ -1354,7 +1355,7 @@ m.put("keyName", new String("value1"));                ]]></programlisting>
           </row>
         </tbody>
       </tgroup>
-    </section>
+    </informaltable>
 
     <section>
       <title>Can Contain</title>
@@ -1387,7 +1388,7 @@ m.put("keyName", new String("value1"));                ]]></programlisting>
     name. It can contain a sequence of elements, such as Set, Put, Call that
     act on the retrieved object.</para>
 
-    <section>
+    <informaltable>
       <tgroup cols="3">
         <thead>
           <row>
@@ -1426,7 +1427,7 @@ m.put("keyName", new String("value1"));                ]]></programlisting>
           </row>
         </tbody>
       </tgroup>
-    </section>
+    </informaltable>
 
     <section>
       <title>Can Contain</title>

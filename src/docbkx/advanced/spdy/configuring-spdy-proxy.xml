@@ -23,32 +23,24 @@
     <title>Configuring SPDY Proxy</title>
 
     <section xml:id="spdy-example-config">
-        <title>The provided Example configuration</title>
+        <title>Configuring SPDY by Example</title>
         <para>
             <filename>spdy-jetty-http</filename>
-            also provides a fully functional SPDY proxy server out of the box. Jetty's SPDY proxy is capable to receive
+            provides a fully functional SPDY proxy server out of the box. Jetty's SPDY proxy can receive
             SPDY
-            (currently v2/v3) and HTTP requests and proxy those requests to other SPDY servers. It will if necessary
-            translate
-            the incoming protocol to a protocol the target host understands. The translation to the target server
-            protocol
-            is
-            done by an implementation of the ProxyEngine class. Right now we only provide a SPDYProxyEngine
-            implementation
-            which
-            can talk spdy/2 and spdy/3. We're planning to support other protocols soon out of the box. As always
-            contributions
-            are welcome.
+            (currently v2/v3) and HTTP requests, and proxy those requests to other SPDY servers. If necessary, an implementation of the Proxy Engine class translates
+            the incoming protocol to a protocol the target host understands. Currently we provide a SPDYProxyEngine 
+            that
+            can talk spdy/2 and spdy/3. We plan to support other protocols soon. As always, contributions are welcome.
         </para>
 
-        <para>Configuration is pretty straight forward as the following example will show. The example server will have
+        <para>Configuration is straightforward as the following example will show. The example server has
             a
             plain
-            SPDY connector listening on port 9090 and a spdy proxy connector listening on port 8080. Incoming requests
+            SPDY connector listening on port 9090 and a SPDY proxy connector listening on port 8080. Incoming requests
             to
             port
-            8080 will be proxied and translated to the connector listening on port 9090. In real world scenarios you
-            will
+            8080 are proxied and translated to the connector listening on port 9090. In real world scenarios you
             more
             likely proxy to a different host.
         </para>
@@ -184,10 +176,10 @@
         </Arg>
     </New>
 
-    This is the configuration of the ProxyEngine. It's a SPDYProxyEngine and will be able to translate to spdy/2 as
+    This is the configuration of the ProxyEngine. It is a SPDYProxyEngine that can translate to spdy/2 as
     configured above. If your target host is capable of speaking spdy/3, you just change the first constructor argument
-    to be spdy/3. If you've different target hosts speaking different protocols you simply configure multiple proxy
-    engines and feed them to the ProxyEngineSelector as you'll see below.
+    to spdy/3. If you have different target hosts speaking different protocols, you configure multiple proxy
+    engines and feed them to the ProxyEngineSelector as follows.
 
     <!--
     The ProxyEngineSelector receives SPDY/x(HTTP) requests from proxy connectors below
@@ -221,8 +213,8 @@
         </informalexample>
 
 
-        <para>This is the ProxyEngineSelector. The ProxyEngineSelector is responsible to keep the configurations for the
-            known target hosts as well as he has to choose the right ProxyEngine for the protocol the target host
+        <para>This is the ProxyEngineSelector. The ProxyEngineSelector keeps the configurations for the
+            known target hosts as well as  choosing the right ProxyEngine for the protocol the target host
             speaks.
         </para>
 
@@ -241,7 +233,7 @@
         </informalexample>
 
 
-        <para>This adds the SPDYProxyEngine we've configured above to the ProxyEngineSelector. The SPDYProxyEngine was
+        <para>This adds the SPDYProxyEngine configured above to the ProxyEngineSelector. The SPDYProxyEngine is
             configured to translate to spdy/2. By adding it to the Selector, it now knows how to translate to spdy/2.
         </para>
 
@@ -267,64 +259,53 @@
         </informalexample>
 
         <para>You configure target hosts and the protocol you want to communicate with them by adding so called
-            ProxyServerInfos. Configuration is pretty straight forward. Key for the map is the hostname. Protocol, host
+            ProxyServerInfos. Configuration is straightforward. Key for the map is the hostname. Protocol, host
             and
             port are the configurations for the ProxyServerInfo.
         </para>
-
-        <para>That's pretty much all that is needed to setup a SPDY proxy in jetty.</para>
 
         <para>Request flow with the proxy given above:</para>
 
         <itemizedlist>
             <listitem>
                 <para>
-                    Incoming SPDY Request to https://localhost:8443/ will reach the HTTPSPDYProxyConnector listening on
+                    Incoming SPDY Request to https://localhost:8443/ reaches the HTTPSPDYProxyConnector listening on
                     port
-                    8443
+                    8443.
                 </para>
             </listitem>
             <listitem>
                 <para>
-                    HTTPSPDYProxyConnector will forward the request to the ProxyEngineSelector
+                    HTTPSPDYProxyConnector forwards the request to the ProxyEngineSelector.
                 </para>
             </listitem>
             <listitem>
                 <para>
-                    ProxyEngineSelector will read the Host header's host portion: "localhost"
+                    ProxyEngineSelector reads the Host header's host portion: "localhost".
                 </para>
             </listitem>
             <listitem>
                 <para>
-                    ProxyEngineSelector will lookup the host in it's ProxyServerInfo mappings. It'll find the entry
-                    matching
+                    ProxyEngineSelector looks up the host in it's ProxyServerInfo mappings. It finds the matching entry,
+                    "localhost". (If there is no matching entry it rst the stream).
                 </para>
             </listitem>
             <listitem>
                 <para>
-                    "localhost". (If there's no matching entry it'll rst the stream)
-                </para>
-            </listitem>
-            <listitem>
-                <para>
-                    ProxyEngineSelector will lookup a ProxyEngine that matches the protocol configured in the
+                    ProxyEngineSelector looks up a ProxyEngine that matches the protocol configured in the
                     ProxyServerInfo it found
+                    in the last step and forwards the request to that ProxyEngine.
                 </para>
             </listitem>
             <listitem>
                 <para>
-                    in the last step and forward the request to that ProxyEngine
+                    The ProxyEngine translates the request to the given target protocol and proxies it to the target
+                    host.
                 </para>
             </listitem>
             <listitem>
                 <para>
-                    The ProxyEngine will translate the request to the given target protocol and proxy it to the target
-                    host
-                </para>
-            </listitem>
-            <listitem>
-                <para>
-                    All responses will be forwarded back to the client.
+                    All responses are forwarded to the client.
                 </para>
             </listitem>
         </itemizedlist>
@@ -335,13 +316,13 @@
         <para>
             <filename>spdy-jetty-http</filename>
             provides full proxy functionality as described above. Here's another example configuration for a SPDY to
-            HTTP proxy. This proxy will accept SPDY reqeuests and proxy them to an HTTP server.
+            HTTP proxy. This proxy accepts SPDY requests and proxies them to an HTTP server.
         </para>
         <para>
-            This is a very common use case for example to terminate SPDY on a frontend server when you need to talk
-            plain HTTP to your backend. Either because your network hardware needs to introspect HTTP content or your
-            backend is not able to talk SPDY. That way you have the performance advantages of SPDY over the slow
-            internet with high latencies and you talk HTTP to your backend as needed.
+            This is a very common use case, for example to terminate SPDY on a frontend server when you need to talk
+            plain HTTP to your backend. Either because your network hardware needs to inspect HTTP content or your
+            backend is unable to talk SPDY. You have the performance advantages of SPDY over the slow
+            internet with high latencies, and you talk HTTP to your backend as needed.
         </para>
 
         <informalexample>

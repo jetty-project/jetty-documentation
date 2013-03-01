@@ -26,7 +26,7 @@ xmlns:mth="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/d
   different build systems, from different JVM-based languages, or as a standalone distribution. This documentation
   covers the latter, a standalone distribution suitable for deploying web applications.</para>
   <xi:include href="jetty-installing.xml" />
-  <xi:include href="jetty-coordinates.xml"/>
   <xi:include href="jetty-running.xml" />
   <xi:include href="jetty-deploying.xml" />
+  <xi:include href="jetty-coordinates.xml"/>
 </chapter>

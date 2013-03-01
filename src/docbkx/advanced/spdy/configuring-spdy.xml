@@ -26,10 +26,10 @@
     <para>The
     <filename>spdy-jetty-http</filename>
     module provides an out-of-the-box server connector that performs the SPDY to HTTP conversion and vice versa (HTTP
-    over SPDY). You can use this connector instead of Jetty's SslSelectChannelConnector (that only speaks HTTP), and it
+    over SPDY). You can use this connector instead of Jetty's SslSelectChannelConnector (which only speaks HTTP), and it
     falls back to HTTPS if SPDY is not negotiated.</para>
 
-    <para>An example <filename>jetty-spdy.xml</filename> file that you can use instead of jetty-ssl.xml follows:</para>
+    <para>An example <filename>jetty-spdy.xml</filename> file that you can use instead of <filename>jetty-ssl.xml</filename> follows:</para>
 
     <informalexample>
         <programlisting language="xml">
@@ -62,15 +62,14 @@
     </informalexample>
 
     <para>This is sufficient to enable your Jetty server to speak SPDY to browsers that support it. Old
-        browsers or browsers that don't support SPDY yet will speak plain HTTP on the same connector.</para>
+        browsers or browsers that don't support SPDY yet speak plain HTTP on the same connector.</para>
 
     <para>Remember, however, that SPDY over SSL (as set up like the configuration above) requires that you set up NPN
-    correctly; in particular, you need to start the JVM with the NPN boot jar in the boot classpath (follow the
-    instructions at the NPN documentation page).</para>
+    correctly; in particular, you need to start the JVM with the <link linkend="npn-starting">NPN boot Jar in the boot classpath.</link></para>
 
-    <para>Additionally, NPN is only supported for the TLS protocol, version 1 or greater; this means that it cannot be used
+    <para>Be aware that NPN is supported only for the TLS protocol, version 1 or greater; this means you cannot use it
     with SSLv2, which implies that you have to configure the SslContextFactory to use TLSv1 or above, since the JDK
     usually sends a SSLv2 ClientHello message to secure servers. This is done by specifying the "includeProtocols"
-    property to contain at least the value "TLSv1" (see above).</para>
+    property to contain at least the value <emphasis>TLSv1</emphasis> (see code example above).</para>
 
 </section>

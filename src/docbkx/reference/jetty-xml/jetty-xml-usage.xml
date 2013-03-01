@@ -44,19 +44,11 @@
     </informalexample>
 
     <note>
-      If you start Jetty without specifying a configuration file, Jetty automatically locates and uses the default installation 
-
-      <filename>jetty.xml</filename>
-
-       file. Therefore 
-
-      <code>java -jar start.jar</code>
-
-       is equivalent to 
-
-      <code>java -jar start.jar etc/jetty.xml</code>
-
-      .
+      <para> If you start Jetty without specifying a configuration file, Jetty
+      automatically locates and uses the default installation
+      <filename>jetty.xml</filename> file. Therefore <code>java -jar
+      start.jar</code> is equivalent to <code>java -jar start.jar
+      etc/jetty.xml</code> . </para>
     </note>
   </section>
 

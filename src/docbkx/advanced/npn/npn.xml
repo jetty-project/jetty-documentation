@@ -25,10 +25,10 @@
          xmlns:xi="http://www.w3.org/2001/XInclude"
          xmlns:ns="http://docbook.org/ns/docbook">
   <section xml:id="npn-introduction">
-    <title>Introduction</title>
+    <title>Configuring NPN</title>
 
-    <para>The Jetty project provides an implementation of the Next Protocol
-    Negotiation TLS Extension (NPN) for OpenJDK 7 or greater. NPN allows the
+    <para>The Jetty project provides an implementation of the Transport Layer Security (TLS) extension for Next Protocol
+    Negotiation (NPN) for OpenJDK 7 or greater. NPN allows the
     application layer to negotiate which protocol to use over the secure
     connection.</para>
 
@@ -43,7 +43,7 @@
   <section xml:id="npn-starting">
     <title>Starting the JVM</title>
 
-    <para>To enable NPN support, you need to start the JVM with:</para>
+    <para>To enable NPN support, start the JVM as follows:</para>
 
     <informalexample>
       <programlisting><![CDATA[java -Xbootclasspath/p:<path_to_npn_boot_jar> ...            ]]></programlisting>
@@ -53,9 +53,9 @@
     file system for the NPN Boot Jar file, for example, one at the Maven
     coordinates org.mortbay.jetty.npn:npn-boot.</para>
 
-    <para>(Be aware that the current versions of the npn packages no longer
+    <para>Be aware that the current versions of the npn packages no longer
     align with Jetty versions. Look at the dates in those file paths before
-    looking at the version number.)</para>
+    looking at the version number.</para>
   </section>
 
   <section xml:id="npn-understanding">
@@ -160,8 +160,8 @@
 });]]></programlisting>
     </example>
 
-    <para>The NPN implementation calls NextProtoNego.ServerProvider methods
-    unsupported(), protocols() and protocolSelected(String), so that the
+    <para>The NPN implementation calls <code>NextProtoNego.ServerProvider</code> methods
+    <code>unsupported(), protocols()</code> and <code>protocolSelected(String),</code> so that the
     server application can</para>
 
     <itemizedlist>
@@ -182,8 +182,8 @@
   <section xml:id="npn-implementation">
     <title>Implementation Details</title>
 
-    <para>It is common that the NextProtoNego.ServerProvider (and the
-    NextProtoNego.ClientProvider) are implemented as (anonymous) inner
+    <para>It is common that the NextProtoNego.ServerProvider and the
+    NextProtoNego.ClientProvider are implemented as (anonymous) inner
     classes, and that their methods' implementations require references to the
     the sslSocket (or sslEngine), either directly or indirectly.</para>
 
@@ -200,14 +200,14 @@
     does not use the SslConnection directly, but instead via an
     AtomicReference that is cleared upon connection close.</para>
 
-    <para>Note that declaring the SslConnection as a final local variable and
+    <para>Be aware that declaring the SslConnection as a final local variable and
     referencing it from within the anonymous NextProtoNego.ServerProvider
     class generates a hidden field in the anonymous inner class, causing the
     memory leak, so you must avoid doing so.</para>
   </section>
 
   <section xml:id="npn-tests">
-    <title>Using Unit Tests</title>
+    <title>Unit Tests</title>
 
     <para>You can write and run unit tests that use the NPN implementation.
     The solution that we use with Maven is to specify an additional command
@@ -255,7 +255,7 @@
     <para>Since the NextProtoNego class is in the boot classpath, we chose not
     to use logging libraries because we do not want to override application
     logging library choices; therefore the logging is performed directly on
-    System.err.</para>
+    <code>System.err.</code></para>
   </section>
 
   <section xml:id="npn-license-details">

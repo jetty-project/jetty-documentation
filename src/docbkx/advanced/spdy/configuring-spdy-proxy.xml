@@ -30,19 +30,13 @@
             SPDY
             (currently v2/v3) and HTTP requests, and proxy those requests to other SPDY servers. If necessary, an implementation of the Proxy Engine class translates
             the incoming protocol to a protocol the target host understands. Currently we provide a SPDYProxyEngine 
-            that
-            can talk spdy/2 and spdy/3. We plan to support other protocols soon. As always, contributions are welcome.
+            that can talk SPDY v2 and SPDY v3. We plan to support other protocols soon. As always, contributions are welcome.
         </para>
 
-        <para>Configuration is straightforward as the following example will show. The example server has
-            a
-            plain
-            SPDY connector listening on port 9090 and a SPDY proxy connector listening on port 8080. Incoming requests
-            to
-            port
-            8080 are proxied and translated to the connector listening on port 9090. In real world scenarios you
-            more
-            likely proxy to a different host.
+        <para>Configuring SPDY is straightforward, as the following example shows. The example server has
+            a plain SPDY connector listening on port 9090 and a SPDY proxy connector listening on port 8080. Incoming requests
+            to port 8080 are proxied and translated to the connector listening on port 9090. In real world scenarios you
+            more likely proxy to a different host.
         </para>
 
         <informalexample>
@@ -176,9 +170,9 @@
         </Arg>
     </New>
 
-    This is the configuration of the ProxyEngine. It is a SPDYProxyEngine that can translate to spdy/2 as
-    configured above. If your target host is capable of speaking spdy/3, you just change the first constructor argument
-    to spdy/3. If you have different target hosts speaking different protocols, you configure multiple proxy
+    This is the ProxyEngine configuration. It is a SPDYProxyEngine that can translate to SPDY v2 as
+    configured above. If your target host is capable of speaking SPDY v3, you change the first constructor argument
+    to <code>spdy/3.</code> If you have different target hosts speaking different protocols, you configure multiple proxy
     engines and feed them to the ProxyEngineSelector as follows.
 
     <!--
@@ -214,11 +208,11 @@
 
 
         <para>This is the ProxyEngineSelector. The ProxyEngineSelector keeps the configurations for the
-            known target hosts as well as  choosing the right ProxyEngine for the protocol the target host
+            known target hosts and also chooses the right ProxyEngine for the protocol the target host
             speaks.
         </para>
 
-        <para>Lets take even smaller parts of the snipplet above to explain them in detail:</para>
+        <para>Let's take even smaller parts of the snipplet above to explain them in detail:</para>
 
         <informalexample>
             <programlisting language="xml">
@@ -234,7 +228,7 @@
 
 
         <para>This adds the SPDYProxyEngine configured above to the ProxyEngineSelector. The SPDYProxyEngine is
-            configured to translate to spdy/2. By adding it to the Selector, it now knows how to translate to spdy/2.
+            configured to translate to <code>spdy/2.</code> By adding it to the Selector, it now knows how to translate to <code>spdy/2.</code>
         </para>
 
         <informalexample>
@@ -258,10 +252,9 @@
             </programlisting>
         </informalexample>
 
-        <para>You configure target hosts and the protocol you want to communicate with them by adding so called
-            ProxyServerInfos. Configuration is straightforward. Key for the map is the hostname. Protocol, host
-            and
-            port are the configurations for the ProxyServerInfo.
+        <para>You configure target hosts and the protocol you want to communicate with them by adding so-called
+            ProxyServerInfos. Key for the map is the hostname. You configure protocol, host,
+            and port for the ProxyServerInfo.
         </para>
 
         <para>Request flow with the proxy given above:</para>
@@ -270,8 +263,7 @@
             <listitem>
                 <para>
                     Incoming SPDY Request to https://localhost:8443/ reaches the HTTPSPDYProxyConnector listening on
-                    port
-                    8443.
+                    port 8443.
                 </para>
             </listitem>
             <listitem>
@@ -286,15 +278,14 @@
             </listitem>
             <listitem>
                 <para>
-                    ProxyEngineSelector looks up the host in it's ProxyServerInfo mappings. It finds the matching entry,
+                    ProxyEngineSelector looks up the host in its ProxyServerInfo mappings. It finds the matching entry,
                     "localhost". (If there is no matching entry it rst the stream).
                 </para>
             </listitem>
             <listitem>
                 <para>
                     ProxyEngineSelector looks up a ProxyEngine that matches the protocol configured in the
-                    ProxyServerInfo it found
-                    in the last step and forwards the request to that ProxyEngine.
+                    ProxyServerInfo it found in the last step and forwards the request to that ProxyEngine.
                 </para>
             </listitem>
             <listitem>
@@ -312,7 +303,7 @@
     </section>
 
     <section xml:id="spdy-to-http-example-config">
-        <title>An example configuration for a SPDY to HTTP proxy</title>
+        <title>An Example Configuration for a SPDY to HTTP Proxy</title>
         <para>
             <filename>spdy-jetty-http</filename>
             provides full proxy functionality as described above. Here's another example configuration for a SPDY to
@@ -320,7 +311,7 @@
         </para>
         <para>
             This is a very common use case, for example to terminate SPDY on a frontend server when you need to talk
-            plain HTTP to your backend. Either because your network hardware needs to inspect HTTP content or your
+            plain HTTP to your backend, because either your network hardware needs to inspect HTTP content or your
             backend is unable to talk SPDY. You have the performance advantages of SPDY over the slow
             internet with high latencies, and you talk HTTP to your backend as needed.
         </para>
@@ -342,7 +333,7 @@
   <Configure id="Server" class="org.eclipse.jetty.server.Server">
 
     <!-- =========================================================== -->
-    <!-- Setup the SSL Context factory used to establish all TLS     -->
+    <!-- Set up the SSL Context factory used to establish all TLS     -->
     <!-- Connections and session.                                    -->
     <!--                                                             -->
     <!-- Consult the javadoc of o.e.j.util.ssl.SslContextFactory     -->

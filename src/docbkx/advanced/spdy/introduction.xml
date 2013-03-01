@@ -25,23 +25,20 @@
          xmlns:xi="http://www.w3.org/2001/XInclude"
          xmlns:ns="http://docbook.org/ns/docbook">
   <title>Introducing SPDY</title>
-
-  <important>
-    <para> To use SPDY in Jetty you need to add <link
-    linkend="npn">NPN</link> to the boot classpath. </para>
-  </important>
-
-  <para>Jetty supports both a client and a server implementation for the <link
+<para>Jetty supports both a client and a server implementation for the <link
   xl:href="http://www.chromium.org/spdy">SPDY</link> protocol, beginning with
   versions 7.6.2 and 8.1.2. As Jetty 7 and 8 are now in maintenance-only mode, we 
   recommend using Jetty 9 if you intend to use SPDY. Not all features
   described here exist in 7/8. To provide the best support possible for
-  SPDY, the Jetty project also provides an implementation for<link
-  xl:href="http://wiki.eclipse.org/Jetty/Feature/NPN">NPN </link>. Both the
+  SPDY, the Jetty project also provides an implementation for <link
+  xl:href="http://wiki.eclipse.org/Jetty/Feature/NPN">NPN</link>. Both the
   SPDY and the NPN implementations require OpenJDK 1.7 or greater.</para>
-
-  <para>A server deployed over TLS normally advertises the SPDY protocol via
-  the Next Protocol Negotiation TLS Extension (NPN).</para>
+   <para>A server deployed over TLS normally advertises the SPDY protocol via
+  the TLS Extension Next Protocol Negotiation <link
+    linkend="npn">(NPN)</link>.</para>
+  <important>
+    <para> To use SPDY in Jetty you need to add the <link linkend="npn-starting">NPN boot Jar in the boot classpath.</link></para>
+  </important>
 
   <para>See a <link
   xl:href="http://webtide.intalio.com/2012/10/spdy-push-demo-from-javaone-2012/">SPDY

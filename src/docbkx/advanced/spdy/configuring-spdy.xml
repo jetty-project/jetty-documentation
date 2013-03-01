@@ -69,7 +69,6 @@
 
     <para>Be aware that NPN is supported only for the TLS protocol, version 1 or greater; this means you cannot use it
     with SSLv2, which implies that you have to configure the SslContextFactory to use TLSv1 or above, since the JDK
-    usually sends a SSLv2 ClientHello message to secure servers. This is done by specifying the "includeProtocols"
-    property to contain at least the value <emphasis>TLSv1</emphasis> (see code example above).</para>
+    usually sends a SSLv2 ClientHello message to secure servers. To do so, specify the <emphasis>includeProtocols</emphasis> property to contain at least the value <emphasis>TLSv1</emphasis> (see code example above).</para>
 
 </section>

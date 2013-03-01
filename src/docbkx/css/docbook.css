@@ -148,7 +148,7 @@ pre.screen {
   background-color: #EEE;
   border:solid 1px #CCC;
   color: black;
-  padding-left: 15pt;
+  padding: 15pt;
 }
 
 div.variablelist {

@@ -98,7 +98,7 @@ xmlns:xslthl="http://xslthl.sf.net"
         </div>
         <div style="background-color: #FF3300; text-align: left; font-size:110%; font-family: arial, sans; border:thin dotted blue; padding: 4px; ">
         <span style="font-variant: small-caps; font-weight: bold">
-        This page contains content that has been migrated from Jetty7 or Jetty8 documentation into the correct format, but has yet to be audited for correctness with Jetty 9.  Be aware that any examples or information contained on this page may be incorrect.  Please check back soon as we continue improving the documentation or submit corrections yourself to this page through <a href="http://github.com/jetty-project/jetty-documentation" style="text-decoration:none">Github</a>. Thank you.
+        This page contains content that we have migrated from Jetty 7 or Jetty 8 documentation into the correct format, but we have not yet audited it for technical accuracy in with Jetty 9.  Be aware that examples or information contained on this page may be incorrect.  Please check back soon as we continue improving the documentation, or submit corrections yourself to this page through <a href="http://github.com/jetty-project/jetty-documentation" style="text-decoration:none">Github</a>. Thank you.
         </span>
    </div>
   

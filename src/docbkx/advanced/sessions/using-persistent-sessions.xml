@@ -46,7 +46,9 @@
     sessions:</para>
 
     <informalexample>
-      <programlisting language="xml"><![CDATA[<Configure class="org.eclipse.jetty.webapp.WebAppContext">
+      <programlisting language="xml">
+<![CDATA[
+<Configure class="org.eclipse.jetty.webapp.WebAppContext">
   .
   .
   .
@@ -62,7 +64,9 @@
   .
   .
   .
-</Configure>      ]]></programlisting>
+</Configure>      
+]]>
+      </programlisting>
     </informalexample>
 
     <tip>
@@ -71,10 +75,8 @@
           <listitem>
             <para>Configure a separate HashSessionManager for each.</para>
           </listitem>
-
           <listitem>
-            <para>Assign to each a different value for
-            ''storeDirectory''.</para>
+            <para>Assign to each a different value for 'storeDirectory'.</para>
           </listitem>
         </orderedlist></para>
     </tip>
@@ -120,12 +122,12 @@
 
     <informalexample>
       <programlisting language="xml"><![CDATA[<plugin>
-  <groupId>org.mortbay.jetty</groupId>
+  <groupId>org.eclipse.jetty</groupId>
   <artifactId>jetty-maven-plugin</artifactId>
-  <version>7.4.3.v20110701</version>
+  <version>9.0.0.RC2 (or current version)</version>
   <configuration>
     <!-- ... -->
-    <webAppConfig implementation="org.mortbay.jetty.plugin.JettyWebAppContext">
+    <webAppConfig implementation="org.eclipse.jetty.maven.plugin.JettyWebAppContext">
       <defaultsDescriptor>${project.build.outputDirectory}/META-INF/webdefault.xml</defaultsDescriptor>
       <contextPath>${jetty.contextRoot}</contextPath>
       <sessionHandler implementation="org.eclipse.jetty.server.session.SessionHandler">

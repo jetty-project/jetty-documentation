@@ -93,12 +93,12 @@ xmlns:xslthl="http://xslthl.sf.net"
                 ($draft.mode = 'maybe' and
                 ancestor-or-self::*[@status][1]/@status = 'draft'))
                 and $draft.watermark.image != ''">
-      
-        <div style="background-color: #FF3300; text-align: left; font-size:110%; font-family: arial, sans; border:thin dotted blue; padding: 4px; ">
+        <div style="background-color: #FFFFFF">
           <br/>
+        </div>
+        <div style="background-color: #FF3300; text-align: left; font-size:110%; font-family: arial, sans; border:thin dotted blue; padding: 4px; ">
         <span style="font-variant: small-caps; font-weight: bold">
-        
-        This page contains content that has been migrated from Jetty7 or Jetty8 documentation into the correct format, but has yet to be audited for correctness with Jetty 9.  Be aware that any examples or information contained on this page may be incorrect.  Please check back soon as we hope we'll be able to remove this message soon or you are welcome to submit corrections to this page through a github pull request.  See the bottom of the page for information on that to do that.  Thank you.
+        This page contains content that has been migrated from Jetty7 or Jetty8 documentation into the correct format, but has yet to be audited for correctness with Jetty 9.  Be aware that any examples or information contained on this page may be incorrect.  Please check back soon as we continue improving the documentation or submit corrections yourself to this page through <a href="http://github.com/jetty-project/jetty-documentation" style="text-decoration:none">Github</a>. Thank you.
         </span>
    </div>
   

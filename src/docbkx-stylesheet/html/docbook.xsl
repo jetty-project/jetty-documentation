@@ -88,6 +88,21 @@ xmlns:xslthl="http://xslthl.sf.net"
  scalability guidance for your apps and Ajax/Comet projects ... development services from 1 day to full product delivery
     </span>
    </div>
+
+     <xsl:if test="($draft.mode = 'yes' or
+                ($draft.mode = 'maybe' and
+                ancestor-or-self::*[@status][1]/@status = 'draft'))
+                and $draft.watermark.image != ''">
+      
+        <div style="background-color: #FF3300; text-align: left; font-size:110%; font-family: arial, sans; border:thin dotted blue; padding: 4px; ">
+          <br/>
+        <span style="font-variant: small-caps; font-weight: bold">
+        
+        This page contains content that has been migrated from Jetty7 or Jetty8 documentation into the correct format, but has yet to be audited for correctness with Jetty 9.  Be aware that any examples or information contained on this page may be incorrect.  Please check back soon as we hope we'll be able to remove this message soon or you are welcome to submit corrections to this page through a github pull request.  See the bottom of the page for information on that to do that.  Thank you.
+        </span>
+   </div>
+  
+    </xsl:if>
   </xsl:template>
 
   <xsl:template name="user.footer.content">

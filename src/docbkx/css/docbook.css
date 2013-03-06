@@ -8,8 +8,8 @@ a:visited {
 }
 
 body {
-  font-family: serif;
-  font-size: 12pt;
+  font-family: Verdana, Helvetica, arial, freesans, clean, sans-serif;
+  font-size: 10pt;
 
   width: 960px;
   margin-left: auto;
@@ -20,7 +20,6 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
   font-weight: bold;
-  font-variant: small-caps;
   margin-bottom: 12pt;
 }
 
@@ -53,7 +52,7 @@ dl {
 }
 
 pre {
-  font-family: Courier New, monospace;
+  font-family: monospace;
   font-size: 10pt;
   margin-bottom: 1.5em;
   overflow-x: auto;
@@ -63,26 +62,33 @@ strong {
   color: #000;
 }
 
-table {
+/* Pretty Tables */
+
+.table table {
+  font-size: 10pt;
   border: 1px solid #036;
   padding: 0;
   border-collapse: collapse;
 }
-tr {
+
+.table tr {
   border: 0;
   padding: 0;
 }
-tr:nth-child(even) {
+
+.table tr:nth-child(even) {
   background-color: #EEE;
 }
-th {
+
+.table th {
   padding: 5px;
   background: #036;
   color: white;
   text-align: center;
   font-weight: bold;
 }
-td {
+
+.table td {
   border: 1px solid #CCC;
   padding: 5px;
 }
@@ -137,8 +143,7 @@ span.term {
 pre.programlisting {
    font-family: monospace;
    background-color: #EEE;
-   padding-left: 1.5em;
-   padding-right: 1.5em;
+   padding: 1.5em;
    border:solid 1px #CCC;
 }
 
@@ -193,6 +198,64 @@ div.variablelist {
 }
 
 .caution, .important, .note, .tip, .warning {
-    border: 2px solid #069;
-    padding: 0 20px;
+    border: 2px solid #ddd;
+    padding: 10px;
+    padding-left: 2.0em;
+    background-color: #eee;
+    margin: 10px;
 }
+
+.caution h3, .warning h3 {
+    color: red;
+}
+
+.important h3 {
+    color: blue;
+}
+
+.note h3 {
+    color: black;
+}
+
+.tip h3 {
+    color: green;
+}
+
+.caution h3, .important h3, .note h3, .tip h3, .warning h3 {
+    margin-left: -1.0em;
+    margin-top: 0;
+    margin-bottom: 0.1em;
+}
+
+.jetty-callout {
+  background-color: #DEF;
+  text-align: left; 
+  font-size: 8pt;
+  border: thin dotted blue; 
+  padding: 4px; 
+}
+
+.jetty-callout h5 {
+  font-size: 8pt;
+  margin: 0;
+  margin-bottom: 5px;
+}
+
+.jetty-callout .callout {
+  font-weight: bold;
+  font-style: normal;
+}
+
+.jetty-callout a {
+  text-decoration: none;
+}
+
+.jetty-callout .website {
+  color: #f3a;
+}
+
+.jetty-callout p {
+  font-style: oblique;
+  margin: 0;
+}
+

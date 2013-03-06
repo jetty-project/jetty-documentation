@@ -72,21 +72,20 @@ xmlns:xslthl="http://xslthl.sf.net"
   </xsl:template>
 
   <xsl:template name="user.header.navigation">
-    <center><a href="http://www.eclipse.org/jetty"><img src="images/jetty-logo.svg" width="80"></img></a></center>
+    <center><a href="http://www.eclipse.org/jetty"><img src="images/jetty-header-logo.png" alt="Jetty Logo"></img></a></center>
   </xsl:template>
 
   <xsl:template name="user.header.content">
-    <div style="background-color: #DEF; text-align: left; font-size:80%; font-family: arial, sans; border:thin dotted blue; padding: 4px; ">
-    <span style="font-variant: small-caps; font-weight: bold">
-        <a href="http://www.webtide.com/support.jsp" style="text-decoration:none">Contact the core Jetty developers at
-          <span style="color:#F3A"> www.webtide.com</span>
+    <div class="jetty-callout">
+      <h5 class="callout">
+        <a href="http://www.webtide.com/support.jsp">Contact the core Jetty developers at
+          <span class="website">www.webtide.com</span>
         </a>
-    </span>
-    <br/>
-    <span  style="font-style:oblique;font-size: 80%">
+      </h5>
+      <p>
  private support for your internal/customer projects ... custom extensions and distributions ... versioned snapshots for indefinite support ...
  scalability guidance for your apps and Ajax/Comet projects ... development services from 1 day to full product delivery
-    </span>
+      </p>
    </div>
 
      <xsl:if test="($draft.mode = 'yes' or
@@ -111,17 +110,16 @@ xmlns:xslthl="http://xslthl.sf.net"
   </xsl:template>
 
   <xsl:template name="user.footer.navigation">
-  <div style="background-color: #DEF; text-align: left; font-size:80%; font-family: arial, sans; border:thin dotted blue; padding: 4px; ">
-    <span  style="font-style:oblique;font-size: 80%">
-See an error or something missing?<br/>
-    </span>
-    <span style="font-variant: small-caps; font-weight: bold">
-        <a href="http://github.com/jetty-project/jetty-documentation" style="text-decoration:none">Contribute to this documentation at
-        <span style="color:#F3A"> Github!</span>
-        </a>
-    </span>
-    <br/>
-   </div>
+    <div class="jetty-callout">
+      <p>
+        See an error or something missing?
+        <span class="callout">
+          <a href="http://github.com/jetty-project/jetty-documentation">Contribute to this documentation at
+            <span class="website">Github!</span>
+          </a>
+        </span>
+      </p>
+    </div>
 
     <script type="text/javascript">
   var _gaq = _gaq || [];

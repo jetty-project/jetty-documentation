@@ -94,6 +94,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
               <excludes>
                 <exclude>**/*.css</exclude>
                 <exclude>**/images/*</exclude>
+                <exclude>**/*.swp</exclude>
               </excludes>
             </validationSet>
           </validationSets>

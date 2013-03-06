@@ -259,3 +259,30 @@ div.variablelist {
   margin: 0;
 }
 
+div.draft {
+  background-color: #FF3300; 
+  text-align: left; 
+  font-size: 1.1em; 
+  border:thin dotted blue; 
+  padding: 4px;
+  margin-top: 2.0em;
+  margin-bottom: 2.0em;
+  padding: 2.0em;
+  color: white;
+}
+
+div.draft p {
+  font-weight: bold;
+  margin: 0;
+}
+
+div.draft h5 {
+  margin: 0;
+  margin-bottom: 1.0em;
+  font-size: 1.5em;
+}
+
+div.draft a {
+  color: yellow;
+}
+

@@ -16,21 +16,43 @@
 //  You may elect to redistribute this code under either of these licenses.
 //  ========================================================================
 -->
-<chapter status="draft" version="5.0"
-xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd"
-xml:id="configuring-deployment" xmlns="http://docbook.org/ns/docbook"
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema"
-xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
-xmlns:ns="http://docbook.org/ns/docbook">
-  <title>Deploying Jetty</title>
-  <para>This chapter discusses various ways to deploy applications with Jetty. Topics range from deployment bindings to
-  deploying third party products. It also includes information about the Deployment Manager, ContextProvider, WebApp
-  Provider, and Overlay Deployer.</para>
-  <xi:include href="basic-webapp-layout.xml" />
-  <xi:include href="using-deployment-manager.xml" />
-  <xi:include href="setting-deployment-bindings.xml" />
-  <xi:include href="hot-deployment.xml" />
-  <xi:include href="deploying-webapps.xml" />
-  <xi:include href="using-context-provider.xml" />
-  <xi:include href="using-webapp-provider.xml" />
+<chapter version="5.0"
+         xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd"
+         xml:id="configuring-deployment" xmlns="http://docbook.org/ns/docbook"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:xs="http://www.w3.org/2001/XMLSchema"
+         xmlns:xl="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:ns2="http://www.w3.org/1998/Math/MathML"
+         xmlns:ns="http://docbook.org/ns/docbook">
+  <title>Deploying to Jetty</title>
+
+  <para>This chapter discusses various ways to deploy applications with Jetty.
+  Topics range from deployment bindings to deploying third party products. It
+  also includes information about the Deployment Manager,
+  WebApp Provider, and Overlay Deployer.</para>
+
+  <!-- 
+  Anatomy of a Web Application.
+  Automatic Web Application Deployment.
+  Configuring a Specific Web Application Deployment.
+    Setting a specific Context Path
+  Configuring Hot Deployer.
+  Configuring a Static Content Deployment.
+  Extensible Deployment Architecture.
+    Deployment Manager
+    Deployment LifeCycle
+    App Providers
+    Understanding the WebAppProvider
+    Binding to the AppLifeCycle
+    Creating new AppProviders
+  -->
+
+  <xi:include href="anatomy-of-a-webapp.xml"/>
+  <xi:include href="automatic-webapp-deployment.xml"/>
+  <xi:include href="configuring-specific-webapp-deployment.xml"/>
+  <xi:include href="static-content-deployment.xml"/>
+  <xi:include href="hot-deployment.xml"/>
+  <xi:include href="deployment-architecture.xml"/>
+
 </chapter>

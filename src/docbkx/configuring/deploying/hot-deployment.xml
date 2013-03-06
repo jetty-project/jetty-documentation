@@ -16,63 +16,89 @@
 //  You may elect to redistribute this code under either of these licenses.
 //  ========================================================================
 -->
-<section xml:id="hot-deployment" version="5.0" xmlns="http://docbook.org/ns/docbook"
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xl="http://www.w3.org/1999/xlink"
-xmlns:xi="http://www.w3.org/2001/XInclude"
-xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd">
+<section version="5.0"
+         xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd"
+         xml:id="hot-deployment" xmlns="http://docbook.org/ns/docbook"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:xs="http://www.w3.org/2001/XMLSchema"
+         xmlns:xl="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:ns2="http://www.w3.org/1998/Math/MathML"
+         xmlns:ns="http://docbook.org/ns/docbook">
   <title>Hot Deployment</title>
-  <para>Jetty lets you deploy an arbitrary context or web application by monitoring a directory for changes. If you add
-  a web application or a context descriptor to the directory, Jetty's DeploymentManager (DM) deploys a new context. If
-  you touch or update a context descriptor, the DM stops, reconfigures, and redeploys its context. If you remove a
-  context, the DM stops it and removes it from the server.</para>
-  <para>The DeploymentManager is a state-oriented mechanism suitable for developers and embedded users to customize to
-  a variety of use cases. An example follows of the <filename>jetty.xml</filename> that creates the basic
-  DeploymentManager, which Jetty then uses to plug in the ContextProvider and the WebAppProvider that back the Hot
-  Deployment mechanism. This example also provides information about adding another node to the deployment state, in
-  this case a debug binding. In the Jetty distribution this XML is in the <filename>jetty-deploy.xml</filename> file,
-  which combined with the <filename>jetty-contexts.xml</filename> and <filename>jetty-webapps.xml</filename> files
-  comprise the stock Jetty hot deployment mechanism.</para>
-  <informalexample>
-    <programlisting language="xml">
-<![CDATA[
-<Configure id="Server" class="org.eclipse.jetty.server.Server">
 
-    <Call name="addBean">
-      <Arg>
-        <New id="DeploymentManager" class="org.eclipse.jetty.deploy.DeploymentManager">
-          <Set name="contexts">
-            <Ref refid="Contexts" />
-          </Set>
-          <Call name="setContextAttribute">
-            <Arg>org.eclipse.jetty.server.webapp.ContainerIncludeJarPattern</Arg>
-            <Arg>.*/jsp-api-[^/]*\.jar$|.*/jsp-[^/]*\.jar$</Arg>
-          </Call>
-          
-          
-          <!-- Add a customize step to the deployment lifecycle -->
-          <!-- uncomment and replace DebugBinding with your extended AppLifeCycle.Binding class 
-          <Call name="insertLifeCycleNode">
-            <Arg>deployed</Arg>
-            <Arg>starting</Arg>
-            <Arg>customise</Arg>
-          </Call>
-          <Call name="addLifeCycleBinding">
-            <Arg>
-              <New class="org.eclipse.jetty.deploy.bindings.DebugBinding">
-                <Arg>customise</Arg>
-              </New>
-            </Arg>
-          </Call>
-          -->
-          
-        </New>
-      </Arg>
-    </Call>
-</Configure>
-]]>
-    </programlisting>
+  <para>Jetty lets you deploy an arbitrary context or web application by
+  monitoring a directory for changes. If you add a web application or a
+  context descriptor to the directory, Jetty's DeploymentManager (DM) deploys
+  a new context. If you touch or update a context descriptor, the DM stops,
+  reconfigures, and redeploys its context. If you remove a context, the DM
+  stops it and removes it from the server.</para>
+
+  <para>To control this behavior, you'll want to configure some WebAppProvider
+  properties.</para>
+
+  <variablelist>
+    <varlistentry>
+      <term>monitoredDirName</term>
+
+      <listitem>
+        <para>The directory to scan for possible deployable Web Applications
+        (or Deployment Descriptor XML files)</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>scanInterval</term>
+
+      <listitem>
+        <para>Number of seconds between scans of the provided
+        <literal>monitoredDirName</literal>.</para>
+
+        <para>A value of <literal>0</literal> disables the continuous hot
+        deployment scan, Web Applications will be deployed on startup
+        only.</para>
+      </listitem>
+    </varlistentry>
+  </variablelist>
+
+  <para>The default location for this configuration is in the
+  <filename>${jetty.home}/etc/jetty-deploy.xml</filename> file.</para>
+
+  <informalexample>
+    <programlisting language="xml">&lt;?xml version="1.0"?&gt;
+&lt;!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure_9_0.dtd"&gt;
+&lt;Configure id="Server" class="org.eclipse.jetty.server.Server"&gt;
+
+  &lt;Call name="addBean"&gt;
+    &lt;Arg&gt;
+      &lt;New id="DeploymentManager" class="org.eclipse.jetty.deploy.DeploymentManager"&gt;
+        &lt;Set name="contexts"&gt;
+          &lt;Ref refid="Contexts" /&gt;
+        &lt;/Set&gt;
+        &lt;Call name="setContextAttribute"&gt;
+          &lt;Arg&gt;org.eclipse.jetty.server.webapp.ContainerIncludeJarPattern&lt;/Arg&gt;
+          &lt;Arg&gt;.*/servlet-api-[^/]*\.jar$&lt;/Arg&gt;
+        &lt;/Call&gt;
+
+        &lt;Call id="webappprovider" name="addAppProvider"&gt;
+          &lt;Arg&gt;
+            &lt;New class="org.eclipse.jetty.deploy.providers.WebAppProvider"&gt;
+              &lt;Set name="monitoredDirName"&gt;&lt;Property name="jetty.home" default="." /&gt;/webapps&lt;/Set&gt;
+              &lt;Set name="defaultsDescriptor"&gt;&lt;Property name="jetty.home" default="." /&gt;/etc/webdefault.xml&lt;/Set&gt;
+              &lt;Set name="scanInterval"&gt;1&lt;/Set&gt;
+              &lt;Set name="extractWars"&gt;true&lt;/Set&gt;
+            &lt;/New&gt;
+          &lt;/Arg&gt;
+        &lt;/Call&gt;
+      &lt;/New&gt;
+    &lt;/Arg&gt;
+  &lt;/Call&gt;
+&lt;/Configure&gt;    </programlisting>
   </informalexample>
-  <para>See <xref linkend="using-context-provider" /> for more information. Previously, Jetty implemented this feature
-  via a ContextDeployer and WebappDeployer, which have both been deprecated.</para>
-  <para>See also <xref linkend="using-deployment-manager" /> for detailed conceptual information.</para>
+
+  <para>See <xref linkend="default-web-app-provider"/> for more configuration
+  details.</para>
+
+  <para>See also <xref linkend="deployment-architecture"/> for detailed
+  conceptual information.</para>
 </section>

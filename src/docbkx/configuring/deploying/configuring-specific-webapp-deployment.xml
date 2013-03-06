@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+//  ========================================================================
+//  Copyright (c) 1995-2012 Mort Bay Consulting Pty. Ltd.
+//  ========================================================================
+//  All rights reserved. This program and the accompanying materials
+//  are made available under the terms of the Eclipse Public License v1.0
+//  and Apache License v2.0 which accompanies this distribution.
+//
+//      The Eclipse Public License is available at
+//      http://www.eclipse.org/legal/epl-v10.html
+//
+//      The Apache License v2.0 is available at
+//      http://www.opensource.org/licenses/apache2.0.php
+//
+//  You may elect to redistribute this code under either of these licenses.
+//  ========================================================================
+-->
+<section version="5.0"
+         xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd"
+         xml:id="configuring-specific-webapp-deployment"
+         xmlns="http://docbook.org/ns/docbook"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:xs="http://www.w3.org/2001/XMLSchema"
+         xmlns:xl="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:ns2="http://www.w3.org/1998/Math/MathML"
+         xmlns:ns="http://docbook.org/ns/docbook">
+  <title>Configuring a Specific Web Application Deployment</title>
+
+  <para>Using the Automatic Web Application Deployment model is quick and
+  easy, but sometimes you might need to tune certain deployment properties
+  (for example, you want to deploy with a context path that is not based on
+  the file name, or you want to define a special database connection pool just
+  for this web application). You can use a <xref
+  linkend="deployable-descriptor-file"/> to accomplish such tuning.</para>
+
+  <section xml:id="deployable-descriptor-file">
+    <title>Jetty Deployable Descriptor XML File</title>
+
+    <para>Jetty supports deploying Web Applications via XML file which will
+    build an instance of a <link
+    xl:href="@JDURL@/org/eclipse/jetty/server/handler/ContextHandler.html">ContextHandler</link>
+    that Jetty can then deploy.</para>
+
+    <section xml:id="using-basic-descriptor-files">
+      <title>Using Basic Descriptor Files</title>
+
+      <para>In a default Jetty installation, Jetty scans its
+      <filename>$JETTY_HOME/webapps</filename> directory for context
+      deployment descriptor files. To deploy a web application using such a
+      file, simply place the file in that directory.</para>
+
+      <para>The deployment descriptor file itself is an xml file that
+      configures a <link
+      xl:href="@JDURL@/org/eclipse/jetty/webapp/WebAppContext.html"><code>WebAppContext</code></link>
+      class. For a basic installation you probably need to set only two
+      properties:</para>
+
+      <variablelist>
+        <varlistentry>
+          <term>war</term>
+
+          <listitem>
+            <para>the filesystem path to the web application file (or
+            directory)</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>contextPath</term>
+
+          <listitem>
+            <para>the context path to use for the web application</para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+
+      <para>For example, here is a descriptor file that deploys the file
+      <filename>/opt/myapp/myapp.war</filename> to the context path
+      <filename>/wiki</filename>:</para>
+
+      <informalexample>
+        <programlisting language="xml">&lt;?xml version="1.0"  encoding="ISO-8859-1"?&gt;
+&lt;!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure_9_0.dtd"&gt;
+
+&lt;Configure class="org.eclipse.jetty.webapp.WebAppContext"&gt;
+  &lt;Set name="contextPath"&gt;/wiki&lt;/Set&gt;
+  &lt;Set name="war"&gt;/opt/myapp/myapp.war&lt;/Set&gt;
+&lt;/Configure&gt;        </programlisting>
+      </informalexample>
+
+      <note>
+        <para>You can use the <code>SystemProperty</code> and
+        <code>Property</code> elements in your descriptor file. For example,
+        if you set the system property <code>myapp.home=/opt/myapp</code>, you
+        can rewrite the previous example as:</para>
+      </note>
+
+      <informalexample>
+        <programlisting language="xml">&lt;?xml version="1.0"  encoding="ISO-8859-1"?&gt;
+&lt;!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure_9_0.dtd"&gt;
+
+&lt;Configure class="org.eclipse.jetty.webapp.WebAppContext"&gt;
+  &lt;Set name="contextPath"&gt;/wiki&lt;/Set&gt;
+  &lt;Set name="war"&gt;&lt;SystemProperty name="myapp.home"/&gt;/myapp.war&lt;/Set&gt;
+&lt;/Configure&gt;</programlisting>
+      </informalexample>
+
+      <para>If you need to change the home path for your application, you can
+      simply change the system property. This is useful if you frequently
+      switch among multiple versions of an app.</para>
+    </section>
+
+    <section xml:id="configuring-advanced-descriptor-files">
+      <title>Configuring Advanced Descriptor Files</title>
+
+      <para>If you look at the documentation for the <link
+      xl:href="@JDURL@/org/eclipse/jetty/webapp/WebAppContext.html"><code>WebAppContext</code></link>
+      class, you notice that there are a lot more properties than just the two
+      mentioned above. Here are some examples that configure advanced options
+      with your descriptor file.</para>
+
+      <para>This first example tells Jetty not to expand the WAR file when
+      deploying it. This can help make it clear that people should not be
+      making changes to the temporary unpacked WAR because such changes do not
+      persist, and therefore do not apply the next time the web application
+      deploys.</para>
+
+      <informalexample>
+        <programlisting language="xml">&lt;?xml version="1.0"  encoding="ISO-8859-1"?&gt;
+&lt;!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure_9_0.dtd"&gt;
+
+&lt;Configure class="org.eclipse.jetty.webapp.WebAppContext"&gt;
+  &lt;Set name="contextPath"&gt;/wiki&lt;/Set&gt;
+  &lt;Set name="war"&gt;&lt;SystemProperty name="myapp.home"/&gt;/myapp.war&lt;/Set&gt;
+  &lt;Set name="extractWAR"&gt;false&lt;/Set&gt;
+&lt;/Configure&gt;        </programlisting>
+      </informalexample>
+
+      <para>The next example retrieves the JavaEE Servlet context and sets an
+      initialization parameter on it. You can also use the
+      <code>setAttribute</code> method to set a Servlet context attribute.
+      However, since the <filename> web.xml</filename> for the web application
+      is processed after the deployment descriptor, the <filename>
+      web.xml</filename> values overwrite like-named attributes from the
+      deployment descriptor.</para>
+
+      <informalexample>
+        <programlisting language="xml">&lt;?xml version="1.0"  encoding="ISO-8859-1"?&gt;
+&lt;!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure_9_0.dtd"&gt;
+
+&lt;Configure class="org.eclipse.jetty.webapp.WebAppContext"&gt;
+  &lt;Set name="contextPath"&gt;/wiki&lt;/Set&gt;
+  &lt;Set name="war"&gt;&lt;SystemProperty name="myapp.home"/&gt;/myapp.war&lt;/Set&gt;
+  &lt;Get name="ServletContext"&gt;
+     &lt;Call name="setInitParameter"&gt;
+       &lt;Arg&gt;myapp.config&lt;/Arg&gt;
+       &lt;Arg&gt;&lt;SystemProperty name="myapp.home"&gt;/config/app-config.xml&lt;/Arg&gt;
+    &lt;/Call&gt;
+  &lt;/Get&gt;
+&lt;/Configure&gt;        </programlisting>
+      </informalexample>
+
+      <para>The following example sets a special <filename>web.xml</filename>
+      override descriptor. This descriptor is processed after the web
+      application's <filename>web.xml</filename>, so may override like-named
+      attributes. This feature is useful if you want to add parameters or
+      additional Servlet mappings without breaking open a packed WAR
+      file.</para>
+
+      <informalexample>
+        <programlisting language="xml">&lt;?xml version="1.0"  encoding="ISO-8859-1"?&gt;
+&lt;!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure_9_0.dtd"&gt;
+
+&lt;Configure class="org.eclipse.jetty.webapp.WebAppContext"&gt;
+  &lt;Set name="contextPath"&gt;/wiki&lt;/Set&gt;
+  &lt;Set name="war"&gt;&lt;SystemProperty name="myapp.home"/&gt;/myapp.war&lt;/Set&gt;
+  &lt;Set name="overrideDescriptor"&gt;/opt/myapp/overlay-web.xml&lt;/Set&gt;
+&lt;/Configure&gt;        </programlisting>
+      </informalexample>
+
+      <para>The next example configures not only the web application context,
+      but also a database connection pool (see <xref
+      linkend="jndi-datasource-examples"/> that our application can then use.
+      If the <filename> web.xml</filename> does not include a reference to
+      this data source, you can use the override descriptor mechanism (the
+      previous example), to include it.</para>
+
+      <informalexample>
+        <programlisting language="xml">&lt;?xml version="1.0"  encoding="ISO-8859-1"?&gt;
+&lt;!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure_9_0.dtd"&gt;
+
+&lt;Configure class="org.eclipse.jetty.webapp.WebAppContext"&gt;
+  &lt;Set name="contextPath"&gt;/wiki&lt;/Set&gt;
+  &lt;Set name="war"&gt;&lt;SystemProperty name="myapp.home"/&gt;/myapp.war&lt;/Set&gt;
+&lt;/Configure&gt;
+
+&lt;New id="DSTest" class="org.eclipse.jetty.plus.jndi.Resource"&gt;
+  &lt;Arg&gt;&lt;/Arg&gt;
+  &lt;Arg&gt;jdbc/DSTest&lt;/Arg&gt;
+  &lt;Arg&gt;
+    &lt;New class="org.apache.commons.dbcp.BasicDataSource"&gt;
+      &lt;Set name="driverClassName"&gt;org.some.Driver&lt;/Set&gt;
+      &lt;Set name="url"&gt;jdbc.url&lt;/Set&gt;
+      &lt;Set name="username"&gt;jdbc.user&lt;/Set&gt;
+      &lt;Set name="password"&gt;jdbc.pass&lt;/Set&gt;
+    &lt;/New&gt;
+  &lt;/Arg&gt;
+&lt;/New&gt;        </programlisting>
+      </informalexample>
+    </section>
+  </section>
+</section>

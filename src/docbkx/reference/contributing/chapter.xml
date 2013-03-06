@@ -20,10 +20,6 @@
 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xl="http://www.w3.org/1999/xlink"
 xmlns:xi="http://www.w3.org/2001/XInclude"
 xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd">
-<!-- This causes a pdf generation err <figure id="fig_uniequeid"> <title>Jetty
-    Logo</title> <mediaobject> <imageobject> <imagedata fileref="jetty.gif" format="GIF"
-    align="center" contentdepth="3in" contentwidth="5in" scalefit="1" /> </imageobject>
-    </mediaobject> </figure> -->
   <title>Contributing to Jetty</title>
   <section>
     <para>There are many ways to contribute to Jetty, from hardened developers looking to sharpen their skills to

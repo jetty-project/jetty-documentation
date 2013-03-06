@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
+
 <svg
    xmlns:dc="http://purl.org/dc/elements/1.1/"
    xmlns:cc="http://creativecommons.org/ns#"
@@ -12,13 +13,13 @@
    height="400"
    id="svg2"
    sodipodi:version="0.32"
-   inkscape:version="0.46"
+   inkscape:version="0.48.3.1 r9886"
    version="1.0"
    sodipodi:docname="jetty-logo-shadow.svg"
    inkscape:output_extension="org.inkscape.output.svg.inkscape"
-   inkscape:export-filename="/home/joakim/documents/Webtide/jetty-logo-shadow.png"
-   inkscape:export-xdpi="90"
-   inkscape:export-ydpi="90">
+   inkscape:export-filename="/home/joakim/code/intalio/jetty-documentation/src/docbkx/images/jetty-logo-shadow.png"
+   inkscape:export-xdpi="34.09"
+   inkscape:export-ydpi="34.09">
   <defs
      id="defs4">
     <inkscape:perspective
@@ -70,7 +71,8 @@
      inkscape:window-y="48"
      showguides="true"
      inkscape:guide-bbox="true"
-     showborder="true" />
+     showborder="true"
+     inkscape:window-maximized="0" />
   <metadata
      id="metadata7">
     <rdf:RDF>
@@ -79,6 +81,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>

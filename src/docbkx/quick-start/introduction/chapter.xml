@@ -17,22 +17,30 @@
 //  ========================================================================
 -->
 <chapter version="5.0"
-xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd" xml:id="introduction"
-xmlns="http://docbook.org/ns/docbook" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xl="http://www.w3.org/1999/xlink"
-xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:ns2="http://www.w3.org/1998/Math/MathML"
-xmlns:ns="http://docbook.org/ns/docbook">
+         xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd"
+         xml:id="introduction" xmlns="http://docbook.org/ns/docbook"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:xs="http://www.w3.org/2001/XMLSchema"
+         xmlns:xl="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:ns2="http://www.w3.org/1998/Math/MathML"
+         xmlns:ns="http://docbook.org/ns/docbook">
   <title>Introducing Jetty</title>
+
   <mediaobject>
     <info>
       <othercredit>
         <orgname>jetty logo</orgname>
       </othercredit>
     </info>
+
     <imageobject>
-      <imagedata align="center" fileref="images/jetty.gif" format="GIF" width="6in" />
+      <imagedata align="center" fileref="images/jetty-logo-shadow.png"
+                 format="PNG" width="540px"/>
     </imageobject>
   </mediaobject>
-  <xi:include href="what-is-jetty.xml" />
-  <xi:include href="what-version.xml" />
+
+  <xi:include href="what-is-jetty.xml"/>
+
+  <xi:include href="what-version.xml"/>
 </chapter>

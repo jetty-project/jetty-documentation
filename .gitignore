@@ -36,4 +36,4 @@ target/
 *.orig
 
 # xmlmind
-*.xml~
+*~

@@ -95,11 +95,11 @@ $ git push origin release-9        </screen>
         commits the pom.xml changes to your local git repo.  The <code>eclipse-release</code> profile is required on the prepare in order to bring in the jetty aggregates as that profile defines a module which is ignored otherwise.</para>
 
         <screen><![CDATA[
-          $ mvn release:prepare -DreleaseVersion=9.0.0.v20130322 \
+$ mvn release:prepare -DreleaseVersion=9.0.0.v20130322 \
                       -DdevelopmentVersion=9.0.1-SNAPSHOT \
                       -Dtag=jetty-9.0.0.v20130322 \
                       -Peclipse-release        
-                      ]]>
+]]>
         </screen>
       </listitem>
 

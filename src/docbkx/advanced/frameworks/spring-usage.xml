@@ -20,8 +20,131 @@
 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xl="http://www.w3.org/1999/xlink"
 xmlns:xi="http://www.w3.org/2001/XInclude"
 xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd">
-  <title>Spring Setup</title>
-  <section>
-    <para>Content from: http://wiki.eclipse.org/Jetty/Howto/Spring</para>
-  </section>
+	<title>Spring Setup</title>
+	<para>
+		You can assemble and configure Jetty in code or with almost any IoC style framework including Spring.
+	</para>
+	<section>
+		<title>Downloading the Jetty-Spring Module and Dependencies</title>
+		<para>
+			The jetty-spring module is available as a Maven artifact.  You can obtain it through the following maven cooridates:
+		</para>
+		<informalexample>
+			<programlisting language="xml">
+				<![CDATA[
+<groupId>org.eclipse.jetty</groupId>
+<artifactId>jetty-spring</artifactId>
+<version>${JETTY_VERSION}</version>
+			]]>
+		</programlisting>
+	</informalexample>
+	<para>
+		Using jetty-spring requires a couple of transitive dependencies so if you are not using a build system that handles such things you will need to grab a couple of other artifacts as well.
+	</para>
+	<screen>
+		<![CDATA[
+$ wget --user-agent=other http://repo2.maven.org/maven2/org/eclipse/jetty/jetty-spring/${JETTY_VERSION}/jetty-spring-${JETTY_VERSION}.jar
+$ wget --user-agent=other http://repo2.maven.org/maven2/org/springframework/spring/2.5.6/spring-2.5.6.jar
+$ wget --user-agent=other http://repo2.maven.org/maven2/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1.jar
+]]>
+	</screen>
+</section>
+<section>
+	<title>Using Spring to Configure Jetty</title>
+	<para>
+		Configuring Jetty via Spring is simply a matter of calling the API as Spring beans. The following is an example mimicing the default jetty startup configuration.
+	</para>
+	<informalexample>
+		<programlisting language="xml">
+			<![CDATA[
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<!-- =============================================================== -->
+<!-- Configure the Jetty Server with Spring                          -->
+<!-- This file is the similar to jetty.xml, but written in spring    -->
+<!-- XmlBeanFactory format.                                          -->
+<!-- =============================================================== -->
+
+<beans>
+	<bean id="contexts" class="org.eclipse.jetty.server.handler.ContextHandlerCollection"/>
+	<bean id="server" name="Main" class="org.eclipse.jetty.server.Server" init-method="start" destroy-method="stop">
+		<constructor-arg>
+			<bean id="threadPool" class="org.eclipse.jetty.util.thread.QueuedThreadPool">
+				<property name="minThreads" value="10"/>
+				<property name="maxThreads" value="50"/>
+			</bean>
+		</constructor-arg>
+		<property name="connectors">
+			<list>
+				<bean id="connector" class="org.eclipse.jetty.server.ServerConnector">
+					<constructor-arg ref="server"/>
+					<property name="port" value="8080"/>
+				</bean>
+			</list>
+		</property>
+		<property name="handler">
+			<bean id="handlers" class="org.eclipse.jetty.server.handler.HandlerCollection">
+			<property name="handlers">
+					<list>
+						<ref bean="contexts"/>
+						<bean id="defaultHandler" class="org.eclipse.jetty.server.handler.DefaultHandler"/>
+					</list>
+				</property>
+			</bean>
+		</property>
+		<property name="beans">
+			<list>
+				<bean id="deploymentManager" class="org.eclipse.jetty.deploy.DeploymentManager">
+					<property name="contexts" ref="contexts"/>
+					<property name="appProviders">
+						<list>
+							<bean id="webAppProvider" class="org.eclipse.jetty.deploy.providers.WebAppProvider">
+								<property name="monitoredDirName" value="webapps"/>
+								<property name="scanInterval" value="1"/>
+								<property name="extractWars" value="true"/>
+							</bean>
+						</list>
+					</property>
+				</bean>
+			</list>
+		</property>
+	</bean>
+</beans>
+]]>
+		</programlisting>
+	</informalexample>
+</section>
+<section>
+	<title>Starting Jetty Distribution with Spring</title>
+	<para>
+		As a purely optional effort to illustrate how this works, if you want to use spring to start up the jetty distribution then all you need to do is make these changes and then run it appropriately.
+	</para>
+
+	<itemizedlist>
+		<listitem>
+			<para>
+				Create a $jetty.home/lib/spring directory and place the jetty-spring, spring, and commons-logging artifacts mentioned above inside
+			</para>
+		</listitem>
+
+		<listitem>
+			<para>
+				Cut and paste the above into a jetty-spring.xml file inside of $jetty.home/etc
+			</para>
+		</listitem>
+	</itemizedlist>
+
+	<para>
+		The following command line starts Jetty using the spring configuration file providing you have configured the jetty-distribution as described above.
+	</para>
+	<screen>
+		<![CDATA[
+$ java -jar start.jar OPTIONS=Server,All,spring start.class=org.eclipse.jetty.spring.Main etc/jetty-spring.xml
+]]>
+	</screen>
+	<para>
+		This uses the jetty-spring Main class to load the Spring configuration file and join the resulting server.  Jetty is now started up through spring as opposed to the normal jetty xml configuration mechanism.
+	</para>
+</section>
 </section>

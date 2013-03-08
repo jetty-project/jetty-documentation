@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+//  ========================================================================
+//  Copyright (c) 1995-2012 Mort Bay Consulting Pty. Ltd.
+//  ========================================================================
+//  All rights reserved. This program and the accompanying materials
+//  are made available under the terms of the Eclipse Public License v1.0
+//  and Apache License v2.0 which accompanies this distribution.
+//
+//      The Eclipse Public License is available at
+//      http://www.eclipse.org/legal/epl-v10.html
+//
+//      The Apache License v2.0 is available at
+//      http://www.opensource.org/licenses/apache2.0.php
+//
+//  You may elect to redistribute this code under either of these licenses.
+//  ========================================================================
+-->
+<section version="5.0"
+         xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd"
+         xml:id="configuring-spnego"
+         xmlns="http://docbook.org/ns/docbook"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:xs="http://www.w3.org/2001/XMLSchema"
+         xmlns:xl="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:ns="http://docbook.org/ns/docbook">
+  <title>Spnego Support</title>
+
+  <para>
+    Spnego or Simple and Protected GSSAPI Negotiation Mechanism is a way for users to be seamlessly authenticated when running on a Windows or Active Directory based network.  Jetty supports this type of authentication and authorization through the JDK so you must be using a JDK that supports it, which recent versions of Java 6 and 7 do.  Also important to note is that this is an incredibly fragile setup where everything needs to be configured just right for things to work, otherwise it can fail in fun and exciting, not to mention obscure ways.
+  </para>
+  <para>
+    There is a substantial amount of configuration and testing required to enable this feature as well as knowledge and access to central systems on a Windows network such as the Active Domain Controller and the ability to create and maintain service users.
+  </para>
+  <section>
+    <title>Configuring Jetty and Spnego</title>
+    <para>
+      To run with spengo enabled the following command line options are required:
+    </para>
+    <screen>
+<![CDATA[
+-Djava.security.krb5.conf=/path/to/jetty/etc/krb5.ini \
+-Djava.security.auth.login.config=/path/to/jetty/etc/spnego.conf \
+-Djavax.security.auth.useSubjectCredsOnly=false
+]]> 
+    </screen>
+    <para>
+      For debugging the spengo authentication the following options are very helpful:
+    </para>
+    <screen>
+<![CDATA[
+-Dorg.eclipse.jetty.LEVEL=debug \
+-Dsun.security.spnego.debug=all
+]]>
+    </screen>
+    <para>
+      Spengo Authentication must be enabled in the webapp in the following way.  The name of the role will be different for your network.
+    </para>
+    <informalexample>
+      <programlisting language="xml">
+<![CDATA[
+ <security-constraint>
+   <web-resource-collection>
+     <web-resource-name>Secure Area</web-resource-name>
+     <url-pattern>/secure/me/*</url-pattern>
+   </web-resource-collection>
+   <auth-constraint>
+     <!-- this is the domain that the user is a member of -->
+     <role-name>MORTBAY.ORG</role-name>  
+   </auth-constraint>
+ </security-constraint>
+ <login-config>
+   <auth-method>SPNEGO</auth-method>
+   <realm-name>Test Realm</realm-name>
+   <!-- optionally to add custom error page -->
+   <spnego-login-config>
+     <spengo-error-page>/loginError.html?param=foo</spnego-error-page>
+   </spnego-login-config>
+ </login-config>
+]]>
+      </programlisting>
+    </informalexample> 
+    <para>     
+      A corresponding UserRealm needs to be created either programmatically if embedded, via the jetty.xml or in a context file for the webapp.
+    </para>
+    <para>
+      This is what the configuration within a jetty xml file would look like.
+    </para>
+    <informalexample>
+      <programlisting language="xml">
+<![CDATA[
+  <Call name="addBean">
+     <Arg>
+       <New class="org.eclipse.jetty.security.SpnegoLoginService">
+         <Set name="name">Test Realm</Set>
+         <Set name="config"><Property name="jetty.home" default="."/>/etc/spnego.properties</Set>
+       </New>
+     </Arg>
+   </Call>
+]]>
+      </programlisting>
+    </informalexample>
+    <para>
+      This is what the configuration within a context xml file would look like.
+    </para>
+    <informalexample>
+      <programlisting language="xml">
+<![CDATA[
+ <Get name="securityHandler">
+   <Set name="loginService">
+     <New class="org.eclipse.jetty.security.SpnegoLoginService">
+       <Set name="name">Test Realm</Set> 
+       <Set name="config">
+        <SystemProperty name="jetty.home" default="."/>/etc/spnego.properties
+      </Set>
+     </New>
+   </Set>
+   <Set name="checkWelcomeFiles">true</Set>
+ </Get>
+]]>
+      </programlisting>
+    </informalexample>
+    <para>
+      There are a number of important configuration files with spnego that are required.  The default values for these configuration files from this test example are found in the jetty-distribution.
+    </para>
+    <variablelist>
+      <varlistentry>
+        <term>spnego.properties</term>
+        <listitem>
+          <para>
+            configures the user realm with runtime properties
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>krb5.ini</term>
+        <listitem>
+          <para>
+            configures the underlying kerberos setup
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>spnego.conf</term>
+        <listitem>
+          <para>
+            configures the glue between gssapi and kerberos
+          </para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+    <para>
+      It is important to note that the keytab file referenced in the krb5.ini and the spengo.conf files needs to contain the keytab for the targetName for the http server. To do this use a process similar to this:
+    </para>
+    <para>
+      On the windows active domain controller run:
+    </para>
+    <screen>
+<![CDATA[
+$ setspn -A HTTP/linux.mortbay.org ADUser
+]]>
+    </screen>
+    <para>
+      To create the keytab file use the following process:
+    </para>
+    <screen>
+<![CDATA[
+$ ktpass -out c:\dir\krb5.keytab -princ HTTP/linux.mortbay.org@MORTBAY.ORG -mapUser ADUser -mapOp set -pass ADUserPWD -crypto RC4-HMAC-NT -pType KRB5_NT_PRINCIPAL
+]]>
+    </screen>
+    <para>
+      This step should give you the keytab file which should then be copied over to the machine running this http server and referenced from the configuration files. For our testing we put the keytab into the etc directory of jetty and referenced it from there.
+    </para>
+  </section>
+  <section>
+    <title>
+      Configuring Firefox
+    </title>
+    <para>
+      The follows steps have been required to inform Firefox that it should use a negotiation dialog to authenticate.
+    </para>
+    <orderedlist>
+      <listitem>
+        <para>
+          browse to about:config and agree to the warnings
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          search through to find the 'network' settings
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          set network.negotiate-auth.delegation-uris to http://,https://
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          set network.negotiate-auth.trusted-uris to http://,https://
+        </para>
+      </listitem>
+    </orderedlist>
+  </section>
+  <section>
+    <title>
+      Configuring Internet Explorer
+    </title>
+    <para>
+      The follows steps have been required to inform Internet Explorer that it should use a negotiation dialog to authenticate.
+    </para>
+    <orderedlist>
+      <listitem>
+        <para>
+          Tools -> Options -> Security -> Local Intranet -> Sites (everything should be checked here)
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          Tools -> Options -> Security -> Local Intranet -> Sites -> Advanced (add url to server (http:// and/or https:// use the hostname!)
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          Tools -> Options -> Security -> Local Intranet -> Sites -> Advanced -> Close
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          Tools -> Options -> Security -> Local Intranet -> Sites -> Ok
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          Tools -> Options -> Advanced -> Security (in the checkbox list)
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          locate and check 'Enable Integrated Windows Authentication'
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          Tools -> Options -> Advanced -> Security -> Ok
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          close IE then reopen and browse to your spengo protected resource
+        </para>
+      </listitem>
+    </orderedlist>
+    <note>
+      <para>
+        Note: You must go to the hostname and not the IP, if you go to the IP it will default to NTLM authentication...the following conditions must be true for Spnego authentication to work.
+      </para>
+      <itemizedlist>
+        <listitem>
+          <para>
+            You must be within the Intranet Zone of the network
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            Accessing the server using a Hostname rather then IP
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            Integrated Windows Authentication in IE is enabled and the host is trusted in Firefox
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            The server is not local to the browser, it can't be running on localhost.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            The client's Kerberos system is authenticated to a domain controller
+          </para>
+        </listitem>
+      </itemizedlist>
+    </note>
+  </section>
+</section>

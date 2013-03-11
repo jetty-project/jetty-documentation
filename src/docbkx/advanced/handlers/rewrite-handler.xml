@@ -32,7 +32,7 @@
   <section>
     <title>Quick Start</title>
     <para>
-      The standard Jetty distribution bundle contains the jetty-rewrite module JAR, at lib/jetty-rewrite-*.jar, and a sample configuration file, at etc/jetty-rewrite.xml. To enable the rewrite module, using the sample configuration file, start up Jetty with this command:
+      The standard Jetty distribution bundle contains the <literal>jetty-rewrite</literal> module JAR, at <filename>lib/jetty-rewrite-*.jar</filename>, and a sample configuration file, at <filename>etc/jetty-rewrite.xml</filename>. To enable the rewrite module, using the sample configuration file, start up Jetty with this command:
     </para>
     <screen>
 <![CDATA[
@@ -48,7 +48,7 @@ $ java -jar start.jar OPTIONS=default,rewrite etc/jetty.xml etc/jetty-rewrite.xm
   <section>
     <title>Configuring Rules</title>
     <para>
-      The rules are configured using jetty.xml syntax. This example file shows how to add the rewrite handler for the entire server:
+      The rules are configured using <filename>jetty.xml</filename> syntax. This example file shows how to add the rewrite handler for the entire server:
     </para>
     <informalexample>
       <programlisting language="xml"><![CDATA[

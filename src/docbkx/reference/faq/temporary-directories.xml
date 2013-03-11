@@ -24,12 +24,14 @@
          xmlns:xl="http://www.w3.org/1999/xlink"
          xmlns:xi="http://www.w3.org/2001/XInclude"
          xmlns:ns="http://docbook.org/ns/docbook">
-  <title>Temporary Directories</title>
+  <title>What is my Temp Directory?</title>
 
   <para>Jetty itself has no temporary directories, but you can assign a
-  directory for each web application, into which the WAR is unpacked, JSPs
+  directory for each web application into which the WAR is unpacked, JSPs
   compiled on-the-fly, etc.</para>
 
+  <section>
+    <title>Determining the Temp Directory</title>
   <para>The algorithm for determining a webapp's temporary directory location
   is as follows:</para>
 
@@ -79,7 +81,7 @@
 
   <itemizedlist>
     <listitem>
-      <para>It is called work.</para>
+      <para>It is called <filename>work</filename>.</para>
     </listitem>
 
     <listitem>
@@ -88,6 +90,7 @@
   </itemizedlist>
 
   <para>Once a tempory directory has been allocated, a File instance for it is
-  set and retrievable as the <code> javax.servlet.context.tempdir</code>
+  set and retrievable as the <code>javax.servlet.context.tempdir</code>
   attribute of the web application.</para>
+</section>
 </section>

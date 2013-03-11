@@ -24,7 +24,8 @@ xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xhtml="http://www.w3.org/1999/x
 xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns2="http://www.w3.org/1998/Math/MathML"
 xmlns:ns="http://docbook.org/ns/docbook" status="draft">
   <title>Jetty Logging</title>
-  <para>This chapter discusses various options for configuring Jetty.</para>
+  <para>This chapter discusses various options for configuring logging.</para>
+  <xi:include href="configuring-jetty-logging.xml" />
   <xi:include href="configuring-jetty-request-logs.xml" />
   <xi:include href="sifting-logging.xml" />
 </chapter>

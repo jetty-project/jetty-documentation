@@ -57,7 +57,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
           <entry>HTTP/1.1 RFC2616, WebSocket RFC 6455, SPDY v3</entry>
           <entry>3.0 (3.1 branch)</entry>
           <entry>2.2</entry>
-          <entry>Milestone</entry>
+          <entry>Stable</entry>
         </row>
         <row>
           <entry>8</entry>
@@ -67,7 +67,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
           <entry>HTTP/1.1 RFC2616, WebSocket RFC 6455, SPDY v3</entry>
           <entry>3.0</entry>
           <entry>2.2</entry>
-          <entry>Stable</entry>
+          <entry>Mature</entry>
         </row>
         <row>
           <entry>7</entry>
@@ -77,7 +77,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
           <entry>HTTP/1.1 RFC2616, WebSocket RFC 6455, SPDY v3</entry>
           <entry>2.5</entry>
           <entry>2.1</entry>
-          <entry>Stable</entry>
+          <entry>Mature</entry>
         </row>
         <row>
           <entry>6</entry>
@@ -87,7 +87,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
           <entry>HTTP/1.1 RFC2616</entry>
           <entry>2.5</entry>
           <entry>2.0</entry>
-          <entry>Mature</entry>
+          <entry>Venerable</entry>
         </row>
         <row>
           <entry>5</entry>

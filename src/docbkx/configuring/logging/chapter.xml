@@ -16,16 +16,32 @@
 //  You may elect to redistribute this code under either of these licenses.
 //  ========================================================================
 -->
-<chapter xml:id="configuring-logging" version="5.0"
-xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd"
-xmlns="http://docbook.org/ns/docbook" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xl="http://www.w3.org/1999/xlink"
-xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xhtml="http://www.w3.org/1999/xhtml"
-xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns2="http://www.w3.org/1998/Math/MathML"
-xmlns:ns="http://docbook.org/ns/docbook" status="draft">
+<chapter xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd"
+         xml:id="configuring-logging" xmlns="http://docbook.org/ns/docbook"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:xs="http://www.w3.org/2001/XMLSchema"
+         xmlns:xl="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:xhtml="http://www.w3.org/1999/xhtml"
+         xmlns:svg="http://www.w3.org/2000/svg"
+         xmlns:ns2="http://www.w3.org/1998/Math/MathML"
+         xmlns:ns="http://docbook.org/ns/docbook">
   <title>Jetty Logging</title>
+
   <para>This chapter discusses various options for configuring logging.</para>
-  <xi:include href="configuring-jetty-logging.xml" />
-  <xi:include href="configuring-jetty-request-logs.xml" />
-  <xi:include href="sifting-logging.xml" />
+
+  <xi:include href="configuring-jetty-logging.xml"/>
+
+  <xi:include href="configuring-jetty-request-logs.xml"/>
+
+  <xi:include href="example-apache-log4j.xml"/>
+  <xi:include href="example-java-util-logging.xml"/>
+  <xi:include href="example-logback.xml"/>
+  <xi:include href="example-slf4j-multiple-loggers.xml"/>
+  <!--
+  <xi:include href="example-logback-centralized-logging.xml"/>
+  <xi:include href="example-logback-sifting.xml"/>
+  <xi:include href="example-logback-access.xml"/>
+    -->
+
 </chapter>

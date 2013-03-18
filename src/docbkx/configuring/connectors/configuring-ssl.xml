@@ -485,6 +485,10 @@ $ openssl pkcs12 -export -inkey example.key -in cert-chain.txt -out example.pkcs
 
       <para>The Truststore is used if validating client certificates and is
       typically set to the same keystore.</para>
+
+      <para>The keyManagerPassword is passed as the password arg to KeyManagerFactory.init(...). If there is no
+          keymanagerpassword, then the keystorepassword is used instead. If there is no trustmanager set, then the
+          keystore is used as the trust store and the keystorepassword is used as the truststore password</para>
     </section>
 
     <section>

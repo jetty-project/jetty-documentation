@@ -94,6 +94,7 @@
                 <exclude>**/*.css</exclude>
                 <exclude>**/images/*</exclude>
                 <exclude>**/*.swp</exclude>
+                <exclude>**/*.orig</exclude>
               </excludes>
             </validationSet>
           </validationSets>

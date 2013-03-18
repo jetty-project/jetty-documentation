@@ -472,6 +472,7 @@
       </New>
     </Arg>
   </Call>
+</Configure>
   ]]>
             </programlisting>
         </informalexample>

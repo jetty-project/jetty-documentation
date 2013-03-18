@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+//  ========================================================================
+//  Copyright (c) 1995-2012 Mort Bay Consulting Pty. Ltd.
+//  ========================================================================
+//  All rights reserved. This program and the accompanying materials
+//  are made available under the terms of the Eclipse Public License v1.0
+//  and Apache License v2.0 which accompanies this distribution.
+//
+//      The Eclipse Public License is available at
+//      http://www.eclipse.org/legal/epl-v10.html
+//
+//      The Apache License v2.0 is available at
+//      http://www.opensource.org/licenses/apache2.0.php
+//
+//  You may elect to redistribute this code under either of these licenses.
+//  ========================================================================
+-->
+<section version="5.0"
+         xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd"
+         xml:id="rewrite-handler"
+         xmlns="http://docbook.org/ns/docbook"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:xs="http://www.w3.org/2001/XMLSchema"
+         xmlns:xl="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:ns="http://docbook.org/ns/docbook">
+  <title>Rewrite Handler</title>
+  <para>
+    The RewriteHandler matches a request against a set of rules, and modifies the request accordingly for any rules that match. The most common use is to rewrite request URIs, but it is capable of much more: rules can also be configured to redirect the response, set a cookie or response code on the response, modify the header, etc.
+  </para>
+  <section>
+    <title>Quick Start</title>
+    <para>
+      The standard Jetty distribution bundle contains the <literal>jetty-rewrite</literal> module JAR, at <filename>lib/jetty-rewrite-*.jar</filename>, and a sample configuration file, at <filename>etc/jetty-rewrite.xml</filename>. To enable the rewrite module, using the sample configuration file, start up Jetty with this command:
+    </para>
+    <screen>
+<![CDATA[
+$ java -jar start.jar OPTIONS=default,rewrite etc/jetty.xml etc/jetty-rewrite.xml 
+]]>
+    </screen>
+  </section>
+  <note>
+    <para>
+      If you are running the standard Jetty distribution with the sample test webapp, there will be a demo of the rewrite module at http://localhost:8080/rewrite/
+    </para>
+  </note>
+  <section>
+    <title>Configuring Rules</title>
+    <para>
+      The rules are configured using <filename>jetty.xml</filename> syntax. This example file shows how to add the rewrite handler for the entire server:
+    </para>
+    <informalexample>
+      <programlisting language="xml"><![CDATA[
+<Configure id="Server" class="org.eclipse.jetty.server.Server">
+    <!-- create and configure the rewrite handler -->
+    <New id="Rewrite" class="org.eclipse.jetty.rewrite.handler.RewriteHandler">
+      <Set name="rewriteRequestURI">true</Set>
+      <Set name="rewritePathInfo">false</Set>
+      <Set name="originalPathAttribute">requestedPath</Set>
+ 
+      <!-- redirect the response. This is a redirect which is visible to the browser.
+           After the redirect, the browser address bar will show /redirected -->
+      <Call name="addRule">
+        <Arg>
+          <New class="org.eclipse.jetty.rewrite.handler.RedirectPatternRule">
+            <Set name="pattern">/redirect/*</Set>
+            <Set name="replacement">/redirected</Set>
+          </New>
+        </Arg>
+      </Call>
+ 
+      <!-- rewrite the request URI. This is an internal rewrite, visible to server,
+           but the browser will still show /some/old/context -->
+      <Call name="addRule">
+        <Arg>
+          <New class="org.eclipse.jetty.rewrite.handler.RewritePatternRule">
+            <Set name="pattern">/some/old/context</Set>
+            <Set name="replacement">/some/new/context</Set>
+          </New>
+        </Arg>
+      </Call>
+ 
+      <!-- reverse the order of the path sections. Internal rewrite -->
+      <Call name="addRule">
+        <Arg>
+          <New class="org.eclipse.jetty.rewrite.handler.RewriteRegexRule">
+            <Set name="regex">/reverse/([^/]*)/(.*)</Set>
+            <Set name="replacement">/reverse/$2/$1</Set>
+          </New>
+        </Arg>
+      </Call>
+    </New>
+ 
+     <!-- add the rewrite handler to the server -->
+    <Set name="handler"><Ref id="Rewrite" /></Set>
+</Configure>
+]]>
+      </programlisting>
+    </informalexample>
+    <para>
+      See <filename>etc/jetty-rewrite.xml</filename> for more configuration examples.
+    </para>
+  </section>
+  <section>
+    <title>Embedded Example</title>
+    <para>
+      This is an example for embedded Jetty, which does the same thing as the configuration file example above:
+    </para>
+    <informalexample>
+      <programlisting language="java">
+<![CDATA[
+  Server server = new Server();
+ 
+  RewriteHandler rewrite = new RewriteHandler();
+  rewrite.setRewriteRequestURI(true);
+  rewrite.setRewritePathInfo(false);
+  rewrite.originalPathAttribute("requestedPath");
+ 
+  RedirectPatternRule redirect = new RedirectPatternRule();
+  redirect.setPattern("/redirect/*");
+  redirect.setReplacement("/redirected");  
+  rewrite.addRule(redirect);
+ 
+  RewritePatternRule oldToNew = new RewritePatternRule();
+  oldToNew.setPattern("/some/old/context");
+  oldToNew.setReplacement("/some/new/context");
+  rewrite.addRule(oldToNew);
+ 
+  RewriteRegexRule reverse = new RewriteRegexRule();
+  reverse.setRegex("/reverse/([^/]*)/(.*)");
+  reverse.setReplacement("/reverse/$2/$1");
+  rewrite.addRule(reverse);
+ 
+  server.setHandler(rewrite);
+  ]]>
+      </programlisting>
+    </informalexample>
+  </section>
+  <section>
+    <title>Rules</title>
+    <para>There are several types of rules that are written extending useful base rule classes.</para>
+    <section>
+      <title>PatternRule</title>
+      <para>
+        Matches against the request URI using the servlet pattern syntax.
+      </para>
+      <variablelist>
+        <varlistentry>
+          <term><link xl:href="@JXURL@/org/eclipse/jetty/rewrite/handler/CookiePatternRule.html">CookiePatternRule</link></term>
+          <listitem>
+            <para> 
+              Adds a cookie to the response.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><link xl:href="@JXURL@/org/eclipse/jetty/rewrite/handler/HeaderPatternRule.html">HeaderPatternRule</link></term>
+          <listitem>
+            <para>
+              Adds/modifies a header in the response.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><link xl:href="@JXURL@/org/eclipse/jetty/rewrite/handler/RedirectPatternRule.html">RedirectPatternRule</link></term>
+          <listitem>
+            <para>
+              Redirects the response.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><link xl:href="@JXURL@/org/eclipse/jetty/rewrite/handler/ResponsePatternRule.html">ResponsePatternRule</link></term>
+          <listitem>
+            <para>
+              Sends the response code (status or error).
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><link xl:href="@JXURL@/org/eclipse/jetty/rewrite/handler/RewritePatternRule.html">RewritePatternRule</link></term>
+          <listitem>
+            <para>
+              Rewrite the URI by replacing the matched request path with a fixed string.
+            </para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </section>
+    <section>
+      <title>RegexRule</title>
+      <para>
+        Matches against the request URI using regular expressions.
+      </para>
+      <variablelist>
+        <varlistentry>
+          <term><link xl:href="@JXURL@/org/eclipse/jetty/rewrite/handler/RedirectRegexRule.html">RedirectRegexRule</link></term>
+          <listitem>
+            <para>
+              Redirect the response.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><link xl:href="@JXURL@/org/eclipse/jetty/rewrite/handler/RewriteRegexRule.html">RewriteRegexRule</link></term>
+          <listitem>
+            <para>
+              Rewrite the URI by matching with a regular expression. (The replacement string may use Template:$n to replace the nth capture group.)
+            </para>
+          </listitem>
+        </varlistentry> 
+      </variablelist>
+    </section>
+    <section>
+      <title>HeaderRule</title>
+      <para>
+        Match against request headers.  Match either on a header name + specific value, or on the presence of a header (with any value).
+      </para>
+      <variablelist>
+        <varlistentry>
+          <term><link xl:href="@JXURL@/org/eclipse/jetty/rewrite/handler/ForwardedSchemeHeaderRule.html">ForwardedSchemaHeaderRule</link></term>
+          <listitem>
+            <para>
+              Set the scheme on the request (defaulting to https).
+            </para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </section>
+    <section>
+      <title>Others</title>
+      <para>
+        Oddball rules that defy classification.
+      </para>
+      <variablelist>
+        <varlistentry>
+          <term><link xl:href="@JXURL@/org/eclipse/jetty/rewrite/handler/MsieSslRule.html">MsieSslRule</link></term>
+          <listitem>
+            <para>
+              Disables the keep alive for SSL from IE5 or IE6.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><link xl:href="@JXURL@/org/eclipse/jetty/rewrite/handler/LegacyRule.html">LegacyRule</link></term>
+          <listitem>
+            <para>
+              Implements the legacy API of RewriteHandler
+            </para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </section>
+    <section>
+      <title>RuleContainer</title>
+      <para>
+        Groups rules together. The contained rules will only be processed if the conditions for the RuleContainer evaluate to true.
+      </para>
+      <variablelist>
+        <varlistentry>
+          <term><link xl:href="@JXURL@/org/eclipse/jetty/rewrite/handler/VirtualHostRuleContainer.html">VirtualHostRuleContainer</link></term>
+          <listitem>
+            <para>
+              Groups rules that apply only to a specific virtual host or a set of virtual hosts
+            </para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </section>
+  </section>
+</section>

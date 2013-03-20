@@ -120,14 +120,14 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
  
   ...
  
-  <Set name="initParameter">
+  <Call name="setInitParameter">
         <Arg>org.eclipse.jetty.servlet.SessionCookie</Arg>
         <Arg>XSESSIONID</Arg>
-  </Set>
-  <Set name="initParameter">
+  </Call>
+  <Call name="setInitParameter">
         <Arg>org.eclipse.jetty.servlet.SessionIdPathParameterName</Arg>
         <Arg>xsessionid</Arg>
-  </Set>
+  </Call>
 </Configure>
 ]]>
         </programlisting>

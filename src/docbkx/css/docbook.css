@@ -9,7 +9,6 @@ a:visited {
 
 body {
   font-family: Verdana, Helvetica, arial, freesans, clean, sans-serif;
-  font-size: 10pt;
 
   width: 960px;
   margin-left: auto;
@@ -23,37 +22,18 @@ h1, h2, h3, h4, h5, h6 {
   margin-bottom: 12pt;
 }
 
-h1 {
-  font-size: 20pt;
-}
-
-h2 {
-  font-size: 18pt;
-}
-
-h3 {
-  font-size: 16pt;
-}
-
-h4 {
-  font-size: 14pt;
-}
-
-h5 {
-  font-size: 12pt;
-}
-
 p, ul {
   margin: 1.286em 0;
+  line-height: 120%;
 }
 
 dl {
   margin: 0;
+  line-height: 120%;
 }
 
 pre {
   font-family: monospace;
-  font-size: 10pt;
   margin-bottom: 1.5em;
   overflow-x: auto;
 }
@@ -65,7 +45,6 @@ strong {
 /* Pretty Tables */
 
 .table table {
-  font-size: 10pt;
   border: 1px solid #036;
   padding: 0;
   border-collapse: collapse;
@@ -230,13 +209,11 @@ div.variablelist {
 .jetty-callout {
   background-color: #DEF;
   text-align: left; 
-  font-size: 8pt;
   border: thin dotted blue; 
   padding: 4px; 
 }
 
 .jetty-callout h5 {
-  font-size: 8pt;
   margin: 0;
   margin-bottom: 5px;
 }
@@ -262,7 +239,7 @@ div.variablelist {
 div.draft {
   background-color: #FF3300; 
   text-align: left; 
-  font-size: 1.1em; 
+  font-size: 110%; 
   border:thin dotted blue; 
   padding: 4px;
   margin-top: 2.0em;
@@ -279,7 +256,7 @@ div.draft p {
 div.draft h5 {
   margin: 0;
   margin-bottom: 1.0em;
-  font-size: 1.5em;
+  font-size: 150%;
 }
 
 div.draft a {

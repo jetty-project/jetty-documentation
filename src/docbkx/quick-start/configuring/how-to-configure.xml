@@ -16,151 +16,291 @@
 //  You may elect to redistribute this code under either of these licenses.
 //  ========================================================================
 -->
-<section version="5.0"
-         xml:id="quickstart-config-how" xmlns="http://docbook.org/ns/docbook"
+<section version="5.0" xml:id="quickstart-config-how"
+         xmlns="http://docbook.org/ns/docbook"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xmlns:xl="http://www.w3.org/1999/xlink"
-        >
+         xmlns:ns5="http://www.w3.org/1998/Math/MathML"
+         xmlns:ns4="http://www.w3.org/1999/xhtml"
+         xmlns:ns3="http://www.w3.org/2000/svg"
+         xmlns:ns="http://docbook.org/ns/docbook">
   <title>How to Configure Jetty</title>
-  <para>To understand Jetty configuration, you need to understand the "How" and the "What". This section covers how to
-  configure Jetty in terms of what mechanisms exist to perform configuration. The <link
-  linkend="quickstart-config-what">next section</link> gives an overview of the action components and fields that you
-  can configure with these mechanisms.</para>
+
+  <para>To understand Jetty configuration, you need to understand the "How"
+  and the "What". This section covers how to configure Jetty in terms of what
+  mechanisms exist to perform configuration. The <link
+  linkend="quickstart-config-what">next section</link> gives an overview of
+  the action components and fields that you can configure with these
+  mechanisms.</para>
+
   <section>
     <title>Jetty POJO Configuration</title>
-    <para>The main components of Jetty are simply Plain Old Java Objects (<link
-    xl:href="http://en.wikipedia.org/wiki/Plain_Old_Java_Object">POJOs</link>); the process of configuring Jetty is
-    mostly the process of instantiating, assembling and setting fields on the Jetty POJOs. You can achieve this either
-    by:</para>
+
+    <para>The main components of Jetty are simply Plain Old Java Objects
+    (<link
+    xl:href="http://en.wikipedia.org/wiki/Plain_Old_Java_Object">POJOs</link>);
+    the process of configuring Jetty is mostly the process of instantiating,
+    assembling and setting fields on the Jetty POJOs. You can achieve this
+    either by:</para>
+
     <itemizedlist>
       <listitem>
-        <para>Writing Java code to directly instantiate and assemble Jetty objects. This is referred to as <xref
-        linkend="embedding-jetty" />.</para>
+        <para>Writing Java code to directly instantiate and assemble Jetty
+        objects. This is referred to as <xref
+        linkend="embedding-jetty"/>.</para>
       </listitem>
+
       <listitem>
         <para>Using Jetty XML configuration, which is an <link
-        xl:href="http://en.wikipedia.org/wiki/Inversion_of_Control">Inversion of Control (IoC)</link> framework, to
-        instantiate and assemble Jetty objects as XML objects.</para>
+        xl:href="http://en.wikipedia.org/wiki/Inversion_of_Control">Inversion
+        of Control (IoC)</link> framework, to instantiate and assemble Jetty
+        objects as XML objects. The <filename>etc/jetty.xml</filename> file is
+        the main Jetty XML configuration file, but there are many other
+        <filename>etc/jetty-</filename><emphasis>feature</emphasis><filename>.xml</filename>
+        files included in the jetty distribution.</para>
       </listitem>
+
       <listitem>
-        <para>Using a third party <link xl:href="http://en.wikipedia.org/wiki/Inversion_of_Control">
-        IoC</link> framework like <link xl:href="http://en.wikipedia.org/wiki/Spring_Framework">Spring</link>, to
-        instantiate and assemble Jetty objects as Spring beans.</para>
+        <para>Using a third party <link
+        xl:href="http://en.wikipedia.org/wiki/Inversion_of_Control">
+        IoC</link> framework like <link
+        xl:href="http://en.wikipedia.org/wiki/Spring_Framework">Spring</link>,
+        to instantiate and assemble Jetty objects as Spring beans.</para>
       </listitem>
     </itemizedlist>
+
     <para>Because the main Jetty configuration is done by IoC, the <link
     xl:href="@JDURL@/">Jetty API documentation</link> is the ultimate
     configuration reference.</para>
   </section>
+
   <section>
     <title>Other Configuration Files</title>
-    <para>Some Jetty Components do have configuration files that are not IoC.</para>
+
+    <para>Some Jetty Components do have configuration files that are not
+    IoC.</para>
+
     <variablelist>
       <varlistentry>
-        <term>
-          <filename>web.xml</filename>
-        </term>
+        <term><filename>web.xml</filename></term>
+
         <listitem>
-          <para>The <link xl:href="http://en.wikipedia.org/wiki/Servlet">Servlet</link> Specification defines the <link
+          <para>The <link
+          xl:href="http://en.wikipedia.org/wiki/Servlet">Servlet</link>
+          Specification defines the <link
           xl:href="http://en.wikipedia.org/wiki/Web.xml">
-            <filename>web.xml</filename>
-          </link> deployment descriptor that defines and configures the filters, servlets and resources a <link
-          xl:href="http://en.wikipedia.org/wiki/Web_application">web application</link> uses. The Jetty WebAppContext
-          component uses this XML format to:</para>
+          <filename>web.xml</filename> </link> deployment descriptor that
+          defines and configures the filters, servlets and resources a <link
+          xl:href="http://en.wikipedia.org/wiki/Web_application">web
+          application</link> uses. The Jetty WebAppContext component uses this
+          XML format to:</para>
+
           <itemizedlist>
             <listitem>
-              <para>Set up the default configuration of a web application context.</para>
+              <para>Set up the default configuration of a web application
+              context.</para>
             </listitem>
+
             <listitem>
-              <para>Interpret the application-specific configuration supplied with a web application in the <filename>
+              <para>Interpret the application-specific configuration supplied
+              with a web application in the <filename>
               WEB-INF/web.xml</filename> file.</para>
             </listitem>
+
             <listitem>
-              <para>Interpret descriptor fragments included in the <filename>META-INF</filename> directory of Jar files
-              within <filename>WEB-INF/lib.</filename></para>
+              <para>Interpret descriptor fragments included in the
+              <filename>META-INF</filename> directory of Jar files within
+              <filename>WEB-INF/lib.</filename></para>
             </listitem>
           </itemizedlist>
         </listitem>
       </varlistentry>
+
       <varlistentry>
         <term>Property Files</term>
+
         <listitem>
-          <para>Standard <link xl:href="http://en.wikipedia.org/wiki/Java_properties">Java property files</link> are
-          also used for Jetty configuration in several ways:</para>
+          <para>Standard <link
+          xl:href="http://en.wikipedia.org/wiki/Java_properties">Java property
+          files</link> are also used for Jetty configuration in several
+          ways:</para>
+
           <itemizedlist>
             <listitem>
-              <para>To parameterize Jetty IoC XML via the use of the Property element.</para>
+              <para>To parameterize Jetty IoC XML via the use of the Property
+              element.</para>
             </listitem>
+
             <listitem>
-              <para>To configure the default logging mechanism (StdErrLog). You can also plug in other logging
-              frameworks, and also use property files (for example, log4j).</para>
+              <para>To configure the default logging mechanism (StdErrLog).
+              You can also plug in other logging frameworks, and also use
+              property files (for example, log4j).</para>
             </listitem>
+
             <listitem>
-              <para>As a simple database for login usernames and credentials.</para>
+              <para>As a simple database for login usernames and
+              credentials.</para>
             </listitem>
           </itemizedlist>
         </listitem>
       </varlistentry>
+
       <varlistentry>
-        <term>
-          <filename>Start.ini</filename>
-        </term>
+        <term><filename>Start.ini</filename></term>
+
         <listitem>
-          <para>The Jetty Start mechanism uses an <filename>ini</filename> file to hold command line arguments that
-          would otherwise have to be passed to the command to start Jetty.</para>
+          <para>The Jetty Start mechanism uses an <filename>ini</filename>
+          file to hold command line arguments that would otherwise have to be
+          passed to the command to start Jetty. The command line and/or ini
+          files can be used to specify additional jetty xml files and can also
+          set Properties that are used the jetty xml files.</para>
         </listitem>
       </varlistentry>
     </variablelist>
   </section>
+
   <section>
-    <title>Example Jetty Configuration</title>
-    <para>An example of a Jetty server assembled and configured in embedded style is:</para>
+    <title>Jetty IoC XML Configuration format</title>
+
+    <para>To understand the Jetty IoC XML format, consider the following
+    example of an embedded Jetty server instantiated and configured in
+    java:</para>
+
     <programlisting language="rjava">
       <filename>
       @GITURL@/examples/embedded/src/main/java/org/eclipse/jetty/embedded/ExampleServer.java</filename>
     </programlisting>
-    <para>You can achieve the exact same server configuration with the Jetty XML file:</para>
+
+    <para>Jetty IoC XML allows you to instantiate and configure the exact same
+    server in XML without writing any java code:</para>
+
     <programlisting language="fetch">
       <filename>
       @GITURL@/examples/embedded/src/main/resources/exampleserver.xml</filename>
     </programlisting>
-    <para>In practise, most commonly used Jetty features have XML files that are included in the standard distribution
-    in the <filename>etc</filename> directory. Thus configuring Jetty is often a matter of just editing existing XML
-    files and altering the configuration values within them.</para>
+
+    <para>In practise, most commonly used Jetty features have XML files that
+    are included in the standard distribution in the <filename>etc</filename>
+    directory. Thus configuring Jetty is often a matter of just editing
+    existing XML files and altering the configuration values within
+    them.</para>
   </section>
+
   <section>
     <title>Configuring the Jetty Distribution</title>
-    <para>With a normal distribution of Jetty, the configuration mechanisms introduced above are typically used as
-    follows:</para>
+
+    <para>With a normal distribution of Jetty, the configuration mechanisms
+    introduced above are typically used as follows:</para>
+
     <variablelist>
       <varlistentry>
-        <term>
-          <filename>$JETTY_HOME/start.ini</filename>
-        </term>
+        <term><filename>$JETTY_HOME/start.ini</filename></term>
+
         <listitem>
-          <para>Used to enable/disable Jetty features by setting OPTIONS that setup the classpath, and declaring which
-          configuration files to include on the command line.</para>
+          <para>Used to enable/disable Jetty features by setting OPTIONS that
+          setup the classpath, and declaring which configuration files to
+          include on the command line and passing properties to the
+          configuration files.</para>
         </listitem>
       </varlistentry>
+
       <varlistentry>
-        <term>
-          <filename>$JETTY_HOME/lib/*.xml</filename>
-        </term>
+        <term><filename>$JETTY_HOME/lib/*.xml</filename></term>
+
         <listitem>
-          <para>Jetty IoC XML files that configure individual features; for example <filename>jetty.xml</filename> (for
-          the server), <filename>jetty-http.xml,</filename> <filename>jetty-https.xml,</filename> <filename>
+          <para>Jetty IoC XML files that configure individual features; for
+          example <filename>jetty.xml</filename> (for the server),
+          <filename>jetty-http.xml,</filename>
+          <filename>jetty-https.xml,</filename> <filename>
           jetty-jmx.xml</filename>.</para>
         </listitem>
       </varlistentry>
+
       <varlistentry>
-        <term>
-          <filename>$JETTY_HOME/webapps/*</filename>
-        </term>
+        <term><filename>$JETTY_HOME/webapps/*</filename></term>
+
         <listitem>
-          <para>The directory in which standard WAR files, web applications and context IoC XML files are
-          deployed.</para>
+          <para>The directory in which standard WAR files, web applications
+          and context IoC XML files are deployed.</para>
         </listitem>
       </varlistentry>
     </variablelist>
+  </section>
+
+  <section>
+    <title>Jetty Port Configuration Example</title>
+
+    <para>The following example examines the common Jetty configuration
+    mechanism using the HTTP port as an example. To run the jetty server from
+    the distribution, it is just a matter of running the following
+    command:</para>
+
+    <screen>&gt; java -jar start.jar</screen>
+
+    <para>The Jetty <filename>start.jar</filename> mechanism uses the
+    <filename>start.ini</filename> file in the distribution to define what
+    OPTIONS, configuration files and Properties are defined. The default
+    start.ini file configures a HTTP connector by including the following
+    lines:</para>
+
+    <programlisting>#===========================================================
+# HTTP Connector
+#-----------------------------------------------------------
+# jetty.port=8080
+etc/jetty-http.xml
+#===========================================================</programlisting>
+
+    <para>This lists the <filename>etc/jetty-http.xml</filename> configuration
+    file as a default command line argument when starting the jetty server.
+    Looking inside that configuration file, we see that it calls addConnector
+    on the server with a new instance of the ServerConnector class. This
+    instance is configured in XML and includes the line:</para>
+
+    <programlisting>        &lt;Set name="port"&gt;&lt;Property name="jetty.port" default="8080" /&gt;&lt;/Set&gt;</programlisting>
+
+    <para>The effect of this line is to call ServerConnector.setPort(int) with
+    either the value of the <filename>jetty.port</filename> property or with
+    the value 8080. We can see from the start.ini except above that the
+    jetty.port property line is commented out, so out of the box, the jetty
+    distribution will use the default 8080 port set inside the jetty-http.xml
+    file.</para>
+
+    <para>If you wish to change the port, then the jetty-http.xml file can be
+    edited and the default value there changed to the new port. However this
+    does mean that a file which is part of the jetty distribution has been
+    modified, which can make future upgrades more difficult. Alternately the
+    Property value can be set in one of several ways. Firstly the Property may
+    be passed on the command line:</para>
+
+    <screen>&gt; java -jar start.jar jetty.port=9999</screen>
+
+    <para>This can be convenient if you have a script (like
+    <filename>bin/jetty.sh</filename>) that builds the command line for you.
+    However, if the start script is located away from the distribution (eg in
+    /etc/init.d) this can separate configuration from the installation, so the
+    start mechanism also allows for any command line argument to be placed in
+    the start.ini, so the jetty.port line can be uncommented in start.ini and
+    the port set there. This works, but now we are modifying a part of the
+    distribution again. If you want to avoid this, then you can create a
+    <filename>start.d/myconfig.ini</filename> file to include your additional
+    OPTIONS, configuration files and Properties:</para>
+
+    <screen>&gt; echo jetty.port=9999 &gt; start.d/myconfig.ini
+&gt; java -jar start.jar</screen>
+
+    <para>Finally, if your configuration results in a lot of properties that
+    need to be set and you wish to work with standard property files, then
+    these too can be added on the command line, in start.ini or your own
+    start.d files:</para>
+
+    <screen>&gt; echo "jetty.port: 9999" &gt; start.d/myconfig.properties
+&gt; echo start.d/myconfig.properties &gt; start.d/myconfig.ini
+&gt; java -jar start.jar</screen>
+
+    <para>In summary, Jetty is configured by calling setters and methods on
+    POJO's which can be done either from java code or from Jetty IoC XML
+    files. The XML files can either be edited or parameterised with properties
+    that can be set on the command line or passed via an ini file. The XMLs to
+    use are also set either on the command line and/or with ini files.</para>
   </section>
 </section>

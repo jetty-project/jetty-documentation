@@ -22,5 +22,5 @@ xmlns:svg="http://www.w3.org/2000/svg" xmlns:mth="http://www.w3.org/1998/Math/Ma
 xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
   <title>Frameworks</title>
   <xi:include href="spring-usage.xml" />
-  <!--xi:include href="osgi.xml" /-->
+  <xi:include href="osgi.xml" />
 </chapter>

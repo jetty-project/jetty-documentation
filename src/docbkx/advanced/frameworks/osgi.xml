@@ -16,12 +16,834 @@
 //  You may elect to redistribute this code under either of these licenses.
 //  ========================================================================
 -->
-<section xml:id="framework-jetty-osgi" version="5.0" xmlns="http://docbook.org/ns/docbook"
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xl="http://www.w3.org/1999/xlink"
-xmlns:xi="http://www.w3.org/2001/XInclude"
-xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd" status="draft">
-  <title>OSGI Setup</title>
+<section status="draft" version="5.0"
+         xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd"
+         xml:id="framework-jetty-osgi" xmlns="http://docbook.org/ns/docbook"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:xs="http://www.w3.org/2001/XMLSchema"
+         xmlns:xl="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:ns="http://docbook.org/ns/docbook">
+  <title>OSGI</title>
+
   <section>
-    <para>Content from: http://wiki.eclipse.org/Jetty/ osgi bits</para>
+    <title>Introduction</title>
+
+    <para>The Jetty OSGi infrastructure provides a Jetty container inside an
+    OSGi container. Both RFC66 style deployments and traditional JavaEE
+    webapps are supported. In addition, the infrastructure can also support
+    the OSGi HttpService interface.</para>
+
+    <para/>
+  </section>
+
+  <section>
+    <title>General Setup</title>
+
+    <para>All of the Jetty jars contain manifest entries appropriate to ensure
+    that they can be deployed into an OSGi container as bundles. You will need
+    to install some jetty jars into your OSGi container. You can always find
+    the jetty jars either in the maven central repository, or you can download
+    a distribution of jetty. Here's the minimal set:</para>
+
+    <informaltable border="1">
+      <tr>
+        <th>Jar</th>
+
+        <th>Bundle Symbolic Name</th>
+      </tr>
+
+      <tr>
+        <td>jetty-util</td>
+
+        <td>org.eclipse.jetty.util</td>
+      </tr>
+
+      <tr>
+        <td>jetty-http</td>
+
+        <td>org.eclipse.jetty.http</td>
+      </tr>
+
+      <tr>
+        <td>jetty-io</td>
+
+        <td>org.eclipse.jetty.io</td>
+      </tr>
+
+      <tr>
+        <td>jetty-security</td>
+
+        <td>org.eclipse.jetty.security</td>
+      </tr>
+
+      <tr>
+        <td>jetty-server</td>
+
+        <td>org.eclipse.jetty.server</td>
+      </tr>
+
+      <tr>
+        <td>jetty-servlet</td>
+
+        <td>org.eclipse.jetty.servlet</td>
+      </tr>
+
+      <tr>
+        <td>jetty-webapp</td>
+
+        <td>org.eclipse.jetty.webapp</td>
+      </tr>
+
+      <tr>
+        <td>jetty-deploy</td>
+
+        <td>org.eclipse.jetty.deploy</td>
+      </tr>
+
+      <tr>
+        <td>jetty-xml</td>
+
+        <td>org.eclipse.jetty.xml</td>
+      </tr>
+    </informaltable>
+
+    <para/>
+  </section>
+
+  <section>
+    <title>The Jetty OSGi Container</title>
+
+    <para>Now that you have the basic set of Jetty jars installed, you can
+    install the <link
+    xl:href="http://repo1.maven.org/maven2/org/eclipse/jetty/osgi/jetty-osgi-boot/">jetty-osgi-boot.jar</link>
+    bundle that will bootstrap a Jetty container. This bundle can be
+    downloaded from the maven central repo <link
+    xl:href="http://repo1.maven.org/maven2/org/eclipse/jetty/osgi/jetty-osgi-boot/">here.</link></para>
+
+    <section>
+      <title>Customizing the Jetty Container</title>
+
+      <para>Before going ahead with the install, you may want to customize the
+      Jetty container. In general this is done by a combination of System
+      properties and the usual jetty xml configuration files. The way you
+      define the System properties will depend on which OSGi container you are
+      using, so ensure that you are familiar with how to set them for your
+      environment. In the following examples, we will assume that the OSGi
+      container allows us to set System properties as simple name=value
+      pairs.</para>
+
+      <para>The available System properties are:</para>
+
+      <variablelist>
+        <varlistentry>
+          <term>jetty.port</term>
+
+          <listitem>
+            <para>If not specified, this defaults to the usual jetty port of
+            8080.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>jetty.home</term>
+
+          <listitem>
+            <para>Either this property <emphasis>or</emphasis> the <emphasis
+            role="bold">jetty.home.bundle</emphasis> <emphasis>must</emphasis>
+            be specified. This property should point to a file system location
+            that has an <code>etc/</code> directory containing xml files to
+            configure the Jetty container on startup. For example:</para>
+
+            <informalexample>
+              <programlisting><![CDATA[jetty.home=/opt/custom/jetty]]></programlisting>
+            </informalexample>
+
+            <para>Where <code>/opt/custom/jetty</code> contains:</para>
+
+            <informalexample>
+              <programlisting><![CDATA[etc/jetty.xml
+etc/jetty-selector.xml
+etc/jetty-deployer.xml
+etc/jetty-special.xml]]></programlisting>
+            </informalexample>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>jetty.home.bundle</term>
+
+          <listitem>
+            <para>Either this property <emphasis>or</emphasis> the <emphasis
+            role="bold">jetty.home</emphasis> property must be specified. This
+            property should specify the symbolic name of a bundle which
+            contains a directory called <code>jettyhome/</code>. The<code>
+            jettyhome/</code> directory should have a subdirectory called
+            <code>etc/</code> that contains the xml files to be applied to
+            Jetty on startup. The jetty-osgi-boot.jar contains a<code>
+            jettyhome/</code> directory with a default set of xml
+            configuration files. Here's how you would specify it:</para>
+
+            <informalexample>
+              <programlisting><![CDATA[jetty.home.bundle=org.eclipse.jetty.osgi.boot]]></programlisting>
+            </informalexample>
+
+            <para>Here's a partial listing of that jar that shows you the
+            names of the xml files contained within it:</para>
+
+            <informalexample>
+              <programlisting><![CDATA[META-INF/MANIFEST.MF
+jettyhome/etc/jetty.xml
+jettyhome/etc/jetty-deployer.xml
+jettyhome/etc/webdefault.xml
+jettyhome/etc/jetty-selector.xml]]></programlisting>
+            </informalexample>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>jetty.etc.config.urls</term>
+
+          <listitem>
+            <para>This specifies the paths of the xml files - relative to
+            <emphasis role="bold">jetty.home</emphasis> or <emphasis
+            role="bold">jetty.home.bundle</emphasis>/jettyhome - that are to
+            be used. If not specified, they default to:</para>
+
+            <informalexample>
+              <programlisting><![CDATA[etc/jetty.xml,etc/jetty-selector.xml,etc/jetty-deployer.xml]]></programlisting>
+            </informalexample>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </section>
+
+    <section>
+      <title>The Jetty Container as an OSGi Service</title>
+
+      <para>You can now go ahead and deploy the jetty-osgi-boot.jar into your
+      OSGi container. A Jetty Server instance will be created, the xml config
+      files applied to it, and then published as an OSGi service. Normally,
+      you will not need to interact with this service instance, however you
+      can retrieve a reference to it using the usual OSGi api:</para>
+
+      <informalexample>
+        <programlisting><![CDATA[org.osgi.framework.BundleContext bc;
+org.osgi.framework.ServiceReference ref = bc.getServiceReference("org.eclipse.jetty.server.Server");]]></programlisting>
+      </informalexample>
+
+      <para>The Server service has a couple of properties associated with it
+      that you can retrieve using the
+      org.osgi.framework.ServiceReference.getProperty(String) method:</para>
+
+      <variablelist>
+        <varlistentry>
+          <term>managedServerName</term>
+
+          <listitem>
+            <para>The Jetty Server instance created by the jetty-osgi-boot.jar
+            will be called "defaultJettyServer"</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>jetty.etc.config.urls</term>
+
+          <listitem>
+            <para>The list of xml files resolved from either <emphasis
+            role="bold">jetty.home</emphasis> or<emphasis role="bold">
+            jetty.home.bundle</emphasis>/jettyhome</para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </section>
+  </section>
+
+  <section>
+    <title>Deploying Bundles as Webapps</title>
+
+    <para>The Jetty OSGi container listens for the installation of bundles,
+    and will automatically attempt to deploy any that appear to be
+    webapps.</para>
+
+    <para>Any of the following criteria are sufficient for Jetty to deploy the
+    bundle as a webapp:</para>
+
+    <variablelist>
+      <varlistentry>
+        <term>Bundle contains a WEB-INF/web.xml file</term>
+
+        <listitem>
+          <para>If the bundle contains a web descriptor, then it is
+          automatically deployed. This is an easy way to deploy classic JavaEE
+          webapps.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>Bundle MANIFEST contains Jetty-WarFolderPath</term>
+
+        <listitem>
+          <para>This is the location within the bundle of the webapp
+          resources. Typically this would be used if the bundle is not a pure
+          webapp, but rather the webapp is a component of the bundle. Here's
+          an example of a bundle where the resources of the webapp are not
+          located at the root of the bundle, but rather inside the
+          subdirectory <code>web/</code> :</para>
+
+          <para><code>MANIFEST</code>:</para>
+
+          <informalexample>
+            <programlisting><![CDATA[Bundle-Name: Web
+Jetty-WarFolderPath: web
+Import-Package: javax.servlet;version="2.6.0",
+ javax.servlet.resources;version="2.6.0"
+Bundle-SymbolicName: com.acme.sample.web]]></programlisting>
+          </informalexample>
+
+          <para>Bundle contents:</para>
+
+          <informalexample>
+            <programlisting><![CDATA[META-INF/MANIFEST.MF
+web/index.html
+web/foo.html
+web/WEB-INF/web.xml
+com/acme/sample/web/MyStuff.class
+com/acme/sample/web/MyOtherStuff.class]]></programlisting>
+          </informalexample>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>Bundle MANIFEST contains Web-ContextPath</term>
+
+        <listitem>
+          <para>This header can be used in conjunction with either of the two
+          preceding headers to control the context path to which the webapp is
+          deployed, or alone to identify that the bundle's contents should be
+          published as a webapp. This header is part of the RFC-66
+          specification for using webapps with OSGi. Here's an eample based on
+          the previous one where we use the Web-ContextPath header to set its
+          deployment context path to be "/sample" : </para>
+
+          <para><code>MANIFEST</code>:</para>
+
+          <informalexample>
+            <programlisting><![CDATA[Bundle-Name: Web
+Jetty-WarFolderPath: web
+Web-ContextPath: /sample
+Import-Package: javax.servlet;version="2.6.0",
+ javax.servlet.resources;version="2.6.0"
+Bundle-SymbolicName: com.acme.sample.web]]></programlisting>
+          </informalexample>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+
+    <section>
+      <title>Determining the Context Path for a Webapp Bundle</title>
+
+      <para>As we have seen in the previous section, if the bundle
+      <code>MANIFEST</code> contains the RFC-66 header <emphasis
+      role="bold">Web-ContextPath</emphasis>, Jetty will use that as the
+      context path. If the MANIFEST does not contain that header, then Jetty
+      will concoct a context path based on the last element of the bundle's
+      location (by calling Bundle.getLocation()) after stripping off any file
+      extensions. </para>
+
+      <para>For example, suppose we have a bundle whose location is:</para>
+
+      <informalexample>
+        <programlisting><![CDATA[file://some/where/over/the/rainbow/oz.war]]></programlisting>
+      </informalexample>
+
+      <para>The corresponding synthesized context path would be:</para>
+
+      <informalexample>
+        <programlisting><![CDATA[/oz]]></programlisting>
+      </informalexample>
+    </section>
+  </section>
+
+  <section>
+    <title>Deploying Bundles as Jetty ContextHandlers</title>
+
+    <para>In addition to deploying webapps, the Jetty OSGi container listens
+    for the installation of bundles that are not heavyweight webapps, but
+    rather use the flexible Jetty-specific concept of ContextHandlers.</para>
+
+    <para>The following is the criteria used to decide if a bundle can be
+    deployed as a ContextHandler:</para>
+
+    <variablelist>
+      <varlistentry>
+        <term>Bundle MANIFEST contains Jetty-ContextFilePath</term>
+
+        <listitem>
+          <para>A comma separated list of names of context files - each one of
+          which represents a ContextHandler that should be deployed by Jetty.
+          The context files can be inside the bundle, external to the bundle
+          somewhere on the file system, or external to the bundle in the
+          <emphasis role="bold">jetty.home</emphasis> directory. </para>
+
+          <para>A context file that is inside the bundle:</para>
+
+          <informalexample>
+            <programlisting><![CDATA[Jetty-ContextFilePath: ./a/b/c/d/foo.xml]]></programlisting>
+          </informalexample>
+
+          <para>A context file that is on the file system:</para>
+
+          <informalexample>
+            <programlisting><![CDATA[Jetty-ContextFilePath: /opt/app/contexts/foo.xml]]></programlisting>
+          </informalexample>
+
+          <para>A context file that is relative to jetty.home:</para>
+
+          <informalexample>
+            <programlisting><![CDATA[Jetty-ContextFilePath: contexts/foo.xml]]></programlisting>
+          </informalexample>
+
+          <para>A number of different context files:</para>
+
+          <informalexample>
+            <programlisting><![CDATA[Jetty-ContextFilePath: ./a/b/c/d/foo.xml,/opt/app/contexts/foo.xml,contexts/foo.xml]]></programlisting>
+          </informalexample>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+
+    <section>
+      <title>Determining the Context Path for a ContextHandler Bundle</title>
+
+      <para>Usually, the context path for the ContextHandler will be set by
+      the context xml file. However, you can override any path set in the
+      context xml file by using the <emphasis
+      role="bold">Web-ContextPath</emphasis> header in the
+      <code>MANIFEST</code>.</para>
+    </section>
+
+    <section>
+      <title>Extra Properties Available for Context Xml Files</title>
+
+      <para>Before the Jetty OSGi container applies a context xml file found
+      in a Jetty-ContextFilePath MANIFEST header, it sets a few useful
+      properties that can be referred to within the xml file:</para>
+
+      <variablelist>
+        <varlistentry>
+          <term>Server</term>
+
+          <listitem>
+            <para>This is a reference to the Jetty
+            org.eclipse.jetty.server.Server instance to which the
+            ContextHandler being configured in the context xml file will be
+            deployed.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>bundle.root</term>
+
+          <listitem>
+            <para>This is a reference to the
+            org.eclipse.jetty.util.resource.Resource that represents the
+            location of the Bundle (obtained by calling Bundle.getLocation()).
+            Note that this could be either a directory in the file system if
+            the OSGi container automatically unpacks bundles, or it may be a
+            jar:file: url if the bundle remains packed.</para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+
+      <para>Here's an example of a context xml file that makes use of these
+      properties:</para>
+
+      <informalexample>
+        <programlisting language="fetch"><filename>@GITURL@/jetty-osgi/test-jetty-osgi-context/src/main/context/acme.xml</filename></programlisting>
+      </informalexample>
+
+    </section>
+  </section>
+
+  <section>
+    <title>Deploying Services as Webapps</title>
+
+    <para>In addition to listening for bundles whose format or
+    <code>MANIFEST</code> entries define a webapp or ContextHandler for to be
+    deployed, the Jetty OSGi container also listens for the registration of
+    OSGi services that are instances of
+    org.eclipse.jetty.webapp.WebAppContext. So you may programmatically create
+    a WebAppContext, register it as a service, and have Jetty pick it up and
+    deploy it.</para>
+
+    <para>Here's an example of doing that with a simple bundle that serves
+    static content, and an org.osgi.framework.BundleActivator that
+    instantiates the WebAppContext:</para>
+
+    <para>The bundle contents:</para>
+
+    <informalexample>
+      <programlisting><![CDATA[META-INF/MANIFEST.MF
+index.html
+com/acme/osgi/Activator.class]]></programlisting>
+    </informalexample>
+
+    <para>The <code>MANIFEST.MF</code>:</para>
+
+    <informalexample>
+      <programlisting><![CDATA[Bundle-Classpath: .
+Bundle-Name: Jetty OSGi Test WebApp
+DynamicImport-Package: org.eclipse.jetty.*;version="[9.0,10.0)"
+Bundle-Activator: com.acme.osgi.Activator
+Import-Package: org.eclipse.jetty.server.handler;version="[9.0,10)",
+ org.eclipse.jetty.webapp;version="[9.0,10)",
+ org.osgi.framework;version= "[1.5,2)",
+ org.osgi.service.cm;version="1.2.0",
+ org.osgi.service.packag eadmin;version="[1.2,2)",
+ org.osgi.service.startlevel;version="1.0.0",
+ org.osgi.service.url;version="1.0.0",
+ org.osgi.util.tracker;version= "1.3.0",
+ org.xml.sax,org.xml.sax.helpers
+Bundle-SymbolicName: com.acme.testwebapp]]></programlisting>
+    </informalexample>
+
+    <para>The Activator code:</para>
+
+    <informalexample>
+      <programlisting><![CDATA[public void start(BundleContext context) throws Exception
+{
+    WebAppContext webapp = new WebAppContext();
+    Dictionary props = new Hashtable();
+    props.put("Jetty-WarFolderPath",".");
+    props.put("contextPath","/acme");
+    context.registerService(ContextHandler.class.getName(),webapp,props);
+}]]></programlisting>
+    </informalexample>
+
+    <para>The above setup is sufficient for Jetty to recognize and deploy the
+    WebAppContext at /acme.</para>
+
+    <para>As the example shows, you can use OSGi Service properties in order
+    to communicate extra configuration information to Jetty:</para>
+
+    <variablelist>
+      <varlistentry>
+        <term>Jetty-WarFolderPath</term>
+
+        <listitem>
+          <para>The location within the bundle of the root of the static
+          resources for the webapp</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>Web-ContextPath</term>
+
+        <listitem>
+          <para>The context path at which to deploy the webapp.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>Jetty-defaultWebXmlFilePath</term>
+
+        <listitem>
+          <para>The location within the bundle of a webdefault.xml file to
+          apply to the webapp. Defaults to that of the Jetty OSGi
+          container.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>Jetty-WebXmlFilePath</term>
+
+        <listitem>
+          <para>The location within the bundle of the web.xml file. Defaults
+          to WEB-INF/web.xml</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>Jetty-extraClassPath</term>
+
+        <listitem>
+          <para>A classpath of additional items to add to the webapp's
+          classloader.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>Jetty-bundleInstall</term>
+
+        <listitem>
+          <para>The path to the base folder that overrides the computed bundle
+          installation - mostly useful for those OSGi frameworks that unpack
+          bundles by default.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>Require-TldBundle</term>
+
+        <listitem>
+          <para>A comma separated list of bundle symbolic names of bundles
+          containing TLDs that this webapp depends upon.</para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+  </section>
+
+  <section>
+    <title>Deploying Services as ContextHandlers</title>
+
+    <para>Similarly to WebAppContexts, the Jetty OSGi container can detect the
+    registration of an OSGi Service that represents a ContextHandler and
+    ensure that it is deployed. The ContextHandler can either be fully
+    configured before it is registered as an OSGi service - in which case the
+    Jetty OSGi container will merely deploy it - or the ContextHandler can be
+    partially configured, with the Jetty OSGi container completing the
+    configuration via a context xml file and properties associated with the
+    Service.</para>
+
+    <para>Here's an example of doing that with a simple bundle that serves
+    static content with an org.osgi.framework.BundleActivator that
+    instantiates a ContextHandler and registers it as an OSGi Service, passing
+    in properties that define a context xml file and context path for Jetty to
+    apply upon deployment:</para>
+
+    <para>The bundle contents:</para>
+
+    <informalexample>
+      <programlisting><![CDATA[META-INF/MANIFEST.MF
+static/index.html
+acme.xml
+com/acme/osgi/Activator.class
+com/acme/osgi/Activator$1.class]]></programlisting>
+    </informalexample>
+
+    <para>The <code>MANIFEST</code>:</para>
+
+    <informalexample>
+      <programlisting><![CDATA[Bundle-Classpath: .
+Bundle-Name: Jetty OSGi Test Context
+DynamicImport-Package: org.eclipse.jetty.*;version="[9.0,10.0)"
+Bundle-Activator: com.acme.osgi.Activator
+Import-Package: javax.servlet;version="2.6.0",
+ javax.servlet.resources;version="2.6.0",
+ org.eclipse.jetty.server.handler;version="[9.0,10)",
+ org.osgi.framework;version="[1.5,2)",
+ org.osgi.service.cm;version="1.2.0",
+ org.osgi.service.packageadmin;version="[1.2,2)",
+ org.osgi.service.startlevel;version="1.0.0.o",
+ org.osgi.service.url;version="1.0.0",
+ org.osgi.util.tracker;version="1.3.0",
+ org.xml.sax,org.xml.sax.helpers
+Bundle-SymbolicName: com.acme.testcontext]]></programlisting>
+    </informalexample>
+
+    <para>The Activator code:</para>
+
+    <informalexample>
+      <programlisting><![CDATA[public void start(final BundleContext context) throws Exception
+{
+    ContextHandler ch = new ContextHandler();
+    ch.addEventListener(new ServletContextListener () {
+
+            @Override
+            public void contextInitialized(ServletContextEvent sce)
+            {
+               System.err.println("Context is initialized");
+            }
+
+            @Override
+            public void contextDestroyed(ServletContextEvent sce)
+            {
+                System.err.println("Context is destroyed!");                
+            }
+            
+    });
+    Dictionary props = new Hashtable();
+    props.put("Web-ContextPath","/acme");
+    props.put("Jetty-ContextFilePath", "acme.xml");
+    context.registerService(ContextHandler.class.getName(),ch,props);
+}]]></programlisting>
+    </informalexample>
+
+    <para>The contents of the <code>acme.xml</code> context file:</para>
+
+    <informalexample>
+        <programlisting language="fetch"><filename>@GITURL@/jetty-osgi/test-jetty-osgi-context/src/main/context/acme.xml</filename></programlisting>
+    </informalexample>
+
+
+    <section>
+      <title>Extra Properties Available for Context Xml Files</title>
+
+      <para>Before the Jetty OSGi container applies a context xml file found
+      in a Jetty-ContextFilePath property, it sets a few useful properties
+      that can be referred to within the xml file:</para>
+
+      <variablelist>
+        <varlistentry>
+          <term>Server</term>
+
+          <listitem>
+            <para>This is a reference to the Jetty
+            org.eclipse.jetty.server.Server instance to which the
+            ContextHandler being configured in the context xml file will be
+            deployed.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>bundle.root</term>
+
+          <listitem>
+            <para>This is a reference to the
+            org.eclipse.jetty.util.resource.Resource that represents the
+            location of the Bundle publishing the ContextHandler as a
+            Service(obtained by calling Bundle.getLocation()). Note that this
+            could be either a directory in the file system if the OSGi
+            container automatically unpacks bundles, or it may be a jar:file:
+            url if the bundle remains packed.</para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+
+      <para>In the example above, you can see both of these properties being
+      used in the context xml file.</para>
+    </section>
+  </section>
+
+  <section>
+    <title>Support for the OSGi Service Platform Enterprise
+    Specification</title>
+
+    <para>The Jetty OSGi container implements several aspects of the
+    Enterprise Specification v4.2 for the WebAppContexts and ContextHandlers
+    that it deploys from either bundles or OSGi services as outlined in
+    foregoing sections.</para>
+
+    <section>
+      <title>Context Attributes</title>
+
+      <para>For each WebAppContext or ContextHandler, the following context
+      attribute is set, as required by section<emphasis> 128.6.1 Bundle
+      Context</emphasis> pg 427:</para>
+
+      <variablelist>
+        <varlistentry>
+          <term>osgi-bundleContext</term>
+
+          <listitem>
+            <para>The value of this attribute is the BundleContext
+            representing the Bundle associated with the WebAppContext or
+            ContextHandler.</para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </section>
+
+    <section>
+      <title>Service Attributes</title>
+
+      <para>As required by the specification section <emphasis>128.3.4
+      Publishing the Servlet Context</emphasis> pg 421, each WebAppContext and
+      ContextHandler deployed by the Jetty OSGi container is also published as
+      an OSGi service (unless it has been already - see sections 1.6 and 1.7).
+      The following properties are associated with these services:</para>
+
+      <variablelist>
+        <varlistentry>
+          <term>osgi.web.symbolicname</term>
+
+          <listitem>
+            <para>The symbolic name of the Bundle associated with the
+            WebAppContext or ContextHandler</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>osgi.web.version</term>
+
+          <listitem>
+            <para>The Bundle-Version header from the Bundle associated with
+            the WebAppContext or ContextHandler</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>osgi.web.contextpath</term>
+
+          <listitem>
+            <para>The context path of the WebAppContext or
+            ContextHandler</para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </section>
+
+    <section>
+      <title>OSGi Events</title>
+
+      <para>As required by the specification section <emphasis>128.5
+      Events</emphasis> pg 426, the following OSGi Event Admin events will be
+      posted:</para>
+
+      <variablelist>
+        <varlistentry>
+          <term>org/osgi/service/web/DEPLOYING </term>
+
+          <listitem>
+            <para>The Jetty OSGi container is about to deploy a WebAppContext
+            or ContextHandler</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>org/osgi/service/web/DEPLOYED </term>
+
+          <listitem>
+            <para>The Jetty OSGi container has finished deploying a
+            WebAppContext or ContextHandler and it is in service</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>org/osgi/service/web/UNDEPLOYING </term>
+
+          <listitem>
+            <para>The Jetty OSGi container is about to undeploy a
+            WebAppContext or ContextHandler</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>org/osgi/service/web/UNDEPLOYED </term>
+
+          <listitem>
+            <para>The Jetty OSGi container has finished undeploying a
+            WebAppContext or ContextHandler and it is no longer in
+            service</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>org/osgi/service/web/FAILED </term>
+
+          <listitem>
+            <para>The Jetty OSGi container failed to deploy a WebAppContext or
+            ContextHandler</para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </section>
+  </section>
+
+  <section>
+    <title>Using JSPs</title>
+
+    <para/>
   </section>
 </section>

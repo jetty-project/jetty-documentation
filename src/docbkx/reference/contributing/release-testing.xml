@@ -57,7 +57,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
       <screen>
 <![CDATA[
  cd [installdir] ;
- touch [pathToJettyDistribution]/contexts/test.xml
+ touch [pathToJettyDistribution]/webapps/test.xml
  ]]>
       </screen>
     </listitem>

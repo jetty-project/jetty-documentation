@@ -33,10 +33,7 @@
     OSGi container. Traditional JavaEE webapps can be deployed, in addition to
     Jetty ContextHandlers, along with OSGi web bundles. In addition, the
     infrastructure also supports the OSGi HttpService interface.</para>
-
-    <para/>
   </section>
-
   <section>
     <title>General Setup</title>
 
@@ -107,9 +104,8 @@
         <td>org.eclipse.jetty.xml</td>
       </tr>
     </informaltable>
-
-    <para/>
   </section>
+
 
   <section>
     <title>The Jetty OSGi Container</title>
@@ -845,10 +841,8 @@ Bundle-SymbolicName: com.acme.testcontext]]></programlisting>
       </variablelist>
     </section>
   </section>
-
   <section>
     <title>Using JSPs</title>
-
     <section>
       <title>Setup</title>
 
@@ -864,63 +858,46 @@ Bundle-SymbolicName: com.acme.testcontext]]></programlisting>
 
       <table>
         <title>Jars Required for JSP</title>
-
         <tgroup cols="2">
           <thead>
-            <tr>
-              <th>Jar</th>
-
-              <th>Bundle Symbolic Name</th>
-            </tr>
+            <row>
+              <entry>Jar</entry>
+              <entry>Bundle Symbolic Name</entry>
+            </row>
           </thead>
-
           <tbody>
             <row>
               <entry>com.sun.el-2.2.0.v201303151357.jar</entry>
-
               <entry>com.sun.el</entry>
             </row>
-
             <row>
               <entry>javax.el-2.2.0.v201303151357.jar</entry>
-
               <entry>javax.el</entry>
             </row>
-
             <row>
               <entry>javax.servlet.jsp-2.2.0.v201112011158.jar</entry>
-
               <entry>javax.servlet.jsp</entry>
             </row>
-
             <row>
               <entry>javax.servlet.jsp.jstl-1.2.0.v201105211821.jar</entry>
-
               <entry>javax.servlet.jsp.jstl</entry>
             </row>
-
             <row>
               <entry>org.apache.jasper.glassfish-2.2.2.v201112011158.jar</entry>
-
               <entry>org.apache.jasper.glassfish</entry>
             </row>
-
             <row>
               <entry>org.apache.taglibs.standard.glassfish-1.2.0.v201112081803.jar</entry>
-
               <entry>org.apache.taglibs.standard.glassfish</entry>
             </row>
-
             <row>
               <entry>org.eclipse.jdt.core-3.8.2.v20130121.jar</entry>
-
               <entry>org.eclipse.jdt.core.compiler.batch</entry>
             </row>
           </tbody>
         </tgroup>
       </table>
     </section>
-
     <section>
       <title>The jetty-osgi-boot-jsp jar</title>
 

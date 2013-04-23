@@ -211,6 +211,7 @@ div.variablelist {
   text-align: left; 
   border: thin dotted blue; 
   padding: 4px; 
+  font-size: 70%;
 }
 
 .jetty-callout h5 {

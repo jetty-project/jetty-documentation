@@ -32,6 +32,7 @@
   </section>
   <xi:include href="qos-filter.xml"/>
   <xi:include href="dos-filter.xml"/>
+  <xi:include href="cross-origin-filter.xml"/>
   <xi:include href="moved-context-handler.xml"/>
 
 </chapter>

@@ -37,8 +37,8 @@
   purposes, configuration is a matter of identifying the correct configuration
   file and modifying existing configuration values.</para>
 
-  <section>
-    <title xml:id="intro-jetty-configuration-server">Configuring the
+  <section xml:id="intro-jetty-configuration-server">
+    <title>Configuring the
     Server</title>
 
     <para>The Server instance is the central coordination object of a Jetty
@@ -133,9 +133,8 @@
     </variablelist>
   </section>
 
-  <section>
-    <title xml:id="intro-jetty-configuration-connectors">Configuring
-    Connectors</title>
+  <section xml:id="intro-jetty-configuration-connectors">
+    <title>Configuring Connectors</title>
 
     <para>A Jetty Server Connector is a network end point that accepts
     connections for one or more protocols which produce requests and/or
@@ -219,8 +218,8 @@
     </note>
   </section>
 
-  <section>
-    <title xml:id="intro-jetty-configuration-contexts">Configuring
+  <section xml:id="intro-jetty-configuration-contexts">
+    <title>Configuring
     Contexts</title>
 
     <para>A Jetty context is a handler that groups other handlers under a
@@ -350,8 +349,8 @@
     </section>
   </section>
 
-  <section>
-    <title xml:id="intro-jetty-configuration-webapps">Configuring Web
+  <section xml:id="intro-jetty-configuration-webapps">
+    <title>Configuring Web
     Applications</title>
 
     <para>The servlet specification defines a web application, which when
@@ -521,8 +520,8 @@
     </section>
   </section>
 
-  <section>
-    <title xml:id="quickstart-config-deployer">Web Application
+  <section xml:id="quickstart-config-deployer">
+    <title >Web Application
     Deployment</title>
 
     <para>Jetty is capable of deploying a variety of Web Application formats.

@@ -21,7 +21,7 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xmlns:xl="http://www.w3.org/1999/xlink"
         >
-  <title xml:id="how-to-configure-connectors">Connector Configuration Overview</title>
+  <title>Connector Configuration Overview</title>
 
   <para>Connectors are the mechanism through which Jetty accepts network
   connections for various protocols. Configuring a connector is a combination

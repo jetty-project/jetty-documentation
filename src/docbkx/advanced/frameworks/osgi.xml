@@ -123,8 +123,8 @@
       container.</para>
     </section>
 
-    <section>
-      <title xml:id="customize-jetty-container">Customizing the Jetty
+    <section xml:id="customize-jetty-container">
+      <title>Customizing the Jetty
       Container</title>
 
       <para>Before going ahead with the install, you may want to customize the
@@ -468,8 +468,8 @@ Bundle-SymbolicName: com.acme.sample.web]]></programlisting>
     </section>
   </section>
 
-  <section>
-    <title xml:id="services-as-webapps">Deploying Services as Webapps</title>
+  <section xml:id="services-as-webapps">
+    <title>Deploying Services as Webapps</title>
 
     <para>In addition to listening for bundles whose format or
     <code>MANIFEST</code> entries define a webapp or ContextHandler for to be

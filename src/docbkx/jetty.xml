@@ -159,8 +159,8 @@ xmlns:ns="http://docbook.org/ns/docbook">
   <part xml:id="clients">
     <title>Jetty Client Guide</title>
     <xi:include href="clients/http/chapter.xml" />
-    <xi:include href="clients/websocket/chapter.xml" />
-    <xi:include href="clients/spdy/chapter.xml" />
+    <!--xi:include href="clients/websocket/chapter.xml" /-->
+    <!--xi:include href="clients/spdy/chapter.xml" /-->
   </part>
   <part xml:id="reference">
     <title>Reference Guide</title>

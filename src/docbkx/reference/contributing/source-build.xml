@@ -29,31 +29,44 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     <section>
       <title>Primary Interest SCM URLs</title>
       <para>These are the URLs to the GIT repositories for the Jetty code. They are for people who are working on the Jetty project, as well as for people who are interested in examining or modifying the Jetty code for their own projects.</para>
-      <itemizedlist>
-        <listitem>
-          <para>http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git - Jetty Project Repository</para>
-        </listitem>
-      </itemizedlist>
+      <variablelist>
+        <varlistentry>
+          <term>Jetty Project Repository</term>
+          <listitem>
+            <para><link linkend="http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git">http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git</link></para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
     </section>
     <section>
       <title>Build and Project Infrastructure SCM URLs</title>
       <para>These are the URLs for Jetty-related code and metadata. These are not needed to use Jetty; these are primarily of use for people who are working with Jetty-the-project (as opposed to using Jetty-the-server in their own projects).</para>
-      <itemizedlist>
-        <listitem>
-          <para>http://git.eclipse.org/c/jetty/org.eclipse.jetty.parent.git - Administrative pom.xml file</para>
-        </listitem>
-        <listitem>
-          <para>http://git.eclipse.org/c/jetty/org.eclipse.jetty.toolchain.git - Build related artifacts that release separately, common assembly descriptors, remote resources, etc.</para>
-        </listitem>
-        <listitem>
-          <para>http://git.eclipse.org/c/jetty/org.eclipse.jetty.bundles.git - Project definition for generating an eclipse p2 update site
-</para>
-        </listitem>
-        <listitem>
-          <para>http://git.eclipse.org/c/jetty/org.eclipse.jetty.admin.git - Files associated with the development of Jetty -- code styles, formatting, etc.
-</para>
-        </listitem>
-      </itemizedlist>
+      <variablelist>
+        <varlistentry>
+          <term>Administrative pom.xml file</term>
+          <listitem>
+            <para><link linkend="http://git.eclipse.org/c/jetty/org.eclipse.jetty.parent.git">http://git.eclipse.org/c/jetty/org.eclipse.jetty.parent.git</link></para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>Build related artifacts that release separately, common assembly descriptors, remote resources, etc.</term>
+          <listitem>
+            <para><link linkend="http://git.eclipse.org/c/jetty/org.eclipse.jetty.toolchain.git">http://git.eclipse.org/c/jetty/org.eclipse.jetty.toolchain.git</link></para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>Project definition for generating an eclipse p2 update site</term>
+          <listitem>
+            <para><link linkend="http://git.eclipse.org/c/jetty/org.eclipse.jetty.bundles.git">http://git.eclipse.org/c/jetty/org.eclipse.jetty.bundles.git</link></para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>Files associated with the development of Jetty -- code styles, formatting, iplogs, etc.</term>
+          <listitem>
+            <para><link linkend="http://git.eclipse.org/c/jetty/org.eclipse.jetty.admin.git">http://git.eclipse.org/c/jetty/org.eclipse.jetty.admin.git</link></para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
     </section>
   </section>
   <section>

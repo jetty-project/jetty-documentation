@@ -136,6 +136,8 @@ xmlns:ns="http://docbook.org/ns/docbook">
      Embedding jetty topics
      -->
     <xi:include href="advanced/embedding/chapter.xml" />
+    <!-- Jetty has a number of bundled things, they can go here -->
+    <xi:include href="advanced/extras/chapter.xml"/>
 <!-- How to use the jetty-maven-plugin is a big topic and is definitely
                         in the advanced section of things. -->
     <xi:include href="advanced/maven/chapter.xml" />

@@ -60,7 +60,7 @@
       <para>
         To use the QoS Filter, these JAR files must be available in WEB-INF/lib:
       </para>
-      <itemizedList>
+      <itemizedlist>
         <listitem>
           <para>
             $JETTY_HOME/lib/ext/jetty-util.jar
@@ -71,7 +71,7 @@
             $JETTY_HOME/lib/ext/jetty-servlets.jar–contains QoSFilter
           </para>
         </listitem>
-      </itemizedList>
+      </itemizedlist>
     </section>
     <section>
       <title>Sample Configuration</title>
@@ -165,7 +165,7 @@
       <para>
         Requests with higher values have a higher priority. The default request priorities assigned by the QoSFilter are:
       </para>
-      <itemizedList>
+      <itemizedlist>
         <listitem>
           <para>
             2 -- For any authenticated request
@@ -181,7 +181,7 @@
             0 -- For all other requests
           </para>
         </listitem>
-      </itemizedList>
+      </itemizedlist>
       <para>
         To customize the priority, subclass QoSFilter and then override the getPriority(ServletRequest request) method to return an appropriate priority for the request. You can then use this subclass as your QoS filter. Here's a trivial example:
       </para>

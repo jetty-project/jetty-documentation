@@ -30,8 +30,11 @@
     Jetty has a number of useful servlets, filters and handlers that can be used.
   </para>
   </section>
+  <xi:include href="default-servlet.xml"/>
+  <xi:include href="cgi-servlet.xml"/>
   <xi:include href="qos-filter.xml"/>
   <xi:include href="dos-filter.xml"/>
+  <xi:include href="gzip-filter.xml"/>
   <xi:include href="cross-origin-filter.xml"/>
   <xi:include href="moved-context-handler.xml"/>
 

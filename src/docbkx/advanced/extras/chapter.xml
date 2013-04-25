@@ -37,5 +37,6 @@
   <xi:include href="gzip-filter.xml"/>
   <xi:include href="cross-origin-filter.xml"/>
   <xi:include href="moved-context-handler.xml"/>
+  <xi:include href="shutdown-handler.xml"/>
 
 </chapter>

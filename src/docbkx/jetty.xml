@@ -31,7 +31,7 @@ xmlns:ns="http://docbook.org/ns/docbook">
     </copyright>
     <revhistory>
       <revision>
-        <revnumber>@JETTY_VERSION@</revnumber>
+        <revnumber>${project.version}</revnumber>
         <date>
           <?dbtimestamp format="Y-m-d H:M:S"?>
         </date>

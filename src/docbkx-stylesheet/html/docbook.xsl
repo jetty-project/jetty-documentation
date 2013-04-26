@@ -4,6 +4,7 @@ xmlns:fetch="java:org.eclipse.jetty.xslt.tools.SourceFetchExtension"
 xmlns:d="http://docbook.org/ns/docbook"
 xmlns:l="http://docbook.sourceforge.net/xmlns/l10n/1.0"
 xmlns:xslthl="http://xslthl.sf.net"
+xmlns:gcse="http://www.google.com"
 >
 
   <!-- imports the original docbook stylesheet -->
@@ -72,7 +73,27 @@ xmlns:xslthl="http://xslthl.sf.net"
   </xsl:template>
 
   <xsl:template name="user.header.navigation">
-    <center><a href="http://www.eclipse.org/jetty"><img src="images/jetty-header-logo.png" alt="Jetty Logo"></img></a></center>
+    <table>
+      <tr>
+        <td style="width: 50%">
+          <a href="http://www.eclipse.org/jetty"><img src="images/jetty-header-logo.png" alt="Jetty Logo"></img></a>
+        </td>
+        <td style="width: 50%">
+          <script type="text/javascript">  (function() {
+            var cx = '016459005284625897022:obd4lsai2ds';
+            var gcse = document.createElement('script');
+            gcse.type = 'text/javascript';
+            gcse.async = true;
+            gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+            '//www.google.com/cse/cse.js?cx=' + cx;
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(gcse, s);
+            })();
+          </script>
+          <gcse:search></gcse:search>
+        </td>
+      </tr>
+    </table>
   </xsl:template>
 
   <xsl:template name="user.header.content">

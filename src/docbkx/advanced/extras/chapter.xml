@@ -35,6 +35,7 @@
   </section>
   <xi:include href="default-servlet.xml"/>
   <xi:include href="proxy-servlet.xml"/>
+  <xi:include href="balancer-servlet.xml"/>
   <xi:include href="cgi-servlet.xml"/>
   <xi:include href="qos-filter.xml"/>
   <xi:include href="dos-filter.xml"/>

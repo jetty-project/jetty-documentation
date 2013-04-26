@@ -21,7 +21,7 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xmlns:xl="http://www.w3.org/1999/xlink"
         >
-  <title>Asynchronous ProxyServlet</title>
+  <title>Asynchronous Proxy Servlet</title>
   <para>
 		Forwards requests to another server either as a standard web reverse proxy (as defined by RFC2616) or as a transparent reverse proxy.
 	</para>

@@ -54,14 +54,11 @@
   <para>Jetty JMX integration uses the platform MBean server implementation
   that Java VM provides. The integration is based on the ObjectMBean
   implementation of DynamicMBean. This implementation allows you to wrap an
-  arbitrary POJO in an MBean and for
-  [http://dev.eclipse.org/viewcvs/index.cgi/jetty/trunk/jetty-jmx/src/main/resources/org/eclipse/jetty/?root=RT_Jetty
-  properties files]. to provide metadata.</para>
+  arbitrary POJO in an MBean and annotate it appropraitely to expose it via JMX.  See <xref linkend="jetty-jmx-annotations">.</para>
 
   <para>TheMBeanContainer immplementation of the Container.Listener inteface
   coordinates creation of MBeans. The Jetty Server and it's components use a
-  [http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/util/component/Container.html
-  Container] to maintain a containment tree of components and to support
+  <link linkend="@JDURL@/org/eclipse/jetty/util/component/Container.html">Container</link> to maintain a containment tree of components and to support
   notification of changes to that tree. The MBeanContainer class listens for
   Container events and creates and destroys MBeans as required to wrap all
   Jetty components.</para>
@@ -127,24 +124,9 @@
 
       <section xml:id="jmx-standalone-jetty">
         <title>Standalone Jetty</title>
-
-        <para>When running in standalone mode, you can use the
-        <filename>jetty-jmx.xml</filename> configuration file to configure the
-        MBeanContainer instance for a Jetty server. You can run this with the
-        standard configuration file as follows:</para>
-
-        <informalexample>
-          <programlisting language="java"><![CDATA[
-
- java -jar start.jar OPTIONS=Server,jmx etc/jetty-jmx.xml etc/jetty.xml
- 
-          ]]></programlisting>
-        </informalexample>
-
-        <para>Make sure that the <filename>jetty-jmx.xml</filename> is the
-        <emphasis>first</emphasis> XML file listed in the command line to
-        ensure that Jetty properly detects all instances of objects that
-        should be registered as MBeans.</para>
+        <para>
+          JMX is enabled by default in the jetty-9 distribution.  If you are having difficulties validate that the 
+          section in the jetty.home/start.ini file is uncommented.
       </section>
 
       <section xml:id="jmx-embedded-jetty">
@@ -192,8 +174,8 @@ mbContainer.addBean(Log.getLog());
         <programlisting language="xml"><![CDATA[
 
 <plugin>
-  <groupid>org.mortbay.jetty</groupid>
-  <artifactid>maven-jetty-plugin</artifactid>
+  <groupid>org.eclipse.jetty</groupid>
+  <artifactid>jetty-maven-plugin</artifactid>
   <version>${project.version}</version>
   <configuration>
     <scanintervalseconds>10</scanintervalseconds>
@@ -255,7 +237,7 @@ mbContainer.addBean(Log.getLog());
         <para>JMXConnectorServer several options to restrict access. For a
         complete guide to controlling authentication and authorization in JMX,
         see <link
-        xl:href="https://blogs.oracle.com/lmalventosa/entry/jmx_authentication_authorization">Authentication
+        linkend="https://blogs.oracle.com/lmalventosa/entry/jmx_authentication_authorization">Authentication
         and Authorization in JMX RMI connectors</link> in Luis-Miguel
         Alventosa's blog.</para>
 
@@ -315,7 +297,7 @@ mbContainer.addBean(Log.getLog());
       application in order to create an <code> MBeanServerConnection.</code>
       You can use the same URL to connect to your Jetty instance from a remote
       machine using JConsole. See the <link
-      xl:href="http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/tree/jetty-jmx/src/main/config/etc/jetty-jmx.xml?h=jetty-9">configuration
+      xl:href="http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/tree/jetty-jmx/src/main/config/etc/jetty-jmx.xml">configuration
       file</link> for more details.</para>
     </section>
   </section>

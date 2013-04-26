@@ -54,7 +54,7 @@
   <para>Jetty JMX integration uses the platform MBean server implementation
   that Java VM provides. The integration is based on the ObjectMBean
   implementation of DynamicMBean. This implementation allows you to wrap an
-  arbitrary POJO in an MBean and annotate it appropraitely to expose it via JMX.  See <xref linkend="jetty-jmx-annotations">.</para>
+  arbitrary POJO in an MBean and annotate it appropraitely to expose it via JMX.  See <xref linkend="jetty-jmx-annotations"/>.</para>
 
   <para>TheMBeanContainer immplementation of the Container.Listener inteface
   coordinates creation of MBeans. The Jetty Server and it's components use a
@@ -127,6 +127,7 @@
         <para>
           JMX is enabled by default in the jetty-9 distribution.  If you are having difficulties validate that the 
           section in the jetty.home/start.ini file is uncommented.
+        </para>
       </section>
 
       <section xml:id="jmx-embedded-jetty">

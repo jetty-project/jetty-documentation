@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+//  ========================================================================
+//  Copyright (c) 1995-2012 Mort Bay Consulting Pty. Ltd.
+//  ========================================================================
+//  All rights reserved. This program and the accompanying materials
+//  are made available under the terms of the Eclipse Public License v1.0
+//  and Apache License v2.0 which accompanies this distribution.
+//
+//      The Eclipse Public License is available at
+//      http://www.eclipse.org/legal/epl-v10.html
+//
+//      The Apache License v2.0 is available at
+//      http://www.opensource.org/licenses/apache2.0.php
+//
+//  You may elect to redistribute this code under either of these licenses.
+//  ========================================================================
+-->
+<section version="5.0"
+         xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd"
+         xml:id="jetty-jspc-maven-plugin" xmlns="http://docbook.org/ns/docbook"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:xs="http://www.w3.org/2001/XMLSchema"
+         xmlns:xl="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:ns2="http://www.w3.org/1998/Math/MathML"
+         xmlns:ns="http://docbook.org/ns/docbook">
+  <title>Jetty Jspc Maven Plugin</title>
+  <para>
+    This plugin will help you pre-compile your jsps and works in conjunction with the maven war plugin to put them inside an assembled war.
+  </para>
+  <section xml:id="jspc-config">
+    <title>Configuration</title>
+    <para>
+      Here's the basic setup required to put the jspc plugin into your build:
+    </para>
+    <informalexample>
+      <programlisting language="xml">
+<![CDATA[
+<plugin>
+  <groupId>org.eclipse.jetty</groupId>
+   <artifactId>jetty-jspc-maven-plugin</artifactId>
+   <version>9.0.2.v20130417</version>
+   <executions>
+     <execution>
+       <id>jspc</id>
+       <goals>
+         <goal>jspc</goal>
+       </goals>
+       <configuration>
+       </configuration>
+     </execution>
+   </executions>
+ </plugin>
+ ]]>
+      </programlisting>
+    </informalexample>
+    <para>
+      The configurable parameters are as follows:
+    </para>
+
+    <variablelist>
+      <varlistentry>
+        <term>webXmlFragment</term>
+        <listitem>
+          <para>Default Value: &#36;{basedir}/target/webfrag.xml</para>
+          <para>File into which to generate the servlet declarations. Will be merged with an existing web.xml.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>packageRoot</term>
+        <listitem>
+          <para>Default Value: jsp</para>
+          <para>Default root package name for all generated classes.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>webAppSourceDirectory</term>
+        <listitem>
+          <para>Default Value: &#36;{basedir}/src/main/webapp</para>
+          <para>Root of resources directory where jsps, tags etc are located.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>webXml</term>
+        <listitem>
+          <para>Default Value: &#36;{basedir}/src/main/webapp/WEB-INF/web.xml</para>
+          <para>The web.xml file to use to merge with the generated fragments.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>includes</term>
+        <listitem>
+          <para>Default Value: **\/*.jsp, **\/*.jspx</para>
+          <para>The comma separated list of patterns for file extensions to be processed.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>excludes</term>
+        <listitem>
+          <para>Default Value: **\/.svn\/**</para>
+          <para>The comma separated list of patterns for file extensions to be skipped.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>classesDirectory</term>
+        <listitem>
+          <para>Default Value: &#36;{project.build.outputDirectory}</para>
+          <para>Location of classes for the webapp.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>generatedClasses</term>
+        <listitem>
+          <para>Default Value: &#36;{project.build.outputDirectory}</para>
+          <para>Location to put the generated classes for the jsps.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>keepSources</term>
+        <listitem>
+          <para>Default Value: false</para>
+          <para>Controls whether or not .java files generated during compilation will be preserved.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>validateXml</term>
+        <listitem>
+          <para>Default Value: false</para>
+          <para>If true, validates tlds when parsing.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>suppressSmap</term>
+        <listitem>
+          <para>Default Value: true</para>
+          <para>Whether or not to generate JSR45 compliant debug info.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>ignoreJspFragmentErrors</term>
+        <listitem>
+          <para>Default Value: false</para>
+          <para>Whether or not to ignore precompilation errors caused by jsp fragments.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>schemaResourcePrefix</term>
+        <listitem>
+          <para>Default Value: <emphasis>none</emphasis></para>
+          <para>Allows a prefix to be appended to the standard schema locations so that they can be loaded from elsewhere.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>insertionMarker</term>
+        <listitem>
+          <para>Default Value: <emphasis>none</emphasis></para>
+          <para>
+            A marker string in the src web.xml file which indicates where to merge in the generated web.xml fragment. Note that the marker string will NOT be preserved during the insertion. Can be left blank, in which case the generated fragment is inserted just before the line containing &lt;/web-app&gt;.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>verbose</term>
+        <listitem>
+          <para>Default Value: false</para>
+          <para>Whether or not to output more verbose messages during compilation.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>mergeFragment</term>
+        <listitem>
+          <para>Default Value: true</para>
+          <para>Whether or not to merge the generated fragment file with the source web.xml. The merged file will go into the same directory as the webXmlFragment.</para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+    <para>
+      Taking all the default settings, here's how to configure the war plugin to use the generated web.xml that includes all of the jsp servlet declarations:
+    </para>
+    <informalexample>
+      <programlisting language="xml">
+<![CDATA[
+<plugin>
+  <groupId>org.apache.maven.plugins</groupId>
+  <artifactId>maven-war-plugin</artifactId>
+  <configuration>
+    <webXml>${basedir}/target/web.xml</webXml>
+  </configuration>
+</plugin>
+]]>
+      </programlisting>
+    </informalexample>
+  </section>
+  <section xml:id="jspc-production-precompile">
+    <title>Precompiling only for Production Build</title>
+    <para>
+      As compiling jsps is usually done during preparation for a production release and not usually done during development, it is more convenient to put the plugin setup inside a &lt;profile&gt; which which can be deliberately invoked during prep for production.
+    </para>
+    <para>
+      For example, the following profile will only be invoked if the flag -Dprod is present on the run line:
+    </para>
+    <informalexample>
+      <programlisting language="xml">
+<![CDATA[
+<profiles>
+    <profile>
+      <id>prod</id>
+      <activation>
+        <property><name>prod</name></property>
+      </activation>
+      <build>
+      <plugins>
+        <plugin>
+          <groupId>org.mortbay.jetty</groupId>
+          <artifactId>jetty-jspc-maven-plugin</artifactId>
+          <version>7.0.0</version>
+          <!-- put your configuration in here -->
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-war-plugin</artifactId>
+          <!-- put your configuration in here -->
+        </plugin>
+      </plugins>
+      </build>
+    </profile>
+  </profiles>
+  ]]>
+      </programlisting>
+    </informalexample>
+    <para>
+      So, the following invocation would cause your code to be compiled, the jsps to be compiled, the &lt;servlet&gt; and &lt;servlet-mapping&gt;s inserted in the web.xml and your webapp assembled into a war:
+    </para>
+    <screen>
+<![CDATA[
+$ mvn -Dprod package
+]]>
+    </screen>
+  </section>
+  <section xml:id="jspc-overlay-precompile">
+    <title>Precompiling Jsps with Overlaid Wars</title>
+    <para>
+      Precompiling jsps with an overlaid war requires a bit more configuration. This is because you need to separate the steps of unpacking the overlaid war and then repacking the final target war so the jetty-jspc-maven-plugin has the opportunity to access the overlaid resources.
+    </para>
+    <para>
+      In the example we'll show, we will use an overlaid war. The overlaid war will provide the web.xml file but the jsps will be in src/main/webapp (ie part of the project that uses the overlay). We will unpack the overlaid war file, compile the jsps and merge their servlet definitions into the extracted web.xml, then war up the lot.
+    </para>
+    <para>
+      Here's an example configuration of the war plugin that separate those phases into an unpack phase, and then a packing phase:
+    </para>
+    <informalexample>
+      <programlisting language="xml">
+<![CDATA[
+<plugin>
+    <artifactId>maven-war-plugin</artifactId>
+    <executions>
+      <execution>
+        <id>unpack</id>
+        <goals><goal>exploded</goal></goals>
+        <phase>generate-resources</phase>
+        <configuration>
+          <webappDirectory>target/foo</webappDirectory>
+          <overlays>
+            <overlay />
+            <overlay>
+              <groupId>org.eclipse.jetty</groupId>
+              <artifactId>test-jetty-webapp</artifactId>
+            </overlay>
+          </overlays>
+        </configuration>
+      </execution>
+      <execution>
+        <id>pack</id>
+        <goals><goal>war</goal></goals>
+        <phase>package</phase>
+        <configuration>
+          <warSourceDirectory>target/foo</warSourceDirectory>
+          <webXml>target/web.xml</webXml>
+        </configuration>
+      </execution>
+    </executions>
+</plugin>
+]]>
+      </programlisting>
+    </informalexample>
+    <para>
+      Now you also need to configure the jetty-jspc-maven-plugin so that it can use the web.xml that was extracted by the war unpacking and merge in the generated definitions of the servlets. This is in target/foo/WEB-INF/web.xml. Using the default settings, the web.xml merged with the jsp servlet definitions will be put into target/web.xml.
+    </para>
+    <informalexample>
+      <programlisting language="xml">
+<![CDATA[
+<plugin>
+    <groupId>org.mortbay.jetty</groupId>
+     <artifactId>jetty-jspc-maven-plugin</artifactId>
+     <version>${project.version}</version>
+     <executions>
+       <execution>
+         <id>jspc</id>
+         <goals>
+           <goal>jspc</goal>
+         </goals>
+         <configuration>
+            <webXml>target/foo/WEB-INF/web.xml</webXml>
+            <includes>**/*.foo</includes>
+            <excludes>**/*.fff</excludes>
+        </configuration>
+      </execution>
+    </executions>
+</plugin>
+]]>
+      </programlisting>
+    </informalexample>
+  </section>
+</section>

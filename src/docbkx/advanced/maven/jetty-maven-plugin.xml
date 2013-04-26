@@ -25,7 +25,7 @@
          xmlns:xi="http://www.w3.org/2001/XInclude"
          xmlns:ns2="http://www.w3.org/1998/Math/MathML"
          xmlns:ns="http://docbook.org/ns/docbook">
-  <title>Configuring the Jetty Maven Plugin</title>
+  <title>Jetty Maven Plugin</title>
 
   <para>The Jetty Maven plugin is useful for rapid development and testing.
   You can add it to any webapp project that is structured according to the

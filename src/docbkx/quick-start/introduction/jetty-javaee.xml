@@ -1,0 +1,436 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+//  ========================================================================
+//  Copyright (c) 1995-2013 Mort Bay Consulting Pty. Ltd.
+//  ========================================================================
+//  All rights reserved. This program and the accompanying materials
+//  are made available under the terms of the Eclipse Public License v1.0
+//  and Apache License v2.0 which accompanies this distribution.
+//
+//      The Eclipse Public License is available at
+//      http://www.eclipse.org/legal/epl-v10.html
+//
+//      The Apache License v2.0 is available at
+//      http://www.opensource.org/licenses/apache2.0.php
+//
+//  You may elect to redistribute this code under either of these licenses.
+//  ========================================================================
+-->
+<section version="5.0"
+         status="draft"
+         xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd"
+         xml:id="jetty-javaee" xmlns="http://docbook.org/ns/docbook"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:xs="http://www.w3.org/2001/XMLSchema"
+         xmlns:xl="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:ns="http://docbook.org/ns/docbook">
+  <title>Jetty and JavaEE Web Profile</title>
+
+  <para>Jetty implements aspects of the JavaEE specification, primarily the
+  Servlet Specification. In recent releases of the JavaEE platform, a Web
+  Profile has been introduced recognizing that many developers need only a
+  subset of the many technologies under the JavaEE umbrella.</para>
+
+  <para>Whilst Jetty itself does not ship all of the Web Profile technologies,
+  the architecture of Jetty is such that you can plug in 3rd party
+  implementations to produce a container customized to your exact
+  needs.</para>
+
+  <para>Jetty-9.0.x is targetted at Servlet Specification 3.0, with some
+  support for 3.1 features which are fully delivered in Jetty-9.1.x.</para>
+
+  <para>Here is the matrix of JSRs for JavaEE-6 Web Profile, and how they
+  relate to Jetty:</para>
+
+  <table border="1">
+    <caption>JavaEE6 Web Profile</caption>
+
+    <tr>
+      <th>JSR</th>
+
+      <th>Name</th>
+
+      <th>Included with jetty-9.0.x</th>
+
+      <th>Pluggable</th>
+    </tr>
+
+    <tr>
+      <td><link xl:href="http://jcp.org/en/jsr/detail?id=315">JSR
+      315</link></td>
+
+      <td>Servlet Specification API 3.0</td>
+
+      <td>Yes</td>
+
+      <td/>
+    </tr>
+
+    <tr>
+      <td><link xl:href="http://jcp.org/en/jsr/detail?id=314">JSR
+      314</link></td>
+
+      <td>Java Server Faces 2.0 (JSF)</td>
+
+      <td>No</td>
+
+      <td>Yes, eg <link
+      xl:href="https://javaserverfaces.java.net/">Mojarra</link> or <link
+      xl:href="http://myfaces.apache.org/">MyFaces</link></td>
+    </tr>
+
+    <tr>
+      <td><link xl:href="http://jcp.org/en/jsr/detail?id=245">JSR
+      245</link></td>
+
+      <td>Java Server Pages 2.2/Java Expression Language 2.2 (JSP/EL)</td>
+
+      <td>Yes</td>
+
+      <td>Yes</td>
+    </tr>
+
+    <tr>
+      <td><link xl:href="http://jcp.org/en/jsr/detail?id=52">JSR
+      52</link></td>
+
+      <td>Java Standard Tag Library 1.2 (JSTL)</td>
+
+      <td>Yes</td>
+
+      <td>Yes</td>
+    </tr>
+
+    <tr>
+      <td><link xl:href="http://jcp.org/en/jsr/detail?id=45">JSR
+      45</link></td>
+
+      <td>Debugging Support for Other Languages 1.0</td>
+
+      <td>Yes (via JSP)</td>
+
+      <td>Yes (via JSP)</td>
+    </tr>
+
+    <tr>
+      <td><link xl:href="http://jcp.org/en/jsr/detail?id=299">JSR
+      299</link></td>
+
+      <td>Contexts and Dependency Injection for the JavaEE Platform 1.0 (Web
+      Beans)</td>
+
+      <td>No</td>
+
+      <td>Yes, eg <link
+      xl:href="http://seamframework.org/Weld">Weld</link></td>
+    </tr>
+
+    <tr>
+      <td><link xl:href="http://jcp.org/en/jsr/detail?id=330">JSR
+      330</link></td>
+
+      <td>Dependency Injection for Java 1.0</td>
+
+      <td>No</td>
+
+      <td>Yes as part of a CDI implementation, eg <link
+      xl:href="http://seamframework.org/Weld">Weld</link></td>
+    </tr>
+
+    <tr>
+      <td><link xl:href="???">JSR 316</link></td>
+
+      <td>Managed Beans 1.0</td>
+
+      <td>No</td>
+
+      <td>Yes, as part of another technology.</td>
+    </tr>
+
+    <tr>
+      <td><link xl:href="http://jcp.org/en/jsr/detail?id=318">JSR
+      318</link></td>
+
+      <td>Enterprise JavaBeans 3.1</td>
+
+      <td>No</td>
+
+      <td>Yes, eg OpenEJB</td>
+    </tr>
+
+    <tr>
+      <td><link xl:href="http://jcp.org/en/jsr/detail?id=317">JSR
+      317</link></td>
+
+      <td>Java Persistance 2.0 (JPA)</td>
+
+      <td>No</td>
+
+      <td>Yes, eg <link xl:href="http://www.hibernate.org/">Hibernate</link>
+      </td>
+    </tr>
+
+    <tr>
+      <td><link xl:href="http://jcp.org/en/jsr/detail?id=250">JSR
+      250</link></td>
+
+      <td>Common Annotations for the Java Platform</td>
+
+      <td>Yes</td>
+
+      <td>Partially (for non-core Servlet Spec annotations)</td>
+    </tr>
+
+    <tr>
+      <td><link xl:href="http://jcp.org/en/jsr/detail?id=907">JSR
+      907</link></td>
+
+      <td>Java Transaction API (JTA)</td>
+
+      <td>Yes</td>
+
+      <td>Implementations are pluggable, such as <link
+      xl:href="http://www.atomikos.com/">Atomikos</link>, <link
+      xl:href="http://jotm.ow2.org/xwiki/bin/view/Main/WebHome">JOTM</link>,
+      <link
+      xl:href="http://jencks.codehaus.org/Transaction+Manager">Jencks(Geronimo
+      Transaction Manager)</link> etc</td>
+    </tr>
+
+    <tr>
+      <td><link xl:href="http://jcp.org/en/jsr/detail?id=303">JSR
+      303</link></td>
+
+      <td>Bean Validation 1.0</td>
+
+      <td>No</td>
+
+      <td>Yes as part of another technology eg JSF, or a stand-alone
+      implementation such as <link
+      xl:href="http://www.hibernate.org/subprojects/validator/docs.html">Hiberate
+      Validator</link></td>
+    </tr>
+  </table>
+
+  <para>In the forthcoming JavaEE-7 specification, the Web Profile has been
+  updated to reflect updates in its component specifications and some new ones
+  added:</para>
+
+  <important>
+    <para>the final ballot for approval of JavaEE-7 will finish 2013-04-29,
+    thus the following table is provisional.</para>
+  </important>
+
+  <table border="1">
+    <caption>JavaEE7 Web Profile</caption>
+
+    <tr>
+      <th>JSR</th>
+
+      <th>Name</th>
+
+      <th>Included with jetty-9.1.x</th>
+
+      <th>Pluggable</th>
+    </tr>
+
+    <tr>
+      <td><link xl:href="http://jcp.org/en/jsr/detail?id=340">JSR
+      340</link></td>
+
+      <td>Servlet Specification API 3.1</td>
+
+      <td>Yes</td>
+
+      <td/>
+    </tr>
+
+    <tr>
+      <td><link xl:href="http://jcp.org/en/jsr/detail?id=344">JSR
+      344</link></td>
+
+      <td>Java Server Faces 2.2 (JSF)</td>
+
+      <td>No</td>
+
+      <td>Yes, eg <link
+      xl:href="https://javaserverfaces.java.net/">Mojarra</link> or <link
+      xl:href="http://myfaces.apache.org/">MyFaces</link></td>
+    </tr>
+
+    <tr>
+      <td><link xl:href="http://jcp.org/en/jsr/detail?id=245">JSR 245</link> /
+      <link xl:href="http://jcp.org/en/jsr/detail?id=341">JSR 341</link></td>
+
+      <td>Java Server Pages 2.3/Java Expression Language 3.0 (JSP/EL)</td>
+
+      <td>Yes</td>
+
+      <td>Yes</td>
+    </tr>
+
+    <tr>
+      <td><link xl:href="http://jcp.org/en/jsr/detail?id=52">JSR
+      52</link></td>
+
+      <td>Java Standard Tag Library 1.2 (JSTL)</td>
+
+      <td>Yes</td>
+
+      <td>Yes</td>
+    </tr>
+
+    <tr>
+      <td><link xl:href="http://jcp.org/en/jsr/detail?id=45">JSR
+      45</link></td>
+
+      <td>Debugging Support for Other Languages 1.0</td>
+
+      <td>Yes (via JSP)</td>
+
+      <td>Yes (via JSP)</td>
+    </tr>
+
+    <tr>
+      <td><link xl:href="http://jcp.org/en/jsr/detail?id=346">JSR
+      346</link></td>
+
+      <td>Contexts and Dependency Injection for the JavaEE Platform 1.1 (Web
+      Beans)</td>
+
+      <td>No</td>
+
+      <td>Yes, eg <link
+      xl:href="http://seamframework.org/Weld">Weld</link></td>
+    </tr>
+
+    <tr>
+      <td><link xl:href="http://jcp.org/en/jsr/detail?id=330">JSR
+      330</link></td>
+
+      <td>Dependency Injection for Java 1.0</td>
+
+      <td>No</td>
+
+      <td>Yes as part of a CDI implementation, eg <link
+      xl:href="http://seamframework.org/Weld">Weld</link></td>
+    </tr>
+
+    <tr>
+      <td><link xl:href="???">JSR 316</link></td>
+
+      <td>Managed Beans 1.0</td>
+
+      <td>No</td>
+
+      <td>Yes, as part of another technology</td>
+    </tr>
+
+    <tr>
+      <td><link xl:href="http://jcp.org/en/jsr/detail?id=345">JSR
+      345</link></td>
+
+      <td>Enterprise JavaBeans 3.2 Lite</td>
+
+      <td>No</td>
+
+      <td/>
+    </tr>
+
+    <tr>
+      <td><link xl:href="http://jcp.org/en/jsr/detail?id=338">JSR
+      338</link></td>
+
+      <td>Java Persistance 2.1 (JPA)</td>
+
+      <td>No</td>
+
+      <td>Yes, eg <link
+      xl:href="http://www.hibernate.org/">Hibernate</link></td>
+    </tr>
+
+    <tr>
+      <td><link xl:href="http://jcp.org/en/jsr/detail?id=250">JSR
+      250</link></td>
+
+      <td>Common Annotations for the Java Platform 1.2</td>
+
+      <td>Yes</td>
+
+      <td>Partially (for non-core Servlet Spec annotations)</td>
+    </tr>
+
+    <tr>
+      <td><link xl:href="http://jcp.org/en/jsr/detail?id=907">JSR
+      907</link></td>
+
+      <td>Java Transaction API 1.2 (JTA) </td>
+
+      <td>Yes</td>
+
+      <td>Yes</td>
+    </tr>
+
+    <tr>
+      <td><link xl:href="http://jcp.org/en/jsr/detail?id=349">JSR
+      349</link></td>
+
+      <td>Bean Validation 1.1</td>
+
+      <td>No</td>
+
+      <td>Yes as part of another technology eg JSF, or a stand-alone
+      implementation such as <link
+      xl:href="http://www.hibernate.org/subprojects/validator/docs.html">Hiberate
+      Validator</link></td>
+    </tr>
+
+    <tr>
+      <td><link xl:href="http://jcp.org/en/jsr/detail?id=339">JSR
+      339</link></td>
+
+      <td>Java API for RESTful Web Services 2.0 (JAX-RS)</td>
+
+      <td>No</td>
+
+      <td/>
+    </tr>
+
+    <tr>
+      <td><link xl:href="http://jcp.org/en/jsr/detail?id=356">JSR
+      356</link></td>
+
+      <td>Java API for Websocket 1.0</td>
+
+      <td>Yes</td>
+
+      <td>No</td>
+    </tr>
+
+    <tr>
+      <td><link xl:href="http://jcp.org/en/jsr/detail?id=353">JSR
+      353</link></td>
+
+      <td>Java API for JSON Processing 1.0 (JSON-P)</td>
+
+      <td>No</td>
+
+      <td>Yes, eg JSON-P <link
+      xl:href="https://java.net/projects/jsonp/">reference
+      implementation</link></td>
+    </tr>
+
+    <tr>
+      <td><link xl:href="jcp.org/en/jsr/detail?id=318">JSR 318</link></td>
+
+      <td>Interceptors 1.2</td>
+
+      <td>No</td>
+
+      <td>Yes as part of a CDI implementation</td>
+    </tr>
+  </table>
+
+  <para/>
+</section>

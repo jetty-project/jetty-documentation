@@ -22,12 +22,33 @@
          xmlns:xl="http://www.w3.org/1999/xlink"
         >
   <title>Gzip Filter</title>
-  <para>
-		The Jetty GzipFilter is a compression filter that you can apply to almost any dynamic resource (servlet). It fixes many of the bugs in commonly available compression filters–for example, it handles all ways to set content length. We have tested it with Jetty continuations and suspending requests. Some user-agents might be excluded from compression to avoid common browser bugs (yes, this means IE!). See GzipFilter javadoc.
-	</para>
-	<para>
-		The <code>GzipFilter</code> is located in the jetty-servlets artifact.
-	</para>
+  <section xml:id="gzip-filter-metadata">
+  	<title>Info</title>
+  	<itemizedlist>
+  		<listitem>
+  			<para>Classname: <code>org.eclipse.jetty.servlets.GzipFilter</code></para>
+  		</listitem>
+  		<listitem>
+  			<para>Maven Artifact: org.eclipse.jetty:jetty-servlets</para>
+  		</listitem>
+  		<listitem>
+  			<para>
+  				Javadoc: <link linkend="@JDURL@/org/eclipse/jetty/servlets/GzipFilter.html">@JDURL@/org/eclipse/jetty/servlets/GzipFilter.html</link>
+  			</para>
+  		</listitem>
+  		<listitem>
+  			<para>
+  				Xref: <link linkend="@JXURL@/org/eclipse/jetty/servlets/GzipFilter.html">@JXURL@/org/eclipse/jetty/servlets/GzipFilter.html</link>
+  			</para>
+  		</listitem>
+	  </itemizedlist>
+	</section>
+	<section xml:id="gzip-filter-usage">
+		<title>Usage</title>
+    <para>
+		  The Jetty GzipFilter is a compression filter that you can apply to almost any dynamic resource (servlet). It fixes many of the bugs in commonly available compression filters–for example, it handles all ways to set content length. We have tested it with Jetty continuations and suspending requests. Some user-agents might be excluded from compression to avoid common browser bugs (yes, this means IE!). See GzipFilter javadoc.
+	  </para>
+  </section>
 	<section xml:id="gzip-filter-rules">
 		<title>Gzip Rules</title>
 		<para>

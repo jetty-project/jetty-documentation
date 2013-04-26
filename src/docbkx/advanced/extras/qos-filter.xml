@@ -22,9 +22,33 @@
          xmlns:xl="http://www.w3.org/1999/xlink"
         >
   <title>Quality of Service Filter</title>
-  <para>
-    Jetty supports Continuations, which allow non-blocking handling of HTTP requests, so that threads can be allocated in a managed way to provide application specific Quality of Service (QoS). The QoSFilter is a utility servlet filter that implements some QoS features.
-  </para>
+  <section xml:id="qos-filter-metadata">
+    <title>Info</title>
+    <itemizedlist>
+      <listitem>
+        <para>Classname: <code>org.eclipse.jetty.servlets.QoSFilter</code></para>
+      </listitem>
+      <listitem>
+        <para>Maven Artifact: org.eclipse.jetty:jetty-servlets</para>
+      </listitem>
+      <listitem>
+        <para>
+          Javadoc: <link linkend="@JDURL@/org/eclipse/jetty/servlets/QoSFilter.html">@JDURL@/org/eclipse/jetty/servlets/QoSFilter.html</link>
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          Xref: <link linkend="@JXURL@/org/eclipse/jetty/servlets/QoSFilter.html">@JXURL@/org/eclipse/jetty/servlets/QoSFilter.html</link>
+        </para>
+      </listitem>
+    </itemizedlist>
+  </section>
+  <section xml:id="qos-filter-usage">
+    <title>Usage</title>
+    <para>
+      Jetty supports Continuations, which allow non-blocking handling of HTTP requests, so that threads can be allocated in a managed way to provide application specific Quality of Service (QoS). The QoSFilter is a utility servlet filter that implements some QoS features.
+    </para>
+  </section>
   <section xml:id="qos-understanding">
     <title>Understanding the Problem</title>
     <section>
@@ -93,7 +117,7 @@
         </programlisting>
       </informalexample>
     </section>
-    <section>
+    <section xml:id="qos-filter-init">
       <title>Configuring QoS Filter Parameters</title>
       <para>
         A semaphore polices the "maxRequests" limit. The filter waits a short time while attempting to acquire the semaphore. The "waitMs" init parameter controls the wait, avoiding the expense of a suspend if the semaphore is shortly available. If the semaphore cannot be obtained, Jetty suspends the request for the default suspend period of the container or the value set as the "suspendMs" init parameter.

@@ -22,6 +22,29 @@
          xmlns:xl="http://www.w3.org/1999/xlink"
         >
   <title>Cross Origin Filter</title>
+  <section xml:id="cross-origin-filter-metadata">
+    <title>Info</title>
+    <itemizedlist>
+      <listitem>
+        <para>Classname: <code>org.eclipse.jetty.servlets.CrossOriginFilter</code></para>
+      </listitem>
+      <listitem>
+        <para>Maven Artifact: org.eclipse.jetty:jetty-servlets</para>
+      </listitem>
+      <listitem>
+        <para>
+          Javadoc: <link linkend="@JDURL@/org/eclipse/jetty/servlets/CrossOriginFilter.html">@JDURL@/org/eclipse/jetty/servlets/CrossOriginFilter.html</link>
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          Xref: <link linkend="@JXURL@/org/eclipse/jetty/servlets/CrossOriginFilter.html">@JXURL@/org/eclipse/jetty/servlets/CrossOriginFilter.html</link>
+        </para>
+      </listitem>
+    </itemizedlist>
+  </section>
+  <section xml:id="cross-origin-filter-usage">
+    <title>Usage</title>
   <para>
 		HTTP requests made from a script are subject to well known restrictions, the most prominent being the same domain policy.
 	</para>
@@ -34,6 +57,7 @@
 	<para>
 		This is extremely useful in Cometd web applications where it is now possible to perform cross-domain long polling without using script injection (also known as the JSONP transport), and therefore removing all the downsides that the JSONP transport has (it's chattier, does not react quickly to failures, has a message size limit, uses GET instead of POST, etc.).
 	</para>
+</section>
 	<section xml:id="cross-origin-setup">
 		<title>Setup</title>
 		<para>

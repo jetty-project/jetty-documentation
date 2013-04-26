@@ -22,9 +22,36 @@
          xmlns:xl="http://www.w3.org/1999/xlink"
         >
   <title>Default Servlet</title>
+
+  <section xml:id="default-servlet-metadata">
+  	<title>Info</title>
+  	<itemizedlist>
+  		<listitem>
+  			<para>Classname: <code>org.eclipse.jetty.servlet.DefaultServlet</code></para>
+  		</listitem>
+  		<listitem>
+  			<para>Maven Artifact: org.eclipse.jetty:jetty-servlet</para>
+  		</listitem>
+  		<listitem>
+  			<para>
+  				Javadoc: <link linkend="@JDURL@/org/eclipse/jetty/servlet/DefaultServlet.html">@JDURL@/org/eclipse/jetty/servlet/DefaultServlet.html</link>
+  			</para>
+  		</listitem>
+  		<listitem>
+  			<para>
+  				Xref: <link linkend="@JXURL@/org/eclipse/jetty/servlet/DefaultServlet.html">@JXURL@/org/eclipse/jetty/servlet/DefaultServlet.html</link>
+  			</para>
+  		</listitem>
+	  </itemizedlist>
+	</section>
+	<section xml:id="default-servlet-usage">
+		<title>Usage</title>
   <para>
   	The DefaultServlet implements the ResourceFactory interface and extends the HttpServlet abstract class. It is usually mapped to / and provides handling for static content, OPTION and TRACE methods for the context. The MOVE method is allowed if PUT and DELETE are allowed. See DefaultServlet javadoc.
   </para>
+  </section>
+  <section xml:id="default-servlet-init">
+  	<title>Init Parameters</title>
   <para>
   	Jetty supports the following initParameters:
   </para>
@@ -110,4 +137,5 @@
 	  	</listitem>
 	  </varlistentry>
 	</variablelist>
+  </section>
 </section>

@@ -21,13 +21,39 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xmlns:xl="http://www.w3.org/1999/xlink"
         >
-  <title>Asynchronous Proxy Servlet</title>
+  <title>Proxy Servlet</title>
+  <section xml:id="proxy-servlet-metadata">
+  	<title>Info</title>
+  	<itemizedlist>
+  		<listitem>
+  			<para>Classname: <code>org.eclipse.jetty.proxy.ProxyServlet</code></para>
+  		</listitem>
+  		<listitem>
+  			<para>Maven Artifact: org.eclipse.jetty:jetty-proxy</para>
+  		</listitem>
+  		<listitem>
+  			<para>
+  				Javadoc: <link linkend="@JDURL@/org/eclipse/jetty/proxy/ProxyServlet.html">@JDURL@/org/eclipse/jetty/proxy/ProxyServlet.html</link>
+  			</para>
+  		</listitem>
+  		<listitem>
+  			<para>
+  				Xref: <link linkend="@JXURL@/org/eclipse/jetty/proxy/ProxyServlet.html">@JXURL@/org/eclipse/jetty/proxy/ProxyServlet.html</link>
+  			</para>
+  		</listitem>
+	  </itemizedlist>
+	</section>
+	<section xml:id="proxy-servlet-usage">
+		<title>Usage</title>
   <para>
-		Forwards requests to another server either as a standard web reverse proxy (as defined by RFC2616) or as a transparent reverse proxy.
+		An asynchronous servlet that forwards requests to another server either as a standard web reverse proxy (as defined by RFC2616) or as a transparent reverse proxy.  Internally it uses the async jetty-client.
 	</para>
 	<para>
 		To facilitate JMX monitoring, the HttpClient instance is set as context attribute, prefixed with the servlet's name and exposed by the mechanism provided by ContextHandler.MANAGED_ATTRIBUTES.
 	</para>
+  </section>
+  <section xml:id="proxy-servlet-init">
+  	<title>Init Parameters</title>
 	<para>
 		The following init parameters may be used to configure the servlet:
 	</para>
@@ -122,4 +148,5 @@
 			</listitem>
 		</varlistentry>
 	</variablelist>
+	</section>
 </section>

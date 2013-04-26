@@ -22,6 +22,29 @@
          xmlns:xl="http://www.w3.org/1999/xlink"
         >
   <title>CGI Servlet</title>
+  <section xml:id="cgi-servlet-metadata">
+    <title>Info</title>
+    <itemizedlist>
+      <listitem>
+        <para>Classname: <code>org.eclipse.jetty.servlets.QoSFilter</code></para>
+      </listitem>
+      <listitem>
+        <para>Maven Artifact: org.eclipse.jetty:jetty-servlets</para>
+      </listitem>
+      <listitem>
+        <para>
+          Javadoc: <link linkend="@JDURL@/org/eclipse/jetty/servlets/CGI.html">@JDURL@/org/eclipse/jetty/servlets/CGI.html</link>
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          Xref: <link linkend="@JXURL@/org/eclipse/jetty/servlets/CGI.html">@JXURL@/org/eclipse/jetty/servlets/CGI.html</link>
+        </para>
+      </listitem>
+    </itemizedlist>
+  </section>
+  <section xml:id="cgi-servlet-usage">
+    <title>Usage</title>
   <para>
   	The CGI servlet class extends the abstract HttpServlet class. When the init parameter is called, the cgi bin directory is set with the cgibinResourceBase. Otherwise, it defaults to the resource base of the context. See CGI javadoc.
   </para>
@@ -54,4 +77,5 @@
 			</listitem>
 		</varlistentry>
 	</variablelist>
+</section>
 </section>

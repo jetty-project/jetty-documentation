@@ -22,6 +22,29 @@
          xmlns:xl="http://www.w3.org/1999/xlink"
         >
   <title>Moved Context Handler</title>
+    <section xml:id="moved-context-handler-metadata">
+    <title>Info</title>
+    <itemizedlist>
+      <listitem>
+        <para>Classname: <code>org.eclipse.jetty.server.handler.MovedContextHandler</code></para>
+      </listitem>
+      <listitem>
+        <para>Maven Artifact: org.eclipse.jetty:jetty-server</para>
+      </listitem>
+      <listitem>
+        <para>
+          Javadoc: <link linkend="@JDURL@/org/eclipse/jetty/server/handler/MovedContextHandler.html">@JDURL@/org/eclipse/jetty/server/handler/MovedContextHandler.html</link>
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          Xref: <link linkend="@JXURL@/org/eclipse/jetty/server/handler/MovedContextHandler.html">@JXURL@/org/eclipse/jetty/server/handler/MovedContextHandler.html</link>
+        </para>
+      </listitem>
+    </itemizedlist>
+  </section>
+  <section xml:id="moved-context-handler-usage">
+    <title>Usage</title>
   <para>
 	You can use the MovedContextHandler to relocate or redirect a context that has changed context path and/or virtual hosts.
   </para>
@@ -77,4 +100,5 @@
 ]]>
 	  </programlisting>
     </informalexample>
+  </section>
 </section>

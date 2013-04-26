@@ -22,6 +22,29 @@
          xmlns:xl="http://www.w3.org/1999/xlink"
         >
   <title>Balancer Servlet</title>
+  <section xml:id="balancer-servlet-metadata">
+  	<title>Info</title>
+  	<itemizedlist>
+  		<listitem>
+  			<para>Classname: <code>org.eclipse.jetty.proxy.BalancerServlet</code></para>
+  		</listitem>
+  		<listitem>
+  			<para>Maven Artifact: org.eclipse.jetty:jetty-proxy</para>
+  		</listitem>
+  		<listitem>
+  			<para>
+  				Javadoc: <link linkend="@JDURL@/org/eclipse/jetty/proxy/BalancerServlet.html">@JDURL@/org/eclipse/jetty/proxy/BalancerServlet.html</link>
+  			</para>
+  		</listitem>
+  		<listitem>
+  			<para>
+  				Xref: <link linkend="@JXURL@/org/eclipse/jetty/proxy/BalancerServlet.html">@JXURL@/org/eclipse/jetty/proxy/BalancerServlet.html</link>
+  			</para>
+  		</listitem>
+	  </itemizedlist>
+	</section>
+	<section xml:id="balancer-servlet-usage">
+		<title>Usage</title>
   <para>
   	The Balancer servlet allows for simple, sticky round robin load balancing leveraging the ProxyServlet that is distributed with Jetty.
 	</para>
@@ -46,4 +69,5 @@
 			</listitem>
 		</varlistentry>
   </variablelist>
+</section>
 </section>

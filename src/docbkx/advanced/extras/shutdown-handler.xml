@@ -22,6 +22,29 @@
          xmlns:xl="http://www.w3.org/1999/xlink"
         >
   <title>Shutdown Handler</title>
+  <section xml:id="shutdown-handler-metadata">
+    <title>Info</title>
+    <itemizedlist>
+      <listitem>
+        <para>Classname: <code>org.eclipse.jetty.server.handler.ShutdownHandler</code></para>
+      </listitem>
+      <listitem>
+        <para>Maven Artifact: org.eclipse.jetty:jetty-server</para>
+      </listitem>
+      <listitem>
+        <para>
+          Javadoc: <link linkend="@JDURL@/org/eclipse/jetty/server/handler/ShutdownHandler.html">@JDURL@/org/eclipse/jetty/server/handler/ShutdownHandler.html</link>
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          Xref: <link linkend="@JXURL@/org/eclipse/jetty/server/handler/ShutdownHandler.html">@JXURL@/org/eclipse/jetty/server/handler/ShutdownHandler.html</link>
+        </para>
+      </listitem>
+    </itemizedlist>
+  </section>
+  <section xml:id="shutdown-handler-usage">
+    <title>Usage</title>
   <para>
   	A handler that shuts the server down on a valid request. Used to do "soft" restarts from Java. If _exitJvm is set to true a hard System.exit() call is being made.
   </para>
@@ -65,4 +88,5 @@
 ]]>
     </programlisting>
   </informalexample>
+</section>
 </section>

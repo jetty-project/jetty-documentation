@@ -97,8 +97,7 @@
       <para>The simplest way to access the MBeans that Jetty publishes is to
       use the <link
       xl:href="http://java.sun.com/developer/technicalArticles/J2SE/jconsole.html">JConsole
-      utility</link> the Java Virtual Machine supplies. See [[Jetty/Howto/Run
-      Jetty_with_JConsole|Run Jetty with JConsole]] for instructions on how to
+      utility</link> the Java Virtual Machine supplies. See <xref linkend="jetty-jconsole"/> for instructions on how to
       configure JVM for use with JConsole.</para>
 
       <para>To access Jetty MBeans via JConsole, you must:</para>

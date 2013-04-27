@@ -135,7 +135,10 @@ public class HelloWorld extends AbstractHandler
   <name>Jetty HelloWorld</name>
 
   <properties>
-      <jettyVersion>9.0.2.v20130417</jettyVersion> /// Adapt this to a version found on http://repo.maven.apache.org/maven2/org/eclipse/jetty/jetty-maven-plugin/
+      <!-- Adapt this to a version found on
+           http://central.maven.org/maven2/org/eclipse/jetty/jetty-maven-plugin/
+        -->
+      <jettyVersion>9.0.2.v20130417</jettyVersion>
   </properties>
 
   <dependencies>

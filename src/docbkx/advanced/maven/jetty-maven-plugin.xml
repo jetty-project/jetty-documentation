@@ -25,7 +25,7 @@
          xmlns:xi="http://www.w3.org/2001/XInclude"
          xmlns:ns2="http://www.w3.org/1998/Math/MathML"
          xmlns:ns="http://docbook.org/ns/docbook">
-  <title>Jetty Maven Plugin</title>
+  <title>Configuring the Jetty Maven Plugin</title>
 
   <para>The Jetty Maven plugin is useful for rapid development and testing.
   You can add it to any webapp project that is structured according to the
@@ -37,7 +37,7 @@
   away.</para>
 
   <important>
-    <para> You need to use Maven 3 for jetty-7.5.3 and later releases. </para>
+    <para>You need to use Maven 3 for jetty-7.5.3 and later releases.</para>
   </important>
 
   <section xml:id="get-up-and-running">
@@ -106,24 +106,74 @@
 
     <variablelist>
       <varlistentry>
-        <term><code>&lt;connectors&gt;</code></term>
+        <term>httpConnector</term>
 
         <listitem>
-          <para>Optional. A list of
-          <code>org.eclipse.jetty.server.Connector</code> objects, which are
-          the port listeners for Jetty. If you don't specify any, Jetty
-          configures an <code> org.eclipse.jetty.server.ServerConnector</code>
-          on port 8080. You can change this default port number by using the
-          system property <code>jetty.port</code> on the command line, for
-          example, <code>mvn -Djetty.port=9999 jetty:run</code>. You could
-          instead configure the connectors in a standard <link
-          linkend="jetty-xml-config">jetty xml config file</link> and put its
-          location into the <code> jettyXml</code> parameter.</para>
+          <para>Optional. If not specified, Jetty will create a <link
+          xl:href="@JDURL@/org/eclipse/jetty/server/ServerConnector.html">ServerConnector</link>
+          instance listening on port 8080. You can change this default port
+          number by using the system property <code>jetty.port</code> on the
+          command line, for example, <code>mvn -Djetty.port=9999
+          jetty:run</code>. Alternatively, you can use this configuration
+          element to set up the information for the ServerConnector. The
+          following are the valid configuration sub-elements:</para>
+
+          <variablelist>
+            <varlistentry>
+              <term>port</term>
+
+              <listitem>
+                <para>The port number for the connector to listen on. By
+                default it is 8080.</para>
+              </listitem>
+            </varlistentry>
+
+            <varlistentry>
+              <term>host</term>
+
+              <listitem>
+                <para>The particular interface for the connector to listen on.
+                By default, all interfaces.</para>
+              </listitem>
+            </varlistentry>
+
+            <varlistentry>
+              <term>name</term>
+
+              <listitem>
+                <para>The name of the connector, which is useful for <link
+                linkend="serving-webapp-from-particular-port">configuring
+                contexts to respond only on particular
+                connectors</link>.</para>
+              </listitem>
+            </varlistentry>
+
+            <varlistentry>
+              <term>maxIdleTime</term>
+
+              <listitem>
+                <para>Maximum idle time for a connection.</para>
+              </listitem>
+            </varlistentry>
+
+            <varlistentry>
+              <term>soLinger</term>
+
+              <listitem>
+                <para>The socket linger time.</para>
+              </listitem>
+            </varlistentry>
+          </variablelist>
+
+          <para> You could instead configure the connectors in a standard
+          <link linkend="jetty-xml-config">jetty xml config file</link> and
+          put its location into the <code> <link
+          linkend="jettyXml">jettyXml</link></code> parameter.</para>
         </listitem>
       </varlistentry>
 
-      <varlistentry>
-        <term><code>&lt;jettyXml&gt;</code></term>
+      <varlistentry xml:id="jettyXml">
+        <term>jettyXml</term>
 
         <listitem>
           <para>Optional. The location of a <filename> <link
@@ -136,7 +186,7 @@
       </varlistentry>
 
       <varlistentry>
-        <term><code>&lt;scanIntervalSeconds&gt;</code></term>
+        <term>scanIntervalSeconds</term>
 
         <listitem>
           <para>The pause in seconds between sweeps of the webapp to check for
@@ -147,7 +197,7 @@
       </varlistentry>
 
       <varlistentry>
-        <term>&lt;reload&gt;</term>
+        <term>reload</term>
 
         <listitem>
           <para>Default value is "automatic", used in conjunction with a
@@ -162,11 +212,11 @@
       </varlistentry>
 
       <varlistentry>
-        <term>&lt;loginServices&gt;</term>
+        <term>loginServices</term>
 
         <listitem>
-          <para>Optional. A list of
-          <code>org.eclipse.jetty.security.LoginService</code>
+          <para>Optional. A list of <code><link
+          xl:href="@JDURL@/org/eclipse/jetty/security/LoginService.html">org.eclipse.jetty.security.LoginService</link></code>
           implementations. Note that there is no default realm. If you use a
           realm in your <filename>web.xml</filename> you can specify a
           corresponding realm here. You could instead configure the login
@@ -176,27 +226,27 @@
       </varlistentry>
 
       <varlistentry>
-        <term><code>&lt;requestLog&gt;</code></term>
+        <term>requestLog</term>
 
         <listitem>
-          <para>Optional. An implementation of the
-          <code>org.eclipse.jetty.server.RequestLog</code> request log
-          interface. An implementation that respects the NCSA format is
-          available as <code> org.eclipse.jetty.server.NCSARequestLog</code>.
-          There are three other ways to configure the RequestLog:
-          <itemizedlist>
+          <para>Optional. An implementation of the <code><link
+          xl:href="@JDURL@/org/eclipse/jetty/server/RequestLog.html">org.eclipse.jetty.server.RequestLog</link></code>
+          request log interface. An implementation that respects the NCSA
+          format is available as <code>
+          org.eclipse.jetty.server.NCSARequestLog</code>. There are three
+          other ways to configure the RequestLog: <itemizedlist>
               <listitem>
-                <para> In a jetty xml config file, as specified in the
-                <code>jettyXml</code> parameter. </para>
+                <para>In a jetty xml config file, as specified in the
+                <code>jettyXml</code> parameter.</para>
               </listitem>
 
               <listitem>
-                <para> In a context xml config file, as specified in the
-                <code>contextXml</code> parameter. </para>
+                <para>In a context xml config file, as specified in the
+                <code>contextXml</code> parameter.</para>
               </listitem>
 
               <listitem>
-                <para> In the <code>webApp</code> element. </para>
+                <para>In the <code>webApp</code> element.</para>
               </listitem>
             </itemizedlist><parameter>See <link
           linkend="configuring-jetty-request-logs">Configuring Request
@@ -205,16 +255,18 @@
       </varlistentry>
 
       <varlistentry>
-        <term>&lt;stopPort&gt;</term>
+        <term>stopPort</term>
 
         <listitem>
           <para>Optional. Port to listen on for stop commands. Useful to use
-          in conjunction with the stop or run-forked goals.</para>
+          in conjunction with the <link linkend="jetty-stop-goal">stop</link>
+          or <link linkend="jetty-run-forked-goal">run-forked</link>
+          goals.</para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
-        <term>&lt;stopKey&gt;</term>
+        <term>stopKey</term>
 
         <listitem>
           <para>Optional. Used in conjunction with stopPort for stopping
@@ -224,7 +276,7 @@
       </varlistentry>
 
       <varlistentry>
-        <term><code>&lt;systemProperties&gt;</code></term>
+        <term>systemProperties</term>
 
         <listitem>
           <para>Optional.Allows you to configure System properties for the
@@ -234,7 +286,7 @@
       </varlistentry>
 
       <varlistentry>
-        <term>&lt;systemPropertiesFile&gt;</term>
+        <term>systemPropertiesFile</term>
 
         <listitem>
           <para>Optional. A file containing System properties to set for the
@@ -248,7 +300,7 @@
       </varlistentry>
 
       <varlistentry>
-        <term>&lt;skip&gt;</term>
+        <term>skip</term>
 
         <listitem>
           <para>Default is false. If true, the execution of the plugin exits.
@@ -260,7 +312,7 @@
       </varlistentry>
 
       <varlistentry>
-        <term>&lt;useProvidedScope&gt;</term>
+        <term>useProvidedScope</term>
 
         <listitem>
           <para>Default value is <code>false</code>. If true, the dependencies
@@ -275,7 +327,7 @@
       </varlistentry>
 
       <varlistentry>
-        <term>&lt;excludedGoals&gt;</term>
+        <term>excludedGoals</term>
 
         <listitem>
           <para>Optional. A list of jetty plugin goal names that will cause
@@ -295,7 +347,7 @@
 
     <variablelist>
       <varlistentry>
-        <term>&lt;webApp&gt;</term>
+        <term>webApp</term>
 
         <listitem>
           <para>Represents an extension to the class <link
@@ -305,7 +357,7 @@
 
           <variablelist>
             <varlistentry>
-              <term>&lt;contextPath&gt;</term>
+              <term>contextPath</term>
 
               <listitem>
                 <para>The context path for your webapp. By default, this is
@@ -314,7 +366,7 @@
             </varlistentry>
 
             <varlistentry>
-              <term>&lt;descriptor&gt;</term>
+              <term>descriptor</term>
 
               <listitem>
                 <para>The path to the <filename>web.xml</filename> file for
@@ -323,7 +375,7 @@
             </varlistentry>
 
             <varlistentry>
-              <term>&lt;defaultsDescriptor&gt;</term>
+              <term>defaultsDescriptor</term>
 
               <listitem>
                 <para>The path to a <filename>webdefault.xml</filename> file
@@ -335,7 +387,7 @@
             </varlistentry>
 
             <varlistentry>
-              <term>&lt;overrideDescriptor&gt;</term>
+              <term>overrideDescriptor</term>
 
               <listitem>
                 <para>The path to a <filename>web.xml</filename> file that
@@ -346,7 +398,7 @@
             </varlistentry>
 
             <varlistentry>
-              <term>&lt;tempDirectory&gt;</term>
+              <term>tempDirectory</term>
 
               <listitem>
                 <para>The path to a dir that Jetty can use to expand or copy
@@ -357,7 +409,7 @@
             </varlistentry>
 
             <varlistentry>
-              <term>&lt;baseResource&gt;</term>
+              <term>baseResource</term>
 
               <listitem>
                 <para>The path from which Jetty serves static resources.
@@ -366,7 +418,7 @@
             </varlistentry>
 
             <varlistentry>
-              <term>&lt;resourceBases&gt;</term>
+              <term>resourceBases</term>
 
               <listitem>
                 <para>Use instead of <filename>baseResource</filename> if you
@@ -376,7 +428,7 @@
             </varlistentry>
 
             <varlistentry>
-              <term>&lt;baseAppFirst&gt;</term>
+              <term>baseAppFirst</term>
 
               <listitem>
                 <para>Defaults to "true". Controls whether any overlaid wars
@@ -391,7 +443,7 @@
       </varlistentry>
 
       <varlistentry>
-        <term>&lt;contextXml&gt;</term>
+        <term>contextXml</term>
 
         <listitem>
           <para>The path to a context xml file that is applied to your webapp
@@ -412,18 +464,18 @@
 
     <itemizedlist>
       <listitem>
-        <para> resources in <filename>${basedir}/src/main/webapp</filename>
-        </para>
+        <para>resources in
+        <filename>${basedir}/src/main/webapp</filename></para>
       </listitem>
 
       <listitem>
-        <para> classes in
-        <filename>${project.build.outputDirectory}</filename> </para>
+        <para>classes in
+        <filename>${project.build.outputDirectory}</filename></para>
       </listitem>
 
       <listitem>
-        <para> <filename>web.xml</filename> in
-        <filename>${basedir}/src/main/webapp/WEB-INF/</filename> </para>
+        <para><filename>web.xml</filename> in
+        <filename>${basedir}/src/main/webapp/WEB-INF/</filename></para>
       </listitem>
     </itemizedlist>
 
@@ -463,13 +515,13 @@
     <section xml:id="configuring-additional-parameters">
       <title>Configuration</title>
 
-      <para>In addition to the <emphasis role="bold">
-      <code>&lt;webApp&gt;</code> </emphasis> element that is common to most
-      goals, the <code>jetty:run</code> goal supports:</para>
+      <para>In addition to the <emphasis role="bold"> <code>webApp</code>
+      </emphasis> element that is common to most goals, the
+      <code>jetty:run</code> goal supports:</para>
 
       <variablelist>
         <varlistentry>
-          <term>&lt;classesDirectory&gt;</term>
+          <term>classesDirectory</term>
 
           <listitem>
             <para>Location of your compiled classes for the webapp. You should
@@ -480,7 +532,7 @@
         </varlistentry>
 
         <varlistentry>
-          <term>&lt;testClassesDirectory&gt;</term>
+          <term>testClassesDirectory</term>
 
           <listitem>
             <para>Location of the compiled test classes for your webapp. By
@@ -490,7 +542,7 @@
         </varlistentry>
 
         <varlistentry>
-          <term>&lt;useTestScope&gt;</term>
+          <term>useTestScope</term>
 
           <listitem>
             <para>If true, the classes from <code>testClassesDirectory</code>
@@ -500,7 +552,7 @@
         </varlistentry>
 
         <varlistentry>
-          <term>&lt;webAppSourceDirectory&gt;</term>
+          <term>webAppSourceDirectory</term>
 
           <listitem>
             <para>By default, this is set to
@@ -511,7 +563,7 @@
         </varlistentry>
 
         <varlistentry>
-          <term>&lt;jettyEnvXml&gt;</term>
+          <term>jettyEnvXml</term>
 
           <listitem>
             <para>Optional. Location of a <filename>jetty-env.xml</filename>
@@ -525,7 +577,7 @@
         </varlistentry>
 
         <varlistentry>
-          <term>&lt;scanTargets&gt;</term>
+          <term>scanTargets</term>
 
           <listitem>
             <para>Optional. A list of files and directories to periodically
@@ -534,7 +586,7 @@
         </varlistentry>
 
         <varlistentry>
-          <term>&lt;scanTargetPatterns&gt;</term>
+          <term>scanTargetPatterns</term>
 
           <listitem>
             <para>Optional. If you have a long list of extra files you want
@@ -611,7 +663,7 @@
 
       <variablelist>
         <varlistentry>
-          <term>&lt;war&gt;</term>
+          <term>war</term>
 
           <listitem>
             <para>The location of the built WAR file. This defaults to <code>
@@ -660,7 +712,7 @@
 
       <variablelist>
         <varlistentry>
-          <term>&lt;war&gt;</term>
+          <term>war</term>
 
           <listitem>
             <para>The location of the exploded WAR. This defaults to <code>
@@ -708,7 +760,7 @@
 
       <variablelist>
         <varlistentry>
-          <term>&lt;war&gt;</term>
+          <term>war</term>
 
           <listitem>
             <para>The location of the WAR file. This defaults to <code>
@@ -772,8 +824,8 @@
       <title>Configuration</title>
 
       <para>NOTE: unfortunately, unlike most of the other goals, this one does
-      NOT support a <emphasis role="bold"> &lt;webApp&gt;</emphasis> parameter
-      to configure the webapp. Therefore, if your webapp requires a lot of
+      NOT support a <emphasis role="bold"> webApp</emphasis> parameter to
+      configure the webapp. Therefore, if your webapp requires a lot of
       configuration, it will be difficult to switch between eg
       <code>jetty:run</code> and <code> jetty:run-forked</code>
       executions.</para>
@@ -782,7 +834,7 @@
 
       <variablelist>
         <varlistentry>
-          <term>&lt;jettyXml&gt;</term>
+          <term>jettyXml</term>
 
           <listitem>
             <para>The locations of jetty xml configuration files used to
@@ -791,7 +843,7 @@
         </varlistentry>
 
         <varlistentry>
-          <term>&lt;contextXml&gt;</term>
+          <term>contextXml</term>
 
           <listitem>
             <para>Optional. The location of a context xml file to configure
@@ -800,7 +852,7 @@
         </varlistentry>
 
         <varlistentry>
-          <term>&lt;contextPath&gt;</term>
+          <term>contextPath</term>
 
           <listitem>
             <para>Optional. The context path for the webapp in the new JVM.
@@ -810,7 +862,7 @@
         </varlistentry>
 
         <varlistentry>
-          <term>&lt;webAppSourceDirectory&gt;</term>
+          <term>webAppSourceDirectory</term>
 
           <listitem>
             <para>Optional. The location of the static resources for your
@@ -821,7 +873,7 @@
         </varlistentry>
 
         <varlistentry>
-          <term>&lt;resourceDirs&gt;</term>
+          <term>resourceDirs</term>
 
           <listitem>
             <para>Optional. An array of directories containing static content
@@ -832,7 +884,7 @@
         </varlistentry>
 
         <varlistentry>
-          <term>&lt;baseAppFirst&gt;</term>
+          <term>baseAppFirst</term>
 
           <listitem>
             <para>Defaults to "true". Controls whether the
@@ -843,7 +895,7 @@
         </varlistentry>
 
         <varlistentry>
-          <term>&lt;webXml&gt;</term>
+          <term>webXml</term>
 
           <listitem>
             <para>The location of the <filename>web.xml</filename> file.
@@ -854,7 +906,7 @@
         </varlistentry>
 
         <varlistentry>
-          <term>&lt;tmpDirectory&gt;</term>
+          <term>tmpDirectory</term>
 
           <listitem>
             <para>Temporary directory to use for the webapp. Defaults to
@@ -863,7 +915,7 @@
         </varlistentry>
 
         <varlistentry>
-          <term>&lt;classesDirectory&gt;</term>
+          <term>classesDirectory</term>
 
           <listitem>
             <para>The location of the compiled classes for the webapp.
@@ -873,7 +925,7 @@
         </varlistentry>
 
         <varlistentry>
-          <term>&lt;testClassesDirectory&gt;</term>
+          <term>testClassesDirectory</term>
 
           <listitem>
             <para>The location of the compiled test classes for the webapp.
@@ -883,7 +935,7 @@
         </varlistentry>
 
         <varlistentry>
-          <term>&lt;useTestScope&gt;</term>
+          <term>useTestScope</term>
 
           <listitem>
             <para>–Defaults to "false". If true, the test classes and
@@ -893,7 +945,7 @@
         </varlistentry>
 
         <varlistentry>
-          <term>&lt;useProvidedScope&gt;</term>
+          <term>useProvidedScope</term>
 
           <listitem>
             <para>Defaults to "false". If true, the dependencies of scope
@@ -902,7 +954,7 @@
         </varlistentry>
 
         <varlistentry>
-          <term>&lt;stopPort&gt;</term>
+          <term>stopPort</term>
 
           <listitem>
             <para>Mandatory. A port number for jetty to listen on to receive a
@@ -912,7 +964,7 @@
         </varlistentry>
 
         <varlistentry>
-          <term>&lt;stopKey&gt;</term>
+          <term>stopKey</term>
 
           <listitem>
             <para>Mandatory. A string value that has to be sent to the
@@ -921,7 +973,7 @@
         </varlistentry>
 
         <varlistentry>
-          <term>&lt;skip&gt;</term>
+          <term>skip</term>
 
           <listitem>
             <para>Optional. Defaults to false. If true, the execution of this
@@ -930,7 +982,7 @@
         </varlistentry>
 
         <varlistentry>
-          <term>&lt;jvmArgs&gt;</term>
+          <term>jvmArgs</term>
 
           <listitem>
             <para>Optional. A string representing arbitrary arguments to pass
@@ -948,22 +1000,22 @@
 
       <itemizedlist>
         <listitem>
-          <para> Press <code>cntrl-c</code> in the terminal window to stop the
-          plugin, which also stops the forked JVM. </para>
+          <para>Press <code>cntrl-c</code> in the terminal window to stop the
+          plugin, which also stops the forked JVM.</para>
         </listitem>
 
         <listitem>
-          <para> Use jetty:stop to stop the forked JVM, which also stops the
-          plugin. </para>
+          <para>Use jetty:stop to stop the forked JVM, which also stops the
+          plugin.</para>
         </listitem>
       </itemizedlist>
 
       <note>
-        <para> If you want to set a custom port, you need to specify it in a
+        <para>If you want to set a custom port, you need to specify it in a
         <filename>jetty.xml</filename> file rather than setting the connector
         and port tags. You can specify the location of the
         <filename>jetty.xml</filename> using the <code>jettyXml</code>
-        parameter. </para>
+        parameter.</para>
       </note>
     </section>
   </section>
@@ -1040,7 +1092,7 @@
 
     <variablelist>
       <varlistentry>
-        <term>&lt;stopPort&gt;</term>
+        <term>stopPort</term>
 
         <listitem>
           <para>A port number for jetty to listen on to receive a stop command
@@ -1049,7 +1101,7 @@
       </varlistentry>
 
       <varlistentry>
-        <term>&lt;stopKey&gt;</term>
+        <term>stopKey</term>
 
         <listitem>
           <para>A string value sent to the <code>stopPort</code> to validate

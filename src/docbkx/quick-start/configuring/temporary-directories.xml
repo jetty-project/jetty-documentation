@@ -41,7 +41,7 @@
       <orderedlist>
         <listitem>
           <para>
-            If and only if <code>webapp.getTempDirectory()</code> is set, use it. Do NOT delete it on jvm exit.
+            If and only if <link xl:href="@JDURL@/org/eclipse/jetty/webapp/WebAppContext.html#setTempDirectory(java.io.File)"><code>webapp.getTempDirectory()</code></link> is set, use it. Do NOT delete it on jvm exit.
           </para>
         </listitem>
         <listitem>

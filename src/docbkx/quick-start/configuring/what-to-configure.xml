@@ -344,7 +344,7 @@
       Javadoc from the Jetty distribution:</para>
 
       <informalexample>
-        <programlisting language="fetch"><filename>@GITURL@/jetty-distribution/src/main/resources/webapps/javadoc.xml</filename></programlisting>
+        <programlisting language="fetch"><filename>@GITURL@/jetty-distribution/src/main/resources/webapps.demo/javadoc.xml</filename></programlisting>
       </informalexample>
     </section>
   </section>

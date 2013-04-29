@@ -21,5 +21,11 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xl="http://www.w3.or
 xmlns:xi="http://www.w3.org/2001/XInclude"
 xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd">
   <title>Advanced Security Topics</title>
+  <section>
+  	<para>
+  		This chapter contains topics related to support for various security standards with jetty.
+  	</para>
+  </section>
+  <xi:include href="jaas-introduction.xml"/>
   <xi:include href="spnego.xml" />
 </chapter>

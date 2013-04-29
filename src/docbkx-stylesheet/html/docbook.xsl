@@ -44,10 +44,12 @@ xmlns:gcse="http://www.google.com"
     set       toc,title
   </xsl:param>
 
+  
+  <xsl:param name="admon.graphics" select="1"/>
   <!--
-  <xsl:param name="variablelist.as.table" select="1"/>
+  <xsl:param name="admon.graphics.extension">.svg</xsl:param>
   -->
-
+  
   <!--
     Important links:
     - http://www.sagehill.net/docbookxsl/

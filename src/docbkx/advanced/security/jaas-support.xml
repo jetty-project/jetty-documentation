@@ -24,9 +24,8 @@
          xmlns:xs="http://www.w3.org/2001/XMLSchema"
          xmlns:xl="http://www.w3.org/1999/xlink"
          xmlns:xi="http://www.w3.org/2001/XInclude"
-         xmlns:ns="http://docbook.org/ns/docbook"
-         status="draft">
-  <title>Jaas Support</title>
+         xmlns:ns="http://docbook.org/ns/docbook">
+  <title>JAAS Support</title>
   <para>
 		JAAS implements a Java version of the standard Pluggable Authentication Module (PAM) framework.
 	</para>
@@ -101,11 +100,11 @@
 ]]>
 			</programlisting>
 		</informalexample>
-		<note>
+		<caution>
 			<para>
 				The name of the realm-name that you declare in <filename>web.xml</filename> must match exactly the Name element in your jetty config file.
 			</para>
-		</note>
+		</caution>
 	</section>
 	<section>
 		<title>Step 2</title>
@@ -121,11 +120,11 @@ xyz {
 ]]>
 			</programlisting>
 		</informalexample>
-		<note>
+		<caution>
 			<para>
 				It is imperative that the application name on the first line is exactly the same as the <code>LoginModuleName</code> from your jetty config file.
 			</para>
-		</note>
+		</caution>
 	</section>
 	<section>
 		<title>Step 3</title>
@@ -149,14 +148,13 @@ xyz {
 				</para>
 			</listitem>
 		</itemizedlist>
-		<warning><para>We need to update this for new start mechanism</para></warning>
 		<screen>
 <![CDATA[
 $ java -Djava.security.auth.login.config=mylogin.conf -jar start.jar OPTIONS=jaas myjaas.xml
 ]]>
 		</screen>
 		<para>
-			Where <filename>myjaas.xml</filename> is the jetty config file you created in step 1. You might like to edit the <filename>start.ini</filename> file to add the extra OPTION and the <filename>myjaas.xml</filename> file to jetty's startup sequence to simplify the command line.
+			Where <filename>myjaas.xml</filename> is the jetty config file you created in step 1. You will want to edit the <filename>start.ini</filename> file to add the extra OPTION and the <filename>myjaas.xml</filename> file to jetty's startup sequence to simplify the command line.
 		</para>
 	</section>
 	</section>
@@ -188,7 +186,6 @@ $ java -Djava.security.auth.login.config=mylogin.conf -jar start.jar OPTIONS=jaa
 		<informalexample>
       <programlisting language="xml">
 <![CDATA[
-
 <New class="org.eclipse.jetty.jaas.JAASLoginService">
   <Set name="Name">Test JAAS Realm</Set>
   <Set name="LoginModuleName">xyz</Set>

@@ -42,7 +42,7 @@
   <para>Here is the matrix of JSRs for JavaEE-6 Web Profile, and how they
   relate to Jetty:</para>
 
-  <table border="1">
+  <table border="1" xml:id="webprofile-6">
     <caption>JavaEE6 Web Profile</caption>
 
     <tr>
@@ -221,7 +221,7 @@
     thus the following table is provisional.</para>
   </important>
 
-  <table border="1">
+  <table border="1" xml:id="webprofile-7">
     <caption>JavaEE7 Web Profile</caption>
 
     <tr>

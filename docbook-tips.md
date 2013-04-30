@@ -13,14 +13,14 @@ The xml:id attribute should only be used on sections, chapters, parts, and the t
 There are a number of different tags that can be used in marking up text.  It is important to tease out what the best one is to use as when they render into the xsl layers they can be treated differently.
 
 * &lt;code&gt; : a generic catch all tag for anything code related inline to text
-* <filename> : should wrap text that is a filename
-* <classname> : should be used to wrap class name type text, shows in xsl as a <code class="classname"> which we can alter using css 
+* &lt;filename&gt; : should wrap text that is a filename
+* &lt;classname&gt; : should be used to wrap class name type text, shows in xsl as a &lt;code class="classname"&gt; which we can alter using css 
 
 ## Different list types
 
-* <itemizedlist> : normal bulleted lists (like this one)
-* <variablelist> : use for term/definition type lists
-* <orderedlist> : gives you numbered lists, can be nested inside a <listitem> to do outline type lists
+* &lt;itemizedlist&gt; : normal bulleted lists (like this one)
+* &lt;variablelist&gt; : use for term/definition type lists
+* &lt;orderedlist&gt; : gives you numbered lists, can be nested inside a &lt;listitem&gt; to do outline type lists
 
 Note: all listitem elements should have a child para tag wrapping text.
 
@@ -65,8 +65,8 @@ Note: all listitem elements should have a child para tag wrapping text.
 
 There are a number of these that can be used within the document.  Each contains a different graphic and should render with a different color border (eventually).
 
-* <code><tip></code> 
-* <note>
-* <caution>
-* <warning>
-* <important>
+* &lt;tip&gt;
+* &lt;note&gt;
+* &lt;caution&gt;
+* &lt;warning&gt;
+* &lt;important&gt;

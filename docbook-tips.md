@@ -25,6 +25,7 @@ There are a number of different tags that can be used in marking up text.  It is
 Note: all listitem elements should have a child para tag wrapping text.
 
 <code>
+
 	<itemlizedlist>
   	<listitem>
     	<para>
@@ -61,12 +62,14 @@ Note: all listitem elements should have a child para tag wrapping text.
     	</orderedlist>
   	</listitem>
 	</orderedlist>
+
 </code>
+
 ## Admonitions
 
 There are a number of these that can be used within the document.  Each contains a different graphic and should render with a different color border (eventually).
 
-* <tip> 
+* <code><tip></code> 
 * <note>
 * <caution>
 * <warning>

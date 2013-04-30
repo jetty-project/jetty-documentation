@@ -12,7 +12,7 @@ The xml:id attribute should only be used on sections, chapters, parts, and the t
 
 There are a number of different tags that can be used in marking up text.  It is important to tease out what the best one is to use as when they render into the xsl layers they can be treated differently.
 
-* <pre>&lt;code></pre> : a generic catch all tag for anything code related inline to text
+* &lt;code&gt; : a generic catch all tag for anything code related inline to text
 * <filename> : should wrap text that is a filename
 * <classname> : should be used to wrap class name type text, shows in xsl as a <code class="classname"> which we can alter using css 
 
@@ -24,42 +24,42 @@ There are a number of different tags that can be used in marking up text.  It is
 
 Note: all listitem elements should have a child para tag wrapping text.
 
-	<itemlizedlist>
-  	<listitem>
-    	<para>
-      	text
-    	</para>
-    	<para>
-      	another paragraph in that list item
-    	</para>
-  	</listitem>
-	</itemlizedlist>
+		<itemlizedlist>
+  		<listitem>
+    		<para>
+      		text
+    		</para>
+    		<para>
+      		another paragraph in that list item
+    		</para>
+  		</listitem>
+		</itemlizedlist>
 
-	<variablelist>
-  	<varlistentry>
-   	 <term>foo</term>
-    	<listitem>
-      	<para>
-        	text
-      	</para>
-    	</listitem>
-  	</varlistentry>
-	</variablelist>
+		<variablelist>
+  		<varlistentry>
+   	 		<term>foo</term>
+    		<listitem>
+      		<para>
+        		text
+      		</para>
+    		</listitem>
+  		</varlistentry>
+		</variablelist>
 
-	<orderedlist>
-  	<listitem>
-    	<para>
-    		text, bullet will be 1.
-    	</para>
-    	<orderedlist>
-     		<listitem>
-        	<para>
-          	text, bullet will be a.
-        	</para>
-      	</listitem>
-    	</orderedlist>
-  	</listitem>
-	</orderedlist>
+		<orderedlist>
+  		<listitem>
+    		<para>
+    			text, bullet will be 1.
+    		</para>
+    		<orderedlist>
+     			<listitem>
+        		<para>
+          		text, bullet will be a.
+        		</para>
+      		</listitem>
+    		</orderedlist>
+  		</listitem>
+		</orderedlist>
 
 ## Admonitions
 

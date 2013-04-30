@@ -18,7 +18,7 @@
 -->
 <section version="5.0"
          xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd"
-         xml:id="jaas-introduction"
+         xml:id="jaas-support"
          xmlns="http://docbook.org/ns/docbook"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xmlns:xs="http://www.w3.org/2001/XMLSchema"
@@ -63,12 +63,12 @@
 	<section xml:id="jaas-configuration">
 		<title>Configuration</title>
 		<para>
-			Using JAAS with jetty is very simply a matter of declaring a <code>org.eclipse.jetty.plus.jaas.JAASLoginService</code>, creating a jaas login module configuration file and specifying it on the jetty run line. Let's look at an example.
+			Using JAAS with jetty is very simply a matter of declaring a <code>org.eclipse.jetty.jaas.JAASLoginService</code>, creating a jaas login module configuration file and specifying it on the jetty run line. Let's look at an example.
 		</para>
 		<section>
 			<title>Step 1</title>
 			<para>
-				Configure a jetty <code>org.eclipse.jetty.plus.jaas.JAASLoginService</code> to match the &lt;realm-name&gt; in your web.xml file. For example, if the <filename>web.xml</filename> contains a realm called "xyz" like so:
+				Configure a jetty <code>org.eclipse.jetty.jaas.JAASLoginService</code> to match the &lt;realm-name&gt; in your web.xml file. For example, if the <filename>web.xml</filename> contains a realm called "xyz" like so:
 			</para>
     <informalexample>
       <programlisting language="xml">
@@ -92,7 +92,7 @@
 <![CDATA[
     <Call name="addBean">
       <Arg>
-          <New class="org.eclipse.jetty.plus.jaas.JAASLoginService">
+          <New class="org.eclipse.jetty.jaas.JAASLoginService">
            <Set name="Name">Test JAAS Realm</Set>
            <Set name="LoginModuleName">xyz</Set>
           </New>
@@ -152,7 +152,7 @@ xyz {
 		<warning><para>We need to update this for new start mechanism</para></warning>
 		<screen>
 <![CDATA[
-$ java -Djava.security.auth.login.config=mylogin.conf -jar start.jar OPTIONS=plus myjaas.xml
+$ java -Djava.security.auth.login.config=mylogin.conf -jar start.jar OPTIONS=jaas myjaas.xml
 ]]>
 		</screen>
 		<para>
@@ -168,17 +168,17 @@ $ java -Djava.security.auth.login.config=mylogin.conf -jar start.jar OPTIONS=plu
 		<itemizedlist>
 			<listitem>
 				<para>
-					a policy for role-based authorization (Default: org.eclipse.jetty.plus.jaas.StrictRoleCheckPolicy)
+					a policy for role-based authorization (Default: org.eclipse.jetty.jaas.StrictRoleCheckPolicy)
 				</para>
 			</listitem>
 			<listitem>
 				<para>
-					a CallbackHandler (Default: org.eclipse.jetty.plus.jaas.callback.DefaultCallbackHandler)
+					a CallbackHandler (Default: org.eclipse.jetty.jaas.callback.DefaultCallbackHandler)
 				</para>
 			</listitem>
 			<listitem>
 				<para>
-					a list of classnames for the Principal implementation that equate to a user role (Default: org.eclipse.jetty.plus.jaas.JAASRole)
+					a list of classnames for the Principal implementation that equate to a user role (Default: org.eclipse.jetty.jaas.JAASRole)
 				</para>
 			</listitem>
 		</itemizedlist>
@@ -189,18 +189,18 @@ $ java -Djava.security.auth.login.config=mylogin.conf -jar start.jar OPTIONS=plu
       <programlisting language="xml">
 <![CDATA[
 
-<New class="org.eclipse.jetty.plus.jaas.JAASLoginService">
+<New class="org.eclipse.jetty.jaas.JAASLoginService">
   <Set name="Name">Test JAAS Realm</Set>
   <Set name="LoginModuleName">xyz</Set>
   <Set name="RoleCheckPolicy">
-    <New class="org.eclipse.jetty.plus.jaas.StrictRoleCheckPolicy"/>
+    <New class="org.eclipse.jetty.jaas.StrictRoleCheckPolicy"/>
   </Set>
   <Set name="CallbackHandlerClass">
-       org.eclipse.jetty.plus.jaas.callback.DefaultCallbackHandler
+       org.eclipse.jetty.jaas.callback.DefaultCallbackHandler
   </Set>
   <Set name="roleClassNames">
     <Array type="java.lang.String">
-      <Item>org.eclipse.jetty.plus.jaas.JAASRole</Item>
+      <Item>org.eclipse.jetty.jaas.JAASRole</Item>
     </Array>
   </Set>
 </New>
@@ -210,10 +210,10 @@ $ java -Djava.security.auth.login.config=mylogin.conf -jar start.jar OPTIONS=plu
 		<section>
 			<title>RoleCheckPolicy</title>
 			<para>
-				The RoleCheckPolicy must be an implementation of the org.eclipse.jetty.plus.jaas.RoleCheckPolicy interface and its purpose is to help answer the question "is User X in Role Y" for role-based authorization requests. The default implementation distributed with jetty is the org.eclipse.jetty.plus.jaas.StrictRoleCheckPolicy, which will assess a user as having a particular role iff that role is at the top of the stack of roles that have been temporarily pushed onto the user or if the user has no temporarily assigned roles, the role is amongst those configured for the user.
+				The RoleCheckPolicy must be an implementation of the org.eclipse.jetty.jaas.RoleCheckPolicy interface and its purpose is to help answer the question "is User X in Role Y" for role-based authorization requests. The default implementation distributed with jetty is the org.eclipse.jetty.jaas.StrictRoleCheckPolicy, which will assess a user as having a particular role iff that role is at the top of the stack of roles that have been temporarily pushed onto the user or if the user has no temporarily assigned roles, the role is amongst those configured for the user.
 			</para>
 			<para>
-				Roles can be temporarily assigned to a user programmatically by using the pushRole(String rolename) method of the org.eclipse.jetty.plus.jaas.JAASUserPrincipal class.
+				Roles can be temporarily assigned to a user programmatically by using the pushRole(String rolename) method of the org.eclipse.jetty.jaas.JAASUserPrincipal class.
 			</para>
 			<para>
 				For the majority of webapps, the default StrictRoleCheckPolicy will be quite adequate, however you may provide your own implementation and set it on your JAASUserRealm instance.
@@ -225,13 +225,13 @@ $ java -Djava.security.auth.login.config=mylogin.conf -jar start.jar OPTIONS=plu
 				A CallbackHandler is responsible for interfacing with the user to obtain usernames and credentials to be authenticated.
 			</para>
 			<para>
-				Jetty ships with the org.eclipse.jetty.plus.jaas.DefaultCallbackHandler which interfaces the information contained in the request to the Callbacks that are requested by LoginModules. You can replace this default with your own implementation if you have specific requirements not covered by the default.
+				Jetty ships with the org.eclipse.jetty.jaas.DefaultCallbackHandler which interfaces the information contained in the request to the Callbacks that are requested by LoginModules. You can replace this default with your own implementation if you have specific requirements not covered by the default.
 			</para>
 		</section>
 		<section>
 			<title>Role Principal Implementation Class</title>
 			<para>
-				When LoginModules authenticate a user, they usually also gather all of the roles that a user has and place them inside the JAAS Subject. As LoginModules are free to use their own implementation of the JAAS Principal to put into the Subject, jetty needs to know which Principals represent the user and which represent his/her roles when performing authorization checks on &lt;security-constraint&gt;s. The example LoginModules that ship with jetty all use the org.eclipse.jetty.plus.jaas.JAASRole class. However, if you have plugged in some other LoginModules, you must configure the classnames of their role Principal implementations.
+				When LoginModules authenticate a user, they usually also gather all of the roles that a user has and place them inside the JAAS Subject. As LoginModules are free to use their own implementation of the JAAS Principal to put into the Subject, jetty needs to know which Principals represent the user and which represent his/her roles when performing authorization checks on &lt;security-constraint&gt;s. The example LoginModules that ship with jetty all use the org.eclipse.jetty.jaas.JAASRole class. However, if you have plugged in some other LoginModules, you must configure the classnames of their role Principal implementations.
 			</para>
 		</section>
 		<section>
@@ -239,22 +239,22 @@ $ java -Djava.security.auth.login.config=mylogin.conf -jar start.jar OPTIONS=plu
 			<itemizedlist>
 				<listitem>
 					<para>
-						<link xl:href="@JXURL@/org/eclipse/jetty/plus/jaas/spi/JDBCLoginModule.html"><code>org.eclipse.jetty.plus.jaas.spi.JDBCLoginModule</code></link>
+						<link xl:href="@JXURL@/org/eclipse/jetty/jaas/spi/JDBCLoginModule.html"><code>org.eclipse.jetty.jaas.spi.JDBCLoginModule</code></link>
 					</para>
 				</listitem>
 				<listitem>
 					<para>
-						<link xl:href="@JXURL@/org/eclipse/jetty/plus/jaas/spi/PropertyFileLoginModule.html"><code>org.eclipse.jetty.plus.jaas.spi.PropertyFileLoginModule</code></link>
+						<link xl:href="@JXURL@/org/eclipse/jetty/jaas/spi/PropertyFileLoginModule.html"><code>org.eclipse.jetty.jaas.spi.PropertyFileLoginModule</code></link>
 					</para>
 				</listitem>
 				<listitem>
 					<para>
-						<link xl:href="@JXURL@/org/eclipse/jetty/plus/jaas/spi/DataSourceLoginModule.html"><code>org.eclipse.jetty.plus.jaas.spi.DataSourceLoginModule</code></link>
+						<link xl:href="@JXURL@/org/eclipse/jetty/jaas/spi/DataSourceLoginModule.html"><code>org.eclipse.jetty.jaas.spi.DataSourceLoginModule</code></link>
 					</para>
 				</listitem>
 				<listitem>
 					<para>
-						<link xl:href="@JXURL@/org/eclipse/jetty/plus/jaas/spi/LdapLoginModule.html"><code>org.eclipse.jetty.plus.jaas.ldap.LdapLoginModule</code></link>
+						<link xl:href="@JXURL@/org/eclipse/jetty/jaas/spi/LdapLoginModule.html"><code>org.eclipse.jetty.jaas.ldap.LdapLoginModule</code></link>
 					</para>
 				</listitem>
 			</itemizedlist>
@@ -280,7 +280,7 @@ $ java -Djava.security.auth.login.config=mylogin.conf -jar start.jar OPTIONS=plu
       	<programlisting language="ini">
 <![CDATA[
 jdbc {
-      org.eclipse.jetty.plus.jaas.spi.JDBCLoginModule required
+      org.eclipse.jetty.jaas.spi.JDBCLoginModule required
       debug="true"
       dbUrl="jdbc:hsqldb:."
       dbUserName="sa"
@@ -329,7 +329,7 @@ jdbc {
       	<programlisting language="ini">
 <![CDATA[
 ds {
-     org.eclipse.jetty.plus.jaas.spi.DataSourceLoginModule required
+     org.eclipse.jetty.jaas.spi.DataSourceLoginModule required
      debug="true"
      dbJNDIName="ds"
      userTable="myusers"
@@ -352,7 +352,7 @@ ds {
       	<programlisting language="ini">
 <![CDATA[
 props {
-        org.eclipse.jetty.plus.jaas.spi.PropertyFileLoginModule required
+        org.eclipse.jetty.jaas.spi.PropertyFileLoginModule required
         debug="true"
         file="/somewhere/somefile.props";
       };
@@ -395,7 +395,7 @@ dick: CRYPT:adpexzg3FUZAk,admin
       	<programlisting language="ini">
 <![CDATA[
 ldaploginmodule {
-   org.eclipse.jetty.plus.jaas.spi.LdapLoginModule required
+   org.eclipse.jetty.jaas.spi.LdapLoginModule required
    debug="true"
    contextFactory="com.sun.jndi.ldap.LdapCtxFactory"
    hostname="ldap.example.com"
@@ -422,13 +422,13 @@ ldaploginmodule {
 	<section>
 		<title>Writing your Own LoginModule</title>
 		<para>
-			If you want to implement your own custom LoginModule, there are two classes to be familiar with org.eclipse.jetty.plus.jaas.spi.AbstractLoginModule and org.eclipse.jetty.plus.jaas.spi.UserInfo.
+			If you want to implement your own custom LoginModule, there are two classes to be familiar with org.eclipse.jetty.jaas.spi.AbstractLoginModule and org.eclipse.jetty.jaas.spi.UserInfo.
 		</para>
 		<para>
-			The org.eclipse.jetty.plus.jaas.spi.AbstractLoginModule implements all of the javax.security.auth.spi.LoginModule methods. All you need to do is to implement the getUserInfo method to return a org.eclipse.jetty.plus.jaas.UserInfo instance which encapsulates the username, password and role names (note: as java.lang.Strings) for a user.
+			The org.eclipse.jetty.jaas.spi.AbstractLoginModule implements all of the javax.security.auth.spi.LoginModule methods. All you need to do is to implement the getUserInfo method to return a org.eclipse.jetty.jaas.UserInfo instance which encapsulates the username, password and role names (note: as java.lang.Strings) for a user.
 		</para>
 		<para>
-			The AbstractLoginModule does not support any caching, so if you want to cache UserInfo (eg as does the org.eclipse.jetty.plus.jaas.spi.PropertyFileLoginModule) then you must provide this yourself.
+			The AbstractLoginModule does not support any caching, so if you want to cache UserInfo (eg as does the org.eclipse.jetty.jaas.spi.PropertyFileLoginModule) then you must provide this yourself.
 		</para>
 	</section>
 	<section>
@@ -436,7 +436,7 @@ ldaploginmodule {
 		<section>
 			<title>RequestParameterCallback</title>
 			<para>
-				As all servlet containers intercept and process a form submission with action j_security_check, it is usually not possible to insert any extra input fields onto a login form with which to perform authentication: you may only pass j_username and j_password. For those rare occasions when this is not good enough, and you require more information from the user in order to authenticate them, you can use the JAAS callback handler org.eclipse.jetty.plus.jaas.callback.RequestParameterCallback. This callback handler gives you access to all parameters that were passed in the form submission. To use it, in the login() method of your custom login module, add the RequestParameterCallback to the list of callback handlers the login module uses, tell it which params you are interested in, and then get the value of the parameter back. Here's an example:
+				As all servlet containers intercept and process a form submission with action j_security_check, it is usually not possible to insert any extra input fields onto a login form with which to perform authentication: you may only pass j_username and j_password. For those rare occasions when this is not good enough, and you require more information from the user in order to authenticate them, you can use the JAAS callback handler org.eclipse.jetty.jaas.callback.RequestParameterCallback. This callback handler gives you access to all parameters that were passed in the form submission. To use it, in the login() method of your custom login module, add the RequestParameterCallback to the list of callback handlers the login module uses, tell it which params you are interested in, and then get the value of the parameter back. Here's an example:
 			</para>
 			<informalexample>
       	<programlisting language="java">

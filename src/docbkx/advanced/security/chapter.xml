@@ -26,6 +26,6 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
   		This chapter contains topics related to support for various security standards with jetty.
   	</para>
   </section>
-  <xi:include href="jaas-introduction.xml"/>
-  <xi:include href="spnego.xml" />
+  <xi:include href="jaas-support.xml"/>
+  <xi:include href="spnego-support.xml" />
 </chapter>

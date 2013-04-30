@@ -24,8 +24,7 @@ There are a number of different tags that can be used in marking up text.  It is
 
 Note: all listitem elements should have a child para tag wrapping text.
 
-<pre>
-
+`
 <itemlizedlist>
   <listitem>
     <para>
@@ -62,8 +61,7 @@ Note: all listitem elements should have a child para tag wrapping text.
     </orderedlist>
   </listitem>
 </orderedlist>
-
-</pre>
+`
 
 ## Admonitions
 

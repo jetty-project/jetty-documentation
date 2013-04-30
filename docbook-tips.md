@@ -12,7 +12,7 @@ The xml:id attribute should only be used on sections, chapters, parts, and the t
 
 There are a number of different tags that can be used in marking up text.  It is important to tease out what the best one is to use as when they render into the xsl layers they can be treated differently.
 
-* <code> : a generic catch all tag for anything code related inline to text
+* &lt;code> : a generic catch all tag for anything code related inline to text
 * <filename> : should wrap text that is a filename
 * <classname> : should be used to wrap class name type text, shows in xsl as a <code class="classname"> which we can alter using css 
 

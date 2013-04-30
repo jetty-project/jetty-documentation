@@ -1,5 +1,11 @@
 # General Tips
 
+## General Stylistic Things
+
+* Usage of jetty.xml as a filename and a configuration style
+
+I think we should use jetty.xml strictly as a filename, and the configuration mechanism should be referred to as 'Jetty XML'
+
 ## xml:id usage
 
 The xml:id attribute should only be used on sections, chapters, parts, and the top level book tags.  It should also be used on the table tag as well so you can deep link a table directly.

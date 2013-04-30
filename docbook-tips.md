@@ -78,3 +78,5 @@ There are a number of these that can be used within the document.  Each contains
 * &lt;caution&gt;
 * &lt;warning&gt;
 * &lt;important&gt;
+
+You can use title tags in each of these to override the default test of their tag name.

@@ -2,7 +2,7 @@
 
 ## xml:id usage
 
-The xml:id attribute should only be used on sections, chapters, parts, and the top level book tags.
+The xml:id attribute should only be used on sections, chapters, parts, and the top level book tags.  It should also be used on the table tag as well so you can deep link a table directly.
 
 * On the chapter tag, the xml:id becomes the name of a html file
 * On the top level section tag, the xml:id becomes the name of the html file for the section content

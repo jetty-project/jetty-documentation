@@ -414,7 +414,7 @@
   <section xml:id="webapp-context-attributes">
     <title>Other Configuration</title>
 
-    <section>
+    <section xml:id="container-include-jar-pattern">
       <title>org.eclipse.jetty.server.webapp.ContainerIncludeJarPattern</title>
 
       <para>This is a context attribute that can be set on<link
@@ -456,7 +456,7 @@
       scanning of the jars or class directories.</para>
     </section>
 
-    <section>
+    <section xml:id="web-inf-include-jar-pattern">
       <title>org.eclipse.jetty.server.webapp.WebInfIncludeJarPattern</title>
 
       <para>Similarly to the previous context attribute, this attribute

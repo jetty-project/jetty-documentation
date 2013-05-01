@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+//  ========================================================================
+//  Copyright (c) 1995-2012 Mort Bay Consulting Pty. Ltd.
+//  ========================================================================
+//  All rights reserved. This program and the accompanying materials
+//  are made available under the terms of the Eclipse Public License v1.0
+//  and Apache License v2.0 which accompanies this distribution.
+//
+//      The Eclipse Public License is available at
+//      http://www.eclipse.org/legal/epl-v10.html
+//
+//      The Apache License v2.0 is available at
+//      http://www.opensource.org/licenses/apache2.0.php
+//
+//  You may elect to redistribute this code under either of these licenses.
+//  ========================================================================
+-->
+<section version="5.0"
+         xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd"
+         xml:id="using-annotations"
+         xmlns="http://docbook.org/ns/docbook"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:xs="http://www.w3.org/2001/XMLSchema"
+         xmlns:xl="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:ns2="http://www.w3.org/1998/Math/MathML"
+         xmlns:ns="http://docbook.org/ns/docbook">
+  <title>Working with Annotations</title>
+
+  <section>
+    <title>Which Annotations Are Supported</title>
+
+    <para>Jetty supports interpretation and application of the following
+    annotations:</para>
+
+    <itemizedlist>
+      <listitem>
+        <para>@Resource</para>
+      </listitem>
+
+      <listitem>
+        <para>@Resources</para>
+      </listitem>
+
+      <listitem>
+        <para>@PostConstruct</para>
+      </listitem>
+
+      <listitem>
+        <para>@PreDestroy</para>
+      </listitem>
+
+      <listitem>
+        <para>@DeclaredRoles</para>
+      </listitem>
+
+      <listitem>
+        <para>@RunAs</para>
+      </listitem>
+
+      <listitem>
+        <para>@MultipartConfig</para>
+      </listitem>
+
+      <listitem>
+        <para>@WebServlet</para>
+      </listitem>
+
+      <listitem>
+        <para>@WebFilter</para>
+      </listitem>
+
+      <listitem>
+        <para>@WebListener</para>
+      </listitem>
+
+      <listitem>
+        <para>@WebInitParam</para>
+      </listitem>
+
+      <listitem>
+        <para>@ServletSecurity, @HttpConstraint, @HttpMethodConstraint</para>
+      </listitem>
+
+      <listitem>
+        <para>@HandlesTypes (on ServletContainerInitializers)</para>
+      </listitem>
+    </itemizedlist>
+  </section>
+
+  <section>
+    <title>Discovered vs Introspected Annotations</title>
+
+    <para>Some types of annotation can be placed on any classes, not
+    necessarily just those with which the container interacts directly. We
+    call these type of annotations "discovered" to indicate that the container
+    must take proactive action to go out and find them. The other type of
+    annotation we call "introspected", meaning that they occur on classes with
+    which the container interacts during their lifecycle (eg
+    javax.servlet.Servlet, javax.servlet.Filter etc), and hence can be found
+    by simple inspection of the class at that point. </para>
+
+    <para>Some examples of discovered annotations are:</para>
+
+    <itemizedlist>
+      <listitem>
+        <para>@WebServlet</para>
+      </listitem>
+
+      <listitem>
+        <para>@WebFilter</para>
+      </listitem>
+
+      <listitem>
+        <para>@WebListener</para>
+      </listitem>
+    </itemizedlist>
+
+    <para>Some examples of introspected annotations are:</para>
+
+    <itemizedlist>
+      <listitem>
+        <para>@PostConstruct</para>
+      </listitem>
+
+      <listitem>
+        <para>@PreDestroy</para>
+      </listitem>
+
+      <listitem>
+        <para>@Resource</para>
+      </listitem>
+    </itemizedlist>
+  </section>
+
+  <section>
+    <title>Which Jars Are Examined For Discovered Annotations</title>
+
+    <para>The web.xml file can contain the attribute
+    <code>metadata-complete</code>. If this is set to <code>true</code>, then
+    <emphasis>no</emphasis> scanning of discoverable annotations takes place.
+    However, scanning of classes may <emphasis>still</emphasis> occur because
+    of <link
+    xl:href="http://docs.oracle.com/javaee/6/api/javax/servlet/ServletContainerInitializer.html">javax.servlet.ServletContainerInitializer</link>s.
+    Classes implementing this interface are found by Jetty using the <link
+    xl:href="http://docs.oracle.com/javase/6/docs/api/java/util/ServiceLoader.html">javax.util.ServiceLoader</link>
+    mechanism, and if one is present <emphasis>and</emphasis> it includes the
+    @HandlesTypes annotation, then Jetty must scan the class hierarchy of the
+    web application. This may be very time-consuming if you have many jars in
+    the container's path or in the webapp's WEB-INF/lib.</para>
+
+    <para>If scanning is to take place - because either
+    <code>metadata-complete</code> is <code>false</code> or missing, or
+    because there are one or more <link
+    xl:href="http://docs.oracle.com/javaee/6/api/javax/servlet/ServletContainerInitializer.html">javax.servlet.ServletContainerIntializer</link>s
+    with @HandlesTypes - then Jetty must consider both the container's
+    classpath and the webapp's classpath.</para>
+
+    <para>By default, Jetty will <emphasis>not</emphasis> scan any classes
+    that are on the container's classpath. If you need to cause jars and
+    classes that are on the container's classpath to be scanned, then you can
+    use the <link
+    linkend="container-include-jar-pattern">org.eclipse.jetty.server.webapp.ContainerIncludeJarPattern</link>
+    context attribute to specify a pattern for jars and directories from the
+    container's classpath to scan.</para>
+
+    <para>By default, Jetty will scan <emphasis>all </emphasis>classes from
+    <code>WEB-INF/classes</code>, and all jars from <code>WEB-INF/lib</code>
+    according to the order, if any, established by absolute or relative
+    ordering clauses in web.xml. If your webapp contains many jars, you can
+    significantly speed up deployment by omitting them from scanning. To do
+    this, use the <link
+    linkend="web-inf-include-jar-pattern">org.eclipse.jetty.server.webapp.WebInfIncludeJarPattern</link>
+    context attribute to define the patterns of jars that you specifically
+    want to be scanned.</para>
+  </section>
+</section>

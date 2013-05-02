@@ -366,9 +366,9 @@ total 632
     entries. (Add them to the end if missing)</para>
 
     <programlisting language="properties"><![CDATA[# Enable jul-to-slf4j layer
-]]><emphasis role="bold">etc/jetty-jul-to-slf4j.xml</emphasis><![CDATA[
+etc/jetty-jul-to-slf4j.xml
 # Adding lib/logging to server classpath
-]]><emphasis role="bold">OPTIONS=logging</emphasis><![CDATA[
+OPTIONS=logging
 ]]></programlisting>
 
     <para>Now verify that the 6 jars will be loaded by server classpath</para>

@@ -31,7 +31,7 @@
   <section xml:id="jmx-annotation-scanning">
     <title>Annotation Scanning</title>
     <para>
-      When jmx is configured and enabled in jetty any time an object is registered with the Server it is scanned as a potential mbean to be exposed.  This scanning proceeds as follows assuming the class is named <code>com.acme.Foo</code>:
+      When jmx is configured and enabled in jetty any time an object is registered with the Server it is introspected as a potential mbean to be exposed.  This introspection proceeds as follows assuming the class is named <code>com.acme.Foo</code>:
     </para>
     <orderedlist>
       <listitem>

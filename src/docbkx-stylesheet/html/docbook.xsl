@@ -72,27 +72,34 @@ xmlns:gcse="http://www.google.com"
 
   <xsl:template name="user.head.content">
     <link rel="shortcut icon" href="images/favicon.ico" />
+    <!--
+      - syntax highlighting bits and pieces
+    -->
     <xsl:element name="script">
       <xsl:attribute name="type">text/javascript</xsl:attribute>
-      <xsl:attribute name="src">http://alexgorbatchev.com/pub/sh/current/scripts/shCore.js</xsl:attribute>
+      <xsl:attribute name="src">js/shCore.js</xsl:attribute>
     </xsl:element>
     <xsl:element name="script">
       <xsl:attribute name="type">text/javascript</xsl:attribute>
-      <xsl:attribute name="src">http://alexgorbatchev.com/pub/sh/current/scripts/shBrushJava.js</xsl:attribute>
+      <xsl:attribute name="src">js/shBrushJava.js</xsl:attribute>
     </xsl:element>
     <xsl:element name="script">
       <xsl:attribute name="type">text/javascript</xsl:attribute>
-      <xsl:attribute name="src">http://alexgorbatchev.com/pub/sh/current/scripts/shBrushXml.js</xsl:attribute>
+      <xsl:attribute name="src">js/shBrushXml.js</xsl:attribute>
+    </xsl:element>
+    <xsl:element name="script">
+      <xsl:attribute name="type">text/javascript</xsl:attribute>
+      <xsl:attribute name="src">js/shBrushPlain.js</xsl:attribute>
     </xsl:element>
     <xsl:element name="link">
       <xsl:attribute name="type">text/css</xsl:attribute>
       <xsl:attribute name="rel">stylesheet</xsl:attribute>
-      <xsl:attribute name="href">http://alexgorbatchev.com/pub/sh/current/styles/shCore.css</xsl:attribute>
+      <xsl:attribute name="href">css/shCore.css</xsl:attribute>
     </xsl:element>
     <xsl:element name="link">
       <xsl:attribute name="type">text/css</xsl:attribute>
       <xsl:attribute name="rel">stylesheet</xsl:attribute>
-      <xsl:attribute name="href">http://alexgorbatchev.com/pub/sh/current/styles/shThemeDefault.css</xsl:attribute>
+      <xsl:attribute name="href">css/shThemeEclipse.css</xsl:attribute>
     </xsl:element>
   </xsl:template>
 
@@ -185,18 +192,9 @@ xmlns:gcse="http://www.google.com"
     </script>
   </xsl:template>
 
- <!-- synxtax highlighting -->
- <xsl:template match="d:programlisting[@language='rjava']">
-    <xsl:element name="script">
-      <xsl:attribute name="type">syntaxhighlighter</xsl:attribute>
-      <xsl:attribute name="class">brush: java</xsl:attribute>
-      <xsl:variable name="filename" select="./d:filename"/>
-      <xsl:variable name="methodname" select="./d:methodname"/>
-      <xsl:variable name="newText" select="jfetch:fetch($filename,$methodname)"/>
-      &lt;![CDATA[<xsl:value-of select="$newText"/>]]&gt;
-    </xsl:element>
-  </xsl:template>
-
+ <!-- 
+   - synxtax highlighting 
+   -->
   <xsl:template match="d:programlisting[@language='java']">
     <xsl:element name="script">
       <xsl:attribute name="type">syntaxhighlighter</xsl:attribute>
@@ -213,6 +211,46 @@ xmlns:gcse="http://www.google.com"
     </xsl:element>
   </xsl:template>
 
+  <xsl:template match="d:programlisting[@language='plain']">
+    <xsl:element name="script">
+      <xsl:attribute name="type">syntaxhighlighter</xsl:attribute>
+      <xsl:attribute name="class">brush: plain</xsl:attribute>
+      &lt;![CDATA[<xsl:value-of select="text()"/>]]&gt;
+    </xsl:element>
+  </xsl:template>
+
+ <xsl:template match="d:programlisting[@language='rjava']">
+    <xsl:element name="script">
+      <xsl:attribute name="type">syntaxhighlighter</xsl:attribute>
+      <xsl:attribute name="class">brush: java</xsl:attribute>
+      <xsl:variable name="filename" select="./d:filename"/>
+      <xsl:variable name="methodname" select="./d:methodname"/>
+      <xsl:variable name="newText" select="jfetch:fetch($filename,$methodname)"/>
+      &lt;![CDATA[<xsl:value-of select="$newText"/>]]&gt;
+    </xsl:element>
+  </xsl:template>
+
+  <xsl:template match="d:programlisting[@language='rxml']">
+    <xsl:element name="script">
+      <xsl:attribute name="type">syntaxhighlighter</xsl:attribute>
+      <xsl:attribute name="class">brush: xml</xsl:attribute>
+      <xsl:variable name="filename" select="./d:filename"/>
+      <xsl:variable name="newText" select="fetch:fetch($filename)"/>
+      &lt;![CDATA[<xsl:value-of select="$newText"/>]]&gt;
+    </xsl:element>
+  </xsl:template>
+
+  <xsl:template match="d:programlisting[@language='rplain']">
+    <xsl:element name="script">
+      <xsl:attribute name="type">syntaxhighlighter</xsl:attribute>
+      <xsl:attribute name="class">brush: plain</xsl:attribute>
+      <xsl:variable name="filename" select="./d:filename"/>
+      <xsl:variable name="newText" select="fetch:fetch($filename)"/>
+      &lt;![CDATA[<xsl:value-of select="$newText"/>]]&gt;
+    </xsl:element>
+  </xsl:template>
+
+  <!-- deprecated, we should have no fetch instances anymore, use rxml or define a new one as needed -->
   <xsl:template match="d:programlisting[@language='fetch']">
     <xsl:element name="script">
       <xsl:attribute name="type">syntaxhighlighter</xsl:attribute>
@@ -223,6 +261,7 @@ xmlns:gcse="http://www.google.com"
     </xsl:element>
   </xsl:template>
 
+  
 
   <!-- By default, DocBook surrounds highlighted elements with one or more HTML elements
   that already have an explicit style, which makes difficult to customize them via CSS.

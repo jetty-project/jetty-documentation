@@ -235,12 +235,12 @@ div.variablelist {
 .jetty-callout {
   background-color: #DEF;
   text-align: left; 
-  border: thin dotted blue; 
+  border: thin solid #CCF; 
   padding: 4px; 
-  font-size: 90%;
 }
 
 .jetty-callout h5 {
+  font-size: 10pt;
   margin: 0;
   margin-bottom: 5px;
 }
@@ -255,7 +255,7 @@ div.variablelist {
 }
 
 .jetty-callout .website {
-  color: #f3a;
+  color: #48f;
 }
 
 .jetty-callout p {

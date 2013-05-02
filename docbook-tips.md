@@ -126,3 +126,29 @@ Valid languages are:
 * rplain - get a remote plain file
 
 We use the SyntaxHighlighter from http://alexgorbatchev.com/SyntaxHighlighter/ so it is easy to add whatever languages are available with that package, it just required a bit of swizzling in the docbook.xsl file.
+
+## Tables
+
+Please use the following format for tables as it will make use of the css which makes altering all of the look and feel of tables much easier.  Don't use the html tags.
+
+    <table>
+      <title>table title</title>
+      <tgroup cols="2">
+        <thead>
+          <row>
+            <entry>1</entry>
+            <entry>2</entry>
+          </row>
+        </thead>
+        <tbody>
+          <row>
+            <entry>1</entry>
+            <entry>2</entry>
+          </row>
+          <row>
+            <entry>1</entry>
+            <entry>2</entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </table>

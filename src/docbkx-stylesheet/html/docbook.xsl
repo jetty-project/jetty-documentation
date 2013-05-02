@@ -357,4 +357,34 @@ xmlns:gcse="http://www.google.com"
   </div>
 </xsl:template>
 
+
+<xsl:template name="navig.content">
+    <xsl:param name="direction" select="d:next"/>
+        <xsl:choose>
+            <xsl:when test="$direction = 'prev'">
+              <xsl:element name="i">
+                <xsl:attribute name="class">icon-chevron-left</xsl:attribute>
+              </xsl:element>
+            </xsl:when>
+            <xsl:when test="$direction = 'next'">
+                <xsl:element name="i">
+                <xsl:attribute name="class">icon-chevron-right</xsl:attribute>
+              </xsl:element>
+            </xsl:when>
+            <xsl:when test="$direction = 'up'">
+                <xsl:element name="i">
+                <xsl:attribute name="class">icon-chevron-up</xsl:attribute>
+              </xsl:element>
+            </xsl:when>
+            <xsl:when test="$direction = 'home'">
+                <xsl:element name="i">
+                <xsl:attribute name="class">icon-home</xsl:attribute>
+              </xsl:element>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:text>xxx</xsl:text>
+            </xsl:otherwise>
+        </xsl:choose>
+</xsl:template>
+
 </xsl:stylesheet>

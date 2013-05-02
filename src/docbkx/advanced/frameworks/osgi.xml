@@ -46,6 +46,7 @@
     a distribution of jetty. Here's the minimal set:</para>
 
     <table>
+      <title>Bundle Name Mapping</title>
       <tgroup cols="2">
         <thead>
           <row>

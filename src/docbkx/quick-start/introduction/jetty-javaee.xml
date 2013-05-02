@@ -42,174 +42,175 @@
   <para>Here is the matrix of JSRs for JavaEE-6 Web Profile, and how they
   relate to Jetty:</para>
 
-  <table border="1" xml:id="webprofile-6">
-    <caption>JavaEE6 Web Profile</caption>
+  <table xml:id="webprofile-6">
+    <title>JavaEE6 Web Profile</title>
+    <tgroup cols="4">
+      <thead>
+        <row>
+          <entry>JSR</entry>
+          <entry>Name</entry>
+          <entry>Included with jetty-9.0.x</entry>
+          <entry>Pluggable</entry>
+        </row>
+      </thead>
+      <tbody>
+    <row>
+      <entry><link xl:href="http://jcp.org/en/jsr/detail?id=315">JSR
+      315</link></entry>
 
-    <tr>
-      <th>JSR</th>
+      <entry>Servlet Specification API 3.0</entry>
 
-      <th>Name</th>
+      <entry>Yes</entry>
 
-      <th>Included with jetty-9.0.x</th>
+      <entry/>
+    </row>
 
-      <th>Pluggable</th>
-    </tr>
+    <row>
+      <entry><link xl:href="http://jcp.org/en/jsr/detail?id=314">JSR
+      314</link></entry>
 
-    <tr>
-      <td><link xl:href="http://jcp.org/en/jsr/detail?id=315">JSR
-      315</link></td>
+      <entry>Java Server Faces 2.0 (JSF)</entry>
 
-      <td>Servlet Specification API 3.0</td>
+      <entry>No</entry>
 
-      <td>Yes</td>
-
-      <td/>
-    </tr>
-
-    <tr>
-      <td><link xl:href="http://jcp.org/en/jsr/detail?id=314">JSR
-      314</link></td>
-
-      <td>Java Server Faces 2.0 (JSF)</td>
-
-      <td>No</td>
-
-      <td>Yes, eg <link
+      <entry>Yes, eg <link
       xl:href="https://javaserverfaces.java.net/">Mojarra</link> or <link
-      xl:href="http://myfaces.apache.org/">MyFaces</link></td>
-    </tr>
+      xl:href="http://myfaces.apache.org/">MyFaces</link></entry>
+    </row>
 
-    <tr>
-      <td><link xl:href="http://jcp.org/en/jsr/detail?id=245">JSR
-      245</link></td>
+    <row>
+      <entry><link xl:href="http://jcp.org/en/jsr/detail?id=245">JSR
+      245</link></entry>
 
-      <td>Java Server Pages 2.2/Java Expression Language 2.2 (JSP/EL)</td>
+      <entry>Java Server Pages 2.2/Java Expression Language 2.2 (JSP/EL)</entry>
 
-      <td>Yes</td>
+      <entry>Yes</entry>
 
-      <td>Yes</td>
-    </tr>
+      <entry>Yes</entry>
+    </row>
 
-    <tr>
-      <td><link xl:href="http://jcp.org/en/jsr/detail?id=52">JSR
-      52</link></td>
+    <row>
+      <entry><link xl:href="http://jcp.org/en/jsr/detail?id=52">JSR
+      52</link></entry>
 
-      <td>Java Standard Tag Library 1.2 (JSTL)</td>
+      <entry>Java Standard Tag Library 1.2 (JSTL)</entry>
 
-      <td>Yes</td>
+      <entry>Yes</entry>
 
-      <td>Yes</td>
-    </tr>
+      <entry>Yes</entry>
+    </row>
 
-    <tr>
-      <td><link xl:href="http://jcp.org/en/jsr/detail?id=45">JSR
-      45</link></td>
+    <row>
+      <entry><link xl:href="http://jcp.org/en/jsr/detail?id=45">JSR
+      45</link></entry>
 
-      <td>Debugging Support for Other Languages 1.0</td>
+      <entry>Debugging Support for Other Languages 1.0</entry>
 
-      <td>Yes (via JSP)</td>
+      <entry>Yes (via JSP)</entry>
 
-      <td>Yes (via JSP)</td>
-    </tr>
+      <entry>Yes (via JSP)</entry>
+    </row>
 
-    <tr>
-      <td><link xl:href="http://jcp.org/en/jsr/detail?id=299">JSR
-      299</link></td>
+    <row>
+      <entry><link xl:href="http://jcp.org/en/jsr/detail?id=299">JSR
+      299</link></entry>
 
-      <td>Contexts and Dependency Injection for the JavaEE Platform 1.0 (Web
-      Beans)</td>
+      <entry>Contexts and Dependency Injection for the JavaEE Platform 1.0 (Web
+      Beans)</entry>
 
-      <td>No</td>
+      <entry>No</entry>
 
-      <td>Yes, eg <link
-      xl:href="http://seamframework.org/Weld">Weld</link></td>
-    </tr>
+      <entry>Yes, eg <link
+      xl:href="http://seamframework.org/Weld">Weld</link></entry>
+    </row>
 
-    <tr>
-      <td><link xl:href="http://jcp.org/en/jsr/detail?id=330">JSR
-      330</link></td>
+    <row>
+      <entry><link xl:href="http://jcp.org/en/jsr/detail?id=330">JSR
+      330</link></entry>
 
-      <td>Dependency Injection for Java 1.0</td>
+      <entry>Dependency Injection for Java 1.0</entry>
 
-      <td>No</td>
+      <entry>No</entry>
 
-      <td>Yes as part of a CDI implementation, eg <link
-      xl:href="http://seamframework.org/Weld">Weld</link></td>
-    </tr>
+      <entry>Yes as part of a CDI implementation, eg <link
+      xl:href="http://seamframework.org/Weld">Weld</link></entry>
+    </row>
 
-    <tr>
-      <td><link xl:href="???">JSR 316</link></td>
+    <row>
+      <entry><link xl:href="???">JSR 316</link></entry>
 
-      <td>Managed Beans 1.0</td>
+      <entry>Managed Beans 1.0</entry>
 
-      <td>No</td>
+      <entry>No</entry>
 
-      <td>Yes, as part of another technology.</td>
-    </tr>
+      <entry>Yes, as part of another technology.</entry>
+    </row>
 
-    <tr>
-      <td><link xl:href="http://jcp.org/en/jsr/detail?id=318">JSR
-      318</link></td>
+    <row>
+      <entry><link xl:href="http://jcp.org/en/jsr/detail?id=318">JSR
+      318</link></entry>
 
-      <td>Enterprise JavaBeans 3.1</td>
+      <entry>Enterprise JavaBeans 3.1</entry>
 
-      <td>No</td>
+      <entry>No</entry>
 
-      <td>Yes, eg OpenEJB</td>
-    </tr>
+      <entry>Yes, eg OpenEJB</entry>
+    </row>
 
-    <tr>
-      <td><link xl:href="http://jcp.org/en/jsr/detail?id=317">JSR
-      317</link></td>
+    <row>
+      <entry><link xl:href="http://jcp.org/en/jsr/detail?id=317">JSR
+      317</link></entry>
 
-      <td>Java Persistance 2.0 (JPA)</td>
+      <entry>Java Persistance 2.0 (JPA)</entry>
 
-      <td>No</td>
+      <entry>No</entry>
 
-      <td>Yes, eg <link xl:href="http://www.hibernate.org/">Hibernate</link>
-      </td>
-    </tr>
+      <entry>Yes, eg <link xl:href="http://www.hibernate.org/">Hibernate</link>
+      </entry>
+    </row>
 
-    <tr>
-      <td><link xl:href="http://jcp.org/en/jsr/detail?id=250">JSR
-      250</link></td>
+    <row>
+      <entry><link xl:href="http://jcp.org/en/jsr/detail?id=250">JSR
+      250</link></entry>
 
-      <td>Common Annotations for the Java Platform</td>
+      <entry>Common Annotations for the Java Platform</entry>
 
-      <td>Yes</td>
+      <entry>Yes</entry>
 
-      <td>Partially (for non-core Servlet Spec annotations)</td>
-    </tr>
+      <entry>Partially (for non-core Servlet Spec annotations)</entry>
+    </row>
 
-    <tr>
-      <td><link xl:href="http://jcp.org/en/jsr/detail?id=907">JSR
-      907</link></td>
+    <row>
+      <entry><link xl:href="http://jcp.org/en/jsr/detail?id=907">JSR
+      907</link></entry>
 
-      <td>Java Transaction API (JTA)</td>
+      <entry>Java Transaction API (JTA)</entry>
 
-      <td>Yes</td>
+      <entry>Yes</entry>
 
-      <td>Implementations are pluggable, such as <link
+      <entry>Implementations are pluggable, such as <link
       xl:href="http://www.atomikos.com/">Atomikos</link>, <link
       xl:href="http://jotm.ow2.org/xwiki/bin/view/Main/WebHome">JOTM</link>,
       <link
       xl:href="http://jencks.codehaus.org/Transaction+Manager">Jencks(Geronimo
-      Transaction Manager)</link> etc</td>
-    </tr>
+      Transaction Manager)</link> etc</entry>
+    </row>
 
-    <tr>
-      <td><link xl:href="http://jcp.org/en/jsr/detail?id=303">JSR
-      303</link></td>
+    <row>
+      <entry><link xl:href="http://jcp.org/en/jsr/detail?id=303">JSR
+      303</link></entry>
 
-      <td>Bean Validation 1.0</td>
+      <entry>Bean Validation 1.0</entry>
 
-      <td>No</td>
+      <entry>No</entry>
 
-      <td>Yes as part of another technology eg JSF, or a stand-alone
+      <entry>Yes as part of another technology eg JSF, or a stand-alone
       implementation such as <link
       xl:href="http://www.hibernate.org/subprojects/validator/docs.html">Hiberate
-      Validator</link></td>
-    </tr>
+      Validator</link></entry>
+    </row>
+    </tbody>
+  </tgroup>
   </table>
 
   <para>In the forthcoming JavaEE-7 specification, the Web Profile has been
@@ -221,215 +222,217 @@
     thus the following table is provisional.</para>
   </important>
 
-  <table border="1" xml:id="webprofile-7">
-    <caption>JavaEE7 Web Profile</caption>
+  <table xml:id="webprofile-7">
+    <title>JavaEE7 Web Profile</title>
+    <tgroup cols="4">
+      <thead>
+    <row>
+      <entry>JSR</entry>
 
-    <tr>
-      <th>JSR</th>
+      <entry>Name</entry>
 
-      <th>Name</th>
+      <entry>Included with jetty-9.1.x</entry>
 
-      <th>Included with jetty-9.1.x</th>
+      <entry>Pluggable</entry>
+    </row>
+      </thead>
+      <tbody>
+    <row>
+      <entry><link xl:href="http://jcp.org/en/jsr/detail?id=340">JSR
+      340</link></entry>
 
-      <th>Pluggable</th>
-    </tr>
+      <entry>Servlet Specification API 3.1</entry>
 
-    <tr>
-      <td><link xl:href="http://jcp.org/en/jsr/detail?id=340">JSR
-      340</link></td>
+      <entry>Yes</entry>
 
-      <td>Servlet Specification API 3.1</td>
+      <entry/>
+    </row>
 
-      <td>Yes</td>
+    <row>
+      <entry><link xl:href="http://jcp.org/en/jsr/detail?id=344">JSR
+      344</link></entry>
 
-      <td/>
-    </tr>
+      <entry>Java Server Faces 2.2 (JSF)</entry>
 
-    <tr>
-      <td><link xl:href="http://jcp.org/en/jsr/detail?id=344">JSR
-      344</link></td>
+      <entry>No</entry>
 
-      <td>Java Server Faces 2.2 (JSF)</td>
-
-      <td>No</td>
-
-      <td>Yes, eg <link
+      <entry>Yes, eg <link
       xl:href="https://javaserverfaces.java.net/">Mojarra</link> or <link
-      xl:href="http://myfaces.apache.org/">MyFaces</link></td>
-    </tr>
+      xl:href="http://myfaces.apache.org/">MyFaces</link></entry>
+    </row>
 
-    <tr>
-      <td><link xl:href="http://jcp.org/en/jsr/detail?id=245">JSR 245</link> /
-      <link xl:href="http://jcp.org/en/jsr/detail?id=341">JSR 341</link></td>
+    <row>
+      <entry><link xl:href="http://jcp.org/en/jsr/detail?id=245">JSR 245</link> /
+      <link xl:href="http://jcp.org/en/jsr/detail?id=341">JSR 341</link></entry>
 
-      <td>Java Server Pages 2.3/Java Expression Language 3.0 (JSP/EL)</td>
+      <entry>Java Server Pages 2.3/Java Expression Language 3.0 (JSP/EL)</entry>
 
-      <td>Yes</td>
+      <entry>Yes</entry>
 
-      <td>Yes</td>
-    </tr>
+      <entry>Yes</entry>
+    </row>
 
-    <tr>
-      <td><link xl:href="http://jcp.org/en/jsr/detail?id=52">JSR
-      52</link></td>
+    <row>
+      <entry><link xl:href="http://jcp.org/en/jsr/detail?id=52">JSR
+      52</link></entry>
 
-      <td>Java Standard Tag Library 1.2 (JSTL)</td>
+      <entry>Java Standard Tag Library 1.2 (JSTL)</entry>
 
-      <td>Yes</td>
+      <entry>Yes</entry>
 
-      <td>Yes</td>
-    </tr>
+      <entry>Yes</entry>
+    </row>
 
-    <tr>
-      <td><link xl:href="http://jcp.org/en/jsr/detail?id=45">JSR
-      45</link></td>
+    <row>
+      <entry><link xl:href="http://jcp.org/en/jsr/detail?id=45">JSR
+      45</link></entry>
 
-      <td>Debugging Support for Other Languages 1.0</td>
+      <entry>Debugging Support for Other Languages 1.0</entry>
 
-      <td>Yes (via JSP)</td>
+      <entry>Yes (via JSP)</entry>
 
-      <td>Yes (via JSP)</td>
-    </tr>
+      <entry>Yes (via JSP)</entry>
+    </row>
 
-    <tr>
-      <td><link xl:href="http://jcp.org/en/jsr/detail?id=346">JSR
-      346</link></td>
+    <row>
+      <entry><link xl:href="http://jcp.org/en/jsr/detail?id=346">JSR
+      346</link></entry>
 
-      <td>Contexts and Dependency Injection for the JavaEE Platform 1.1 (Web
-      Beans)</td>
+      <entry>Contexts and Dependency Injection for the JavaEE Platform 1.1 (Web
+      Beans)</entry>
 
-      <td>No</td>
+      <entry>No</entry>
 
-      <td>Yes, eg <link
-      xl:href="http://seamframework.org/Weld">Weld</link></td>
-    </tr>
+      <entry>Yes, eg <link
+      xl:href="http://seamframework.org/Weld">Weld</link></entry>
+    </row>
 
-    <tr>
-      <td><link xl:href="http://jcp.org/en/jsr/detail?id=330">JSR
-      330</link></td>
+    <row>
+      <entry><link xl:href="http://jcp.org/en/jsr/detail?id=330">JSR
+      330</link></entry>
 
-      <td>Dependency Injection for Java 1.0</td>
+      <entry>Dependency Injection for Java 1.0</entry>
 
-      <td>No</td>
+      <entry>No</entry>
 
-      <td>Yes as part of a CDI implementation, eg <link
-      xl:href="http://seamframework.org/Weld">Weld</link></td>
-    </tr>
+      <entry>Yes as part of a CDI implementation, eg <link
+      xl:href="http://seamframework.org/Weld">Weld</link></entry>
+    </row>
 
-    <tr>
-      <td><link xl:href="???">JSR 316</link></td>
+    <row>
+      <entry><link xl:href="???">JSR 316</link></entry>
 
-      <td>Managed Beans 1.0</td>
+      <entry>Managed Beans 1.0</entry>
 
-      <td>No</td>
+      <entry>No</entry>
 
-      <td>Yes, as part of another technology</td>
-    </tr>
+      <entry>Yes, as part of another technology</entry>
+    </row>
 
-    <tr>
-      <td><link xl:href="http://jcp.org/en/jsr/detail?id=345">JSR
-      345</link></td>
+    <row>
+      <entry><link xl:href="http://jcp.org/en/jsr/detail?id=345">JSR
+      345</link></entry>
 
-      <td>Enterprise JavaBeans 3.2 Lite</td>
+      <entry>Enterprise JavaBeans 3.2 Lite</entry>
 
-      <td>No</td>
+      <entry>No</entry>
 
-      <td/>
-    </tr>
+      <entry/>
+    </row>
 
-    <tr>
-      <td><link xl:href="http://jcp.org/en/jsr/detail?id=338">JSR
-      338</link></td>
+    <row>
+      <entry><link xl:href="http://jcp.org/en/jsr/detail?id=338">JSR
+      338</link></entry>
 
-      <td>Java Persistance 2.1 (JPA)</td>
+      <entry>Java Persistance 2.1 (JPA)</entry>
 
-      <td>No</td>
+      <entry>No</entry>
 
-      <td>Yes, eg <link
-      xl:href="http://www.hibernate.org/">Hibernate</link></td>
-    </tr>
+      <entry>Yes, eg <link
+      xl:href="http://www.hibernate.org/">Hibernate</link></entry>
+    </row>
 
-    <tr>
-      <td><link xl:href="http://jcp.org/en/jsr/detail?id=250">JSR
-      250</link></td>
+    <row>
+      <entry><link xl:href="http://jcp.org/en/jsr/detail?id=250">JSR
+      250</link></entry>
 
-      <td>Common Annotations for the Java Platform 1.2</td>
+      <entry>Common Annotations for the Java Platform 1.2</entry>
 
-      <td>Yes</td>
+      <entry>Yes</entry>
 
-      <td>Partially (for non-core Servlet Spec annotations)</td>
-    </tr>
+      <entry>Partially (for non-core Servlet Spec annotations)</entry>
+    </row>
 
-    <tr>
-      <td><link xl:href="http://jcp.org/en/jsr/detail?id=907">JSR
-      907</link></td>
+    <row>
+      <entry><link xl:href="http://jcp.org/en/jsr/detail?id=907">JSR
+      907</link></entry>
 
-      <td>Java Transaction API 1.2 (JTA) </td>
+      <entry>Java Transaction API 1.2 (JTA) </entry>
 
-      <td>Yes</td>
+      <entry>Yes</entry>
 
-      <td>Yes</td>
-    </tr>
+      <entry>Yes</entry>
+    </row>
 
-    <tr>
-      <td><link xl:href="http://jcp.org/en/jsr/detail?id=349">JSR
-      349</link></td>
+    <row>
+      <entry><link xl:href="http://jcp.org/en/jsr/detail?id=349">JSR
+      349</link></entry>
 
-      <td>Bean Validation 1.1</td>
+      <entry>Bean Validation 1.1</entry>
 
-      <td>No</td>
+      <entry>No</entry>
 
-      <td>Yes as part of another technology eg JSF, or a stand-alone
+      <entry>Yes as part of another technology eg JSF, or a stand-alone
       implementation such as <link
       xl:href="http://www.hibernate.org/subprojects/validator/docs.html">Hiberate
-      Validator</link></td>
-    </tr>
+      Validator</link></entry>
+    </row>
 
-    <tr>
-      <td><link xl:href="http://jcp.org/en/jsr/detail?id=339">JSR
-      339</link></td>
+    <row>
+      <entry><link xl:href="http://jcp.org/en/jsr/detail?id=339">JSR
+      339</link></entry>
 
-      <td>Java API for RESTful Web Services 2.0 (JAX-RS)</td>
+      <entry>Java API for RESTful Web Services 2.0 (JAX-RS)</entry>
 
-      <td>No</td>
+      <entry>No</entry>
 
-      <td/>
-    </tr>
+      <entry/>
+    </row>
 
-    <tr>
-      <td><link xl:href="http://jcp.org/en/jsr/detail?id=356">JSR
-      356</link></td>
+    <row>
+      <entry><link xl:href="http://jcp.org/en/jsr/detail?id=356">JSR
+      356</link></entry>
 
-      <td>Java API for Websocket 1.0</td>
+      <entry>Java API for Websocket 1.0</entry>
 
-      <td>Yes</td>
+      <entry>Yes</entry>
 
-      <td>No</td>
-    </tr>
+      <entry>No</entry>
+    </row>
 
-    <tr>
-      <td><link xl:href="http://jcp.org/en/jsr/detail?id=353">JSR
-      353</link></td>
+    <row>
+      <entry><link xl:href="http://jcp.org/en/jsr/detail?id=353">JSR
+      353</link></entry>
 
-      <td>Java API for JSON Processing 1.0 (JSON-P)</td>
+      <entry>Java API for JSON Processing 1.0 (JSON-P)</entry>
 
-      <td>No</td>
+      <entry>No</entry>
 
-      <td>Yes, eg JSON-P <link
+      <entry>Yes, eg JSON-P <link
       xl:href="https://java.net/projects/jsonp/">reference
-      implementation</link></td>
-    </tr>
+      implementation</link></entry>
+    </row>
 
-    <tr>
-      <td><link xl:href="jcp.org/en/jsr/detail?id=318">JSR 318</link></td>
+    <row>
+      <entry><link xl:href="jcp.org/en/jsr/detail?id=318">JSR 318</link></entry>
 
-      <td>Interceptors 1.2</td>
+      <entry>Interceptors 1.2</entry>
 
-      <td>No</td>
+      <entry>No</entry>
 
-      <td>Yes as part of a CDI implementation</td>
-    </tr>
+      <entry>Yes as part of a CDI implementation</entry>
+    </row>
+  </tbody>
+</tgroup>
   </table>
-
-  <para/>
 </section>

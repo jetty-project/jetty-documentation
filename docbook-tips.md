@@ -114,3 +114,5 @@ Valid languages are:
 * rjava - get a remote java file
 * plain
 * rplain - get a remote plain file
+
+We use the SyntaxHighlighter from http://alexgorbatchev.com/SyntaxHighlighter/ so it is easy to add whatever languages are available with that package, it just required a bit of swizzling in the docbook.xsl file.

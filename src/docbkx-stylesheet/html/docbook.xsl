@@ -203,6 +203,62 @@ xmlns:gcse="http://www.google.com"
  <!-- 
    - synxtax highlighting 
    -->
+  <xsl:template match="d:programlisting">
+    <xsl:element name="script">
+      <xsl:attribute name="type">syntaxhighlighter</xsl:attribute>
+      
+      <xsl:variable name="highlight">
+        <xsl:choose>
+          <xsl:when test="@format">; highlight: <xsl:value-of select="@format"/></xsl:when>
+          <xsl:otherwise></xsl:otherwise>
+        </xsl:choose>
+      </xsl:variable>
+
+      <xsl:variable name="startinglinenumber">
+        <xsl:choose>
+          <xsl:when test="@startinglinenumber">; first-line: <xsl:value-of select="@startinglinenumber"/></xsl:when>
+          <xsl:otherwise></xsl:otherwise>
+        </xsl:choose>
+      </xsl:variable>
+
+      <xsl:choose>
+        <xsl:when test="@language='java'">
+          <xsl:attribute name="class">brush: java<xsl:copy-of select="$highlight"/><xsl:copy-of select="$startinglinenumber"/></xsl:attribute>
+          &lt;![CDATA[<xsl:value-of select="text()"/>]]&gt;
+        </xsl:when>
+        <xsl:when test="@language='rjava'">
+          <xsl:attribute name="class">brush: java<xsl:copy-of select="$highlight"/><xsl:copy-of select="$startinglinenumber"/></xsl:attribute>
+          <xsl:variable name="filename" select="./d:filename"/>
+          <xsl:variable name="methodname" select="./d:methodname"/>
+          <xsl:variable name="newText" select="jfetch:fetch($filename,$methodname)"/>
+          &lt;![CDATA[<xsl:value-of select="$newText"/>]]&gt;
+        </xsl:when>
+        <xsl:when test="@language='xml'">
+          <xsl:attribute name="class">brush: xml<xsl:copy-of select="$highlight"/><xsl:copy-of select="$startinglinenumber"/></xsl:attribute>
+          &lt;![CDATA[<xsl:value-of select="text()"/>]]&gt;
+        </xsl:when>
+        <xsl:when test="@language='rxml'">
+          <xsl:attribute name="class">brush: xml<xsl:copy-of select="$highlight"/><xsl:copy-of select="$startinglinenumber"/></xsl:attribute>
+          <xsl:variable name="filename" select="./d:filename"/>
+          <xsl:variable name="newText" select="fetch:fetch($filename)"/>
+          &lt;![CDATA[<xsl:value-of select="$newText"/>]]&gt;
+        </xsl:when>
+        <xsl:when test="@language='plain'">
+          <xsl:attribute name="class">brush: plain<xsl:copy-of select="$highlight"/><xsl:copy-of select="$startinglinenumber"/></xsl:attribute>
+          &lt;![CDATA[<xsl:value-of select="text()"/>]]&gt;
+        </xsl:when>
+        <xsl:when test="@language='rplain'">
+          <xsl:attribute name="class">brush: plain<xsl:copy-of select="$highlight"/><xsl:copy-of select="$startinglinenumber"/></xsl:attribute>
+          <xsl:variable name="filename" select="./d:filename"/>
+          <xsl:variable name="newText" select="fetch:fetch($filename)"/>
+          &lt;![CDATA[<xsl:value-of select="$newText"/>]]&gt;
+        </xsl:when>
+      </xsl:choose>
+      
+    </xsl:element>
+  </xsl:template>
+
+<!--
   <xsl:template match="d:programlisting[@language='java']">
     <xsl:element name="script">
       <xsl:attribute name="type">syntaxhighlighter</xsl:attribute>
@@ -265,18 +321,7 @@ xmlns:gcse="http://www.google.com"
       &lt;![CDATA[<xsl:value-of select="$newText"/>]]&gt;
     </xsl:element>
   </xsl:template>
-
-  <!-- deprecated, we should have no fetch instances anymore, use rxml or define a new one as needed -->
-  <xsl:template match="d:programlisting[@language='fetch']">
-    <xsl:element name="script">
-      <xsl:attribute name="type">syntaxhighlighter</xsl:attribute>
-      <xsl:attribute name="class">brush: xml</xsl:attribute>
-      <xsl:variable name="filename" select="./d:filename"/>
-      <xsl:variable name="newText" select="fetch:fetch($filename)"/>
-      &lt;![CDATA[<xsl:value-of select="$newText"/>]]&gt;
-    </xsl:element>
-  </xsl:template>
-
+-->
   
 
   <!-- By default, DocBook surrounds highlighted elements with one or more HTML elements

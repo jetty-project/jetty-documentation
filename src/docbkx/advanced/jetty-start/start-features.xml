@@ -325,7 +325,9 @@ Command Line Options:
       argument. The following start.ini sets the options and default
       configuration files for using the server with JMX and SSL:</para>
 
-      <programlisting>#===========================================================
+      <programlisting language="plain">
+<![CDATA[
+#===========================================================
 # Jetty start.ini example
 #-----------------------------------------------------------
 OPTIONS=Server
@@ -333,7 +335,9 @@ etc/jetty.xml
 etc/jetty-http.xml
 
 OPTIONS=jmx
-etc/jetty-jmx.xml</programlisting>
+etc/jetty-jmx.xml
+]]>
+      </programlisting>
 
       <para>Note how the OPTIONS property is additive and both the Server and
       jmx options are enabled by this example.</para>
@@ -348,10 +352,13 @@ etc/jetty-jmx.xml</programlisting>
       login service (realm) and client option needed for the test webapp are
       defined in the file <filename>start.d/test-webapp.ini</filename>:</para>
 
-      <programlisting># Enabled services and configuration needed by the test webapp
+      <programlisting language="plain">
+<![CDATA[
+# Enabled services and configuration needed by the test webapp
 OPTIONS=client
 etc/test-realm.xml
-</programlisting>
+]]>
+      </programlisting>
     </section>
 
     <section>
@@ -363,7 +370,9 @@ etc/test-realm.xml
       a new JVM is spawned with the arguments. The following start.ini example
       sets the JVM heap memory and enables remote JMX management:</para>
 
-      <screen>#===========================================================
+      <programlisting language="plain">
+<![CDATA[
+#===========================================================
 # Jetty start.jar arguments
 #-----------------------------------------------------------
 --exec
@@ -372,7 +381,9 @@ etc/test-realm.xml
 OPTIONS=Server,jmx,resources
 etc/jetty-jmx.xml
 etc/jetty.xml
-etc/jetty-ssl.xml</screen>
+etc/jetty-ssl.xml
+]]>
+      </programlisting>
     </section>
   </section>
 </section>

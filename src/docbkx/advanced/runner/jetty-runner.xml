@@ -188,8 +188,8 @@
     <para>Here's what the output will look like:</para>
 
     <informalexample>
-      <programlisting><![CDATA[
-
+      <programlisting language="plain">
+<![CDATA[
 Usage: java [-Djetty.home=dir] -jar jetty-runner.jar [--help|--version] [ server opts] [[ context opts] context ...]
 Server opts:
  --version                           - display version and exit
@@ -206,8 +206,8 @@ Server opts:
  [--config file]*n                   - each tuple specifies the name of a jetty xml config file to apply (in the order defined)
 Context opts:
  [[--path /path] context]*n          - WAR file, web app dir or context xml file, optionally with a context path
-
-      ]]></programlisting>
+      ]]>
+      </programlisting>
     </informalexample>
 
     <variablelist>
@@ -217,14 +217,12 @@ Context opts:
         <listitem>
           <para>Print out the version of jetty and then exit
           immediately.</para>
-
-          <para><informalexample>
-              <screen language="xml"><![CDATA[
-
+          
+          <screen>
+<![CDATA[
 > java -jar jetty-runner.jar --version
-
-              ]]></screen>
-            </informalexample></para>
+]]>
+          </screen>
         </listitem>
       </varlistentry>
 
@@ -239,13 +237,11 @@ Context opts:
           request log</link>, you will need to use a jetty xml file
           instead.</para>
 
-          <informalexample>
             <screen><![CDATA[
 
 > java -jar jetty-runner.jar --log yyyy_mm_dd-requests.log  my.war
 
             ]]></screen>
-          </informalexample>
         </listitem>
       </varlistentry>
 
@@ -257,13 +253,11 @@ Context opts:
           file is prefixed with yyyy_mm_dd then the file will be automatically
           rolled over.</para>
 
-          <informalexample>
             <screen><![CDATA[
 
 > java -jar jetty-runner.jar --out yyyy_mm_dd-output.log my.war
 
             ]]></screen>
-          </informalexample>
         </listitem>
       </varlistentry>
 
@@ -276,9 +270,7 @@ Context opts:
           specifying the name or ip address of the particular interface you
           wish to use with the --host argument:</para>
 
-          <informalexample>
             <screen><![CDATA[> java -jar jetty-runner.jar --host 192.168.22.19 my.war]]></screen>
-          </informalexample>
         </listitem>
       </varlistentry>
 
@@ -290,13 +282,11 @@ Context opts:
           linkend="how-to-configure-connectors">configure a https
           connector</link>, use a jetty xml config file instead.</para>
 
-          <informalexample>
             <screen><![CDATA[
 
 > java -jar jetty-runner.jar --port 9090  my.war
 
             ]]></screen>
-          </informalexample>
         </listitem>
       </varlistentry>
 
@@ -310,13 +300,11 @@ Context opts:
           accidental termination. Use the --stop-port and --stop-key
           parameters as arguments to the jetty-runner:</para>
 
-          <informalexample>
             <screen><![CDATA[
 
 > java -jar jetty-runner.jar --stop-port 8181 --stop-key abc123
 
             ]]></screen>
-          </informalexample>
 
           <para>Then, to stop jetty from a different terminal, you need to
           supply the same port and key information. For this you'll either
@@ -325,13 +313,11 @@ Context opts:
           linkend="jetty-ant">etty-ant plugin</link>, or write a custom class.
           Here's how to use a jetty installation to perform a stop:</para>
 
-          <informalexample>
             <screen><![CDATA[
 
 > java -jar start.jar --stop-port 8181 --stop-key abc123 --stop
 
             ]]></screen>
-          </informalexample>
         </listitem>
       </varlistentry>
 
@@ -348,37 +334,31 @@ Context opts:
           add to the container classpath. You can add 1 or more. Here's an
           example of configuring 2 directories:</para>
 
-          <informalexample>
             <screen><![CDATA[
 
 > java -jar jetty-runner.jar --lib /usr/local/external/lib --lib $HOME/external-other/lib my.war
 
             ]]></screen>
-          </informalexample>
 
           <para>--jar adds a single jar file to the container classpath. You
           can add 1 or more. Here's an example of configuring 3 extra
           jars:</para>
 
-          <informalexample>
             <screen><![CDATA[
 
 > java -jar jetty-runner.jar --jar /opt/stuff/jars/jar1.jar --jar $HOME/jars/jar2.jar --jar /usr/local/proj/jars/jar3.jar  my.war
 
             ]]></screen>
-          </informalexample>
 
           <para>--classes add the location of a directory containing classes
           to add to the container classpath. You can add 1 or more. Here's an
           example of configuring a single extra classes dir:</para>
 
-          <informalexample>
             <screen><![CDATA[
 
 > java -jar jetty-runner.jar --classes /opt/stuff/classes my.war
 
             ]]></screen>
-          </informalexample>
         </listitem>
       </varlistentry>
 
@@ -391,13 +371,11 @@ Context opts:
           that context with a password. Here's an example of enabling
           statistics, with no password protection:</para>
 
-          <informalexample>
             <screen><![CDATA[
 
 > java -jar jetty-runner.jar --stats unsecure my.war
 
             ]]></screen>
-          </informalexample>
 
           <para>If we wished to protect acess to the /stats context, we would
           provide the location of a jetty realm configuration file containing
@@ -405,8 +383,7 @@ Context opts:
           use the following example realm file from the jetty
           distribution:</para>
 
-          <informalexample>
-            <programlisting><![CDATA[
+            <programlisting language="plain"><![CDATA[
 
 jetty: MD5:164c88b302622e17050af52c89945d44,user
 admin: CRYPT:adpexzg3FUZAk,server-administrator,content-administrator,admin
@@ -422,20 +399,18 @@ digest: MD5:6e120743ad67abfbc385bc2bb754e297,user
           <para>Assuming we've copied it into the local directory, we would
           apply it like so</para>
 
-          <informalexample>
             <screen><![CDATA[
 
 > java -jar jetty-runner.jar --stats realm.properties my.war
 
             ]]></screen>
-          </informalexample>
 
           <para>After surfing to http://localhost:8080/ a few times, we can
           surf to the stats servlet on http://localhost:8080/stats to see the
           output:</para>
 
           <informalexample>
-            <programlisting><![CDATA[
+            <programlisting language="plain"><![CDATA[
 Statistics:
 
 

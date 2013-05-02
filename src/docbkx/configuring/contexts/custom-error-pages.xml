@@ -184,7 +184,7 @@ void writeErrorPageStacks(HttpServletRequest request, Writer writer) throws IOEx
     </informalexample>
     <para>An ErrorHandler instance may be set on the entire server by setting it as a dependent bean on the Server
     instance. This can be done by calling Server.addBean(Object) via embedded code or in jetty.xml IoC XML like:</para>
-    <programlisting>
+    <programlisting language="xml">
 <![CDATA[<Configure id="Server" class="org.eclipse.jetty.server.Server">
   ...
 

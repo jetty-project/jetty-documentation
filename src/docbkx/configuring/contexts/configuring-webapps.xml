@@ -277,7 +277,7 @@
         Configurations for both JNDI <emphasis>and</emphasis>
         annotations:</para>
 
-        <programlisting><![CDATA[<?xml version="1.0"?>
+        <programlisting language="xml"><![CDATA[<?xml version="1.0"?>
 <!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure_9_0.dtd">
 
 <Configure class="org.eclipse.jetty.webapp.WebAppContext">
@@ -312,7 +312,7 @@
         linkend="default-web-app-provider">WebAppProvider</link>. They will
         then be applied to each WebAppContext deployed by the deployer:</para>
 
-        <programlisting><![CDATA[<?xml version="1.0"?>
+        <programlisting language="xml"><![CDATA[<?xml version="1.0"?>
 <!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure_9_0.dtd">
 
 <Configure id="Server" class="org.eclipse.jetty.server.Server">
@@ -360,7 +360,7 @@
         $JETTY_HOME/etc/jetty-plus.xml file from the Jetty
         distribution:</para>
 
-        <programlisting><![CDATA[<?xml version="1.0"?>
+        <programlisting language="xml"><![CDATA[<?xml version="1.0"?>
 <!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure_9_0.dtd">
 
 <Configure id="Server" class="org.eclipse.jetty.server.Server">
@@ -440,7 +440,7 @@
       whose name starts with "foo-" or "bar-", or a directory named
       "classes":</para>
 
-      <programlisting><![CDATA[<?xml version="1.0"?>
+      <programlisting language="xml"><![CDATA[<?xml version="1.0"?>
 <!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure_9_0.dtd">
 
 <Configure class="org.eclipse.jetty.webapp.WebAppContext">
@@ -470,7 +470,7 @@
       code) of a pattern that matches any jar that starts with
       "spring-":</para>
 
-      <programlisting><![CDATA[<?xml version="1.0"?>
+      <programlisting language="xml"><![CDATA[<?xml version="1.0"?>
 <!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure_9_0.dtd">
 
 <Configure class="org.eclipse.jetty.webapp.WebAppContext">

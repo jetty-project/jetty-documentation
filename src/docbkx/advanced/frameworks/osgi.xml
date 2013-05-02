@@ -979,7 +979,7 @@ public void start(final BundleContext context) throws Exception
         a web bundle that uses the Spring servlet framework:</para>
 
         <informalexample>
-          <programlisting language="plain" format="[4, 5]">
+          <programlisting language="plain" condition="[4, 5]">
 <![CDATA[
 Bundle-SymbolicName: com.acme.sample
 Bundle-Name: WebSample

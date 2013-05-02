@@ -47,14 +47,14 @@
     <filename>pom.xml</filename> definition:</para>
 
     <informalexample>
-      <programlisting language="xml"><![CDATA[
-
+      <programlisting language="xml">
+<![CDATA[
 <plugin>
   <groupId>org.eclipse.jetty</groupId>
   <artifactId>jetty-maven-plugin</artifactId>
 </plugin>
-      
-      ]]></programlisting>
+]]>
+      </programlisting>
     </informalexample>
 
     <para>Then, from the same directory as your root
@@ -1454,7 +1454,8 @@ WebAppY:
     logger:</para>
 
     <informalexample>
-      <programlisting><![CDATA[
+      <programlisting language="xml">
+<![CDATA[
 <plugin>
   <groupId>org.codehaus.mojo</groupId>
   <artifactId>properties-maven-plugin</artifactId>
@@ -1475,7 +1476,8 @@ WebAppY:
     </execution>
   </executions>
 </plugin>
-      ]]></programlisting>
+]]>
+      </programlisting>
     </informalexample>
 
     <para>Note that if a System property is already set (for example, from the

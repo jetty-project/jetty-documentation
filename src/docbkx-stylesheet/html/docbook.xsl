@@ -226,6 +226,10 @@ xmlns:gcse="http://www.google.com"
           <xsl:attribute name="class">brush: bash<xsl:copy-of select="$highlight"/><xsl:copy-of select="$startinglinenumber"/></xsl:attribute>
           &lt;![CDATA[<xsl:value-of select="text()"/>]]&gt;
         </xsl:when>
+        <xsl:when test="@language='properties'">
+          <xsl:attribute name="class">brush: bash<xsl:copy-of select="$highlight"/><xsl:copy-of select="$startinglinenumber"/></xsl:attribute>
+          &lt;![CDATA[<xsl:value-of select="text()"/>]]&gt;
+        </xsl:when>
         <xsl:when test="@language='java'">
           <xsl:attribute name="class">brush: java<xsl:copy-of select="$highlight"/><xsl:copy-of select="$startinglinenumber"/></xsl:attribute>
           &lt;![CDATA[<xsl:value-of select="text()"/>]]&gt;

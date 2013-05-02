@@ -78,8 +78,7 @@
         role="bold">lib/logging/</emphasis><![CDATA[
 total 40
 -rw-rw-r-- 1 jetty jetty 26176 Mar 11 16:38 ]]><emphasis role="bold">slf4j-api-1.6.6.jar</emphasis><![CDATA[
--rw-rw-r-- 1 jetty jetty  8845 Mar 11 16:38 ]]><emphasis role="bold">slf4j-jdk14-1.6.6.jar</emphasis><![CDATA[
-]]></screen>
+-rw-rw-r-- 1 jetty jetty  8845 Mar 11 16:38 ]]><emphasis role="bold">slf4j-jdk14-1.6.6.jar</emphasis></screen>
 
     <para>Next, we need to edit the ${jetty.home}/start.ini to get jetty to
     load these logging files into the Server classpath.</para>
@@ -87,11 +86,10 @@ total 40
     <para>Edit the start.ini and check for the following entries. (Add them to
     the end if missing)</para>
 
-    <programlisting language="properties"><![CDATA[# Configure java.util.logging from resources/logging.properties
-]]><emphasis role="bold">etc/jetty-jdk-logging.xml</emphasis><![CDATA[
+    <programlisting condition="[2,4]" language="properties"><![CDATA[# Configure java.util.logging from resources/logging.properties
+etc/jetty-jdk-logging.xml
 # Adding lib/logging to server classpath
-]]><emphasis role="bold">OPTIONS=logging</emphasis><![CDATA[
-]]></programlisting>
+OPTIONS=logging]]></programlisting>
 
     <para>Now verify that the 2 jars will be loaded by server classpath</para>
 
@@ -149,7 +147,7 @@ java.util.logging.FileHandler.formatter=java.util.logging.SimpleFormatter
     <para>Contents of etc/jetty-jdk-logging.xml file that we added earlier to
     the start.ini</para>
 
-    <programlisting language="xml"><![CDATA[<?xml version="1.0"?>
+    <programlisting condition="[9]" language="xml"><![CDATA[<?xml version="1.0"?>
 <!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure_9_0.dtd">
 
 <Configure id="Server" class="org.eclipse.jetty.server.Server">
@@ -157,8 +155,7 @@ java.util.logging.FileHandler.formatter=java.util.logging.SimpleFormatter
     <Call name="readConfiguration">
       <Arg class="java.io.InputStream">
         <New class="java.io.FileInputStream">
-          <Arg class="java.lang.String"><Property name="jetty.home" default="."/>]]><emphasis
-        role="bold">/resources/logging.properties</emphasis><![CDATA[</Arg>
+          <Arg class="java.lang.String"><Property name="jetty.home" default="."/>/resources/logging.properties</Arg>
         </New>
       </Arg>
     </Call>

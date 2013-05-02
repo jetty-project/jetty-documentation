@@ -3,6 +3,10 @@ a {
   color: #069;
 }
 
+a:hover {
+  text-decoration: underline;
+}
+
 a:visited {
   color: #036;
 }
@@ -21,6 +25,8 @@ code {
   font-size: 10pt;
 }
 
+.table-contents table td,
+.table-contents table th,
 .navheader table td,
 .navfooter table td {
   font-size: 10pt;
@@ -30,6 +36,12 @@ code {
 .navheader hr {
   border: 0px;
   border-bottom: 1px solid #fc390e; /* jetty orange */
+}
+
+.navfooter a,
+.navheader a {
+  font-weight: bold;
+  color: #fc390e;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -136,7 +148,7 @@ span.term {
   margin-bottom: 1.0em;
 }
 
-div .informalexample {
+div .screenexample {
   background-color: #EEE;
   border:solid 1px #CCC;
   padding: 1.5em;

@@ -260,17 +260,15 @@ org.eclipse.jetty.websocket.LEVEL=DEBUG]]></programlisting>
     <section xml:id="changing-log-level-etc-jetty.xml">
       <title>Changing log level in <code>etc/jetty.xml</code></title>
 
-      <informalexample>
-        <programlisting language="xml"><![CDATA[<Call class="org.eclipse.jetty.util.log.Log" name="getRootLogger">
+      <programlisting language="xml"><![CDATA[<Call class="org.eclipse.jetty.util.log.Log" name="getRootLogger">
   <Call name="setDebugEnabled">
     <Arg type="boolean">true</Arg>
   </Call>
 </Call>      ]]></programlisting>
 
-        <para>This technique, from older versions of Jetty, is used to
-        configure all of the StdErrLog loggers (no other implementations
-        support this) to be logging at DEBUG level.</para>
-      </informalexample>
+      <para>This technique, from older versions of Jetty, is used to configure
+      all of the StdErrLog loggers (no other implementations support this) to
+      be logging at DEBUG level.</para>
     </section>
 
     <section xml:id="using-etc-jetty-logging.xml">

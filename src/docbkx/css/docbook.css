@@ -32,8 +32,9 @@ dl {
 }
 
 pre {
+  font-family: "Consolas", "Bitstream Vera Sans Mono", "Courier New", Courier, monospace;
   font-family: monospace;
-  margin-bottom: 1.5em;
+  margin: 0px;
   overflow-x: auto;
 }
 
@@ -118,20 +119,17 @@ span.term {
  width: 33.33%;
 }
 
-pre.programlisting {
-   font-family: monospace;
-   background-color: #EEE;
-   padding: 1.5em;
-   border:solid 1px #CCC;
+div .informalexample {
+  background-color: #EEE;
+  border:solid 1px #CCC;
+  padding: 1.5em;
+  color: black;
 }
 
 pre.screen {
   white-space: pre;
   width: 100%;
-  background-color: #EEE;
-  border:solid 1px #CCC;
   color: black;
-  padding: 15pt;
 }
 
 div.variablelist {

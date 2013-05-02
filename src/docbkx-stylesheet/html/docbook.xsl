@@ -210,7 +210,8 @@ xmlns:gcse="http://www.google.com"
       <xsl:attribute name="class">screenexample</xsl:attribute>
       <xsl:element name="pre">
         <xsl:attribute name="class">screen</xsl:attribute>
-        <xsl:value-of select="text()"/>
+        <!--<xsl:value-of select="text()"/>-->
+        <xsl:apply-templates/>
       </xsl:element>
     </xsl:element>
   </xsl:template>

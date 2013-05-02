@@ -89,6 +89,14 @@ xmlns:gcse="http://www.google.com"
     </xsl:element>
     <xsl:element name="script">
       <xsl:attribute name="type">text/javascript</xsl:attribute>
+      <xsl:attribute name="src">js/shBrushBash.js</xsl:attribute>
+    </xsl:element>
+    <xsl:element name="script">
+      <xsl:attribute name="type">text/javascript</xsl:attribute>
+      <xsl:attribute name="src">js/shBrushJScript.js</xsl:attribute>
+    </xsl:element>
+    <xsl:element name="script">
+      <xsl:attribute name="type">text/javascript</xsl:attribute>
       <xsl:attribute name="src">js/shBrushPlain.js</xsl:attribute>
     </xsl:element>
     <xsl:element name="link">
@@ -207,6 +215,14 @@ xmlns:gcse="http://www.google.com"
     <xsl:element name="script">
       <xsl:attribute name="type">syntaxhighlighter</xsl:attribute>
       <xsl:attribute name="class">brush: xml</xsl:attribute>
+      &lt;![CDATA[<xsl:value-of select="text()"/>]]&gt;
+    </xsl:element>
+  </xsl:template>
+
+  <xsl:template match="d:programlisting[@language='bash']">
+    <xsl:element name="script">
+      <xsl:attribute name="type">syntaxhighlighter</xsl:attribute>
+      <xsl:attribute name="class">brush: bash</xsl:attribute>
       &lt;![CDATA[<xsl:value-of select="text()"/>]]&gt;
     </xsl:element>
   </xsl:template>

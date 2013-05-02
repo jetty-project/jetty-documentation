@@ -15,20 +15,26 @@
  * Dual licensed under the MIT and GPL licenses.
  */
 .syntaxhighlighter {
-  background-color: white !important;
+  background-color: #EEE !important;
+  padding-top: 1.5em;
+  padding-bottom: 1.5em;
+  padding-right: 1.5em;
+  padding-left: 1.5em;
+  border: solid 1px #CCC;
 }
-.syntaxhighlighter .line.alt1 {
-  background-color: white !important;
+
+/* Set the monospace / code / pre to be the same as the rest of docbook */
+.syntaxhighlighter code {
+  font-size: 90% !important;
 }
-.syntaxhighlighter .line.alt2 {
-  background-color: white !important;
-}
+
 .syntaxhighlighter .line.highlighted.alt1, .syntaxhighlighter .line.highlighted.alt2 {
   background-color: #c3defe !important;
 }
 .syntaxhighlighter .line.highlighted.number {
   color: white !important;
 }
+
 .syntaxhighlighter table caption {
   color: black !important;
 }

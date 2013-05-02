@@ -9,7 +9,6 @@ a:visited {
 
 body {
   font-family: Verdana, Helvetica, arial, freesans, clean, sans-serif;
-
   width: 960px;
   margin-left: auto;
   margin-right: auto;
@@ -211,7 +210,7 @@ div.variablelist {
   text-align: left; 
   border: thin dotted blue; 
   padding: 4px; 
-  font-size: 70%;
+  font-size: 80%;
 }
 
 .jetty-callout h5 {

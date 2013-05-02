@@ -81,6 +81,13 @@ There are a number of these that can be used within the document.  Each contains
 * &lt;warning&gt;
 * &lt;important&gt;
 
+    <tip>
+      <title>Tip Title</title>
+      <para>
+        Text for the tip box
+      </para>
+    </tip>
+
 You can use title tags in each of these to override the default test of their tag name.
 
 ## Code Blocks

@@ -20,9 +20,9 @@
   padding: 1.5em;
 }
 
-/* Set the monospace / code / pre to be the same as the rest of docbook */
-.syntaxhighlighter code {
-  font-size: 90% !important;
+.syntaxhighlighter .container .line,
+.syntaxhighlighter .gutter {
+  font-size: 10pt !important;
 }
 
 .syntaxhighlighter .line.highlighted.alt1, .syntaxhighlighter .line.highlighted.alt2 {

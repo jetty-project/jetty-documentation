@@ -9,11 +9,27 @@ a:visited {
 
 body {
   font-family: Verdana, Helvetica, arial, freesans, clean, sans-serif;
+  font-size: 10pt;
   width: 960px;
   margin-left: auto;
   margin-right: auto;
   background-color: #FFF;
   color: #444;
+}
+
+code {
+  font-size: 10pt;
+}
+
+.navheader table td,
+.navfooter table td {
+  font-size: 10pt;
+}
+
+.navfooter hr, 
+.navheader hr {
+  border: 0px;
+  border-bottom: 1px solid #fc390e; /* jetty orange */
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -33,7 +49,8 @@ dl {
 
 pre {
   font-family: "Consolas", "Bitstream Vera Sans Mono", "Courier New", Courier, monospace;
-  font-family: monospace;
+  font-weight: normal !important;
+  font-style: normal !important;
   margin: 0px;
   overflow-x: auto;
 }
@@ -93,10 +110,6 @@ h3.author {
   display: inline-block;
 }
 
-code {
-  font-size: 90%;
-}
-
 div.variablelist dd p {
   margin: 0;
   margin-top: 0;
@@ -116,7 +129,11 @@ span.term {
 }
 
 .navfooter table tr td {
- width: 33.33%;
+  width: 33.33%;
+}
+
+.navfooter {
+  margin-bottom: 1.0em;
 }
 
 div .informalexample {
@@ -208,7 +225,7 @@ div.variablelist {
   text-align: left; 
   border: thin dotted blue; 
   padding: 4px; 
-  font-size: 80%;
+  font-size: 90%;
 }
 
 .jetty-callout h5 {

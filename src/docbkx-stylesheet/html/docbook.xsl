@@ -204,6 +204,17 @@ xmlns:gcse="http://www.google.com"
     </script>
   </xsl:template>
 
+
+  <xsl:template match="d:screen">
+    <xsl:element name="div">
+      <xsl:attribute name="class">screenexample</xsl:attribute>
+      <xsl:element name="pre">
+        <xsl:attribute name="class">screen</xsl:attribute>
+        <xsl:value-of select="text()"/>
+      </xsl:element>
+    </xsl:element>
+  </xsl:template>
+
  <!-- 
    - synxtax highlighting 
    -->

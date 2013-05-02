@@ -97,6 +97,10 @@ xmlns:gcse="http://www.google.com"
     </xsl:element>
     <xsl:element name="script">
       <xsl:attribute name="type">text/javascript</xsl:attribute>
+      <xsl:attribute name="src">js/shBrushProperties.js</xsl:attribute>
+    </xsl:element>
+    <xsl:element name="script">
+      <xsl:attribute name="type">text/javascript</xsl:attribute>
       <xsl:attribute name="src">js/shBrushPlain.js</xsl:attribute>
     </xsl:element>
     <xsl:element name="link">
@@ -229,7 +233,7 @@ xmlns:gcse="http://www.google.com"
           &lt;![CDATA[<xsl:value-of select="text()"/>]]&gt;
         </xsl:when>
         <xsl:when test="@language='properties'">
-          <xsl:attribute name="class">brush: bash<xsl:copy-of select="$brushstyle"/></xsl:attribute>
+          <xsl:attribute name="class">brush: properties<xsl:copy-of select="$brushstyle"/></xsl:attribute>
           &lt;![CDATA[<xsl:value-of select="text()"/>]]&gt;
         </xsl:when>
         <xsl:when test="@language='java'">

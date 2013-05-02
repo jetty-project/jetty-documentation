@@ -365,9 +365,11 @@ xmlns:gcse="http://www.google.com"
               <xsl:element name="i">
                 <xsl:attribute name="class">icon-chevron-left</xsl:attribute>
               </xsl:element>
+              <xsl:text> Previous</xsl:text>
             </xsl:when>
             <xsl:when test="$direction = 'next'">
-                <xsl:element name="i">
+              <xsl:text>Next </xsl:text>
+              <xsl:element name="i">
                 <xsl:attribute name="class">icon-chevron-right</xsl:attribute>
               </xsl:element>
             </xsl:when>
@@ -375,11 +377,13 @@ xmlns:gcse="http://www.google.com"
                 <xsl:element name="i">
                 <xsl:attribute name="class">icon-chevron-up</xsl:attribute>
               </xsl:element>
+              <xsl:text> Top</xsl:text>
             </xsl:when>
             <xsl:when test="$direction = 'home'">
-                <xsl:element name="i">
+              <xsl:element name="i">
                 <xsl:attribute name="class">icon-home</xsl:attribute>
               </xsl:element>
+              <xsl:text> Home</xsl:text>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:text>xxx</xsl:text>

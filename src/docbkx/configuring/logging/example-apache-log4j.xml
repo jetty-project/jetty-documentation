@@ -83,13 +83,15 @@
     <para>Create a <filename>${jetty.home}/lib/logging/</filename> directory
     and place the 3 files you downloaded there.</para>
 
-    <para><screen language="bash"><![CDATA[[jetty-distribution-9.0.0.v20130308]$ ls -l ]]><emphasis
+    <informalexample>
+      <screen language="bash"><![CDATA[[jetty-distribution-9.0.0.v20130308]$ ls -l ]]><emphasis
           role="bold">lib/logging/</emphasis><![CDATA[
 total 520
 -rw-rw-r-- 1 jetty jetty 489884 Mar 11 15:40 ]]><emphasis role="bold">log4j-1.2.17.jar</emphasis><![CDATA[
 -rw-rw-r-- 1 jetty jetty  26176 Mar 11 15:40 ]]><emphasis role="bold">slf4j-api-1.6.6.jar</emphasis><![CDATA[
 -rw-rw-r-- 1 jetty jetty   9711 Mar 11 15:40 ]]><emphasis role="bold">slf4j-log4j12-1.6.6.jar</emphasis><![CDATA[
-]]></screen></para>
+]]></screen>
+    </informalexample>
 
     <para>Next, we need to edit the ${jetty.home}/start.ini to get jetty to
     load these logging files into the Server classpath.</para>
@@ -100,19 +102,25 @@ total 520
     <para>If you can't find a OPTIONS entry with logging, add one at the
     bottom of the file.</para>
 
-    <para><screen language="bash"><![CDATA[[jetty-distribution-9.0.0.v20130308]$ grep logging ]]><emphasis
+    <informalexample>
+      <screen language="bash"><![CDATA[[jetty-distribution-9.0.0.v20130308]$ grep logging ]]><emphasis
           role="bold">start.ini</emphasis><![CDATA[ 
 # Adding lib/logging to server classpath
 ]]><emphasis role="bold">OPTIONS=logging</emphasis><![CDATA[
-]]></screen>Now verify that the 3 jars will be loaded by the server
+]]></screen>
+    </informalexample>
+
+    <para>Now verify that the 3 jars will be loaded by the server
     classpath.</para>
 
-    <para><screen><![CDATA[[jetty-distribution-9.0.0.v20130308]$ ]]><emphasis
+    <informalexample>
+      <screen><![CDATA[[jetty-distribution-9.0.0.v20130308]$ ]]><emphasis
           role="bold">java -jar start.jar --version</emphasis><![CDATA[ | grep logging
 Active Options: [Server, client, ext, jmx, jsp, ]]><emphasis role="bold">logging</emphasis><![CDATA[, resources, websocket]
 18:               1.2.17 | ${jetty.home}/lib/logging/]]><emphasis role="bold">log4j-1.2.17.jar</emphasis><![CDATA[
 19:                1.6.6 | ${jetty.home}/lib/logging/]]><emphasis role="bold">slf4j-api-1.6.6.jar</emphasis><![CDATA[
-20:                1.6.6 | ${jetty.home}/lib/logging/]]><emphasis role="bold">slf4j-log4j12-1.6.6.jar</emphasis></screen></para>
+20:                1.6.6 | ${jetty.home}/lib/logging/]]><emphasis role="bold">slf4j-log4j12-1.6.6.jar</emphasis></screen>
+    </informalexample>
   </simplesect>
 
   <simplesect>

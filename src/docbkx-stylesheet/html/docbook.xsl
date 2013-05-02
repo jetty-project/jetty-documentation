@@ -221,44 +221,50 @@ xmlns:gcse="http://www.google.com"
         </xsl:choose>
       </xsl:variable>
 
+      <xsl:variable name="brushstyle">;toolbar: false<xsl:copy-of select="$highlight"/><xsl:copy-of select="$startinglinenumber"/></xsl:variable>
+
       <xsl:choose>
         <xsl:when test="@language='bash'">
-          <xsl:attribute name="class">brush: bash<xsl:copy-of select="$highlight"/><xsl:copy-of select="$startinglinenumber"/></xsl:attribute>
+          <xsl:attribute name="class">brush: bash<xsl:copy-of select="$brushstyle"/></xsl:attribute>
+          &lt;![CDATA[<xsl:value-of select="text()"/>]]&gt;
+        </xsl:when>
+        <xsl:when test="@language='properties'">
+          <xsl:attribute name="class">brush: bash<xsl:copy-of select="$brushstyle"/></xsl:attribute>
           &lt;![CDATA[<xsl:value-of select="text()"/>]]&gt;
         </xsl:when>
         <xsl:when test="@language='java'">
-          <xsl:attribute name="class">brush: java<xsl:copy-of select="$highlight"/><xsl:copy-of select="$startinglinenumber"/></xsl:attribute>
+          <xsl:attribute name="class">brush: java<xsl:copy-of select="$brushstyle"/></xsl:attribute>
           &lt;![CDATA[<xsl:value-of select="text()"/>]]&gt;
         </xsl:when>
         <xsl:when test="@language='rjava'">
-          <xsl:attribute name="class">brush: java<xsl:copy-of select="$highlight"/><xsl:copy-of select="$startinglinenumber"/></xsl:attribute>
+          <xsl:attribute name="class">brush: java<xsl:copy-of select="$brushstyle"/></xsl:attribute>
           <xsl:variable name="filename" select="./d:filename"/>
           <xsl:variable name="methodname" select="./d:methodname"/>
           <xsl:variable name="newText" select="jfetch:fetch($filename,$methodname)"/>
           &lt;![CDATA[<xsl:value-of select="$newText"/>]]&gt;
         </xsl:when>
         <xsl:when test="@language='xml'">
-          <xsl:attribute name="class">brush: xml<xsl:copy-of select="$highlight"/><xsl:copy-of select="$startinglinenumber"/></xsl:attribute>
+          <xsl:attribute name="class">brush: xml<xsl:copy-of select="$brushstyle"/></xsl:attribute>
           &lt;![CDATA[<xsl:value-of select="text()"/>]]&gt;
         </xsl:when>
         <xsl:when test="@language='rxml'">
-          <xsl:attribute name="class">brush: xml<xsl:copy-of select="$highlight"/><xsl:copy-of select="$startinglinenumber"/></xsl:attribute>
+          <xsl:attribute name="class">brush: xml<xsl:copy-of select="$brushstyle"/></xsl:attribute>
           <xsl:variable name="filename" select="./d:filename"/>
           <xsl:variable name="newText" select="fetch:fetch($filename)"/>
           &lt;![CDATA[<xsl:value-of select="$newText"/>]]&gt;
         </xsl:when>
         <xsl:when test="@language='plain'">
-          <xsl:attribute name="class">brush: plain<xsl:copy-of select="$highlight"/><xsl:copy-of select="$startinglinenumber"/></xsl:attribute>
+          <xsl:attribute name="class">brush: plain<xsl:copy-of select="$brushstyle"/></xsl:attribute>
           &lt;![CDATA[<xsl:value-of select="text()"/>]]&gt;
         </xsl:when>
         <xsl:when test="@language='rplain'">
-          <xsl:attribute name="class">brush: plain<xsl:copy-of select="$highlight"/><xsl:copy-of select="$startinglinenumber"/></xsl:attribute>
+          <xsl:attribute name="class">brush: plain<xsl:copy-of select="$brushstyle"/></xsl:attribute>
           <xsl:variable name="filename" select="./d:filename"/>
           <xsl:variable name="newText" select="fetch:fetch($filename)"/>
           &lt;![CDATA[<xsl:value-of select="$newText"/>]]&gt;
         </xsl:when>
         <xsl:otherwise>
-          <xsl:attribute name="class">brush: plain<xsl:copy-of select="$highlight"/><xsl:copy-of select="$startinglinenumber"/></xsl:attribute>
+          <xsl:attribute name="class">brush: plain<xsl:copy-of select="$brushstyle"/></xsl:attribute>
           &lt;![CDATA[<xsl:value-of select="text()"/>]]&gt;
         </xsl:otherwise>
       </xsl:choose>

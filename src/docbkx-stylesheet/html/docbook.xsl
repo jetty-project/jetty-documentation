@@ -72,6 +72,28 @@ xmlns:gcse="http://www.google.com"
 
   <xsl:template name="user.head.content">
     <link rel="shortcut icon" href="images/favicon.ico" />
+    <xsl:element name="script">
+      <xsl:attribute name="type">text/javascript</xsl:attribute>
+      <xsl:attribute name="src">http://alexgorbatchev.com/pub/sh/current/scripts/shCore.js</xsl:attribute>
+    </xsl:element>
+    <xsl:element name="script">
+      <xsl:attribute name="type">text/javascript</xsl:attribute>
+      <xsl:attribute name="src">http://alexgorbatchev.com/pub/sh/current/scripts/shBrushJava.js</xsl:attribute>
+    </xsl:element>
+    <xsl:element name="script">
+      <xsl:attribute name="type">text/javascript</xsl:attribute>
+      <xsl:attribute name="src">http://alexgorbatchev.com/pub/sh/current/scripts/shBrushXml.js</xsl:attribute>
+    </xsl:element>
+    <xsl:element name="link">
+      <xsl:attribute name="type">text/css</xsl:attribute>
+      <xsl:attribute name="rel">stylesheet</xsl:attribute>
+      <xsl:attribute name="href">http://alexgorbatchev.com/pub/sh/current/styles/shCore.css</xsl:attribute>
+    </xsl:element>
+    <xsl:element name="link">
+      <xsl:attribute name="type">text/css</xsl:attribute>
+      <xsl:attribute name="rel">stylesheet</xsl:attribute>
+      <xsl:attribute name="href">http://alexgorbatchev.com/pub/sh/current/styles/shThemeDefault.css</xsl:attribute>
+    </xsl:element>
   </xsl:template>
 
   <xsl:template name="user.header.navigation">
@@ -99,6 +121,8 @@ xmlns:gcse="http://www.google.com"
   </xsl:template>
 
   <xsl:template name="user.header.content">
+    <!-- Include required JS files -->
+
     <div class="jetty-callout">
       <h5 class="callout">
         <a href="http://www.webtide.com/support.jsp">Contact the core Jetty developers at
@@ -128,6 +152,12 @@ xmlns:gcse="http://www.google.com"
   <xsl:template name="user.footer.content">
     <!-- content here is in a custom footer text -->
     <xsl:apply-templates select="//copyright[1]" mode="titlepage.mode"/>
+    
+    <xsl:element name="script">
+      <xsl:attribute name="type">text/javascript</xsl:attribute>
+      SyntaxHighlighter.all()
+    </xsl:element>
+
   </xsl:template>
 
   <xsl:template name="user.footer.navigation">
@@ -155,111 +185,44 @@ xmlns:gcse="http://www.google.com"
     </script>
   </xsl:template>
 
-  <xsl:template match="d:programlisting[@language='rjava']">
-
-    <xsl:param name="suppress-numbers" select="'0'"/>
-
-    <xsl:call-template name="anchor"/>
-
-    <xsl:variable name="div.element">pre</xsl:variable>
-
-    <xsl:if test="$shade.verbatim != 0">
-      <xsl:message>
-        <xsl:text>The shade.verbatim parameter is deprecated. </xsl:text>
-        <xsl:text>Use CSS instead,</xsl:text>
-      </xsl:message>
-      <xsl:message>
-        <xsl:text>for example: pre.</xsl:text>
-        <xsl:value-of select="local-name(.)"/>
-        <xsl:text> { background-color: #E0E0E0; }</xsl:text>
-      </xsl:message>
-    </xsl:if>
-
-    <xsl:element name="{$div.element}">
-          <xsl:apply-templates select="." mode="common.html.attributes"/>
-
-          <xsl:if test="@width != ''">
-            <xsl:attribute name="width">
-              <xsl:value-of select="@width"/>
-            </xsl:attribute>
-          </xsl:if>
-          <xsl:choose>
-            <xsl:when test="$highlight.source != 0">
-              <xsl:variable name="filename" select="./d:filename"/>
-              <xsl:variable name="methodname" select="./d:methodname"/>
-              <xsl:variable name="newText" select="jfetch:fetch($filename,$methodname)"/>
-
-              <xsl:value-of select="$newText"/>
-              <!--xsl:call-template name="apply-highlighting"/-->
-            </xsl:when>
-            <xsl:otherwise>
-
-            <xsl:if test="function-available('jfetch:fetch')">
-              <xsl:variable name="filename" select="./d:/filename"/>
-              <xsl:variable name="methodname" select="./d:methodname"/>
-              <xsl:variable name="newText" select="jfetch:fetch($filename,$methodname)"/>
-
-              <xsl:apply-templates select="$newText"/>
-              <xsl:value-of select="$newText"/>
-           </xsl:if>
-
-            </xsl:otherwise>
-          </xsl:choose>
-        </xsl:element>
-
+ <!-- synxtax highlighting -->
+ <xsl:template match="d:programlisting[@language='rjava']">
+    <xsl:element name="script">
+      <xsl:attribute name="type">syntaxhighlighter</xsl:attribute>
+      <xsl:attribute name="class">brush: java</xsl:attribute>
+      <xsl:variable name="filename" select="./d:filename"/>
+      <xsl:variable name="methodname" select="./d:methodname"/>
+      <xsl:variable name="newText" select="jfetch:fetch($filename,$methodname)"/>
+      &lt;![CDATA[<xsl:value-of select="$newText"/>]]&gt;
+    </xsl:element>
   </xsl:template>
 
-    <xsl:template match="d:programlisting[@language='fetch']">
-
-    <xsl:param name="suppress-numbers" select="'0'"/>
-
-    <xsl:call-template name="anchor"/>
-
-    <xsl:variable name="div.element">pre</xsl:variable>
-
-    <xsl:if test="$shade.verbatim != 0">
-      <xsl:message>
-        <xsl:text>The shade.verbatim parameter is deprecated. </xsl:text>
-        <xsl:text>Use CSS instead,</xsl:text>
-      </xsl:message>
-      <xsl:message>
-        <xsl:text>for example: pre.</xsl:text>
-        <xsl:value-of select="local-name(.)"/>
-        <xsl:text> { background-color: #E0E0E0; }</xsl:text>
-      </xsl:message>
-    </xsl:if>
-
-    <xsl:element name="{$div.element}">
-          <xsl:apply-templates select="." mode="common.html.attributes"/>
-
-          <xsl:if test="@width != ''">
-            <xsl:attribute name="width">
-              <xsl:value-of select="@width"/>
-            </xsl:attribute>
-          </xsl:if>
-          <xsl:choose>
-            <xsl:when test="$highlight.source != 0">
-              <xsl:variable name="filename" select="./d:filename"/>
-              <xsl:variable name="newText" select="fetch:fetch($filename)"/>
-
-              <xsl:value-of select="$newText"/>
-              <!--xsl:call-template name="apply-highlighting"/-->
-            </xsl:when>
-            <xsl:otherwise>
-
-            <xsl:if test="function-available('jfetch:fetch')">
-              <xsl:variable name="filename" select="./d:/filename"/>
-              <xsl:variable name="newText" select="fetch:fetch($filename)"/>
-
-              <xsl:apply-templates select="$newText"/>
-              <xsl:value-of select="$newText"/>
-           </xsl:if>
-
-            </xsl:otherwise>
-          </xsl:choose>
-        </xsl:element>
-
+  <xsl:template match="d:programlisting[@language='java']">
+    <xsl:element name="script">
+      <xsl:attribute name="type">syntaxhighlighter</xsl:attribute>
+      <xsl:attribute name="class">brush: java</xsl:attribute>
+      &lt;![CDATA[<xsl:value-of select="text()"/>]]&gt;
+    </xsl:element>
   </xsl:template>
+
+  <xsl:template match="d:programlisting[@language='xml']">
+    <xsl:element name="script">
+      <xsl:attribute name="type">syntaxhighlighter</xsl:attribute>
+      <xsl:attribute name="class">brush: xml</xsl:attribute>
+      &lt;![CDATA[<xsl:value-of select="text()"/>]]&gt;
+    </xsl:element>
+  </xsl:template>
+
+  <xsl:template match="d:programlisting[@language='fetch']">
+    <xsl:element name="script">
+      <xsl:attribute name="type">syntaxhighlighter</xsl:attribute>
+      <xsl:attribute name="class">brush: xml</xsl:attribute>
+      <xsl:variable name="filename" select="./d:filename"/>
+      <xsl:variable name="newText" select="fetch:fetch($filename)"/>
+      &lt;![CDATA[<xsl:value-of select="$newText"/>]]&gt;
+    </xsl:element>
+  </xsl:template>
+
 
   <!-- By default, DocBook surrounds highlighted elements with one or more HTML elements
   that already have an explicit style, which makes difficult to customize them via CSS.

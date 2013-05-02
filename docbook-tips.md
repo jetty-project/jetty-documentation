@@ -114,6 +114,8 @@ We also have a handleful of xslt extensions to fetch things remotely.
 You can also place a &lt;methodname> element as a sibling to &lt;filename> and a single method will be extracted from the file and displayed.
 
 Valid languages are:
+* bash
+* properties
 * xml
 * rxml - get a remote xml file
 * java

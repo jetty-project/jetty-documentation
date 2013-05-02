@@ -307,7 +307,7 @@ org.osgi.framework.ServiceReference ref = bc.getServiceReference("org.eclipse.je
           <para><code>MANIFEST</code>:</para>
 
           <informalexample>
-            <programlisting language="plain" startinglinenumber="5">
+            <programlisting language="plain">
 <![CDATA[
 Bundle-Name: Web
 Jetty-WarFolderPath: web

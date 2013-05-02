@@ -15,11 +15,9 @@
  * Dual licensed under the MIT and GPL licenses.
  */
 .syntaxhighlighter {
-  padding-top: 1.5em;
-  padding-bottom: 1.5em;
-  padding-right: 1.5em;
-  padding-left: 1.5em;
-  border: solid 1px #CCC;
+  background-color: #EEE;
+  border:solid 1px #CCC;
+  padding: 1.5em;
 }
 
 /* Set the monospace / code / pre to be the same as the rest of docbook */

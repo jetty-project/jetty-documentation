@@ -257,8 +257,11 @@ xmlns:gcse="http://www.google.com"
           <xsl:variable name="newText" select="fetch:fetch($filename)"/>
           &lt;![CDATA[<xsl:value-of select="$newText"/>]]&gt;
         </xsl:when>
+        <xsl:otherwise>
+          <xsl:attribute name="class">brush: plain<xsl:copy-of select="$highlight"/><xsl:copy-of select="$startinglinenumber"/></xsl:attribute>
+          &lt;![CDATA[<xsl:value-of select="text()"/>]]&gt;
+        </xsl:otherwise>
       </xsl:choose>
-      
     </xsl:element>
   </xsl:template>
 

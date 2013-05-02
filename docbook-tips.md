@@ -107,4 +107,10 @@ We also have a handleful of xslt extensions to fetch things remotely.
 
 You can also place a &lt;methodname> element as a sibling to &lt;filename> and a single method will be extracted from the file and displayed.
 
-There is also a 'fetch' version that lets you grap arbitrary files, though currently the xml brush will be applied to it.
+Valid languages are:
+* xml
+* rxml - get a remote xml file
+* java
+* rjava - get a remote java file
+* plain
+* rplain - get a remote plain file

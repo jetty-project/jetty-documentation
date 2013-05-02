@@ -225,7 +225,14 @@ xmlns:gcse="http://www.google.com"
         </xsl:choose>
       </xsl:variable>
 
-      <xsl:variable name="brushstyle">;toolbar: false<xsl:copy-of select="$highlight"/><xsl:copy-of select="$startinglinenumber"/></xsl:variable>
+      <xsl:variable name="linenumbering">
+        <xsl:choose>
+          <xsl:when test="@linenumbering='unnumbered'">; gutter: false</xsl:when>
+          <xsl:otherwise></xsl:otherwise>
+        </xsl:choose>
+      </xsl:variable>
+
+      <xsl:variable name="brushstyle">;toolbar: false<xsl:copy-of select="$highlight"/><xsl:copy-of select="$startinglinenumber"/><xsl:copy-of select="$linenumbering"/></xsl:variable>
 
       <xsl:choose>
         <xsl:when test="@language='bash'">

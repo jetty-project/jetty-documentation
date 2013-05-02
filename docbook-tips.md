@@ -85,6 +85,8 @@ You can use title tags in each of these to override the default test of their ta
 
 This is how you should add a codeblock.  This way you don't need to escape &lt; and &gt; or anything inside, it is displayed correctly.
 
+NOTE: ALWAYS SPECIFY A LANGUAGE!
+
     <informalexample>
       <programlisting language="xml">
 	<![CDATA[

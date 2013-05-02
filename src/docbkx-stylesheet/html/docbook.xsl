@@ -160,7 +160,7 @@ xmlns:gcse="http://www.google.com"
         <div class="draft">
           <h5>DRAFT</h5>
           <p>
-          This page contains content that we have migrated from Jetty 7 or Jetty 8 documentation into the correct format, but we have not yet audited it for technical accuracy in Jetty 9.  Be aware that examples or information contained on this page may be incorrect.  Please check back soon as we continue improving the documentation, or submit corrections yourself to this page through <a href="http://github.com/jetty-project/jetty-documentation" style="text-decoration:none">Github</a>. Thank you.
+          This page contains content that we have migrated from Jetty 7 or Jetty 8 documentation into the correct format, but we have not yet audited it for technical accuracy in Jetty 9.  Be aware that examples or information contained on this page may be incorrect.  Please check back soon as we continue improving the documentation, or submit corrections yourself to this page through <a href="http://github.com/jetty-project/jetty-documentation" style="text-decoration:none"><i class="icon-github"></i> Github</a>. Thank you.
           </p>
         </div>
 
@@ -184,7 +184,7 @@ xmlns:gcse="http://www.google.com"
         See an error or something missing?
         <span class="callout">
           <a href="http://github.com/jetty-project/jetty-documentation">Contribute to this documentation at
-            <span class="website">Github!</span>
+            <span class="website"><i class="icon-github"></i> Github!</span>
           </a>
         </span>
       </p>
@@ -321,6 +321,17 @@ xmlns:gcse="http://www.google.com"
 
 
 <xsl:template name="nongraphical.admonition">
+  <xsl:variable name="admon.icon">
+    <xsl:choose>
+      <xsl:when test="local-name(.)='note'">icon-asterisk</xsl:when>
+      <xsl:when test="local-name(.)='warning'">icon-warning-sign</xsl:when>
+      <xsl:when test="local-name(.)='caution'">icon-exclamation-sign</xsl:when>
+      <xsl:when test="local-name(.)='tip'">icon-lightbulb</xsl:when>
+      <xsl:when test="local-name(.)='important'">icon-plus-sign-alt</xsl:when>
+      <xsl:otherwise>icon-asterisk</xsl:otherwise>
+    </xsl:choose>
+  </xsl:variable>
+
   <div>
     <xsl:apply-templates select="." mode="class.attribute"/>
     <xsl:if test="$admon.style">
@@ -332,6 +343,12 @@ xmlns:gcse="http://www.google.com"
     <xsl:if test="$admon.textlabel != 0 or d:title or d:info/d:title">
       <h3 class="title">
         <xsl:call-template name="anchor"/>
+        <i>
+          <xsl:attribute name="class">
+            <xsl:value-of select="$admon.icon"/>
+          </xsl:attribute>
+        </i>
+        <xsl:text> </xsl:text>
         <xsl:apply-templates select="." mode="object.title.markup"/>
       </h3>
     </xsl:if>

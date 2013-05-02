@@ -92,7 +92,7 @@
               <!--systemId>target/trang/docbookxi.xsd</systemId-->
               <excludes>
                 <exclude>**/*.css</exclude>
-                <exclude>**/fonts/*</exclude>
+                <exclude>**/font/*</exclude>
                 <exclude>**/js/*</exclude>
                 <exclude>**/images/*</exclude>
                 <exclude>**/*.swp</exclude>
@@ -173,6 +173,9 @@
                 </copy>
                 <copy todir="target/docbkx/html/jetty/css">
                   <fileset dir="src/docbkx/css" />
+                </copy>
+                <copy todir="target/docbkx/html/jetty/font">
+                  <fileset dir="src/docbkx/font" />
                 </copy>
                 <copy todir="target/docbkx/html/jetty/js">
                   <fileset dir="src/docbkx/js" />

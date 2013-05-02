@@ -90,7 +90,7 @@ This is how you should add a codeblock.  This way you don't need to escape &lt; 
 NOTE: ALWAYS SPECIFY A LANGUAGE!
 
     <informalexample>
-      <programlisting language="xml">
+      <programlisting language="xml" format="[2, 3]">
 	<![CDATA[
 	<?xml version="1.0"  encoding="ISO-8859-1"?>
 	<!DOCTYPE Configure PUBLIC "-" "http://www.eclipse.org/jetty/configure.dtd">
@@ -100,6 +100,8 @@ NOTE: ALWAYS SPECIFY A LANGUAGE!
 	]]>
       </programlisting>
     </informalexample>
+
+If you specify a format attribute you can use the '[#, #, #]' notation to highlight those lines to draw the eye there.  You can also use a 'startinglinenumber' attribute to start the line numbering at a certain number.
 
 We also have a handleful of xslt extensions to fetch things remotely.
 

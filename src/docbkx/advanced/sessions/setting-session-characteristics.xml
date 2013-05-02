@@ -70,7 +70,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
           <row>
             <entry>org.eclipse.jetty.servlet.CheckingRemoteSessionIdEncoding</entry>
             <entry>false</entry>
-            <entry></entry>
+            <entry>-</entry>
           </row>
         </tbody>
       </tgroup>

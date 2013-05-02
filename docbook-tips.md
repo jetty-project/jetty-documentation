@@ -34,42 +34,42 @@ There are a number of different tags that can be used in marking up text.  It is
 
 Note: all listitem elements should have a child para tag wrapping text.
 
-		<itemlizedlist>
-  		<listitem>
-    		<para>
-      		text
-    		</para>
-    		<para>
-      		another paragraph in that list item
-    		</para>
-  		</listitem>
-		</itemlizedlist>
+    <itemlizedlist>
+      <listitem>
+        <para>
+      	  text
+    	</para>
+    	<para>
+      	  another paragraph in that list item
+    	</para>
+      </listitem>
+    </itemlizedlist>
 
-		<variablelist>
-  		<varlistentry>
-   	 		<term>foo</term>
-    		<listitem>
-      		<para>
-        		text
-      		</para>
-    		</listitem>
-  		</varlistentry>
-		</variablelist>
+    <variablelist>
+      <varlistentry>
+        <term>foo</term>
+    	<listitem>
+      	  <para>
+            text
+      	  </para>
+    	</listitem>
+      </varlistentry>
+    </variablelist>
 
-		<orderedlist>
-  		<listitem>
-    		<para>
-    			text, bullet will be 1.
-    		</para>
-    		<orderedlist>
-     			<listitem>
-        		<para>
-          		text, bullet will be a.
-        		</para>
-      		</listitem>
-    		</orderedlist>
-  		</listitem>
-		</orderedlist>
+    <orderedlist>
+      <listitem>
+        <para>
+    	  text, bullet will be 1.
+    	</para>
+        <orderedlist>
+     	  <listitem>
+            <para>
+              text, bullet will be a.
+            </para>
+      	  </listitem>
+    	</orderedlist>
+      </listitem>
+    </orderedlist>
 
 ## Admonitions
 
@@ -89,17 +89,17 @@ This is how you should add a codeblock.  This way you don't need to escape &lt; 
 
 NOTE: ALWAYS SPECIFY A LANGUAGE!
 
-    <informalexample>
-      <programlisting language="xml" condition="[2, 3]">
-	<![CDATA[
-	<?xml version="1.0"  encoding="ISO-8859-1"?>
-	<!DOCTYPE Configure PUBLIC "-" "http://www.eclipse.org/jetty/configure.dtd">
-	<Configure class="org.eclipse.jetty.webapp.WebAppContext">
-  		<Set name="contextPath">/contextpath</Set>
-	</Configure>
-	]]>
-      </programlisting>
-    </informalexample>
+      <informalexample>
+        <programlisting language="xml" condition="[2, 3]">
+    <![CDATA[
+    <?xml version="1.0"  encoding="ISO-8859-1"?>
+    <!DOCTYPE Configure PUBLIC "-" "http://www.eclipse.org/jetty/configure.dtd">
+    <Configure class="org.eclipse.jetty.webapp.WebAppContext">
+      <Set name="contextPath">/contextpath</Set>
+    </Configure>
+    ]]>
+        </programlisting>
+      </informalexample>
 
 If you specify a 'condition' attribute you can use the '[#, #, #]' notation to highlight those lines to draw the eye there.  You can also use a 'startinglinenumber' attribute to start the line numbering at a certain number.
 
@@ -126,3 +126,29 @@ Valid languages are:
 * rplain - get a remote plain file
 
 We use the SyntaxHighlighter from http://alexgorbatchev.com/SyntaxHighlighter/ so it is easy to add whatever languages are available with that package, it just required a bit of swizzling in the docbook.xsl file.
+
+## Tables
+
+Please use the following format for tables as it will make use of the css which makes altering all of the look and feel of tables much easier.  Don't use the html tags.
+
+    <table xml:id="id-to-deep-link-table">
+      <title>table title</title>
+      <tgroup cols="2">
+        <thead>
+          <row>
+            <entry>1</entry>
+            <entry>2</entry>
+          </row>
+        </thead>
+        <tbody>
+          <row>
+            <entry>1</entry>
+            <entry>2</entry>
+          </row>
+          <row>
+            <entry>1</entry>
+            <entry>2</entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </table>

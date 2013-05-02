@@ -228,7 +228,7 @@ div.variablelist {
 
 .caution h3, .important h3, .note h3, .tip h3, .warning h3 {
   margin: 0px;
-  margin-bottom: 0.1em;
+  margin-bottom: 0.5em;
 }
 
 .jetty-callout {

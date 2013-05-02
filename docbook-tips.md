@@ -34,42 +34,42 @@ There are a number of different tags that can be used in marking up text.  It is
 
 Note: all listitem elements should have a child para tag wrapping text.
 
-		<itemlizedlist>
-  		<listitem>
-    		<para>
-      		text
-    		</para>
-    		<para>
-      		another paragraph in that list item
-    		</para>
-  		</listitem>
-		</itemlizedlist>
+    <itemlizedlist>
+      <listitem>
+        <para>
+      	  text
+    	</para>
+    	<para>
+      	  another paragraph in that list item
+    	</para>
+      </listitem>
+    </itemlizedlist>
 
-		<variablelist>
-  		<varlistentry>
-   	 		<term>foo</term>
-    		<listitem>
-      		<para>
-        		text
-      		</para>
-    		</listitem>
-  		</varlistentry>
-		</variablelist>
+    <variablelist>
+      <varlistentry>
+        <term>foo</term>
+    	<listitem>
+      	  <para>
+            text
+      	  </para>
+    	</listitem>
+      </varlistentry>
+    </variablelist>
 
-		<orderedlist>
-  		<listitem>
-    		<para>
-    			text, bullet will be 1.
-    		</para>
-    		<orderedlist>
-     			<listitem>
-        		<para>
-          		text, bullet will be a.
-        		</para>
-      		</listitem>
-    		</orderedlist>
-  		</listitem>
-		</orderedlist>
+    <orderedlist>
+      <listitem>
+        <para>
+    	  text, bullet will be 1.
+    	</para>
+        <orderedlist>
+     	  <listitem>
+            <para>
+              text, bullet will be a.
+            </para>
+      	  </listitem>
+    	</orderedlist>
+      </listitem>
+    </orderedlist>
 
 ## Admonitions
 
@@ -131,7 +131,7 @@ We use the SyntaxHighlighter from http://alexgorbatchev.com/SyntaxHighlighter/ s
 
 Please use the following format for tables as it will make use of the css which makes altering all of the look and feel of tables much easier.  Don't use the html tags.
 
-    <table>
+    <table xml:id="id-to-deep-link-table">
       <title>table title</title>
       <tgroup cols="2">
         <thead>

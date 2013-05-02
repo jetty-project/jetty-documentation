@@ -96,3 +96,15 @@ This is how you should add a codeblock.  This way you don't need to escape &lt; 
 	]]>
       </programlisting>
     </informalexample>
+
+We also have a handleful of xslt extensions to fetch things remotely.
+
+    <informalexample>
+      <programlisting language="rjava">
+        <filename>http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/plain/jetty-io/src/main/java/org/eclipse/jetty/io/AbstractConnection.java</filename>
+      </programlisting>  
+    </informalexample>
+
+You can also place a &lt;methodname> element as a sibling to &lt;filename> and a single method will be extracted from the file and displayed.
+
+There is also a 'fetch' version that lets you grap arbitrary files, though currently the xml brush will be applied to it.

@@ -87,12 +87,12 @@ This is how you should add a codeblock.  This way you don't need to escape &lt; 
 
     <informalexample>
       <programlisting language="xml">
-<![CDATA[
-<?xml version="1.0"  encoding="ISO-8859-1"?>
-<!DOCTYPE Configure PUBLIC "-" "http://www.eclipse.org/jetty/configure.dtd">
-<Configure class="org.eclipse.jetty.webapp.WebAppContext">
-  <Set name="contextPath">/contextpath</Set>
-</Configure>
-]]>
+	<![CDATA[
+	<?xml version="1.0"  encoding="ISO-8859-1"?>
+	<!DOCTYPE Configure PUBLIC "-" "http://www.eclipse.org/jetty/configure.dtd">
+	<Configure class="org.eclipse.jetty.webapp.WebAppContext">
+  		<Set name="contextPath">/contextpath</Set>
+	</Configure>
+	]]>
       </programlisting>
     </informalexample>

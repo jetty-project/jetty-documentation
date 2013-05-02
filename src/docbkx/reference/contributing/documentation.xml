@@ -24,6 +24,7 @@
          xmlns:xs="http://www.w3.org/2001/XMLSchema"
          xmlns:xl="http://www.w3.org/1999/xlink"
          xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:ns2="http://www.w3.org/1998/Math/MathML"
          xmlns:ns="http://docbook.org/ns/docbook">
   <title>Documentation</title>
 
@@ -282,5 +283,28 @@ $ git push
 -->
 
     ]]></screen>
+
+    <para>Some admonition examples:</para>
+
+    <note>
+      <para>A note about the previous case to be aware of.</para>
+    </note>
+
+    <important>
+      <para>Important notes are marked with an icon.</para>
+    </important>
+
+    <tip>
+      <para>Tips that make your life easier.</para>
+    </tip>
+
+    <caution>
+      <para>Places where you have to be careful what you are doing.</para>
+    </caution>
+
+    <warning>
+      <para>Where extreme care has to be taken. Data corruption or other nasty
+      things may occur if these warnings are ignored.</para>
+    </warning>
   </section>
 </section>

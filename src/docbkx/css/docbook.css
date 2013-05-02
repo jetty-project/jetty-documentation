@@ -203,33 +203,42 @@ div.variablelist {
 }
 
 .caution, .important, .note, .tip, .warning {
-    border: 2px solid #ddd;
-    padding: 10px;
-    padding-left: 2.0em;
-    background-color: #eee;
-    margin: 10px;
+  border: 2px solid #ddd;
+  padding: 10px;
+  padding-left: 2.0em;
+  background-color: #eee;
+  margin: 10px;
 }
 
-.caution h3, .warning h3 {
-    color: red;
+.caution h3,
+.caution th {
+  color: #c60;
 }
 
-.important h3 {
-    color: blue;
+.warning h3,
+.warning th {
+  color: #900;
 }
 
-.note h3 {
-    color: black;
+.important h3,
+.important th {
+  color: #069;
 }
 
-.tip h3 {
-    color: green;
+.note h3,
+.note th {
+  color: #909;
+}
+
+.tip h3,
+.tip th {
+  color: #090;
 }
 
 .caution h3, .important h3, .note h3, .tip h3, .warning h3 {
-    margin-left: -1.0em;
-    margin-top: 0;
-    margin-bottom: 0.1em;
+  margin-left: -1.0em;
+  margin-top: 0;
+  margin-bottom: 0.1em;
 }
 
 .jetty-callout {

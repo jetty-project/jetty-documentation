@@ -113,6 +113,11 @@ xmlns:gcse="http://www.google.com"
       <xsl:attribute name="rel">stylesheet</xsl:attribute>
       <xsl:attribute name="href">css/shThemeEclipse.css</xsl:attribute>
     </xsl:element>
+    <xsl:element name="link">
+      <xsl:attribute name="type">text/css</xsl:attribute>
+      <xsl:attribute name="rel">stylesheet</xsl:attribute>
+      <xsl:attribute name="href">css/font-awesome.min.css</xsl:attribute>
+    </xsl:element>
   </xsl:template>
 
   <xsl:template name="user.header.navigation">

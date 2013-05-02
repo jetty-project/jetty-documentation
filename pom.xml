@@ -92,6 +92,7 @@
               <!--systemId>target/trang/docbookxi.xsd</systemId-->
               <excludes>
                 <exclude>**/*.css</exclude>
+                <exclude>**/fonts/*</exclude>
                 <exclude>**/js/*</exclude>
                 <exclude>**/images/*</exclude>
                 <exclude>**/*.swp</exclude>

@@ -103,6 +103,8 @@ NOTE: ALWAYS SPECIFY A LANGUAGE!
 
 If you specify a 'condition' attribute you can use the '[#, #, #]' notation to highlight those lines to draw the eye there.  You can also use a 'startinglinenumber' attribute to start the line numbering at a certain number.
 
+You can turn off linenumbering by using an attribute on programlisting like 'linenumbering="unnumbered"'
+
 We also have a handleful of xslt extensions to fetch things remotely.
 
     <informalexample>

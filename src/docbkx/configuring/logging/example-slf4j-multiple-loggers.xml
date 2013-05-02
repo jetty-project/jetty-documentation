@@ -199,10 +199,14 @@
         that processes, filters, and outputs the Logging events to the
         Console, logging directory on disk, or whatever else that the
         Underlying Logging Framework supports (like Socket, SMTP, Database, or
-        even Syslog in the case of Logback)</para>
+        even SysLog in the case of Logback)</para>
 
-        <para>There MUST NOT be multiple Underlying Logger Frameworks on the
-        Classpath.</para>
+        <para><caution>
+            <para>There MUST NOT be multiple Underlying Logger Frameworks on
+            the Classpath.</para>
+
+            <para>Otherwise the Slf4j framework will fail to load.</para>
+          </caution></para>
 
         <para><note>
             <para>Some 3rd party libraries often provide their own

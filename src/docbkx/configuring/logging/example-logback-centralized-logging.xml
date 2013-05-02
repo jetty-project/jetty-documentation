@@ -310,14 +310,14 @@ org.eclipse.jetty.util.log.class=org.eclipse.jetty.util.log.Slf4jLog]]></program
 </configuration>
 ]]></programlisting></para>
 
-    <para><note>
+    <para><caution>
         <para>When using the jul-to-slf4j Binding JAR, be sure you also
         utilize the <link
         xl:href="http://logback.qos.ch/manual/configuration.html#LevelChangePropagator">LevelChangePropagator</link>
         (as referenced in the <link
         xl:href="http://slf4j.org/api/org/slf4j/bridge/SLF4JBridgeHandler.html">SLF4JBridgeHandler
         javadoc</link>.</para>
-      </note></para>
+      </caution></para>
   </simplesect>
 
   <simplesect>

@@ -59,8 +59,9 @@ xmlns:ns="http://docbook.org/ns/docbook">
     <title>By Deployer configuration</title>
     <para>If a web application is deployed using the WebAppProvider of the the DeploymentManager with an XML IoC file
     to configure the context, then the setContextPath method can be called within that file. For example:</para>
-    <programlisting>
-<![CDATA[<Configure class="org.eclipse.jetty.webapp.WebAppContext">
+    <programlisting language="xml">
+<![CDATA[
+<Configure class="org.eclipse.jetty.webapp.WebAppContext">
   <Set name="contextPath">/test</Set>
   ...
 </Configure>

@@ -82,7 +82,7 @@
       <para>The following example creates another server instance and
       configures it with a connector and deployer:</para>
 
-      <programlisting language="fetch"><filename>@GITURL@/examples/embedded/src/main/resources/jetty-otherserver.xml</filename></programlisting>
+      <programlisting language="rxml"><filename>@GITURL@/examples/embedded/src/main/resources/jetty-otherserver.xml</filename></programlisting>
 
       <para>To run the other server, simply add the extra configuration
       file(s) to the command line:</para>

@@ -463,7 +463,7 @@ Bundle-SymbolicName: com.acme.sample.web]]></programlisting>
       properties:</para>
 
       <informalexample>
-        <programlisting language="fetch"><filename>@GITURL@/jetty-osgi/test-jetty-osgi-context/src/main/context/acme.xml</filename></programlisting>
+        <programlisting language="rxml"><filename>@GITURL@/jetty-osgi/test-jetty-osgi-context/src/main/context/acme.xml</filename></programlisting>
       </informalexample>
     </section>
   </section>
@@ -675,7 +675,7 @@ Bundle-SymbolicName: com.acme.testcontext]]></programlisting>
     <para>The contents of the <code>acme.xml</code> context file:</para>
 
     <informalexample>
-      <programlisting language="fetch"><filename>@GITURL@/jetty-osgi/test-jetty-osgi-context/src/main/context/acme.xml</filename></programlisting>
+      <programlisting language="rxml"><filename>@GITURL@/jetty-osgi/test-jetty-osgi-context/src/main/context/acme.xml</filename></programlisting>
     </informalexample>
 
     <section>

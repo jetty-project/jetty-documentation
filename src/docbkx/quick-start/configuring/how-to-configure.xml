@@ -174,7 +174,7 @@
     <para>Jetty IoC XML allows you to instantiate and configure the exact same
     server in XML without writing any java code:</para>
 
-    <programlisting language="fetch">
+    <programlisting language="rxml">
       <filename>
       @GITURL@/examples/embedded/src/main/resources/exampleserver.xml</filename>
     </programlisting>

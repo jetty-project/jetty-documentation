@@ -344,7 +344,7 @@
       Javadoc from the Jetty distribution:</para>
 
       <informalexample>
-        <programlisting language="fetch"><filename>@GITURL@/jetty-distribution/src/main/resources/webapps.demo/javadoc.xml</filename></programlisting>
+        <programlisting language="rxml"><filename>@GITURL@/jetty-distribution/src/main/resources/webapps.demo/javadoc.xml</filename></programlisting>
       </informalexample>
     </section>
   </section>
@@ -522,7 +522,7 @@
       <filename>start.ini</filename>.</para>
 
       <informalexample>
-        <programlisting language="fetch">
+        <programlisting language="rxml">
           <filename>@GITURL@/tests/test-webapps/test-jetty-webapp/src/main/config/etc/test-realm.xml</filename>
         </programlisting>
       </informalexample>

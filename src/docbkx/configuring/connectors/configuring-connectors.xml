@@ -387,7 +387,7 @@
         </link>:</para>
 
       <informalexample>
-        <programlisting language="fetch"><filename>@GITURL@/jetty-server/src/main/config/etc/jetty-http.xml</filename></programlisting>
+        <programlisting language="rxml"><filename>@GITURL@/jetty-server/src/main/config/etc/jetty-http.xml</filename></programlisting>
       </informalexample>
 
       <para>Here the connector has only a single
@@ -399,7 +399,7 @@
       <filename>jetty-spdy.xml</filename>:</para>
 
       <informalexample>
-        <programlisting language="fetch"><filename>@GITURL@/jetty-spdy/spdy-example-webapp/src/main/config/example-jetty-spdy.xml</filename></programlisting>
+        <programlisting language="rxml"><filename>@GITURL@/jetty-spdy/spdy-example-webapp/src/main/config/example-jetty-spdy.xml</filename></programlisting>
       </informalexample>
 
       <para>In this case five connection factories are created and linked

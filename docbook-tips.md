@@ -89,17 +89,17 @@ This is how you should add a codeblock.  This way you don't need to escape &lt; 
 
 NOTE: ALWAYS SPECIFY A LANGUAGE!
 
-    <informalexample>
-      <programlisting language="xml" condition="[2, 3]">
-	<![CDATA[
-	<?xml version="1.0"  encoding="ISO-8859-1"?>
-	<!DOCTYPE Configure PUBLIC "-" "http://www.eclipse.org/jetty/configure.dtd">
-	<Configure class="org.eclipse.jetty.webapp.WebAppContext">
-  		<Set name="contextPath">/contextpath</Set>
-	</Configure>
-	]]>
-      </programlisting>
-    </informalexample>
+      <informalexample>
+        <programlisting language="xml" condition="[2, 3]">
+    <![CDATA[
+    <?xml version="1.0"  encoding="ISO-8859-1"?>
+    <!DOCTYPE Configure PUBLIC "-" "http://www.eclipse.org/jetty/configure.dtd">
+    <Configure class="org.eclipse.jetty.webapp.WebAppContext">
+      <Set name="contextPath">/contextpath</Set>
+    </Configure>
+    ]]>
+        </programlisting>
+      </informalexample>
 
 If you specify a 'condition' attribute you can use the '[#, #, #]' notation to highlight those lines to draw the eye there.  You can also use a 'startinglinenumber' attribute to start the line numbering at a certain number.
 

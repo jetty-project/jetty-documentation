@@ -41,7 +41,7 @@
     <para>To enable NPN support, start the JVM as follows:</para>
 
     <informalexample>
-      <programlisting><![CDATA[java -Xbootclasspath/p:<path_to_npn_boot_jar> ...            ]]></programlisting>
+      <programlisting language="plain"><![CDATA[java -Xbootclasspath/p:<path_to_npn_boot_jar> ...            ]]></programlisting>
     </informalexample>
 
     <para>where <filename>path_to_npn_boot_jar</filename> is the path on the

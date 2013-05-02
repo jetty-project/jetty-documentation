@@ -194,7 +194,7 @@ etc/jetty-special.xml
             configuration files. Here's how you would specify it:</para>
 
             <informalexample>
-              <programlisting><![CDATA[jetty.home.bundle=org.eclipse.jetty.osgi.boot]]></programlisting>
+              <programlisting language="plain"><![CDATA[jetty.home.bundle=org.eclipse.jetty.osgi.boot]]></programlisting>
             </informalexample>
 
             <para>Here's a partial listing of that jar that shows you the

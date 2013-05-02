@@ -136,7 +136,7 @@ xmlns:gcse="http://www.google.com"
           <gcse:search></gcse:search>
         </td>
       </tr>
-    </table>
+    </table>6
   </xsl:template>
 
   <xsl:template name="user.header.content">
@@ -213,7 +213,7 @@ xmlns:gcse="http://www.google.com"
       
       <xsl:variable name="highlight">
         <xsl:choose>
-          <xsl:when test="@format">; highlight: <xsl:value-of select="@format"/></xsl:when>
+          <xsl:when test="@condition">; highlight: <xsl:value-of select="@condition"/></xsl:when>
           <xsl:otherwise></xsl:otherwise>
         </xsl:choose>
       </xsl:variable>

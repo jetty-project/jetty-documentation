@@ -136,7 +136,7 @@ xmlns:gcse="http://www.google.com"
           <gcse:search></gcse:search>
         </td>
       </tr>
-    </table>6
+    </table>
   </xsl:template>
 
   <xsl:template name="user.header.content">

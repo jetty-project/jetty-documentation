@@ -383,7 +383,7 @@ Context opts:
           use the following example realm file from the jetty
           distribution:</para>
 
-            <programlisting language="plain"><![CDATA[
+            <programlisting><![CDATA[
 
 jetty: MD5:164c88b302622e17050af52c89945d44,user
 admin: CRYPT:adpexzg3FUZAk,server-administrator,content-administrator,admin
@@ -394,7 +394,6 @@ user: password,user
 digest: MD5:6e120743ad67abfbc385bc2bb754e297,user
 
             ]]></programlisting>
-          </informalexample>
 
           <para>Assuming we've copied it into the local directory, we would
           apply it like so</para>
@@ -409,8 +408,7 @@ digest: MD5:6e120743ad67abfbc385bc2bb754e297,user
           surf to the stats servlet on http://localhost:8080/stats to see the
           output:</para>
 
-          <informalexample>
-            <programlisting language="plain"><![CDATA[
+            <programlisting><![CDATA[
 Statistics:
 
 
@@ -472,7 +470,6 @@ Memory:
 Heap memory usage: 49194840 bytes
 Non-heap memory usage: 12611696 bytes
             ]]></programlisting>
-          </informalexample>
         </listitem>
       </varlistentry>
     </variablelist>

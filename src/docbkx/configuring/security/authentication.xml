@@ -59,7 +59,7 @@
     <para>Below is an example taken from the <link
     xl:href="http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/tree/tests/test-webapps/test-jetty-webapp/src/main/webapp/WEB-INF/web.xml?h=release-9">jetty-test-webapp
     web.xml</link> that configures BASIC authentication:</para>
-    <programlisting>
+    <programlisting language="xml">
 <![CDATA[  <login-config>
     <auth-method>BASIC</auth-method>
     <realm-name>Test Realm</realm-name>
@@ -68,7 +68,7 @@
     <para>The <link
     xl:href="http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/tree/tests/test-webapps/test-jetty-webapp/src/main/webapp/WEB-INF/web.xml?h=release-9">jetty-test-webapp
     web.xml</link> also includes commented out examples of other DIGEST and FORM configuration:</para>
-    <programlisting>
+    <programlisting language="xml">
 <![CDATA[  <login-config>
     <auth-method>FORM</auth-method>
     <realm-name>Test Realm</realm-name>
@@ -82,7 +82,7 @@
     Below is a simple HTML form from the <link
     xl:href="http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/tree/tests/test-webapps/test-jetty-webapp/src/main/webapp/logon.html?h=release-9">test
     webapp logon.html</link>:</para>
-    <programlisting>
+    <programlisting language="xml">
 <![CDATA[<HTML>
 <H1>FORM Authentication demo</H1>
 <form method="POST" action="j_security_check">

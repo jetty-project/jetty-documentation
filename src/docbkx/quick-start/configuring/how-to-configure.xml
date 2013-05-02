@@ -243,12 +243,16 @@
     start.ini file configures a HTTP connector by including the following
     lines:</para>
 
-    <programlisting>#===========================================================
+    <programlisting language="plain">
+<![CDATA[
+#===========================================================
 # HTTP Connector
 #-----------------------------------------------------------
 # jetty.port=8080
 etc/jetty-http.xml
-#===========================================================</programlisting>
+#===========================================================
+]]>
+    </programlisting>
 
     <para>This lists the <filename>etc/jetty-http.xml</filename> configuration
     file as a default command line argument when starting the jetty server.
@@ -256,7 +260,13 @@ etc/jetty-http.xml
     on the server with a new instance of the ServerConnector class. This
     instance is configured in XML and includes the line:</para>
 
-    <programlisting>        &lt;Set name="port"&gt;&lt;Property name="jetty.port" default="8080" /&gt;&lt;/Set&gt;</programlisting>
+    <programlisting language="xml">
+<![CDATA[
+<Set name="port">
+  <Property name="jetty.port" default="8080" />
+</Set>
+]]>
+    </programlisting>
 
     <para>The effect of this line is to call ServerConnector.setPort(int) with
     either the value of the <filename>jetty.port</filename> property or with
@@ -272,7 +282,11 @@ etc/jetty-http.xml
     Property value can be set in one of several ways. Firstly the Property may
     be passed on the command line:</para>
 
-    <screen>&gt; java -jar start.jar jetty.port=9999</screen>
+    <screen>
+<![CDATA[
+$ java -jar start.jar jetty.port=9999
+]]>
+    </screen>
 
     <para>This can be convenient if you have a script (like
     <filename>bin/jetty.sh</filename>) that builds the command line for you.
@@ -285,17 +299,25 @@ etc/jetty-http.xml
     <filename>start.d/myconfig.ini</filename> file to include your additional
     OPTIONS, configuration files and Properties:</para>
 
-    <screen>&gt; echo jetty.port=9999 &gt; start.d/myconfig.ini
-&gt; java -jar start.jar</screen>
+    <screen>
+<![CDATA[
+$ echo jetty.port=9999 &gt; start.d/myconfig.ini
+$ java -jar start.jar
+]]>
+    </screen>
 
     <para>Finally, if your configuration results in a lot of properties that
     need to be set and you wish to work with standard property files, then
     these too can be added on the command line, in start.ini or your own
     start.d files:</para>
 
-    <screen>&gt; echo "jetty.port: 9999" &gt; start.d/myconfig.properties
-&gt; echo start.d/myconfig.properties &gt; start.d/myconfig.ini
-&gt; java -jar start.jar</screen>
+    <screen>
+<![CDATA[
+$ echo "jetty.port: 9999" &gt; start.d/myconfig.properties
+$ echo start.d/myconfig.properties &gt; start.d/myconfig.ini
+$ java -jar start.jar
+]]>
+    </screen>
 
     <para>In summary, Jetty is configured by calling setters and methods on
     POJO's which can be done either from java code or from Jetty IoC XML

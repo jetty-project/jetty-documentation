@@ -45,67 +45,54 @@
     the jetty jars either in the maven central repository, or you can download
     a distribution of jetty. Here's the minimal set:</para>
 
-    <informaltable border="1">
-      <tr>
-        <th>Jar</th>
-
-        <th>Bundle Symbolic Name</th>
-      </tr>
-
-      <tr>
-        <td>jetty-util</td>
-
-        <td>org.eclipse.jetty.util</td>
-      </tr>
-
-      <tr>
-        <td>jetty-http</td>
-
-        <td>org.eclipse.jetty.http</td>
-      </tr>
-
-      <tr>
-        <td>jetty-io</td>
-
-        <td>org.eclipse.jetty.io</td>
-      </tr>
-
-      <tr>
-        <td>jetty-security</td>
-
-        <td>org.eclipse.jetty.security</td>
-      </tr>
-
-      <tr>
-        <td>jetty-server</td>
-
-        <td>org.eclipse.jetty.server</td>
-      </tr>
-
-      <tr>
-        <td>jetty-servlet</td>
-
-        <td>org.eclipse.jetty.servlet</td>
-      </tr>
-
-      <tr>
-        <td>jetty-webapp</td>
-
-        <td>org.eclipse.jetty.webapp</td>
-      </tr>
-
-      <tr>
-        <td>jetty-deploy</td>
-
-        <td>org.eclipse.jetty.deploy</td>
-      </tr>
-
-      <tr>
-        <td>jetty-xml</td>
-
-        <td>org.eclipse.jetty.xml</td>
-      </tr>
-    </informaltable>
+    <table>
+      <tgroup cols="2">
+        <thead>
+          <row>
+            <entry>Jar</entry>
+            <entry>Bundle Symbolic Name</entry>
+          </row>
+        </thead>
+        <tbody>
+          <row>
+            <entry>jetty-util</entry>
+            <entry>org.eclipse.jetty.util</entry>
+          </row>
+          <row>
+            <entry>jetty-http</entry>
+            <entry>org.eclipse.jetty.http</entry>
+          </row>
+          <row>
+            <entry>jetty-io</entry>
+            <entry>org.eclipse.jetty.io</entry>
+          </row>
+          <row>
+            <entry>jetty-security</entry>
+            <entry>org.eclipse.jetty.security</entry>
+          </row>
+          <row>
+            <entry>jetty-server</entry>
+            <entry>org.eclipse.jetty.server</entry>
+          </row>
+          <row>
+            <entry>jetty-servlet</entry>
+            <entry>org.eclipse.jetty.servlet</entry>
+          </row>
+          <row>
+            <entry>jetty-webapp</entry>
+            <entry>org.eclipse.jetty.webapp</entry>
+          </row>
+          <row>
+            <entry>jetty-deploy</entry>
+            <entry>org.eclipse.jetty.deploy</entry>
+          </row>
+          <row>
+            <entry>jetty-xml</entry>
+            <entry>org.eclipse.jetty.xml</entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </table>
   </section>
 
   <section>

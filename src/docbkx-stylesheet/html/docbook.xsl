@@ -320,4 +320,67 @@ xmlns:gcse="http://www.google.com"
         </span>
     </xsl:template>
 
+
+
+<xsl:template name="graphical.admonition">
+  <xsl:variable name="admon.type">
+    <xsl:choose>
+      <xsl:when test="local-name(.)='note'">Note</xsl:when>
+      <xsl:when test="local-name(.)='warning'">Warning</xsl:when>
+      <xsl:when test="local-name(.)='caution'">Caution</xsl:when>
+      <xsl:when test="local-name(.)='tip'">Tip</xsl:when>
+      <xsl:when test="local-name(.)='important'">Important</xsl:when>
+      <xsl:otherwise>Note</xsl:otherwise>
+    </xsl:choose>
+  </xsl:variable>
+
+  <xsl:variable name="alt">
+    <xsl:call-template name="gentext">
+      <xsl:with-param name="key" select="$admon.type"/>
+    </xsl:call-template>
+  </xsl:variable>
+
+  <div>
+    <xsl:apply-templates select="." mode="class.attribute"/>
+    <xsl:if test="$admon.style != ''">
+      <xsl:attribute name="style">
+        <xsl:value-of select="$admon.style"/>
+      </xsl:attribute>
+    </xsl:if>
+
+    <table border="5">
+      <xsl:attribute name="summary">
+        <xsl:value-of select="$admon.type"/>
+        <xsl:if test="d:title|d:info/d:title">
+          <xsl:text>: </xsl:text>
+          <xsl:value-of select="(d:title|d:info/d:title)[1]"/>
+        </xsl:if>
+      </xsl:attribute>
+      <tr>
+        <td rowspan="2" align="center" valign="top">
+          <xsl:attribute name="width">
+            <xsl:apply-templates select="." mode="admon.graphic.width"/>
+          </xsl:attribute>
+          <img alt="[{$alt}]">
+            <xsl:attribute name="src">
+              <xsl:call-template name="admon.graphic"/>
+            </xsl:attribute>
+          </img>
+        </td>
+        <th align="left">
+          <xsl:call-template name="anchor"/>
+          <xsl:if test="$admon.textlabel != 0 or d:title or d:info/d:title">
+            <xsl:apply-templates select="." mode="object.title.markup"/>
+          </xsl:if>
+        </th>
+      </tr>
+      <tr>
+        <td align="left" valign="top">
+          <xsl:apply-templates/>
+        </td>
+      </tr>
+    </table>
+  </div>
+</xsl:template>
+
 </xsl:stylesheet>

@@ -23,6 +23,8 @@ There are a number of different tags that can be used in marking up text.  It is
 * &lt;code&gt; : a generic catch all tag for anything code related inline to text
 * &lt;filename&gt; : should wrap text that is a filename
 * &lt;classname&gt; : should be used to wrap class name type text, shows in xsl as a &lt;code class="classname"&gt; which we can alter using css 
+* &lt;emphasis&gt; : makes it italics
+* &lt;emphasis role="bold"&gt; : make it bold
 
 ## Different list types
 

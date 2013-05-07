@@ -41,6 +41,7 @@
   <xi:include href="dos-filter.xml"/>
   <xi:include href="gzip-filter.xml"/>
   <xi:include href="cross-origin-filter.xml"/>
+  <xi:include href="resource-handler.xml"/>
   <xi:include href="statistics-handler.xml"/>
   <xi:include href="ipaccess-handler.xml"/>
   <xi:include href="moved-context-handler.xml"/>

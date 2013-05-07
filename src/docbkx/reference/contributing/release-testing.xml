@@ -38,7 +38,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
       <para>Start jetty:</para>
       <screen>
 <![CDATA[
- cd [installdir] ; java -jar start.jar OPTIONS=rewrite etc/jetty-rewrite.xml etc/jetty-ssl.xml etc/jetty-https.xml
+ cd [installdir] ; java -jar start.jar etc/jetty-ssl.xml etc/jetty-https.xml
  ]]>
       </screen>
     </listitem>

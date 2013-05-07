@@ -91,6 +91,10 @@ xmlns:gcse="http://www.google.com"
     </xsl:element>
     <xsl:element name="script">
       <xsl:attribute name="type">text/javascript</xsl:attribute>
+      <xsl:attribute name="src">js/shBrushSql.js</xsl:attribute>
+    </xsl:element>
+    <xsl:element name="script">
+      <xsl:attribute name="type">text/javascript</xsl:attribute>
       <xsl:attribute name="src">js/shBrushProperties.js</xsl:attribute>
     </xsl:element>
     <xsl:element name="script">
@@ -252,6 +256,10 @@ xmlns:gcse="http://www.google.com"
         </xsl:when>
         <xsl:when test="@language='properties'">
           <xsl:attribute name="class">brush: properties<xsl:copy-of select="$brushstyle"/></xsl:attribute>
+          &lt;![CDATA[<xsl:value-of select="text()"/>]]&gt;
+        </xsl:when>
+        <xsl:when test="@language='sql'">
+          <xsl:attribute name="class">brush: sql<xsl:copy-of select="$brushstyle"/></xsl:attribute>
           &lt;![CDATA[<xsl:value-of select="text()"/>]]&gt;
         </xsl:when>
         <xsl:when test="@language='java'">

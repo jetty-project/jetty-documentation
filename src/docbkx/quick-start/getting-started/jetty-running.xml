@@ -48,7 +48,7 @@ xmlns:ns2="http://www.w3.org/1998/Math/MathML" xmlns:ns="http://docbook.org/ns/d
 2012-10-22 16:02:25.582:WARN::main: async-rest webapp is deployed. DO NOT USE IN PRODUCTION!]]>
     </programlisting>
   </informalexample>
-  <para>These warnings are telling you that some demonstration web applications and services are deployed and that you
+  <para>These warnings are telling you that some demonstration web applications and services are deployed, and that you
   should remove them before putting the server into production. You can ignore these warnings while testing, or you can
   see <link linkend="quickstart-deploying-webapps">Deploying Web Applications</link> to learn how to remove
   them.</para>
@@ -59,7 +59,7 @@ xmlns:ns2="http://www.w3.org/1998/Math/MathML" xmlns:ns="http://docbook.org/ns/d
   <section xml:id="changing-jetty-port">
     <title>Changing the Jetty Port</title>
     <para>If you see the following exception, you already have something running on the port that Jetty is configured
-    to run on and you either need to shut down whatever that process is, or configure Jetty to run on another
+    to run on, and you need to either shut down whatever that process is, or configure Jetty to run on another
     port.</para>
     <informalexample>
       <programlisting language="text">
@@ -76,8 +76,8 @@ xmlns:ns2="http://www.w3.org/1998/Math/MathML" xmlns:ns="http://docbook.org/ns/d
       <code>&gt; java -jar start.jar jetty.port=8081</code>
     </para>
     <para>As alternatives, you can set this property in the <filename>start.ini</filename> file or by editing the use
-    of the property in the <filename>etc/jetty-http.xml</filename> configuration file. The way this works is that it
-    defines a property that is the <filename>etc/jetty-http.xml</filename> configuration file uses to inject a port
+    of the property in the <filename>etc/jetty-http.xml</filename> configuration file. This works by
+    defining a property that the <filename>etc/jetty-http.xml</filename> configuration file uses to inject a port
     value into the ServerConnector defined there. For more information see the <link linkend="quickstart-config">
     Quickstart Configuration Guide</link> and <link linkend="configuring-connectors">Configuring
     Connectors</link>.</para>
@@ -86,7 +86,7 @@ xmlns:ns2="http://www.w3.org/1998/Math/MathML" xmlns:ns="http://docbook.org/ns/d
     <title>Starting HTTPS</title>
     <para>By values set in the <filename>start.ini</filename> file, Jetty starts the HTTP connector that is defined in
     <filename>etc/jetty-http.xml</filename>. To also start the HTTPS connector defined in <filename>
-    etc/jetty-https.xml</filename> you can simply append this configuration file to the command line:</para>
+    etc/jetty-https.xml</filename>, append this configuration file to the command line:</para>
     <para>
       <code>&gt; java -jar start.jar etc/jetty-https.xml</code>
     </para>
@@ -95,13 +95,13 @@ xmlns:ns2="http://www.w3.org/1998/Math/MathML" xmlns:ns="http://docbook.org/ns/d
       <code>https://localhost:8443/</code>
     </para>
     <para>Alternately, you can edit the <filename>start.ini</filename> file and uncomment the line that includes the
-    HTTPS configuration file and then start Jetty without any extra command line arguments. Note that you can also
-    change the SSL port with the <code>jetty.tls.port</code> Property:</para>
+    HTTPS configuration file and then start Jetty without any extra command line arguments. You can also
+    change the SSL port with the <code>jetty.tls.port</code> property:</para>
     <para>
       <code>&gt; java -jar start.jar jetty.tls.port=8444 etc/jetty-https.xml</code>
     </para>
     <para>The job of the <code>start.jar</code> command is to interpret the command line and <code>
-    start.ini</code> arguments in order to build a java classpath and list of properties and configuration files to
+    start.ini</code> arguments to build a Java classpath and list of properties and configuration files to
     pass to the main class of the Jetty XML configuration mechanism. The <code>start.jar</code> mechanism has many
     options which are documented in <xref linkend="advanced-jetty-start" />; you can see them in summary by using the
     command:</para>

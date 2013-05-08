@@ -32,7 +32,7 @@
   <filename>etc/jetty-deploy.xml</filename> file in
   <filename>start.ini</filename>, which configures a web application deployer
   that hot deploys files found in the <filename> webapps</filename> directory.
-  Standard WAR files and jetty configuration files that are placed in the
+  Standard WAR files and jetty configuration files that you place in the
   <filename> webapps</filename> directory are hot deployed to the server with
   the following conventions:</para>
 
@@ -93,7 +93,7 @@
       <listitem>
         <para>The configuration file that deploys the demonstration web
         application in <filename> test.war</filename> using the extra
-        configuration contained within <filename>test.d</filename></para>
+        configuration that <filename>test.d</filename> contains.</para>
       </listitem>
     </varlistentry>
 
@@ -101,8 +101,8 @@
       <term><filename>test.war</filename></term>
 
       <listitem>
-        <para>The demonstration web application that is configured and
-        deployed by <filename>test.xml</filename></para>
+        <para>The demonstration web application that <filename>test.xml</filename> configures and
+        deploys.</para>
       </listitem>
     </varlistentry>
 
@@ -110,10 +110,9 @@
       <term><filename>test.d</filename></term>
 
       <listitem>
-        <para>A directory containing additional configuration files used by
-        <filename>test.xml</filename></para>
-      </listitem>
+        <para>A directory containing additional configuration files that <filename>test.xml</filename> uses.</para></listitem>
     </varlistentry>
+        
 
     <varlistentry>
       <term><filename>async-rest.war</filename></term>

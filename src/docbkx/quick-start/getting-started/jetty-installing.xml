@@ -39,7 +39,7 @@ xmlns:ns="http://docbook.org/ns/docbook">
   </section>
   <section xml:id="distribution-content">
     <title>Distribution Content</title>
-    <para>This is a quick rundown of the distribution's contents. The top-level directory contains:</para>
+    <para>A quick rundown of the distribution's contents follows. The top-level directory contains:</para>
     <table>
       <title>Contents</title>
       <tgroup cols="2">
@@ -96,7 +96,7 @@ xmlns:ns="http://docbook.org/ns/docbook">
           </row>
           <row>
             <entry>webapps</entry>
-            <entry>Directory containing webapps which will be run under the default configuration of Jetty; contains
+            <entry>Directory containing webapps that run under the default configuration of Jetty; contains
             demo webapps</entry>
           </row>
         </tbody>

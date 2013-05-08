@@ -16,94 +16,144 @@
 //  You may elect to redistribute this code under either of these licenses.
 //  ========================================================================
 -->
-<section xml:id="release-testing" version="5.0" xmlns="http://docbook.org/ns/docbook"
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xl="http://www.w3.org/1999/xlink"
-xmlns:xi="http://www.w3.org/2001/XInclude"
-xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd">
+<section version="5.0"
+         xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd"
+         xml:id="release-testing" xmlns="http://docbook.org/ns/docbook"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:xs="http://www.w3.org/2001/XMLSchema"
+         xmlns:xl="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:ns="http://docbook.org/ns/docbook">
   <title>Testing a Jetty Release</title>
-  <para>To test a Jetty release, complete the following steps for each release you want to test:</para>
+
+  <para>To test a Jetty release, complete the following steps for each release
+  you want to test:</para>
+
   <orderedlist>
     <listitem>
       <para>Download the staged release:</para>
-      <screen>
-<![CDATA[
+
+      <screen><![CDATA[
+
  wget https://oss.sonatype.org/content/repositories/jetty-[reponumber]/org/eclipse/jetty/jetty-distribution/[jetty-version]/jetty-distribution-9.[jetty-minor-version].tar.gz
-]]>
-      </screen>
+
+      ]]></screen>
     </listitem>
+
     <listitem>
       <para>Extract to a directory of your choice.</para>
     </listitem>
+
     <listitem>
       <para>Start jetty:</para>
-      <screen>
-<![CDATA[
- cd [installdir] ; java -jar start.jar OPTIONS=rewrite etc/jetty-rewrite.xml etc/jetty-ssl.xml etc/jetty-https.xml
- ]]>
-      </screen>
+
+      <screen><![CDATA[
+
+ cd [installdir] ; java -jar start.jar etc/jetty-ssl.xml etc/jetty-https.xml
+ 
+      ]]></screen>
     </listitem>
+
     <listitem>
-      <para>If there are no exceptions, proceed. Otherwise, investigate.</para>
+      <para>If there are no exceptions, proceed. Otherwise,
+      investigate.</para>
     </listitem>
+
     <listitem>
-      <para>Open http://localhost:8080/ in a browser. In the examples section click "Test Jetty Webapp". You should see
-      the <filename>test.war</filename> webapp.</para>
+      <para>Open http://localhost:8080/ in a browser. In the examples section
+      click "Test Jetty Webapp". You should see the
+      <filename>test.war</filename> webapp.</para>
     </listitem>
+
     <listitem>
-      <para>Go through ALL the tests and verify that everything works as expected.</para>
+      <para>Go through ALL the tests and verify that everything works as
+      expected.</para>
     </listitem>
+
+    <listitem>
+      <para>In the examples section click "JAAS Test" and verify that
+      everything works as expected.</para>
+    </listitem>
+
+    <listitem>
+      <para>In the examples section click "JNDI Test" and verify that
+      everything works as expected.</para>
+    </listitem>
+
+    <listitem>
+      <para>In the examples section click "Servlet 3.1 Test" and verify that
+      everything works as expected.</para>
+    </listitem>
+
     <listitem>
       <para>Verify that hot deployment works.</para>
-      <screen>
-<![CDATA[
+
+      <screen><![CDATA[
+
  cd [installdir] ;
  touch [pathToJettyDistribution]/webapps/test.xml
- ]]>
-      </screen>
+ 
+      ]]></screen>
     </listitem>
+
     <listitem>
-      <para>Verify that <filename>test.war</filename> gets redeployed in <filename>STDOUT</filename>.</para>
+      <para>Verify that <filename>test.war</filename> gets redeployed in
+      <filename>STDOUT</filename>.</para>
     </listitem>
+
     <listitem>
       <para>Verify that the spdy example webapp and spdy-proxy do work</para>
-      <screen>
-<![CDATA[
+
+      <screen><![CDATA[
+
  cd jetty_src/jetty-spdy/spdy-example-webapp
  mvn jetty:run-forked
- ]]>
-      </screen>
+ 
+      ]]></screen>
     </listitem>
+
     <listitem>
-      <para>Browse to https://localhost:8443 and verify that all looks ok</para>
+      <para>Browse to https://localhost:8443 and verify that all looks
+      ok</para>
     </listitem>
+
     <listitem>
       <para>Stop the server with CTRL+C and restart it in proxy mode:</para>
-      <screen>
-<![CDATA[
+
+      <screen><![CDATA[
+
  mvn -Pproxy jetty:run-forked
- ]]>
-      </screen>
+ 
+      ]]></screen>
     </listitem>
+
     <listitem>
-      <para>Browse to http://localhost:8080 and https://localhost:8443 and verify that all looks ok</para>
+      <para>Browse to http://localhost:8080 and https://localhost:8443 and
+      verify that all looks ok</para>
     </listitem>
   </orderedlist>
+
   <section xml:id="testing-cometd">
     <title>Testing CometD</title>
+
     <orderedlist>
       <listitem>
         <para>Clone CometD.</para>
-        <screen>
-<![CDATA[
+
+        <screen><![CDATA[
+
  clone git://github.com/cometd/cometd.git
  git clone git://github.com/cometd/cometd.git
- ]]>
-        </screen>
+ 
+        ]]></screen>
       </listitem>
+
       <listitem>
-        <para>Edit <filename>pom.xml</filename> and update <filename>jetty-version.</filename></para>
-        <screen>
-<![CDATA[
+        <para>Edit <filename>pom.xml</filename> and update
+        <filename>jetty-version.</filename></para>
+
+        <screen><![CDATA[
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <jetty-version>7.6.2.v20120308</jetty-version>
@@ -117,30 +167,38 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
       <url>https://oss.sonatype.org/content/repositories/jetty-988/</url>
     </repository>
   </repositories>
- ]]>
-        </screen>
+ 
+        ]]></screen>
       </listitem>
+
       <listitem>
         <para>Build Cometd:</para>
-        <screen>
-<![CDATA[
+
+        <screen><![CDATA[
+
  mvn clean install
-  ]]>
-        </screen>
+  
+        ]]></screen>
       </listitem>
+
       <listitem>
         <para>Be patient.</para>
       </listitem>
+
       <listitem>
-        <para>Run the loadtest as it is described here: http://cometd.org/documentation/2.x/howtos/loadtesting. Keep
-        the default values, but make sure that you raise the clients setting to 1000. Run the loadtest until ''JIT
-        compilation time'' is close to a value of zero (about 10k calls).</para>
+        <para>Run the loadtest as it is described here:
+        http://cometd.org/documentation/2.x/howtos/loadtesting. Keep the
+        default values, but make sure that you raise the clients setting to
+        1000. Run the loadtest until ''JIT compilation time'' is close to a
+        value of zero (about 10k calls).</para>
       </listitem>
+
       <listitem>
-        <para>Make sure that the performance results are reasonably fast. On a MacBook Pro i7 2.6ghz dualcore produces
-        the following:</para>
-        <screen>
-<![CDATA[
+        <para>Make sure that the performance results are reasonably fast. On a
+        MacBook Pro i7 2.6ghz dualcore produces the following:</para>
+
+        <screen><![CDATA[
+
  ========================================
 Statistics Started at Fri Mar 09 13:44:35 CET 2012
 Operative System: Mac OS X 10.7.3 amd64
@@ -207,35 +265,43 @@ Messages - Wall Latency 50th%/99th% = 117/275 ms
 Messages - Wall Latency Min/Ave/Max = 2/123/430 ms
 Messages - Network Latency Min/Ave/Max = 1/114/417 ms
 Thread Pool - Concurrent Threads max = 239 | Queue Size max = 1002 | Queue Latency avg/max = 12/101 ms
-]]>
-        </screen>
+
+        ]]></screen>
       </listitem>
+
       <listitem>
-        <para>Deploy <filename>cometd.war</filename> to the <filename>webapps</filename> directory of the
-        jetty-distribution tested above.</para>
-        <screen>
-<![CDATA[
+        <para>Deploy <filename>cometd.war</filename> to the
+        <filename>webapps</filename> directory of the jetty-distribution
+        tested above.</para>
+
+        <screen><![CDATA[
+
  cp cometd-demo/target/cometd-demo-[version].war [pathToJetty]/jetty-distribution-[jetty-version]/webapps/
- ]]>
-        </screen>
+ 
+        ]]></screen>
       </listitem>
+
       <listitem>
         <para>Start jetty and make sure there are no exceptions.</para>
-        <screen>
-<![CDATA[
+
+        <screen><![CDATA[
+
  cd [pathToJetty] && java -jar start.jar
- ]]>
-        </screen>
+ 
+        ]]></screen>
       </listitem>
+
       <listitem>
         <para>Go through all pages of the demo and test them:</para>
-        <screen>
-<![CDATA[
+
+        <screen><![CDATA[
+
  http://localhost:8080/cometd-demo-2.4.1-SNAPSHOT/
-]]>
-        </screen>
+
+        ]]></screen>
       </listitem>
     </orderedlist>
+
     <para>If all tests are green, you are done!</para>
   </section>
 </section>

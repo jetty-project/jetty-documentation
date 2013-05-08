@@ -8,7 +8,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.eclipse.jetty</groupId>
   <artifactId>jetty-documentation</artifactId>
-  <version>9.0.2-SNAPSHOT</version>
+  <version>9.0.3.v20130506</version>
   <name>Jetty :: Documentation</name>
   <packaging>pom</packaging>
   <properties>
@@ -54,21 +54,6 @@
           </dependency>
         </dependencies>
       </plugin>
-      <!--plugin>
-        <groupId>us.bryon</groupId>
-        <artifactId>relaxng-maven-plugin</artifactId>
-        <version>1.1</version>
-        <executions>
-          <execution>
-            <phase>validate</phase>
-            <goals>
-              <goal>
-                trang
-              </goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin-->
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>xml-maven-plugin</artifactId>
@@ -87,9 +72,6 @@
               <!-- false for now -->
               <validating>false</validating>
               <dir>src/docbkx</dir>
-              <!--publicId>http://docbook.org/ns/docbook</publicId-->
-              <!--schemaLanguage>http://relaxng.org/ns/structure/1.0</schemaLanguage-->
-              <!--systemId>target/trang/docbookxi.xsd</systemId-->
               <excludes>
                 <exclude>**/*.css</exclude>
                 <exclude>**/font/*</exclude>
@@ -100,34 +82,8 @@
               </excludes>
             </validationSet>
           </validationSets>
-          <!--catalogs>
-            <catalog>src/xsd/catalog.xml</catalog>
-          </catalogs-->
         </configuration>
       </plugin>
-      <!--plugin>
-        <groupId>net.erdfelt.maven</groupId>
-        <artifactId>xmlfresh-maven-plugin</artifactId>
-        <version>2.3</version> 
-        <configuration>
-          <excludes>
-            <exclude>pom.xml</exclude>
-          </excludes>
-          <tidy>
-            <new-inline-tags>code,filename,emphasis,link,xref</new-inline-tags>
-            <wrap>120</wrap>
-          </tidy>
-        </configuration>
-        <executions>
-          <execution>
-            <id>format-always</id>
-            <phase>validate</phase>
-            <goals>
-              <goal>freshen</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin-->
       <plugin>
         <artifactId>maven-resources-plugin</artifactId>
         <version>2.5</version>
@@ -270,6 +226,68 @@
       </plugin>
     </plugins>
   </build>
+  <profiles>
+    <profile>
+      <id>pdf</id>
+      <build>
+      <plugins>
+        <plugin>
+          <groupId>com.agilejava.docbkx</groupId>
+          <artifactId>docbkx-maven-plugin</artifactId>
+          <version>2.0.14</version>
+           <executions>
+            <execution>
+              <id>pdf</id>
+              <phase>compile</phase>
+              <goals>
+                <goal>generate-pdf</goal>
+              </goals>
+              <configuration>
+                <includes>jetty.xml</includes>
+                <admonGraphics>true</admonGraphics>
+                <admonGraphicsPath>target/docbkx/pdf/jetty/images/</admonGraphicsPath>
+                <preProcess>
+                <copy todir="target/docbkx/pdf/jetty/images">
+                  <fileset dir="src/docbkx/images" />
+                </copy>
+              </preProcess>
+              <highlightSource>true</highlightSource>
+              </configuration>
+            </execution>
+          </executions>
+          <dependencies>
+          <dependency>
+            <groupId>net.sf.docbook</groupId>
+            <artifactId>docbook-xml</artifactId>
+            <version>5.0-all</version>
+            <classifier>resources</classifier>
+            <type>zip</type>
+            <scope>runtime</scope>
+          </dependency>
+          <dependency>
+            <groupId>net.sf.xslthl</groupId>
+            <artifactId>xslthl</artifactId>
+            <version>2.0.1</version>
+            <scope>runtime</scope>
+          </dependency>
+          <dependency>
+            <groupId>net.sf.offo</groupId>
+            <artifactId>fop-hyph</artifactId>
+            <version>1.2</version>
+            <scope>runtime</scope>
+          </dependency>
+          <dependency>
+            <groupId>org.eclipse.jetty.toolchain</groupId>
+            <artifactId>jetty-xslt-tools</artifactId>
+            <version>1.3</version>
+            <scope>runtime</scope>
+          </dependency>
+        </dependencies>
+        </plugin>
+      </plugins>
+    </build>
+    </profile>
+  </profiles>
   <repositories>
     <repository>
       <snapshots>

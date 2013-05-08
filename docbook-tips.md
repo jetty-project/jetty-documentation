@@ -134,6 +134,10 @@ Valid languages are:
 
 We use the SyntaxHighlighter from http://alexgorbatchev.com/SyntaxHighlighter/ so it is easy to add whatever languages are available with that package, it just required a bit of swizzling in the docbook.xsl file.
 
+## Examples and Titles
+
+There are a number of instances in the existing documentation where programlistings and screens are wrapped in <example and <informalexample so a quick note on that.  By themselves a <screen or a programlisting will simply render directly into the page, but to get them colored into pretty boxes we wrap them in <example tags.  The basic difference between an example and an informalexample is that an example has a title, which means it gets picked up in the generation of the table of contents.  Informalexamples are just that, informal examples that are suitable for something that really only needs to be seen in the context of that page.
+
 ## Tables
 
 Please use the following format for tables as it will make use of the css which makes altering all of the look and feel of tables much easier.  Don't use the html tags.

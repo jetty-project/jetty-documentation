@@ -149,7 +149,7 @@ xmlns:ns="http://docbook.org/ns/docbook">
 <!-- How to enable jetty setuid on linux and osx -->
     <xi:include href="advanced/setuid/chapter.xml" />
 <!-- Advanced Security Topics -->
-    <xi:include href="advanced/security/chapter.xml" />
+    <!--xi:include href="advanced/security/chapter.xml" /-->
 <!-- Using jetty in third party frame works like spring or osgi -->
     <xi:include href="advanced/frameworks/chapter.xml" />
 <!-- What are good things to consider when running jetty, managing garbage

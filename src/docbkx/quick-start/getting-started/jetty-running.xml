@@ -107,7 +107,7 @@ Connectors.</link>
     </para>
     <para>Alternately, you can edit the <filename>start.ini</filename> file and uncomment the line that includes the
     HTTPS configuration file and then start Jetty without any extra command line arguments. You can also
-    change the SSL port with the <literaljetty.tls.port</literal> property:</para>
+    change the SSL port with the <literal>jetty.tls.port</literal> property:</para>
     <para><screen><![CDATA[> java -jar start.jar jetty.tls.port=8444 etc/jetty-https.xml]]></screen></para>
     <para>The job of the <code>start.jar</code> command is to interpret the command line and <filename>
     start.ini</filename> arguments to build a Java classpath and list of properties and configuration files to

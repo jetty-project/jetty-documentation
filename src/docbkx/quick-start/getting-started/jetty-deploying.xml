@@ -53,9 +53,9 @@
       standard web application with the context path
       <filename>/example</filename> (that is,
       <filename>http://localhost:8080/example/</filename>). If the base name
-      is <filename>ROOT</filename> (case insensitive), then the context path
+      is <filename>ROOT</filename> (case insensitive), the context path
       is /. If <filename> example.war</filename> and
-      <filename>example/</filename> exist, then only the WAR is deployed
+      <filename>example/</filename> exist, only the WAR is deployed
       (which may use the directory as an unpack location).</para>
     </listitem>
 
@@ -63,7 +63,7 @@
       <para>An XML file like <filename>example.xml</filename> is deployed as a
       context whose configuration is defined by the XML. The configuration
       itself must set the context path. If <filename>example.xml</filename>
-      and <filename>example.war</filename> exist, then only the XML is
+      and <filename>example.war</filename> exist, only the XML is
       deployed (which may use the WAR in its configuration).</para>
     </listitem>
   </itemizedlist>

@@ -22,7 +22,7 @@ xmlns:xi="http://www.w3.org/2001/XInclude"
 xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd">
   <title>What is Jetty?</title>
   <para>Jetty is an open-source project providing an HTTP server, HTTP client, and javax.servlet container.</para>
-  <para>This guide is in two parts. 
+  <para>This guide is in two parts.</para> 
   <itemizedlist>
   <listitem><para>The first part emphasizes beginning to use Jetty. It provides information about downloading Jetty, changing things like the port Jetty runs on, adjusting logging levels, and configuring
   many of the most common servlet container features such as JNDI, JMX, and session management.</para></listitem>

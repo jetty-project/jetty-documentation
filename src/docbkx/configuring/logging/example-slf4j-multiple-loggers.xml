@@ -351,7 +351,7 @@
     <para>Create a ${jetty.home}/lib/logging/ directory and place the 6 files
     you downloaded there.</para>
 
-    <screen language="bash"><![CDATA[[jetty-distribution-9.0.0.v20130308]$ ls -l ]]><emphasis
+    <screen language="bash"><![CDATA[[jetty-distribution-${project.version}]$ ls -l ]]><emphasis
         role="bold">lib/logging/</emphasis><![CDATA[
 total 632
 -rw-rw-r-- 1 jetty jetty  17289 Mar 12 16:21 ]]><emphasis role="bold">jcl-over-slf4j-1.6.6.jar</emphasis><![CDATA[
@@ -377,7 +377,7 @@ OPTIONS=logging
 
     <para>Now verify that the 6 jars will be loaded by server classpath</para>
 
-    <screen><![CDATA[[jetty-distribution-9.0.0.v20130308]$ ]]><emphasis
+    <screen><![CDATA[[jetty-distribution-${project.version}]$ ]]><emphasis
         role="bold">java -jar start.jar --version</emphasis><![CDATA[ | grep logging
 Active Options: [Server, client, ext, jmx, jsp, ]]><emphasis role="bold">logging</emphasis><![CDATA[, resources, websocket]
 18:                1.6.6 | ${jetty.home}/lib/logging/]]><emphasis role="bold">jcl-over-slf4j-1.6.6.jar</emphasis><![CDATA[
@@ -487,7 +487,7 @@ org.eclipse.jetty.util.log.class=org.eclipse.jetty.util.log.Slf4jLog]]></program
     <para>You are now done configuring Jetty for all logging APIs. Just start
     Jetty to start utilizing it.</para>
 
-    <para><screen><![CDATA[[jetty-distribution-9.0.0.v20130308]$ java -jar start.jar ]]></screen><note>
+    <para><screen><![CDATA[[jetty-distribution-${project.version}]$ java -jar start.jar ]]></screen><note>
         <para>This configuration will capture all Server side logging events
         and route them to the console and logging file handled by Logback. If
         you also want to capture all of the Web Application logging events, be

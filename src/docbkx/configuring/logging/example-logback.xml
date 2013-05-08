@@ -84,7 +84,7 @@
     <para>Create a ${jetty.home}/lib/logging/ directory and place the 3 files
     you downloaded there.</para>
 
-    <screen language="bash"><![CDATA[[jetty-distribution-9.0.0.v20130308]$ ls -l ]]><emphasis
+    <screen language="bash"><![CDATA[[jetty-distribution-${project.version}]$ ls -l ]]><emphasis
         role="bold">lib/logging/</emphasis><![CDATA[
 total 632
 -rw-rw-r-- 1 jetty jetty 251679 Mar 12 14:46 ]]><emphasis role="bold">logback-classic-1.0.7.jar</emphasis><![CDATA[
@@ -104,7 +104,7 @@ OPTIONS=logging
 
     <para>Now verify that the 3 jars will be loaded by server classpath</para>
 
-    <screen><![CDATA[[jetty-distribution-9.0.0.v20130308]$ ]]><emphasis
+    <screen><![CDATA[[jetty-distribution-${project.version}]$ ]]><emphasis
         role="bold">java -jar start.jar --version</emphasis><![CDATA[ | grep logging
 Active Options: [Server, client, ext, jmx, jsp, ]]><emphasis role="bold">logging</emphasis><![CDATA[, resources, websocket]
 18:                1.0.7 | ${jetty.home}/lib/logging/]]><emphasis role="bold">logback-classic-1.0.7.jar</emphasis><![CDATA[

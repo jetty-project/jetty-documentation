@@ -155,6 +155,10 @@ span.term {
   margin-bottom: 1.0em;
 }
 
+.example .title {
+  color: #248;
+}
+
 div .screenexample {
   background-color: #EEE;
   border:solid 1px #CCC;

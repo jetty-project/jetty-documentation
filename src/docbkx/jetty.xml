@@ -159,8 +159,16 @@ xmlns:ns="http://docbook.org/ns/docbook">
   <part xml:id="clients">
     <title>Jetty Client Guide</title>
     <xi:include href="clients/http/chapter.xml" />
-    <!--xi:include href="clients/websocket/chapter.xml" /-->
     <!--xi:include href="clients/spdy/chapter.xml" /-->
+  </part>
+  <part xml:id="websockets">
+    <title>Jetty WebSockets Guide</title>
+    <!-- Introduction to WebSockets -->
+    <xi:include href="websockets/intro/chapter.xml" />
+    <!-- The Jetty API -->
+    <xi:include href="websockets/jetty/chapter.xml" />
+    <!-- JSR-356 Support (FUTURE) -->
+    <!-- xi:include href="websockets/java/chapter.xml" / -->
   </part>
   <part xml:id="reference">
     <title>Reference Guide</title>

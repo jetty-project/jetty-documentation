@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+//  ========================================================================
+//  Copyright (c) 1995-2012 Mort Bay Consulting Pty. Ltd.
+//  ========================================================================
+//  All rights reserved. This program and the accompanying materials
+//  are made available under the terms of the Eclipse Public License v1.0
+//  and Apache License v2.0 which accompanies this distribution.
+//
+//      The Eclipse Public License is available at
+//      http://www.eclipse.org/legal/epl-v10.html
+//
+//      The Apache License v2.0 is available at
+//      http://www.opensource.org/licenses/apache2.0.php
+//
+//  You may elect to redistribute this code under either of these licenses.
+//  ========================================================================
+-->
+<section version="5.0"
+         xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd http://www.w3.org/1999/xlink http://docbook.org/xml/5.0/xsd/xlink.xsd"
+         xml:id="jetty-websocket-server-api"
+         xmlns="http://docbook.org/ns/docbook"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:xs="http://www.w3.org/2001/XMLSchema"
+         xmlns:xl="http://www.w3.org/1999/xlink"
+         xmlns:ns2="http://www.w3.org/1998/Math/MathML"
+         xmlns:ns="http://docbook.org/ns/docbook">
+  <title>Jetty WebSocket Server API</title>
+
+  <para>Jetty provides the ability to wire up WebSocket endpoints to Servlet
+  Path Specs via the use of a WebSocketServlet bridge servlet.</para>
+
+  <para>Internally, Jetty manages the HTTP Upgrade to WebSocket and migration
+  from a HTTP Connection to a WebSocket Connection.</para>
+
+  <para>This will only work when running within the Jetty Container. (unlike
+  past Jetty technologies, you cannot get Jetty WebSocket server functionality
+  running Jetty within other containers like JBoss, Tomcat, or
+  WebLogic)</para>
+
+  <para/>
+
+  <section>
+    <title>The Jetty WebSocketServlet</title>
+
+    <para>To wire up your WebSocket to a specific path via the
+    WebSocketServlet, you will need to extend
+    org.eclipse.jetty.websocket.servlet.WebSocketServlet and specify what
+    WebSocket object should be created with incoming Upgrade requests.</para>
+
+    <example>
+      <title>MyEchoServlet.java</title>
+
+      <programlisting language="rjava"><filename>@GITURL@/jetty-websocket/websocket-servlet/src/test/java/examples/MyEchoServlet.java</filename></programlisting>
+    </example>
+
+    <para>This example will create a Servlet mapped via the <link
+    xl:href="http://docs.oracle.com/javaee/6/api/javax/servlet/annotation/WebServlet.html">@WebServlet</link>
+    annotation to the Servlet path spec of <literal>"/echo"</literal> (or you
+    can do this manually in the <filename>WEB-INF/web.xml</filename> of your
+    web application) which will create MyEchoSocket instances when
+    encountering HTTP Upgrade requests.</para>
+
+    <para>The WebSocketServlet.configure(WebSocketServletFactory factory) is
+    where you put your specific configuration for your WebSocket. In the
+    example we specify a 10 second idle timeout and register MyEchoSocket with
+    the default WebSocketCreator the WebSocket class we want to be created on
+    Upgrade.</para>
+  </section>
+
+  <section>
+    <title>Using the WebSocketCreator</title>
+
+    <para>All WebSocket's are created via whatever <link
+    xl:href="@JDURL@/org/eclipse/jetty/websocket/servlet/WebSocketCreator.html">WebSocketCreator</link>
+    you have registered with the <link
+    xl:href="@JDURL@/org/eclipse/jetty/websocket/servlet/WebSocketServletFactory.html">WebSocketServletFactory</link>.
+    </para>
+
+    <para>By default, the WebSocketServletFactory is a simple WebSocketCreator
+    capable of creating a single WebSocket object. Use <link
+    xl:href="@JDURL@/org/eclipse/jetty/websocket/servlet/WebSocketServletFactory.html#register(java.lang.Class)"><code>WebSocketCreator.register(Class&lt;?&gt;
+    websocket)</code></link> to tell the WebSocketServletFactory which class
+    it should instantiate (make sure it has a default constructor). </para>
+
+    <para>If you have a more complicated creation scenario, you might want to
+    provide your own WebSocketCreator that bases the WebSocket it creates off
+    of information present in the UpgradeRequest object.</para>
+
+    <example>
+      <title>MyAdvancedEchoCreator.java</title>
+
+      <programlisting language="rjava"><filename>@GITURL@/jetty-websocket/websocket-servlet/src/test/java/examples/MyAdvancedEchoCreator.java</filename></programlisting>
+    </example>
+
+    <para>Here we show a WebSocketCreator that will utilize the <link
+    xl:href="http://tools.ietf.org/html/rfc6455#section-1.9">WebSocket
+    subprotocol</link> information from request to determine what WebSocket
+    type should be created.</para>
+
+    <example>
+      <title>MyAdvancedEchoServlet.java</title>
+
+      <programlisting language="rjava"><filename>@GITURL@/jetty-websocket/websocket-servlet/src/test/java/examples/MyAdvancedEchoServlet.java</filename></programlisting>
+    </example>
+
+    <para>When you want a custom WebSocketCreator, use <link
+    xl:href="@JDURL@/org/eclipse/jetty/websocket/servlet/WebSocketServletFactory.html#setCreator(org.eclipse.jetty.websocket.servlet.WebSocketCreator)"><code>WebSocketServletFactory.setCreator(WebSocketCreator
+    creator)</code></link> and the WebSocketServletFactory will use your
+    creator for all incoming Upgrade requests on this servlet.</para>
+
+    <para>Other uses for a WebSocketCreator:</para>
+
+    <itemizedlist>
+      <listitem>
+        <para>Controlling the selection of WebSocket subprotocol</para>
+      </listitem>
+
+      <listitem>
+        <para>Performing any WebSocket origin you deem important.</para>
+      </listitem>
+
+      <listitem>
+        <para>Obtaining the HTTP headers from incoming request</para>
+      </listitem>
+
+      <listitem>
+        <para>Obtaining the Servlet HttpSession object (if it exists)</para>
+      </listitem>
+
+      <listitem>
+        <para>Specifying a response status code and reason</para>
+      </listitem>
+    </itemizedlist>
+
+    <para>If you don't want to accept the upgrade, simply return null from the
+    <link
+    xl:href="@JDURL@/org/eclipse/jetty/websocket/servlet/WebSocketCreator.html#createWebSocket(org.eclipse.jetty.websocket.api.UpgradeRequest, org.eclipse.jetty.websocket.api.UpgradeResponse)"><code>WebSocketCreator.createWebSocket(UpgradeRequest
+    req, UpgradeResponse resp)</code></link> method.</para>
+  </section>
+</section>

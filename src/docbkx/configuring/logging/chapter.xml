@@ -39,6 +39,8 @@
   <xi:include href="example-logback.xml"/>
   <xi:include href="example-slf4j-multiple-loggers.xml"/>
   <xi:include href="example-logback-centralized-logging.xml"/>
+
+  <xi:include href="dump-tool.xml"/>
   <!--
   <xi:include href="example-logback-sifting.xml"/>
   <xi:include href="example-logback-access.xml"/>

@@ -39,7 +39,7 @@
     jetty-lowresources.xml line from the start.ini configuration file, which
     has the effect of including the following XML configuration:</para>
 
-    <programlisting language="fetch"><filename>@GITURL@/jetty-server/src/main/config/etc/jetty-lowresources.xml</filename></programlisting>
+    <programlisting language="rxml"><filename>@GITURL@/jetty-server/src/main/config/etc/jetty-lowresources.xml</filename></programlisting>
 
     <para>The monitor is configured with a period in milliseconds at which it
     will scan the server looking for a low resources condition, which may be

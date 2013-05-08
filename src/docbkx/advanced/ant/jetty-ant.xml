@@ -208,7 +208,7 @@
           org.eclipse.jetty.security.HashLoginService</link>:</para>
 
           <informalexample>
-            <programlisting><![CDATA[
+            <programlisting language="xml"><![CDATA[
 <project name="Jetty-Ant integration test" basedir=".">
 
   <path id="jetty.plugin.classpath">
@@ -245,7 +245,7 @@
           name of your custom class:</para>
 
           <informalexample>
-            <programlisting><![CDATA[
+            <programlisting language="xml"><![CDATA[
 <project name="Jetty-Ant integration test" basedir=".">
 
   <path id="jetty.plugin.classpath">
@@ -274,7 +274,7 @@
           <code>tempDirectory</code> option:</para>
 
           <informalexample>
-            <programlisting><![CDATA[
+            <programlisting language="xml"><![CDATA[
 <project name="Jetty-Ant integration test" basedir=".">
 
   <path id="jetty.plugin.classpath">
@@ -305,7 +305,7 @@
           <code>&lt;typedef&gt;</code> for it before you can use it:</para>
 
           <informalexample>
-            <programlisting><![CDATA[
+            <programlisting language="xml"><![CDATA[
 <project name="Jetty-Ant integration test" basedir=".">
 
   <path id="jetty.plugin.classpath">
@@ -343,7 +343,7 @@
           as the JVM evaluates some system properties on entry.</para>
 
           <informalexample>
-            <programlisting><![CDATA[
+            <programlisting language="xml"><![CDATA[
 <project name="Jetty-Ant integration test" basedir=".">
 
   <path id="jetty.plugin.classpath">
@@ -376,7 +376,7 @@
           starting Jetty:</para>
 
           <informalexample>
-            <programlisting><![CDATA[
+            <programlisting language="xml"><![CDATA[
 <project name="Jetty-Ant integration test" basedir=".">
 
   <path id="jetty.plugin.classpath">
@@ -410,7 +410,7 @@
           <code>0</code> disables scanning. Here's an example where Jetty checks for changes every five seconds:</para>
 
           <informalexample>
-            <programlisting><![CDATA[
+            <programlisting language="xml"><![CDATA[
 <project name="Jetty-Ant integration test" basedir=".">
 
   <path id="jetty.plugin.classpath">
@@ -452,7 +452,7 @@
           confirmation that the stop succeeded:</para>
 
           <informalexample>
-            <programlisting><![CDATA[
+            <programlisting language="xml"><![CDATA[
 <project name="Jetty-Ant integration test" basedir=".">
 
   <path id="jetty.plugin.classpath">
@@ -476,11 +476,9 @@
 
           <para>To stop jetty via Ant, enter:</para>
 
-          <informalexample>
-            <programlisting><![CDATA[
+            <screen><![CDATA[
 > ant jetty.stop
-            ]]></programlisting>
-          </informalexample>
+            ]]></screen>
         </listitem>
       </varlistentry>
 
@@ -500,7 +498,7 @@
           for Jetty.</para>
 
           <informalexample>
-            <programlisting><![CDATA[
+            <programlisting language="xml"><![CDATA[
 <project name="Jetty-Ant integration test" basedir=".">
 
   <path id="jetty.plugin.classpath">
@@ -533,7 +531,7 @@
     context path <code> / </code>:</para>
 
     <informalexample>
-      <programlisting><![CDATA[
+      <programlisting language="xml"><![CDATA[
 <project name="Jetty-Ant integration test" basedir=".">
 
   <path id="jetty.plugin.classpath">
@@ -563,7 +561,7 @@
           WAR file:</para>
 
           <informalexample>
-            <programlisting><![CDATA[
+            <programlisting language="xml"><![CDATA[
 <project name="Jetty-Ant integration test" basedir=".">
 
   <path id="jetty.plugin.classpath">
@@ -594,7 +592,7 @@
           <para>You can also deploy more than one web application:</para>
 
           <informalexample>
-            <programlisting><![CDATA[
+            <programlisting language="xml"><![CDATA[
 <project name="Jetty-Ant integration test" basedir=".">
 
   <path id="jetty.plugin.classpath">
@@ -638,7 +636,7 @@
       xl:href="@JDURL@/org/eclipse/jetty/webapp/WebAppContext.html#setTempDirectory%28java.io.File%29"><code>AntWebAppContext.setTempDirectory()</code></link>):</para>
 
       <informalexample>
-        <programlisting><![CDATA[
+        <programlisting language="xml"><![CDATA[
 <project name="Jetty-Ant integration test" basedir=".">
 
   <path id="jetty.plugin.classpath">
@@ -674,7 +672,7 @@
             find them. Here's an example:</para>
 
             <informalexample>
-              <programlisting><![CDATA[
+              <programlisting language="xml"><![CDATA[
 <project name="Jetty-Ant integration test" basedir=".">
 
   <path id="jetty.plugin.classpath">
@@ -718,7 +716,7 @@
             directly in the build file. Here's an example:</para>
 
             <informalexample>
-              <programlisting><![CDATA[
+              <programlisting language="xml"><![CDATA[
 <project name="Jetty-Ant integration test" basedir=".">
 
   <path id="jetty.plugin.classpath">
@@ -760,7 +758,7 @@
             jettyEnvXml</code> attribute to tell Ant where to find it:</para>
 
             <informalexample>
-              <programlisting><![CDATA[
+              <programlisting language="xml"><![CDATA[
 <project name="Jetty-Ant integration test" basedir=".">
 
   <path id="jetty.plugin.classpath">
@@ -800,7 +798,7 @@
             file.</para>
 
             <informalexample>
-              <programlisting><![CDATA[
+              <programlisting language="xml"><![CDATA[
 project name="Jetty-Ant integration test" basedir=".">
 
   <path id="jetty.plugin.classpath">

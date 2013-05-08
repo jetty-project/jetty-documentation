@@ -4,6 +4,7 @@ xmlns:fetch="java:org.eclipse.jetty.xslt.tools.SourceFetchExtension"
 xmlns:d="http://docbook.org/ns/docbook"
 xmlns:l="http://docbook.sourceforge.net/xmlns/l10n/1.0"
 xmlns:xslthl="http://xslthl.sf.net"
+xmlns:gcse="http://www.google.com"
 >
 
   <!-- imports the original docbook stylesheet -->
@@ -44,10 +45,6 @@ xmlns:xslthl="http://xslthl.sf.net"
   </xsl:param>
 
   <!--
-  <xsl:param name="variablelist.as.table" select="1"/>
-  -->
-
-  <!--
     Important links:
     - http://www.sagehill.net/docbookxsl/
     - http://docbkx-tools.sourceforge.net/
@@ -69,13 +66,85 @@ xmlns:xslthl="http://xslthl.sf.net"
 
   <xsl:template name="user.head.content">
     <link rel="shortcut icon" href="images/favicon.ico" />
+    <!--
+      - syntax highlighting bits and pieces
+    -->
+    <xsl:element name="script">
+      <xsl:attribute name="type">text/javascript</xsl:attribute>
+      <xsl:attribute name="src">js/shCore.js</xsl:attribute>
+    </xsl:element>
+    <xsl:element name="script">
+      <xsl:attribute name="type">text/javascript</xsl:attribute>
+      <xsl:attribute name="src">js/shBrushJava.js</xsl:attribute>
+    </xsl:element>
+    <xsl:element name="script">
+      <xsl:attribute name="type">text/javascript</xsl:attribute>
+      <xsl:attribute name="src">js/shBrushXml.js</xsl:attribute>
+    </xsl:element>
+    <xsl:element name="script">
+      <xsl:attribute name="type">text/javascript</xsl:attribute>
+      <xsl:attribute name="src">js/shBrushBash.js</xsl:attribute>
+    </xsl:element>
+    <xsl:element name="script">
+      <xsl:attribute name="type">text/javascript</xsl:attribute>
+      <xsl:attribute name="src">js/shBrushJScript.js</xsl:attribute>
+    </xsl:element>
+    <xsl:element name="script">
+      <xsl:attribute name="type">text/javascript</xsl:attribute>
+      <xsl:attribute name="src">js/shBrushSql.js</xsl:attribute>
+    </xsl:element>
+    <xsl:element name="script">
+      <xsl:attribute name="type">text/javascript</xsl:attribute>
+      <xsl:attribute name="src">js/shBrushProperties.js</xsl:attribute>
+    </xsl:element>
+    <xsl:element name="script">
+      <xsl:attribute name="type">text/javascript</xsl:attribute>
+      <xsl:attribute name="src">js/shBrushPlain.js</xsl:attribute>
+    </xsl:element>
+    <xsl:element name="link">
+      <xsl:attribute name="type">text/css</xsl:attribute>
+      <xsl:attribute name="rel">stylesheet</xsl:attribute>
+      <xsl:attribute name="href">css/shCore.css</xsl:attribute>
+    </xsl:element>
+    <xsl:element name="link">
+      <xsl:attribute name="type">text/css</xsl:attribute>
+      <xsl:attribute name="rel">stylesheet</xsl:attribute>
+      <xsl:attribute name="href">css/shThemeEclipse.css</xsl:attribute>
+    </xsl:element>
+    <xsl:element name="link">
+      <xsl:attribute name="type">text/css</xsl:attribute>
+      <xsl:attribute name="rel">stylesheet</xsl:attribute>
+      <xsl:attribute name="href">css/font-awesome.min.css</xsl:attribute>
+    </xsl:element>
   </xsl:template>
 
   <xsl:template name="user.header.navigation">
-    <center><a href="http://www.eclipse.org/jetty"><img src="images/jetty-header-logo.png" alt="Jetty Logo"></img></a></center>
+    <table>
+      <tr>
+        <td style="width: 50%">
+          <a href="http://www.eclipse.org/jetty"><img src="images/jetty-header-logo.png" alt="Jetty Logo"></img></a>
+        </td>
+        <td style="width: 50%">
+          <script type="text/javascript">  (function() {
+            var cx = '016459005284625897022:obd4lsai2ds';
+            var gcse = document.createElement('script');
+            gcse.type = 'text/javascript';
+            gcse.async = true;
+            gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+            '//www.google.com/cse/cse.js?cx=' + cx;
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(gcse, s);
+            })();
+          </script>
+          <gcse:search></gcse:search>
+        </td>
+      </tr>
+    </table>
   </xsl:template>
 
   <xsl:template name="user.header.content">
+    <!-- Include required JS files -->
+
     <div class="jetty-callout">
       <h5 class="callout">
         <a href="http://www.webtide.com/support.jsp">Contact the core Jetty developers at
@@ -95,7 +164,7 @@ xmlns:xslthl="http://xslthl.sf.net"
         <div class="draft">
           <h5>DRAFT</h5>
           <p>
-          This page contains content that we have migrated from Jetty 7 or Jetty 8 documentation into the correct format, but we have not yet audited it for technical accuracy in with Jetty 9.  Be aware that examples or information contained on this page may be incorrect.  Please check back soon as we continue improving the documentation, or submit corrections yourself to this page through <a href="http://github.com/jetty-project/jetty-documentation" style="text-decoration:none">Github</a>. Thank you.
+          This page contains content that we have migrated from Jetty 7 or Jetty 8 documentation into the correct format, but we have not yet audited it for technical accuracy in Jetty 9.  Be aware that examples or information contained on this page may be incorrect.  Please check back soon as we continue improving the documentation, or submit corrections yourself to this page through <a href="http://github.com/jetty-project/jetty-documentation" style="text-decoration:none"><i class="icon-github"></i> Github</a>. Thank you.
           </p>
         </div>
 
@@ -105,6 +174,12 @@ xmlns:xslthl="http://xslthl.sf.net"
   <xsl:template name="user.footer.content">
     <!-- content here is in a custom footer text -->
     <xsl:apply-templates select="//copyright[1]" mode="titlepage.mode"/>
+    
+    <xsl:element name="script">
+      <xsl:attribute name="type">text/javascript</xsl:attribute>
+      SyntaxHighlighter.all()
+    </xsl:element>
+
   </xsl:template>
 
   <xsl:template name="user.footer.navigation">
@@ -113,7 +188,7 @@ xmlns:xslthl="http://xslthl.sf.net"
         See an error or something missing?
         <span class="callout">
           <a href="http://github.com/jetty-project/jetty-documentation">Contribute to this documentation at
-            <span class="website">Github!</span>
+            <span class="website"><i class="icon-github"></i> Github!</span>
           </a>
         </span>
       </p>
@@ -132,111 +207,100 @@ xmlns:xslthl="http://xslthl.sf.net"
     </script>
   </xsl:template>
 
-  <xsl:template match="d:programlisting[@language='rjava']">
 
-    <xsl:param name="suppress-numbers" select="'0'"/>
-
-    <xsl:call-template name="anchor"/>
-
-    <xsl:variable name="div.element">pre</xsl:variable>
-
-    <xsl:if test="$shade.verbatim != 0">
-      <xsl:message>
-        <xsl:text>The shade.verbatim parameter is deprecated. </xsl:text>
-        <xsl:text>Use CSS instead,</xsl:text>
-      </xsl:message>
-      <xsl:message>
-        <xsl:text>for example: pre.</xsl:text>
-        <xsl:value-of select="local-name(.)"/>
-        <xsl:text> { background-color: #E0E0E0; }</xsl:text>
-      </xsl:message>
-    </xsl:if>
-
-    <xsl:element name="{$div.element}">
-          <xsl:apply-templates select="." mode="common.html.attributes"/>
-
-          <xsl:if test="@width != ''">
-            <xsl:attribute name="width">
-              <xsl:value-of select="@width"/>
-            </xsl:attribute>
-          </xsl:if>
-          <xsl:choose>
-            <xsl:when test="$highlight.source != 0">
-              <xsl:variable name="filename" select="./d:filename"/>
-              <xsl:variable name="methodname" select="./d:methodname"/>
-              <xsl:variable name="newText" select="jfetch:fetch($filename,$methodname)"/>
-
-              <xsl:value-of select="$newText"/>
-              <!--xsl:call-template name="apply-highlighting"/-->
-            </xsl:when>
-            <xsl:otherwise>
-
-            <xsl:if test="function-available('jfetch:fetch')">
-              <xsl:variable name="filename" select="./d:/filename"/>
-              <xsl:variable name="methodname" select="./d:methodname"/>
-              <xsl:variable name="newText" select="jfetch:fetch($filename,$methodname)"/>
-
-              <xsl:apply-templates select="$newText"/>
-              <xsl:value-of select="$newText"/>
-           </xsl:if>
-
-            </xsl:otherwise>
-          </xsl:choose>
-        </xsl:element>
-
+  <xsl:template match="d:screen">
+    <xsl:element name="div">
+      <xsl:attribute name="class">screenexample</xsl:attribute>
+      <xsl:element name="pre">
+        <xsl:attribute name="class">screen</xsl:attribute>
+        <!--<xsl:value-of select="text()"/>-->
+        <xsl:apply-templates/>
+      </xsl:element>
+    </xsl:element>
   </xsl:template>
 
-    <xsl:template match="d:programlisting[@language='fetch']">
+ <!-- 
+   - synxtax highlighting 
+   -->
+  <xsl:template match="d:programlisting">
+    <xsl:element name="script">
+      <xsl:attribute name="type">syntaxhighlighter</xsl:attribute>
+      
+      <xsl:variable name="highlight">
+        <xsl:choose>
+          <xsl:when test="@condition">; highlight: <xsl:value-of select="@condition"/></xsl:when>
+          <xsl:otherwise></xsl:otherwise>
+        </xsl:choose>
+      </xsl:variable>
 
-    <xsl:param name="suppress-numbers" select="'0'"/>
+      <xsl:variable name="startinglinenumber">
+        <xsl:choose>
+          <xsl:when test="@startinglinenumber">; first-line: <xsl:value-of select="@startinglinenumber"/></xsl:when>
+          <xsl:otherwise></xsl:otherwise>
+        </xsl:choose>
+      </xsl:variable>
 
-    <xsl:call-template name="anchor"/>
+      <xsl:variable name="linenumbering">
+        <xsl:choose>
+          <xsl:when test="@linenumbering='unnumbered'">; gutter: false</xsl:when>
+          <xsl:otherwise></xsl:otherwise>
+        </xsl:choose>
+      </xsl:variable>
 
-    <xsl:variable name="div.element">pre</xsl:variable>
+      <xsl:variable name="brushstyle">;toolbar: false<xsl:copy-of select="$highlight"/><xsl:copy-of select="$startinglinenumber"/><xsl:copy-of select="$linenumbering"/></xsl:variable>
 
-    <xsl:if test="$shade.verbatim != 0">
-      <xsl:message>
-        <xsl:text>The shade.verbatim parameter is deprecated. </xsl:text>
-        <xsl:text>Use CSS instead,</xsl:text>
-      </xsl:message>
-      <xsl:message>
-        <xsl:text>for example: pre.</xsl:text>
-        <xsl:value-of select="local-name(.)"/>
-        <xsl:text> { background-color: #E0E0E0; }</xsl:text>
-      </xsl:message>
-    </xsl:if>
-
-    <xsl:element name="{$div.element}">
-          <xsl:apply-templates select="." mode="common.html.attributes"/>
-
-          <xsl:if test="@width != ''">
-            <xsl:attribute name="width">
-              <xsl:value-of select="@width"/>
-            </xsl:attribute>
-          </xsl:if>
-          <xsl:choose>
-            <xsl:when test="$highlight.source != 0">
-              <xsl:variable name="filename" select="./d:filename"/>
-              <xsl:variable name="newText" select="fetch:fetch($filename)"/>
-
-              <xsl:value-of select="$newText"/>
-              <!--xsl:call-template name="apply-highlighting"/-->
-            </xsl:when>
-            <xsl:otherwise>
-
-            <xsl:if test="function-available('jfetch:fetch')">
-              <xsl:variable name="filename" select="./d:/filename"/>
-              <xsl:variable name="newText" select="fetch:fetch($filename)"/>
-
-              <xsl:apply-templates select="$newText"/>
-              <xsl:value-of select="$newText"/>
-           </xsl:if>
-
-            </xsl:otherwise>
-          </xsl:choose>
-        </xsl:element>
-
+      <xsl:choose>
+        <xsl:when test="@language='bash'">
+          <xsl:attribute name="class">brush: bash<xsl:copy-of select="$brushstyle"/></xsl:attribute>
+          &lt;![CDATA[<xsl:value-of select="text()"/>]]&gt;
+        </xsl:when>
+        <xsl:when test="@language='properties'">
+          <xsl:attribute name="class">brush: properties<xsl:copy-of select="$brushstyle"/></xsl:attribute>
+          &lt;![CDATA[<xsl:value-of select="text()"/>]]&gt;
+        </xsl:when>
+        <xsl:when test="@language='sql'">
+          <xsl:attribute name="class">brush: sql<xsl:copy-of select="$brushstyle"/></xsl:attribute>
+          &lt;![CDATA[<xsl:value-of select="text()"/>]]&gt;
+        </xsl:when>
+        <xsl:when test="@language='java'">
+          <xsl:attribute name="class">brush: java<xsl:copy-of select="$brushstyle"/></xsl:attribute>
+          &lt;![CDATA[<xsl:value-of select="text()"/>]]&gt;
+        </xsl:when>
+        <xsl:when test="@language='rjava'">
+          <xsl:attribute name="class">brush: java<xsl:copy-of select="$brushstyle"/></xsl:attribute>
+          <xsl:variable name="filename" select="./d:filename"/>
+          <xsl:variable name="methodname" select="./d:methodname"/>
+          <xsl:variable name="newText" select="jfetch:fetch($filename,$methodname)"/>
+          &lt;![CDATA[<xsl:value-of select="$newText"/>]]&gt;
+        </xsl:when>
+        <xsl:when test="@language='xml'">
+          <xsl:attribute name="class">brush: xml<xsl:copy-of select="$brushstyle"/></xsl:attribute>
+          &lt;![CDATA[<xsl:value-of select="text()"/>]]&gt;
+        </xsl:when>
+        <xsl:when test="@language='rxml'">
+          <xsl:attribute name="class">brush: xml<xsl:copy-of select="$brushstyle"/></xsl:attribute>
+          <xsl:variable name="filename" select="./d:filename"/>
+          <xsl:variable name="newText" select="fetch:fetch($filename)"/>
+          &lt;![CDATA[<xsl:value-of select="$newText"/>]]&gt;
+        </xsl:when>
+        <xsl:when test="@language='plain'">
+          <xsl:attribute name="class">brush: plain<xsl:copy-of select="$brushstyle"/></xsl:attribute>
+          &lt;![CDATA[<xsl:value-of select="text()"/>]]&gt;
+        </xsl:when>
+        <xsl:when test="@language='rplain'">
+          <xsl:attribute name="class">brush: plain<xsl:copy-of select="$brushstyle"/></xsl:attribute>
+          <xsl:variable name="filename" select="./d:filename"/>
+          <xsl:variable name="newText" select="fetch:fetch($filename)"/>
+          &lt;![CDATA[<xsl:value-of select="$newText"/>]]&gt;
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:attribute name="class">brush: plain<xsl:copy-of select="$brushstyle"/></xsl:attribute>
+          &lt;![CDATA[<xsl:value-of select="text()"/>]]&gt;
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:element>
   </xsl:template>
+  
 
   <!-- By default, DocBook surrounds highlighted elements with one or more HTML elements
   that already have an explicit style, which makes difficult to customize them via CSS.
@@ -262,5 +326,77 @@ xmlns:xslthl="http://xslthl.sf.net"
             <xsl:apply-templates />
         </span>
     </xsl:template>
+
+
+<xsl:template name="nongraphical.admonition">
+  <xsl:variable name="admon.icon">
+    <xsl:choose>
+      <xsl:when test="local-name(.)='note'">icon-asterisk</xsl:when>
+      <xsl:when test="local-name(.)='warning'">icon-warning-sign</xsl:when>
+      <xsl:when test="local-name(.)='caution'">icon-exclamation-sign</xsl:when>
+      <xsl:when test="local-name(.)='tip'">icon-lightbulb</xsl:when>
+      <xsl:when test="local-name(.)='important'">icon-plus-sign-alt</xsl:when>
+      <xsl:otherwise>icon-asterisk</xsl:otherwise>
+    </xsl:choose>
+  </xsl:variable>
+
+  <div>
+    <xsl:apply-templates select="." mode="class.attribute"/>
+    <xsl:if test="$admon.style">
+      <xsl:attribute name="style">
+        <xsl:value-of select="$admon.style"/>
+      </xsl:attribute>
+    </xsl:if>
+
+    <xsl:if test="$admon.textlabel != 0 or d:title or d:info/d:title">
+      <h3 class="title">
+        <xsl:call-template name="anchor"/>
+        <i>
+          <xsl:attribute name="class">
+            <xsl:value-of select="$admon.icon"/>
+          </xsl:attribute>
+        </i>
+        <xsl:text> </xsl:text>
+        <xsl:apply-templates select="." mode="object.title.markup"/>
+      </h3>
+    </xsl:if>
+
+    <xsl:apply-templates/>
+  </div>
+</xsl:template>
+
+
+<xsl:template name="navig.content">
+    <xsl:param name="direction" select="d:next"/>
+        <xsl:choose>
+            <xsl:when test="$direction = 'prev'">
+              <xsl:element name="i">
+                <xsl:attribute name="class">icon-chevron-left</xsl:attribute>
+              </xsl:element>
+              <xsl:text> Previous</xsl:text>
+            </xsl:when>
+            <xsl:when test="$direction = 'next'">
+              <xsl:text>Next </xsl:text>
+              <xsl:element name="i">
+                <xsl:attribute name="class">icon-chevron-right</xsl:attribute>
+              </xsl:element>
+            </xsl:when>
+            <xsl:when test="$direction = 'up'">
+                <xsl:element name="i">
+                <xsl:attribute name="class">icon-chevron-up</xsl:attribute>
+              </xsl:element>
+              <xsl:text> Top</xsl:text>
+            </xsl:when>
+            <xsl:when test="$direction = 'home'">
+              <xsl:element name="i">
+                <xsl:attribute name="class">icon-home</xsl:attribute>
+              </xsl:element>
+              <xsl:text> Home</xsl:text>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:text>xxx</xsl:text>
+            </xsl:otherwise>
+        </xsl:choose>
+</xsl:template>
 
 </xsl:stylesheet>

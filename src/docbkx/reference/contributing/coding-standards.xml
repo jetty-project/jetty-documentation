@@ -31,16 +31,19 @@
   <section>
     <title>Code Formatting</title>
 
-    <para>Jetty uses the code formatting the following project specifies.<link
-    xl:href="http://git.eclipse.org/c/jetty/org.eclipse.jetty.admin.git/tree/jetty-eclipse-java-format.xml">http://git.eclipse.org/c/jetty/org.eclipse.jetty.admin.git/tree/jetty-eclipse-java-format.xml</link></para>
+    <para>Jetty uses the code formatting the following project specifies.</para>
+
+    <para><link
+    xl:href="http://git.eclipse.org/c/jetty/org.eclipse.jetty.admin.git/tree/jetty-eclipse-java-format.xml">Eclipse Java Formatting</link></para>
   </section>
 
   <section>
     <title>Code Templates</title>
 
     <para>Jetty specifies the following code templates for use by the project
-    developers.<link
-    xl:href="http://git.eclipse.org/c/jetty/org.eclipse.jetty.admin.git/tree/jetty-eclipse-codetemplates.xml">http://git.eclipse.org/c/jetty/org.eclipse.jetty.admin.git/tree/jetty-eclipse-codetemplates.xml</link></para>
+    developers.</para>
+    <para><link
+    xl:href="http://git.eclipse.org/c/jetty/org.eclipse.jetty.admin.git/tree/jetty-eclipse-codetemplates.xml">Eclipse Code Templates</link></para>
   </section>
 
   <section>

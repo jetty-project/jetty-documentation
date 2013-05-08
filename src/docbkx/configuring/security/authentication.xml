@@ -36,14 +36,14 @@
       <term>Authorization</term>
       <listitem>
         <para>Once the identify of the user is known (or not known), the web application can be configured via standard
-        descriptors with security constraints that declare what resources that user may access. See <link
-        linkend="configuring-security-authorization">Configurating Security - Authorization</link></para>
+        descriptors with security constraints that declare what resources that user may access.</para>
       </listitem>
     </varlistentry>
   </variablelist>
   <section>
     <title>Configuring an Authentication mechanism</title>
-    <para>The jetty server supports several standard authentication mechanisms: <link
+    <para>
+      The jetty server supports several standard authentication mechanisms: <link
     xl:href="http://en.wikipedia.org/wiki/Basic_access_authentication">BASIC</link>; <link
     xl:href="http://en.wikipedia.org/wiki/Digest_authentication">DIGEST</link>; <link
     xl:href="http://en.wikipedia.org/wiki/Form-based_authentication">FORM</link>; CLIENT-CERT; and other mechanisms can
@@ -58,8 +58,9 @@
     login-config</link>&gt;</code> element in the standard web.xml descriptor or via annotations.</para>
     <para>Below is an example taken from the <link
     xl:href="http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/tree/tests/test-webapps/test-jetty-webapp/src/main/webapp/WEB-INF/web.xml?h=release-9">jetty-test-webapp
-    web.xml</link> that configures BASIC authentication:</para>
-    <programlisting>
+    web.xml</link> that configures BASIC authentication:
+    </para>
+    <programlisting language="xml">
 <![CDATA[  <login-config>
     <auth-method>BASIC</auth-method>
     <realm-name>Test Realm</realm-name>
@@ -68,7 +69,7 @@
     <para>The <link
     xl:href="http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/tree/tests/test-webapps/test-jetty-webapp/src/main/webapp/WEB-INF/web.xml?h=release-9">jetty-test-webapp
     web.xml</link> also includes commented out examples of other DIGEST and FORM configuration:</para>
-    <programlisting>
+    <programlisting language="xml">
 <![CDATA[  <login-config>
     <auth-method>FORM</auth-method>
     <realm-name>Test Realm</realm-name>
@@ -82,7 +83,7 @@
     Below is a simple HTML form from the <link
     xl:href="http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/tree/tests/test-webapps/test-jetty-webapp/src/main/webapp/logon.html?h=release-9">test
     webapp logon.html</link>:</para>
-    <programlisting>
+    <programlisting language="xml">
 <![CDATA[<HTML>
 <H1>FORM Authentication demo</H1>
 <form method="POST" action="j_security_check">
@@ -110,7 +111,96 @@
     xl:href="@JDURL@/org/eclipse/jetty/security/LoginService.html">
     LoginService</link> instance, which may be matched by the declared realm-name.</para>
   </section>
+  <section xml:id="security-realms">
+    <title>Security Realms</title>
+    <para>
+      Security realms allow you to secure your web applications against unauthorized access. Protection is based on authentication that identifies who is requesting access to the webapp and access control that restricts what can be accessed and how it is accessed within the webapp.
+    </para>
+    <para>
+      A webapp statically declares its security requirements in its web.xml file. Authentication is controlled by the &lt;login-config> element. Access controls are specified by &lt;security-constraint> and &lt;security-role-ref> elements. When a request is received for a protected resource, the web container checks if the user performing the request is authenticated, and if the user has a role assignment that permits access to the requested resource.
+    </para>
+    <para>
+      The Servlet Specification does not address how the static security information in the <filename>WEB-INF/web.xml</filename> file is mapped to the runtime environment of the container. Jetty does this with the "realm" concept.
+    </para>
+    <para>
+      A realm has a unique name, and is composed of a set of users. Each user has authentication information (e.g. a password) and a set of roles associated with him/herself.
+    </para>
+    <para>
+      You may configure one or many different realms depending on your needs. A single realm would indicate that you wish to share common security information across all of your web applications. Distinct realms allow you to partition your security information webapp by webapp.
+    </para>
+    <para>
+      When a request to a web application requires authentication or authorization, Jetty will use the &lt;realm-name> sub-element inside &lt;login-config> element in the web.xml file to perform an *exact match* to a realm defined in a jetty xml configuration file (or programmatically).
+    </para>
+  </section>
   <section>
+    <title>Scoping Security Realms</title>
+    <para>
+      A realm has a unique name, and is composed of a set of users. Each user has authentication information (for example, a password) and a set of roles associated with him/herself. You can configure one or many different realms depending on your needs.
+    </para>
+    <itemizedlist>
+      <listitem>
+        <para>
+          Configure a single realm to share common security information across all of your web applications.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          Configure distinct realms to partition your security information webapp by webapp.
+        </para>
+      </listitem>
+    </itemizedlist>
+    <section>
+      <title>Globally Scoped</title>
+      <para>
+        A realm–known as a LoginService–is available to all web applications on a Server instance if you define it in a Jetty configuration file, for example $JETTY_HOME/etc/jetty.xml. Here's an example of defining an in-memory type of LoginService called the HashLoginService (note in Jetty 6 this was called the HashUserRealm):
+      </para>
+      <informalexample>
+        <programlisting language="xml">
+<![CDATA[
+<Configure id="Server" class="org.eclipse.jetty.server.Server">
+  <Call name="addBean">
+    <Arg>
+      <New class="org.eclipse.jetty.security.HashLoginService">
+        <Set name="name">Test Realm</Set>
+        <Set name="config"><SystemProperty name="jetty.home" default="."/>/etc/realm.properties</Set>
+        <Set name="refreshInterval">0</Set>
+      </New>
+    </Arg>
+  </Call>
+</Configure>
+]]>
+        </programlisting>
+      </informalexample>
+    </section>
+    <section>
+      <title>Per-Webapp Scoped</title>
+      <para>
+        Alternatively, you can define a LoginService for just a single web application in a context file. Here's how to define the same HashLoginService, but inside a context xml file instead of a configuration file:
+      </para>
+      <informalexample>
+        <programlisting language="xml">
+<![CDATA[
+<Configure class="org.eclipse.jetty.webapp.WebAppContext">
+  <Set name="contextPath">/test</Set>
+  <Set name="war"><SystemProperty name="jetty.home" default="."/>/webapps/test</Set>
+  <Get name="securityHandler">
+    <Set name="loginService">
+      <New class="org.eclipse.jetty.security.HashLoginService">
+            <Set name="name">Test Realm</Set>
+            <Set name="config"><SystemProperty name="jetty.home" default="."/>/etc/realm.properties</Set>
+      </New>
+    </Set>
+  </Get>
+</Configure>
+]]>
+        </programlisting>
+      </informalexample>
+      <para>
+        Jetty provides a number of different LoginService types which can be seen in the next section.
+      </para>
+    </section>
+  </section>
+  <section xml:id="configuring-login-service">
     <title>Configuring a LoginService</title>
     <para>A <link
     xl:href="@JDURL@/org/eclipse/jetty/security/LoginService.html">
@@ -154,7 +244,7 @@
         </term>
         <listitem>
           <para>Uses a <link xl:href="http://en.wikipedia.org/wiki/Java_Authentication_and_Authorization_Service">
-          JAAS</link> provider for authentication</para>
+          JAAS</link> provider for authentication, See <xref linkend="jaas-support">Jaas Support</xref> for more information.</para>
         </listitem>
       </varlistentry>
       <varlistentry>
@@ -163,7 +253,7 @@
           xl:href="@JDURL@/org/eclipse/jetty/security/SpnegoLoginService.html">SpnegoLoginService</link>
         </term>
         <listitem>
-          <para><link xl:href="http://en.wikipedia.org/wiki/SPNEGO">SPNEGO</link> Authentication</para>
+          <para><link xl:href="http://en.wikipedia.org/wiki/SPNEGO">SPNEGO</link> Authentication, See <xref linkend="spnego-support">Spnego Support</xref> for more information.</para>
         </listitem>
       </varlistentry>
     </variablelist>
@@ -182,11 +272,265 @@
         for the context.</para>
       </listitem>
     </itemizedlist>
-    <section>
-      <title>Configuring a HashLoginService</title>
+  </section>
+    <section xml:id="hash-login-service">
+      <title>HashLoginService</title>
       <para>The HashLoginService is a simple and efficient login service that loads usernames and credentials from a
       java properties file in the format:</para>
-      <screen></screen>
+      <informalexample>
+        <programlisting language="properties">
+<![CDATA[
+username: password[,rolename ...]
+]]>
+        </programlisting>
+      </informalexample>
+      <para>
+        where:
+      </para>
+      <variablelist>
+        <varlistentry>
+          <term>username</term>
+          <listitem>
+            <para>is the user's unique identity</para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>password</term>
+          <listitem>
+            <para>
+              is the user's (possibly obfuscated or MD5 encrypted) password;
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>rolename</term>
+          <listitem>
+            <para>
+              is the user's role.
+           </para>
+         </listitem>
+        </varlistentry>
+      </variablelist>
+      <para>
+        For example:
+      </para>
+      <informalexample>
+        <programlisting language="properties">
+<![CDATA[
+admin: CRYPT:ad1ks..kc.1Ug,server-administrator,content-administrator,admin
+other: OBF:1xmk1w261u9r1w1c1xmq
+guest: guest,read-only
+]]>
+        </programlisting>
+      </informalexample>
+      <para>
+        You configure the HashLoginService with a name and a reference to the location of the properties file:
+      </para>
+      <informalexample>
+        <programlisting language="xml">
+<![CDATA[
+<Item>
+<New class="org.eclipse.jetty.security.HashLoginService">
+  <Set name="name">Test Realm</Set>
+  <Set name="config"><SystemProperty name="jetty.home" default="."/>/etc/realm.properties</Set>
+</New>
+</Item>
+]]>
+        </programlisting>
+      </informalexample>
+      <para>
+        You can also configure it to check the properties file regularly for changes and reload when changes are detected. The reloadInterval is in seconds:
+      </para>
+      <informalexample>
+        <programlisting language="xml">
+<![CDATA[
+<New class="org.eclipse.jetty.security.HashLoginService">
+    <Set name="name">Test Realm</Set>
+    <Set name="config"><SystemProperty name="jetty.home" default="."/>/etc/realm.properties</Set>
+    <Set name="reloadInterval">5</Set>
+    <Call name="start"></Call>
+  </New>
+  ]]>
+        </programlisting>
+      </informalexample>
     </section>
-  </section>
+    <section xml:id="jdbc-login-service">
+      <title>JDBCLoginService</title>
+      <para>
+        In this implementation, authentication and role information is stored in a database accessed via JDBC. A properties file defines the JDBC connection and database table information. Here is an example of a properties file for this realm implementation:
+      </para>
+
+      <informalexample>
+        <programlisting language="properties">
+<![CDATA[
+jdbcdriver = org.gjt.mm.mysql.Driver
+url = jdbc:mysql://localhost/jetty
+username = jetty
+password = jetty
+usertable = users
+usertablekey = id
+usertableuserfield = username
+usertablepasswordfield = pwd
+roletable = roles
+roletablekey = id
+roletablerolefield = role
+userroletable = user_roles
+userroletableuserkey = user_id
+userroletablerolekey = role_id
+cachetime = 300
+]]>
+        </programlisting>
+      </informalexample>
+      <para>
+        The format of the database tables is (pseudo-sql):
+      </para>
+      <informalexample>
+        <programlisting language="sql">
+<![CDATA[
+users
+(
+  id integer PRIMARY KEY,
+  username varchar(100) NOT NULL UNIQUE KEY,
+  pwd varchar(50) NOT NULL
+);
+user_roles
+(
+  user_id integer NOT NULL,
+  role_id integer NOT NULL,
+  UNIQUE KEY (user_id, role_id),
+  INDEX(user_id)
+);
+roles
+(
+  id integer PRIMARY KEY,
+  role varchar(100) NOT NULL UNIQUE KEY
+);
+]]>
+        </programlisting>
+      </informalexample>
+      <para>
+        Where:
+      </para>
+      <itemizedlist>
+        <listitem>
+          <para>
+            <emphasis role="bold">users</emphasis> is a table containing one entry for every user consisting of:
+          </para>
+          <variablelist>
+            <varlistentry>
+              <term>id</term>
+              <listitem>
+                <para>the unique identity of a user</para>
+              </listitem>
+            </varlistentry>
+            <varlistentry>
+              <term>user</term>
+              <listitem>
+                <para>the name of the user</para>
+              </listitem>
+            </varlistentry>
+            <varlistentry>
+              <term>pwd</term>
+              <listitem>
+                <para>the user's password (possibily obfuscated or MD5 encrypted)</para>
+              </listitem>
+            </varlistentry>
+          </variablelist>
+        </listitem>
+        <listitem>
+          <para>
+            <emphasis role="bold">user-roles</emphasis> is a table containing one row for every role granted to a user:
+          </para>
+          <variablelist>
+            <varlistentry>
+              <term>user_id</term>
+              <listitem>
+                <para>the unique identity of the user</para>
+              </listitem>
+            </varlistentry>
+            <varlistentry>
+              <term>role_id</term>
+              <listitem>
+                <para>the role for a user</para>
+              </listitem>
+            </varlistentry>
+          </variablelist>
+        </listitem>
+        <listitem>
+          <para>
+            <emphasis role="bold">roles</emphasis> is a a table containing one role for every role in the system:
+          </para>
+          <variablelist>
+            <varlistentry>
+              <term>id</term>
+              <listitem>
+                <para>the unique identifier of a role</para>
+              </listitem>
+            </varlistentry>
+            <varlistentry>
+              <term>role</term>
+              <listitem>
+                <para>a human-readable name for a role</para>
+              </listitem>
+            </varlistentry>
+          </variablelist>
+        </listitem>
+      </itemizedlist>
+      <para>
+        If you want to use obfuscated, MD5 hashed or encrypted passwords the 'pwd' column of the 'users' table must be large enough to hold the obfuscated, hashed or encrypted password text plus the appropriate prefix.
+      </para>
+      <para>
+        You define a JDBCLoginService with the name of the realm and the location of the properties file describing the database:
+      </para>
+      <informalexample>
+        <programlisting language="xml">
+<![CDATA[
+<New class="org.eclipse.jetty.security.JDBCLoginService">
+  <Set name="name">Test JDBC Realm</Set>
+  <Set name="config">etc/jdbcRealm.properties</Set>
+</New>
+]]>
+        </programlisting>
+      </informalexample>
+    </section>
+    <section xml:id="assigning-security-realms">
+      <title>Assigning Realms</title>
+      <para>
+        You need to explicitly tell a context which realm (LoginService) to use if you have defined more than one in the Server.
+      </para>
+      <itemizedlist>
+        <listitem>
+          <para>
+            Configure realms on the server.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            Give the SecurityHandler for a context either the name of the realm you want to use, or give it the actual LoginService.
+          </para>
+        </listitem>
+      </itemizedlist>
+      <para>
+        For example:
+      </para>
+      <informalexample>
+        <programlisting language="xml">
+<![CDATA[
+<Configure class="org.eclipse.jetty.webapp.WebAppContext">
+ <Get name="securityHandler">
+   <!-- Either: -->
+   <Set name="loginService">
+     <New class="org.eclipse.jetty.security.HashLoginService">
+           <Set name="name">Test Realm</Set>
+     </New>
+   </Set>
+ 
+   <!-- or if you defined a LoginService called "Test Realm" in jetty.xml : -->
+   <Set name="realmName">Test Realm</Set>
+ 
+ </Get>
+ ]]>
+        </programlisting>
+      </informalexample>
+    </section>
 </section>

@@ -31,7 +31,7 @@ xmlns:ns="http://docbook.org/ns/docbook">
     </copyright>
     <revhistory>
       <revision>
-        <revnumber>@JETTY_VERSION@</revnumber>
+        <revnumber>${project.version}</revnumber>
         <date>
           <?dbtimestamp format="Y-m-d H:M:S"?>
         </date>
@@ -117,6 +117,7 @@ xmlns:ns="http://docbook.org/ns/docbook">
             as a specific section and give it justice
            -->
     <xi:include href="advanced/jndi/chapter.xml" />
+    <xi:include href="advanced/annotations/chapter.xml" />
 <!--
             JMX has been a source of a lot of questions as well so it makes sense to call it out
             as a specific section and give it justice
@@ -136,6 +137,8 @@ xmlns:ns="http://docbook.org/ns/docbook">
      Embedding jetty topics
      -->
     <xi:include href="advanced/embedding/chapter.xml" />
+    <!-- Jetty has a number of bundled things, they can go here -->
+    <xi:include href="advanced/extras/chapter.xml"/>
 <!-- How to use the jetty-maven-plugin is a big topic and is definitely
                         in the advanced section of things. -->
     <xi:include href="advanced/maven/chapter.xml" />
@@ -146,21 +149,18 @@ xmlns:ns="http://docbook.org/ns/docbook">
 <!-- How to enable jetty setuid on linux and osx -->
     <xi:include href="advanced/setuid/chapter.xml" />
 <!-- Advanced Security Topics -->
-    <xi:include href="advanced/security/chapter.xml" />
+    <!--xi:include href="advanced/security/chapter.xml" /-->
 <!-- Using jetty in third party frame works like spring or osgi -->
     <xi:include href="advanced/frameworks/chapter.xml" />
 <!-- What are good things to consider when running jetty, managing garbage
                         collection, etc etc. -->
     <xi:include href="advanced/tuning/chapter.xml" />
-<!-- Now that folks have their webapp deployed into jetty and everything
-                        is supposed to be working, how do they debug issues and resolve them? -->
-    <xi:include href="advanced/troubleshooting/chapter.xml" />
   </part>
   <part xml:id="clients">
     <title>Jetty Client Guide</title>
     <xi:include href="clients/http/chapter.xml" />
-    <xi:include href="clients/websocket/chapter.xml" />
-    <xi:include href="clients/spdy/chapter.xml" />
+    <!--xi:include href="clients/websocket/chapter.xml" /-->
+    <!--xi:include href="clients/spdy/chapter.xml" /-->
   </part>
   <part xml:id="reference">
     <title>Reference Guide</title>
@@ -173,10 +173,13 @@ xmlns:ns="http://docbook.org/ns/docbook">
     <xi:include href="reference/contributing/chapter.xml" />
 <!-- Details on the jetty.xml syntax and conventions -->
     <xi:include href="reference/jetty-xml/chapter.xml" />
+    <!-- Now that folks have their webapp deployed into jetty and everything
+                        is supposed to be working, how do they debug issues and resolve them? -->
+    <xi:include href="reference/troubleshooting/chapter.xml" />
 <!-- Notes about upgrading from previous versions of jetty. -->
-    <xi:include href="reference/upgrading/chapter.xml" />
+    <!--xi:include href="reference/upgrading/chapter.xml" /-->
 <!-- StackOverflow has a lot of information about common questions, we
                         should mine it periodically to add to this section. NOTE: merge with troubleshooting? -->
-    <xi:include href="reference/faq/chapter.xml" />
+    <!--xi:include href="reference/faq/chapter.xml" /-->
   </part>
 </book>

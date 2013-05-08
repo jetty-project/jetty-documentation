@@ -179,12 +179,11 @@ total 632
     entries. (Add them to the end if missing)</para>
 
     <programlisting language="properties"><![CDATA[# Force Server side Logging APIs
-]]><emphasis role="bold">etc/jetty-webapp-logging.xml</emphasis><![CDATA[
+etc/jetty-webapp-logging.xml
 # Enable jul-to-slf4j layer
-]]><emphasis role="bold">etc/jetty-jul-to-slf4j.xml</emphasis><![CDATA[
+etc/jetty-jul-to-slf4j.xml
 # Adding lib/logging to server classpath
-]]><emphasis role="bold">OPTIONS=logging</emphasis><![CDATA[
-]]></programlisting>
+OPTIONS=logging]]></programlisting>
 
     <para>Now verify that the 7 jars will be loaded by server classpath</para>
 
@@ -221,7 +220,7 @@ org.eclipse.jetty.util.log.class=org.eclipse.jetty.util.log.Slf4jLog]]></program
     <para>In order to force all deployed Web Applications to use the Server
     side implementations for the various Logging APIs, we will utilize a
     custom <link linkend="udm-lifecycle-bindings">Deployment Lifecycle
-    Binding</link> to configure the Web Application Classloader
+    Binding</link> to configure the Web Application ClassLoader
     appropriately.</para>
 
     <para>A custom Deployment Lifecycle Binding for this precise purpose is
@@ -232,14 +231,14 @@ org.eclipse.jetty.util.log.class=org.eclipse.jetty.util.log.Slf4jLog]]></program
     xl:href="https://github.com/jetty-project/jetty-webapp-logging/blob/jetty-webapp-logging-9.0.0/src/main/java/org/eclipse/jetty/webapp/logging/CentralizedWebAppLoggingBinding.java">CentralizedWebAppLoggingBinding</link></filename>
     class found in the <filename>jetty-webapp-logging.jar</filename>.</para>
 
-    <para><programlisting language="fetch"><filename>https://raw.github.com/jetty-project/jetty-webapp-logging/jetty-webapp-logging-9.0.0/src/main/java/org/eclipse/jetty/webapp/logging/CentralizedWebAppLoggingBinding.java</filename></programlisting>In
+    <para><programlisting language="rjava"><filename>https://raw.github.com/jetty-project/jetty-webapp-logging/jetty-webapp-logging-9.0.0/src/main/java/org/eclipse/jetty/webapp/logging/CentralizedWebAppLoggingBinding.java</filename></programlisting>In
     order for Jetty's DeploymentManager to utilize this class, we'll need
     create the <link
     xl:href="https://github.com/jetty-project/jetty-webapp-logging/blob/jetty-webapp-logging-9.0.0/src/main/config/etc/jetty-webapp-logging.xml"><filename>etc/jetty-webapp-logging.xml</filename></link>
     file (the same one that is referenced above in the
     <filename>start.ini</filename>)</para>
 
-    <para><programlisting language="fetch"><filename>https://raw.github.com/jetty-project/jetty-webapp-logging/jetty-webapp-logging-9.0.0/src/main/config/etc/jetty-webapp-logging.xml</filename></programlisting>The
+    <para><programlisting language="rxml"><filename>https://raw.github.com/jetty-project/jetty-webapp-logging/jetty-webapp-logging-9.0.0/src/main/config/etc/jetty-webapp-logging.xml</filename></programlisting>The
     configuration of the start.ini above will use this xml file.</para>
   </simplesect>
 
@@ -311,14 +310,14 @@ org.eclipse.jetty.util.log.class=org.eclipse.jetty.util.log.Slf4jLog]]></program
 </configuration>
 ]]></programlisting></para>
 
-    <para><note>
+    <para><caution>
         <para>When using the jul-to-slf4j Binding JAR, be sure you also
         utilize the <link
         xl:href="http://logback.qos.ch/manual/configuration.html#LevelChangePropagator">LevelChangePropagator</link>
         (as referenced in the <link
         xl:href="http://slf4j.org/api/org/slf4j/bridge/SLF4JBridgeHandler.html">SLF4JBridgeHandler
         javadoc</link>.</para>
-      </note></para>
+      </caution></para>
   </simplesect>
 
   <simplesect>

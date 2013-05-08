@@ -21,9 +21,8 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xl="http://www.w3.or
 xmlns:xi="http://www.w3.org/2001/XInclude"
 xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd" status="draft">
   <title>Architecture</title>
-  <section>
-    <para>TODO</para>
-  </section>
+  <para>General items related to the architecture of jetty and how it deals with certain design decisions.</para>
   <xi:include href="basic-architecture.xml" />
   <xi:include href="jetty-classloading.xml" />
+  <xi:include href="1xx-responses.xml" />
 </chapter>

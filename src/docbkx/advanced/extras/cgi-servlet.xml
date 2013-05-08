@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+//  ========================================================================
+//  Copyright (c) 1995-2012 Mort Bay Consulting Pty. Ltd.
+//  ========================================================================
+//  All rights reserved. This program and the accompanying materials
+//  are made available under the terms of the Eclipse Public License v1.0
+//  and Apache License v2.0 which accompanies this distribution.
+//
+//      The Eclipse Public License is available at
+//      http://www.eclipse.org/legal/epl-v10.html
+//
+//      The Apache License v2.0 is available at
+//      http://www.opensource.org/licenses/apache2.0.php
+//
+//  You may elect to redistribute this code under either of these licenses.
+//  ========================================================================
+-->
+<section version="5.0"
+         xml:id="cgi-servlet" xmlns="http://docbook.org/ns/docbook"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:xl="http://www.w3.org/1999/xlink"
+        >
+  <title>CGI Servlet</title>
+  <section xml:id="cgi-servlet-metadata">
+    <title>Info</title>
+    <itemizedlist>
+      <listitem>
+        <para>Classname: <code>org.eclipse.jetty.servlets.QoSFilter</code></para>
+      </listitem>
+      <listitem>
+        <para>Maven Artifact: org.eclipse.jetty:jetty-servlets</para>
+      </listitem>
+      <listitem>
+        <para>
+          Javadoc: <link linkend="@JDURL@/org/eclipse/jetty/servlets/CGI.html">@JDURL@/org/eclipse/jetty/servlets/CGI.html</link>
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          Xref: <link linkend="@JXURL@/org/eclipse/jetty/servlets/CGI.html">@JXURL@/org/eclipse/jetty/servlets/CGI.html</link>
+        </para>
+      </listitem>
+    </itemizedlist>
+  </section>
+  <section xml:id="cgi-servlet-usage">
+    <title>Usage</title>
+  <para>
+  	The CGI servlet class extends the abstract HttpServlet class. When the init parameter is called, the cgi bin directory is set with the cgibinResourceBase. Otherwise, it defaults to the resource base of the context. See CGI javadoc.
+  </para>
+  <para>
+		The cgi bin uses three parameters:
+	</para>
+	<variablelist>
+		<varlistentry>
+			<term>commandPrefix</term>
+			<listitem>
+			  <para>
+			  	The init parameter obtained when there is a prefix set to all commands directed to the method exec.
+			  </para>
+			</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term>Path</term>
+			<listitem>
+			  <para>
+			  	An init parameter passed to the exec environment as a PATH. This must be run unpacked somewhere in the filesystem.
+			  </para>
+			</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term>ENV_</term>
+			<listitem>
+			  <para>
+			  	An init parameter that points to an environment variable with the name stripped of the leading ENV_ and using the init parameter value.
+			  </para>
+			</listitem>
+		</varlistentry>
+	</variablelist>
+</section>
+</section>

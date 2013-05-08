@@ -43,4 +43,6 @@
   <xi:include href="what-is-jetty.xml"/>
 
   <xi:include href="what-version.xml"/>
+
+  <xi:include href="jetty-javaee.xml"/>
 </chapter>

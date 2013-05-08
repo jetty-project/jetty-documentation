@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+//  ========================================================================
+//  Copyright (c) 1995-2012 Mort Bay Consulting Pty. Ltd.
+//  ========================================================================
+//  All rights reserved. This program and the accompanying materials
+//  are made available under the terms of the Eclipse Public License v1.0
+//  and Apache License v2.0 which accompanies this distribution.
+//
+//      The Eclipse Public License is available at
+//      http://www.eclipse.org/legal/epl-v10.html
+//
+//      The Apache License v2.0 is available at
+//      http://www.opensource.org/licenses/apache2.0.php
+//
+//  You may elect to redistribute this code under either of these licenses.
+//  ========================================================================
+-->
+<section version="5.0"
+         xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd"
+         xml:id="annotations-quick-setup"
+         xmlns="http://docbook.org/ns/docbook"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:xs="http://www.w3.org/2001/XMLSchema"
+         xmlns:xl="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:ns2="http://www.w3.org/1998/Math/MathML"
+         xmlns:ns="http://docbook.org/ns/docbook">
+  <title>Quick Setup</title>
+
+  <para>If you are using the standard distribution of Jetty, and want to
+  enable processing of annotation for <emphasis>all</emphasis> your webapps,
+  edit the <filename>$JETTY_HOME/start.ini</filename> file and uncomment the
+  following two lines:</para>
+
+  <informalexample>
+    <programlisting language="bash"><![CDATA[
+
+#===========================================================
+# Annotations
+#-----------------------------------------------------------
+#OPTIONS=plus
+#etc/jetty-plus.xml
+ OPTIONS=annotations
+ etc/jetty-annotations.xml
+#===========================================================   
+
+    ]]></programlisting>
+  </informalexample>
+
+  <para>If you want to use annotations that relate to <link
+  linkend="jndi">JNDI</link>, such as @Resource and @Resources then you should
+  also uncomment the other 2 lines also:</para>
+
+  <informalexample>
+    <programlisting language="bash"><![CDATA[
+
+#===========================================================
+# Annotations and JNDI
+#-----------------------------------------------------------
+ OPTIONS=plus
+ etc/jetty-plus.xml
+ OPTIONS=annotations
+ etc/jetty-annotations.xml
+#===========================================================   
+
+    ]]></programlisting>
+  </informalexample>
+
+  <para>You can now start Jetty and use annotations within your webapps. See
+  <link linkend="using-annotations">Using Annotations</link> for more
+  information.</para>
+</section>

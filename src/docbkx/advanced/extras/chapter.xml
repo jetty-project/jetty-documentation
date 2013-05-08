@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+//  ========================================================================
+//  Copyright (c) 1995-2012 Mort Bay Consulting Pty. Ltd.
+//  ========================================================================
+//  All rights reserved. This program and the accompanying materials
+//  are made available under the terms of the Eclipse Public License v1.0
+//  and Apache License v2.0 which accompanies this distribution.
+//
+//      The Eclipse Public License is available at
+//      http://www.eclipse.org/legal/epl-v10.html
+//
+//      The Apache License v2.0 is available at
+//      http://www.opensource.org/licenses/apache2.0.php
+//
+//  You may elect to redistribute this code under either of these licenses.
+//  ========================================================================
+-->
+<chapter version="5.0"
+         xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd"
+         xml:id="advanced-extras" xmlns="http://docbook.org/ns/docbook"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:xs="http://www.w3.org/2001/XMLSchema"
+         xmlns:xl="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:ns="http://docbook.org/ns/docbook">
+  <title>Bundled Servlets, Filters, and Handlers</title>
+  <section>
+  <para>
+    Jetty ships with a bundle of servlets that interact with the key classes. Most are in the org.eclipse.jetty.servlets package. These servlets and filters are among the principle elements of Jetty as a component-based infrastructure that holds and runs J2EE applications. As described, they play a major role in running and maintaining the Jetty server.
+  </para>
+  <para>
+    Also inlcuded are a number of Jetty specific handlers that allow acccess to internals of jetty that would not normally be exposed and are very useful testing environments and many production scenarios.
+  </para>
+  </section>
+  <xi:include href="default-servlet.xml"/>
+  <xi:include href="proxy-servlet.xml"/>
+  <xi:include href="balancer-servlet.xml"/>
+  <xi:include href="cgi-servlet.xml"/>
+  <xi:include href="qos-filter.xml"/>
+  <xi:include href="dos-filter.xml"/>
+  <xi:include href="gzip-filter.xml"/>
+  <xi:include href="cross-origin-filter.xml"/>
+  <xi:include href="resource-handler.xml"/>
+  <xi:include href="statistics-handler.xml"/>
+  <xi:include href="ipaccess-handler.xml"/>
+  <xi:include href="moved-context-handler.xml"/>
+  <xi:include href="shutdown-handler.xml"/>
+
+</chapter>

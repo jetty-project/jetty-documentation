@@ -24,422 +24,109 @@
          xmlns:xs="http://www.w3.org/2001/XMLSchema"
          xmlns:xl="http://www.w3.org/1999/xlink"
          xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:ns2="http://www.w3.org/1998/Math/MathML"
          xmlns:ns="http://docbook.org/ns/docbook">
   <title>Configuring Virtual Hosts</title>
 
   <para>A virtual host is an alternative name, registered in DNS, for an IP
-  address. Virtual hosting takes one of two forms:</para>
+  address such that multiple domain names will resolve the the same IP of a
+  shared server instance. If the content to be served to the aliases names is
+  different, then a virtual host names need to be configured for each deployed
+  context to indicate which names a context will respond to. </para>
+
+  <para>Virtual hosts are set on a context by calling the <link
+  xl:href="@JDURL@/org/eclipse/jetty/server/handler/ContextHandler.html#setVirtualHosts(java.lang.String[])"><code>setVirtualHosts</code></link>
+  or <link
+  xl:href="@JDURL@/org/eclipse/jetty/server/handler/ContextHandler.html#addVirtualHosts(java.lang.String[])"><code>addVirtualHost</code></link>
+  method which can be done either</para>
 
   <itemizedlist>
     <listitem>
-      <para>Multiple names can resolve to a single IP address.</para>
-    </listitem>
-
-    <listitem>
-      <para>Multi-homed hosts, that is machines with more than one network
-      interface, can have a different name for each IP address.</para>
-    </listitem>
-  </itemizedlist>
-
-  <para>Jetty users often want to configure their web applications taking into
-  account these different virtual hosts. Frequently, a machine with a single
-  IP address has different DNS resolvable names associated with it, and a
-  webapp deployed on it must be reachable from all of the alternative names.
-  Another possibility is to serve different web applications from different
-  virtual hosts.</para>
-
-  <para>You can set virtual hosts in various ways, including:</para>
-
-  <itemizedlist>
-    <listitem>
-      <para>Using a context XML file in the context directory: <link
-      xl:href="@JDURL@/org/eclipse/jetty/server/handler/ContextHandler.html#setVirtualHosts"><code>setVirtualHosts.</code></link>
-      This is the preferred method.</para>
-    </listitem>
-
-    <listitem>
-      <para>Java calls in an embedded usage: <xref
-      linkend="embedding"/>.</para>
-    </listitem>
-
-    <listitem>
-      <para>Within an explicitly deployed webapp (no deployer) listed in
-      [[Jetty/Reference/jetty.xml|jetty.xml]] or similar.</para>
+      <para>Using a context XML file in the webapps directory (see the example
+      in <link
+      xl:href="@GITURL@/tests/test-webapps/test-jetty-webapp/src/main/config/webapps/test.xml">test.xml</link>
+      in the jetty distribution).</para>
     </listitem>
 
     <listitem>
       <para>Using a <filename>WEB-INF/jetty-web.xml</filename> file
-      (deprecated, but works with the webapp provider if you do not use the
-      context provider).</para>
+      (deprecated).</para>
+    </listitem>
+
+    <listitem>
+      <para>Creating a custom deployer with a binding to configure virtual
+      hosts for all contexts found in the same webapps directory.</para>
+    </listitem>
+
+    <listitem>
+      <para>Calling the API directly on an embedded usage.</para>
     </listitem>
   </itemizedlist>
 
-  <para>For descriptions of the various ways to configure Jetty, including
-  links to documents that provide detailed configuration instructions, see
-  <xref linkend="configuring-jetty"/>.</para>
-
-  <para>The examples that follow set virtual hosts in the preferred way, by
-  calling the method <code> ContextHandler</code>.<link
-  xl:href="@JDURL@/org/eclipse/jetty/server/handler/ContextHandler.html#setVirtualHosts">
-  setVirtualHosts</link>.</para>
-
   <section xml:id="configuring-a-virtual-host">
-    <title>Configuring a Virtual Host</title>
-
-    <para>When configuring a web application, you can supply a list of IP
-    addresses and names at which the web application is reachable. Suppose you
-    have a machine with these IP addresses and DNS resolvable names:</para>
-
-    <itemizedlist>
-      <listitem>
-        <para>333.444.555.666</para>
-      </listitem>
-
-      <listitem>
-        <para>127.0.0.1</para>
-      </listitem>
-
-      <listitem>
-        <para>www.blah.com</para>
-      </listitem>
-
-      <listitem>
-        <para>www.blah.net</para>
-      </listitem>
-
-      <listitem>
-        <para>www.blah.org</para>
-      </listitem>
-    </itemizedlist>
-
-    <para>Suppose you have a webapp, <emphasis>xxx.war</emphasis>, that you
-    want all of the above names and addresses to serve. You would configure
-    the webapp as follows:</para>
-
-    <informalexample>
-      <programlisting language="xml"><![CDATA[<Configure class="org.eclipse.jetty.webapp.WebAppContext">
-  <Set name="contextPath">/xxx</Set>
-  <Set name="war"><SystemProperty name="jetty.home"/>/webapps/xxx.war</Set>
-  <Set name="virtualHosts">
-    <Array type="java.lang.String">
-      <Item>333.444.555.666</Item>
-      <Item>127.0.0.1</Item>
-      <Item>www.blah.com</Item>
-      <Item>www.blah.net</Item>
-      <Item>www.blah.org</Item>
-    </Array>
-  </Set>
-</Configure>      ]]></programlisting>
-    </informalexample>
-
-    <para>Assuming you have configured a connector listening on port 8080,
-    webapp <emphasis>xxx.war</emphasis> is available at all of the following
-    addresses:</para>
-
-    <itemizedlist>
-      <listitem>
-        <para><literal>http://333.444.555.666:8080/xxx</literal></para>
-      </listitem>
-
-      <listitem>
-        <para><literal>http://127.0.0.1:8080/xxx</literal></para>
-      </listitem>
-
-      <listitem>
-        <para><literal>http://www.blah.com:8080/xxx</literal></para>
-      </listitem>
-
-      <listitem>
-        <para><literal>http://www.blah.net:8080/xxx</literal></para>
-      </listitem>
-
-      <listitem>
-        <para><literal>http://www.blah.org:8080/xxx</literal></para>
-      </listitem>
-    </itemizedlist>
-  </section>
-
-  <section xml:id="configuring-different-webapps-for-different-virtual-hosts">
-    <title>Configuring Different Webapps for Different Virtual Hosts</title>
-
-    <para>You can configure different webapps for different virtual hosts by
-    supplying a different list of virtual hosts for each webapp. For example,
-    suppose your imaginary machine has these DNS names and IP
-    addresses:</para>
-
-    <itemizedlist>
-      <listitem>
-        <para>333.444.555.666</para>
-      </listitem>
-
-      <listitem>
-        <para>127.0.0.1</para>
-      </listitem>
-
-      <listitem>
-        <para>www.blah.com</para>
-      </listitem>
-
-      <listitem>
-        <para>www.blah.net</para>
-      </listitem>
-
-      <listitem>
-        <para>www.blah.org</para>
-      </listitem>
-
-      <listitem>
-        <para>777.888.888.111</para>
-      </listitem>
-
-      <listitem>
-        <para>www.other.com</para>
-      </listitem>
-
-      <listitem>
-        <para>www.other.net</para>
-      </listitem>
-
-      <listitem>
-        <para>www.other.org</para>
-      </listitem>
-    </itemizedlist>
-
-    <para>Suppose also you have another webapp, <emphasis>zzz.war</emphasis>.
-    You want <emphasis>xxx.war</emphasis> to deploy as above, and
-    <emphasis>zzz.war</emphasis> to deploy only from 777.888.888.111,
-    www.other.com, www.other.net and www.other.org:</para>
-
-    <informalexample>
-      <programlisting language="xml"><![CDATA[<!-- webapp xxx.war -->
-<Configure class="org.eclipse.jetty.webapp.WebAppContext">
-  <Set name="contextPath">/xxx</Set>
-  <Set name="war"><SystemProperty name="jetty.home"/>/webapps/xxx.war</Set>
-  <Set name="virtualHosts">
-    <Array type="java.lang.String">
-      <Item>333.444.555.666</Item>
-      <Item>127.0.0.1</Item>
-      <Item>www.blah.com</Item>
-      <Item>www.blah.net</Item>
-      <Item>www.blah.org</Item>
-    </Array>
-  </Set>
-</Configure>]]></programlisting>
-    </informalexample>
-
-    <informalexample>
-      <programlisting language="xml"><![CDATA[<!-- webapp zzz.war -->
-<Configure class="org.eclipse.jetty.webapp.WebAppContext">
-  <Set name="contextPath">/zzz</Set>
-  <Set name="war"><SystemProperty name="jetty.home"/>/webapps/zzz.war</Set>
-  <Set name="virtualHosts">
-    <Array type="java.lang.String">
-      <Item>777.888.888.111</Item>
-      <Item>www.other.com</Item>
-      <Item>www.other.net</Item>
-      <Item>www.other.org</Item>
-    </Array>
-  </Set>
-</Configure>]]></programlisting>
-    </informalexample>
-
-    <para>Webapp <emphasis>xxx.war</emphasis> is still available at:</para>
-
-    <itemizedlist>
-      <listitem>
-        <para><literal>http://333.444.555.666:8080/xxx</literal></para>
-      </listitem>
-
-      <listitem>
-        <para><literal>http://127.0.0.1:8080/xxx</literal></para>
-      </listitem>
-
-      <listitem>
-        <para><literal>http://www.blah.com:8080/xxx</literal></para>
-      </listitem>
-
-      <listitem>
-        <para><literal>http://www.blah.net:8080/xxx</literal></para>
-      </listitem>
-
-      <listitem>
-        <para><literal>http://www.blah.org:8080/xxx</literal></para>
-      </listitem>
-    </itemizedlist>
-
-    <para>But now webapp ''zzz.war'' is available at:</para>
-
-    <itemizedlist>
-      <listitem>
-        <para><literal>http://777.888.888.111:8080/zzz</literal></para>
-      </listitem>
-
-      <listitem>
-        <para><literal>http://www.other.com:8080/zzz</literal></para>
-      </listitem>
-
-      <listitem>
-        <para><literal>http://www.other.net:8080/zzz</literal></para>
-      </listitem>
-
-      <listitem>
-        <para><literal>http://www.other.org:8080/zzz</literal></para>
-      </listitem>
-    </itemizedlist>
-  </section>
-
-  <section>
-    <title>Configuring Different Webapps for Different Virtual Hosts, But at
-    the Same Context Path</title>
-
-    <para>In the example above, <emphasis>webapp zzz.war</emphasis> is
-    available not only at a certain set of virtual hosts, but also at the
-    context path <code>/zzz</code>, whilst the other webapp is available at
-    both a different set of virtual hosts, <emphasis>and</emphasis> at a
-    different context path. What happens if you want them at the
-    <emphasis>same</emphasis> context path, but still at different sets of
-    virtual hosts? You just supply the <emphasis>same</emphasis> context path
-    for each webapp, leaving the disjoint set of virtual host definitions as
-    before:</para>
-
-    <informalexample>
-      <programlisting language="xml"><![CDATA[<Configure class="org.eclipse.jetty.webapp.WebAppContext">
-  <Set name="war"><SystemProperty name="jetty.home"/>/webapps/xxx.war</Set>
-  <Set name="contextPath">/</Set>
-  <Set name="virtualHosts">
-    <Array type="java.lang.String">
-      <Item>333.444.555.666</Item>
-      <Item>127.0.0.1</Item>
-      <Item>www.blah.com</Item>
-      <Item>www.blah.net</Item>
-      <Item>www.blah.org</Item>
-    </Array>
-  </Set>
-</Configure>]]></programlisting>
-    </informalexample>
-
-    <informalexample>
-      <programlisting language="xml"><![CDATA[<Configure class="org.eclipse.jetty.webapp.WebAppContext">
-  <Set name="war"><SystemProperty name="jetty.home"/>/webapps/zzz.war</Set>
-  <Set name="contextPath">/</Set>
-  <Set name="virtualHosts">
-    <Array type="java.lang.String">
-      <Item>777.888.888.111</Item>
-      <Item>www.other.com</Item>
-      <Item>www.other.net</Item>
-      <Item>www.other.org</Item>
-    </Array>
-  </Set>
-</Configure>]]></programlisting>
-    </informalexample>
-
-    <para>Now, webapp xxx.war is available at:</para>
-
-    <itemizedlist>
-      <listitem>
-        <para><literal>http://333.444.555.666:8080/</literal></para>
-      </listitem>
-
-      <listitem>
-        <para><literal>http://127.0.0.1:8080/</literal></para>
-      </listitem>
-
-      <listitem>
-        <para><literal>http://www.blah.com:8080/</literal></para>
-      </listitem>
-
-      <listitem>
-        <para><literal>http://www.blah.net:8080/</literal></para>
-      </listitem>
-
-      <listitem>
-        <para><literal>http://www.blah.org:8080/</literal></para>
-      </listitem>
-    </itemizedlist>
-
-    <para>and webapp zzz.war is available at:</para>
-
-    <itemizedlist>
-      <listitem>
-        <para><literal>http://777.888.888.111:8080/</literal></para>
-      </listitem>
-
-      <listitem>
-        <para><literal>http://www.other.com:8080/</literal></para>
-      </listitem>
-
-      <listitem>
-        <para><literal>http://www.other.net:8080/</literal></para>
-      </listitem>
-
-      <listitem>
-        <para><literal>http://www.other.org:8080/</literal></para>
-      </listitem>
-    </itemizedlist>
-  </section>
-
-  <section xml:id="configuring-virtual-hosts-with-non-asci-characters">
-    <title>Configuring Virtual Hosts with Non-ascii Characters</title>
-
-    <para><link
-    xl:href="http://en.wikipedia.org/wiki/Internationalized_domain_name">International
-    domain names</link> are names containing non-ascii characters. For example
-    <literal>"http://www.b√ºcher.com"</literal>. The DNS internally remains
-    based on ascii, so these kinds of names are translated via an encoding
-    called <link xl:href="http://tools.ietf.org/html/rfc3492"> punycode</link>
-    into an ascii representation. Modern browsers detect these non-ascii
-    characters in URLs and automatically apply the punycode encoding. For
-    example, typing this URL into a browser:</para>
-
-    <screen><![CDATA[http://www.√•√§√∂.com:8080/test/]]></screen>
-
-    <para>translates to the following url:</para>
-
-    <screen><![CDATA[http://www.xn--4cab6c.com:8080/test/]]></screen>
-
-    <para>To use internationalized domain names with Jetty virtual hosts you
-    need to supply the punycode form of the name in your context xml file (and
-    of course you need to supply it to your DNS setup).</para>
-
-    <para>For example, if you are running a webapp on port 8080 at context
-    /test, and you want to configure a virtual host for
-    <literal>www.√•√§√∂.com</literal>, you configure its ascii equivalent in
-    the context xml file for the context:</para>
-
-    <informalexample>
-      <programlisting language="xml"><![CDATA[<Configure class="org.eclipse.jetty.webapp.WebAppContext">
-
-  <Set name="contextPath">/</Set>
-  <Set name="war"><SystemProperty name="jetty.home" default="."/>/webapps/test.war</Set>
-
-  <Set name="virtualHosts">
-    <Array type="String">
-      <Item>www.xn--4cab6c.com</Item>
-    </Array>
-  </Set>
-</Configure>      ]]></programlisting>
-    </informalexample>
-
-    <para>After starting Jetty, you can enter the url
-    <literal>http://www.√•√§√∂.com:8080/test/</literal>in a browser and reach
-    the webapp.</para>
-
-    <para>If you don't have any webapps deployed at /, hitting the URL
-    <literal>http://www.√•√§√∂.com:8080</literal>reaches Jetty's default
-    handler, which serves back a 404 page listing the available
-    contexts:</para>
-
-    <informalexample>
-      <programlisting language="bash"><![CDATA[Error 404 - Not Found
-
-No context on this server matched or handled this request.
-
-Contexts known to this server are:
-
-/test @ www.xn--4cab6c.com:8080 ---> WebAppContext@82d210@82d210/test,file:/tmp/Jetty_0_0_0_0_8080_test.war__test_www.xn..4cab6c.com_1jadjg/webapp/,/home/janb/src/jetty-eclipse/jetty/trunk/jetty-distribution/target/distribution/webapps/test.war]]></programlisting>
-    </informalexample>
-
-    <para>Notice that the link already has the punycode transformed domain
-    name in it.</para>
+    <title>Virtual Host Names</title>
+
+    <para>Jetty supports the following styles of virtual host name:</para>
+
+    <variablelist>
+      <varlistentry>
+        <term>www.hostname.com</term>
+
+        <listitem>
+          <para>A fully qualified host name. It is important to list all
+          variants as a site may receive traffic from both www.hostname.com
+          and just hostname.com</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>*.hostname.com</term>
+
+        <listitem>
+          <para>A wildcard qualified host which will match only one level of
+          arbitrary names. *.foo.com will match www.foo.com and m.foo.com, but
+          not www.other.foo.com</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>10.0.0.2</term>
+
+        <listitem>
+          <para>An IP address may be given as a virtual host name to indicate
+          that a context should handle requests received on that server port
+          that do not have a host name specified (HTTP/0.9 or HTTP/1.0)</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>@ConnectorName</term>
+
+        <listitem>
+          <para>A connector name, which is not strictly a virtual host, but
+          instead will only match request that are received on connectors that
+          have a matching name set with <link
+          xl:href="@JDURL@/org/eclipse/jetty/server/AbstractConnector.html#setName(java.lang.String)">Connector.setName(String)</link>.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>www.√integral.com</term>
+
+        <listitem>
+          <para>Non ascii and <link
+          xl:href="http://en.wikipedia.org/wiki/Internationalized_domain_name">IDN</link>
+          domain names can be set as virtual host using <link
+          xl:href="http://en.wikipedia.org/wiki/Punycode">Puny Code</link>
+          equivalents that may be obtained from a <link
+          xl:href="http://network-tools.com/idn-convert.asp">Punycode/IDN
+          converters</link>. For example if the non ascii domain name
+          <literal>www.√integral.com</literal> is given to a browser, then it
+          will make a request that uses the domain name
+          <literal>www.xn--integral-7g7d.com</literal>, which is the name that
+          should be added as the virtual host name.</para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
   </section>
 </section>

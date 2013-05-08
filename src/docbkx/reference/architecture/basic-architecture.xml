@@ -222,8 +222,8 @@ public void handle(String target, Request baseRequest, HttpServletRequest reques
       servlet in the current context.</para>
     </section>
   </section>
-  <section>
-    <title xml:id="what-is-a-context">Contexts</title>
+  <section xml:id="what-is-a-context">
+    <title>Contexts</title>
     <para>Contexts are handlers that group other handlers below a particular URI context path or a virtual host.
     Typcially a context can have :</para>
     <itemizedlist>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+//  ========================================================================
+//  Copyright (c) 1995-2012 Mort Bay Consulting Pty. Ltd.
+//  ========================================================================
+//  All rights reserved. This program and the accompanying materials
+//  are made available under the terms of the Eclipse Public License v1.0
+//  and Apache License v2.0 which accompanies this distribution.
+//
+//      The Eclipse Public License is available at
+//      http://www.eclipse.org/legal/epl-v10.html
+//
+//      The Apache License v2.0 is available at
+//      http://www.opensource.org/licenses/apache2.0.php
+//
+//  You may elect to redistribute this code under either of these licenses.
+//  ========================================================================
+-->
+<section version="5.0"
+         xml:id="balancer-servlet" xmlns="http://docbook.org/ns/docbook"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:xl="http://www.w3.org/1999/xlink"
+        >
+  <title>Balancer Servlet</title>
+  <section xml:id="balancer-servlet-metadata">
+  	<title>Info</title>
+  	<itemizedlist>
+  		<listitem>
+  			<para>Classname: <code>org.eclipse.jetty.proxy.BalancerServlet</code></para>
+  		</listitem>
+  		<listitem>
+  			<para>Maven Artifact: org.eclipse.jetty:jetty-proxy</para>
+  		</listitem>
+  		<listitem>
+  			<para>
+  				Javadoc: <link linkend="@JDURL@/org/eclipse/jetty/proxy/BalancerServlet.html">@JDURL@/org/eclipse/jetty/proxy/BalancerServlet.html</link>
+  			</para>
+  		</listitem>
+  		<listitem>
+  			<para>
+  				Xref: <link linkend="@JXURL@/org/eclipse/jetty/proxy/BalancerServlet.html">@JXURL@/org/eclipse/jetty/proxy/BalancerServlet.html</link>
+  			</para>
+  		</listitem>
+	  </itemizedlist>
+	</section>
+	<section xml:id="balancer-servlet-usage">
+		<title>Usage</title>
+  <para>
+  	The Balancer servlet allows for simple, sticky round robin load balancing leveraging the ProxyServlet that is distributed with Jetty.
+	</para>
+	<para>
+		In addition to the parameters for ProxyServlet, the following are available for the balancer servlet:
+	</para>
+	<variablelist>
+		<varlistentry>
+			<term>stickySessions</term>
+			<listitem>
+				<para>
+					true if sessions should be sticky for subsequent requests
+				</para>
+			</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term>balancerMember.&lt;name&gt;.proxyTo</term>
+			<listitem>
+				<para>
+					One of more of these are required and will be the locations that are used to proxy traffic to.
+				</para>
+			</listitem>
+		</varlistentry>
+  </variablelist>
+</section>
+</section>

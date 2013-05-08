@@ -106,7 +106,7 @@ public class GoogleOnlyCookieStore extends HttpCookieStore
     <informalexample>
       <programlisting language="java">
 <![CDATA[
-String uri = "http://domain.com/secure";
+URI uri = new URI("http://domain.com/secure");
 String realm = "MyRealm";
 String user = "username";
 String pass = "password";

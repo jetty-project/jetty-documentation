@@ -17,12 +17,8 @@
 //  ========================================================================
 -->
 <section version="5.0" xml:id="npn" xmlns="http://docbook.org/ns/docbook"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xmlns:xl="http://www.w3.org/1999/xlink"
-         xmlns:ns5="http://www.w3.org/2000/svg"
-         xmlns:ns4="http://www.w3.org/1998/Math/MathML"
-         xmlns:ns3="http://www.w3.org/1999/xhtml"
-         xmlns:ns="http://docbook.org/ns/docbook">
+        >
   <section xml:id="npn-introduction">
     <title>Configuring NPN</title>
 
@@ -45,7 +41,7 @@
     <para>To enable NPN support, start the JVM as follows:</para>
 
     <informalexample>
-      <programlisting><![CDATA[java -Xbootclasspath/p:<path_to_npn_boot_jar> ...            ]]></programlisting>
+      <programlisting language="plain"><![CDATA[java -Xbootclasspath/p:<path_to_npn_boot_jar> ...            ]]></programlisting>
     </informalexample>
 
     <para>where <filename>path_to_npn_boot_jar</filename> is the path on the
@@ -291,7 +287,7 @@ NextProtoNego.put(sslSocket, new NextProtoNego.ServerProvider()
     updates every time there are updates to the modified OpenJDK
     classes.</para>
 
-    <table frame="all">
+    <table frame="all" xml:id="npn-openjdk-versions">
       <title>NPN vs. OpenJDK versions</title>
 
       <tgroup align="left" cols="2" colsep="1" rowsep="1">
@@ -341,7 +337,7 @@ NextProtoNego.put(sslSocket, new NextProtoNego.ServerProvider()
           <row>
             <entry>1.1.5.v20130313</entry>
 
-            <entry>1.7.0u15 - 1.7.0u17</entry>
+            <entry>1.7.0u15 - 1.7.0u17 - 1.7.0u21</entry>
           </row>
         </tbody>
       </tgroup>

@@ -98,8 +98,8 @@ total 632
     <para>Edit the start.ini and check for the following entries. (Add them to
     the end if missing)</para>
 
-    <programlisting language="properties"><![CDATA[# Adding lib/logging to server classpath
-]]><emphasis role="bold">OPTIONS=logging</emphasis><![CDATA[
+    <programlisting condition="[2]" language="properties"><![CDATA[# Adding lib/logging to server classpath
+OPTIONS=logging
 ]]></programlisting>
 
     <para>Now verify that the 3 jars will be loaded by server classpath</para>

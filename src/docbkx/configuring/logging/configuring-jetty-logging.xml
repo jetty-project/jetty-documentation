@@ -129,23 +129,12 @@
     linkend="selecting-log-framework"/>) to control event levels to log and to
     adjust the format of those logs.</para>
 
-    <table>
-      <title>Logging Parameters</title>
+    <para><variablelist>
+        <varlistentry>
+          <term><code>&lt;name&gt;.LEVEL=&lt;level&gt;</code></term>
 
-      <tgroup cols="2">
-        <thead>
-          <row>
-            <entry align="left">Logging Property</entry>
-
-            <entry align="left">Description</entry>
-          </row>
-        </thead>
-
-        <tbody>
-          <row>
-            <entry><code>&lt;name&gt;.LEVEL=&lt;level&gt;</code></entry>
-
-            <entry>Sets the logging level for all loggers within the
+          <listitem>
+            <para>Sets the logging level for all loggers within the
             <literal>name</literal> specified to the level, which can be (in
             increasing order of restriction) ALL, DEBUG, INFO, WARN, OFF. The
             name (or hierarchy) can be a specific fully qualified class or a
@@ -157,63 +146,95 @@
             on all logging events for the specific class, including DEBUG,
             INFO, WARN (and even special internally ignored exception
             classes). If more than one system property specifies a logging
-            level, the most specific one applies.</entry>
-          </row>
+            level, the most specific one applies.</para>
+          </listitem>
+        </varlistentry>
 
-          <row>
-            <entry><code>&lt;name&gt;.SOURCE=&lt;boolean&gt;</code></entry>
+        <varlistentry>
+          <term><code>&lt;name&gt;.SOURCE=&lt;boolean&gt;</code></term>
 
-            <entry>Logger specific, attempts to print the Java source file
-            name and line number from where the logging event originated. Name
-            must be a fully qualified class name (package name hierarchy is
-            not supported by this configurable). Default is false. Be aware
+          <listitem>
+            <para>Named Logger specific, attempts to print the Java source
+            file name and line number from where the logging event originated.
+            Name must be a fully qualified class name (package name hierarchy
+            is not supported by this configurable). Default is false. Be aware
             that this is a slow operation and has an impact on
-            performance!</entry>
-          </row>
+            performance!</para>
+          </listitem>
+        </varlistentry>
 
-          <row>
-            <entry><code>&lt;name&gt;.STACKS=&lt;boolean&gt;</code></entry>
+        <varlistentry>
+          <term><code>&lt;name&gt;.STACKS=&lt;boolean&gt;</code></term>
 
-            <entry>Logger specific, controls the display of stacktraces. Name
-            must be a fully qualified class name (package name hierarchy is
-            not supported by this configurable). Default is true.</entry>
-          </row>
+          <listitem>
+            <para>Named Logger specific, controls the display of stacktraces.
+            Name must be a fully qualified class name (package name hierarchy
+            is not supported by this configurable). Default is true.</para>
+          </listitem>
+        </varlistentry>
 
-          <row>
-            <entry><code>org.eclipse.jetty.util.log.IGNORED=&lt;boolean&gt;</code></entry>
+        <varlistentry>
+          <term><code>org.eclipse.jetty.util.log.stderr.SOURCE=&lt;boolean&gt;</code></term>
 
-            <entry>If set to true, exceptions that have been recorded as
-            ignored with the <code>LOG.ignore(throwable)</code> API are logged
-            with a full stack trace. Otherwise ignored exceptions are either
-            not logged, or logged in summary if the level is debug.</entry>
-          </row>
-
-          <row>
-            <entry><code>org.eclipse.jetty.util.log.stderr.SOURCE=&lt;boolean&gt;</code></entry>
-
-            <entry>Special Global Configuration. Attempts to print the Java
+          <listitem>
+            <para>Special Global Configuration. Attempts to print the Java
             source file name and line number from where the logging event
-            originated. Default is false.</entry>
-          </row>
+            originated. Default is false.</para>
+          </listitem>
+        </varlistentry>
 
-          <row>
-            <entry><code>org.eclipse.jetty.util.log.stderr.LONG=&lt;boolean&gt;</code></entry>
+        <varlistentry>
+          <term><code>org.eclipse.jetty.util.log.stderr.LONG=&lt;boolean&gt;</code></term>
 
-            <entry>Special Global Configuration. When true, outputs logging
+          <listitem>
+            <para>Special Global Configuration. When true, outputs logging
             events to STDERR using long form, fully qualified class names.
             When false, uses abbreviated package names. Default is
-            false.</entry>
-          </row>
+            false.</para>
+          </listitem>
+        </varlistentry>
+      </variablelist></para>
 
-          <row>
-            <entry><para><emphasis>DEPRECATED:</emphasis></para><para><code>org.eclipse.jetty.util.log.DEBUG</code></para><para><code>org.eclipse.jetty.util.log.stderr.DEBUG</code></para><para><code>DEBUG</code></para></entry>
+    <para>Deprecated Parameters:</para>
 
-            <entry>These are deprecated properties from older Jetty versions
-            that are now ignored with a warning if used.</entry>
-          </row>
-        </tbody>
-      </tgroup>
-    </table>
+    <para><variablelist>
+        <varlistentry>
+          <term><code>org.eclipse.jetty.util.log.DEBUG</code></term>
+
+          <listitem>
+            <para>Formerly used to enable DEBUG level logging on any logger
+            used within Jetty (not just Jetty's own logger).</para>
+
+            <para>Replaced with using the logger implementation specific
+            configuration and level filtering.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term><code>org.eclipse.jetty.util.log.stderr.DEBUG</code></term>
+
+          <listitem>
+            <para>Formerly used to enable DEBUG level logging on the internal
+            Jetty StdErrLog implementation.</para>
+
+            <para>Replaced with
+            <code>-Dorg.eclipse.jetty.LEVEL=DEBUG</code></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term><code>DEBUG</code></term>
+
+          <listitem>
+            <para>Ancient debugging flag that turned on all debugging, even
+            non-logging debugging. </para>
+
+            <para>No longer used by jetty as this overly simplified property
+            name is used by many 3rd party libraries and would generate far
+            too much console output.</para>
+          </listitem>
+        </varlistentry>
+      </variablelist></para>
 
     <section xml:id="changing-log-level-resources-jetty-logging-properties">
       <title>Changing log level in
@@ -239,17 +260,15 @@ org.eclipse.jetty.websocket.LEVEL=DEBUG]]></programlisting>
     <section xml:id="changing-log-level-etc-jetty.xml">
       <title>Changing log level in <code>etc/jetty.xml</code></title>
 
-      <informalexample>
-        <programlisting language="xml"><![CDATA[<Call class="org.eclipse.jetty.util.log.Log" name="getRootLogger">
+      <programlisting language="xml"><![CDATA[<Call class="org.eclipse.jetty.util.log.Log" name="getRootLogger">
   <Call name="setDebugEnabled">
     <Arg type="boolean">true</Arg>
   </Call>
 </Call>      ]]></programlisting>
 
-        <para>This technique, from older versions of Jetty, is used to
-        configure all of the StdErrLog loggers (no other implementations
-        support this) to be logging at DEBUG level.</para>
-      </informalexample>
+      <para>This technique, from older versions of Jetty, is used to configure
+      all of the StdErrLog loggers (no other implementations support this) to
+      be logging at DEBUG level.</para>
     </section>
 
     <section xml:id="using-etc-jetty-logging.xml">
@@ -261,7 +280,7 @@ org.eclipse.jetty.websocket.LEVEL=DEBUG]]></programlisting>
       <filename>etc/jetty-logging.xml</filename> on Jetty startup.</para>
 
       <informalexample>
-        <programlisting language="bash"><![CDATA[$ java -jar start.jar etc/jetty-logging.xml      ]]></programlisting>
+        <screen language="bash"><![CDATA[$ java -jar start.jar etc/jetty-logging.xml      ]]></screen>
       </informalexample>
     </section>
   </section>

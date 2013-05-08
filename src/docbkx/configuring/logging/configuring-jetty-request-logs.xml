@@ -40,14 +40,12 @@
     <para>A standard request log entry includes the client IP address, date,
     method, URL, result, size, referrer and user agent, for example:</para>
 
-    <screen><![CDATA[
-
- 123.4.5.6 - - [27/Aug/2004:10:16:17 +0000]
+    <informalexample>
+      <screen><![CDATA[123.4.5.6 - - [27/Aug/2004:10:16:17 +0000]
   "GET /jetty/tut/XmlConfiguration.html HTTP/1.1"
   200 76793 "http://localhost:8080/jetty/tut/logging.html"
-  "Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.6) Gecko/20040614 Firefox/0.8"
-
-    ]]></screen>
+  "Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.6) Gecko/20040614 Firefox/0.8"]]></screen>
+    </informalexample>
   </section>
 
   <section xml:id="implementing-request-log">
@@ -76,8 +74,7 @@
     <para>To configure a single request log for the entire Jetty Server
     instance:</para>
 
-    <informalexample>
-      <programlisting language="xml"><![CDATA[<Set name="handler">
+    <programlisting language="xml"><![CDATA[<Set name="handler">
   <New id="Handlers" class="org.eclipse.jetty.server.handler.HandlerCollection">
     <Set name="handlers">
       <Array type="org.eclipse.jetty.server.Handler">
@@ -105,12 +102,10 @@
     </New>
   </Set>
 </Ref>      ]]></programlisting>
-    </informalexample>
 
     <para>The equivalent code is:</para>
 
-    <informalexample>
-      <programlisting language="java"><![CDATA[HandlerCollection handlers = new HandlerCollection();
+    <programlisting language="java"><![CDATA[HandlerCollection handlers = new HandlerCollection();
 ContextHandlerCollection contexts = new ContextHandlerCollection();
 RequestLogHandler requestLogHandler = new RequestLogHandler();
 handlers.setHandlers(new Handler[]{contexts,new DefaultHandler(),requestLogHandler});
@@ -121,8 +116,7 @@ requestLog.setRetainDays(90);
 requestLog.setAppend(true);
 requestLog.setExtended(false);
 requestLog.setLogTimeZone("GMT");
-requestLogHandler.setRequestLog(requestLog);      ]]></programlisting>
-    </informalexample>
+requestLogHandler.setRequestLog(requestLog);   ]]></programlisting>
 
     <para>This configures a request log in
     <filename>$JETTY_HOME/logs</filename> with filenames including the date.
@@ -140,8 +134,7 @@ requestLogHandler.setRequestLog(requestLog);      ]]></programlisting>
     <para>To configure a separate request log for a web application, add the
     following to the context xml file.</para>
 
-    <informalexample>
-      <programlisting language="xml"><![CDATA[<Configure class="org.eclipse.jetty.webapp.WebAppContext">
+    <programlisting language="xml"><![CDATA[<Configure class="org.eclipse.jetty.webapp.WebAppContext">
   ...
   <Set name="handler">
     <New id="RequestLog" class="org.eclipse.jetty.server.handler.RequestLogHandler">
@@ -158,6 +151,5 @@ requestLogHandler.setRequestLog(requestLog);      ]]></programlisting>
   </Call>
   ...
 </Configure>      ]]></programlisting>
-    </informalexample>
   </section>
 </section>

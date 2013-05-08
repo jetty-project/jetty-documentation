@@ -16,10 +16,14 @@
 //  You may elect to redistribute this code under either of these licenses.
 //  ========================================================================
 -->
-<chapter xml:id="advanced-security-topics" version="5.0" xmlns="http://docbook.org/ns/docbook"
+<chapter xml:id="annotations" version="5.0" xmlns="http://docbook.org/ns/docbook"
 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xl="http://www.w3.org/1999/xlink"
 xmlns:xi="http://www.w3.org/2001/XInclude"
 xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd">
-  <title>Advanced Security Topics</title>
-  <xi:include href="spnego.xml" />
+  <title>Annotations</title>
+
+  <para>Jetty supports the servlet specification annotations. It is not enabled by default, so the following sections show you how to enable it, and how to use them.</para>
+
+  <xi:include href="quick-annotations-setup.xml"/>
+  <xi:include href="using-annotations.xml"/>
 </chapter>

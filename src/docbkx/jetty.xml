@@ -102,7 +102,6 @@ xmlns:ns="http://docbook.org/ns/docbook">
     <xi:include href="configuring/deploying/chapter.xml" />
     <xi:include href="configuring/jsp/chapter.xml" />
     <xi:include href="configuring/logging/chapter.xml" />
-    <xi:include href="configuring/websocket/chapter.xml" />
   </part>
 <!-- ADVANCED -->
   <part xml:id="advanced">

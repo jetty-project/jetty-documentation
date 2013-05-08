@@ -36,7 +36,7 @@
   <para><programlisting language="xml"><![CDATA[<dependency>
   <groupId>org.eclipse.jetty.websocket</groupId>
   <artifactId>websocket-client</artifactId>
-  <version>@JETTY_VERSION@</version>
+  <version>${project.version}</version>
 </dependency>]]></programlisting></para>
 
   <section>

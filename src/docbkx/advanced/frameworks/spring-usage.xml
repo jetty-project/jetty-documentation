@@ -34,7 +34,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
 				<![CDATA[
 <groupId>org.eclipse.jetty</groupId>
 <artifactId>jetty-spring</artifactId>
-<version>${JETTY_VERSION}</version>
+<version>${project.version}</version>
 			]]>
 		</programlisting>
 	</informalexample>
@@ -43,7 +43,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
 	</para>
 	<screen>
 		<![CDATA[
-$ wget --user-agent=other http://repo2.maven.org/maven2/org/eclipse/jetty/jetty-spring/${JETTY_VERSION}/jetty-spring-${JETTY_VERSION}.jar
+$ wget --user-agent=other http://repo2.maven.org/maven2/org/eclipse/jetty/jetty-spring/${project.version}/jetty-spring-${project.version}.jar
 $ wget --user-agent=other http://repo2.maven.org/maven2/org/springframework/spring/2.5.6/spring-2.5.6.jar
 $ wget --user-agent=other http://repo2.maven.org/maven2/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1.jar
 ]]>

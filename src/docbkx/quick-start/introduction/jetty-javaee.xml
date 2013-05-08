@@ -24,26 +24,26 @@
          xmlns:xl="http://www.w3.org/1999/xlink"
          xmlns:xi="http://www.w3.org/2001/XInclude"
          xmlns:ns="http://docbook.org/ns/docbook">
-  <title>Jetty and JavaEE Web Profile</title>
+  <title>Jetty and Java EE Web Profile</title>
 
-  <para>Jetty implements aspects of the JavaEE specification, primarily the
-  Servlet Specification. In recent releases of the JavaEE platform, a Web
-  Profile has been introduced recognizing that many developers need only a
-  subset of the many technologies under the JavaEE umbrella.</para>
+  <para>Jetty implements aspects of the Java EE specification, primarily the
+  Servlet Specification. Recent releases of the Java EE platform have introduced a Web
+  Profile, recognizing that many developers need only a
+  subset of the many technologies under the Java EE umbrella.</para>
 
-  <para>Whilst Jetty itself does not ship all of the Web Profile technologies,
-  the architecture of Jetty is such that you can plug in 3rd party
+  <para>While Jetty itself does not ship all of the Web Profile technologies,
+  Jetty architecture is such that you can plug in third party
   implementations to produce a container customized to your exact
   needs.</para>
 
-  <para>Jetty-9.0.x is targetted at Servlet Specification 3.0, with some
-  support for 3.1 features which are fully delivered in Jetty-9.1.x.</para>
+  <para>Jetty-9.0.x targets Servlet Specification 3.0, with some
+  support for 3.1 features that Jetty-9.1.x delivers fully.</para>
 
-  <para>Here is the matrix of JSRs for JavaEE-6 Web Profile, and how they
+  <para>Here is the matrix of JSRs for Java EE 6 Web Profile, and how they
   relate to Jetty:</para>
 
   <table xml:id="webprofile-6">
-    <title>JavaEE6 Web Profile</title>
+    <title>Java EE 6 Web Profile</title>
     <tgroup cols="4">
       <thead>
         <row>
@@ -69,11 +69,11 @@
       <entry><link xl:href="http://jcp.org/en/jsr/detail?id=314">JSR
       314</link></entry>
 
-      <entry>Java Server Faces 2.0 (JSF)</entry>
+      <entry>JavaServer Faces 2.0 (JSF)</entry>
 
       <entry>No</entry>
 
-      <entry>Yes, eg <link
+      <entry>Yes, for example, <link
       xl:href="https://javaserverfaces.java.net/">Mojarra</link> or <link
       xl:href="http://myfaces.apache.org/">MyFaces</link></entry>
     </row>
@@ -82,7 +82,7 @@
       <entry><link xl:href="http://jcp.org/en/jsr/detail?id=245">JSR
       245</link></entry>
 
-      <entry>Java Server Pages 2.2/Java Expression Language 2.2 (JSP/EL)</entry>
+      <entry>JavaServer Pages 2.2/Java Expression Language 2.2 (JSP/EL)</entry>
 
       <entry>Yes</entry>
 
@@ -115,12 +115,12 @@
       <entry><link xl:href="http://jcp.org/en/jsr/detail?id=299">JSR
       299</link></entry>
 
-      <entry>Contexts and Dependency Injection for the JavaEE Platform 1.0 (Web
+      <entry>Contexts and Dependency Injection for the Java EE Platform 1.0 (Web
       Beans)</entry>
 
       <entry>No</entry>
 
-      <entry>Yes, eg <link
+      <entry>Yes, <link
       xl:href="http://seamframework.org/Weld">Weld</link></entry>
     </row>
 
@@ -132,12 +132,12 @@
 
       <entry>No</entry>
 
-      <entry>Yes as part of a CDI implementation, eg <link
+      <entry>Yes as part of a CDI implementation, <link
       xl:href="http://seamframework.org/Weld">Weld</link></entry>
     </row>
 
     <row>
-      <entry><link xl:href="???">JSR 316</link></entry>
+      <entry><link xl:href="http://jcp.org/en/jsr/detail?id=316">JSR 316</link></entry>
 
       <entry>Managed Beans 1.0</entry>
 
@@ -154,7 +154,7 @@
 
       <entry>No</entry>
 
-      <entry>Yes, eg OpenEJB</entry>
+      <entry>Yes, OpenEJB</entry>
     </row>
 
     <row>
@@ -165,7 +165,7 @@
 
       <entry>No</entry>
 
-      <entry>Yes, eg <link xl:href="http://www.hibernate.org/">Hibernate</link>
+      <entry>Yes, <link xl:href="http://www.hibernate.org/">Hibernate</link>
       </entry>
     </row>
 
@@ -192,8 +192,8 @@
       xl:href="http://www.atomikos.com/">Atomikos</link>, <link
       xl:href="http://jotm.ow2.org/xwiki/bin/view/Main/WebHome">JOTM</link>,
       <link
-      xl:href="http://jencks.codehaus.org/Transaction+Manager">Jencks(Geronimo
-      Transaction Manager)</link> etc</entry>
+      xl:href="http://jencks.codehaus.org/Transaction+Manager">Jencks (Geronimo
+      Transaction Manager)</link></entry>
     </row>
 
     <row>
@@ -204,7 +204,7 @@
 
       <entry>No</entry>
 
-      <entry>Yes as part of another technology eg JSF, or a stand-alone
+      <entry>Yes as part of another technology (JSF), or a stand-alone
       implementation such as <link
       xl:href="http://www.hibernate.org/subprojects/validator/docs.html">Hiberate
       Validator</link></entry>
@@ -213,12 +213,10 @@
   </tgroup>
   </table>
 
-  <para>In the forthcoming JavaEE-7 specification, the Web Profile has been
-  updated to reflect updates in its component specifications and some new ones
-  added:</para>
+  <para>In the forthcoming Java EE-7 specification, the Web Profile reflects updates in its component specifications and adds some new ones:</para>
 
   <important>
-    <para>the final ballot for approval of JavaEE-7 will finish 2013-04-29,
+    <para>The final ballot for approval of JavaEE-7 will finish 2013-04-29,
     thus the following table is provisional.</para>
   </important>
 
@@ -256,7 +254,7 @@
 
       <entry>No</entry>
 
-      <entry>Yes, eg <link
+      <entry>Yes, <link
       xl:href="https://javaserverfaces.java.net/">Mojarra</link> or <link
       xl:href="http://myfaces.apache.org/">MyFaces</link></entry>
     </row>
@@ -303,7 +301,7 @@
 
       <entry>No</entry>
 
-      <entry>Yes, eg <link
+      <entry>Yes, <link
       xl:href="http://seamframework.org/Weld">Weld</link></entry>
     </row>
 
@@ -315,12 +313,12 @@
 
       <entry>No</entry>
 
-      <entry>Yes as part of a CDI implementation, eg <link
+      <entry>Yes as part of a CDI implementation, <link
       xl:href="http://seamframework.org/Weld">Weld</link></entry>
     </row>
 
     <row>
-      <entry><link xl:href="???">JSR 316</link></entry>
+      <entry><link xl:href="http://jcp.org/en/jsr/detail?id=316">JSR 316</link></entry>
 
       <entry>Managed Beans 1.0</entry>
 

@@ -21,11 +21,13 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xl="http://www.w3.or
 xmlns:xi="http://www.w3.org/2001/XInclude"
 xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd">
   <title>What is Jetty?</title>
-  <para>Jetty is an open-source project providing an HTTP server, HTTP client, and javax.servlet container. This guide
-  is in two parts. The first part emphasizes beginning to use Jetty. It provides information about downloading Jetty,
-  basic configuration on how to change things like the port Jetty runs on, adjusting logging levels, and configuring
-  many of the most common servlet container features like JNDI, JMX, and session management. The second part of this
-  guide describes advanced usages of jetty, specific indepth features like our highly scalable async client, proxy
-  servlet configuration, or configuring the jetty-maven-plugin or using Jetty as an embedded server. The advanced
-  section includes tutorials, howtos, videos, and some reference materials.</para>
+  <para>Jetty is an open-source project providing an HTTP server, HTTP client, and javax.servlet container.</para>
+  <para>This guide is in two parts. 
+  <itemizedlist>
+  <listitem><para>The first part emphasizes beginning to use Jetty. It provides information about downloading Jetty, changing things like the port Jetty runs on, adjusting logging levels, and configuring
+  many of the most common servlet container features such as JNDI, JMX, and session management.</para></listitem>
+  <listitem><para>The second part describes advanced uses of Jetty, providing in depth coverage of specific features like our highly scalable async client, proxy
+  servlet configuration, the Jetty Maven plugin, and using Jetty as an embedded server. The advanced
+  section includes tutorials, howtos, videos, and reference materials.</para></listitem>
+  </itemizedlist>
 </section>

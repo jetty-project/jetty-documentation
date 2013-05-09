@@ -16,6 +16,10 @@ The xml:id attribute should only be used on sections, chapters, parts, and the t
 
 The use of xml:id is what gives use the ability to create deep-linkable pages which means we need to be careful with both choosing an initial xml:id but also in subsequent changing of them.  A big example of this is all of the direct links from the jetty 7 and 8 wiki pages to their relevant jetty-9 pages. We should endeavor to make sure that we don't kill any important deep links.
 
+## Links
+
+There are two different types of links, internal and external.  Both should use the &lt;link tag but they use two different attributes.  Internal attributes are use the 'linkend' attribute and external use the 'xl:href' attribute.  You can also use &lt;xref linkend="foo" option as well.
+
 ## Marking up text in a paragraph
 
 There are a number of different tags that can be used in marking up text.  It is important to tease out what the best one is to use as when they render into the xsl layers they can be treated differently.

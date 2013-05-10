@@ -61,6 +61,8 @@ xmlns:gcse="http://www.google.com"
     </l:l10n>
   </l:i18n>
 
+  <xsl:template match="d:authorgroup" mode="titlepage.mode"/>
+
   <!-- squash the generation of title attributes -->
   <xsl:template name="generate.html.title"/>
 

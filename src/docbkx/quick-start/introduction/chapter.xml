@@ -27,6 +27,7 @@
          xmlns:ns="http://docbook.org/ns/docbook">
   <title>Introducing Jetty</title>
 
+<!--
   <mediaobject>
     <info>
       <othercredit>
@@ -39,7 +40,7 @@
                  format="PNG" width="540px"/>
     </imageobject>
   </mediaobject>
-
+-->
   <xi:include href="what-is-jetty.xml"/>
 
   <xi:include href="what-version.xml"/>

@@ -50,10 +50,10 @@
   <para>You also see some warnings like:</para>
 
   <informalexample>
-    <programlisting language="text">
+    <screen language="text">
 <![CDATA[2012-10-22 16:02:24.748:WARN::main: test-realm is deployed. DO NOT USE IN PRODUCTION! 
 2012-10-22 16:02:25.582:WARN::main: async-rest webapp is deployed. DO NOT USE IN PRODUCTION!]]>
-    </programlisting>
+    </screen>
   </informalexample>
   <para>These warnings are telling you that some demonstration web applications and services are deployed, and that you
   should remove them before putting the server into production. You can ignore these warnings while testing, or you can
@@ -70,13 +70,13 @@
     port.</para>
     
     <informalexample>
-      <programlisting language="text"><![CDATA[
+      <screen language="text"><![CDATA[
 java.net.BindException: Address already in use 
   at sun.nio.ch.Net.bind0(Native Method) 
   at sun.nio.ch.Net.bind(Net.java:344) 
   at sun.nio.ch.Net.bind(Net.java:336) 
   at sun.nio.ch.ServerSocketChannelImpl.bind(ServerSocketChannelImpl.java:199)
-      ]]></programlisting>
+      ]]></screen>
     </informalexample>
 
     <para>You can configure Jetty to run on a different port by setting the <code>jetty.port</code> Property on the

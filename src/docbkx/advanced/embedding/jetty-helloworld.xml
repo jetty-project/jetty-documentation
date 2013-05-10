@@ -16,11 +16,14 @@
 //  You may elect to redistribute this code under either of these licenses.
 //  ========================================================================
 -->
-<section version="5.0"
-         xml:id="jetty-helloworld" xmlns="http://docbook.org/ns/docbook"
+<section version="5.0" xml:id="jetty-helloworld"
+         xmlns="http://docbook.org/ns/docbook"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xmlns:xl="http://www.w3.org/1999/xlink"
-        >
+         xmlns:ns5="http://www.w3.org/1998/Math/MathML"
+         xmlns:ns4="http://www.w3.org/2000/svg"
+         xmlns:ns3="http://www.w3.org/1999/xhtml"
+         xmlns:ns="http://docbook.org/ns/docbook">
   <title>Jetty Embedded HelloWorld</title>
 
   <para>This section provides a tutorial that shows how you can quickly
@@ -93,14 +96,13 @@ wget -O servlet-api.jar -U none http://repo1.maven.org/maven2/org/eclipse/jetty/
 
       <listitem>
         <para>Explore the complete <link
-        xl:href="http://download.eclipse.org/jetty/stable-7/apidocs/">jetty
+        xl:href="http://download.eclipse.org/jetty/stable-9/apidocs/">jetty
         javadoc</link></para>
       </listitem>
 
       <listitem>
-        <para>Consider using Jetty and Maven (see <xref
-        linkend="jetty-maven-helloworld"/>) to manage your Jars and
-        dependencies.</para>
+        <para>Consider using<link linkend="maven-and-jetty"> Jetty and
+        Maven</link> to manage your Jars and dependencies.</para>
       </listitem>
     </itemizedlist>
   </section>

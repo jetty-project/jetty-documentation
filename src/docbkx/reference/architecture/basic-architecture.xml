@@ -17,262 +17,388 @@
 //  ========================================================================
 -->
 <section version="5.0"
-xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd"
-xml:id="basic-architecture" xmlns="http://docbook.org/ns/docbook" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xl="http://www.w3.org/1999/xlink"
-xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:ns="http://docbook.org/ns/docbook">
-  <title>Jetty 7 Architecture</title>
+         xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd"
+         xml:id="basic-architecture" xmlns="http://docbook.org/ns/docbook"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:xs="http://www.w3.org/2001/XMLSchema"
+         xmlns:xl="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:ns="http://docbook.org/ns/docbook">
+  <title>Jetty Architecture</title>
+
   <section>
     <title>View from 20,000 feet</title>
+
     <para>The Jetty <link
-    xl:href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/server/Server.html">Server</link> is
-    the plumbing between a collection of Connectors that accept HTTP connections and a collection of Handlers that
-    service requests from the connections and produce responses, with threads from a thread pool doing the work.</para>
+    xl:href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/server/Server.html">Server</link>
+    is the plumbing between a collection of Connectors that accept HTTP
+    connections and a collection of Handlers that service requests from the
+    connections and produce responses, with threads from a thread pool doing
+    the work.</para>
+
     <mediaobject>
       <info>
         <othercredit>
           <orgname>jetty simple high level architecture</orgname>
         </othercredit>
       </info>
+
       <imageobject>
-        <imagedata align="center" fileref="images/jetty-high-level-architecture.png" format="PNG" width="6in" />
+        <imagedata align="center"
+                   fileref="images/jetty-high-level-architecture.png"
+                   format="PNG" width="6in"/>
       </imageobject>
     </mediaobject>
-    <para>While the Jetty request/responses are derived from the Servlet API, the full features of the Servlet API are
-    only available if you configure the appropriate handlers. For example, the session API on the request is inactive
-    unless the request has been passed to a Session Handler. The concept of a servlet itself is implemented by a
-    Servlet Handler. If servlets are not required, there is very little overhead in the use of the servlet
-    request/response APIs. Thus you can build a Jetty server using only connectors and handlers, without using
-    servlets.</para>
-    <para>The job of configuring Jetty is building a network of connectors and handlers and providing their individual
-    configurations. As Jetty components are simply Plain Old Java Objects (POJOs), you can accomplish this assembly and
-    configuration of components by a variety of techniques:</para>
-    <para>deeper <xref linkend="wh-deeplink" /></para>
+
+    <para>While the Jetty request/responses are derived from the Servlet API,
+    the full features of the Servlet API are only available if you configure
+    the appropriate handlers. For example, the session API on the request is
+    inactive unless the request has been passed to a Session Handler. The
+    concept of a servlet itself is implemented by a Servlet Handler. If
+    servlets are not required, there is very little overhead in the use of the
+    servlet request/response APIs. Thus you can build a Jetty server using
+    only connectors and handlers, without using servlets.</para>
+
+    <para>The job of configuring Jetty is building a network of connectors and
+    handlers and providing their individual configurations. As Jetty
+    components are simply Plain Old Java Objects (POJOs), you can accomplish
+    this assembly and configuration of components by a variety of
+    techniques:</para>
+
+    <para>deeper <xref linkend="wh-deeplink"/></para>
+
     <para>deepest <link linkend="wh-deepest">this is custom</link></para>
+
     <itemizedlist>
       <listitem>
-        <para>In code. See the examples in the Jetty 7 Latest Source XRef.</para>
+        <para>In code. See the examples in the Jetty 7 Latest Source
+        XRef.</para>
       </listitem>
+
       <listitem>
-        <para>Using Jetty XML&#8211;dependency injection style XML format.</para>
+        <para>Using Jetty XML–dependency injection style XML format.</para>
       </listitem>
+
       <listitem>
-        <para>With your dependency injection framework of choice: Spring or XBean.</para>
+        <para>With your dependency injection framework of choice: Spring or
+        XBean.</para>
       </listitem>
+
       <listitem>
         <para>Using Jetty WebApp and Context Deployers.</para>
       </listitem>
     </itemizedlist>
   </section>
+
   <section>
     <title>Patterns</title>
-    <para>The implementation of Jetty follows some fairly standard patterns. Most abstract concepts such as Connector,
-    Handler and Buffer are captured by interfaces. Generic handling for those interfaces is then provided in an
-    Abstract implementation such as <code>AbstractConnector</code>, <code>AbstractHandler</code> and <code>
-    AbstractBuffer</code>.</para>
+
+    <para>The implementation of Jetty follows some fairly standard patterns.
+    Most abstract concepts such as Connector, Handler and Buffer are captured
+    by interfaces. Generic handling for those interfaces is then provided in
+    an Abstract implementation such as <code>AbstractConnector</code>,
+    <code>AbstractHandler</code> and <code> AbstractBuffer</code>.</para>
+
     <mediaobject>
       <info>
         <othercredit>
           <orgname>jetty simple high level architecture patterns</orgname>
         </othercredit>
       </info>
+
       <imageobject>
-        <imagedata align="center" fileref="images/basic-architecture-patterns.png" format="PNG" width="6in" />
+        <imagedata align="center"
+                   fileref="images/basic-architecture-patterns.png"
+                   format="PNG" width="6in"/>
       </imageobject>
     </mediaobject>
-    <para>The JSR77 inspired life cycle of most Jetty components is represented by the <code>LifeCycle</code> interface
-    and the <code>AbstractLifeCycle</code> implementation used as the base of many Jetty components.</para>
-    <para>Jetty provides its own IO Buffering abstract over String, byte arrays and NIO buffers. This allows for
-    greater portability of Jetty as well as hiding some of the complexity of the NIO layer and its advanced
+
+    <para>The JSR77 inspired life cycle of most Jetty components is
+    represented by the <code>LifeCycle</code> interface and the
+    <code>AbstractLifeCycle</code> implementation used as the base of many
+    Jetty components.</para>
+
+    <para>Jetty provides its own IO Buffering abstract over String, byte
+    arrays and NIO buffers. This allows for greater portability of Jetty as
+    well as hiding some of the complexity of the NIO layer and its advanced
     features.</para>
   </section>
+
   <section>
     <title>Connectors</title>
-    <para>This diagram is a little out of date, as a Connection interface has been extracted out of <code>
-    HttpConnector</code> to allow support for the AJP protocol.</para>
-    <para>The connectors represent the protocol handlers that accept connections, parse requests and generate
-    responses. The different types of connectors available are based on the protocols, scheduling model, and IO APIs
-    used:</para>
+
+    <para>This diagram is a little out of date, as a Connection interface has
+    been extracted out of <code> HttpConnector</code> to allow support for the
+    AJP protocol.</para>
+
+    <para>The connectors represent the protocol handlers that accept
+    connections, parse requests and generate responses. The different types of
+    connectors available are based on the protocols, scheduling model, and IO
+    APIs used:</para>
+
     <mediaobject>
       <info>
         <othercredit>
           <orgname>jetty simple high level architecture patterns</orgname>
         </othercredit>
       </info>
+
       <imageobject>
-        <imagedata align="center" fileref="images/basic-architecture-connectors.png" format="PNG" width="6in" />
+        <imagedata align="center"
+                   fileref="images/basic-architecture-connectors.png"
+                   format="PNG" width="6in"/>
       </imageobject>
     </mediaobject>
+
     <itemizedlist>
       <listitem>
-        <para><code>SocketConnector</code> &#8211;for few busy connections or when NIO is not available</para>
+        <para><code>SocketConnector</code> –for few busy connections or when
+        NIO is not available</para>
       </listitem>
+
       <listitem>
-        <para><code>BlockingChannelConnector</code> &#8211;for few busy connections when NIO is available</para>
+        <para><code>BlockingChannelConnector</code> –for few busy connections
+        when NIO is available</para>
       </listitem>
+
       <listitem>
-        <para><code>SelectChannelConnector</code> &#8211;for many mostly idle connections or asynchronous handling of
-        Ajax requests</para>
+        <para><code>SelectChannelConnector</code> –for many mostly idle
+        connections or asynchronous handling of Ajax requests</para>
       </listitem>
+
       <listitem>
-        <para><code>SslSocketConnector</code> &#8211;SSL without NIO</para>
+        <para><code>SslSocketConnector</code> –SSL without NIO</para>
       </listitem>
+
       <listitem>
-        <para><code>SslSelectChannelConnector</code> &#8211;SSL with non blocking NIO support</para>
+        <para><code>SslSelectChannelConnector</code> –SSL with non blocking
+        NIO support</para>
       </listitem>
+
       <listitem>
-        <para><code>AJPConnector</code> &#8211;AJP protocol support for connections from apache mod_jk or
-        mod_proxy_ajp</para>
+        <para><code>AJPConnector</code> –AJP protocol support for connections
+        from apache mod_jk or mod_proxy_ajp</para>
       </listitem>
     </itemizedlist>
   </section>
+
   <section>
     <title>Handlers</title>
-    <para>The Handler is the component that deals with received requests. The core API of a handler is the handle
-    method:</para>
+
+    <para>The Handler is the component that deals with received requests. The
+    core API of a handler is the handle method:</para>
+
     <mediaobject>
       <info>
         <othercredit>
           <orgname>jetty simple high level architecture handlers</orgname>
         </othercredit>
       </info>
+
       <imageobject>
-        <imagedata align="center" fileref="images/basic-architecture-handlers.png" format="PNG" width="6in" />
+        <imagedata align="center"
+                   fileref="images/basic-architecture-handlers.png"
+                   format="PNG" width="6in"/>
       </imageobject>
     </mediaobject>
+
     <informalexample>
-      <programlisting language="java">
-<![CDATA[
+      <programlisting language="java"><![CDATA[
+
 
 public void handle(String target, Request baseRequest, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException
 
-      ]]>
-      </programlisting>
+      
+      ]]></programlisting>
     </informalexample>
+
     <para>Parameters:</para>
+
     <itemizedlist>
       <listitem>
-        <para>target&#8211;The target of the request, either a URI or a name.</para>
+        <para>target–The target of the request, either a URI or a name.</para>
       </listitem>
+
       <listitem>
-        <para>baseRequest&#8211;The original unwrapped request object.</para>
+        <para>baseRequest–The original unwrapped request object.</para>
       </listitem>
+
       <listitem>
-        <para>request&#8211;The request either as the Request object or a wrapper of that request. You can use the
-        HttpConnection.getCurrentConnection() method to access the Request object if required.</para>
+        <para>request–The request either as the Request object or a wrapper of
+        that request. You can use the HttpConnection.getCurrentConnection()
+        method to access the Request object if required.</para>
       </listitem>
+
       <listitem>
-        <para>response&#8211;The response as the Response object or a wrapper of that request. You can use the
-        HttpConnection.getCurrentConnection() method to access the Response object if required.</para>
+        <para>response–The response as the Response object or a wrapper of
+        that request. You can use the HttpConnection.getCurrentConnection()
+        method to access the Response object if required.</para>
       </listitem>
     </itemizedlist>
-    <para>An implementation of this method can handle the request, pass the request onto another handler (or servlet)
-    or it might modify and/or wrap the request and then pass it on. This gives three styles of Handler:</para>
+
+    <para>An implementation of this method can handle the request, pass the
+    request onto another handler (or servlet) or it might modify and/or wrap
+    the request and then pass it on. This gives three styles of
+    Handler:</para>
+
     <itemizedlist>
       <listitem>
-        <para>Coordinating Handlers&#8211;Handlers that route requests to other handlers (HandlerCollection,
-        ContextHandlerCollection)</para>
+        <para>Coordinating Handlers–Handlers that route requests to other
+        handlers (HandlerCollection, ContextHandlerCollection)</para>
       </listitem>
+
       <listitem>
-        <para>Filtering Handlers&#8211;Handlers that augment a request and pass it on to other handlers
-        (HandlerWrapper, ContextHandler, SessionHandler)</para>
+        <para>Filtering Handlers–Handlers that augment a request and pass it
+        on to other handlers (HandlerWrapper, ContextHandler,
+        SessionHandler)</para>
       </listitem>
+
       <listitem>
-        <para>Generating Handlers&#8211;Handlers that produce content (ResourceHandler and ServletHandler)</para>
+        <para>Generating Handlers–Handlers that produce content
+        (ResourceHandler and ServletHandler)</para>
       </listitem>
     </itemizedlist>
+
     <section>
       <title>Nested Handlers and Handlers Called Sequentially</title>
-      <para>You can combine handlers to handle different aspects of a request by nesting them, calling them in
-      sequence, or by combining the two models.</para>
+
+      <para>You can combine handlers to handle different aspects of a request
+      by nesting them, calling them in sequence, or by combining the two
+      models.</para>
+
       <mediaobject>
         <info>
           <othercredit>
-            <orgname>jetty simple high level architecture nested handlers</orgname>
+            <orgname>jetty simple high level architecture nested
+            handlers</orgname>
           </othercredit>
         </info>
+
         <imageobject>
-          <imagedata align="center" fileref="images/basic-architecture-nested-handlers.png" format="PNG" width="6in" />
+          <imagedata align="center"
+                     fileref="images/basic-architecture-nested-handlers.png"
+                     format="PNG" width="6in"/>
         </imageobject>
       </mediaobject>
-      <para>Handlers called in sequence perform actions that do not depend on the next invocation, nor on the handler
-      order. They handle a request and generate the response without interacting with other handlers. The main class
-      for this model is Handler Collection.</para>
-      <para>Nested handlers are called according to a before/invokeNext/after pattern. The main class for nested
-      handlers is Handler Wrapper. Nested handlers are much more common than those called in sequence.</para>
-      <para>See also <xref linkend="writing-custom-handlers" />.</para>
+
+      <para>Handlers called in sequence perform actions that do not depend on
+      the next invocation, nor on the handler order. They handle a request and
+      generate the response without interacting with other handlers. The main
+      class for this model is Handler Collection.</para>
+
+      <para>Nested handlers are called according to a before/invokeNext/after
+      pattern. The main class for nested handlers is Handler Wrapper. Nested
+      handlers are much more common than those called in sequence.</para>
+
+      <para>See also <xref linkend="writing-custom-handlers"/>.</para>
     </section>
+
     <section>
       <title>Servlet Handler</title>
-      <para>The ServletHandler is a Handler that generates content by passing the request to any configured filters and
-      then to a Servlet mapped by a URI pattern.</para>
+
+      <para>The ServletHandler is a Handler that generates content by passing
+      the request to any configured filters and then to a Servlet mapped by a
+      URI pattern.</para>
+
       <mediaobject>
         <info>
           <othercredit>
-            <orgname>jetty simple high level architecture servlet handler</orgname>
+            <orgname>jetty simple high level architecture servlet
+            handler</orgname>
           </othercredit>
         </info>
+
         <imageobject>
-          <imagedata align="center" fileref="images/basic-architecture-servlet-handler.png" format="PNG" width="6in" />
+          <imagedata align="center"
+                     fileref="images/basic-architecture-servlet-handler.png"
+                     format="PNG" width="6in"/>
         </imageobject>
       </mediaobject>
-      <para>A ServletHandler is normally deployed within the scope of a servlet Context, which is a ContextHandler that
-      provides convenience methods for mapping URIs to servlets.</para>
-      <para>Filters and Servlets can also use a RequestDispatcher to reroute a request to another context or another
-      servlet in the current context.</para>
+
+      <para>A ServletHandler is normally deployed within the scope of a
+      servlet Context, which is a ContextHandler that provides convenience
+      methods for mapping URIs to servlets.</para>
+
+      <para>Filters and Servlets can also use a RequestDispatcher to reroute a
+      request to another context or another servlet in the current
+      context.</para>
     </section>
   </section>
+
   <section xml:id="what-is-a-context">
     <title>Contexts</title>
-    <para>Contexts are handlers that group other handlers below a particular URI context path or a virtual host.
-    Typcially a context can have :</para>
+
+    <para>Contexts are handlers that group other handlers below a particular
+    URI context path or a virtual host. Typcially a context can have :</para>
+
     <itemizedlist>
       <listitem>
-        <para>A context path that defines which requests are handled by the context (eg /myapp )</para>
+        <para>A context path that defines which requests are handled by the
+        context (eg /myapp )</para>
       </listitem>
+
       <listitem>
         <para>A resource base for static content (a docroot)</para>
       </listitem>
+
       <listitem>
-        <para>A class loader to obtain classes specific to the context (typically docroot/WEB-INF/classes)</para>
+        <para>A class loader to obtain classes specific to the context
+        (typically docroot/WEB-INF/classes)</para>
       </listitem>
+
       <listitem>
         <para>Virtual host names</para>
       </listitem>
     </itemizedlist>
+
     <para>Contexts implementations include:</para>
+
     <itemizedlist>
       <listitem>
         <para>ContextHandler</para>
       </listitem>
+
       <listitem>
         <para>Servlet Context</para>
       </listitem>
+
       <listitem>
         <para>Web Application Context</para>
       </listitem>
     </itemizedlist>
-    <para>A web application context combines handlers for security, session and servlets in a single unit that you can
-    configure with a <filename>web.xml</filename> descriptor.</para>
+
+    <para>A web application context combines handlers for security, session
+    and servlets in a single unit that you can configure with a
+    <filename>web.xml</filename> descriptor.</para>
   </section>
+
   <section>
     <title>Web Application</title>
-    <para>A WebApp Context is a derivation of the servlet Context that supports the standardized layout of a web
-    application and configuration of session, security, listeners, filter, servlets, and JSP via a <filename>
-    web.xml</filename> descriptor normally found in the <filename>WEB-INF</filename> directory of a
-    webapplication.</para>
+
+    <para>A WebApp Context is a derivation of the servlet Context that
+    supports the standardized layout of a web application and configuration of
+    session, security, listeners, filter, servlets, and JSP via a <filename>
+    web.xml</filename> descriptor normally found in the
+    <filename>WEB-INF</filename> directory of a webapplication.</para>
+
     <mediaobject>
       <info>
         <othercredit>
           <orgname>jetty simple high level web application</orgname>
         </othercredit>
       </info>
+
       <imageobject>
-        <imagedata align="center" fileref="images/basic-architecture-web-application.png" format="PNG" width="6in" />
+        <imagedata align="center"
+                   fileref="images/basic-architecture-web-application.png"
+                   format="PNG" width="6in"/>
       </imageobject>
     </mediaobject>
-    <para>Essentially the WebAppContext is a convenience class that assists the construction and configuration of other
-    handlers to achieve a standard web application configuration. Configuration is actually done by pluggable
-    implementations of the Configuration class and the prime among these is <code>WebXmlConfiguration.</code></para>
+
+    <para>Essentially the WebAppContext is a convenience class that assists
+    the construction and configuration of other handlers to achieve a standard
+    web application configuration. Configuration is actually done by pluggable
+    implementations of the Configuration class and the prime among these is
+    <code>WebXmlConfiguration.</code></para>
   </section>
 </section>

@@ -28,23 +28,27 @@
   <title>Quick Setup</title>
 
   <para>If you are using the standard distribution of Jetty, and want to
-  enable JNDI for <emphasis>all</emphasis> your webapps, edit the <filename>$JETTY_HOME/start.ini</filename> file and uncomment the following two lines:</para>
+  enable JNDI for <emphasis>all</emphasis> your webapps, edit the
+  <filename>$JETTY_HOME/start.ini</filename> file and uncomment the following
+  lines:</para>
+
   <informalexample>
-    <programlisting language="bash">
-<![CDATA[
-#===========================================================
-# Annotations JNDI JAAS processing
-#-----------------------------------------------------------
+    <programlisting language="bash"><![CDATA[
+# ===========================================================
+# Enable JNDI 
+# -----------------------------------------------------------
+OPTIONS=jndi
+
+# ===========================================================
+# Enable additional webapp environment configurators 
+# -----------------------------------------------------------
 OPTIONS=plus
 etc/jetty-plus.xml
-# OPTIONS=annotations
-# etc/jetty-annotations.xml
-#===========================================================   
-]]>
-    </programlisting>
+
+    ]]></programlisting>
   </informalexample>
+
   <para>You can now start Jetty and use JNDI within your webapps. See <link
-  linkend="using-jndi">Using JNDI</link> for information on how to add
-  entries to the JNDI environment that Jetty can look up within
-  webapps.</para>
+  linkend="using-jndi">Using JNDI</link> for information on how to add entries
+  to the JNDI environment that Jetty can look up within webapps.</para>
 </section>

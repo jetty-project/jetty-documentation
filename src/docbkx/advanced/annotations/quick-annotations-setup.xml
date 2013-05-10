@@ -31,39 +31,36 @@
   <para>If you are using the standard distribution of Jetty, and want to
   enable processing of annotation for <emphasis>all</emphasis> your webapps,
   edit the <filename>$JETTY_HOME/start.ini</filename> file and uncomment the
-  following two lines:</para>
+  following lines:</para>
 
   <informalexample>
     <programlisting language="bash"><![CDATA[
 
-#===========================================================
-# Annotations
-#-----------------------------------------------------------
-#OPTIONS=plus
-#etc/jetty-plus.xml
- OPTIONS=annotations
- etc/jetty-annotations.xml
-#===========================================================   
+#==========================================================
+# Enable servlet 3.1 annotations
+# -----------------------------------------------------------
+OPTIONS=annotations
+etc/jetty-annotations.xml
 
-    ]]></programlisting>
+# ===========================================================
+# Enable additional webapp environment configurators 
+# -----------------------------------------------------------
+OPTIONS=plus
+etc/jetty-plus.xml
+]]></programlisting>
   </informalexample>
 
   <para>If you want to use annotations that relate to <link
   linkend="jndi">JNDI</link>, such as @Resource and @Resources then you should
-  also uncomment the other 2 lines also:</para>
+  also uncomment these other lines also:</para>
 
   <informalexample>
     <programlisting language="bash"><![CDATA[
 
 #===========================================================
-# Annotations and JNDI
+# JNDI
 #-----------------------------------------------------------
- OPTIONS=plus
- etc/jetty-plus.xml
- OPTIONS=annotations
- etc/jetty-annotations.xml
-#===========================================================   
-
+OPTIONS=jndi
     ]]></programlisting>
   </informalexample>
 

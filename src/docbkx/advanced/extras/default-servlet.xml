@@ -34,12 +34,12 @@
   		</listitem>
   		<listitem>
   			<para>
-  				Javadoc: <link linkend="@JDURL@/org/eclipse/jetty/servlet/DefaultServlet.html">@JDURL@/org/eclipse/jetty/servlet/DefaultServlet.html</link>
+  				Javadoc: <link xl:href="@JDURL@/org/eclipse/jetty/servlet/DefaultServlet.html">@JDURL@/org/eclipse/jetty/servlet/DefaultServlet.html</link>
   			</para>
   		</listitem>
   		<listitem>
   			<para>
-  				Xref: <link linkend="@JXURL@/org/eclipse/jetty/servlet/DefaultServlet.html">@JXURL@/org/eclipse/jetty/servlet/DefaultServlet.html</link>
+  				Xref: <link xl:href="@JXURL@/org/eclipse/jetty/servlet/DefaultServlet.html">@JXURL@/org/eclipse/jetty/servlet/DefaultServlet.html</link>
   			</para>
   		</listitem>
 	  </itemizedlist>

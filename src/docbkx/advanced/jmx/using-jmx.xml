@@ -58,7 +58,7 @@
 
   <para>TheMBeanContainer immplementation of the Container.Listener inteface
   coordinates creation of MBeans. The Jetty Server and it's components use a
-  <link linkend="@JDURL@/org/eclipse/jetty/util/component/Container.html">Container</link> to maintain a containment tree of components and to support
+  <link xl:href="@JDURL@/org/eclipse/jetty/util/component/Container.html">Container</link> to maintain a containment tree of components and to support
   notification of changes to that tree. The MBeanContainer class listens for
   Container events and creates and destroys MBeans as required to wrap all
   Jetty components.</para>
@@ -237,7 +237,7 @@ mbContainer.addBean(Log.getLog());
         <para>JMXConnectorServer several options to restrict access. For a
         complete guide to controlling authentication and authorization in JMX,
         see <link
-        linkend="https://blogs.oracle.com/lmalventosa/entry/jmx_authentication_authorization">Authentication
+        xl:href="https://blogs.oracle.com/lmalventosa/entry/jmx_authentication_authorization">Authentication
         and Authorization in JMX RMI connectors</link> in Luis-Miguel
         Alventosa's blog.</para>
 

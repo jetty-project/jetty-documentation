@@ -33,12 +33,12 @@
   		</listitem>
   		<listitem>
   			<para>
-  				Javadoc: <link linkend="@JDURL@/org/eclipse/jetty/proxy/ProxyServlet.html">@JDURL@/org/eclipse/jetty/proxy/ProxyServlet.html</link>
+  				Javadoc: <link xl:href="@JDURL@/org/eclipse/jetty/proxy/ProxyServlet.html">@JDURL@/org/eclipse/jetty/proxy/ProxyServlet.html</link>
   			</para>
   		</listitem>
   		<listitem>
   			<para>
-  				Xref: <link linkend="@JXURL@/org/eclipse/jetty/proxy/ProxyServlet.html">@JXURL@/org/eclipse/jetty/proxy/ProxyServlet.html</link>
+  				Xref: <link xl:href="@JXURL@/org/eclipse/jetty/proxy/ProxyServlet.html">@JXURL@/org/eclipse/jetty/proxy/ProxyServlet.html</link>
   			</para>
   		</listitem>
 	  </itemizedlist>

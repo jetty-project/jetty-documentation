@@ -26,6 +26,11 @@
          xmlns:ns2="http://www.w3.org/1998/Math/MathML"
          xmlns:ns="http://docbook.org/ns/docbook">
   <title>Overlay WebApp Deployer</title>
+  <note>
+    <para>
+      This feature is reintroduced in Jetty 9.0.4
+    </para>
+  </note>
   <para>
     The Jetty Overlay Deployer allows you to overlay multiple WAR files so that you can customise, configure, and deploy a web application without unpacking, modifying and repacking the WAR file. This has the following benefits:
   </para>

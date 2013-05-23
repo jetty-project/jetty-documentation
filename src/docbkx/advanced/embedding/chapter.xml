@@ -29,4 +29,5 @@
   <xi:include href="jetty-helloworld.xml"/>
 
   <xi:include href="embedding-jetty.xml"/>
+  <xi:include href="embedded-examples.xml"/>
 </chapter>

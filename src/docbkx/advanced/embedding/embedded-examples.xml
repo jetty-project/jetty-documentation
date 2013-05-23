@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+//  ========================================================================
+//  Copyright (c) 1995-2012 Mort Bay Consulting Pty. Ltd.
+//  ========================================================================
+//  All rights reserved. This program and the accompanying materials
+//  are made available under the terms of the Eclipse Public License v1.0
+//  and Apache License v2.0 which accompanies this distribution.
+//
+//      The Eclipse Public License is available at
+//      http://www.eclipse.org/legal/epl-v10.html
+//
+//      The Apache License v2.0 is available at
+//      http://www.opensource.org/licenses/apache2.0.php
+//
+//  You may elect to redistribute this code under either of these licenses.
+//  ========================================================================
+-->
+<section version="5.0" xml:id="embedded-examples"
+         xmlns="http://docbook.org/ns/docbook"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:xl="http://www.w3.org/1999/xlink"
+         xmlns:ns5="http://www.w3.org/1998/Math/MathML"
+         xmlns:ns4="http://www.w3.org/2000/svg"
+         xmlns:ns3="http://www.w3.org/1999/xhtml"
+         xmlns:ns="http://docbook.org/ns/docbook">
+  <title>Embedded Examples</title>
+  <para>
+    Jetty has a rich history of being embedded into a wide variety of applications.  In this section we will walk you through a number of our simple examples under our embedded-jetty-examples project in our git repository.
+  </para>
+  <important>
+    <title>Live Files</title>
+    <para>
+      These files are pulled directly from our git repository when this document is generated.  If the line numbers do not line up feel free to fix this documentation in github and give us a pull request, or at least open an issue to notify us of the discrepancy.
+    </para>
+  </important>
+  <section xml:id="embedded-file-server">
+    <title>Simple File Server</title>
+    <para>
+      This example shows how to create a simple file server in jetty.  It is perfectly suitable for test cases where you need an actual web server to obtain a file from, it could easily be configured to serve files from a directory under src/test/resources.  Note that this does not have any logic for caching of files, either within the server or setting the appropriate headers on the response.  It is simply a few lines that illustate how easy it is to serve out some files.
+    </para>
+    <example>
+      <title>FileServer.java</title>
+      <programlisting language="rjava">
+        <filename>@GITURL@/examples/embedded/src/main/java/org/eclipse/jetty/embedded/FileServer.java</filename>
+      </programlisting>
+    </example>
+    <section>
+      <title>Walkthrough</title>
+      <variablelist>
+        <varlistentry>
+          <term>
+            <code>Server server = new Server(8080);</code>
+          </term>
+          <listitem>
+            <para>
+              Create a basic jetty server object that will listen on port 8080.  Note that if you set this to port 0 then a randomly available port will be assigned that you can either look in the logs for the port, or programmatically obtain it for use in test cases.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>
+            <code>ResourceHandler resource_handler = new ResourceHandler();</code>
+          </term>
+          <listitem>
+            <para>
+              The ResourceHandler is the object that will actually handle the request for a given file.  It is a Jetty Handler object so it is suitable for chaining with other handlers as you will see in other examples.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>
+            <code>resource_handler.setResourceBase(".");</code>
+          </term>
+          <listitem>
+            <para>
+              Setting the resource base indicates where the files should be served out of.  In this example it is the current directory but it can be configured to anything that the jvm has access to.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>
+            <code>HandlerList handlers = new HandlerList();</code>
+          </term>
+          <listitem>
+            <para>
+              A HandlerList is just like it sounds, a list of handlers that can be processed sequentially to try and resolve a filename to serve.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>
+            <code>handlers.setHandlers(new Handler[] { resource_handler, new DefaultHandler() });</code>
+          </term>
+          <listitem>
+            <para>
+              This shows one method of chaining the resource handler with the DefaultHandler which terminates the handler chain and is able to serve out things like a flav.ico, return a 404 on a missing resource, etc.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>
+            <code>server.setHandler(handlers);</code>
+          </term>
+          <listitem>
+            <para>Set the handler list to the server so it knows about it.</para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>
+            <code>server.start()</code>
+          </term>
+          <listitem>
+            <para>Start things up!</para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+      <para>
+        After you have started things up you should be able to navigate to http://localhost:8080/index.html (assuming one is in the resource base directory) and you are good to go.
+      </para>
+    </section>
+    <section>
+      <title>Maven Coordinates</title>
+      <para>
+        To use this example in your project you will need the following maven dependencies declared.
+      </para>
+      <informalexample>
+        <programlisting language="xml">
+<![CDATA[
+<dependency>
+  <groupId>org.eclipse.jetty</groupId>
+  <artifactId>jetty-server</artifactId>
+  <version>${project.version}</version>
+</dependency>
+]]>
+        </programlisting>
+      </informalexample>
+    </section>
+  </section>
+</section>

@@ -84,7 +84,7 @@
           <term>Lines 25 - 26: Start Server</term>
           <listitem>
             <para>
-              Start things up!  By using the server.join() the server thread will join with the current thread.  See <xref xl:href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/Thread.html#join()">Thread.join()</xref> for more details. 
+              Start things up!  By using the server.join() the server thread will join with the current thread.  See <link xl:href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/Thread.html#join()">Thread.join()</link> for more details. 
             </para>
           </listitem>
         </varlistentry>

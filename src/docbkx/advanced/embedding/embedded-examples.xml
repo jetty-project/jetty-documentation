@@ -40,7 +40,7 @@
       This example shows how to create a simple file server in jetty.  It is perfectly suitable for test cases where you need an actual web server to obtain a file from, it could easily be configured to serve files from a directory under src/test/resources.  Note that this does not have any logic for caching of files, either within the server or setting the appropriate headers on the response.  It is simply a few lines that illustate how easy it is to serve out some files.
     </para>
     <example>
-      <title>FileServer.java</title>
+      <title><link xl:href="@GITURL@/examples/embedded/src/main/java/org/eclipse/jetty/embedded/FileServer.java">FileServer.java</link></title>
       <programlisting language="rjava">
         <filename>@GITURL@/examples/embedded/src/main/java/org/eclipse/jetty/embedded/FileServer.java</filename>
       </programlisting>

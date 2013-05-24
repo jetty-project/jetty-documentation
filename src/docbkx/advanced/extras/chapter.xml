@@ -46,5 +46,7 @@
   <xi:include href="ipaccess-handler.xml"/>
   <xi:include href="moved-context-handler.xml"/>
   <xi:include href="shutdown-handler.xml"/>
+  <xi:include href="default-handler.xml"/>
+  <xi:include href="error-handler.xml"/>
 
 </chapter>

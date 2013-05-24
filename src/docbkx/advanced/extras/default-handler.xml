@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+//  ========================================================================
+//  Copyright (c) 1995-2012 Mort Bay Consulting Pty. Ltd.
+//  ========================================================================
+//  All rights reserved. This program and the accompanying materials
+//  are made available under the terms of the Eclipse Public License v1.0
+//  and Apache License v2.0 which accompanies this distribution.
+//
+//      The Eclipse Public License is available at
+//      http://www.eclipse.org/legal/epl-v10.html
+//
+//      The Apache License v2.0 is available at
+//      http://www.opensource.org/licenses/apache2.0.php
+//
+//  You may elect to redistribute this code under either of these licenses.
+//  ========================================================================
+-->
+<section version="5.0"
+         xml:id="default-handler" xmlns="http://docbook.org/ns/docbook"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:xl="http://www.w3.org/1999/xlink"
+        >
+  <title>Default Handler</title>
+  <section xml:id="default-handler-metadata">
+    <title>Info</title>
+    <itemizedlist>
+      <listitem>
+        <para>Classname: <code>org.eclipse.jetty.server.handler.DefaultHandler</code></para>
+      </listitem>
+      <listitem>
+        <para>Maven Artifact: org.eclipse.jetty:jetty-server</para>
+      </listitem>
+      <listitem>
+        <para>
+          Javadoc: <link xl:href="@JDURL@/org/eclipse/jetty/server/handler/DefaultHandler.html">@JDURL@/org/eclipse/jetty/server/handler/DefaultHandler.html</link>
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          Xref: <link xl:href="@JXURL@/org/eclipse/jetty/server/handler/DefaultHandler.html">@JXURL@/org/eclipse/jetty/server/handler/DefaultHandler.html</link>
+        </para>
+      </listitem>
+    </itemizedlist>
+  </section>
+  <section xml:id="default-handler-usage">
+    <title>Usage</title>
+    <para>
+  	   A simple handler that is useful to terminate handler chains with a clean fashion.  As in the example below, if a resource to be served is not matched within the resource handler, the DefaultHandler will take care of producing a 404 page.  This class is a useful template to either extend and embrace or simply provide a similar implementation for customizing to your needs.  There is also an <link linked="error-handler">Error Handler</link> that services errors related to the servlet api specification so it is best to not get the two confused.
+    </para>
+    <note>
+      <title>flav.ico</title>
+      <para>
+        The DefaultHandler will also handle serving out the flav.ico file should a request make it through all of the other handlers without being resolved.
+      </para>
+    </note>
+    <informalexample>
+      <programlisting language="java">
+<![CDATA[
+    Server server = new Server(8080);
+    HandlerList handlers = new HandlerList();
+    ResourceHandler resourceHandler = new ResourceHandler();
+    resourceHandler.setBaseResource(Resource.newResource("."));
+    handlers.setHandlers(new Handler[]
+    { resourceHandler, new DefaultHandler() });
+    server.setHandler(handlers);
+    server.start();
+]]>
+      </programlisting>
+    </informalexample>
+  </section>
+</section>

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+//  ========================================================================
+//  Copyright (c) 1995-2012 Mort Bay Consulting Pty. Ltd.
+//  ========================================================================
+//  All rights reserved. This program and the accompanying materials
+//  are made available under the terms of the Eclipse Public License v1.0
+//  and Apache License v2.0 which accompanies this distribution.
+//
+//      The Eclipse Public License is available at
+//      http://www.eclipse.org/legal/epl-v10.html
+//
+//      The Apache License v2.0 is available at
+//      http://www.opensource.org/licenses/apache2.0.php
+//
+//  You may elect to redistribute this code under either of these licenses.
+//  ========================================================================
+-->
+<section version="5.0" xml:id="embedded-file-server"
+         xmlns="http://docbook.org/ns/docbook"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:xl="http://www.w3.org/1999/xlink"
+         xmlns:ns5="http://www.w3.org/1998/Math/MathML"
+         xmlns:ns4="http://www.w3.org/2000/svg"
+         xmlns:ns3="http://www.w3.org/1999/xhtml"
+         xmlns:ns="http://docbook.org/ns/docbook">
+  <title>Simple File Server</title>
+  <para>
+    This example shows how to create a simple file server in jetty.  It is perfectly suitable for test cases where you need an actual web server to obtain a file from, it could easily be configured to serve files from a directory under src/test/resources.  Note that this does not have any logic for caching of files, either within the server or setting the appropriate headers on the response.  It is simply a few lines that illustate how easy it is to serve out some files.
+  </para>
+  <example>
+    <title><link xl:href="@GITURL@/examples/embedded/src/main/java/org/eclipse/jetty/embedded/FileServer.java">FileServer.java</link></title> 
+  <programlisting language="rjava">
+    <filename>
+      @GITURL@/examples/embedded/src/main/java/org/eclipse/jetty/embedded/FileServer.java
+    </filename>
+  </programlisting>
+  </example>
+  <section>
+    <title>Walkthrough</title>
+    <variablelist>
+      <varlistentry>
+        <term>Line 17: Create Server Object</term>
+        <listitem>
+          <para>
+            Create a basic jetty server object that will listen on port 8080.  Note that if you set this to port 0 then a randomly available port will be assigned that you can either look in the logs for the port, or programmatically obtain it for use in test cases.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>Line 18: Create ResourceHandler</term>
+        <listitem>
+          <para>
+            The ResourceHandler is the object that will actually handle the request for a given file.  It is a Jetty Handler object so it is suitable for chaining with other handlers as you will see in other examples.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>Lines 19 - 21: Configure ResourceHandler</term>
+        <listitem>
+          <para>
+            Setting the resource base indicates where the files should be served out of.  In this example it is the current directory but it can be configured to anything that the jvm has access to.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>Lines 22 - 24: Establish Handler Chain</term>
+        <listitem>
+          <para>
+            A HandlerList is just like it sounds, a list of handlers that can be processed sequentially to try and resolve a filename to serve.  This shows one method of chaining the resource handler with the DefaultHandler which terminates the handler chain and is able to serve out things like a flav.ico, return a 404 on a missing resource, etc.  Finally, set the handler list to the server so it knows about it.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>Lines 25 - 26: Start Server</term>
+        <listitem>
+          <para>
+            Start things up!  By using the server.join() the server thread will join with the current thread.  See
+            <link xl:href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/Thread.html#join()">Thread.join()</link>
+          for more details.
+        </para>
+      </listitem>
+    </varlistentry>
+    </variablelist>
+    <para>
+      After you have started things up you should be able to navigate to http://localhost:8080/index.html (assuming one is in the resource base directory) and you are good to go.
+    </para>
+  </section>
+  <section>
+    <title>Maven Coordinates</title>
+    <para>
+      To use this example in your project you will need the following maven dependencies declared.
+    </para>
+    <informalexample>
+      <programlisting language="xml">
+<![CDATA[
+<dependency>
+  <groupId>org.eclipse.jetty</groupId>
+  <artifactId>jetty-server</artifactId>
+  <version>${project.version}</version>
+</dependency>
+]]>
+      </programlisting>
+    </informalexample>
+  </section>
+</section>

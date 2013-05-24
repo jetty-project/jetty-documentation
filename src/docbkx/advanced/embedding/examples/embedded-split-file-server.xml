@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+//  ========================================================================
+//  Copyright (c) 1995-2012 Mort Bay Consulting Pty. Ltd.
+//  ========================================================================
+//  All rights reserved. This program and the accompanying materials
+//  are made available under the terms of the Eclipse Public License v1.0
+//  and Apache License v2.0 which accompanies this distribution.
+//
+//      The Eclipse Public License is available at
+//      http://www.eclipse.org/legal/epl-v10.html
+//
+//      The Apache License v2.0 is available at
+//      http://www.opensource.org/licenses/apache2.0.php
+//
+//  You may elect to redistribute this code under either of these licenses.
+//  ========================================================================
+-->
+<section version="5.0" xml:id="embedded-split-file-server"
+         xmlns="http://docbook.org/ns/docbook"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:xl="http://www.w3.org/1999/xlink"
+         xmlns:ns5="http://www.w3.org/1998/Math/MathML"
+         xmlns:ns4="http://www.w3.org/2000/svg"
+         xmlns:ns3="http://www.w3.org/1999/xhtml"
+         xmlns:ns="http://docbook.org/ns/docbook">
+  <title>Split File Server</title>
+  <para>
+    This example builds on the <link linkend="emebedded-file-server">Simple File Server</link> to show how chaining multiple ResourceHandlers together can let you aggregate mulitple directories to serve content on a single path and how you can link these together with ContextHandlers.
+  </para>
+  <example>
+    <title><link xl:href="@GITURL@/examples/embedded/src/main/java/org/eclipse/jetty/embedded/SplitFileServer.java">SplitFileServer.java</link></title> 
+    <programlisting language="rjava">
+      <filename>
+        @GITURL@/examples/embedded/src/main/java/org/eclipse/jetty/embedded/SplitFileServer.java
+      </filename>
+    </programlisting>
+  </example>
+  <section>
+    <title>Walkthrough</title>
+    <variablelist>
+      <varlistentry>
+        <term>Line 22 - 25: Create Server Object</term>
+        <listitem>
+          <para>
+            Create the Server object and a corresponding ServerConnector and then set the port for the connector.  In this example the server will listen on port 8090.  If you set this to port 0 then when the server has been started you can called <code>connector.getLocalPort()</code> to programmatically get the port the server started on.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>Line 27 - 30: Create Context Handler and ResourceHandler</term>
+        <listitem>
+          <para>
+            Create a Context Handler and ResourceHandler.  The ContextHandler is getting set to <code>/</code> path but this could be anything you like for builing out your url.  Note how we are setting the ResourceBase using our jetty maven testing utilities to get the proper resource directory, you needn't use these, you simply need to supply the paths you are looking to serve content from.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>Lines 31 - 35: Configure Another</term>
+        <listitem>
+          <para>
+            Rinse and repeat the previous item, only specifying a different resource base.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>Lines 36, 37: Aggregate Contexts</term>
+        <listitem>
+          <para>
+            Create a ContextHandlerCollection and set the context handlers to it.  This will let jetty process urls against the declared contexts in order to match up content.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>Lines 39 - 41: Start Server</term>
+        <listitem>
+          <para>
+            Start things up!  By using the server.join() the server thread will join with the current thread.  See
+            <link xl:href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/Thread.html#join()">Thread.join()</link>
+            for more details.  Also note the usage of the <code>server.dump()</code> call, this will print to stderr the configuration of the entire server object, threadpools, classpaths and all.  This can be incredibly useful for debugging your application when your contexts, servlets or webapp paths don't seem right.  It also prints out the chain of handlers so you can more easily follow through the order of operation.
+          </para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+    <para>
+      After you have started things up you should be able to navigate to http://localhost:8090/index.html (assuming one is in the resource base directory) and you are good to go.  Any requests for files will be looked for in the first resource handler, then the second, and so on and so forth.
+    </para>
+  </section>
+  <section>
+    <title>Maven Coordinates</title>
+    <para>
+      To use this example as is in your project you will need the following maven dependencies declared.  We would recommend not using the toolchain dependency in your actual application.
+    </para>
+    <informalexample>
+      <programlisting language="xml">
+<![CDATA[
+<dependency>  
+  <groupId>org.eclipse.jetty</groupId>
+  <artifactId>jetty-server</artifactId>
+  <version>${project.version}</version>
+</dependency>
+<dependency>
+  <groupId>org.eclipse.jetty.toolchain</groupId>
+  <artifactId>jetty-test-helper</artifactId>
+  <version>2.2</version>
+</dependency>
+]]>
+      </programlisting>
+    </informalexample>
+  </section>
+</section>

@@ -26,7 +26,7 @@
     <title>Info</title>
     <itemizedlist>
       <listitem>
-        <para>Classname: <code>org.eclipse.jetty.servlets.QoSFilter</code></para>
+        <para>Classname: <code>org.eclipse.jetty.servlets.CGI</code></para>
       </listitem>
       <listitem>
         <para>Maven Artifact: org.eclipse.jetty:jetty-servlets</para>

@@ -38,4 +38,10 @@
   <xi:include href="examples/embedded-file-server.xml"/>
   <xi:include href="examples/embedded-split-file-server.xml"/>
 
+  <section xml:id="adding-embedded-examples">
+    <title>Adding Examples</title>
+    <para>
+      If you would like to add an example to this list, fork the documentation project from github (see the blue bar at the bottom of this page) and add the new page.  Feel free to add the example contents directly as a <code>programlisting</code> using <code>language="java"</code> and we will take it from there.
+    </para>
+  </section>
 </section>

@@ -46,7 +46,7 @@
   <section xml:id="error-handler-usage">
     <title>Usage</title>
     <para>
-  	 A handler that use used to report errors from servlet contexts and webapp contexts to report error conditions.  Primarily handles setting the various servlet spec specific response headers for error conditions. Can be customized by extending, for more information on this see <xref linkend="custom-error-pages"/>.
+  	 A handler that is used to report errors from servlet contexts and webapp contexts to report error conditions.  Primarily handles setting the various servlet spec specific response headers for error conditions. Can be customized by extending, for more information on this see <xref linkend="custom-error-pages"/>.
     </para>
   </section>
 </section>

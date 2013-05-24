@@ -46,7 +46,7 @@
   <section xml:id="default-handler-usage">
     <title>Usage</title>
     <para>
-  	   A simple handler that is useful to terminate handler chains with a clean fashion.  As in the example below, if a resource to be served is not matched within the resource handler, the DefaultHandler will take care of producing a 404 page.  This class is a useful template to either extend and embrace or simply provide a similar implementation for customizing to your needs.  There is also an <link linked="error-handler">Error Handler</link> that services errors related to the servlet api specification so it is best to not get the two confused.
+  	   A simple handler that is useful to terminate handler chains with a clean fashion.  As in the example below, if a resource to be served is not matched within the resource handler, the DefaultHandler will take care of producing a 404 page.  This class is a useful template to either extend and embrace or simply provide a similar implementation for customizing to your needs.  There is also an <link linkend="error-handler">Error Handler</link> that services errors related to the servlet api specification so it is best to not get the two confused.
     </para>
     <note>
       <title>flav.ico</title>

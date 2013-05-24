@@ -121,10 +121,9 @@ Command Line Options:
   <section>
     <title>Start Configuration</title>
 
-    <para
-    xl:href="http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/tree/jetty-start/src/main/resources/org/eclipse/jetty/start/start.config?h=release-9">The
+    <para>The
     behaviour of the start.jar mechanism is controlled by the <link
-    xl:href="???">start.config</link> file, which has a default version for
+    xl:href="http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/tree/jetty-start/src/main/resources/org/eclipse/jetty/start/start.config">start.config</link> file, which has a default version for
     jetty built into the start.jar itself. Only in exceptional circumstances
     will a jetty user need to edit or replace the start.config file (with the
     --config=&lt;file&gt; command line option). However, it is the

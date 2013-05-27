@@ -47,48 +47,68 @@
 
     <table>
       <title>Bundle Name Mapping</title>
+
       <tgroup cols="2">
         <thead>
           <row>
             <entry>Jar</entry>
+
             <entry>Bundle Symbolic Name</entry>
           </row>
         </thead>
+
         <tbody>
           <row>
             <entry>jetty-util</entry>
+
             <entry>org.eclipse.jetty.util</entry>
           </row>
+
           <row>
             <entry>jetty-http</entry>
+
             <entry>org.eclipse.jetty.http</entry>
           </row>
+
           <row>
             <entry>jetty-io</entry>
+
             <entry>org.eclipse.jetty.io</entry>
           </row>
+
           <row>
             <entry>jetty-security</entry>
+
             <entry>org.eclipse.jetty.security</entry>
           </row>
+
           <row>
             <entry>jetty-server</entry>
+
             <entry>org.eclipse.jetty.server</entry>
           </row>
+
           <row>
             <entry>jetty-servlet</entry>
+
             <entry>org.eclipse.jetty.servlet</entry>
           </row>
+
           <row>
             <entry>jetty-webapp</entry>
+
             <entry>org.eclipse.jetty.webapp</entry>
           </row>
+
           <row>
             <entry>jetty-deploy</entry>
+
             <entry>org.eclipse.jetty.deploy</entry>
           </row>
+
           <row>
             <entry>jetty-xml</entry>
+
             <entry>org.eclipse.jetty.xml</entry>
           </row>
         </tbody>
@@ -349,6 +369,62 @@ Bundle-SymbolicName: com.acme.sample.web
 
             ]]></programlisting>
           </informalexample>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+
+    <para>You can also define extra headers in your bundle MANIFEST that help
+    customize the web app to be deployed:</para>
+
+    <variablelist>
+      <varlistentry>
+        <term>Jetty-defaultWebXmlFilePath</term>
+
+        <listitem>
+          <para>The location of a webdefault.xml file to apply to the webapp.
+          The location can be either absolute (either absolute path or file:
+          url), or relative (in which case it is interpreted as relative to
+          the bundle root). Defaults to the webdefault.xml file built into the
+          Jetty OSGi container.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>Jetty-WebXmlFilePath</term>
+
+        <listitem>
+          <para>The location of the web.xml file. The location can be either
+          absolute (either absolute path or file: url), or relative (in which
+          case it is interpreted as relative to the bundle root). Defaults to
+          WEB-INF/web.xml</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>Jetty-extraClassPath</term>
+
+        <listitem>
+          <para>A classpath of additional items to add to the webapp's
+          classloader.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>Jetty-bundleInstall</term>
+
+        <listitem>
+          <para>The path to the base folder that overrides the computed bundle
+          installation - mostly useful for those OSGi frameworks that unpack
+          bundles by default.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>Require-TldBundle</term>
+
+        <listitem>
+          <para>A comma separated list of bundle symbolic names of bundles
+          containing TLDs that this webapp depends upon.</para>
         </listitem>
       </varlistentry>
     </variablelist>

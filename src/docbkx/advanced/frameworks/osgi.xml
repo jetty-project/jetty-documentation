@@ -222,14 +222,37 @@ jettyhome/etc/jetty-selector.xml]]></programlisting>
           <term>jetty.etc.config.urls</term>
 
           <listitem>
-            <para>This specifies the paths of the xml files - relative to
-            <emphasis role="bold">jetty.home</emphasis> or <emphasis
-            role="bold">jetty.home.bundle</emphasis>/jettyhome - that are to
-            be used. If not specified, they default to:</para>
+            <para>This specifies the paths of the xml files that are to be
+            used. If not specified, they default to:</para>
 
             <informalexample>
               <programlisting langauge="plain"><![CDATA[etc/jetty.xml,etc/jetty-selector.xml,etc/jetty-deployer.xml]]></programlisting>
             </informalexample>
+
+            <para>Note that the paths can either be relative or absolute, or a
+            mixture. If the path is relative, it is resolved against either
+            <emphasis role="bold">jetty.home</emphasis> or <emphasis
+            role="bold">jetty.home.bundle</emphasis>, whichever was specified.
+            You can use this ability to mix and match jetty configuration
+            files to add functionality, such as adding in a https connector.
+            Here's an example of adding a https connector, using the relevant
+            files from the jetty-distribution in
+            <code>/opt/jetty</code>:</para>
+
+            <informalexample>
+              <programlisting><![CDATA[etc/jetty.xml, etc/jetty-selector.xml, /opt/jetty/etc/jetty-ssl.xml, /opt/jetty/etc/jetty-https.xml, etc/jetty-deployer.xml]]></programlisting>
+            </informalexample>
+
+            <para>Note that regardless of whether you set the <emphasis
+            role="bold">jetty.home</emphasis> or <emphasis
+            role="bold">jetty.home.bundle</emphasis> property, when Jetty
+            executes the configuration files, it will set an appropriate value
+            for <emphasis role="bold">jetty.home</emphasis> so that references
+            in xml files to &lt;property name="jetty.home"&gt; will work. Be
+            careful, however, if you are mixing and matching relative and
+            absolute configuration file paths: the value of <emphasis
+            role="bold">jetty.home</emphasis> is determined from the resolved
+            location of the <emphasis>relative</emphasis> files only.</para>
           </listitem>
         </varlistentry>
       </variablelist>
@@ -451,6 +474,72 @@ Bundle-SymbolicName: com.acme.sample.web
       <informalexample>
         <programlisting language="plain" linenumbering="unnumbered"><![CDATA[/oz]]></programlisting>
       </informalexample>
+    </section>
+
+    <section>
+      <title>Extra Properties Available for Webapp Bundles</title>
+
+      <para>You can further customize your webapp by including a jetty context
+      xml file that is applied to the webapp. This xml file must be placed in
+      <code>META-INF</code> of the bundle, and must be called
+      <code>jetty-webapp-context.xml</code>. </para>
+
+      <para>Here's an example of a webapp bundle listing containing such a
+      file:</para>
+
+      <informalexample>
+        <programlisting language="plain"><![CDATA[
+
+META-INF/MANIFEST.MF
+META-INF/jetty-webapp-context.xml
+web/index.html
+web/foo.html
+web/WEB-INF/web.xml
+com/acme/sample/web/MyStuff.class
+com/acme/sample/web/MyOtherStuff.class
+
+            ]]></programlisting>
+      </informalexample>
+
+      <para>Here's an example of the contents of a
+      META-INF/jetty-webapp-context.xml file:</para>
+
+      <para><informalexample>
+          <programlisting><![CDATA[<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure_9_0.dtd">
+
+<Configure class="org.eclipse.jetty.webapp.WebAppContext">
+  <Set name="defaultsDescriptor"><Property name="bundle.root"/>META-INF/webdefault.xml</Set>
+</Configure>]]></programlisting>
+        </informalexample>As you can see, it is a normal context xml file used
+      to set up a webapp. There are, however, some additional useful
+      properties that can be referenced</para>
+
+      <variablelist>
+        <varlistentry>
+          <term>Server</term>
+
+          <listitem>
+            <para>This is a reference to the Jetty
+            org.eclipse.jetty.server.Server instance to which the webapp being
+            configured in the context xml file will be deployed.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>bundle.root</term>
+
+          <listitem>
+            <para>This is a reference to the
+            org.eclipse.jetty.util.resource.Resource that represents the
+            location of the Bundle. Note that this could be either a directory
+            in the file system if the OSGi container automatically unpacks
+            bundles, or it may be a jar:file: url if the bundle remains
+            packed.</para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
     </section>
   </section>
 

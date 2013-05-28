@@ -265,7 +265,7 @@ jettyhome/etc/jetty-selector.xml]]></programlisting>
       OSGi container. A Jetty Server instance will be created, the xml config
       files applied to it, and then published as an OSGi service. Normally,
       you will not need to interact with this service instance, however you
-      can retrieve a reference to it using the usual OSGi api:</para>
+      can retrieve a reference to it using the usual OSGi API:</para>
 
       <informalexample>
         <programlisting language="java"><![CDATA[
@@ -300,6 +300,78 @@ org.osgi.framework.ServiceReference ref = bc.getServiceReference("org.eclipse.je
           </listitem>
         </varlistentry>
       </variablelist>
+    </section>
+
+    <section>
+      <title>Adding More Jetty Servers</title>
+
+      <para>As we have seen in the previous section, the jetty-osgi-boot code
+      will create an org.eclipse.jetty.server.Server instance, apply the xml
+      configuration files specified by <emphasis
+      role="bold">jetty.etc.config.urls</emphasis> System property to it, and
+      then register it as an OSGi Service. The name associated with this
+      default instance is "defaultJettyServer".</para>
+
+      <para>You can create other Server instances, register them as OSGi
+      Services, and the jetty-osgi-boot code will notice them, and configure
+      them so that they can deploy ContextHandlers and webapp bundles. When
+      you deploy webapps or ContextHandlers as bundles or Services (see
+      sections below) you can target them to be deployed to a particular
+      server instance via the Server's name.</para>
+
+      <para>Here's an example of how to create a new Server instance and
+      register it with OSGi so that the jetty-osgi-boot code will find it and
+      configure it so it can be a deployment target:</para>
+
+      <informalexample>
+        <programlisting language="java"><![CDATA[public class Activator implements BundleActivator
+{
+
+    public void start(BundleContext context) throws Exception
+    {
+        
+        Server server = new Server();
+        //do any setup on Server in here
+        String serverName = "fooServer";
+        Dictionary serverProps = new Hashtable();
+        //define the unique name of the server instance
+        serverProps.put("managedServerName", serverName);
+        serverProps.put("jetty.port", "9999");
+        //let Jetty apply some configuration files to the Server instance
+        serverProps.put("jetty.etc.config.urls", "file:/opt/jetty/etc/jetty.xml,file:/opt/jetty/etc/jetty-selector.xml,file:/opt/jetty/etc/jetty-deployer.xml");
+        //register as an OSGi Service for Jetty to find 
+        context.registerService(Server.class.getName(), server, serverProps);
+       
+    }
+}
+]]></programlisting>
+      </informalexample>
+
+      <para>Now that we have created a new Server called "fooServer", we can
+      deploy webapps and ContextHandlers as Bundles or Services to it (see
+      below for more information on this). Here's an example of deploying a
+      webapp as a Service and targetting it to the "fooServer" Server we
+      created above:</para>
+
+      <informalexample>
+        <programlisting language="java"><![CDATA[public class Activator implements BundleActivator
+{
+
+    public void start(BundleContext context) throws Exception
+    {
+        
+        //Create a webapp context as a Service and target it at the "fooServer" Server instance
+        WebAppContext webapp = new WebAppContext();
+        Dictionary props = new Hashtable();
+        props.put("war",".");
+        props.put("contextPath","/acme");
+        props.put("managedServerName", "fooServer");
+        context.registerService(ContextHandler.class.getName(),webapp,props);
+    }
+}]]></programlisting>
+      </informalexample>
+
+      <para> </para>
     </section>
   </section>
 
@@ -450,6 +522,16 @@ Bundle-SymbolicName: com.acme.sample.web
           containing TLDs that this webapp depends upon.</para>
         </listitem>
       </varlistentry>
+
+      <varlistentry>
+        <term>managedServerName</term>
+
+        <listitem>
+          <para>The name of the Server instance to which to deploy this webapp
+          bundle. If not specified, defaults to the default Server instance
+          called "defaultJettyServer".</para>
+        </listitem>
+      </varlistentry>
     </variablelist>
 
     <section>
@@ -587,6 +669,21 @@ com/acme/sample/web/MyOtherStuff.class
           <informalexample>
             <programlisting language="plain"><![CDATA[Jetty-ContextFilePath: ./a/b/c/d/foo.xml,/opt/app/contexts/foo.xml,contexts/foo.xml]]></programlisting>
           </informalexample>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+
+    <para>Other MANIFEST properties that can be used to configure the
+    deployment of the ContextHandler:</para>
+
+    <variablelist>
+      <varlistentry>
+        <term>managedServerName</term>
+
+        <listitem>
+          <para>The name of the Server instance to which to deploy this webapp
+          bundle. If not specified, defaults to the default Server instance
+          called "defaultJettyServer".</para>
         </listitem>
       </varlistentry>
     </variablelist>
@@ -780,6 +877,16 @@ public void start(BundleContext context) throws Exception
           containing TLDs that this webapp depends upon.</para>
         </listitem>
       </varlistentry>
+
+      <varlistentry>
+        <term>managedServerName</term>
+
+        <listitem>
+          <para>The name of the Server instance to which to deploy this
+          webapp. If not specified, defaults to the default Server instance
+          called "defaultJettyServer".</para>
+        </listitem>
+      </varlistentry>
     </variablelist>
   </section>
 
@@ -876,6 +983,20 @@ public void start(final BundleContext context) throws Exception
     <informalexample>
       <programlisting language="rxml"><filename>@GITURL@/jetty-osgi/test-jetty-osgi-context/src/main/context/acme.xml</filename></programlisting>
     </informalexample>
+
+    <para>You may also use the following OSGi Service properties:</para>
+
+    <variablelist>
+      <varlistentry>
+        <term>managedServerName</term>
+
+        <listitem>
+          <para>The name of the Server instance to which to deploy this
+          webapp. If not specified, defaults to the default Server instance
+          called "defaultJettyServer".</para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
 
     <section>
       <title>Extra Properties Available for Context Xml Files</title>

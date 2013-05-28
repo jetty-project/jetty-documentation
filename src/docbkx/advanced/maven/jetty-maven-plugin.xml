@@ -37,7 +37,7 @@
   away.</para>
 
   <important>
-    <para>You need to use Maven 3 for jetty-7.5.3 and later releases.</para>
+    <para>You need to use Maven 3 and Java 1.7 for this plugin.</para>
   </important>
 
   <section xml:id="get-up-and-running">

@@ -37,6 +37,7 @@
   </important>
   <xi:include href="examples/embedded-file-server.xml"/>
   <xi:include href="examples/embedded-split-file-server.xml"/>
+  <xi:include href="examples/embedded-minimal-servlet.xml"/>
 
   <section xml:id="adding-embedded-examples">
     <title>Adding Examples</title>

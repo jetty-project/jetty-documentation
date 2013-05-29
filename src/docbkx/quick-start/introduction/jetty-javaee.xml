@@ -121,7 +121,7 @@
       <entry>No</entry>
 
       <entry>Yes, <link
-      xl:href="http://seamframework.org/Weld">Weld</link></entry>
+      xl:href="http://seamframework.org/Weld">Weld</link> or <link xl:href="http://openwebbeans.apache.org/">OpenWebBeans</link></entry>
     </row>
 
     <row>

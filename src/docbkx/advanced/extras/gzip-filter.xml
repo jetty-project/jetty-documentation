@@ -21,172 +21,221 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xmlns:xl="http://www.w3.org/1999/xlink"
         >
-  <title>Gzip Filter</title>
-  <section xml:id="gzip-filter-metadata">
-  	<title>Info</title>
-  	<itemizedlist>
-  		<listitem>
-  			<para>Classname: <code>org.eclipse.jetty.servlets.GzipFilter</code></para>
-  		</listitem>
-  		<listitem>
-  			<para>Maven Artifact: org.eclipse.jetty:jetty-servlets</para>
-  		</listitem>
-  		<listitem>
-  			<para>
-  				Javadoc: <link xl:href="@JDURL@/org/eclipse/jetty/servlets/GzipFilter.html">@JDURL@/org/eclipse/jetty/servlets/GzipFilter.html</link>
-  			</para>
-  		</listitem>
-  		<listitem>
-  			<para>
-  				Xref: <link xl:href="@JXURL@/org/eclipse/jetty/servlets/GzipFilter.html">@JXURL@/org/eclipse/jetty/servlets/GzipFilter.html</link>
-  			</para>
-  		</listitem>
-	  </itemizedlist>
-	</section>
-	<section xml:id="gzip-filter-usage">
-		<title>Usage</title>
-    <para>
-		  The Jetty GzipFilter is a compression filter that you can apply to almost any dynamic resource (servlet). It fixes many of the bugs in commonly available compression filters–for example, it handles all ways to set content length. We have tested it with Jetty continuations and suspending requests. Some user-agents might be excluded from compression to avoid common browser bugs (yes, this means IE!). See GzipFilter javadoc.
-	  </para>
-  </section>
-	<section xml:id="gzip-filter-rules">
-		<title>Gzip Rules</title>
-		<para>
-			GZIP Filter This filter will gzip or deflate the content of a response if:
-		</para>
-		<itemizedlist>
-			<listitem>
-				<para>
-					The filter is mapped to a matching path
-				</para>
-			</listitem>
-			<listitem>
-				<para>
-					accept-encoding header is set to either gzip, deflate or a combination of those
-				</para>
-			</listitem>
-			<listitem>
-				<para>
-					The response status code is &gt;=200 and &lt;300
-				</para>
-			</listitem>
-			<listitem>
-				<para>
-					The content length is unknown or more than the minGzipSize initParameter or the minGzipSize is 0(default)
-				</para>
-			</listitem>
-			<listitem>
-				<para>
-					The content-type is in the comma separated list of mimeTypes set in the mimeTypes initParameter or if no mimeTypes are defined the content-type is not "application/gzip"
-				</para>
-			</listitem>
-			<listitem>
-				<para>
-					No content-encoding is specified by the resource
-				</para>
-			</listitem>
-		</itemizedlist>
-		<para>
-			If both gzip and deflate are specified in the accept-encoding header, then gzip will be used.
-		</para>
-		<para>
-			Compressing the content can greatly improve the network bandwidth usage, but at a cost of memory and CPU cycles. If this filter is mapped for static content, then use of efficient direct NIO may be prevented, thus use of the gzip mechanism of the DefaultServlet is advised instead.
-		</para>
-	</section>
-	<section xml:id="gzip-filter-init">
-		<title>Init Parameters</title>
-		<para>
-			This filter extends UserAgentFilter and if the the initParameter excludedAgents is set to a comma separated list of user agents, then these agents will be excluded from gzip content.
-		</para>
-		<variablelist>
-			<varlistentry>
-				<term>bufferSize</term>
-				<listitem>
-				  <para>
-				  	The output buffer size which defaults to 8192. Be careful with this parameter as values &lt;= 0 will lead to an IllegalArgumentException. 
-          </para>
-        </listitem>
-      </varlistentry>
-      <varlistentry>
-      	<term>minGzipSize</term>
-      	<listitem>
-      	  <para>
-      	    Content will only be compressed if content length is either unknown or greater than minGzipSize.
-      	  </para>
-      	</listitem>
-      </varlistentry>
-      <varlistentry>
-      	<term>deflateCompressionLevel</term>
-      	<listitem>
-      	  <para>
-      	  	The compression level used for deflate compression. (0-9).
-      	  </para>
-      	</listitem>
-      </varlistentry>
-      <varlistentry>
-      	<term>deflateNoWrap</term>
-      	<listitem>
-      	  <para>
-      	  	The noWrap setting for deflate compression. Defaults to true. (true/false)
-      	  </para>
-      	</listitem>
-      </varlistentry>
-      <varlistentry>
-      	<term>methods</term>
-      	<listitem>
-      		<para>
-      			Comma separated list of HTTP methods to compress. If not set, only GET requests are compressed.
-      		</para>
-      	</listitem>
-      </varlistentry>
-      <varlistentry>
-      	<term>mimeTypes</term>
-      	<listitem>
-      	  <para>
-      	    Comma separated list of mime types to compress. See description above.
-      	  </para>
-      	</listitem>
-      </varlistentry>
-      <varlistentry>
-      	<term>excludedAgents</term>
-      	<listitem>
-      	  <para>
-      	    Comma separated list of user agents to exclude from compression. Does a String.contains(CharSequence) to check if the excluded agent occurs in the user-agent header. If it does -> no compression
-      	  </para>
-      	</listitem>
-      </varlistentry>
-      <varlistentry>
-      	<term>excludeAgentPatterns</term>
-      	<listitem>
-      		<para>
-      	    Same as excludedAgents, but accepts regex patterns for more complex matching.
-      	  </para>
-      	</listitem>
-      </varlistentry>
-      <varlistentry>
-      	<term>excludePaths</term>
-      	<listitem>
-      		<para>
-      			Comma separated list of paths to exclude from compression. Does a String.startsWith(String) comparison to check if the path matches.If it does match -> no compression. To match subpaths use excludePathPatterns instead.
-      		</para>
-      	</listitem>
-      </varlistentry>
-      <varlistentry>
-      	<term>excludePathPatterns</term>
-      	<listitem>
-      		<para>
-      			Same as excludePath, but accepts regex patterns for more complex matching.
-      		</para>
-      	</listitem>
-      </varlistentry>
-      <varlistentry>
-      	<term>vary</term>
-      	<listitem>
-      	  <para>
-      	    Set to the value of the Vary header sent with responses that could be compressed.  By default it is set to 'Vary: Accept-Encoding, User-Agent' since IE6 is excluded by default from the excludedAgents. If user-agents are not to be excluded, then this can be set to 'Vary: Accept-Encoding'.  Note also that shared caches may cache copies of a resource that is varied by User-Agent - one per variation of the User-Agent, unless the cache does some normalization of the UA string.
-      	  </para>
-      	</listitem>
-      </varlistentry>
-    </variablelist>
-  </section>
+    <title>Gzip Filter</title>
+    <section xml:id="gzip-filter-metadata">
+        <title>Info</title>
+        <itemizedlist>
+            <listitem>
+                <para>Classname:
+                    <code>org.eclipse.jetty.servlets.GzipFilter</code>
+                </para>
+            </listitem>
+            <listitem>
+                <para>Maven Artifact: org.eclipse.jetty:jetty-servlets</para>
+            </listitem>
+            <listitem>
+                <para>
+                    Javadoc:
+                    <link xl:href="@JDURL@/org/eclipse/jetty/servlets/GzipFilter.html">
+                        @JDURL@/org/eclipse/jetty/servlets/GzipFilter.html
+                    </link>
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    Xref:
+                    <link xl:href="@JXURL@/org/eclipse/jetty/servlets/GzipFilter.html">
+                        @JXURL@/org/eclipse/jetty/servlets/GzipFilter.html
+                    </link>
+                </para>
+            </listitem>
+        </itemizedlist>
+    </section>
+    <section xml:id="gzip-filter-usage">
+        <title>Usage</title>
+        <para>
+            The Jetty GzipFilter is a compression filter that you can apply to almost any dynamic resource (servlet). It
+            fixes many of the bugs in commonly available compression filters–for example, it handles all ways to set
+            content length. We have tested it with Jetty continuations and suspending requests. Some user-agents might
+            be excluded from compression to avoid common browser bugs (yes, this means IE!). See GzipFilter javadoc.
+        </para>
+        <para>
+            For example simply add this to your web.xml or override your web.xml using jetty's<xref
+                linkend="override-web-xml"/> feature.
+            <informalexample>
+                <programlisting language="xml">
+                    <![CDATA[
+    <filter>
+      <filter-name>GzipFilter</filter-name>
+      <filter-class>org.eclipse.jetty.servlets.GzipFilter</filter-class>
+      <init-param>
+        <param-name>mimeTypes</param-name>
+        <param-value>text/html,text/plain,text/xml,application/xhtml+xml,text/css,application/javascript,image/svg+xml</param-value>
+      </init-param>
+    </filter>
+    <filter-mapping>
+      <filter-name>GzipFilter</filter-name>
+      <url-pattern>/*</url-pattern>
+    </filter-mapping>
+          ]]>
+                </programlisting>
+            </informalexample>
+        </para>
+
+    </section>
+    <section xml:id="gzip-filter-rules">
+        <title>Gzip Rules</title>
+        <para>
+            GZIP Filter This filter will gzip or deflate the content of a response if:
+        </para>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    The filter is mapped to a matching path
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    accept-encoding header is set to either gzip, deflate or a combination of those
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    The response status code is &gt;=200 and &lt;300
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    The content length is unknown or more than the minGzipSize initParameter or the minGzipSize is
+                    0(default)
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    The content-type is in the comma separated list of mimeTypes set in the mimeTypes initParameter or
+                    if no mimeTypes are defined the content-type is not "application/gzip"
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    No content-encoding is specified by the resource
+                </para>
+            </listitem>
+        </itemizedlist>
+        <para>
+            If both gzip and deflate are specified in the accept-encoding header, then gzip will be used.
+        </para>
+        <para>
+            Compressing the content can greatly improve the network bandwidth usage, but at a cost of memory and CPU
+            cycles. If this filter is mapped for static content, then use of efficient direct NIO may be prevented, thus
+            use of the gzip mechanism of the DefaultServlet is advised instead.
+        </para>
+    </section>
+    <section xml:id="gzip-filter-init">
+        <title>Init Parameters</title>
+        <para>
+            This filter extends UserAgentFilter and if the the initParameter excludedAgents is set to a comma separated
+            list of user agents, then these agents will be excluded from gzip content.
+        </para>
+        <variablelist>
+            <varlistentry>
+                <term>bufferSize</term>
+                <listitem>
+                    <para>
+                        The output buffer size which defaults to 8192. Be careful with this parameter as values &lt;= 0
+                        will lead to an IllegalArgumentException.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>minGzipSize</term>
+                <listitem>
+                    <para>
+                        Content will only be compressed if content length is either unknown or greater than minGzipSize.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>deflateCompressionLevel</term>
+                <listitem>
+                    <para>
+                        The compression level used for deflate compression. (0-9).
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>deflateNoWrap</term>
+                <listitem>
+                    <para>
+                        The noWrap setting for deflate compression. Defaults to true. (true/false)
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>methods</term>
+                <listitem>
+                    <para>
+                        Comma separated list of HTTP methods to compress. If not set, only GET requests are compressed.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>mimeTypes</term>
+                <listitem>
+                    <para>
+                        Comma separated list of mime types to compress. See description above.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>excludedAgents</term>
+                <listitem>
+                    <para>
+                        Comma separated list of user agents to exclude from compression. Does a
+                        String.contains(CharSequence) to check if the excluded agent occurs in the user-agent header. If
+                        it does -> no compression
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>excludeAgentPatterns</term>
+                <listitem>
+                    <para>
+                        Same as excludedAgents, but accepts regex patterns for more complex matching.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>excludePaths</term>
+                <listitem>
+                    <para>
+                        Comma separated list of paths to exclude from compression. Does a String.startsWith(String)
+                        comparison to check if the path matches.If it does match -> no compression. To match subpaths
+                        use excludePathPatterns instead.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>excludePathPatterns</term>
+                <listitem>
+                    <para>
+                        Same as excludePath, but accepts regex patterns for more complex matching.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>vary</term>
+                <listitem>
+                    <para>
+                        Set to the value of the Vary header sent with responses that could be compressed. By default it
+                        is set to 'Vary: Accept-Encoding, User-Agent' since IE6 is excluded by default from the
+                        excludedAgents. If user-agents are not to be excluded, then this can be set to 'Vary:
+                        Accept-Encoding'. Note also that shared caches may cache copies of a resource that is varied by
+                        User-Agent - one per variation of the User-Agent, unless the cache does some normalization of
+                        the UA string.
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </section>
 </section>

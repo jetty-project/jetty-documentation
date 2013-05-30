@@ -39,7 +39,7 @@
 			</listitem>
 			<listitem>
 				<para>
-					Download the weld-servlet artifact and place it into the newly created directory.
+					Download the <link xl:href="http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22weld-servlet%22">weld-servlet artifact</link> and place it into the newly created directory.
 				</para>
 				
 				<informalexample>
@@ -53,9 +53,6 @@
 ]]>
 					</programlisting>
 				</informalexample>
-				<para>
-					You can also download it directly via <link xl:href="http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22weld-servlet%22">http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22weld-servlet%22</link>.
-				</para>
 			</listitem>
 			<listitem>
 				<para>

@@ -24,7 +24,7 @@
 	xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd">
 	<title>Weld</title>
 	<para>
-		Weld can be used to add support for CDI to Servlets, Listeners and Filters.  It is easily configured with Jetty 9.
+		<link xl:href="http://seamframework.org/Weld">Weld</link> can be used to add support for CDI (Contexts and Dependency Injection) to Servlets, Listeners and Filters.  It is easily configured with Jetty 9.
 	</para>
 	<section xml:id="weld-setup-distro">
 		<title>Weld Setup</title>
@@ -156,5 +156,10 @@ WARNING: Class 'javax.ejb.PrePassivate' not found, interception based on it is n
 2013-05-30 15:49:02.940:INFO:oejs.ServerConnector:main: Started ServerConnector@430e0623{HTTP/1.1}{0.0.0.0:8080}
 ]]>
 		</screen>
+		<important>
+			<para>
+				As of the Weld version in use here the Weld project is behind two versions of Jetty in their log messages.  Disregard the note about Jetty 7 being detected!
+			</para>
+		</important>
 	</section>
 </section>

@@ -256,9 +256,21 @@ xmlns:gcse="http://www.google.com"
           <xsl:attribute name="class">brush: bash<xsl:copy-of select="$brushstyle"/></xsl:attribute>
           &lt;![CDATA[<xsl:value-of select="text()"/>]]&gt;
         </xsl:when>
+        <xsl:when test="@language='rbash'">
+          <xsl:attribute name="class">brush: bash<xsl:copy-of select="$brushstyle"/></xsl:attribute>
+          <xsl:variable name="filename" select="./d:filename"/>
+          <xsl:variable name="newText" select="fetch:fetch($filename)"/>
+          &lt;![CDATA[<xsl:value-of select="$newText"/>]]&gt;
+        </xsl:when>
         <xsl:when test="@language='properties'">
           <xsl:attribute name="class">brush: properties<xsl:copy-of select="$brushstyle"/></xsl:attribute>
           &lt;![CDATA[<xsl:value-of select="text()"/>]]&gt;
+        </xsl:when>
+        <xsl:when test="@language='rproperties'">
+          <xsl:attribute name="class">brush: properties<xsl:copy-of select="$brushstyle"/></xsl:attribute>
+          <xsl:variable name="filename" select="./d:filename"/>
+          <xsl:variable name="newText" select="fetch:fetch($filename)"/>
+          &lt;![CDATA[<xsl:value-of select="$newText"/>]]&gt;
         </xsl:when>
         <xsl:when test="@language='sql'">
           <xsl:attribute name="class">brush: sql<xsl:copy-of select="$brushstyle"/></xsl:attribute>

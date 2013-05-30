@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+//  ========================================================================
+//  Copyright (c) 1995-2012 Mort Bay Consulting Pty. Ltd.
+//  ========================================================================
+//  All rights reserved. This program and the accompanying materials
+//  are made available under the terms of the Eclipse Public License v1.0
+//  and Apache License v2.0 which accompanies this distribution.
+//
+//      The Eclipse Public License is available at
+//      http://www.eclipse.org/legal/epl-v10.html
+//
+//      The Apache License v2.0 is available at
+//      http://www.opensource.org/licenses/apache2.0.php
+//
+//  You may elect to redistribute this code under either of these licenses.
+//  ========================================================================
+-->
+<section xml:id="framework-weld" 
+	version="5.0" xmlns="http://docbook.org/ns/docbook"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:xl="http://www.w3.org/1999/xlink"
+	xmlns:xi="http://www.w3.org/2001/XInclude"
+	xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd">
+	<title>Weld</title>
+	<para>
+		Weld can be used to add support for CDI to Servlets, Listeners and Filters.  It is easily configured with Jetty 9.
+	</para>
+	<section xml:id="weld-setup-distro">
+		<title>Weld Setup</title>
+		<para>
+			The easiest way to configure weld is within the jetty distribution itself.
+		</para>
+		<orderedlist>
+			<listitem>
+				<para>
+					Create the directory <filename>$jetty.home/lib/weld</filename>.
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					Download the weld-servlet artifact and place it into the newly created directory.
+				</para>
+				
+				<informalexample>
+					<programlisting language="xml">
+<![CDATA[
+<dependency>
+	<groupId>org.jboss.weld.servlet</groupId>
+	<artifactId>weld-servlet</artifactId>
+	<version>2.0.0.FINAL</version>
+</dependency>
+]]>
+					</programlisting>
+				</informalexample>
+				<para>
+					You can also download it directly <link xl:href="http://central.maven.org/maven2/org/jboss/weld/servlet/weld-servlet/2.0.0.Final/weld-servlet-2.0.0.Final.jar">here</link>.
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					Edit the <filename>start.ini</filename> file and add an OPTION line for weld near the end.
+				</para>
+				<informalexample>
+					<programlisting language="plain">
+<![CDATA[
+OPTIONS=weld
+]]>
+					</programlisting>
+				</informalexample>
+			</listitem>
+			<listitem>
+				<para>
+					Continue editting the <filename>start.ini</filename> file and uncomment the lines for <emphasis role="bold">jndi</emphasis>, <emphasis role="bold">annotations</emphasis> and <emphasis role="bold">plus</emphasis>.
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					In your webapp's WEB-INF directory create a file called <filename>jetty-env.xml</filename> with the following contents.
+				</para>
+				<informalexample>
+					<programlisting language="xml">
+<![CDATA[
+<!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure_9_0.dtd">
+<Configure id="webAppCtx" class="org.eclipse.jetty.webapp.WebAppContext">
+    <New id="BeanManager" class="org.eclipse.jetty.plus.jndi.Resource">
+        <Arg>
+            <Ref id="webAppCtx"/>
+        </Arg>
+        <Arg>BeanManager</Arg>
+        <Arg>
+            <New class="javax.naming.Reference">
+                <Arg>javax.enterprise.inject.spi.BeanManager</Arg>
+                <Arg>org.jboss.weld.resources.ManagerObjectFactory</Arg>
+                <Arg/>
+            </New>
+        </Arg>
+    </New>
+</Configure>
+]]>
+					</programlisting>
+				</informalexample>
+			</listitem>
+			<listitem>
+				<para>
+					In your webapp's WEB-INF directory create a file called <filename>jetty-web.xml</filename> with the following contents.
+				</para>
+				<informalexample>
+					<programlisting language="xml">
+<![CDATA[
+<!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure_9_0.dtd">
+<Configure id="webAppCtx" class="org.eclipse.jetty.webapp.WebAppContext">
+    <Call class="org.jboss.weld.environment.jetty.EclipseWeldServletHandler" name="process">
+        <Arg>
+            <Ref id="webAppCtx"/>
+        </Arg>
+    </Call>
+</Configure>
+]]>
+					</programlisting>
+				</informalexample>
+			</listitem>
+			<listitem>
+				<para>
+					Ensure your <filename>WEB-INF/web.xml</filename> contains the following line.
+				</para>
+				<informalexample>
+					<programlisting language="xml">
+<![CDATA[
+<listener>
+  <listener-class>org.jboss.weld.environment.servlet.Listener</listener-class>
+</listener>
+]]>
+					</programlisting>
+				</informalexample>
+			</listitem>
+		</orderedlist>
+		<para>
+			That should be it so when you start up your jetty distribution with the webapp you should see the following output (providing your logging is the default configuration).
+		</para>
+		<screen>
+<![CDATA[
+013-05-30 15:49:01.511:INFO:oejs.Server:main: jetty-9.0.3.v20130506
+2013-05-30 15:49:01.564:INFO:oejdp.ScanningAppProvider:main: Deployment monitor [file:/Users/jesse/Desktop/jetty-distribution-9.0.3.v20130506/webapps/] at interval 1
+2013-05-30 15:49:01.764:INFO:oejpw.PlusConfiguration:main: No Transaction manager found - if your webapp requires one, please configure one.
+May 30, 2013 3:49:01 PM org.jboss.weld.bootstrap.WeldBootstrap <clinit>
+INFO: WELD-000900 2.0.0 (Final)
+May 30, 2013 3:49:02 PM org.jboss.weld.bootstrap.WeldBootstrap startContainer
+INFO: WELD-000101 Transactional services not available. Injection of @Inject UserTransaction not available. Transactional observers will be invoked synchronously.
+May 30, 2013 3:49:02 PM org.jboss.weld.bootstrap.WeldBootstrap startContainer
+WARNING: Legacy deployment metadata provided by the integrator. Certain functionality will not be available.
+May 30, 2013 3:49:02 PM org.jboss.weld.environment.jetty.JettyPost72Container initialize
+INFO: Jetty7 detected, JSR-299 injection will be available in Listeners, Servlets and Filters.
+May 30, 2013 3:49:02 PM org.jboss.weld.interceptor.util.InterceptionTypeRegistry <clinit>
+WARNING: Class 'javax.ejb.PostActivate' not found, interception based on it is not enabled
+May 30, 2013 3:49:02 PM org.jboss.weld.interceptor.util.InterceptionTypeRegistry <clinit>
+WARNING: Class 'javax.ejb.PrePassivate' not found, interception based on it is not enabled
+2013-05-30 15:49:02.919:INFO:oejsh.ContextHandler:main: Started o.e.j.w.WebAppContext@40a49a3{/simple-web,file:/private/var/folders/br/kbs2g3753c54wmv4j31pnw5r0000gn/T/jetty-0.0.0.0-8080-simple-web.war-_simple-web-any-/webapp/,AVAILABLE}{/simple-web.war}
+2013-05-30 15:49:02.940:INFO:oejs.ServerConnector:main: Started ServerConnector@430e0623{HTTP/1.1}{0.0.0.0:8080}
+]]>
+		</screen>
+	</section>
+</section>

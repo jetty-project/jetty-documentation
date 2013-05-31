@@ -36,13 +36,16 @@
     are using a full JDK, or from a third party Jar.</para>
 
     <para>By default, the jsp engine used by Jetty will try to use the
-    compiler that is part of the JDK. </para>
+    compiler that is part of the JDK. <emphasis role="bold">NOTE:</emphasis>
+    when using the JDK compiler, your class files will
+    <emphasis>not</emphasis> be saved to disk unless you use the
+    <code>saveBytecode</code> init-param as described below.</para>
 
     <para>If you do not have a full JDK, then you can configure the jsp engine
     to use the Eclipse Java Compiler that Jetty ships in the distro in
     $JETTY_HOME/lib/jsp/org.eclipse.jdt.core-3.7.1.jar. You will need to
     define a SystemProperty that prevents the jsp engine from defaulting to
-    the in-JVM compiler. </para>
+    the in-JVM compiler.</para>
 
     <para>Here's the property definition to add to
     $JETTY_HOME/start.ini:</para>
@@ -109,8 +112,9 @@
 
     <note>
       <para>Be careful: for all of the parameters below, if the value you set
-      doesn't take effect, try using all lower case instead of camel case, as
-      JSP is inconsistent in its parameter naming strategy.</para>
+      doesn't take effect, try using all lower case instead of camel case, or
+      capitalizing only some of the words in the name, as JSP is inconsistent
+      in its parameter naming strategy.</para>
     </note>
 
     <table>
@@ -164,7 +168,7 @@
           </row>
 
           <row>
-            <entry>saveByteCode</entry>
+            <entry>saveBytecode</entry>
 
             <entry>If class files are generated as byte arrays, should they be
             saved to disk at the end of compilations?</entry>

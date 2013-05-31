@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+//  ========================================================================
+//  Copyright (c) 1995-2012 Mort Bay Consulting Pty. Ltd.
+//  ========================================================================
+//  All rights reserved. This program and the accompanying materials
+//  are made available under the terms of the Eclipse Public License v1.0
+//  and Apache License v2.0 which accompanies this distribution.
+//
+//      The Eclipse Public License is available at
+//      http://www.eclipse.org/legal/epl-v10.html
+//
+//      The Apache License v2.0 is available at
+//      http://www.opensource.org/licenses/apache2.0.php
+//
+//  You may elect to redistribute this code under either of these licenses.
+//  ========================================================================
+-->
+<section version="5.0" xml:id="embedded-many-connectors"
+         xmlns="http://docbook.org/ns/docbook"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:xl="http://www.w3.org/1999/xlink"
+         xmlns:ns5="http://www.w3.org/1998/Math/MathML"
+         xmlns:ns4="http://www.w3.org/2000/svg"
+         xmlns:ns3="http://www.w3.org/1999/xhtml"
+         xmlns:ns="http://docbook.org/ns/docbook">
+  <title>Multiple Connectors</title>
+  <para>
+    This example shows how to configure Jetty to use multiple connectors, specifically so it can process both http and https requests.  Since the meat of this example is the server and connector configuration it only uses a simple HelloHandler but this example should be easily merged with other examples like those deploying servlets or webapps.
+  </para>
+  <example>
+    <title><link xl:href="@GITURL@/examples/embedded/src/main/java/org/eclipse/jetty/embedded/ManyConnectors.java">ManyConnectors.java</link></title> 
+  <programlisting language="rjava">
+    <filename>
+      @GITURL@/examples/embedded/src/main/java/org/eclipse/jetty/embedded/ManyConnectors.java
+    </filename>
+  </programlisting>
+  </example>
+  <section>
+    <title>Walkthrough</title>
+    <variablelist>
+      <varlistentry>
+        <term>Line 18, 19: Discover ${jetty.home}</term>
+        <listitem>
+          <para>
+            Since this example shows off SSL configuration, we need a keystore with the appropriate key.  These two lines are purely a hack to get access to a keystore that we use in many unit tests and should probably be a direct path to your own keystore (used on line 29).
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>Line 20: Create Server Object</term>
+        <listitem>
+          <para>
+            Create a basic jetty server object without declaring the port.  Since we are configuring connectors directly we'll be setting ports on those connectors.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>Line 21 - 24: Create HttpConfiguration for Http</term>
+        <listitem>
+          <para>
+            HttpConfiguration is a collection of configuration information appropriate for http and https.  The default scheme for http is <code>http</code> of course, as the default for secured http is <code>https</code> but we show setting the scheme to show it can be done.  The port for secured communication is also set here.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>Lines 25 - 27: Create ServerConnector for Http</term>
+        <listitem>
+          <para>
+            The first server connector we create is the one for http, passing in the http configuration we configured above so it can get things like the output buffer size, etc.  We also set the port (8080) and configure an idle timeout.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>Lines 28 - 31: Create SSLContextFactory</term>
+        <listitem>
+          <para>
+            SSL requires a certificate so we configure a factory for ssl contents with information pointing to what keystore the ssl connection needs to know about.  Much more configuration is available the ssl context, including things like choosing the particular certificate out of a keystore to be used.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>Lines 32, 33: Create HttpConfiguration for Https</term>
+        <listitem>
+          <para>
+            A new HttpConfiguration object is needed for the next connector and you can pass the old one as an argument to effectively clone the contents.  On this HttpConfiguration object we add a SecureRequestCustomizer which is how a new connector is able to resolve the https connection before handing control over to the Jetty Server.   
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>Lines 34 - 36: Create ServerConnector for Https</term>
+        <listitem>
+          <para>
+            We create a second ServerConnector, passing in the http configuration we just made along with the previously created ssl context factory.  Next we set the port and a longer idle timeout.  
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>Lines 37, 38: Configure Server</term>
+        <listitem>
+          <para>
+            Here you see the server having multiple connectors registered with it, now requests can flow into the server from both http and https urls to their respective ports and be processed accordingly by jetty.  A simple handler is also registered with the server so the example has something to pass requests off to.  
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>Lines 39, 40: Start Server</term>
+        <listitem>
+          <para>
+            Start things up!  By using the server.join() the server thread will join with the current thread.  See
+            <link xl:href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/Thread.html#join()">Thread.join()</link>
+          for more details.
+        </para>
+      </listitem>
+    </varlistentry>
+    </variablelist>
+  </section>
+  <section>
+    <title>Maven Coordinates</title>
+    <para>
+      To use this example in your project you will need the following maven dependencies declared.
+    </para>
+    <informalexample>
+      <programlisting language="xml">
+<![CDATA[
+<dependency>
+  <groupId>org.eclipse.jetty</groupId>
+  <artifactId>jetty-server</artifactId>
+  <version>${project.version}</version>
+</dependency>
+<dependency>
+  <groupId>org.eclipse.jetty</groupId>
+  <artifactId>jetty-security</artifactId>
+  <version>${project.version}</version>
+</dependency>
+]]>
+      </programlisting>
+    </informalexample>
+  </section>
+</section>

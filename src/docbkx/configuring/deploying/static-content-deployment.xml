@@ -28,30 +28,26 @@
          xmlns:ns="http://docbook.org/ns/docbook">
   <title>Configuring Static Content Deployment</title>
 
-  <para>Should you want to serve purely static content, you can use the Jetty
-  Deployment Descriptor XML concepts and the internal ResourceHandler to setup
-  simple serving of static content.</para>
+  <para>Should you want to serve purely static content, you can use the Jetty Deployment Descriptor XML concepts and the internal ResourceHandler to setup simple serving of static content.  Just create a file called <filename>scratch.xml</filename> in the <filename>${jetty.home}/webapps</filename> directory and paste these file contents in it.</para>
 
-  <programlisting language="xml">&lt;?xml version="1.0"  encoding="ISO-8859-1"?&gt;
-&lt;!DOCTYPE Configure PUBLIC "-//Mort Bay Consulting//DTD Configure//EN" "http://jetty.eclipse.org/configure.dtd"&gt;
+  <informalexample>
+    <programlisting language="xml">
+<![CDATA[
+<?xml version="1.0"?>
+<!DOCTYPE Configure PUBLIC "-//Mort Bay Consulting//DTD Configure//EN" "http://www.eclipse.org/jetty/configure.dtd">
+<Configure class="org.eclipse.jetty.server.handler.ContextHandler">
+  <Set name="contextPath">/scratch</Set>
+  <Set name="handler">
+    <New class="org.eclipse.jetty.server.handler.ResourceHandler">
+      <Set name="resourceBase">/home/jesse/scratch</Set>
+    </New>
+  </Set>
+</Configure>
+]]>
+    </programlisting>
+  </informalexample>
 
-&lt;Configure class="org.eclipse.jetty.server.handler.ContextHandler"&gt;
-  &lt;Set name="contextPath"&gt;/ratlines/apidoc&lt;/Set&gt;
-  &lt;Set name="resourceBase"&gt;/home/admiral/projects/ratlines/apidoc/&lt;/Set&gt;
-  &lt;Set name="handler"&gt;
-    &lt;New class="org.eclipse.jetty.server.handler.ResourceHandler"&gt;
-      &lt;Set name="welcomeFiles"&gt;
-        &lt;Array type="String"&gt;
-          &lt;Item&gt;index.html&lt;/Item&gt;
-        &lt;/Array&gt;
-      &lt;/Set&gt;
-      &lt;Set name="cacheControl"&gt;max-age=3600,public&lt;/Set&gt;
-    &lt;/New&gt;
-  &lt;/Set&gt;
-&lt;/Configure&gt;
-</programlisting>
-
-  <para>This is a very basic setup for serving static files, if you want
-  advanced static file serving, use the <link
-  xl:href="@JXURL@/org/eclipse/jetty/servlet/DefaultServlet.html">DefaultServlet</link>.</para>
+  <para>
+    This is a very basic setup for serving static files, if you want advanced static file serving, use the <link xl:href="@JXURL@/org/eclipse/jetty/servlet/DefaultServlet.html">DefaultServlet</link>.
+  </para>
 </section>

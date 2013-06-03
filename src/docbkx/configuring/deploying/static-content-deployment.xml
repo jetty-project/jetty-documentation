@@ -40,6 +40,7 @@
   <Set name="handler">
     <New class="org.eclipse.jetty.server.handler.ResourceHandler">
       <Set name="resourceBase">/home/jesse/scratch</Set>
+      <Set name="directoriesListed">true</Set>
     </New>
   </Set>
 </Configure>

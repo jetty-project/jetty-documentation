@@ -47,15 +47,15 @@
     <filename>pom.xml</filename> definition:</para>
 
     <informalexample>
-      <programlisting language="xml">
-<![CDATA[
+      <programlisting language="xml"><![CDATA[
+
 <plugin>
   <groupId>org.eclipse.jetty</groupId>
   <artifactId>jetty-maven-plugin</artifactId>
   <version>${project.version}</version>
 </plugin>
-]]>
-      </programlisting>
+
+      ]]></programlisting>
     </informalexample>
 
     <para>Then, from the same directory as your root
@@ -107,7 +107,7 @@
 
     <variablelist>
       <varlistentry>
-        <term>httpConnector</term>
+        <term xml:id="maven-http-connector">httpConnector</term>
 
         <listitem>
           <para>Optional. If not specified, Jetty will create a <link
@@ -166,10 +166,14 @@
             </varlistentry>
           </variablelist>
 
-          <para> You could instead configure the connectors in a standard
-          <link linkend="jetty-xml-config">jetty xml config file</link> and
-          put its location into the <code> <link
-          linkend="jettyXml">jettyXml</link></code> parameter.</para>
+          <para>You could instead configure the connectors in a standard <link
+          linkend="jetty-xml-config">jetty xml config file</link> and put its
+          location into the <code> <link
+          linkend="jettyXml">jettyXml</link></code> parameter. Note that since
+          jetty-9.0 it is no longer possible to configure a <link
+          linkend="maven-config-https">https connector</link> directly in the
+          pom.xml: you need to <link linkend="maven-config-https">use jetty
+          xml config files to do it</link>.</para>
         </listitem>
       </varlistentry>
 
@@ -177,10 +181,10 @@
         <term>jettyXml</term>
 
         <listitem>
-          <para>Optional. The location of a <filename> <link
-          linkend="jetty-xml-config">jetty.xml</link> </filename> file to
-          apply in addition to any plugin configuration parameters. You might
-          use it if you have other webapps, handlers, specific types of
+          <para>Optional. A comma separated list of locations of <filename>
+          <link linkend="jetty-xml-config">jetty xml</link> </filename> files
+          to apply in addition to any plugin configuration parameters. You
+          might use it if you have other webapps, handlers, specific types of
           connectors etc., to deploy, or if you have other Jetty objects that
           you cannot configure from the plugin.</para>
         </listitem>
@@ -338,6 +342,117 @@
         </listitem>
       </varlistentry>
     </variablelist>
+
+    <section xml:id="maven-config-https">
+      <title>Configuring a Https Connector</title>
+
+      <para>In order to configure a https connector, you need to use jetty xml
+      configuration files. This example uses files copied directly from the
+      jetty distribution etc/ directory, although you can of course make up
+      your own xml file or files. We will use the following files:</para>
+
+      <variablelist>
+        <varlistentry>
+          <term>jetty.xml</term>
+
+          <listitem>
+            <para>Sets up various characteristics of the <link
+            xl:href="@GITURL@/jetty-server/src/main/java/org/eclipse/jetty/server/Server.java"><classname>org.eclipse.jetty.server.Server</classname></link>
+            instance for the plugin to use. Importantly, it sets up the <link
+            xl:href="@GITURL@/jetty-server/src/main/java/org/eclipse/jetty/server/HttpConfiguration.java"><classname>org.eclipse.jetty.server.HttpConfiguration</classname></link>
+            element that we can refer to in subsequent xml files that
+            configure the connectors. Here's the relevant section:</para>
+
+            <informalexample>
+              <programlisting language="xml"><![CDATA[    <New id="httpConfig" class="org.eclipse.jetty.server.HttpConfiguration">
+      <Set name="secureScheme">https</Set>
+      <Set name="securePort"><Property name="jetty.secure.port" default="8443" /></Set>
+      <Set name="outputBufferSize">32768</Set>
+      <Set name="requestHeaderSize">8192</Set>
+      <Set name="responseHeaderSize">8192</Set>
+      <Set name="sendServerVersion">true</Set>
+      <Set name="sendDateHeader">false</Set>
+      <Set name="headerCacheSize">512</Set>
+
+      <!-- Uncomment to enable handling of X-Forwarded- style headers
+      <Call name="addCustomizer">
+        <Arg><New class="org.eclipse.jetty.server.ForwardedRequestCustomizer"/></Arg>
+      </Call>
+      -->
+    </New>
+]]></programlisting>
+            </informalexample>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>jetty-ssl.xml</term>
+
+          <listitem>
+            <para>Set up ssl which will be used by the https connector. Here's
+            the <filename>jetty-ssl.xml</filename> file from the
+            jetty-distribution:</para>
+
+            <programlisting language="rxml"><filename>@GITURL@/jetty-server/src/main/config/etc/jetty-ssl.xml</filename></programlisting>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>jetty-https.xml</term>
+
+          <listitem>
+            <para>Set up the https connector using the HttpConfiguration from
+            <filename>jetty.xml</filename> and the ssl configuration
+            from<filename> jetty-ssl.xml</filename>:</para>
+
+            <programlisting language="rxml"><filename>@GITURL@/jetty-server/src/main/config/etc/jetty-https.xml</filename></programlisting>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+
+      <para>Now you need to let the plugin know to apply the files
+      above:</para>
+
+      <informalexample>
+        <programlisting language="xml"><![CDATA[<plugin>
+  <groupId>org.eclipse.jetty</groupId>
+  <artifactId>jetty-maven-plugin</artifactId>
+  <configuration>
+    <jettyXml>jetty.xml,jetty-ssl.xml,jetty-https.xml</jettyXml>
+  </configuration>
+</plugin>]]></programlisting>
+      </informalexample>
+
+      <caution>
+        <para>Just like with an installed distribution of Jetty, the ordering
+        of the xml files is significant.</para>
+      </caution>
+
+      <para>You can also use jetty xml files to configure a http connector for
+      the plugin to use. Here we use the same
+      <filename>jetty-http.xml</filename> file from the Jetty
+      distribution:</para>
+
+      <programlisting language="rxml"><filename>@GITURL@/jetty-server/src/main/config/etc/jetty-http.xml</filename></programlisting>
+
+      <para>Now we add it to the list of configs for the plugin to
+      apply:</para>
+
+      <informalexample>
+        <programlisting language="xml"><![CDATA[<plugin>
+  <groupId>org.eclipse.jetty</groupId>
+  <artifactId>jetty-maven-plugin</artifactId>
+  <configuration>
+    <jettyXml>jetty.xml,jetty-http.xml,jetty-ssl.xml,jetty-https.xml</jettyXml>
+  </configuration>
+</plugin>]]></programlisting>
+      </informalexample>
+
+      <para>Alternatively, you can use the <link
+      linkend="maven-http-connector"><emphasis
+      role="bold">httpConnector</emphasis></link> configuration element inside
+      the pom instead as described above.</para>
+    </section>
   </section>
 
   <section xml:id="configuring-your-webapp">
@@ -352,7 +467,7 @@
 
         <listitem>
           <para>Represents an extension to the class <link
-          xl:href="@JDURL@/org/eclipse/jetty/webapp/WebAppContext.hml">org.eclipse.jetty.webapp.WebAppContext</link>.
+          xl:href="@JDURL@/org/eclipse/jetty/webapp/WebAppContext.hml"><classname>org.eclipse.jetty.webapp.WebAppContext</classname></link>.
           You can use any of the setter methods on this object to configure
           your webapp. Here are a few of the most useful ones:</para>
 
@@ -1455,8 +1570,8 @@ WebAppY:
     logger:</para>
 
     <informalexample>
-      <programlisting language="xml">
-<![CDATA[
+      <programlisting language="xml"><![CDATA[
+
 <plugin>
   <groupId>org.codehaus.mojo</groupId>
   <artifactId>properties-maven-plugin</artifactId>
@@ -1477,8 +1592,8 @@ WebAppY:
     </execution>
   </executions>
 </plugin>
-]]>
-      </programlisting>
+
+      ]]></programlisting>
     </informalexample>
 
     <para>Note that if a System property is already set (for example, from the

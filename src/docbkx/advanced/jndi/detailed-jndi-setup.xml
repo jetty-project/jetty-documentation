@@ -63,13 +63,12 @@
     </informalexample>
 
     <para>This augmented list of configurations for JNDI is predefined for you
-    in the <code> etc/jetty-plus.xml</code> file. The <link
-    linkend="jndi-quick-setup">Quick Setup</link> section shows you how to
-    enable it. Be aware that the <code>etc/jetty-plus.xml</code> file enables
-    JNDI for <emphasis role="bold">all</emphasis> webapps. The file also
-    contains other (commented out) alternatives for enabling JNDI with
-    webapps, such as creating a separate deployer just for deploying
-    JNDI-enabled webapps.</para>
+    in the<code> etc/jetty-plus.xml</code> file:</para>
+
+    <para> The <link linkend="jndi-quick-setup">Quick Setup</link> section
+    shows you how to enable it. Be aware that the
+    <code>etc/jetty-plus.xml</code> file enables JNDI for <emphasis
+    role="bold">all</emphasis> webapps for a given Server instance. </para>
 
     <para>Now skip down to <link
     linkend="adding-jndi-implementation-jars-to-jetty-classpath">Adding JNDI

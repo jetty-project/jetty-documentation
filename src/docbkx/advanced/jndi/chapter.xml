@@ -29,5 +29,6 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
   <xi:include href="detailed-jndi-setup.xml"/>
   <xi:include href="using-jndi.xml"/>
   <xi:include href="jndi-configuration.xml" />
+  <xi:include href="jndi-embedded.xml" />
   <xi:include href="jndi-datasources.xml" />
 </chapter>

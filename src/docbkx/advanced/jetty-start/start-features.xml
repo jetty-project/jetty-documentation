@@ -376,6 +376,7 @@ etc/test-realm.xml
 #-----------------------------------------------------------
 --exec
 -Xmx512m
+-XX:OnOutOfMemoryError='kill -3 %p'
 -Dcom.sun.management.jmxremote
 OPTIONS=Server,jmx,resources
 etc/jetty-jmx.xml
@@ -383,6 +384,12 @@ etc/jetty.xml
 etc/jetty-ssl.xml
 ]]>
       </programlisting>
+
+      <note>
+          <para>Note the single quotes used to specfy the commandline in -XX:OnOutOfMemoryError='kill -3 %p'.
+              Double quotes will work for the jvm as well, but not for Jetty's commandline parser. So make sure
+              to use single quotes for such things.</para>
+      </note>
     </section>
   </section>
 </section>

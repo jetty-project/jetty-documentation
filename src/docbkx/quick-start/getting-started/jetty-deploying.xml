@@ -135,7 +135,7 @@
   </variablelist>
 
   <note>
-    <para><emphasis role="bold">You should remove these demonstration web
-    applications before using Jetty in production.</emphasis></para>
-  </note>
+      <para><emphasis role="bold">You should remove these demonstration web
+      applications before using Jetty in production.</emphasis></para>
+    </note>
 </section>

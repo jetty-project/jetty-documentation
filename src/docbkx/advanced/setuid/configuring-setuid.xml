@@ -38,6 +38,10 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
   <para>If you are using Solaris 10, you may not need to use this feature, as Solaris provides a User Rights Management
   framework that can permit users and processes superuser-like abilities. Please refer to the Solaris documentation for
   more information.</para>
+  <note>
+      <para><emphasis role="bold">If the environment variable JETTY_USER is set for the startup process,
+          jetty-setuid will not work!</emphasis></para>
+  </note>
   <section>
     <title>Configuring the Setuid feature</title>
     <para>In the Jetty <filename>etc</filename> directory you will find the following jetty-setuid.xml file which can

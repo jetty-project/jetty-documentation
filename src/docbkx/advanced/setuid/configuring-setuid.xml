@@ -40,7 +40,8 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
   more information.</para>
   <note>
       <para><emphasis role="bold">If the environment variable JETTY_USER is set for the startup process and jetty.sh
-          is used, jetty-setuid will not work!</emphasis></para>
+          is used, jetty-setuid will not work! So if you want to use jetty-setuid,
+          make sure JETTY_USER is not set!</emphasis></para>
   </note>
   <section>
     <title>Configuring the Setuid feature</title>

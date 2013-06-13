@@ -31,6 +31,12 @@
 		<para>
 			The easiest way to configure weld is within the jetty distribution itself.
 		</para>
+		<important>
+			<title>Filters and Servlets Only</title>
+			<para>
+				At the moment, only filters and servlets are supported for CDI with Weld.  ServletContextListeners can not be configured with CDI (until we sort out the proper solution to the issue).
+			</para>
+		</important>
 		<orderedlist>
 			<listitem>
 				<para>
@@ -73,57 +79,14 @@ OPTIONS=weld
 			</listitem>
 			<listitem>
 				<para>
-					In your webapp's WEB-INF directory create a file called <filename>jetty-env.xml</filename> with the following contents.
+					Ensure your <filename>WEB-INF/web.xml</filename> contains the following listeners.
 				</para>
 				<informalexample>
 					<programlisting language="xml">
 <![CDATA[
-<!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure_9_0.dtd">
-<Configure id="webAppCtx" class="org.eclipse.jetty.webapp.WebAppContext">
-    <New id="BeanManager" class="org.eclipse.jetty.plus.jndi.Resource">
-        <Arg>
-            <Ref id="webAppCtx"/>
-        </Arg>
-        <Arg>BeanManager</Arg>
-        <Arg>
-            <New class="javax.naming.Reference">
-                <Arg>javax.enterprise.inject.spi.BeanManager</Arg>
-                <Arg>org.jboss.weld.resources.ManagerObjectFactory</Arg>
-                <Arg/>
-            </New>
-        </Arg>
-    </New>
-</Configure>
-]]>
-					</programlisting>
-				</informalexample>
-			</listitem>
-			<listitem>
-				<para>
-					In your webapp's WEB-INF directory create a file called <filename>jetty-web.xml</filename> with the following contents.
-				</para>
-				<informalexample>
-					<programlisting language="xml">
-<![CDATA[
-<!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure_9_0.dtd">
-<Configure id="webAppCtx" class="org.eclipse.jetty.webapp.WebAppContext">
-    <Call class="org.jboss.weld.environment.jetty.EclipseWeldServletHandler" name="process">
-        <Arg>
-            <Ref id="webAppCtx"/>
-        </Arg>
-    </Call>
-</Configure>
-]]>
-					</programlisting>
-				</informalexample>
-			</listitem>
-			<listitem>
-				<para>
-					Ensure your <filename>WEB-INF/web.xml</filename> contains the following line.
-				</para>
-				<informalexample>
-					<programlisting language="xml">
-<![CDATA[
+<listener>
+  <listener-class>org.jboss.weld.environment.servlet.BeanManagerResourceBindingListener</listener-class>
+</listener>
 <listener>
   <listener-class>org.jboss.weld.environment.servlet.Listener</listener-class>
 </listener>
@@ -156,10 +119,5 @@ WARNING: Class 'javax.ejb.PrePassivate' not found, interception based on it is n
 2013-05-30 15:49:02.940:INFO:oejs.ServerConnector:main: Started ServerConnector@430e0623{HTTP/1.1}{0.0.0.0:8080}
 ]]>
 		</screen>
-		<important>
-			<para>
-				As of the Weld version in use here the Weld project is behind two versions of Jetty in their log messages.  Disregard the note about Jetty 7 being detected!
-			</para>
-		</important>
 	</section>
 </section>

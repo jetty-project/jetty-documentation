@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+//  ========================================================================
+//  Copyright (c) 1995-2012 Mort Bay Consulting Pty. Ltd.
+//  ========================================================================
+//  All rights reserved. This program and the accompanying materials
+//  are made available under the terms of the Eclipse Public License v1.0
+//  and Apache License v2.0 which accompanies this distribution.
+//
+//      The Eclipse Public License is available at
+//      http://www.eclipse.org/legal/epl-v10.html
+//
+//      The Apache License v2.0 is available at
+//      http://www.opensource.org/licenses/apache2.0.php
+//
+//  You may elect to redistribute this code under either of these licenses.
+//  ========================================================================
+-->
+<chapter version="5.0"
+         xml:id="platforms"
+         xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd"
+         xmlns="http://docbook.org/ns/docbook"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:xs="http://www.w3.org/2001/XMLSchema"
+         xmlns:xl="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:ns="http://docbook.org/ns/docbook">
+  <title>Platforms, Stacks and Alternative Distributions</title>
+  <section>
+    <title>Many many options...</title>
+    <para>
+      In addition to using Jetty in its Distribution form and its multiple Embedded forms, there are a number of alterative ways to use Jetty.  Many products and open source projects out there distribute Jetty themselves, in both distribution and embedded forms, not to mention different operativing systems bundling Jetty in other installable forms.
+    </para>
+  </section>
+  <xi:include href="cloudfoundry.xml"/>
+  <!--
+  <xi:include href="elastic-beanstalk.xml"/>
+  <xi:include href="fedora.xml"/>
+  <xi:include href="debian.xml"/>
+  <xi:include href="windows.xml"/>
+-->
+</chapter>

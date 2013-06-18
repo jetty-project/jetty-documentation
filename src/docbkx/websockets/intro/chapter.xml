@@ -91,7 +91,7 @@
   xl:href="@JDURL@/org/eclipse/jetty/websocket/api/StatusCode.html">status
   code</link> and short reason string is provided.</para>
 
-  <section>
+  <section xml:id="ws-intro-provides">
     <title>What Jetty provides</title>
 
     <para>Jetty provides an implementation of the following standards and
@@ -185,7 +185,7 @@
     </variablelist>
   </section>
 
-  <section>
+  <section xml:id="ws-intro-api">
     <title>WebSocket APIs</title>
 
     <para>APIs and libraries to implement your WebSockets using Jetty.</para>

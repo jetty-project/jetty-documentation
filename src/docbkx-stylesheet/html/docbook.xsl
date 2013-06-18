@@ -287,6 +287,12 @@ xmlns:gcse="http://www.google.com"
           <xsl:variable name="newText" select="jfetch:fetch($filename,$methodname)"/>
           &lt;![CDATA[<xsl:value-of select="$newText"/>]]&gt;
         </xsl:when>
+        <xsl:when test="@language='rjava-no-parse'">
+          <xsl:attribute name="class">brush: java<xsl:copy-of select="$brushstyle"/></xsl:attribute>
+          <xsl:variable name="filename" select="./d:filename"/>
+          <xsl:variable name="newText" select="fetch:fetch($filename)"/>
+          &lt;![CDATA[<xsl:value-of select="$newText"/>]]&gt;
+        </xsl:when>
         <xsl:when test="@language='xml'">
           <xsl:attribute name="class">brush: xml<xsl:copy-of select="$brushstyle"/></xsl:attribute>
           &lt;![CDATA[<xsl:value-of select="text()"/>]]&gt;

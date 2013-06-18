@@ -247,6 +247,7 @@ xmlns:ns="http://docbook.org/ns/docbook">
 <!-- We should perhaps start off here with details about the architecture
                         of jetty, how it all comes together for the lifecycle of a request, how our
                         pooling works, etc -->
+    <xi:include href="reference/platforms/chapter.xml"/>
     <xi:include href="reference/architecture/chapter.xml" />
     <xi:include href="reference/contributing/chapter.xml" />
 <!-- Details on the jetty.xml syntax and conventions -->

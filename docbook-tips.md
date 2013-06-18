@@ -128,7 +128,10 @@ You can also place a &lt;methodname> element as a sibling to &lt;filename> and a
 
 Valid languages are:
 * bash
+* rbash - get a remote bash file
 * properties
+* rproperties - get a remote properties file
+* sql
 * xml
 * rxml - get a remote xml file
 * java

@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+//  ========================================================================
+//  Copyright (c) 1995-2012 Mort Bay Consulting Pty. Ltd.
+//  ========================================================================
+//  All rights reserved. This program and the accompanying materials
+//  are made available under the terms of the Eclipse Public License v1.0
+//  and Apache License v2.0 which accompanies this distribution.
+//
+//      The Eclipse Public License is available at
+//      http://www.eclipse.org/legal/epl-v10.html
+//
+//      The Apache License v2.0 is available at
+//      http://www.opensource.org/licenses/apache2.0.php
+//
+//  You may elect to redistribute this code under either of these licenses.
+//  ========================================================================
+-->
+<section xml:id="spdy-configuring-push" version="5.0" xmlns="http://docbook.org/ns/docbook"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xl="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude"
+         xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd">
+    <title>Implement a custom SPDY PushStrategy</title>
+    <para>
+        Besides the ReferrerPushStrategy that is distributed with Jetty.
+    </para>
+    <para>To enable push in Jetty the SPDY connector needs to be configured with an implementation of<link
+            xl:href="@JDURL@/org/eclipse/jetty/spdy/server/http/PushStrategy.html">PushStrategy</link>. For each
+        request Jetty will call the
+        <link xl:href="@JDURL@/org/eclipse/jetty/spdy/server/http/PushStrategy
+      .html">PushStrategy's
+        </link>
+        apply
+        method which will return a Set with the resources to push.
+    </para>
+    <section>
+        <title>ReferrerPushStrategy</title>
+        <para>The
+            <link
+                    xl:href="@JDURL@/org/eclipse/jetty/spdy/server/http/ReferrerPushStrategy.html">ReferrerPushStrategy
+            </link>
+            is a
+            <link xl:href="@JDURL@/org/eclipse/jetty/spdy/server/http/PushStrategy.html">PushStrategy</link>
+            implementation that will use the HTTP "referer" header to identify if a resource belongs to a main
+            resource.
+        </para>
+        <para>A step by step example of how this works:
+            <itemizedlist>
+                <listitem>
+                    <para>client requests index.html</para>
+                </listitem>
+                <listitem>
+                    <para>client parses index.html and requests style.css, image1.png and image2.png setting the
+                        referer header to index.html for these requests.
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>
+                        <link xl:href="@JDURL@/org/eclipse/jetty/spdy/server/http/ReferrerPushStrategy.html">
+                            ReferrerPushStrategy
+                        </link>
+                        will use this information to associate the subresources to index
+                        .html
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>The next request to index.html from another client will get all subresources pushed without
+                        further requests
+                    </para>
+                </listitem>
+            </itemizedlist>
+        </para>
+        <para>This will also work for nested subresources. E.g. a pushed style.css might initiate further
+            resource pushes for subresources referred to by the style.css stylesheet.
+        </para>
+    </section>
+
+    <note>
+        <para>
+            <emphasis role="bold">The referrerPushPeriod setting will define the time that
+                <link xl:href="@JDURL@/org/eclipse/jetty/spdy/server/http/ReferrerPushStrategy.html">
+                    ReferrerPushStrategy
+                </link>
+                will record subresources after the initial request. If this period has elapsed no further subresources
+                will be recorded.
+            </emphasis>
+        </para>
+    </note>
+    <section>
+        <title>Configuring ReferrerPushStrategy</title>
+        <para>In the Jetty
+            <filename>etc</filename>
+            directory you will find jetty-spdy.xml file which can
+            be modified to suit your needs. It contains a commented
+            <link xl:href="@JDURL@/org/eclipse/jetty/spdy/server/http/ReferrerPushStrategy.html">ReferrerPushStrategy
+            </link>
+            configuration.
+        </para>
+        <para>An example
+            <link xl:href="@JDURL@/org/eclipse/jetty/spdy/server/http/ReferrerPushStrategy.html">ReferrerPushStrategy
+            </link>
+            configuration can look as follows:
+        </para>
+        <informalexample>
+            <programlisting language="xml">
+                <![CDATA[
+  <!-- =========================================================== -->
+  <!-- Create a push strategy which can be used by reference by    -->
+  <!-- individual connection factories below.                      -->
+  <!--                                                             -->
+  <!-- Consult the javadoc of o.e.j.spdy.server.http.ReferrerPushStrategy -->
+  <!-- for all configuration that may be set here.                 -->
+  <!-- =========================================================== -->
+  <New id="pushStrategy" class="org.eclipse.jetty.spdy.server.http.ReferrerPushStrategy">
+    <!-- Uncomment to blacklist browsers for this push strategy. If one of the blacklisted Strings occurs in the
+         user-agent header sent by the client, push will be disabled for this browser. This is case insensitive" -->
+    <!--
+    <Set name="UserAgentBlacklist">
+        <Array type="String">
+            <Item>.*(?i)firefox/14.*</Item>
+            <Item>.*(?i)firefox/15.*</Item>
+            <Item>.*(?i)firefox/16.*</Item>
+        </Array>
+    </Set>
+    -->
+
+    <!-- Uncomment to override default file extensions to push -->
+    <!--
+    <Set name="PushRegexps">
+        <Array type="String">
+           <Item>.*\.css</Item>
+           <Item>.*\.js</Item>
+           <Item>.*\.png</Item>
+           <Item>.*\.jpg</Item>
+           <Item>.*\.gif</Item>
+       </Array>
+    </Set>
+    -->
+    <Set name="referrerPushPeriod">5000</Set>
+    <Set name="maxAssociatedResources">32</Set>
+  </New>
+]]>
+            </programlisting>
+        </informalexample>
+        <para>Note the commented parts that let you restrict the User-Agents and file extensions.</para>
+        <para>Important Options:</para>
+        <variablelist>
+            <varlistentry>
+                <term>referrerPushPeriod</term>
+                <listitem>
+                    <para>If referrerPushPeriod has elapsed after the initial request to a mainresource,
+                        no more subresources will be added to the push cache.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>maxAssociatedResources</term>
+                <listitem>
+                    <para>The maximum amount of subresources being pushed for a single main resource.</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+        <para>Then you have to add the configured
+            <link xl:href="@JDURL@/org/eclipse/jetty/spdy/server/http/ReferrerPushStrategy.html">
+                ReferrerPushStrategy
+            </link>
+            to the connection factory as follows.
+        </para>
+        <note>
+            <para>
+                <emphasis role="bold">In the default config provided with Jetty the pushStrategy argument is
+                    commented out!
+                </emphasis>
+            </para>
+        </note>
+        <informalexample>
+            <programlisting language="xml">
+                <![CDATA[
+            <!-- SPDY/3 Connection factory -->
+            <Item>
+              <New class="org.eclipse.jetty.spdy.server.http.HTTPSPDYServerConnectionFactory">
+                <Arg name="version" type="int">3</Arg>
+                <Arg name="config"><Ref refid="sslHttpConfig" /></Arg>
+                <Arg name="pushStrategy"><Ref refid="pushStrategy"/></Arg>
+              </New>
+            </Item>
+]]>
+            </programlisting>
+        </informalexample>
+        <para>See the javadocs for
+            <link xl:href="@JDURL@/org/eclipse/jetty/spdy/server/http/ReferrerPushStrategy.html">
+                ReferrerPushStrategy
+            </link>
+            and sources for further details if needed.
+        </para>
+        <note>
+            <para>
+                <emphasis role="bold">Visit
+                    <link xl:href="https://www.webtide.com">https://www.webtide.com</link>
+                    with a browser that supports push (e.g. a recent chrome browser) to see it in action.
+                </emphasis>
+            </para>
+        </note>
+    </section>
+    <section>
+        <title>Try it!</title>
+        <para>To verify if your setup works fine you can use chrome and it's very useful
+            chrome://net-internals/#spdy page. Open that page in a tab of your browser. Then make sure you load
+            a main resource of your application to fill the push cache. Then reload the page bypassing the
+            browser's cache (STRG+SHIFT+R or CMD+SHIFT+R on OSX).
+        </para>
+        <para>Chrome's net-internals page should tell you how many resources have been pushed and actually
+            pushed and claimed (actually needed and used by the browser)</para>
+        <mediaobject>
+          <info>
+            <othercredit>
+              <orgname>chrome://net-internals/#spdy</orgname>
+            </othercredit>
+          </info>
+
+          <imageobject>
+            <imagedata align="center"
+                       fileref="images/chrome_net_internals.png"
+                       format="PNG"/>
+          </imageobject>
+        </mediaobject>
+        <para>Another option is to enable debug logging for ReferrerPushStrategy or org.eclipse.jetty.spdy.
+            Have a look at the <xref linkend="configuring-logging"/> for details.</para>
+    </section>
+</section>

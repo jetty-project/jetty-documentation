@@ -25,4 +25,5 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
   <xi:include href="configuring-spdy.xml" />
   <xi:include href="configuring-spdy-proxy.xml" />
   <xi:include href="configuring-spdy-push.xml" />
+  <xi:include href="implement-spdy-push-strategy.xml" />
 </chapter>

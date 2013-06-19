@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+//  ========================================================================
+//  Copyright (c) 1995-2012 Mort Bay Consulting Pty. Ltd.
+//  ========================================================================
+//  All rights reserved. This program and the accompanying materials
+//  are made available under the terms of the Eclipse Public License v1.0
+//  and Apache License v2.0 which accompanies this distribution.
+//
+//      The Eclipse Public License is available at
+//      http://www.eclipse.org/legal/epl-v10.html
+//
+//      The Apache License v2.0 is available at
+//      http://www.opensource.org/licenses/apache2.0.php
+//
+//  You may elect to redistribute this code under either of these licenses.
+//  ========================================================================
+-->
+<section version="5.0" xml:id="enable-remote-debugging"
+         xmlns="http://docbook.org/ns/docbook"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:xl="http://www.w3.org/1999/xlink"
+         xmlns:ns5="http://www.w3.org/1998/Math/MathML"
+         xmlns:ns4="http://www.w3.org/2000/svg"
+         xmlns:ns3="http://www.w3.org/1999/xhtml"
+         xmlns:ns="http://docbook.org/ns/docbook">
+    <title>Enable remote debugging</title>
+    <section xml:id="remote-debugging">
+        <title>Remote Debugging</title>
+        <para>
+            If you have a web application deployed into Jetty you can interact with it remotely from a debugging
+            perspective easily. The basics are that you must start up the remote JVM with additional parameters and then
+            start up a remote debugging session in Eclipse for the webapp in question. This is easily accomplished.
+        </para>
+        <note>
+            <para>
+                This example assumes you are deploying your web application into the jetty-distribution.
+            </para>
+        </note>
+        <section>
+            <title>Starting Jetty</title>
+            <para>
+                Assuming you have your webapp deployed into jetty, there are two different ways to approach this:
+            </para>
+            <variablelist>
+                <varlistentry>
+                    <term>Via command line</term>
+                    <listitem>
+                        <para>
+                            Add the required parameters on the commandline like so.
+                        </para>
+                        <screen>
+                            <![CDATA[
+$ java -Xdebug -agentlib:jdwp=transport=dt_socket,address=9999,server=y,suspend=n -jar start.jar
+]]>
+                        </screen>
+                    </listitem>
+                </varlistentry>
+                <varlistentry>
+                    <term>Via
+                        <filename>start.ini</filename>
+                    </term>
+                    <listitem>
+                        <para>
+                            This approach is best used if you want to debug a particular jetty-distribution and not have
+                            to remember the commandline incantations.
+                        </para>
+                        <orderedlist>
+                            <listitem>
+                                <para>
+                                    Edit the
+                                    <filename>start.ini</filename>
+                                    and uncomment the --exec line, this is required if you are adding jvm options to the
+                                    start.ini file as jetty-start must generate the classpath required and fork a new
+                                    jvm.
+                                </para>
+                            </listitem>
+                            <listitem>
+                                <para>
+                                    Add the parameters mentioned above in the Command Line option so your start.ini
+                                    looks like this:
+                                </para>
+                                <informalexample>
+                                    <programlisting language="plain">
+                                        <![CDATA[
+#===========================================================
+# Configure JVM arguments.
+# If JVM args are include in an ini file then --exec is needed
+# to start a new JVM from start.jar with the extra args.
+# If you wish to avoid an extra JVM running, place JVM args
+# on the normal command line and do not use --exec
+#-----------------------------------------------------------
+--exec
+-Xdebug
+-agentlib:jdwp=transport=dt_socket,address=9999,server=y,suspend=n
+# -Xmx2000m
+# -Xmn512m
+# -XX:+UseConcMarkSweepGC
+# -XX:ParallelCMSThreads=2
+# -XX:+CMSClassUnloadingEnabled
+# -XX:+UseCMSCompactAtFullCollection
+# -XX:CMSInitiatingOccupancyFraction=80
+# -verbose:gc
+# -XX:+PrintGCDateStamps
+# -XX:+PrintGCTimeStamps
+# -XX:+PrintGCDetails
+# -XX:+PrintTenuringDistribution
+# -XX:+PrintCommandLineFlags
+# -XX:+DisableExplicitGC
+]]>
+                                    </programlisting>
+                                </informalexample>
+                                <para>
+                                    Uncomment any other jvm environmental options you so desire for your debugging
+                                    session.
+                                </para>
+                            </listitem>
+                            <listitem>
+                                <para>
+                                    Regardless of the option chosen, you should see the following lines at the top of
+                                    your jetty-distribution startup.
+                                </para>
+                                <informalexample>
+                                    <programlisting language="plain">
+                                        <![CDATA[
+Listening for transport dt_socket at address: 9999
+]]>
+                                    </programlisting>
+                                </informalexample>
+                            </listitem>
+                        </orderedlist>
+                    </listitem>
+                </varlistentry>
+            </variablelist>
+        </section>
+        <section>
+            <title>Linking with your IDE</title>
+            <para>
+                Refer to the documentation for your ide:
+                <itemizedlist>
+                    <listitem>
+                        <xref linkend="debugging-with-eclipse"/>
+                    </listitem>
+                    <listitem>
+                        <xref linkend="debugging-with-intellij"/>
+                    </listitem>
+                </itemizedlist>
+            </para>
+        </section>
+    </section>
+</section>

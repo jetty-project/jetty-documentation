@@ -31,6 +31,7 @@
       Given how flexible Jetty is in how it can be configured and deployed into development and production, there exists a wealth of different options for debugging your application in you favorite environment.  In this section we will gather up some of these different options available and explain how you can use them.  If you would like to contribute to this section simply fork the repository and contribute the information, or open a github or bugzilla issue with the information and we'll bring it over.
     </para>
   </section>
+  <xi:include href="enable-remote-debugging.xml"/>
   <xi:include href="debugging-with-eclipse.xml"/>
   <xi:include href="debugging-with-intellij.xml"/>
 </chapter>

@@ -35,6 +35,7 @@
   <xi:include href="cloudfoundry.xml"/>
   <xi:include href="elastic-beanstalk.xml"/>
   <xi:include href="fedora.xml"/>
+  <xi:include href="ubuntu.xml"/>
 <!--
   <xi:include href="debian.xml"/>
   <xi:include href="windows.xml"/>

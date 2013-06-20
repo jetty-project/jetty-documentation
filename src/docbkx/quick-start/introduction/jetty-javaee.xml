@@ -215,11 +215,6 @@
 
   <para>In the forthcoming Java EE-7 specification, the Web Profile reflects updates in its component specifications and adds some new ones:</para>
 
-  <important>
-    <para>The final ballot for approval of JavaEE-7 will finish 2013-04-29,
-    thus the following table is provisional.</para>
-  </important>
-
   <table xml:id="webprofile-7">
     <title>JavaEE7 Web Profile</title>
     <tgroup cols="4">

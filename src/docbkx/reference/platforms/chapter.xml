@@ -29,9 +29,13 @@
   <section>
     <title>Many many options...</title>
     <para>
-      In addition to using Jetty in its Distribution form and its multiple Embedded forms, there are a number of alterative ways to use Jetty.  Many products and open source projects out there distribute Jetty themselves, in both distribution and embedded forms, not to mention different operativing systems bundling Jetty in other installable forms.
+      In addition to using Jetty in its distribution form and its multiple embedded forms, there are a number of alterative ways to use Jetty.  Many products and open source projects out there distribute Jetty themselves, in both distribution and embedded forms, not to mention different operativing systems bundling Jetty in other installable forms.
+    </para>
+    <para>
+      If your platform supports Jetty from a distributon or deployment perspective and want to be included on this list just fork the documentation and submit a pull request, or contact us.  Check out our list of <link xl:href="http://www.eclipse.org/jetty/powered">Powered By</link> page for software that makes use of Jetty, often in novel and exciting ways.
     </para>
   </section>
+  <xi:include href="jelastic.xml"/>
   <xi:include href="cloudfoundry.xml"/>
   <xi:include href="elastic-beanstalk.xml"/>
   <xi:include href="fedora.xml"/>

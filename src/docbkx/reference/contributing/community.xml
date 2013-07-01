@@ -31,7 +31,7 @@
   if no one answers right away. Stick around to hear an answer, one is likely
   coming at some point!</para>
 
-  <section>
+  <section xml:id="community-mailing-lists">
     <title>Mailing Lists</title>
 
     <para>We have a number of options for people that wish to subscribe to our
@@ -94,8 +94,8 @@
           </itemizedlist></para>
       </listitem>
     </itemizedlist>
-
-    <section>
+  </section>
+    <section xml:id="community-irc">
       <title>Internet Relay Chat - IRC</title>
 
       <para>Much of our conversations about Jetty occur on IRC in one location
@@ -146,5 +146,4 @@
         </itemizedlist></para>
     </section>
   -->
-  </section>
 </section>

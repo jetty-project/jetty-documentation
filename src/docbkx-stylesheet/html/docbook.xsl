@@ -18,9 +18,9 @@ xmlns:date="http://exslt.org/dates-and-times"
   <!-- use the xml:id on the chapter and sections when rendering chunked output" -->
   <xsl:param name="use.id.as.filename" select="1"/>
 
-  <xsl:param name="draft.mode">maybe</xsl:param>
+  <!--<xsl:param name="draft.mode">maybe</xsl:param>
   <xsl:param name="draft.watermark.image">images/draft-ribbon.png</xsl:param>
-
+-->
   <!-- tweak the generation of toc generation -->
   <xsl:param name="generate.section.toc.level" select="1"/>
   <xsl:param name="toc.section.depth" select="1"/>
@@ -119,6 +119,29 @@ xmlns:date="http://exslt.org/dates-and-times"
       <xsl:attribute name="rel">stylesheet</xsl:attribute>
       <xsl:attribute name="href">css/font-awesome.min.css</xsl:attribute>
     </xsl:element>
+
+    <xsl:if test="ancestor-or-self::*[@status][1]/@status = 'draft'">
+      <style type="text/css">
+        <xsl:text>
+          body { 
+            background-image: url('images/draft-ribbon.png');
+            background-repeat: no-repeat;
+            background-position: top left;
+          }
+        </xsl:text>
+      </style>
+    </xsl:if>
+    <xsl:if test="ancestor-or-self::*[@status][1]/@status = 'migrate'">
+      <style type="text/css">
+        <xsl:text>
+          body { 
+            background-image: url('images/draft-ribbon.png');
+            background-repeat: no-repeat;
+            background-position: top left;
+          }
+        </xsl:text>
+      </style>
+    </xsl:if>
   </xsl:template>
 
   <xsl:template name="user.header.navigation">
@@ -166,17 +189,22 @@ xmlns:date="http://exslt.org/dates-and-times"
       </p>
    </div>
 
-     <xsl:if test="($draft.mode = 'yes' or
-                ($draft.mode = 'maybe' and
-                ancestor-or-self::*[@status][1]/@status = 'draft'))
-                and $draft.watermark.image != ''">
+     <xsl:if test="ancestor-or-self::*[@status][1]/@status = 'draft'">
+        <div class="draft">
+          <h5>DRAFT</h5>
+          <p>
+            This page has content that is not yet available in a released version of Jetty.  Watch for notification of a new release on our <a href="http://www.twitter.com/JettyProject">Twitter feed</a>.
+          </p>
+        </div>
+    </xsl:if>
+
+    <xsl:if test="ancestor-or-self::*[@status][1]/@status = 'migrate'">
         <div class="draft">
           <h5>DRAFT</h5>
           <p>
           This page contains content that we have migrated from Jetty 7 or Jetty 8 documentation into the correct format, but we have not yet audited it for technical accuracy in Jetty 9.  Be aware that examples or information contained on this page may be incorrect.  Please check back soon as we continue improving the documentation, or submit corrections yourself to this page through <a href="http://github.com/jetty-project/jetty-documentation" style="text-decoration:none"><i class="icon-github"></i> Github</a>. Thank you.
           </p>
         </div>
-
     </xsl:if>
   </xsl:template>
 

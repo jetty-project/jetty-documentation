@@ -19,7 +19,7 @@
 <chapter xml:id="architecture" version="5.0" xmlns="http://docbook.org/ns/docbook"
 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xl="http://www.w3.org/1999/xlink"
 xmlns:xi="http://www.w3.org/2001/XInclude"
-xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd" status="draft">
+xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd" status="migrate">
   <title>Architecture</title>
   <para>General items related to the architecture of jetty and how it deals with certain design decisions.</para>
   <xi:include href="basic-architecture.xml" />

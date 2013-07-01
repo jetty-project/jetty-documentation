@@ -5,6 +5,7 @@ xmlns:d="http://docbook.org/ns/docbook"
 xmlns:l="http://docbook.sourceforge.net/xmlns/l10n/1.0"
 xmlns:xslthl="http://xslthl.sf.net"
 xmlns:gcse="http://www.google.com"
+xmlns:date="http://exslt.org/dates-and-times"
 >
 
   <!-- imports the original docbook stylesheet -->
@@ -123,8 +124,14 @@ xmlns:gcse="http://www.google.com"
   <xsl:template name="user.header.navigation">
     <table>
       <tr>
-        <td style="width: 50%">
+        <td style="width: 25%">
           <a href="http://www.eclipse.org/jetty"><img src="images/jetty-header-logo.png" alt="Jetty Logo"></img></a>
+          <br/>
+         
+          <span style="font-size: small">
+            Version: <xsl:value-of select="/d:book/d:info/d:revhistory/d:revision[1]/d:revnumber"/>
+          </span>
+        
         </td>
         <td style="width: 50%">
           <script type="text/javascript">  (function() {
@@ -185,16 +192,20 @@ xmlns:gcse="http://www.google.com"
   </xsl:template>
 
   <xsl:template name="user.footer.navigation">
-    <div class="jetty-callout">
+    
       <p>
-        See an error or something missing?
-        <span class="callout">
-          <a href="http://github.com/jetty-project/jetty-documentation">Contribute to this documentation at
-            <span class="website"><i class="icon-github"></i> Github!</span>
-          </a>
-        </span>
+            <div class="jetty-callout">
+            See an error or something missing?
+            <span class="callout">
+              <a href="http://github.com/jetty-project/jetty-documentation">Contribute to this documentation at
+                <span class="website"><i class="icon-github"></i> Github!</span>
+              </a>
+            </span>
+            <span style="float: right">
+              <i>(Generated: <xsl:value-of  select="date:date-time()"/>)</i>
+            </span>
+          </div>
       </p>
-    </div>
 
     <script type="text/javascript">
   var _gaq = _gaq || [];
@@ -476,6 +487,12 @@ Override the default header navigation to insert a home button on the top.
                   <xsl:otherwise>&#160;</xsl:otherwise>
                 </xsl:choose>
                 <br/>
+                <!-- really conjested with it here
+                <span style="font-size: 8pt; font-weight: normal">
+                  <xsl:value-of select="/d:book/d:info/d:revhistory/d:revision[1]/d:revnumber"/>
+                </span>
+                <br/>
+                -->
                 <a accesskey="p">
                     <xsl:attribute name="href">
                       <xsl:call-template name="href.target">

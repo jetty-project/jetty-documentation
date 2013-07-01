@@ -32,7 +32,7 @@
   things. There are a number of process related issues once the fun maven bits
   have been completed.</para>
 
-  <section>
+  <section xml:id="releasing-process">
     <title>Jetty Release Notes</title>
 
     <para>This release script is for jetty-9 (to release jetty-7 or jetty-8
@@ -187,9 +187,8 @@ $ git push origin master
       </listitem>
     </orderedlist>
   </section>
-
-  <section>
-    <title>Building and Deploying Aggregate Docs</title>
+  <section xml:id="releasing-aggregates">
+    <title>Building and Deploying Aggregate Javadoc and Xref</title>
 
     <para>Define the jetty.eclipse.website server entry in your
     .m2/settings.xml file. You'll need to have access to the dev.eclipse.org
@@ -228,7 +227,7 @@ $ rmdir jetty-project
     http://download.eclipse.org/jetty/&lt;project version&gt;/xref</para>
   </section>
 
-  <section>
+  <section xml:id="releasing-distributions">
     <title>Deploying Distribution Files</title>
 
     <para>Since we also provide alternative locations to download jetty
@@ -256,7 +255,7 @@ $ ./promote-to-codehaus.sh 8.1.0.v20130322 8.1.0
     the html files on the eclipse download site.</para>
   </section>
 
-  <section>
+  <section xml:id="releasing-stable-links">
     <title>Updating Stable Links</title>
 
     <para>Since we are not allowed to have symbolic links on the download site
@@ -267,10 +266,10 @@ $ ./promote-to-codehaus.sh 8.1.0.v20130322 8.1.0
 
     <screen>
 <![CDATA[
-$ ssh &lt;user&gt;@build.eclipse.org
+$ ssh <user>@build.eclipse.org
 $ cd ~downloads/jetty/
 $ rm -Rf stable-9
-$ cp -r &lt;version&gt; stable-9
+$ cp -r <version> stable-9
 $ ./index.sh   
 ]]>
     </screen>
@@ -283,8 +282,55 @@ $ ./index.sh
     <screen>
 <![CDATA[
 $ cd ~/downloads/jetty
-$ mv &lt;old release&gt; /home/data/httpd/archive.eclipse.org/jetty/    
+$ mv <old release> /home/data/httpd/archive.eclipse.org/jetty/    
 ]]>
     </screen>
+    <para>
+      Periodically we need to do the same for the osgi P2 repositories to keep the size of our downloads directory at a reasonable size.
+    </para>
   </section>
+  <section xml:id="releasing-documentation">
+    <title>Release Documentation</title>
+    <para>
+      There are two git repositories you need to be aware of for releasing jetty-documentation.  The jetty-documentation is located in our github repository and the jetty-website is located at eclipse.
+    </para>
+    <variablelist>
+      <varlistentry>
+        <term>jetty-documentation</term>
+        <listitem>
+          <para>
+            <link xl:href="https://github.com/jetty-project/jetty-documentation">https://github.com/jetty-project/jetty-documentation</link>
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>jetty-website</term>
+        <listitem>
+          <para>
+            <link xl:href="http://git.eclipse.org/c/www.eclipse.org/jetty.git">http://git.eclipse.org/c/www.eclipse.org/jetty.git</link>
+          </para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+    <para>
+      Since we want an firm documentation url:
+    </para>
+    <orderedlist>
+      <listitem>
+        <para>
+          checkout the jetty-website and copy the contents of <filename>documentation/current</filename> into a directory called <filename>documentation/$version</filename>
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          Edit the <filename>index.html</filename> file in the <filename>documentation</filename> directory and add the newly released documentation url.  Make sure you follow the other examples and include the <code>rel="nofollow"</code> attribute on the link so that search engines do not crawl newly created documentation, otherwise we are subject to duplicate content penalties in SEO.
+        </para>
+      </listitem>
+    </orderedlist>
+    <para>
+      Lastly, the <code>&#36;{project.version}</code> of the <filename>pom.xml</filename> is the latest released version of the Jetty so when making a new release we want to update this so that our documentation is being generated with useful defaults in many of our examples.  Throughout much of the documentation we use <code>&#36;{project.version}</code> which is resolved in the build to make examples that can be cut and paste straight out of the documentation and automatically use the latest version available, so once the release is available in maven central update the version in the documentation's <filename>pom.xml</filename> and push it.  The automated build will update the <link xl:href="http://www.eclipse.org/jetty/documentation/current">documentation/current/</link> url.
+    </para>
+    
+  </section>
+  
 </section>

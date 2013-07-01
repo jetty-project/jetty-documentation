@@ -125,7 +125,7 @@
         </varlistentry>
       </variablelist>
     </section>
-
+    <!-- cia.vc has been down for a prolonged period of time, removing reference until it comes back, if it does
     <section>
       <title>Commit Tracking</title>
 
@@ -145,5 +145,6 @@
           </listitem>
         </itemizedlist></para>
     </section>
+  -->
   </section>
 </section>

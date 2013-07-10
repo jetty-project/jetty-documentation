@@ -1224,6 +1224,18 @@
           the stop command.</para>
         </listitem>
       </varlistentry>
+
+      <varlistentry>
+        <term>stopWait</term>
+
+        <listitem>
+          <para>The maximum time in seconds that the plugin will wait for
+          confirmation that jetty has stopped. If false or not specified, the
+          plugin does not wait for confirmation but exits after issuing the
+          stop command. <emphasis role="bold">This parameter is available only
+          since jetty-9.5.</emphasis></para>
+        </listitem>
+      </varlistentry>
     </variablelist>
 
     <para>Here's a configuration example:</para>
@@ -1237,6 +1249,7 @@
   <configuration>
     <stopPort>9966</stopPort>
     <stopKey>foo</stopKey>
+    <stopWait>10</stopWait>
   </configuration>
 </plugin>
       

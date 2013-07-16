@@ -115,6 +115,14 @@ ContentResponse response = httpClient.newRequest("http://domain.com/path?query")
     client asynchronous, non-blocking, APIs that are perfectly suited for large content downloads, for parallel
     processing of requests/responses and in all those cases where performance and efficient thread and resource
     utilization is a key factor.</para>
+    <para>The asynchronous APIs rely heavily on listeners that are invoked at various staged of request and response
+    processing. These listeners are implemented by applications and may perform any kind of logic.
+    The implementation invokes these listeners in the same thread that is used to process the request or response.
+    Therefore, if the application code in these listeners takes a long time to execute, the request or response
+    processing is delayed until the listener returns.</para>
+    <para>If you need to execute application code that takes long time inside a listener, you must spawn your own
+    thread, and remember to deep copy any data provided by the listener that you will need in your code, because
+    when the listener returns the data it provides may be recycled/cleared/destroyed.</para>
     <para>A simple asynchronous GET request can be written in this way:</para>
     <informalexample>
       <programlisting language="java">

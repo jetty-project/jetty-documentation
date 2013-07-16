@@ -337,7 +337,7 @@ NextProtoNego.put(sslSocket, new NextProtoNego.ServerProvider()
           <row>
             <entry>1.1.5.v20130313</entry>
 
-            <entry>1.7.0u15 - 1.7.0u17 - 1.7.0u21</entry>
+            <entry>1.7.0u15 - 1.7.0u17 - 1.7.0u21 - 1.7.0u25</entry>
           </row>
         </tbody>
       </tgroup>

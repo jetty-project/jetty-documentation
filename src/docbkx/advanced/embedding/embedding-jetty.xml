@@ -354,8 +354,8 @@
     Servlets are similar to a Jetty Handler except that the request object is
     not mutable and thus cannot be modified. Servlets are handled in Jetty by
     A <link
-    xl:href="@JXURL@/org/eclipse/jetty/embedded/MinimalServlets.html">ServletHandler</link>
-    handles Servlets in Jetty. It uses standard path mappings to match a Servlet to a request; sets
+    xl:href="@JXURL@/org/eclipse/jetty/embedded/MinimalServlets.html">ServletHandler</link>. 
+    It uses standard path mappings to match a Servlet to a request; sets
     the requests servletPath and pathInfo; passes the request to the servlet,
     possibly via Filters to produce a response.</para>
 

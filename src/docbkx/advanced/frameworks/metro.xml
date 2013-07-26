@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+//  ========================================================================
+//  Copyright (c) 1995-2012 Mort Bay Consulting Pty. Ltd.
+//  ========================================================================
+//  All rights reserved. This program and the accompanying materials
+//  are made available under the terms of the Eclipse Public License v1.0
+//  and Apache License v2.0 which accompanies this distribution.
+//
+//      The Eclipse Public License is available at
+//      http://www.eclipse.org/legal/epl-v10.html
+//
+//      The Apache License v2.0 is available at
+//      http://www.opensource.org/licenses/apache2.0.php
+//
+//  You may elect to redistribute this code under either of these licenses.
+//  ========================================================================
+-->
+<section version="5.0"
+         xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd"
+         xml:id="framework-metro" xmlns="http://docbook.org/ns/docbook"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:xs="http://www.w3.org/2001/XMLSchema"
+         xmlns:xl="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:ns="http://docbook.org/ns/docbook">
+  <title>Metro</title>
+
+  <para><link xl:href="https://metro.java.net/">Metro</link> is the reference
+  implementation for <link xl:href="http://jcp.org/en/jsr/detail?id=109">web
+  services</link>. You can easily use Metro with Jetty to integrate web
+  services with your web applications.</para>
+
+  <section xml:id="metro-setup-distro">
+    <title>Metro Setup</title>
+
+    <orderedlist>
+      <listitem>
+        <para><link
+        xl:href="https://metro.java.net/latest/download.html">Download</link>
+        the Metro distribution and unpack it to your disk. We'll refer to the
+        unpacked location as <filename>$metro.home</filename>.</para>
+      </listitem>
+
+      <listitem>
+        <para>Create the directory
+        <filename>$jetty.home/lib/metro</filename></para>
+      </listitem>
+
+      <listitem>
+        <para>Copy the jars from $metro.home/lib to
+        <filename>$jetty.home/lib/metro</filename></para>
+      </listitem>
+
+      <listitem>
+        <para>Edit the start.ini file and add an OPTION line for metro near
+        the end. <informalexample>
+            <programlisting language="plain"><![CDATA[OPTIONS=metro
+]]></programlisting>
+          </informalexample></para>
+      </listitem>
+    </orderedlist>
+
+    <para>That's all the setup you need to do to integrate Jetty and
+    Metro.</para>
+
+    <para>Now read the <link xl:href="https://metro.java.net/discover/">Metro
+    documentation</link> on <link
+    xl:href="https://metro.java.net/getting-started/">how to create web
+    services</link>. The Metro distribution you downloaded should also contain
+    several example web applications in the $metro.home/samples directory that
+    you can build and deploy to Jetty (simply by copying the war file produced
+    by the build). </para>
+
+    <para>Here's an example of the log output from Jetty when one of the
+    sample Metro wars (from <filename>$metro.home/samples/async</filename>) is
+    deployed to Jetty:</para>
+
+    <screen><![CDATA[
+[2093] java -jar start.jar
+
+2013-07-26 15:47:53.480:INFO:oejs.Server:main: jetty-9.0.4.v20130625
+2013-07-26 15:47:53.549:INFO:oejdp.ScanningAppProvider:main: Deployment monitor [file:/home/janb/usr_local_java/jetty/jetty-distribution-9.0.4.v20130625/webapps/] at interval 1
+Jul 26, 2013 3:47:53 PM com.sun.xml.ws.transport.http.servlet.WSServletContextListener contextInitialized
+INFO: WSSERVLET12: JAX-WS context listener initializing
+Jul 26, 2013 3:47:56 PM com.sun.xml.ws.server.MonitorBase createRoot
+INFO: Metro monitoring rootname successfully set to: com.sun.metro:pp=/,type=WSEndpoint,name=/metro-async-AddNumbersService-AddNumbersImplPort
+Jul 26, 2013 3:47:56 PM com.sun.xml.ws.transport.http.servlet.WSServletDelegate <init>
+INFO: WSSERVLET14: JAX-WS servlet initializing
+2013-07-26 15:47:56.800:INFO:oejsh.ContextHandler:main: Started o.e.j.w.WebAppContext@75707c77{/metro-async,file:/tmp/jetty-0.0.0.0-8080-metro-async.war-_metro-async-any-/webapp/,AVAILABLE}{/metro-async.war}
+2013-07-26 15:47:56.853:INFO:oejs.ServerConnector:main: Started ServerConnector@47dce809{HTTP/1.1}{0.0.0.0:8080}
+
+		]]></screen>
+  </section>
+</section>

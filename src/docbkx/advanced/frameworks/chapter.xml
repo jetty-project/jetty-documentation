@@ -24,4 +24,5 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbo
   <xi:include href="spring-usage.xml" />
   <xi:include href="osgi.xml" />
   <xi:include href="weld.xml" />
+  <xi:include href="metro.xml" />
 </chapter>

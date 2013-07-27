@@ -123,6 +123,27 @@ ContentResponse response = httpClient.newRequest("http://domain.com/path?query")
     <para>If you need to execute application code that takes long time inside a listener, you must spawn your own
     thread, and remember to deep copy any data provided by the listener that you will need in your code, because
     when the listener returns the data it provides may be recycled/cleared/destroyed.</para>
+    <para>Request and response processing are executed by two different threads and therefore may happen concurrently.
+    A typical example of this concurrent processing is an echo server, where a large upload may be concurrent with
+    the large download echoed back. As a side note, remember that responses may be processed and completed
+    <emphasis>before</emphasis> requests; a typical example is a large upload that triggers a quick response - for
+    example an error - by the server: the response may arrive and be completed while the request content is still
+    being uploaded.</para>
+    <para>The application thread that calls <code>Request.send(CompleteListener)</code> performs the processing
+    of the request until either the request is fully processed or until it would block on I/O, then it returns (and
+    therefore never blocks). If it would block on I/O, the thread asks the I/O system to emit an event when the
+    I/O will be ready to continue, then returns. When such an event is fired, a thread taken from the
+    <code>HttpClient</code> thread pool will resume the processing of the request.</para>
+    <para>Response are processed either from the I/O system thread that fires the event that bytes are ready to
+    be read or by a thread taken from the <code>HttpClient</code> thread pool (this is controlled by the
+    <code>HttpClient.isDispatchIO()</code> property). Response processing continues until either the response is
+    fully processed or until it would block for I/O. If it would block for I/O, the thread asks the I/O system to
+    emit an event when the I/O will be ready to continue, then returns. When such an event is fired, a thread taken
+    from the <code>HttpClient</code> thread pool will resume the processing of the response.</para>
+    <para>When the request and the response are both fully processed, the thread that finished the last processing
+    (usually the thread that processes the response, but may also be the thread that processes the request - if the
+    request takes more time than the response to be processed) is used to dequeue the next request for the same
+    destination and processes it.</para>
     <para>A simple asynchronous GET request can be written in this way:</para>
     <informalexample>
       <programlisting language="java">

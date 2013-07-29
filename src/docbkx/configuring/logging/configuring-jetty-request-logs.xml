@@ -148,7 +148,7 @@ requestLogHandler.setRequestLog(requestLog);   ]]></programlisting>
         </New>
       </Set>
     </New>
-  </Call>
+  </Set>
   ...
 </Configure>      ]]></programlisting>
   </section>

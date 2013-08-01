@@ -52,7 +52,7 @@
 <plugin>
   <groupId>org.eclipse.jetty</groupId>
   <artifactId>jetty-maven-plugin</artifactId>
-  <version>${project.version}</version>
+  <version>&#36;{project.version}</version>
 </plugin>
 
       ]]></programlisting>
@@ -521,7 +521,7 @@
                 <para>The path to a dir that Jetty can use to expand or copy
                 jars and jsp compiles when your webapp is running. The default
                 is
-                <filename>${project.build.outputDirectory}/tmp</filename>.</para>
+                <filename>&#36;{project.build.outputDirectory}/tmp</filename>.</para>
               </listitem>
             </varlistentry>
 
@@ -582,17 +582,17 @@
     <itemizedlist>
       <listitem>
         <para>resources in
-        <filename>${basedir}/src/main/webapp</filename></para>
+        <filename>&#36;{basedir}/src/main/webapp</filename></para>
       </listitem>
 
       <listitem>
         <para>classes in
-        <filename>${project.build.outputDirectory}</filename></para>
+        <filename>&#36;{project.build.outputDirectory}</filename></para>
       </listitem>
 
       <listitem>
         <para><filename>web.xml</filename> in
-        <filename>${basedir}/src/main/webapp/WEB-INF/</filename></para>
+        <filename>&#36;{basedir}/src/main/webapp/WEB-INF/</filename></para>
       </listitem>
     </itemizedlist>
 
@@ -654,7 +654,7 @@
           <listitem>
             <para>Location of the compiled test classes for your webapp. By
             default this is <filename>
-            ${project.build.testOutputDirectory}</filename>.</para>
+            &#36;{project.build.testOutputDirectory}</filename>.</para>
           </listitem>
         </varlistentry>
 
@@ -673,7 +673,7 @@
 
           <listitem>
             <para>By default, this is set to
-            <filename>${basedir}/src/main/webapp</filename>. If your static
+            <filename>&#36;{basedir}/src/main/webapp</filename>. If your static
             sources are in a different location, set this parameter
             accordingly.</para>
           </listitem>
@@ -729,7 +729,7 @@
       <groupId>org.eclipse.jetty</groupId>
       <artifactId>jetty-maven-plugin</artifactId>
       <configuration>
-        <webAppSourceDirectory>${basedir}/src/staticfiles</webAppSourceDirectory>
+        <webAppSourceDirectory>&#36;{basedir}/src/staticfiles</webAppSourceDirectory>
         <webApp>
           <contextPath>/</contextPath>
           <descriptor>&#36;{basedir}/src/over/here/web.xml</descriptor>
@@ -784,7 +784,7 @@
 
           <listitem>
             <para>The location of the built WAR file. This defaults to <code>
-            ${project.build.directory}/${project.build.finalName}.war</code>.
+            &#36;{project.build.directory}/&#36;{project.build.finalName}.war</code>.
             If this is not sufficient, set it to your custom location.</para>
           </listitem>
         </varlistentry>
@@ -833,7 +833,7 @@
 
           <listitem>
             <para>The location of the exploded WAR. This defaults to <code>
-            ${project.build.directory}/${project.build.finalName}</code>, but
+            &#36;{project.build.directory}/&#36;{project.build.finalName}</code>, but
             you can override the default by setting this parameter.</para>
           </listitem>
         </varlistentry>
@@ -881,7 +881,7 @@
 
           <listitem>
             <para>The location of the WAR file. This defaults to <code>
-            ${project.build.directory}/${project.build.finalName}</code>, but
+            &#36;{project.build.directory}/&#36;{project.build.finalName}</code>, but
             you can override the default by setting this parameter.</para>
           </listitem>
         </varlistentry>
@@ -973,7 +973,7 @@
 
           <listitem>
             <para>Optional. The context path for the webapp in the new JVM.
-            Defaults to <filename> /${project.artifactId}</filename>.
+            Defaults to <filename> /&#36;{project.artifactId}</filename>.
             Overrides a setting inside a <code>contextXml</code> file.</para>
           </listitem>
         </varlistentry>
@@ -1027,7 +1027,7 @@
 
           <listitem>
             <para>Temporary directory to use for the webapp. Defaults to
-            <code> ${project.build.directory/tmp</code>.</para>
+            <code> &#36;{project.build.directory}/tmp</code>.</para>
           </listitem>
         </varlistentry>
 
@@ -1037,7 +1037,7 @@
           <listitem>
             <para>The location of the compiled classes for the webapp.
             Defaults to <filename>
-            ${project.build.outputDirectory}</filename>.</para>
+            &#36;{project.build.outputDirectory}</filename>.</para>
           </listitem>
         </varlistentry>
 
@@ -1047,7 +1047,7 @@
           <listitem>
             <para>The location of the compiled test classes for the webapp.
             Defaults to <filename>
-            ${project.build.testOutputDirectory}</filename>.</para>
+            &#36;{project.build.testOutputDirectory}</filename>.</para>
           </listitem>
         </varlistentry>
 
@@ -1354,7 +1354,7 @@ WebAppY:
 </plugin>]]></programlisting></para>
         </informalexample>Then executing jetty:run would yield the following
       ordering of resources: <code>com.acme.X.war : com.acme.Y.war:
-      ${project.basedir}/src/main/webapp</code>. Note that the current
+      &#36;{project.basedir}/src/main/webapp</code>. Note that the current
       project's resources are placed last in the ordering due to the empty
       &lt;overlay/&gt; element in the maven-war-plugin. You can either use
       that, or specify the
@@ -1444,7 +1444,7 @@ WebAppY:
     <loginServices>
       <loginService implementation="org.eclipse.jetty.security.HashLoginService">
         <name>Test Realm</name>
-        <config>${basedir}/src/etc/realm.properties</config>
+        <config>&#36;{basedir}/src/etc/realm.properties</config>
       </loginService>
     </loginServices>
   </configuration>

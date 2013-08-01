@@ -195,9 +195,10 @@
 
         <listitem>
           <para>The pause in seconds between sweeps of the webapp to check for
-          changes and automatically hot redeploy if any are detected. By
-          default this is 0, which disables hot deployment scanning. A number
-          greater than 0 enables it.</para>
+          changes and automatically hot redeploy if any are detected.
+          <emphasis role="bold">By default this is 0, which disables hot
+          deployment scanning.</emphasis> A number greater than 0 enables
+          it.</para>
         </listitem>
       </varlistentry>
 

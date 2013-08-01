@@ -35,5 +35,6 @@
 
   <xi:include href="jetty-maven-helloworld.xml"/>
   <xi:include href="jetty-maven-plugin.xml"/>
+  <xi:include href="jetty-maven-scanning.xml"/>
   <xi:include href="jetty-jspc-maven-plugin.xml"/>
 </chapter>

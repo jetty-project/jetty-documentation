@@ -288,6 +288,18 @@
 
               <entry>Do hide all other Jetty classes.</entry>
             </row>
+
+            <row>
+              <entry>org.apache.jasper.</entry>
+
+              <entry>Do hide Jasper JSP implementation classes.</entry>
+            </row>
+
+            <row>
+              <entry>org.eclipse.jdt.</entry>
+
+              <entry>Do hide JDT compiler classes.</entry>
+            </row>
           </tbody>
         </tgroup>
       </table>

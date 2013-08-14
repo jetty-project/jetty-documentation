@@ -91,7 +91,7 @@
       <screen><![CDATA[
 
  cd [installdir] ;
- touch [pathToJettyDistribution]/webapps/test.xml
+ touch [pathToJettyDistribution]/webapps.demo/test.xml
  
       ]]></screen>
     </listitem>

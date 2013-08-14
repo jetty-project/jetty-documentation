@@ -49,7 +49,7 @@
 
       <screen><![CDATA[
 
- cd [installdir] ; java -jar start.jar etc/jetty-ssl.xml etc/jetty-https.xml
+ cd [installdir] ; java -jar start.jar
  
       ]]></screen>
     </listitem>

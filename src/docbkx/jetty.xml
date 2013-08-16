@@ -38,7 +38,7 @@ xmlns:ns="http://docbook.org/ns/docbook">
         </date>
         <revdescription>
           <para>This documentation is produced and contributed to under the <link
-          xl:href="http://www.eclipse.org/legal/epl-v10.html">EPL</link></para>
+          xl:href="http://www.eclipse.org/legal/epl-v10.html">EPL.</link></para>
         </revdescription>
       </revision>
     </revhistory>

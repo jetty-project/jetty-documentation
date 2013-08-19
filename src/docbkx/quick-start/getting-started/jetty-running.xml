@@ -134,6 +134,19 @@ java.net.BindException: Address already in use
   </section>
 
   <section>
+    <title>Disabling the demonstration webapps</title>
+
+    <para>The Jetty distribution comes with several demonstration web
+    applications deployed. These webapps are in the <code>webapps.demo</code>
+    directory and are enabled by the <code>start.d/900-demo.ini</code> file.
+    The demonstrations can be disabled by removing the 900-demo.ini file or
+    since release 9.1 the following command will disable the demonstration
+    webapps from subsequent starts of the server:</para>
+
+    <screen>&gt; java -jar start.jar --disable=demo</screen>
+  </section>
+
+  <section>
     <title>More start.jar options</title>
 
     <para>The job of the <code>start.jar</code> is to interpret the command

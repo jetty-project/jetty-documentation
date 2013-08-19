@@ -28,13 +28,12 @@
          xmlns:ns="http://docbook.org/ns/docbook">
   <title>Deploying Web Applications</title>
 
-  <para>Jetty by default includes the
-  <filename>etc/jetty-deploy.xml</filename> file in
-  <filename>start.ini</filename>, which configures a web application deployer
-  that hot deploys files found in the <filename> webapps</filename> directory.
-  Standard WAR files and jetty configuration files that you place in the
-  <filename> webapps</filename> directory are hot deployed to the server with
-  the following conventions:</para>
+  <para>Jetty has the <filename>start.d/500-deploy.ini</filename> module
+  enabled by default, which configures a web application deployer that hot
+  deploys files found in the<filename> webapps</filename> directory. Standard
+  WAR files and jetty configuration files that you place in the <filename>
+  webapps</filename> directory are hot deployed to the server with the
+  following conventions:</para>
 
   <itemizedlist>
     <listitem>
@@ -53,18 +52,18 @@
       standard web application with the context path
       <filename>/example</filename> (that is,
       <filename>http://localhost:8080/example/</filename>). If the base name
-      is <filename>ROOT</filename> (case insensitive), the context path
-      is /. If <filename> example.war</filename> and
-      <filename>example/</filename> exist, only the WAR is deployed
-      (which may use the directory as an unpack location).</para>
+      is <filename>ROOT</filename> (case insensitive), the context path is /.
+      If <filename> example.war</filename> and <filename>example/</filename>
+      exist, only the WAR is deployed (which may use the directory as an
+      unpack location).</para>
     </listitem>
 
     <listitem>
       <para>An XML file like <filename>example.xml</filename> is deployed as a
       context whose configuration is defined by the XML. The configuration
       itself must set the context path. If <filename>example.xml</filename>
-      and <filename>example.war</filename> exist, only the XML is
-      deployed (which may use the WAR in its configuration).</para>
+      and <filename>example.war</filename> exist, only the XML is deployed
+      (which may use the WAR in its configuration).</para>
     </listitem>
   </itemizedlist>
 
@@ -75,8 +74,9 @@
 
   <para><code>&gt; cp webapps/test.war webapps/myapp.war</code></para>
 
-  <para>The Jetty distribution comes with the following deployed in the
-  webapps directory:</para>
+  <para>The Jetty distribution also enables the
+  <code>start.d/900-demo.ini</code> module that will deploy the web
+  applications found in the <code>webapps.demo</code> directory:</para>
 
   <variablelist>
     <varlistentry>
@@ -101,8 +101,8 @@
       <term><filename>test.war</filename></term>
 
       <listitem>
-        <para>The demonstration web application that <filename>test.xml</filename> configures and
-        deploys.</para>
+        <para>The demonstration web application that
+        <filename>test.xml</filename> configures and deploys.</para>
       </listitem>
     </varlistentry>
 
@@ -110,9 +110,10 @@
       <term><filename>test.d</filename></term>
 
       <listitem>
-        <para>A directory containing additional configuration files that <filename>test.xml</filename> uses.</para></listitem>
+        <para>A directory containing additional configuration files that
+        <filename>test.xml</filename> uses.</para>
+      </listitem>
     </varlistentry>
-        
 
     <varlistentry>
       <term><filename>async-rest.war</filename></term>
@@ -135,7 +136,9 @@
   </variablelist>
 
   <note>
-      <para><emphasis role="bold">You should remove these demonstration web
-      applications before using Jetty in production.</emphasis></para>
-    </note>
+    <para><emphasis role="bold">You should remove these demonstration web
+    applications before using Jetty in production. This can be done by
+    removing the start.d/900-demo.ini file or by issuing the command "java
+    -jar start.jar --disable=demo"</emphasis></para>
+  </note>
 </section>

@@ -34,7 +34,7 @@
   mechanisms.</para>
 
   <section>
-    <title>Jetty POJO Configuration</title>
+    <title>Jetty XML POJO Configuration</title>
 
     <para>The main components of Jetty are simply Plain Old Java Objects
     (<link
@@ -81,6 +81,21 @@
     IoC.</para>
 
     <variablelist>
+      <varlistentry>
+        <term><filename>ini files</filename></term>
+
+        <listitem>
+          <para>The Jetty Start mechanism uses an <filename>ini</filename>
+          files to hold arguments that are treated as if they were appended to
+          the command line used to start jetty. By default the file
+          <code>start.ini</code> is used as the main ini file, which is the
+          normal jetty distribution contains a single active line enabling the
+          <code>start.d/</code> directory of modular ini files. The ini files
+          within start.d may be enabled and disabled by renaming or using the
+          --enable and --disable options of start.jar</para>
+        </listitem>
+      </varlistentry>
+
       <varlistentry>
         <term><filename>web.xml</filename></term>
 
@@ -144,18 +159,6 @@
           </itemizedlist>
         </listitem>
       </varlistentry>
-
-      <varlistentry>
-        <term><filename>Start.ini</filename></term>
-
-        <listitem>
-          <para>The Jetty Start mechanism uses an <filename>ini</filename>
-          file to hold command line arguments that would otherwise have to be
-          passed to the command to start Jetty. The command line and/or ini
-          files can be used to specify additional jetty xml files and can also
-          set Properties that are used the jetty xml files.</para>
-        </listitem>
-      </varlistentry>
     </variablelist>
   </section>
 
@@ -166,16 +169,14 @@
     example of an embedded Jetty server instantiated and configured in
     java:</para>
 
-    <programlisting language="rjava">
-      <filename>
+    <programlisting language="rjava">     <filename>
       @GITURL@/examples/embedded/src/main/java/org/eclipse/jetty/embedded/ExampleServer.java</filename>
     </programlisting>
 
     <para>Jetty IoC XML allows you to instantiate and configure the exact same
     server in XML without writing any java code:</para>
 
-    <programlisting language="rxml">
-      <filename>
+    <programlisting language="rxml">      <filename>
       @GITURL@/examples/embedded/src/main/resources/exampleserver.xml</filename>
     </programlisting>
 
@@ -197,10 +198,21 @@
         <term><filename>$JETTY_HOME/start.ini</filename></term>
 
         <listitem>
-          <para>Used to enable/disable Jetty features by setting OPTIONS that
-          setup the classpath, and declaring which configuration files to
-          include on the command line and passing properties to the
-          configuration files.</para>
+          <para>Used for global command line options. In the standard jetty
+          distribution since release 9.1 the contents of start.ini have been
+          moved to modular ini files under the <code>start.d/</code> .</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><filename>$JETTY_HOME/start.d</filename></term>
+
+        <listitem>
+          <para>A directory of modular ini files that are used to set the
+          OPTION, parameters and configuration files for key jetty modules.
+          These modules may be enable/disabled by renaming the files or since
+          release 9.1 by using the --enable or --disable option of
+          start.jar</para>
         </listitem>
       </varlistentry>
 
@@ -237,56 +249,39 @@
 
     <screen>&gt; java -jar start.jar</screen>
 
-    <para>The Jetty <filename>start.jar</filename> mechanism uses the
-    <filename>start.ini</filename> file in the distribution to define what
-    OPTIONS, configuration files and Properties are defined. The default
-    start.ini file configures a HTTP connector by including the following
-    lines:</para>
+    <para>The Jetty <filename>distribution uses the start.d/
+    </filename>directory to define what OPTIONS, configuration files and
+    Properties are defined. The start.d/210-http.ini module is enabled by
+    default and contains the following lines (among others):</para>
 
-    <programlisting language="plain">
-<![CDATA[
-#===========================================================
-# HTTP Connector
-#-----------------------------------------------------------
-# jetty.port=8080
-etc/jetty-http.xml
-#===========================================================
-]]>
-    </programlisting>
+    <programlisting language="plain">jetty.port=8080
+etc/jetty-http.xml</programlisting>
 
-    <para>This lists the <filename>etc/jetty-http.xml</filename> configuration
-    file as a default command line argument when starting the jetty server.
-    Looking inside that configuration file, we see that it calls addConnector
-    on the server with a new instance of the ServerConnector class. This
-    instance is configured in XML and includes the line:</para>
+    <para>This sets the jetty port parameter and lists the
+    <filename>etc/jetty-http.xml</filename> configuration file as a command
+    line argument. Looking inside that configuration file, we see that it
+    calls addConnector on the server with a new instance of the
+    ServerConnector class. This instance is configured in XML and includes the
+    line:</para>
 
-    <programlisting language="xml">
-<![CDATA[
-<Set name="port">
-  <Property name="jetty.port" default="8080" />
-</Set>
-]]>
-    </programlisting>
+    <programlisting language="xml">&lt;Set name="port"&gt;&lt;Property name="jetty.port" default="8080" /&gt;&lt;/Set&gt;    </programlisting>
 
     <para>The effect of this line is to call ServerConnector.setPort(int) with
-    either the value of the <filename>jetty.port</filename> property or with
-    the value 8080. We can see from the start.ini except above that the
-    jetty.port property line is commented out, so out of the box, the jetty
-    distribution will use the default 8080 port set inside the jetty-http.xml
+    either the value of the <filename>jetty.port</filename> property if set or
+    with the value 8080. We can see from the start.ini except above that the
+    jetty.port property line is set to 8080 also, so out of the box, the jetty
+    distribution will use the default 8080 port set inside the 210-http.ini
     file.</para>
 
-    <para>If you wish to change the port, then the jetty-http.xml file can be
+    <para>If you wish to change the port, then the 210-http.ini file can be
     edited and the default value there changed to the new port. However this
     does mean that a file which is part of the jetty distribution has been
     modified, which can make future upgrades more difficult. Alternately the
-    Property value can be set in one of several ways. Firstly the Property may
-    be passed on the command line:</para>
+    Property value can be set in one of several ways. Firstly an overriding
+    property value may be passed on the command line:</para>
 
-    <screen>
-<![CDATA[
-$ java -jar start.jar jetty.port=9999
-]]>
-    </screen>
+    <screen>$ java -jar start.jar jetty.port=9999
+</screen>
 
     <para>This can be convenient if you have a script (like
     <filename>bin/jetty.sh</filename>) that builds the command line for you.
@@ -296,28 +291,20 @@ $ java -jar start.jar jetty.port=9999
     the start.ini, so the jetty.port line can be uncommented in start.ini and
     the port set there. This works, but now we are modifying a part of the
     distribution again. If you want to avoid this, then you can create a
-    <filename>start.d/myconfig.ini</filename> file to include your additional
-    OPTIONS, configuration files and Properties:</para>
+    <filename>start.d/900-myconfig.ini</filename> file to include your
+    additional OPTIONS, configuration files and Properties:</para>
 
-    <screen>
-<![CDATA[
-$ echo jetty.port=9999 &gt; start.d/myconfig.ini
-$ java -jar start.jar
-]]>
-    </screen>
+    <screen>$ echo jetty.port=9999 &amp;gt; start.d/900-myconfig.ini
+$ java -jar start.jar    </screen>
 
     <para>Finally, if your configuration results in a lot of properties that
     need to be set and you wish to work with standard property files, then
     these too can be added on the command line, in start.ini or your own
     start.d files:</para>
 
-    <screen>
-<![CDATA[
-$ echo "jetty.port: 9999" &gt; start.d/myconfig.properties
-$ echo start.d/myconfig.properties &gt; start.d/myconfig.ini
-$ java -jar start.jar
-]]>
-    </screen>
+    <screen>$ echo "jetty.port: 9999" &amp;gt; start.d/myconfig.properties
+$ echo start.d/myconfig.properties &amp;gt; start.d/900-myconfig.ini
+$ java -jar start.jar    </screen>
 
     <para>In summary, Jetty is configured by calling setters and methods on
     POJO's which can be done either from java code or from Jetty IoC XML

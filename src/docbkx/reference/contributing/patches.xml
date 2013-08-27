@@ -149,7 +149,7 @@ $ git apply < ######.patch
 
     <para>From the top level of the cloned project:</para>
 
-    <para>Make your changes and commit them locally using git commit -s. Then
+    <para>Make your changes and commit them locally using <code>git commit -s</code>. Then
     use git log to identify the commit(s) you want to include in your
     patch:</para>
 

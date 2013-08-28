@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+//  ========================================================================
+//  Copyright (c) 1995-2012 Mort Bay Consulting Pty. Ltd.
+//  ========================================================================
+//  All rights reserved. This program and the accompanying materials
+//  are made available under the terms of the Eclipse Public License v1.0
+//  and Apache License v2.0 which accompanies this distribution.
+//
+//      The Eclipse Public License is available at
+//      http://www.eclipse.org/legal/epl-v10.html
+//
+//      The Apache License v2.0 is available at
+//      http://www.opensource.org/licenses/apache2.0.php
+//
+//  You may elect to redistribute this code under either of these licenses.
+//  ========================================================================
+-->
+<section version="5.0"
+         xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd"
+         xml:id="creating-custom-protocol" 
+         xmlns="http://docbook.org/ns/docbook"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:xs="http://www.w3.org/2001/XMLSchema"
+         xmlns:xl="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:ns="http://docbook.org/ns/docbook"
+         status="draft">
+  <title>Creating a Custom Protocol</title>
+  <para>To create a custom protocol, complete the following tasks:</para>
+  <itemizedlist>
+  <listitem><para>Implement a <code>TelnetServerConnectionFactory</code>.</para></listitem>
+  <listitem><para>Implement a <code>TelnetServerConnection</code> by extending <code>o.e.j.io.AbstractConnection</code>.</para></listitem>
+  <listitem><para>Create a parser/interpreter for the bytes you receive (this is totally independent from Jetty).</para></listitem>
+  <listitem><para>If needed, design an API for the application to use to process the bytes received (also independent from Jetty). The API likely has a <emphasis>respond back</emphasis> primitive that uses a Jetty provided <code>EndPoint</code> and <code>EndPoint.write(Callback, Buffer...)</code> to write the response bytes.</para></listitem>
+</itemizedlist>
+<section xml:id="server-connection-factory">
+<title>Implementing a <code>TelnetServerConnectionFactory</code></title>
+<para>Begin with an <code>org.eclipse.jetty.server.ServerConnector</code>, which you can use as is. <code>ServerConnector</code> takes a <code>o.e.j.server.ConnectionFactory</code>, which creates <code>o.e.j.io.Connection</code> objects that interpret the bytes the connector receives. You must implement <code>ConnectionFactory</code> with a <code>TelnetServerConnectionFactory</code>, where you return a Connection implementation (for example, <code>TelnetServerConnection</code>).</para> 
+</section>
+<section xml:id="telnet-server-connection">
+<title>Implementing the <code>TelnetServerConnection</code></title>
+<para>For the Connection implementation you need to extend from <code>o.e.j.io.AbstractConnection</code> because it provides many facilities.</para>
+
+<para>For each Connection instance there is associated an <code>o.e.j.io.EndPoint</code> instance. Think of <code>EndPoint</code> as a specialized version of JDK’s <code>SocketChannel</code>. You use the <code>EndPoint</code> to read, write, and close. You don’t need to implement <code>EndPoint</code>, because Jetty provides concrete classes for you to use.</para>
+
+<para>The Connection is the <emphasis>passive</emphasis> side (that is, Jetty calls it when there is data to read), while the <code>EndPoint</code> is the active part (that is, applications call it to write data to the other end). When there is data to read, Jetty calls <code>AbstractConnection.onFillable()</code>, which you must implement in your <code>TelnetServerConnection</code>.</para>
+<para>A typical implementation reads bytes from the <code>EndPoint</code> by calling <code>EndPoint.fill(ByteBuffer)</code>. For examples, look at both the simpler <code>SPDYConnection</code> (in the SPDY client package, but server also uses it), and the slightly more complex <code>HttpConnection</code>.</para>
+</section>
+<section xml:id="parser-interpreter">
+<para>
+After you read the bytes, you need to parse them. For the Telnet protocol there is not much to parse, but perhaps you have your own commands that you want to interpret and execute. Therefore typically every connection has an associated parser instance. In turn, a parser usually emits parse events that a parser listener interprets, as the following examples illustrate:</para>
+
+<itemizedlist>
+<listitem><para>In HTTP you parse the request string (which emits an event), and you parse headers (each of which emits an event) until the parser recognizes the end of the headers (another event). At that point, the <emphasis>interpreter</emphasis> or parser listener (which for HTTP is <code>o.e.j.server.HttpChannel</code>) has all the information to build a <code>HttpServletRequest</code> object and can call the user code (the web application, that is, servlets/filters).</para></listitem>
+
+<listitem><para>In SPDY you parse a SPDY frame (a parser event) which an instance of <code>o.e.j.spdy.StandardSession</code>, the parser listener, interprets, and which in turn calls application-provided listeners.</para></listitem>
+</itemizedlist>
+<para>
+With <code>ConnectionFactory</code>, Connection, parser, and parser listeners in place, you have configured the read side.</para>
+</section>
+<section xml:id="api-byte-processor">
+<title>Designing an API to Process Bytes</title>
+<para>At this point, server applications typically write data back to the client.</para>
+<para>The Servlet API (for HTTP) or application-provided listeners (for SPDY) expose an interface to web applications so that they can write data back to the client. The implementation of those interfaces must link back to the <code>EndPoint</code> instance associated with the Connection instance so that it can write data via <code>EndPoint.write(Callback, ByteBuffer...)</code>. This is an asynchronous call, and it notifies the callback when all the buffers have been fully written.</para>
+
+<para>For example, in the Servlet API, applications use a <code>ServletOutputStream</code> to write the response content. <code>ServletOutputStream</code> is an abstract class that Jetty implements, enabling Jetty to handle the writes from the web application; the writes eventually end up in an <code>EndPoint.write(...)</code> call.</para>
+<section xml:id="api-tips">
+<title>Tips for Designing an API</title>
+<para>
+If you want to write a completely asynchronous implementation, your API to write data to the client must have a callback/promise concept: “Call me back when you are done, and (possibly) give me the result of the computation."</para>
+<para>
+SPDY’s Stream class is a typical example. Notice how the methods there exist in two versions, a synchronous (blocking) one, and an asynchronous one that takes as last parameter a Callback (if no result is needed), or a Promise (if a result is needed). It is trivial to write the synchronous version in terms of the asynchronous version.</para>
+<para>
+You can use <code>EndPoint.write(Callback, ByteBuffer...)</code> in a blocking way as follows:</para>
+
+<informalexample>
+        <programlisting language="java"><![CDATA[
+FutureCallback callback = new FutureCallback();
+endPoint.write(callback, buffers);
+callback.get();
+]]></programlisting>
+      </informalexample>
+<para>
+With the snippet above your API can be synchronous or asynchronous (your choice), but implemented synchronously.</para>
+</section>
+</section>
+</section>

@@ -35,20 +35,19 @@
     need a Java compiler. You can acquire a Java compiler from the JVM if you
     are using a full JDK, or from a third party Jar.</para>
 
-    <para>By default, the jsp engine used by Jetty will try to use the
+    <para>By default, the JSP engine Jetty uses tries to use the
     compiler that is part of the JDK. <emphasis role="bold">NOTE:</emphasis>
-    when using the JDK compiler, your class files will
-    <emphasis>not</emphasis> be saved to disk unless you use the
+    when using the JDK compiler, the system does <emphasis>not</emphasis> save your class files to disk unless you use the
     <code>saveBytecode</code> init-param as described below.</para>
 
-    <para>If you do not have a full JDK, then you can configure the jsp engine
+    <para>If you do not have a full JDK, you can configure the JSP engine
     to use the Eclipse Java Compiler that Jetty ships in the distro in
-    $JETTY_HOME/lib/jsp/org.eclipse.jdt.core-3.7.1.jar. You will need to
-    define a SystemProperty that prevents the jsp engine from defaulting to
+    <filename>$JETTY_HOME/lib/jsp/org.eclipse.jdt.core-3.7.1.jar</filename>. You need to
+    define a SystemProperty that prevents the JSP engine from defaulting to
     the in-JVM compiler.</para>
 
-    <para>Here's the property definition to add to
-    $JETTY_HOME/start.ini:</para>
+    <para>Here is the property definition to add to
+    <filename>$JETTY_HOME/start.ini</filename>:</para>
 
     <informalexample>
       <programlisting language="text"><![CDATA[
@@ -59,7 +58,7 @@
     </informalexample>
 
     <para>Alternatively, you can define this SystemProperty in a
-    $JETTY_HOME/etc/jetty.xml file:</para>
+    <filename>$JETTY_HOME/etc/jetty.xml</filename> file:</para>
 
     <informalexample>
       <programlisting language="xml"><![CDATA[
@@ -72,29 +71,28 @@
       ]]></programlisting>
     </informalexample>
 
-    <para>If you are using the <link linkend="jetty-maven-plugin">Maven Jetty
-    Plugin</link>, then you have a number of options:</para>
+    <para>If you are using the <link linkend="jetty-maven-plugin">Jetty Maven
+    Plugin</link>, you have a number of options:</para>
 
     <itemizedlist>
       <listitem>
-        <para>define the SystemProperty inside the pom.xml of your webapp
+        <para>Define the SystemProperty inside the <filename>pom.xml</filename> of your webapp
         using either the <link
         xl:href="http://mojo.codehaus.org/properties-maven-plugin/">Properties
-        Maven Plugin</link> or the <link linkend="jetty-maven-plugin">Maven
-        Jetty Plugin's</link> own <link
+        Maven Plugin</link> or the <link linkend="jetty-maven-plugin">Jetty Maven Plugin's</link> own <link
         linkend="setting-system-properties">system properties
-        configuration</link></para>
+        configuration.</link></para>
       </listitem>
 
       <listitem>
-        <para>add a jetty.xml config file and define the SystemProperty in
-        there</para>
+        <para>Add a <filename>jetty.xml</filename> config file and define the SystemProperty in
+        that file.</para>
       </listitem>
 
       <listitem>
-        <para>add the SystemProperty definition to maven's <link
+        <para>Add the SystemProperty definition to Maven's <link
         xl:href="http://maven.apache.org/download.cgi">MAVEN_OPTS</link>
-        environment variable</para>
+        environment variable.</para>
       </listitem>
     </itemizedlist>
   </section>
@@ -104,14 +102,14 @@
 
     <para>The JSP engine has many configuration parameters. Some parameters
     affect only precompilation, and some affect runtime recompilation
-    checking. Parameters also differ between the various versions of the JSP
-    engine. This page lists the configuration parameters, their meanings and
-    their default settings. All parameters are set on the
+    checking. Parameters also differ among the various versions of the JSP
+    engine. This page lists the configuration parameters, their meanings, and
+    their default settings. Set all parameters on the
     <code>org.apache.jasper.JspServlet</code> instance defined in the <link
-    linkend="webdefault-xml">webdefault.xml</link> file.</para>
+    linkend="webdefault-xml"><filename>webdefault.xml</filename></link> file.</para>
 
     <note>
-      <para>Be careful: for all of the parameters below, if the value you set
+      <para>Be careful: for all of these parameters, if the value you set
       doesn't take effect, try using all lower case instead of camel case, or
       capitalizing only some of the words in the name, as JSP is inconsistent
       in its parameter naming strategy.</para>
@@ -129,7 +127,7 @@
 
             <entry align="left">Default</entry>
 
-            <entry align="left">webdefault.xml</entry>
+            <entry align="left"><filename>webdefault.xml</filename></entry>
           </row>
         </thead>
 
@@ -149,7 +147,7 @@
           <row>
             <entry>fork</entry>
 
-            <entry>Should Ant fork its java compiles of JSP pages?</entry>
+            <entry>Should Ant fork its Java compiles of JSP pages?</entry>
 
             <entry>TRUE</entry>
 
@@ -446,8 +444,7 @@
       </listitem>
 
       <listitem>
-        <para>Only check approximately every N seconds, where a request will
-        trigger the time-lapse calculation. This example checks every 60
+        <para>Only check approximately every N seconds, where a request triggers the time-lapse calculation. This example checks every 60
         seconds: <informalexample>
             <programlisting language="xml"><![CDATA[
 
@@ -466,7 +463,7 @@
 
       <listitem>
         <para>Do no checking whatsoever, but still compile the JSP on the very
-        first hit. (Note: this ''reload-interval'' parameter is shorthand for
+        first hit. (Be aware that this ''reload-interval'' parameter is shorthand for
         a ''development=false'' and ''checkInterval=0'' combination.):
         <informalexample>
             <programlisting language="xml"><![CDATA[
@@ -530,7 +527,7 @@
         ]]></programlisting>
       </informalexample>
 
-      <para>If you're using the Jetty distro, and you want to change the JSP
+      <para>If you are using the Jetty distro, and you want to change the JSP
       settings for just one or a few of your webapps, copy the
       <filename>$<link
       linkend="webdefault-xml">JETTY_HOME/etc/webdefault.xml</link></filename>
@@ -618,7 +615,7 @@
     <title>Using JSTL Taglibs</title>
 
     <para>The JavaServer Pages Standlard Tag Library (JSTL) is part of the
-    jetty distribution (in <code>$JETTY_HOME/lib/jsp</code>) and is
+    Jetty distribution (in <code>$JETTY_HOME/lib/jsp</code>) and is
     automatically on the classpath.</para>
   </section>
 
@@ -631,12 +628,12 @@
     <section xml:id="using-jsf-taglibs-with-jetty-standalone">
       <title>Using JSF Taglibs with Jetty Distribution</title>
 
-      <para>If you want to use JSF with your webapp, you need to copy the jsf
+      <para>If you want to use JSF with your webapp, you need to copy the JSF
       implementation Jar (whichever Jar contains the
       <filename>META-INF/*.tld</filename> files from your chosen JSF
       implementation) into <filename> $JETTY_HOME/lib/jsp</filename>. This is
-      because the version of the jsp engine from Glassfish that we are using
-      <emphasis>requires</emphasis> that the JSF tags are on the container's
+      because the version of the JSP engine from Glassfish that we are using
+      <emphasis>requires</emphasis> that the JSF tags be on the container's
       classpath, and <emphasis>not</emphasis> on the webapp's
       classpath.</para>
     </section>

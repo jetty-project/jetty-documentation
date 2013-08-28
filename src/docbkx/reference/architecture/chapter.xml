@@ -25,4 +25,5 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
   <xi:include href="basic-architecture.xml" />
   <xi:include href="jetty-classloading.xml" />
   <xi:include href="1xx-responses.xml" />
+  <xi:include href="server-side-architecture.xml" />
 </chapter>

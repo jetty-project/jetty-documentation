@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+//  ========================================================================
+//  Copyright (c) 1995-2012 Mort Bay Consulting Pty. Ltd.
+//  ========================================================================
+//  All rights reserved. This program and the accompanying materials
+//  are made available under the terms of the Eclipse Public License v1.0
+//  and Apache License v2.0 which accompanies this distribution.
+//
+//      The Eclipse Public License is available at
+//      http://www.eclipse.org/legal/epl-v10.html
+//
+//      The Apache License v2.0 is available at
+//      http://www.opensource.org/licenses/apache2.0.php
+//
+//  You may elect to redistribute this code under either of these licenses.
+//  ========================================================================
+-->
+<section version="5.0" xml:id="embedded-spdy-server"
+         xmlns="http://docbook.org/ns/docbook"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:xl="http://www.w3.org/1999/xlink"
+         xmlns:ns5="http://www.w3.org/1998/Math/MathML"
+         xmlns:ns4="http://www.w3.org/2000/svg"
+         xmlns:ns3="http://www.w3.org/1999/xhtml"
+         xmlns:ns="http://docbook.org/ns/docbook">
+    <title>Simple SPDY Server</title>
+    <para>
+        This example shows how to create a server with a SPDY connector in Jetty. Clients (mostly browsers) that have a
+        SPDY client implementation will talk SPDY to that connector. All others will transparently fall back to HTTP.
+    </para>
+    <example>
+        <title>
+            <link xl:href="@GITURL@/examples/embedded/src/main/java/org/eclipse/jetty/embedded/SpdyServer.java">
+                SpdyServer.java
+            </link>
+        </title>
+        <programlisting language="rjava">
+            <filename>
+                @GITURL@/examples/embedded/src/main/java/org/eclipse/jetty/embedded/SpdyServer.java
+            </filename>
+        </programlisting>
+    </example>
+    <section>
+        <title>Walkthrough</title>
+        <para>This will guide you through the code that actually configures the SPDY connector. The remaining code
+            is either self explaining, described in the other embedded examples or in code comments.
+        </para>
+        <variablelist>
+            <varlistentry>
+                <term>Lines 60-63: Create Server Object</term>
+                <listitem>
+                    <para>
+                        Create a basic jetty server object.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>Lines 79-83: Create HTTP Connector</term>
+                <listitem>
+                    <para>
+                        A plain HTTP connector listening on port 8080. Note that it's also possible to have port 8080
+                        configured
+                        as a non SSL SPDY connector. But the specification and most browsers do not allow to use SPDY
+                        without
+                        SSL encryption. However some browsers allow it to be configured.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>Lines 86-99: Setup SSLContextFactory</term>
+                <listitem>
+                    <para>
+                        We need a SSLContextFactory for the SSL encryption. That SSLContextFactory will be used by the
+                        SPDY
+                        connector.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>Line 103: SPDYServerConnectionFactory.checkNPNAvailable()</term>
+                <listitem>
+                    <para>
+                        Check that the required NPN implementations are available.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>Line 105: Initialize SPDY push strategy</term>
+                <listitem>
+                    <para>
+                        A ReferrerPushStrategy is being initialized. See:
+                        <xref linkend="spdy-configuring-push"/>
+                        for more details.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>Lines 106-119: Initialize connection factories for SPDY/2, SPDY/3, NPN and SSL</term>
+                <listitem>
+                    <para>
+                        We need a connection factory per protocol that our server is supposed to support on the NPN
+                        port. We then create a ServerConnector and pass in the supported factories. NPN will then be
+                        used to negotiate the protocol with the client.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>Lines 120: Set the connector's port to 8443</term>
+            </varlistentry>
+            <varlistentry>
+                <term>Lines 125 and following: Setup some handlers, deployer and webappProider. Finally start
+                    the server.</term>
+                <listitem>
+                    <para>
+                        This is all described in the documentation in general and also shown in the other embedded
+                        examples: <xref linkend="embedded-examples"/>
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+        <para>
+            After you have started things up you should be able to navigate to http://localhost:8080/index.html
+            (assuming one is in the resource base directory) and you are good to go.
+        </para>
+    </section>
+    <section>
+        <title>Maven Coordinates</title>
+        <para>
+            To use this example in your project you will need the following maven dependencies declared.
+        </para>
+        <informalexample>
+            <programlisting language="xml">
+                <![CDATA[
+<dependency>
+  <groupId>org.eclipse.jetty</groupId>
+  <artifactId>jetty-server</artifactId>
+  <version>${project.version}</version>
+</dependency>
+<dependency>
+  <groupId>org.eclipse.jetty</groupId>
+  <artifactId>jetty-spdy</artifactId>
+  <version>${project.version}</version>
+</dependency>
+<dependency>
+  <groupId>org.eclipse.jetty</groupId>
+  <artifactId>jetty-deploy</artifactId>
+  <version>${project.version}</version>
+</dependency>
+<dependency>
+  <groupId>org.eclipse.jetty</groupId>
+  <artifactId>jetty-util</artifactId>
+  <version>${project.version}</version>
+</dependency>
+]]>
+            </programlisting>
+        </informalexample>
+    </section>
+</section>

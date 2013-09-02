@@ -26,7 +26,7 @@
          xmlns:ns="http://docbook.org/ns/docbook">
   <title>Simple File Server</title>
   <para>
-    This example shows how to create a simple file server in jetty.  It is perfectly suitable for test cases where you need an actual web server to obtain a file from, it could easily be configured to serve files from a directory under src/test/resources.  Note that this does not have any logic for caching of files, either within the server or setting the appropriate headers on the response.  It is simply a few lines that illustate how easy it is to serve out some files.
+    This example shows how to create a simple file server in Jetty.  It is perfectly suitable for test cases where you need an actual web server to obtain a file from, it could easily be configured to serve files from a directory under src/test/resources.  Note that this does not have any logic for caching of files, either within the server or setting the appropriate headers on the response.  It is simply a few lines that illustate how easy it is to serve out some files.
   </para>
   <example>
     <title><link xl:href="@GITURL@/examples/embedded/src/main/java/org/eclipse/jetty/embedded/FileServer.java">FileServer.java</link></title> 
@@ -43,7 +43,7 @@
         <term>Line 17: Create Server Object</term>
         <listitem>
           <para>
-            Create a basic jetty server object that will listen on port 8080.  Note that if you set this to port 0 then a randomly available port will be assigned that you can either look in the logs for the port, or programmatically obtain it for use in test cases.
+            Create a basic Jetty server object that will listen on port 8080.  Note that if you set this to port 0 then a randomly available port will be assigned that you can either look in the logs for the port, or programmatically obtain it for use in test cases.
           </para>
         </listitem>
       </varlistentry>

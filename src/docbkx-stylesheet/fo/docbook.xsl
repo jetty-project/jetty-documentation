@@ -20,7 +20,8 @@
 
   <xsl:param name="img.src.path">target/docbkx/pdf/jetty/</xsl:param>
   <xsl:param name="keep.relative.image.uris">false</xsl:param>
-
+  
+  <xsl:param name="admon.graphics.extension">.svg</xsl:param>
 
   <xsl:attribute-set name="table.table.properties">
     <xsl:attribute name="hyphenate">true</xsl:attribute>

@@ -31,119 +31,200 @@
   <para>To start Jetty on the default port of 8080, run the following
   command:</para>
 
-  <para><screen>&gt; java -jar start.jar</screen></para>
+  <para><screen><emphasis role="bold">&gt; cd $JETTY_HOME
+&gt; java -jar start.jar</emphasis>
+2013-09-06 13:52:43.326:INFO:oejs.Server:main: jetty-9.1.0
+2013-09-06 13:52:43.358:INFO:oejdp.ScanningAppProvider:main: Deployment monitor [file:/home/gregw/src/jetty-9.1/jetty-distribution/target/distribution/webapps/] at interval 1
+2013-09-06 13:52:43.390:INFO:oejs.ServerConnector:main: Started ServerConnector@2edf362d{HTTP/1.1}{0.0.0.0:8080}</screen></para>
 
-  <para>You should see about twenty lines of logged INFO statements similar to
-  the following, informing you of the components being started:</para>
+  <para>You can point a browser at this server at <link
+  linkend="???">http://localhost:8080</link>. Since release 9.1.0, the jetty
+  distribution does not deploy any demo web applications, so to see a more
+  interesting demonstration of the server you need to run from the demo-base
+  directory as follows:</para>
 
-  <informalexample>
-    <screen language="text">2012-10-22 16:02:24.988:INFO:oejs.Server:main: jetty-9.0.0-M2 
-2012-10-22 16:02:25.040:INFO:oejs.NCSARequestLog:main: Opened /home/gregw/src/jetty-9/jetty-distribution/target/distribution/logs/2012_10_22.request.log
-2012-10-22 16:02:25.115:INFO:oejs.ServerConnector:main: Started ServerConnector@6aeeafb{HTTP/1.1}{0.0.0.0:8080} 
-2012-10-22 16:02:25.348:INFO:oejs.ServerConnector:main: Started ServerConnector@24a45e{SSL-http/1.1}{0.0.0.0:8443} 
-2012-10-22 16:02:25.357:INFO:oejdp.ScanningAppProvider:main: Deployment monitor [file:/home/gregw/src/jetty-9/jetty-distribution/target/distribution/webapps/] at interval 1 
-2012-10-22 16:02:25.688:INFO:oejd.DeploymentManager:main: Deployable added:/home/gregw/src/jetty-9/jetty-distribution/target/distribution/webapps/test.xml 
-2012-10-22 16:02:25.725:INFO:oejw.WebInfConfiguration:main: Extract jar:file:/home/gregw/src/jetty-9/jetty-distribution/target/distribution/webapps/test.war!/ to /tmp/jetty-0.0.0.0-8080-test.war-_test-any-/webapp
-2012-10-22 16:02:26.097:INFO:oejsh.ContextHandler:main: started o.e.j.w.WebAppContext@4e3ceb07{/test,file:/tmp/jetty-0.0.0.0-8080-test.war-_test-any-/webapp/,AVAILABLE}{/test.war}</screen>
-  </informalexample>
+  <screen><emphasis role="bold">&gt; cd $JETTY_HOME/demo-base/
+&gt; java -jar ../start.jar</emphasis>
+2013-09-06 13:56:35.939:WARN::main: demo test-realm is deployed. DO NOT USE IN PRODUCTION!
+2013-09-06 13:56:35.943:INFO:oejs.Server:main: jetty-9.1.0-SNAPSHOT
+2013-09-06 13:56:35.976:INFO:oejdp.ScanningAppProvider:main: Deployment monitor [file:/home/gregw/src/jetty-9.1/jetty-distribution/target/distribution/demo-base/webapps/] at interval 1
+2013-09-06 13:56:36.240:INFO:oejpw.PlusConfiguration:main: No Transaction manager found - if your webapp requires one, please configure one.
+2013-09-06 13:56:36.732:WARN::main: async-rest webapp is deployed. DO NOT USE IN PRODUCTION!
+[...]
+2013-09-06 13:56:38.572:INFO:oejsh.ContextHandler:main: Started o.e.j.w.WebAppContext@2757052e{/,file:/home/gregw/src/jetty-9.1/jetty-distribution/target/distribution/demo-base/webapps/ROOT/,AVAILABLE}{/ROOT}
+2013-09-06 13:56:38.579:INFO:oejs.ServerConnector:main: Started ServerConnector@19e0cb78{HTTP/1.1}{0.0.0.0:8080}
+</screen>
 
-  <para>You also see some warnings like:</para>
+  <para>Pointing a browser at <link
+  linkend="???">http://localhost:8080</link>, will now show a welcome page and
+  several demo/test web applications.</para>
 
-  <informalexample>
-    <screen language="text">
-2012-10-22 16:02:24.748:WARN::main: test-realm is deployed. DO NOT USE IN PRODUCTION! 
-2012-10-22 16:02:25.582:WARN::main: async-rest webapp is deployed. DO NOT USE IN PRODUCTION!
-    </screen>
-  </informalexample>
+  <warning>
+    <para>The demonstration web applications are not necessarily secure and
+    should not be deployed in production web servers. </para>
+  </warning>
 
-  <para>These warnings are telling you that some demonstration web
-  applications and services are deployed, and that you should remove them
-  before putting the server into production. You can ignore these warnings
-  while testing, or you can see <link
-  linkend="quickstart-deploying-webapps">Deploying Web Applications</link> to
-  learn how to remove them.</para>
+  <section>
+    <title>Creating a new Jetty Base</title>
 
-  <para>After starting Jetty, you can test it by pointing a browser or any
-  HTTP client at port 8080 of the machine. If you are running the browser on
-  the same machine as the Jetty instance, the URL to use is:<code>
-  http://localhost:8080/</code> and your browser or HTTP client should see the
-  Jetty welcome page and be able to follow the links to some test web
-  applications.</para>
+    <para>The demo-base directory described above is and example of the
+    jetty.base mechanism added in Jetty 9.1. A jetty base allows the
+    configuration and web applications of a server instance to be stored
+    separately from the jetty distribution, so that upgrades can be done with
+    minimal disruption. Jetty's default configuration is based on two
+    properties:</para>
+
+    <variablelist>
+      <varlistentry>
+        <term>jetty.home</term>
+
+        <listitem>
+          <para>The property that defines the location of the jetty
+          distribution, its libs, default modules and default XML files
+          (typically start.jar, lib, etc)</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>jetty.base</term>
+
+        <listitem>
+          <para>The property that defines the location of a specific instance
+          of a jetty server, its configuration, logs and web applications
+          (typically start.ini, start.d, logs and webapps)</para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+
+    <para>The jetty.home and jetty.base properties may be explicitly set on
+    the command line, or they can be inferred from the environment if used
+    with commands like:</para>
+
+    <screen><emphasis role="bold">&gt; cd $JETTY_BASE
+&gt; java -jar $JETTY_HOME/start.jar</emphasis></screen>
+
+    <para>The following commands create a new base directory and enable a HTTP
+    connector and web application deployer in it:</para>
+
+    <screen><emphasis role="bold">&gt; mkdir /tmp/mybase
+&gt; cd /tmp/mybase
+&gt; java -jar $JETTY_HOME/start.jar</emphasis>
+WARNING: Nothing to start, exiting ...
+
+Usage: java -jar start.jar [options] [properties] [configs]
+       java -jar start.jar --help  # for more information
+
+&gt;<emphasis role="bold">java -jar $JETTY_HOME/start.jar --module-ini=http,deploy</emphasis>
+http            initialised in ${jetty.base}/start.d/http.ini (created)
+server          initialised in ${jetty.base}/start.d/server.ini (created)
+deploy          initialised in ${jetty.base}/start.d/deploy.ini (created)
+MKDIR: ${jetty.base}/webapps
+server          initialised in ${jetty.base}/start.d/server.ini
+
+<emphasis role="bold">&gt; java -jar $JETTY_HOME/start.jar</emphasis>
+2013-09-06 14:59:32.542:INFO:oejs.Server:main: jetty-9.1.0-SNAPSHOT
+2013-09-06 14:59:32.572:INFO:oejdp.ScanningAppProvider:main: Deployment monitor [file:/tmp/mybase/webapps/] at interval 1
+2013-09-06 14:59:32.602:INFO:oejs.ServerConnector:main: Started ServerConnector@405a2273{HTTP/1.1}{0.0.0.0:8080}
+
+[...]</screen>
+  </section>
 
   <section xml:id="quickstart-changing-jetty-port">
     <title>Changing the Jetty Port</title>
 
-    <para>If you see the following exception, you already have something
-    running on the port that Jetty is configured to run on, and you need to
-    either shut down whatever that process is, or configure Jetty to run on
-    another port.</para>
-
-    <informalexample>
-      <screen language="text">
-java.net.BindException: Address already in use 
-  at sun.nio.ch.Net.bind0(Native Method) 
-  at sun.nio.ch.Net.bind(Net.java:344) 
-  at sun.nio.ch.Net.bind(Net.java:336) 
-  at sun.nio.ch.ServerSocketChannelImpl.bind(ServerSocketChannelImpl.java:199)
-      </screen>
-    </informalexample>
-
     <para>You can configure Jetty to run on a different port by setting the
     <code>jetty.port</code> Property on the command line:</para>
 
-    <para><screen>&gt; java -jar start.jar jetty.port=8081</screen></para>
+    <para><screen><emphasis role="bold">&gt; cd $JETTY_HOME/demo-base
+&gt; java -jar start.jar jetty.port=8081</emphasis></screen></para>
 
-    <para>As alternatives, you can set this property in the
-    <filename>start.d/100-jetty.ini</filename> file or by editing the use of
-    the property in the <filename>etc/jetty-http.xml</filename> configuration
-    file. This works by defining a property that the
-    <filename>etc/jetty-http.xml</filename> configuration file uses to inject
-    a port value into the ServerConnector defined there. For more information
-    see the <link linkend="quickstart-config"> Quickstart Configuration
-    Guide</link> and <link linkend="configuring-connectors">Configuring
-    Connectors.</link></para>
+    <para>Alternatively, property values can be added to the effective command
+    line built from the <filename>start.ini</filename> file and
+    <filename>start.d/*.ini</filename> files. By default, the jetty
+    distribution defines the jetty.port property in the
+    <filename>start.d/http.ini</filename> file, which may be edited to set
+    another value. </para>
+
+    <note>
+      <para>The configuration by properties works via the following
+      chain:</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>The start.d/http.ini file is part of the effective command
+          line and contains the --module=http argument which activates the
+          http module</para>
+        </listitem>
+
+        <listitem>
+          <para>The modules/http.mod file defines the http module which
+          specifies the etc/jetty-http.xml configuration file and the template
+          ini properties it uses.</para>
+        </listitem>
+
+        <listitem>
+          <para>The jetty.port property is used by the Property XML element in
+          etc/jetty.http.xml to inject the ServerConnector instance with the
+          port</para>
+        </listitem>
+      </itemizedlist>
+
+      <para>For more information see the <link
+      linkend="quickstart-config">Quickstart Configuration Guide</link> and
+      <link linkend="configuring-connectors">Configuring
+      Connectors.</link></para>
+    </note>
   </section>
 
   <section xml:id="quickstart-starting-https">
     <title>Starting HTTPS</title>
 
-    <para>By values set in the <filename>start.ini</filename> file, Jetty
-    starts the HTTP connector that is defined in
-    <filename>etc/jetty-http.xml</filename>. To also start the HTTPS connector
-    defined in <filename> etc/jetty-https.xml</filename>, append this
-    configuration file to the command line:</para>
+    <para>To add the HTTPS connector to a jetty configuration, the https
+    module can be activated by the following command:</para>
 
-    <screen>&gt; java -jar start.jar etc/jetty-ssl.xml etc/jetty-https.xml</screen>
+    <screen><emphasis role="bold">&gt; java -jar start.jar --module-ini=https</emphasis>
+https           initialised in ${jetty.home}/start.d/https.ini (created)
+ssl             initialised in ${jetty.home}/start.d/ssl.ini (created)
+server          enabled in     ${jetty.home}/start.ini
+resources       enabled in     ${jetty.home}/start.ini
+ext             enabled in     ${jetty.home}/start.ini
 
-    <para>The SSL xml file configures the keystore for SSL and the https xml
-    file configures a connector that uses it. You can test this connector by
-    pointing your browser to:<code> https://localhost:8443/</code></para>
+<emphasis role="bold">&gt; java -jar start.jar</emphasis>
+2013-09-06 13:52:43.326:INFO:oejs.Server:main: jetty-9.1.0
+[...]</screen>
 
-    <para>To start HTTPS and set the https port, you can use the command
-    line:</para>
+    <para>The --module-ini command sets up the effective command line in the
+    ini files to run a https connection as follows:</para>
 
-    <para><screen>&gt; java -jar start.jar jetty.https.port=8444 etc/jetty-ssl.xml etc/jetty-https.xml</screen></para>
+    <itemizedlist>
+      <listitem>
+        <para>creates the https.ini file that activates and configures the
+        https connector module. The https module adds the
+        <filename>etc/jetty-https.xml</filename> file to the effective command
+        line. </para>
+      </listitem>
 
-    <para>If you wish to permanently configure Jetty to use the HTTPS
-    connector, you can enable the corresponding modules in the start.d
-    directory. This can be done manually be renaming the files or by using the
-    start.jar options:</para>
+      <listitem>
+        <para>creates the <filename>start.d/ssl.ini</filename> file that
+        activates and configures the SSL keystore using demonstration
+        passwords. The ssl module adds the
+        <filename>etc/jetty-ssl.xml</filename> file to the effective command
+        line.</para>
+      </listitem>
 
-    <screen>&gt; java -jar start.jar --enable=ssl --enable=https
-&gt; java -jar start.jar</screen>
-  </section>
+      <listitem>
+        <para>checks for the existence of a <filename>etc/keystore</filename>
+        file and if not present, downloads a demonstration keystore
+        file.</para>
+      </listitem>
+    </itemizedlist>
 
-  <section>
-    <title>Disabling the demonstration webapps</title>
-
-    <para>The Jetty distribution comes with several demonstration web
-    applications deployed. These webapps are in the <code>webapps.demo</code>
-    directory and are enabled by the <code>start.d/900-demo.ini</code> file.
-    The demonstrations can be disabled by removing the 900-demo.ini file or
-    since release 9.1 the following command will disable the demonstration
-    webapps from subsequent starts of the server:</para>
-
-    <screen>&gt; java -jar start.jar --disable=demo</screen>
+    <note>
+      <para>If a single start.ini file is preferred over individual
+      <filename>start.d/*.ini</filename> files, then the option
+      --module-start-ini=module may be used to append the module activation to
+      the start.ini file rather than create a file in start.d </para>
+    </note>
   </section>
 
   <section>

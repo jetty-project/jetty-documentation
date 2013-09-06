@@ -34,9 +34,9 @@
   mechanisms.</para>
 
   <section>
-    <title>Jetty XML POJO Configuration</title>
+    <title>Jetty POJO Configuration</title>
 
-    <para>The main components of Jetty are simply Plain Old Java Objects
+    <para>The core components of Jetty are simply Plain Old Java Objects
     (<link
     xl:href="http://en.wikipedia.org/wiki/Plain_Old_Java_Object">POJOs</link>);
     the process of configuring Jetty is mostly the process of instantiating,
@@ -75,24 +75,129 @@
   </section>
 
   <section>
-    <title>Other Configuration Files</title>
+    <title>Jetty Start Configuration Files</title>
 
-    <para>Some Jetty Components do have configuration files that are not
-    IoC.</para>
+    <para>The Jetty distribution uses the following configuration files to
+    instantiate, inject and start server via the start.jar mechanism</para>
 
     <variablelist>
       <varlistentry>
         <term><filename>ini files</filename></term>
 
         <listitem>
-          <para>The Jetty Start mechanism uses an <filename>ini</filename>
-          files to hold arguments that are treated as if they were appended to
-          the command line used to start jetty. By default the file
-          <code>start.ini</code> is used as the main ini file, which is the
-          normal jetty distribution contains a single active line enabling the
-          <code>start.d/</code> directory of modular ini files. The ini files
-          within start.d may be enabled and disabled by renaming or using the
-          --enable and --disable options of start.jar</para>
+          <para>The Jetty Start mechanism uses the command line, the start.ini
+          file and any start.d/*.ini files to create an effective command line
+          of arguments. Arguments may be:</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>XML files in Jetty IoC (or spring) XML format</para>
+            </listitem>
+
+            <listitem>
+              <para>Module activations in the form --module=name </para>
+            </listitem>
+
+            <listitem>
+              <para>Property in the form of name=value, used to parameterize
+              Jetty IoC XML</para>
+            </listitem>
+
+            <listitem>
+              <para>A standard <link
+              xl:href="http://en.wikipedia.org/wiki/Java_properties">Java
+              property file</link> containing additional start
+              properties</para>
+            </listitem>
+
+            <listitem>
+              <para>Other start.jar options (see java -jar start.jar
+              --help)</para>
+            </listitem>
+
+            <listitem>
+              <para>Some JVM options</para>
+            </listitem>
+          </itemizedlist>
+
+          <para>Ini files are located in the jetty.base (if different from
+          jetty.home) and are typically edited to change the
+          configuration.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>mod files</term>
+
+        <listitem>
+          <para>The modules/*.mod files contain the definition of modules that
+          can be activated by --module=name. Each mod file defines:</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>Module dependencies for ordering and activation</para>
+            </listitem>
+
+            <listitem>
+              <para>The libraries needed by the module to be added to the
+              classpath</para>
+            </listitem>
+
+            <listitem>
+              <para>The XML files needed by the module to be added to the
+              effective command line</para>
+            </listitem>
+
+            <listitem>
+              <para>Files needed by the activated module</para>
+            </listitem>
+
+            <listitem>
+              <para>A template ini file to be used when activating with the
+              --module-ini=name option</para>
+            </listitem>
+          </itemizedlist>
+
+          <para>Mod files are normally located in jetty.home, but may be
+          overridden in jetty.base if need be. Typically module files are
+          rarely edited and only for significant structural changes.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>XML files</term>
+
+        <listitem>
+          <para>XML files in Jetty or spring IoC format are listed either on
+          the command line, ini files or added to the effective command line
+          by a module definition. The XML files instantiate and inject the
+          actual java objects that comprise the server, connectors and
+          contexts. Because Jetty IoC XML files frequently use properties,
+          many common configuration tasks can be accomplished without editing
+          these XML files. If XML configuration changes are required, the XML
+          file should be copied from jetty.home/etc to jetty.base/etc before
+          being modified. </para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+  </section>
+
+  <section>
+    <title>Other Configuration Files</title>
+
+    <para>In addition to the start configuration files described above, the
+    configuration of the server can use the following file</para>
+
+    <variablelist>
+      <varlistentry>
+        <term>Context XML files</term>
+
+        <listitem>
+          <para>Any XML files in Jetty or spring IoC format that is discovered
+          in the webapps directory are used by the deploy module to
+          instantiate and inject HttpContext instances to create a specific
+          context. These may be standard web applications or bespoke contexts
+          created from special purpose handlers.</para>
         </listitem>
       </varlistentry>
 
@@ -128,6 +233,15 @@
               <filename>WEB-INF/lib.</filename></para>
             </listitem>
           </itemizedlist>
+
+          <para>Normally the web.xml file for a web application is found in
+          the WEB-INF/web.xml location within the war file/directory or as
+          web.xml fragments with jar files found in WEB-INF/lib. Jetty also
+          supports multiple web.xml files so that a default descriptor may be
+          applied before WEB-INF/web.xml (typically set to etc/webdefault.xml
+          by the deploy module) and an override descriptor may be applied
+          after WEB-INF/web.xml (typically set by a context XML file see
+          test.xml)</para>
         </listitem>
       </varlistentry>
 
@@ -247,69 +361,39 @@
     the distribution, it is just a matter of running the following
     command:</para>
 
-    <screen>&gt; java -jar start.jar</screen>
+    <screen><emphasis role="bold">&gt; java -jar start.jar</emphasis></screen>
 
     <para>The Jetty <filename>distribution uses the start.d/
-    </filename>directory to define what OPTIONS, configuration files and
-    Properties are defined. The start.d/210-http.ini module is enabled by
-    default and contains the following lines (among others):</para>
+    </filename>directory to define what modules, configuration files and
+    properties are defined. The start.d/http.ini module is enabled by default
+    and contains the following lines (among others):</para>
 
-    <programlisting language="plain">jetty.port=8080
-etc/jetty-http.xml</programlisting>
+    <programlisting language="plain">--module=http
+jetty.port=8080
+</programlisting>
 
-    <para>This sets the jetty port parameter and lists the
-    <filename>etc/jetty-http.xml</filename> configuration file as a command
-    line argument. Looking inside that configuration file, we see that it
-    calls addConnector on the server with a new instance of the
+    <para>This sets the jetty port parameter and activates the http module as
+    defined by the modules/http.mod file, which lists the
+    <filename>etc/jetty-http.xml</filename> configuration file as an effective
+    command line argument. Looking inside that configuration file, we see that
+    it calls addConnector on the server with a new instance of the
     ServerConnector class. This instance is configured in XML and includes the
     line:</para>
 
-    <programlisting language="xml">&lt;Set name="port"&gt;&lt;Property name="jetty.port" default="8080" /&gt;&lt;/Set&gt;    </programlisting>
+    <programlisting language="xml">&lt;Set name="port"&gt;&lt;Property name="jetty.port" default="80" /&gt;&lt;/Set&gt;    </programlisting>
 
     <para>The effect of this line is to call ServerConnector.setPort(int) with
     either the value of the <filename>jetty.port</filename> property if set or
-    with the value 8080. We can see from the start.ini except above that the
-    jetty.port property line is set to 8080 also, so out of the box, the jetty
-    distribution will use the default 8080 port set inside the 210-http.ini
-    file.</para>
+    with the value 80. We can see from the start.ini except above that the
+    jetty.port property line is set to 8080, so out of the box, the jetty
+    distribution will use the default 8080 port set inside the
+    start.d/http.ini file.</para>
 
-    <para>If you wish to change the port, then the 210-http.ini file can be
-    edited and the default value there changed to the new port. However this
-    does mean that a file which is part of the jetty distribution has been
-    modified, which can make future upgrades more difficult. Alternately the
-    Property value can be set in one of several ways. Firstly an overriding
-    property value may be passed on the command line:</para>
-
-    <screen>$ java -jar start.jar jetty.port=9999
-</screen>
-
-    <para>This can be convenient if you have a script (like
-    <filename>bin/jetty.sh</filename>) that builds the command line for you.
-    However, if the start script is located away from the distribution (eg in
-    /etc/init.d) this can separate configuration from the installation, so the
-    start mechanism also allows for any command line argument to be placed in
-    the start.ini, so the jetty.port line can be uncommented in start.ini and
-    the port set there. This works, but now we are modifying a part of the
-    distribution again. If you want to avoid this, then you can create a
-    <filename>start.d/900-myconfig.ini</filename> file to include your
-    additional OPTIONS, configuration files and Properties:</para>
-
-    <screen>$ echo jetty.port=9999 &amp;gt; start.d/900-myconfig.ini
-$ java -jar start.jar    </screen>
-
-    <para>Finally, if your configuration results in a lot of properties that
-    need to be set and you wish to work with standard property files, then
-    these too can be added on the command line, in start.ini or your own
-    start.d files:</para>
-
-    <screen>$ echo "jetty.port: 9999" &amp;gt; start.d/myconfig.properties
-$ echo start.d/myconfig.properties &amp;gt; start.d/900-myconfig.ini
-$ java -jar start.jar    </screen>
-
-    <para>In summary, Jetty is configured by calling setters and methods on
-    POJO's which can be done either from java code or from Jetty IoC XML
-    files. The XML files can either be edited or parameterised with properties
-    that can be set on the command line or passed via an ini file. The XMLs to
-    use are also set either on the command line and/or with ini files.</para>
+    <para>If you wish to change the port, then the start.d/http.ini file can
+    be edited and the default value there changed to the new port. However
+    this does mean that a file which is part of the jetty distribution has
+    been modified, which can make future upgrades more difficult. Thus it is
+    normally better to create a jetty.base directory and configure a new
+    instance of a server there.</para>
   </section>
 </section>

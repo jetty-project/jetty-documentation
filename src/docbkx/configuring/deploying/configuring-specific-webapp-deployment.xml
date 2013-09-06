@@ -38,7 +38,7 @@
   <section xml:id="deployable-descriptor-file">
     <title>Jetty Deployable Descriptor XML File</title>
 
-    <para>Jetty supports deploying Web Applications via XML file which will
+    <para>Jetty supports deploying Web Applications via XML files which will
     build an instance of a <link
     xl:href="@JDURL@/org/eclipse/jetty/server/handler/ContextHandler.html">ContextHandler</link>
     that Jetty can then deploy.</para>
@@ -143,7 +143,7 @@
       <code>setAttribute</code> method to set a Servlet context attribute.
       However, since the <filename> web.xml</filename> for the web application
       is processed after the deployment descriptor, the <filename>
-      web.xml</filename> values overwrite like-named attributes from the
+      web.xml</filename> values overwrite identically named attributes from the
       deployment descriptor.</para>
 
       <informalexample>
@@ -164,7 +164,7 @@
 
       <para>The following example sets a special <filename>web.xml</filename>
       override descriptor. This descriptor is processed after the web
-      application's <filename>web.xml</filename>, so may override like-named
+      application's <filename>web.xml</filename>, so it may override identically named
       attributes. This feature is useful if you want to add parameters or
       additional Servlet mappings without breaking open a packed WAR
       file.</para>

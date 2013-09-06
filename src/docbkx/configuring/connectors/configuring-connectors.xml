@@ -349,7 +349,7 @@
 
     <section>
       <title>SSL Context Configuration</title>
-      <para>The SSL/TSL connectors for HTTPS and SPDY require a certificate to
+      <para>The SSL/TLS connectors for HTTPS and SPDY require a certificate to
       establish a secure connection. Jetty holds certificates in standard JVM
       keystores and are configured as keystore and truststores on a <link
           xl:href="@JDURL@/org/eclipse/jetty/util/ssl/SslContextFactory.html">

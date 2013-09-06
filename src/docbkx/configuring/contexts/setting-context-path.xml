@@ -53,7 +53,7 @@
     <title>By naming convention</title>
 
     <para>If a web application is deployed using the WebAppProvider of the
-    DeployentManager without an XML IoC file, then the name of the WAR file is
+    DeploymentManager without an XML IoC file, then the name of the WAR file is
     used to set the context path:</para>
 
     <itemizedlist>
@@ -79,7 +79,7 @@
   <section xml:id="using-the-webapp-provider">
     <title>By Deployer configuration</title>
 
-    <para>If a web application is deployed using the WebAppProvider of the the
+    <para>If a web application is deployed using the WebAppProvider of the
     DeploymentManager with an XML IoC file to configure the context, then the
     setContextPath method can be called within that file. For example:</para>
 

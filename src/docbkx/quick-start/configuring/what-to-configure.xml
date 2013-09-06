@@ -28,7 +28,7 @@
          xmlns:ns="http://docbook.org/ns/docbook">
   <title>What to Configure in Jetty</title>
 
-  <para>This section gives an overview of the what components of Jetty you
+  <para>This section gives an overview of the components of Jetty you
   typically configure using the mechanisms outlined in the previous section.
   <xref linkend="basic-architecture"/> describes the structure of a Jetty
   server, which is good background reading to understand configuration, and is
@@ -587,7 +587,7 @@
         <para>If a directory and matching WAR file exist with the same base
         name (eg: <filename>foo/</filename> and <filename>foo.war</filename>),
         then the directory is assumed to be the unpacked WAR and only the WAR
-        is deployed (which may reused the unpacked directory)</para>
+        is deployed (which may reuse the unpacked directory)</para>
       </listitem>
 
       <listitem>

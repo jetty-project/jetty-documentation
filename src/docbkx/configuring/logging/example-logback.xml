@@ -28,19 +28,18 @@
          xmlns:ns="http://docbook.org/ns/docbook">
   <title>Example: Logging with Logback</title>
 
-  <para>This page describes how to Configure Jetty for Logging with
+  <para>This page describes how to configure Jetty for logging with
   <literal><link
-  xl:href="http://logback.qos.ch/">Logback</link></literal>.</para>
-
-  <para>The basic configuration for Logging with Logback is to use <link
+  xl:href="http://logback.qos.ch/">Logback</link></literal>, which uses
+ <link
   xl:href="http://slf4j.org/manual.html">Slf4j</link> and the <link
   xl:href="http://logback.qos.ch/">Logback Implementation for
   Slf4j</link>.</para>
 
   <simplesect>
-    <title>The Required JARs</title>
+    <title>Downloading the Required JARs</title>
 
-    <para>There will be 3 JARs you will need to download</para>
+    <para>You need to download three JARs, which you can do by clicking the following links:</para>
 
     <para><variablelist>
         <varlistentry>
@@ -48,8 +47,8 @@
           xl:href="http://repo1.maven.org/maven2/ch/qos/logback/logback-classic/1.0.7/logback-classic-1.0.7.jar">logback-classic-1.0.7.jar</link></filename></term>
 
           <listitem>
-            <para>This is the underlying logging framework and adaption layer
-            for Slf4j</para>
+            <para>The underlying logging framework and adaption layer
+            for Slf4j.</para>
           </listitem>
         </varlistentry>
 
@@ -68,7 +67,7 @@
           xl:href="http://repo1.maven.org/maven2/org/slf4j/slf4j-api/1.6.6/slf4j-api-1.6.6.jar">slf4j-api-1.6.6.jar</link></filename></term>
 
           <listitem>
-            <para>This is the basic Slf4j API that Jetty's Slf4jLog
+            <para>The basic Slf4j API that Jetty's Slf4jLog
             implementation uses.</para>
           </listitem>
         </varlistentry>
@@ -78,10 +77,8 @@
   <simplesect>
     <title>Configuring Server Classpath</title>
 
-    <para>In order for the Server to use these new JARs you will need to put
-    them into place and tell Jetty to load them on each startup.</para>
-
-    <para>Create a ${jetty.home}/lib/logging/ directory and place the 3 files
+    <para>For the Server to use these new JARs you need to put
+    them into place and tell Jetty to load them on each startup. Create a <filename>${jetty.home}/lib/logging/</filename> directory and place the three files
     you downloaded there.</para>
 
     <screen language="bash"><![CDATA[[jetty-distribution-${project.version}]$ ls -l ]]><emphasis
@@ -92,17 +89,14 @@ total 632
 -rw-rw-r-- 1 jetty jetty  26176 Mar 12 14:46 ]]><emphasis role="bold">slf4j-api-1.6.6.jar</emphasis><![CDATA[
 ]]></screen>
 
-    <para>Next, we need to edit the ${jetty.home}/start.ini to get jetty to
-    load these logging files into the Server classpath.</para>
-
-    <para>Edit the start.ini and check for the following entries. (Add them to
-    the end if missing)</para>
+    <para>Next you edit the <filename>${jetty.home}/start.ini</filename> to get Jetty to
+    load these logging files into the Server classpath. Check for the following entries. Add them to the end if they are missing.</para>
 
     <programlisting condition="[2]" language="properties"><![CDATA[# Adding lib/logging to server classpath
 OPTIONS=logging
 ]]></programlisting>
 
-    <para>Now verify that the 3 jars will be loaded by server classpath</para>
+    <para>Now verify that the server classpath loads the three JARs.</para>
 
     <screen><![CDATA[[jetty-distribution-${project.version}]$ ]]><emphasis
         role="bold">java -jar start.jar --version</emphasis><![CDATA[ | grep logging
@@ -118,26 +112,26 @@ Active Options: [Server, client, ext, jmx, jsp, ]]><emphasis role="bold">logging
     <title>Configuring Server Logging</title>
 
     <para>If you have a
-    <filename>${jetty.home}/resources/jetty-logging.properties</filename>,
-    make sure it contains just the following</para>
+    <filename>${jetty.home}/resources/jetty-logging.properties</filename> file,
+    make sure it contains just the following:</para>
 
     <para><programlisting language="properties"><![CDATA[# Configure Jetty for SLf4j Logging
 org.eclipse.jetty.util.log.class=org.eclipse.jetty.util.log.Slf4jLog]]></programlisting></para>
 
-    <para>This will tell Jetty to use the Slf4jLog implementation for its
-    internal Logging.</para>
+    <para>This tells Jetty to use the Slf4jLog implementation for its
+    internal logging.</para>
   </simplesect>
 
   <simplesect>
     <title>Configuring Logback</title>
 
-    <para>You'll need a
+    <para>You need a
     <filename>${jetty.home}/resources/logback.xml</filename> file to define
-    what you want Logback to do. It will be automatically located and loaded
-    on Logging startup.</para>
+    what you want Logback to do. It is automatically located and loaded
+    on logging startup.</para>
 
     <para>Example <filename>${jetty.home}/resources/logback.xml</filename>
-    file</para>
+    file:</para>
 
     <para><programlisting language="xml"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
 <!-- 

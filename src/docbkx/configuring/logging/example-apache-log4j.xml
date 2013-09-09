@@ -27,10 +27,8 @@
          xmlns:ns="http://docbook.org/ns/docbook">
   <title>Example: Logging with Apache Log4j</title>
 
-  <para>This page describes how to Configure Jetty for Logging with <link
-  xl:href="http://logging.apache.org/log4j/">Apache Log4j</link>.</para>
-
-  <para>The basic configuration for Logging with Apache Log4j is to use <link
+  <para>This page describes how to configure Jetty for logging with <link
+  xl:href="http://logging.apache.org/log4j/">Apache Log4j</link>, which involves using <link
   xl:href="http://slf4j.org/manual.html">Slf4j</link> and the <link
   xl:href="http://slf4j.org/manual.html#swapping">Slf4j binding layer for
   Log4j</link>.</para>
@@ -38,7 +36,7 @@
   <simplesect>
     <title>The Required JARs</title>
 
-    <para>There will be 3 JARs you need to download</para>
+    <para>You need to download three JARs, which you can do by clicking the following links:</para>
 
     <para><variablelist>
         <varlistentry>
@@ -46,7 +44,7 @@
           xl:href="http://repo1.maven.org/maven2/org/slf4j/slf4j-log4j12/1.6.6/slf4j-log4j12-1.6.6.jar">slf4j-log4j12-1.6.6.jar</link></filename></term>
 
           <listitem>
-            <para>This is the Slf4j binding layer for Log4j.</para>
+            <para>The Slf4j binding layer for Log4j.</para>
           </listitem>
         </varlistentry>
 
@@ -55,7 +53,7 @@
           xl:href="http://repo1.maven.org/maven2/org/slf4j/slf4j-api/1.6.6/slf4j-api-1.6.6.jar">slf4j-api-1.6.6.jar</link></filename></term>
 
           <listitem>
-            <para>This is the basic Slf4j API that Jetty's Slf4jLog
+            <para>The basic Slf4j API that Jetty's Slf4jLog
             implementation uses.</para>
           </listitem>
         </varlistentry>
@@ -65,7 +63,7 @@
           xl:href="http://repo1.maven.org/maven2/log4j/log4j/1.2.17/log4j-1.2.17.jar">log4j-1.2.7.jar</link></filename></term>
 
           <listitem>
-            <para>This is the <link
+            <para>The<link
             xl:href="http://repo1.maven.org/maven2/org/slf4j/slf4j-parent/1.6.6/slf4j-parent-1.6.6.pom">version
             of log4j that slf4j-log4j12-1.6.6 was written
             against</link>.</para>
@@ -77,11 +75,9 @@
   <simplesect>
     <title>Configuring Server Classpath</title>
 
-    <para>In order for the Server to use these new JARs you will need to put
-    them into place and tell Jetty to load them on each startup.</para>
-
-    <para>Create a <filename>${jetty.home}/lib/logging/</filename> directory
-    and place the 3 files you downloaded there.</para>
+    <para>For the Server to use these new JARs you need to put
+    them in place and tell Jetty to load them on each startup. Create a <filename>${jetty.home}/lib/logging/</filename> directory
+    and place the three JAR files you downloaded there.</para>
 
     <informalexample>
       <screen language="bash"><![CDATA[[jetty-distribution-${project.version}]$ ls -l ]]><emphasis
@@ -93,14 +89,10 @@ total 520
 ]]></screen>
     </informalexample>
 
-    <para>Next, we need to edit the ${jetty.home}/start.ini to get jetty to
-    load these logging files into the Server classpath.</para>
-
-    <para>Edit the start.ini and check for <literal>OPTIONS</literal> line
-    with logging defined.</para>
-
-    <para>If you can't find a OPTIONS entry with logging, add one at the
-    bottom of the file.</para>
+    <para>Next you edit the <filename>${jetty.home}/start.ini</filename> to get Jetty to
+    load these logging files into the Server classpath. Check for <literal>OPTIONS</literal> line
+    with logging defined. If you can't find an <literal>OPTIONS</literal> entry with logging, add one at the
+    end of the file.</para>
 
     <informalexample>
       <screen language="bash"><![CDATA[[jetty-distribution-${project.version}]$ grep logging ]]><emphasis
@@ -110,8 +102,7 @@ total 520
 ]]></screen>
     </informalexample>
 
-    <para>Now verify that the 3 jars will be loaded by the server
-    classpath.</para>
+    <para>Now verify that the server classpath loads the three JARs.</para>
 
     <informalexample>
       <screen><![CDATA[[jetty-distribution-${project.version}]$ ]]><emphasis
@@ -127,25 +118,25 @@ Active Options: [Server, client, ext, jmx, jsp, ]]><emphasis role="bold">logging
     <title>Configuring Server Logging</title>
 
     <para>If you have a
-    <filename>${jetty.home}/resources/jetty-logging.properties</filename>,
-    make sure it contains just the following</para>
+    <filename>${jetty.home}/resources/jetty-logging.properties</filename> file,
+    make sure it contains just the following:</para>
 
     <para><programlisting language="properties"><![CDATA[# Configure Jetty for SLf4j Logging
 org.eclipse.jetty.util.log.class=org.eclipse.jetty.util.log.Slf4jLog
 ]]></programlisting></para>
 
-    <para>This will tell Jetty to use the Slf4jLog implementation for its
-    internal Logging.</para>
+    <para>This tells Jetty to use the Slf4jLog implementation for its
+    internal logging.</para>
   </simplesect>
 
   <simplesect>
     <title>Configuring Log4j</title>
 
-    <para>Next you will need a
+    <para>Next you need a
     <filename>${jetty.home}/resources/log4j.properties</filename> file for
     configuring Log4j.</para>
 
-    <para>Example <filename>resources/log4j.properties</filename> file</para>
+    <para>Example <filename>resources/log4j.properties</filename> file:</para>
 
     <para><programlisting language="properties"><![CDATA[# Basic Log4j Configuration with STDOUT and File logging
 log4j.rootLogger=INFO, stdout, filer
@@ -164,11 +155,11 @@ log4j.appender.filer.MaxBackupIndex=4
 log4j.appender.filer.append=true
 ]]></programlisting></para>
 
-    <para><note>
+    <note>
         <para>The use of <filename>${jetty.home}/logs</filename> is a handy
         way to always get a reference to the standard Jetty logs
-        directory</para>
-      </note></para>
+        directory.</para>
+      </note>
   </simplesect>
 
   <simplesect>
@@ -240,8 +231,8 @@ log4j.appender.filer.MaxBackupIndex=4
 log4j.appender.filer.append=true
 EOFL
 fi
-]]></programlisting>This will use curl to download the JARs, setup the
+]]></programlisting>This uses curl to download the JARs, set up the
     <filename>start.ini</filename>, and lastly the
-    <filename>resources</filename> directory suitable for using log4j</para>
+    <filename>resources</filename> directory suitable for using Log4j.</para>
   </simplesect>
 </section>

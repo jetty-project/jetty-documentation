@@ -28,12 +28,12 @@
          xmlns:ns="http://docbook.org/ns/docbook">
   <title>Jetty Dump Tool</title>
   <para>
-    The dump feature in Jetty provides a good snapshot of the status of the threadpool, select sets, classloaders, and so forth. To get maximum detail from the dump, you need to setDetailDump(true) on any QueuedThreadPools you are using. You can do this by a direct call if you are embedding Jetty, or in jetty.xml.
+    The dump feature in Jetty provides a good snapshot of the status of the threadpool, select sets, classloaders, and so forth. To get maximum detail from the dump, you need to <code>setDetailDump(true)</code> on any <literal>QueuedThreadPools</literal> you are using. You can do this by a direct call if you are embedding Jetty, or in <filename>jetty.xml</filename>.
   </para>
   <section>
     <title>Configuring the Dump Feature in jetty.xml</title>
     <para>
-      You can request that Jetty does a dump immediately after staring and just before stopping by calling the appropriate setters on the Server instance. This can be done in jetty.xml with:
+      You can request that Jetty do a dump immediately after staring and just before stopping by calling the appropriate setters on the Server instance. You can accomplish this in <filename>jetty.xml</filename> with:
     </para>
     <informalexample>
       <programlisting language="xml">
@@ -47,7 +47,7 @@
   <section>
     <title>Extra ThreadPool Information</title>
     <para>
-      Additional detail can be dumped from the QueueudThreadPool if setDetailedDump(true) is called on the thread pool instance. This can be done in jetty.xml as follows:
+      You can get additional detail from the <literal>QueuedThreadPool</literal> if <literal>setDetailedDump(true)</literal> is called on the thread pool instance. Do this in <filename>jetty.xml</filename> as follows:
     </para>
     <informalexample>
       <programlisting language="xml">
@@ -71,10 +71,10 @@
   <section>
     <title>Using the Dump Feature via JMX</title>
     <para>
-      The dump method is on the Server instance and many of it's nested components (Handlers, Connectors etc.). Dumps maybe obtained by calling these methods either in code or via JMX (see <xref linkend="using-jmx"/>).
+      The dump method is on the Server instance and many of its nested components (Handlers, Connectors, and so forth). Dumps may be obtained by calling these methods either in code or via JMX (see <xref linkend="using-jmx"/>).
     </para>
     <para>
-      The Server MBean has a dump() method, which dumps everything, plus a dumpStdErr() operation that dumps to stderr rather than replying to jconsole.
+      The Server MBean has a dump() method, which dumps everything, plus a <literal>dumpStdErr()</literal> operation that dumps to stderr rather than replying to jconsole.
     </para>
   </section>
   <section>

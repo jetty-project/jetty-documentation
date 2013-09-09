@@ -43,7 +43,7 @@
       <term>DEBUG</term>
 
       <listitem>
-        <para>Debugging events (very noisy)</para>
+        <para>Debugging events (very noisy).</para>
       </listitem>
     </varlistentry>
 
@@ -53,14 +53,14 @@
       <listitem>
         <para>Exception events that you can safely ignore, but useful for some
         people. You might see this level as DEBUG under some Java logging
-        framework configurations, where its retain the
-        <emphasis>ignore</emphasis> phrase somewhere in the logging).</para>
+        framework configurations, where it retains the
+        <emphasis>ignore</emphasis> phrase somewhere in the logging.</para>
       </listitem>
     </varlistentry>
   </variablelist>
 
   <note>
-    <para>Jetty Logging produces no FATAL or SEVERE events.</para>
+    <para>Jetty logging produces no FATAL or SEVERE events.</para>
   </note>
 
   <section xml:id="selecting-log-framework">
@@ -88,12 +88,12 @@
       </listitem>
 
       <listitem>
-        <para>Determine the Log implementation.</para>
+        <para>Determine the log implementation.</para>
 
         <itemizedlist>
           <listitem>
             <para>If property <code>org.eclipse.jetty.util.log.class</code> is
-            defined, load the class it defines as the Logger implementation
+            defined, load the class it defines as the logger implementation
             from the server classpath.</para>
           </listitem>
 
@@ -115,7 +115,7 @@
       <para>You can create your own custom logging by providing an
       implementation of the <link
       xl:href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/util/log/Logger.html">Jetty
-      Logger API</link>. For an example of a custom Logger, see <link
+      Logger API</link>. For an example of a custom logger, see <link
       xl:href="http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/tree/jetty-util/src/main/java/org/eclipse/jetty/util/log/JavaUtilLog.java">JavaUtilLog.java</link>.</para>
     </note>
   </section>
@@ -124,8 +124,8 @@
     <title>Configuring Jetty StdErrLog</title>
 
     <para>If you select the default Jetty logger (StdErrLog), you can then use
-    further properties (either as System properties or in a
-    jetty-logging.properties as outlined in <xref
+    further properties (either as system properties or in a
+    <code>jetty-logging.properties</code> as outlined in <xref
     linkend="selecting-log-framework"/>) to control event levels to log and to
     adjust the format of those logs.</para>
 
@@ -140,7 +140,7 @@
             name (or hierarchy) can be a specific fully qualified class or a
             package namespace, for example,
             <code>-Dorg.eclipse.jetty.http.LEVEL=DEBUG</code> is a package
-            namespace approach to turn all loggers in the jetty HTTP package
+            namespace approach to turn all loggers in the Jetty HTTP package
             to DEBUG level, and
             <code>-Dorg.eclipse.jetty.io.ChanelEndPoint.LEVEL=ALL</code> turns
             on all logging events for the specific class, including DEBUG,
@@ -156,10 +156,9 @@
           <listitem>
             <para>Named Logger specific, attempts to print the Java source
             file name and line number from where the logging event originated.
-            Name must be a fully qualified class name (package name hierarchy
-            is not supported by this configurable). Default is false. Be aware
+            Name must be a fully qualified class name (this configurabale  does not support package name hierarchy). Default is false. Be aware
             that this is a slow operation and has an impact on
-            performance!</para>
+            performance.</para>
           </listitem>
         </varlistentry>
 
@@ -168,8 +167,7 @@
 
           <listitem>
             <para>Named Logger specific, controls the display of stacktraces.
-            Name must be a fully qualified class name (package name hierarchy
-            is not supported by this configurable). Default is true.</para>
+            Name must be a fully qualified class name (this configurabale  does not support package name hierarchy). Default is true.</para>
           </listitem>
         </varlistentry>
 
@@ -229,8 +227,7 @@
             <para>Ancient debugging flag that turned on all debugging, even
             non-logging debugging. </para>
 
-            <para>No longer used by jetty as this overly simplified property
-            name is used by many 3rd party libraries and would generate far
+            <para>Jetty no longer uses because many third party libraries employ this overly simple property name, which would generate far
             too much console output.</para>
           </listitem>
         </varlistentry>
@@ -245,20 +242,20 @@ org.eclipse.jetty.util.log.class=org.eclipse.jetty.util.log.StdErrLog
 org.eclipse.jetty.LEVEL=INFO
 # Make websocket more verbose for testing
 org.eclipse.jetty.websocket.LEVEL=DEBUG]]></programlisting>
-
-      <para>This sets the Logging Implementation to StdErrLog.</para>
-
-      <para>Configures the logging level for
+<itemizedlist>
+      <listitem><para>This sets the Logging Implementation to StdErrLog.</para></listitem>
+   <listitem><para>Configures the logging level for
       "<literal>org.eclipse.jetty</literal>" to be
-      <literal>INFO</literal></para>
+      <literal>INFO.</literal></para></listitem>
 
-      <para>Configures the logging level for
+      <listitem><para>Configures the logging level for
       "<literal>org.eclipse.jetty.websocket</literal>" to be
-      <literal>DEBUG</literal></para>
+      <literal>DEBUG</literal>.</para></listitem>
+      </itemizedlist>
     </section>
 
     <section xml:id="changing-log-level-etc-jetty.xml">
-      <title>Changing log level in <code>etc/jetty.xml</code></title>
+      <title>Changing log level in <filename>etc/jetty.xml</filename></title>
 
       <programlisting language="xml"><![CDATA[<Call class="org.eclipse.jetty.util.log.Log" name="getRootLogger">
   <Call name="setDebugEnabled">
@@ -266,13 +263,13 @@ org.eclipse.jetty.websocket.LEVEL=DEBUG]]></programlisting>
   </Call>
 </Call>      ]]></programlisting>
 
-      <para>This technique, from older versions of Jetty, is used to configure
+      <para>This technique, from older versions of Jetty, configures
       all of the StdErrLog loggers (no other implementations support this) to
       be logging at DEBUG level.</para>
     </section>
 
     <section xml:id="using-etc-jetty-logging.xml">
-      <title>Using <code>etc/jetty-logging.xml</code></title>
+      <title>Using <filename>etc/jetty-logging.xml</filename></title>
 
       <para>You can use <filename>etc/jetty-logging.xml</filename> to take all
       <code>System.out</code> and <code>System.err</code> output (from any

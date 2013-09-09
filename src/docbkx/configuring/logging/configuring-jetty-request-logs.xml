@@ -38,7 +38,7 @@
     <title>Constructing a Request Log Entry</title>
 
     <para>A standard request log entry includes the client IP address, date,
-    method, URL, result, size, referrer and user agent, for example:</para>
+    method, URL, result, size, referrer, and user agent, for example:</para>
 
     <informalexample>
       <screen><![CDATA[123.4.5.6 - - [27/Aug/2004:10:16:17 +0000]
@@ -52,7 +52,7 @@
     <title>Implementing a Request Log</title>
 
     <para>Jetty provides an implementation called
-    <emphasis>NCSARequestLog</emphasis> which supports the NCSA format in
+    <emphasis><code>NCSARequestLog</code></emphasis> which supports the NCSA format in
     files that you can roll over on a daily basis.</para>
 
     <para>The <link xl:href="http://http://logback.qos.ch/">Logback
@@ -63,7 +63,7 @@
 
     <para>If neither of these options meets your needs, you can implement a
     custom request logger by implementing Jetty's <link
-    xl:href="@JDURL@/org/eclipse/jetty/server/RequestLog.html">RequestLog.java</link>
+    xl:href="@JDURL@/org/eclipse/jetty/server/RequestLog.html"><code>RequestLog.java</code></link>
     interface and plugging it in similar to the NCSARequestLog, as shown
     below.</para>
   </section>
@@ -132,7 +132,7 @@ requestLogHandler.setRequestLog(requestLog);   ]]></programlisting>
     <title>Configuring a Separate Request Log For a Web Application</title>
 
     <para>To configure a separate request log for a web application, add the
-    following to the context xml file.</para>
+    following to the context XML file.</para>
 
     <programlisting language="xml"><![CDATA[<Configure class="org.eclipse.jetty.webapp.WebAppContext">
   ...

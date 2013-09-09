@@ -26,21 +26,19 @@
          xmlns:xi="http://www.w3.org/2001/XInclude"
          xmlns:ns2="http://www.w3.org/1998/Math/MathML"
          xmlns:ns="http://docbook.org/ns/docbook">
-  <title>Example: Capturing Multiple Logging frameworks with Slf4j</title>
+  <title>Example: Capturing Multiple Logging Frameworks with Slf4j</title>
 
-  <para>This page describes how to Configure Jetty for capturing multiple
+  <para>This page describes how to configure Jetty for capturing multiple
   logging frameworks logging events into a single logging implementation
   handled by Slf4j.</para>
 
-  <para>When using Slf4j, it is possible to configure a single logging
+  <para>When using Slf4j, you can configure a single logging
   solution for the variety of logging libraries available in common
-  use.</para>
-
-  <para>With some careful setup, you can support all of the following logging
+  use. With careful setup, you can support all of the following logging
   APIs at the same time, with a single configuration file to control the
   output of events produces by these APIs.</para>
 
-  <para>Logging APIs supported by Slf4j:</para>
+  <para>Logging APIs that Slf4j supports:</para>
 
   <itemizedlist>
     <listitem>
@@ -56,7 +54,7 @@
     </listitem>
 
     <listitem>
-      <para>JDK 1.4 Logging (aka java.util.logging)</para>
+      <para>JDK 1.4 Logging (aka <literal>java.util.logging</literal>)</para>
     </listitem>
 
     <listitem>
@@ -64,16 +62,8 @@
     </listitem>
   </itemizedlist>
 
-  <para>To accomplish this you must make some careful choices.</para>
-
-  <para>Starting with: <emphasis>What will my 1 single Underlying Logging
-  Framework be?</emphasis></para>
-
-  <para>This decision will guide the rest of your decisions on JAR
-  choices.</para>
-
-  <para>The choice of underlying logging framework forces you to be careful
-  about other logging JARs present on the Server Classpath.</para>
+  <para>To accomplish this you must make some careful choices, starting with a single underlying logging
+  framework. This decision guides the rest of your choices about JARs to place on the Server classpath.</para>
 
   <table width="8">
     <title>Slf4j Logging Grid</title>
@@ -152,25 +142,25 @@
 
       <listitem>
         <para>The Logging API that you are either capturing events from and/or
-        using to write out those events (eg: to disk)</para>
+        using to write out those events (for example, to disk).</para>
       </listitem>
     </varlistentry>
 
     <varlistentry>
-      <term>Slf4j Binding Jar</term>
+      <term>Slf4j Binding JAR</term>
 
       <listitem>
-        <para>These are special JARs, created and maintained by the Slf4j
-        project that pretend to be the various Logging API implementation
+        <para>Special JARs, created and maintained by the Slf4j
+        project, that pretend to be the various Logging API implementation
         classes, but instead just route that Logging API's events to Slf4j to
         handle.</para>
 
-        <para>There MAY be multiple Slf4j Binding Jars present on the
-        Classpath at the same time.</para>
+        <para>There MAY be multiple Slf4j binding JARs present on the
+        classpath at the same time.</para>
 
-        <para>For a single Logging API, if you choose to use the Slf4j Binding
-        Jar, then you MUST NOT include the SLf4j Adapter Jar or Underlying
-        Logging Framework in the Classpath as well.</para>
+        <para>For a single logging API, if you choose to use the Slf4j binding
+        JAR, then you MUST NOT include the SLf4j adapter JAR or underlying
+        logging framework in the classpath as well.</para>
       </listitem>
     </varlistentry>
 
@@ -179,14 +169,14 @@
 
       <listitem>
         <para>These JARs are created and maintained by the Slf4j project and
-        route Slf4j logging events to a specific Underlying Logging
-        Framework.</para>
+        route Slf4j logging events to a specific underlying logging
+        framework.</para>
 
-        <para>There MUST NOT be multiple Slf4j Adapter Jars present on the
-        Classpath at the same time.</para>
+        <para>There MUST NOT be multiple Slf4j adapter JARs present on the
+        classpath at the same time.</para>
 
-        <para>Logging events that these Adapter Jars capture can come from
-        direct use of the Slf4j API or via one of the Slf4j Binding Jar
+        <para>Logging events that these adapter JARs capture can come from
+        direct use of the Slf4j API or via one of the Slf4j binding JAR
         implementations.</para>
       </listitem>
     </varlistentry>
@@ -196,55 +186,47 @@
 
       <listitem>
         <para>This is the last leg of your configuration, the implementation
-        that processes, filters, and outputs the Logging events to the
-        Console, logging directory on disk, or whatever else that the
-        Underlying Logging Framework supports (like Socket, SMTP, Database, or
-        even SysLog in the case of Logback)</para>
+        that processes, filters, and outputs the logging events to the
+        console, logging directory on disk, or whatever else the
+        underlying logging framework supports (like Socket, SMTP, Database, or
+        even SysLog in the case of Logback).</para>
 
         <para><caution>
-            <para>There MUST NOT be multiple Underlying Logger Frameworks on
-            the Classpath.</para>
-
-            <para>Otherwise the Slf4j framework will fail to load.</para>
+            <para>There MUST NOT be multiple underlying logging frameworks on
+            the classpath. If there are, the Slf4j framework fails to load.</para>
           </caution></para>
 
         <para><note>
-            <para>Some 3rd party libraries often provide their own
-            implementations of common Logging APIs, be sure that you don't
-            accidentally include a Underlying Logging Framework by
-            accident.</para>
+            <para>Some third party libraries provide their own
+            implementations of common logging APIs; be careful not to
+            accidentally include an underlying logging framework.</para>
 
-            <para>An example would be if you are using SpringSource you will
-            likely have a
+            <para>For example, if you are using SpringSource you likely have a
             <filename>com.springsource.org.apache.log4j.jar</filename> along
             with a <filename>log4j.jar</filename>, which have the same classes
-            in them. In this specific example, use the
+            in them. In this example, use the
             <filename>com.springsource.org.apache.log4j.jar</filename> version
             and exclude the <filename>log4j.jar</filename>, as the
-            SpringSource version includes extra metadata suitable for
-            SpringSource use.</para>
+            SpringSource version includes extra metadata suitable for using
+            SpringSource.</para>
           </note></para>
       </listitem>
     </varlistentry>
   </variablelist>
 
-  <para>For purposes of this document, we'll choose Logback as our Underlying
-  Logging Framework.</para>
+  <para>The following sections use Logback as the underlying
+  Logging framework. This requires using <literal>logback-classic.jar</literal> and
+  <literal>logback-core.jar</literal>, and excluding any other Slf4j adapter JAR or
+  underlying logging framework.</para>
 
-  <para>This means that we have to now use logback-classic.jar and
-  logback-core.jar, and ensure that we exclude any other Slf4j Adapter Jar or
-  Underlying Logging Framework, as this will cause problems.</para>
-
-  <para>We also now need to include the other Slf4j Binding Jars in our
-  Classpath, along with some special initialization for
-  java.util.logging.</para>
-
-  <para>Lets get started.</para>
+  <para>It also requires including the other Slf4j binding JARs in the
+  classpath, along with some special initialization for
+  <literal>java.util.logging</literal>.</para>
 
   <simplesect>
     <title>The Required JARs</title>
 
-    <para>There will be 3 JARs you will need to download</para>
+    <para>You need to download six JARs, which you can do by clicking the following links:</para>
 
     <para><variablelist>
         <varlistentry>
@@ -252,8 +234,8 @@
           xl:href="http://repo1.maven.org/maven2/ch/qos/logback/logback-classic/1.0.7/logback-classic-1.0.7.jar">logback-classic-1.0.7.jar</link></filename></term>
 
           <listitem>
-            <para>This is the underlying logging framework and adaption layer
-            for Slf4j</para>
+            <para>The underlying logging framework and adaption layer
+            for Slf4j.</para>
           </listitem>
         </varlistentry>
 
@@ -272,7 +254,7 @@
           xl:href="http://repo1.maven.org/maven2/org/slf4j/log4j-over-slf4j/1.6.6/log4j-over-slf4j-1.6.6.jar"><filename>log4j-over-slf4j-1.6.6.jar</filename></link></term>
 
           <listitem>
-            <para>The Slf4j Binding JAR for Log4j</para>
+            <para>The Slf4j binding JAR for Log4j.</para>
           </listitem>
         </varlistentry>
 
@@ -281,7 +263,7 @@
           xl:href="http://repo1.maven.org/maven2/org/slf4j/jul-to-slf4j/1.6.6/jul-to-slf4j-1.6.6.jar"><filename>jul-to-slf4j-1.6.6.jar</filename></link></term>
 
           <listitem>
-            <para>The Slf4j Binding JAR for java.util.logging</para>
+            <para>The Slf4j binding JAR for <literal>java.util.logging</literal>.</para>
           </listitem>
         </varlistentry>
 
@@ -290,7 +272,7 @@
           xl:href="http://repo1.maven.org/maven2/org/slf4j/jcl-over-slf4j/1.6.6/jcl-over-slf4j-1.6.6.jar"><filename>jcl-over-slf4j-1.6.6.jar</filename></link></term>
 
           <listitem>
-            <para>The Slf4j Binding JAR for Commons Logging</para>
+            <para>The Slf4j binding JAR for Commons Logging.</para>
           </listitem>
         </varlistentry>
 
@@ -299,18 +281,18 @@
           xl:href="http://repo1.maven.org/maven2/org/slf4j/slf4j-api/1.6.6/slf4j-api-1.6.6.jar">slf4j-api-1.6.6.jar</link></filename></term>
 
           <listitem>
-            <para>This is the basic Slf4j API that Jetty's Slf4jLog
+            <para>The basic Slf4j API that Jetty's Slf4jLog
             implementation uses.</para>
           </listitem>
         </varlistentry>
-      </variablelist>This will allow to capture Logging events generated by
+      </variablelist>This allows you to capture logging events generated by
     any of the following APIs.</para>
 
     <itemizedlist>
       <listitem>
         <para><link
         xl:href="http://slf4j.org/apidocs/org/apache/log4j/Logger.html">org.slf4j.Logger</link>
-        - Slf4j API</para>
+        – Slf4j API</para>
       </listitem>
 
       <listitem>
@@ -333,22 +315,20 @@
 
       <listitem>
         <para><link
-        xl:href="http://commons.apache.org/proper/commons-logging//commons-logging-1.1/apidocs/org/apache/commons/logging/Log.html">org.apache.commons.logging.Log</link>
+        xl:href="http://commons.apache.org/proper/commons-logging/apidocs/">org.apache.commons.logging.Log</link>
         - Apache Commons Logging API</para>
       </listitem>
     </itemizedlist>
 
-    <para>Any logging event from those APIs will now route down into Logback
-    Classic to work with.</para>
+    <para>Any logging event from those APIs now routes to Logback
+    Classic.</para>
   </simplesect>
 
   <simplesect>
     <title>Configuring Server Classpath</title>
 
-    <para>In order for the Server to use these new JARs you will need to put
-    them into place and tell Jetty to load them on each startup.</para>
-
-    <para>Create a ${jetty.home}/lib/logging/ directory and place the 6 files
+    <para>For the Server to use these new JARs you need to put
+    them in place and tell Jetty to load them on each startup. Create a <filename>${jetty.home}/lib/logging/</filename> directory and place the six files
     you downloaded there.</para>
 
     <screen language="bash"><![CDATA[[jetty-distribution-${project.version}]$ ls -l ]]><emphasis
@@ -362,12 +342,9 @@ total 632
 -rw-rw-r-- 1 jetty jetty  26176 Mar 12 16:21 ]]><emphasis role="bold">slf4j-api-1.6.6.jar</emphasis><![CDATA[
 ]]></screen>
 
-    <para>Next, we need to edit the
+    <para>Next edit the
     <filename>${jetty.home}/start.ini</filename> to get jetty to load these
-    logging files into the Server classpath.</para>
-
-    <para>Edit the <filename>start.ini</filename> and check for the following
-    entries. (Add them to the end if missing)</para>
+    logging files into the Server classpath. Check for the following entries. If they are missing, add them at the end of the file.</para>
 
     <programlisting language="properties"><![CDATA[# Enable jul-to-slf4j layer
 etc/jetty-jul-to-slf4j.xml
@@ -375,7 +352,7 @@ etc/jetty-jul-to-slf4j.xml
 OPTIONS=logging
 ]]></programlisting>
 
-    <para>Now verify that the 6 jars will be loaded by server classpath</para>
+    <para>Now verify that the server classpath loads the six JARs.</para>
 
     <screen><![CDATA[[jetty-distribution-${project.version}]$ ]]><emphasis
         role="bold">java -jar start.jar --version</emphasis><![CDATA[ | grep logging
@@ -393,25 +370,24 @@ Active Options: [Server, client, ext, jmx, jsp, ]]><emphasis role="bold">logging
     <title>Configuring Server Logging</title>
 
     <para>If you have a
-    <filename>${jetty.home}/resources/jetty-logging.properties</filename>,
-    make sure it contains just the following</para>
+    <filename>${jetty.home}/resources/jetty-logging.properties</filename> file,
+    make sure it contains just the following:</para>
 
     <para><programlisting language="properties"><![CDATA[# Configure Jetty for SLf4j Logging
 org.eclipse.jetty.util.log.class=org.eclipse.jetty.util.log.Slf4jLog]]></programlisting></para>
 
-    <para>This will tell Jetty to use the Slf4jLog implementation for its
-    internal Logging.</para>
+    <para>This tells Jetty to use the Slf4jLog implementation for its
+    internal logging.</para>
   </simplesect>
 
   <simplesect>
     <title>Initializing Jul-to-Slf4j Bridge</title>
 
-    <para>There is an extra requirement when using the jul-to-slf4j.jar that
-    requires us to inform java.util.logging of the existence of the <link
+    <para>There is an extra requirement when using the <literal>jul-to-slf4j.jar</literal> to inform <literal>java.util.logging</literal> of the existence of the <link
     xl:href="http://slf4j.org/api/org/slf4j/bridge/SLF4JBridgeHandler.html">SLF4JBridgeHandler</link>.</para>
 
-    <para>We'll satisfy this requirement with a new
-    <filename>etc/jetty-jul-to-slf4j.xml</filename> file, lovingly included in
+    <para>You can satisfy this requirement by including a new
+    <filename>etc/jetty-jul-to-slf4j.xml</filename> file in
     the <filename>start.ini</filename> above.</para>
 
     <programlisting language="xml"><![CDATA[<?xml version="1.0"?>
@@ -473,7 +449,7 @@ org.eclipse.jetty.util.log.class=org.eclipse.jetty.util.log.Slf4jLog]]></program
 
     <para><note>
         <para>When using the jul-to-slf4j Binding JAR, be sure you also
-        utilize the <link
+        use the <link
         xl:href="http://logback.qos.ch/manual/configuration.html#LevelChangePropagator">LevelChangePropagator</link>
         (as referenced in the <link
         xl:href="http://slf4j.org/api/org/slf4j/bridge/SLF4JBridgeHandler.html">SLF4JBridgeHandler
@@ -482,17 +458,16 @@ org.eclipse.jetty.util.log.class=org.eclipse.jetty.util.log.Slf4jLog]]></program
   </simplesect>
 
   <simplesect>
-    <title>Start Jetty</title>
+    <title>Starting Jetty</title>
 
-    <para>You are now done configuring Jetty for all logging APIs. Just start
-    Jetty to start utilizing it.</para>
+    <para>You have now configured Jetty for all logging APIs. Just start
+    Jetty to start using it.</para>
 
     <para><screen><![CDATA[[jetty-distribution-${project.version}]$ java -jar start.jar ]]></screen><note>
-        <para>This configuration will capture all Server side logging events
-        and route them to the console and logging file handled by Logback. If
-        you also want to capture all of the Web Application logging events, be
-        sure to read <xref linkend="example-logging-logback-centralized"/> for
-        details.</para>
+        <para>This configuration captures all Server side logging events
+        and routes them to the console and logging file handled by Logback. If
+        you also want to capture all of the web application logging events, read <xref linkend="example-logging-logback-centralized"/> for
+        detailed instruction.</para>
       </note></para>
   </simplesect>
 </section>

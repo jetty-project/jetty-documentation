@@ -28,19 +28,17 @@
          xmlns:ns="http://docbook.org/ns/docbook">
   <title>Example: Logging with Java's java.util.logging</title>
 
-  <para>This page describes how to Configure Jetty for Logging with Java's
+  <para>This page describes how to configure Jetty for logging with Java's
   <literal><link
-  xl:href="http://docs.oracle.com/javase/7/docs/api/java/util/logging/package-summary.html">java.util.logging</link></literal>.</para>
-
-  <para>The basic configuration for Logging with java.util.logging is to use
+  xl:href="http://docs.oracle.com/javase/7/docs/api/java/util/logging/package-summary.html">java.util.logging</link></literal>, which uses
   <link xl:href="http://slf4j.org/manual.html">Slf4j</link> and the <link
   xl:href="http://slf4j.org/manual.html#swapping">Slf4j binding layer for
-  java.util.logging</link>.</para>
+  <literal>java.util.logging</literal></link>.</para>
 
   <simplesect>
     <title>The Required JARs</title>
 
-    <para>There will be 2 JARs you will need to download</para>
+    <para>You need to download two JARs, which you can do by clicking the following links:</para>
 
     <para><variablelist>
         <varlistentry>
@@ -48,8 +46,8 @@
           xl:href="http://repo1.maven.org/maven2/org/slf4j/slf4j-jdk14/1.6.6/slf4j-jdk14-1.6.6.jar">slf4j-jdk14-1.6.6.jar</link></filename></term>
 
           <listitem>
-            <para>This is the Slf4j binding layer for JDK 1.4 logging (also
-            known as java.util.logging)</para>
+            <para>The Slf4j binding layer for JDK 1.4 logging (also
+            known as <literal>java.util.logging</literal>).</para>
           </listitem>
         </varlistentry>
 
@@ -58,7 +56,7 @@
           xl:href="http://repo1.maven.org/maven2/org/slf4j/slf4j-api/1.6.6/slf4j-api-1.6.6.jar">slf4j-api-1.6.6.jar</link></filename></term>
 
           <listitem>
-            <para>This is the basic Slf4j API that Jetty's Slf4jLog
+            <para>The basic Slf4j API that Jetty's Slf4jLog
             implementation uses.</para>
           </listitem>
         </varlistentry>
@@ -68,10 +66,10 @@
   <simplesect>
     <title>Configuring Server Classpath</title>
 
-    <para>In order for the Server to use these new JARs you will need to put
-    them into place and tell Jetty to load them on each startup.</para>
+    <para>For the Server to use these new JARs you need to put
+    them in place and tell Jetty to load them on each startup.</para>
 
-    <para>Create a ${jetty.home}/lib/logging/ directory and place the 2 files
+    <para>Create a <filename>${jetty.home}/lib/logging/</filename> directory and place the two JAR files
     you downloaded there.</para>
 
     <screen language="bash"><![CDATA[[jetty-distribution-${project.version}]$ ls -l ]]><emphasis
@@ -80,18 +78,16 @@ total 40
 -rw-rw-r-- 1 jetty jetty 26176 Mar 11 16:38 ]]><emphasis role="bold">slf4j-api-1.6.6.jar</emphasis><![CDATA[
 -rw-rw-r-- 1 jetty jetty  8845 Mar 11 16:38 ]]><emphasis role="bold">slf4j-jdk14-1.6.6.jar</emphasis></screen>
 
-    <para>Next, we need to edit the ${jetty.home}/start.ini to get jetty to
-    load these logging files into the Server classpath.</para>
-
-    <para>Edit the start.ini and check for the following entries. (Add them to
-    the end if missing)</para>
+    <para>Next you need to edit the <filename>${jetty.home}/start.ini</filename> to get Jetty to
+    load these logging files into the Server classpath. Check for the following entries. If they are missing, add them at the end of the file.
+    </para>
 
     <programlisting condition="[2,4]" language="properties"><![CDATA[# Configure java.util.logging from resources/logging.properties
 etc/jetty-jdk-logging.xml
 # Adding lib/logging to server classpath
 OPTIONS=logging]]></programlisting>
 
-    <para>Now verify that the 2 jars will be loaded by server classpath</para>
+    <para>Now verify that the server classpath loads the two JARs.</para>
 
     <screen><![CDATA[[jetty-distribution-${project.version}]$ ]]><emphasis
         role="bold">java -jar start.jar --version</emphasis><![CDATA[ | grep logging
@@ -105,23 +101,23 @@ Active Options: [Server, client, ext, jmx, jsp, ]]><emphasis role="bold">logging
     <title>Configuring Server Logging</title>
 
     <para>If you have a
-    <filename>${jetty.home}/resources/jetty-logging.properties</filename>,
-    make sure it contains just the following</para>
+    <filename>${jetty.home}/resources/jetty-logging.properties</filename> file,
+    make sure it contains just the following:</para>
 
     <para><programlisting language="properties"><![CDATA[# Configure Jetty for SLf4j Logging
 org.eclipse.jetty.util.log.class=org.eclipse.jetty.util.log.Slf4jLog]]></programlisting></para>
 
-    <para>This will tell Jetty to use the Slf4jLog implementation for its
-    internal Logging.</para>
+    <para>This tells Jetty to use the Slf4jLog implementation for its
+    internal logging.</para>
   </simplesect>
 
   <simplesect>
     <title>Configuring java.util.logging</title>
 
-    <para>You'll need a
+    <para>You need a
     <filename>${jetty.home}/resources/logging.properties</filename> file to
-    define what you want java.util.logging to do, and finally a way to have
-    java.util.logging use this configuration.</para>
+    define what you want <literal>java.util.logging</literal> to do, and finally a way to have
+    <literal>java.util.logging</literal> use this configuration.</para>
 
     <para>Example
     <filename>${jetty.home}/resources/logging.properties</filename>
@@ -144,8 +140,8 @@ java.util.logging.FileHandler.formatter=java.util.logging.SimpleFormatter
 .level=INFO]]></programlisting>Finally, you'll want a way for this
     java.util.logging configuration to take effect on server start.</para>
 
-    <para>Contents of etc/jetty-jdk-logging.xml file that we added earlier to
-    the start.ini</para>
+    <para>Contents of <filename>etc/jetty-jdk-logging.xml</filename> file that you added earlier to
+    the <filename>start.ini</filename>.</para>
 
     <programlisting condition="[9]" language="xml"><![CDATA[<?xml version="1.0"?>
 <!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure_9_0.dtd">

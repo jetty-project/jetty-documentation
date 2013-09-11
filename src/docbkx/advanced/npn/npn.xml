@@ -339,6 +339,11 @@ NextProtoNego.put(sslSocket, new NextProtoNego.ServerProvider()
 
             <entry>1.7.0u15 - 1.7.0u17 - 1.7.0u21 - 1.7.0u25</entry>
           </row>
+          <row>
+            <entry>1.1.6.v20130911</entry>
+
+            <entry>1.7.0u40</entry>
+          </row>
         </tbody>
       </tgroup>
     </table>
@@ -355,7 +360,7 @@ NextProtoNego.put(sslSocket, new NextProtoNego.ServerProvider()
     <para>Clone the OpenJDK repository with the following command:</para>
 
     <screen><![CDATA[
-$ hg clone http://hg.openjdk.java.net/jdk7/jdk7 jdk7
+$ hg clone http://hg.openjdk.java.net/jdk7u/jdk7u jdk7u
 $ cd jdk7
 $ ./get_source.sh
   ]]></screen>

@@ -179,7 +179,7 @@ xmlns:date="http://exslt.org/dates-and-times"
 
     <div class="jetty-callout">
       <h5 class="callout">
-        <a href="http://www.webtide.com/support.jsp">Contact the core Jetty developers at
+        <a href="http://www.webtide.com/">Contact the core Jetty developers at
           <span class="website">www.webtide.com</span>
         </a>
       </h5>

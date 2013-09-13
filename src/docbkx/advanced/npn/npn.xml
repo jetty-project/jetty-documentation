@@ -361,7 +361,7 @@ NextProtoNego.put(sslSocket, new NextProtoNego.ServerProvider()
 
     <screen><![CDATA[
 $ hg clone http://hg.openjdk.java.net/jdk7u/jdk7u jdk7u
-$ cd jdk7
+$ cd jdk7u
 $ ./get_source.sh
   ]]></screen>
 

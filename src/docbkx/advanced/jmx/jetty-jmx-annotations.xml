@@ -28,8 +28,8 @@
   <para>
     When the jetty-jmx libraries are present on startup and the wiring is enabled for exposing jetty mbeans to jmx, there are three annotations that govern when and how mbeans are created and exposed.
   </para>
-  <section xml:id="jmx-annotation-scanning">
-    <title>Annotation Scanning</title>
+  <section xml:id="jmx-annotation-introspection">
+    <title>Annotation Introspection</title>
     <para>
       When jmx is configured and enabled in jetty any time an object is registered with the Server it is introspected as a potential mbean to be exposed.  This introspection proceeds as follows assuming the class is named <code>com.acme.Foo</code>:
     </para>
@@ -46,7 +46,7 @@
       </listitem>
        <listitem>
         <para>
-          Once an mbean has been created for an object then each potential influencing object is scanned for @ManagedAttribute and @ManagedOperation annotations and the corresponding type is exposed to the mbean.
+          Once an mbean has been created for an object then each potential influencing object is introspected for @ManagedAttribute and @ManagedOperation annotations and the corresponding type is exposed to the mbean.
         </para>
       </listitem>
     </orderedlist>

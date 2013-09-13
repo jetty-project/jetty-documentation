@@ -154,7 +154,7 @@
 
             <listitem>
               <para>A template ini file to be used when activating with the
-              --module-ini=name option</para>
+              --add-to-start=name option</para>
             </listitem>
           </itemizedlist>
 

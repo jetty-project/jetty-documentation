@@ -114,7 +114,7 @@ WARNING: Nothing to start, exiting ...
 Usage: java -jar start.jar [options] [properties] [configs]
        java -jar start.jar --help  # for more information
 
-&gt;<emphasis role="bold">java -jar $JETTY_HOME/start.jar --module-ini=http,deploy</emphasis>
+&gt;<emphasis role="bold">java -jar $JETTY_HOME/start.jar --add-to-startd=http,deploy</emphasis>
 http            initialised in ${jetty.base}/start.d/http.ini (created)
 server          initialised in ${jetty.base}/start.d/server.ini (created)
 deploy          initialised in ${jetty.base}/start.d/deploy.ini (created)
@@ -182,7 +182,7 @@ server          initialised in ${jetty.base}/start.d/server.ini
     <para>To add the HTTPS connector to a jetty configuration, the https
     module can be activated by the following command:</para>
 
-    <screen><emphasis role="bold">&gt; java -jar start.jar --module-ini=https</emphasis>
+    <screen><emphasis role="bold">&gt; java -jar start.jar --add-to-startd=https</emphasis>
 https           initialised in ${jetty.home}/start.d/https.ini (created)
 ssl             initialised in ${jetty.home}/start.d/ssl.ini (created)
 server          enabled in     ${jetty.home}/start.ini
@@ -193,7 +193,7 @@ ext             enabled in     ${jetty.home}/start.ini
 2013-09-06 13:52:43.326:INFO:oejs.Server:main: jetty-9.1.0
 [...]</screen>
 
-    <para>The --module-ini command sets up the effective command line in the
+    <para>The --add-to-startd command sets up the effective command line in the
     ini files to run a https connection as follows:</para>
 
     <itemizedlist>
@@ -222,7 +222,7 @@ ext             enabled in     ${jetty.home}/start.ini
     <note>
       <para>If a single start.ini file is preferred over individual
       <filename>start.d/*.ini</filename> files, then the option
-      --module-start-ini=module may be used to append the module activation to
+      --add-to-start=module may be used to append the module activation to
       the start.ini file rather than create a file in start.d </para>
     </note>
   </section>

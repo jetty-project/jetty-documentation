@@ -76,7 +76,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
     <para>Building Jetty should simply be a matter of changing into the relevant directory and executing the following commands:</para>
     <screen>
 <![CDATA[
-$ git clone http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git
+$ git clone http://git.eclipse.org/gitroot/jetty/org.eclipse.jetty.project.git
 $ cd org.eclipse.jetty.project
 $ mvn install
 ]]>

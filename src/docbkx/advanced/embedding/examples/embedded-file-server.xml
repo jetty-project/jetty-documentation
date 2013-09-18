@@ -38,50 +38,6 @@
   </example>
   <section>
     <title>Walkthrough</title>
-    <variablelist>
-      <varlistentry>
-        <term>Line 17: Create Server Object</term>
-        <listitem>
-          <para>
-            Create a basic Jetty server object that will listen on port 8080.  Note that if you set this to port 0 then a randomly available port will be assigned that you can either look in the logs for the port, or programmatically obtain it for use in test cases.
-          </para>
-        </listitem>
-      </varlistentry>
-      <varlistentry>
-        <term>Line 18: Create ResourceHandler</term>
-        <listitem>
-          <para>
-            The ResourceHandler is the object that will actually handle the request for a given file.  It is a Jetty Handler object so it is suitable for chaining with other handlers as you will see in other examples.
-          </para>
-        </listitem>
-      </varlistentry>
-      <varlistentry>
-        <term>Lines 19 - 21: Configure ResourceHandler</term>
-        <listitem>
-          <para>
-            Setting the resource base indicates where the files should be served out of.  In this example it is the current directory but it can be configured to anything that the jvm has access to.
-          </para>
-        </listitem>
-      </varlistentry>
-      <varlistentry>
-        <term>Lines 22 - 24: Establish Handler Chain</term>
-        <listitem>
-          <para>
-            A HandlerList is just like it sounds, a list of handlers that can be processed sequentially to try and resolve a filename to serve.  This shows one method of chaining the resource handler with the DefaultHandler which terminates the handler chain and is able to serve out things like a flav.ico, return a 404 on a missing resource, etc.  Finally, set the handler list to the server so it knows about it.
-          </para>
-        </listitem>
-      </varlistentry>
-      <varlistentry>
-        <term>Lines 25 - 26: Start Server</term>
-        <listitem>
-          <para>
-            Start things up!  By using the server.join() the server thread will join with the current thread.  See
-            <link xl:href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/Thread.html#join()">Thread.join()</link>
-          for more details.
-        </para>
-      </listitem>
-    </varlistentry>
-    </variablelist>
     <para>
       After you have started things up you should be able to navigate to http://localhost:8080/index.html (assuming one is in the resource base directory) and you are good to go.
     </para>

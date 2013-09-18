@@ -24,88 +24,59 @@
          xmlns:ns4="http://www.w3.org/2000/svg"
          xmlns:ns3="http://www.w3.org/1999/xhtml"
          xmlns:ns="http://docbook.org/ns/docbook">
-  <title>Minimal Servlet</title>
-  <para>
-    This example shows the bare minimum required for deploying a servlet into jetty.  Note that this is strictly a servlet, not a servlet in the context of a web application, that example comes later.  This is purely just a servlet deployed and mounted on a context and able to process requests.  This example is excellent for situations where you have a simple servlet that you need to unit test, just mount it on a context and issue requests using your favorite http client library (like our Jetty client found in <xref linkend="http-client"/>).
-  </para>
-  <example>
-    <title><link xl:href="@GITURL@/examples/embedded/src/main/java/org/eclipse/jetty/embedded/MinimalServlets.java">MinimalServlets.java</link></title> 
-  <programlisting language="rjava">
-    <filename>
-      @GITURL@/examples/embedded/src/main/java/org/eclipse/jetty/embedded/MinimalServlets.java
-    </filename>
-  </programlisting>
-  </example>
-  <section>
-    <title>Walkthrough</title>
-    <variablelist>
-      <varlistentry>
-        <term>Line 14: Create Server Object</term>
-        <listitem>
-          <para>
-            Create a basic jetty server object that will listen on port 8080.  Note that if you set this to port 0 then a randomly available port will be assigned that you can either look in the logs for the port, or programmatically obtain it for use in test cases.
-          </para>
-        </listitem>
-      </varlistentry>
-      <varlistentry>
-        <term>Line 15,16: Create ServletHandler</term>
-        <listitem>
-          <para>
-            The ServletHandler is a dead simple way to create a context handler that is backed by an instance of a Servlet.  This handler then needs to be registered with the Server object.
-          </para>
-        </listitem>
-      </varlistentry>
-      <varlistentry>
-        <term>Lines 17: Register Servlet with path</term>
-        <listitem>
-          <para>
-            Passing in the class for the servlet allows jetty to instantite and instance of that servlet and mount it on a given context path.
-          </para>
-          <important>
-            <para>
-              This is a raw Servlet, not a servlet that has been configured through a <filename>web.xml</filename> or anything like that.
-            </para>
-          </important>
-        </listitem>
-      </varlistentry>
-      <varlistentry>
-        <term>Lines 18, 19: Start Server</term>
-        <listitem>
-          <para>
-            Start things up!  By using the server.join() the server thread will join with the current thread.  See
-            <link xl:href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/Thread.html#join()">Thread.join()</link>
+    <title>Minimal Servlet</title>
+    <para>
+        This example shows the bare minimum required for deploying a servlet into jetty. Note that this is strictly a
+        servlet, not a servlet in the context of a web application, that example comes later. This is purely just a
+        servlet deployed and mounted on a context and able to process requests. This example is excellent for situations
+        where you have a simple servlet that you need to unit test, just mount it on a context and issue requests using
+        your favorite http client library (like our Jetty client found in<xref linkend="http-client"/>).
+    </para>
+    <example>
+        <title>
+            <link xl:href="@GITURL@/examples/embedded/src/main/java/org/eclipse/jetty/embedded/MinimalServlets.java">
+                MinimalServlets.java
+            </link>
+        </title>
+        <programlisting language="rjava">
+            <filename>
+                @GITURL@/examples/embedded/src/main/java/org/eclipse/jetty/embedded/MinimalServlets.java
+            </filename>
+        </programlisting>
+    </example>
+    <section>
+        <title>Walkthrough</title>
+
+        <para>
+            Start things up! By using the server.join() the server thread will join with the current thread. See
+            <link xl:href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/Thread.html#join()">Thread.join()
+            </link>
             for more details.
-          </para>
-        </listitem>
-      </varlistentry>
-      <varlistentry>
-        <term>Lines 22 - 30: Hello World Servlet</term>
-        <listitem>
-          <para>
-            It is really simple to create useful servlets for testing behaviors, sometimes you just need a http server to run a unit test against that will return test content and wiring up a servlet like this makes it trivial.      
-          </para>
-        </listitem>
-      </varlistentry>
-    </variablelist>
-    <para>
-      After you have started things up you should be able to navigate to http://localhost:8080/ and you are good to go.
-    </para>
-  </section>
-  <section>
-    <title>Maven Coordinates</title>
-    <para>
-      To use this example in your project you will need the following maven dependencies declared.
-    </para>
-    <informalexample>
-      <programlisting language="xml">
-<![CDATA[
+        </para>
+        <para>
+            It is really simple to create useful servlets for testing behaviors, sometimes you just need a http server
+            to run a unit test against that will return test content and wiring up a servlet like this makes it trivial.
+        </para>
+        <para>
+            After you have started things up you should be able to navigate to http://localhost:8080/ and you are good
+            to go.
+        </para>
+    </section>
+    <section>
+        <title>Maven Coordinates</title>
+        <para>
+            To use this example in your project you will need the following maven dependencies declared.
+        </para>
+        <informalexample>
+            <programlisting language="xml">
+                <![CDATA[
 <dependency>
   <groupId>org.eclipse.jetty</groupId>
   <artifactId>jetty-servlet</artifactId>
   <version>${project.version}</version>
 </dependency>
 ]]>
-      </programlisting>
-    </informalexample>
-  </section>
+            </programlisting>
+        </informalexample>
+    </section>
 </section>

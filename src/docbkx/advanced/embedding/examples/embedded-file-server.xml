@@ -37,7 +37,7 @@
   </programlisting>
   </example>
   <section>
-    <title>Walkthrough</title>
+    <title>Run it!</title>
     <para>
       After you have started things up you should be able to navigate to http://localhost:8080/index.html (assuming one is in the resource base directory) and you are good to go.
     </para>

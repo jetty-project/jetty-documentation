@@ -37,75 +37,7 @@
   </programlisting>
   </example>
   <section>
-    <title>Walkthrough</title>
-    <variablelist>
-      <varlistentry>
-        <term>Line 17: Create Server Object</term>
-        <listitem>
-          <para>
-            Create a basic jetty server object that will listen on port 8080.  Note that if you set this to port 0 then a randomly available port will be assigned that you can either look in the logs for the port, or programmatically obtain it for use in test cases.
-          </para>
-        </listitem>
-      </varlistentry>
-      <varlistentry>
-        <term>Lines 18, 19: Login Service</term>
-        <listitem>
-          <para>
-            Since this example is for our test webapp, we need to setup a LoginService so this shows how to create a very simple hashmap based one.  The name of the LoginService needs to correspond to what is configured a webapp's <filename>web.xml</filename> and since it has a lifecycle of its own we register it as a bean with the Jetty server object so it can be started and stopped according to the lifecycle of the server itself.  In this example the name can be whatever you like since we are not dealing with webapp realms.
-          </para>
-        </listitem>
-      </varlistentry>
-      <varlistentry>
-        <term>Lines 20 - 21: Configure ConstraintSecurityHandler</term>
-        <listitem>
-          <para>
-            A security handler is a jetty handler that secures content behind a particular portion of a url space.  The ConstraintSecurityHandler is a more specialized handler that allows matching of urls to different constraints.  The server sets this as the first handler in the chain, effectively applying these constraints to all subsequent handlers in the chain.
-          </para>
-        </listitem>
-      </varlistentry>
-      <varlistentry>
-        <term>Lines 22 - 25: Configure a Constraint</term>
-        <listitem>
-          <para>
-            This constraint requires authentication and in addition that an authenticated user be a member of a given set of roles for authorization purposes.
-          </para>
-        </listitem>
-      </varlistentry>
-      <varlistentry>
-        <term>Lines 26 - 28: Configure a ConstraintMapping</term>
-        <listitem>
-          <para>
-            Binds a url pattern with the previously created constraint.  The roles for this constraing mapping are mined from the Constraint itself although methods exist to declare and bind roles separately as well.
-          </para>
-        </listitem>
-      </varlistentry>
-      <varlistentry>
-        <term>Lines 29 - 32: Configure the ConstraintSecurityManager</term>
-        <listitem>
-          <para>
-            First you see the constraint mapping being applied to the handler as a singleton list, however you can passing in as many security constraint mappings as you like so long as they follow the mapping requirements of the servlet api.  Next we set a BasicAuthenticator instance which is the object that actually checks the credentials followed by the LoginService which is the store of known users, etc.
-          </para>
-        </listitem>
-      </varlistentry>
-      <varlistentry>
-        <term>Lines 33, 34: Create Happy Hello Handler</term>
-        <listitem>
-          <para>
-            The Hello Handler is the handler we are securing so we create one, and then set it as the handler on the <emphasis>security</emphasis> handler to complain the simple handler chain.
-          </para>
-        </listitem>
-      </varlistentry>
-      <varlistentry>
-        <term>Lines 35 - 36: Start Server</term>
-        <listitem>
-          <para>
-            Start things up!  By using the server.join() the server thread will join with the current thread.  See
-            <link xl:href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/Thread.html#join()">Thread.join()</link>
-          for more details.
-        </para>
-      </listitem>
-    </varlistentry>
-    </variablelist>
+    <title>Run it!</title>
     <para>
       After you have started things up you should be able to navigate to http://localhost:8080/index.html (assuming one is in the resource base directory) and you are good to go.
     </para>

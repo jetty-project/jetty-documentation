@@ -38,7 +38,7 @@
                 MinimalServlets.java
             </link>
         </title>
-        <programlisting language="rjava">
+        <programlisting language="rjava-no-parse">
             <filename>
                 @GITURL@/examples/embedded/src/main/java/org/eclipse/jetty/embedded/MinimalServlets.java
             </filename>

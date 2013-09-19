@@ -30,7 +30,7 @@
   </para>
   <example>
     <title><link xl:href="@GITURL@/examples/embedded/src/main/java/org/eclipse/jetty/embedded/SecuredHelloHandler.java">SecuredHelloHandler.java</link></title> 
-  <programlisting language="rjava">
+  <programlisting language="rjava-no-parse">
     <filename>
       @GITURL@/examples/embedded/src/main/java/org/eclipse/jetty/embedded/SecuredHelloHandler.java
     </filename>

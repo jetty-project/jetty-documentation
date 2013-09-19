@@ -37,51 +37,7 @@
     </programlisting>
   </example>
   <section>
-    <title>Walkthrough</title>
-    <variablelist>
-      <varlistentry>
-        <term>Line 22 - 25: Create Server Object</term>
-        <listitem>
-          <para>
-            Create the Server object and a corresponding ServerConnector and then set the port for the connector.  In this example the server will listen on port 8090.  If you set this to port 0 then when the server has been started you can called <code>connector.getLocalPort()</code> to programmatically get the port the server started on.
-          </para>
-        </listitem>
-      </varlistentry>
-      <varlistentry>
-        <term>Line 27 - 30: Create Context Handler and ResourceHandler</term>
-        <listitem>
-          <para>
-            Create a Context Handler and ResourceHandler.  The ContextHandler is getting set to <code>/</code> path but this could be anything you like for builing out your url.  Note how we are setting the ResourceBase using our jetty maven testing utilities to get the proper resource directory, you needn't use these, you simply need to supply the paths you are looking to serve content from.
-          </para>
-        </listitem>
-      </varlistentry>
-      <varlistentry>
-        <term>Lines 31 - 35: Configure Another</term>
-        <listitem>
-          <para>
-            Rinse and repeat the previous item, only specifying a different resource base.
-          </para>
-        </listitem>
-      </varlistentry>
-      <varlistentry>
-        <term>Lines 36, 37: Aggregate Contexts</term>
-        <listitem>
-          <para>
-            Create a ContextHandlerCollection and set the context handlers to it.  This will let jetty process urls against the declared contexts in order to match up content.
-          </para>
-        </listitem>
-      </varlistentry>
-      <varlistentry>
-        <term>Lines 39 - 41: Start Server</term>
-        <listitem>
-          <para>
-            Start things up!  By using the server.join() the server thread will join with the current thread.  See
-            <link xl:href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/Thread.html#join()">Thread.join()</link>
-            for more details.  Also note the usage of the <code>server.dump()</code> call, this will print to stderr the configuration of the entire server object, threadpools, classpaths and all.  This can be incredibly useful for debugging your application when your contexts, servlets or webapp paths don't seem right.  It also prints out the chain of handlers so you can more easily follow through the order of operation.
-          </para>
-        </listitem>
-      </varlistentry>
-    </variablelist>
+    <title>Run it!</title>
     <para>
       After you have started things up you should be able to navigate to http://localhost:8090/index.html (assuming one is in the resource base directory) and you are good to go.  Any requests for files will be looked for in the first resource handler, then the second, and so on and so forth.
     </para>

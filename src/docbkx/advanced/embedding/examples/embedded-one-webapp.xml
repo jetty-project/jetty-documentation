@@ -37,51 +37,7 @@
   </programlisting>
   </example>
   <section>
-    <title>Walkthrough</title>
-    <variablelist>
-      <varlistentry>
-        <term>Line 12: Create Server Object</term>
-        <listitem>
-          <para>
-            Create a basic jetty server object that will listen on port 8080.  Note that if you set this to port 0 then a randomly available port will be assigned that you can either look in the logs for the port, or programmatically obtain it for use in test cases.
-          </para>
-        </listitem>
-      </varlistentry>
-      <varlistentry>
-        <term>Line 13 - 15: Create and Configure WebAppContext</term>
-        <listitem>
-          <para>
-            The WebAppContext is the entity that controls the environment in which a web application lives and breathes.  In this example the context path is being set to <code>"/"</code> so it is suitable for serving root context requests and then we see it setting the location of the war.  A whole host of other configurations are available, ranging from configuring to support annotation scanning in the webapp (through PlusConfiguration) to choosing where the webapp will unpack itself.
-          </para>
-        </listitem>
-      </varlistentry>
-      <varlistentry>
-        <term>Lines 16: Add as Handler</term>
-        <listitem>
-          <para>
-            A WebAppContext is a ContextHandler as well so it needs to be set to the server so it is aware of where to send the appropriate requests.
-          </para>
-        </listitem>
-      </varlistentry>
-      <varlistentry>
-        <term>Lines 17 - 20: Login Service</term>
-        <listitem>
-          <para>
-            Since this example is for our test webapp, we need to setup a LoginService so this shows how to create a very simple hashmap based one.  The name of the LoginService needs to correspond to what is configured in the webapp's <filename>web.xml</filename> and since it has a lifecycle of its own we register it as a bean with the Jetty server object so it can be started and stopped according to the lifecycle of the server itself.
-          </para>
-        </listitem>
-      </varlistentry>
-      <varlistentry>
-        <term>Lines 21, 22: Start Server</term>
-        <listitem>
-          <para>
-            Start things up!  By using the server.join() the server thread will join with the current thread.  See
-            <link xl:href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/Thread.html#join()">Thread.join()</link>
-            for more details.
-          </para>
-        </listitem>
-      </varlistentry>
-    </variablelist>
+    <title>Run it!</title>
     <para>
       After you have started things up you should be able to navigate to http://localhost:8080/ and you are good to go.
     </para>

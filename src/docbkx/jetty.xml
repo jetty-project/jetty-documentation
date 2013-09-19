@@ -44,13 +44,16 @@ xmlns:ns="http://docbook.org/ns/docbook">
     </revhistory>
     <keywordset>
       <keyword>jetty</keyword>
+      <keyword>servlet</keyword>
       <keyword>servlet-api</keyword>
       <keyword>cometd</keyword>
       <keyword>http</keyword>
       <keyword>spdy</keyword>
+      <keyword>websocket</keyword>
       <keyword>eclipse</keyword>
       <keyword>maven</keyword>
       <keyword>java</keyword>
+      <keyword>server</keyword>
       <keyword>software</keyword>
     </keywordset>
     <authorgroup>
@@ -158,108 +161,110 @@ xmlns:ns="http://docbook.org/ns/docbook">
     <xi:include href="quick-start/configuring/chapter.xml" />
   </part>
   <part xml:id="configuring">
-    <title>Jetty Configuration Guide</title>
-<!--
-                Once someone has configured their container they will want to deploy
-                        their application so this chapter discusses how to deploy war files onto
-                        the container or how to link static resources, the context handling system,
-                        etc.
-                        -->
-    <xi:include href="configuring/connectors/chapter.xml" />
-    <xi:include href="configuring/contexts/chapter.xml" />
-    <xi:include href="configuring/security/chapter.xml" />
+    <title>Jetty Configuration Basics</title>
+    <!-- This section should be limited to explaining how to enable features via the
+         module system, and how to configure those modules via the parameterized
+         properties that we now expose.
+         This section should not contain advice on editing and modifying
+         XML configuration files, that's for the administration section below -->
     <xi:include href="configuring/deploying/chapter.xml" />
-    <xi:include href="configuring/jsp/chapter.xml" />
+    <xi:include href="configuring/contexts/chapter.xml" />
+    <xi:include href="configuring/connectors/chapter.xml" />
     <xi:include href="configuring/logging/chapter.xml" />
+    <xi:include href="configuring/security/chapter.xml" />
+    <xi:include href="configuring/jsp/chapter.xml" />
   </part>
-<!-- ADVANCED -->
-  <part xml:id="advanced">
-    <title>Advanced Topics Guide</title>
-    <!-- Debugging is rather important for folks, so we should explain some of that -->
-    <xi:include href="advanced/debugging/chapter.xml"/>
+<!-- Everything above this point is "Show Me" (brain dead simple and easy) -->
+<!-- ============================================================================== -->
+<!-- Everything below this point is Advanced "Explain to Me" topics -->
+  <part xml:id="administration">
+    <title>Jetty Administration Guide</title>
+    <!-- The first Section should contain chapters that are Conceptual in nature -->
+    <!-- Information about the start.jar -->
+    <xi:include href="administration/jetty-start/chapter.xml" />
 
-<!--
-          Sessions are a huge part of many peoples applications and we should take care
-          to detail out the options available with jetty session management.
-           -->
-    <xi:include href="advanced/sessions/chapter.xml" />
-<!--
-            JNDI has been a source of a lot of questions so it makes sense to call it out
-            as a specific section and give it justice
-           -->
-    <xi:include href="advanced/jndi/chapter.xml" />
-    <xi:include href="advanced/annotations/chapter.xml" />
-<!--
-            JMX has been a source of a lot of questions as well so it makes sense to call it out
-            as a specific section and give it justice
-           -->
-    <xi:include href="advanced/jmx/chapter.xml" />
-<!-- NPN -->
-    <xi:include href="advanced/npn/chapter.xml" />
-<!-- SPDY -->
-    <xi:include href="advanced/spdy/chapter.xml" />
-<!-- Information about the start.jar -->
-    <xi:include href="advanced/jetty-start/chapter.xml" />
-<!--
-     How to write and wire up custom handlers
-     -->
-    <xi:include href="advanced/handlers/chapter.xml" />
-<!--
-     Embedding jetty topics
-     -->
-    <xi:include href="advanced/embedding/chapter.xml" />
+    <!-- Following sections should be chapters of a how-to nature.
+         All of the chapters in here explain details about the configuration
+         of jetty from the module to the xml configuration files. -->
+    <!-- Advanced Connector Configuration -->
+    <!-- TODO <xi:include href="administration/connectors/chapter.xml" /> -->
+    <!-- Advanced WebApp Context Configuration -->
+    <!-- TODO <xi:include href="administration/contexts/chapter.xml" /> -->
+    <!-- WebApp Security Configuration on the server side (realms, etc)-->
+    <!-- TODO <xi:include href="administration/security/chapter.xml" /> -->
+    <!-- JspServlet configuration -->
+    <!-- TODO <xi:include href="administration/jsp/chapter.xml" /> -->
+    <!-- Sessions are a huge part of many peoples applications and we should take care
+         to detail out the options available with jetty session management.-->
+    <xi:include href="administration/sessions/chapter.xml" />
+    <!-- JNDI configuration -->
+    <xi:include href="administration/jndi/chapter.xml" />
+    <!-- should focus on controlling annotation scanning at runtime -->
+    <xi:include href="administration/annotations/chapter.xml" />
+    <!-- JMX has been a source of a lot of questions as well so it makes sense to call it out
+         as a specific section and give it justice -->
+    <xi:include href="administration/jmx/chapter.xml" />
+    <!-- SPDY -->
+    <xi:include href="administration/spdy/chapter.xml" />
+    <!-- NPN -->
+    <xi:include href="administration/npn/chapter.xml" />
     <!-- Jetty has a number of bundled things, they can go here -->
-    <xi:include href="advanced/extras/chapter.xml"/>
-<!-- How to use the jetty-maven-plugin is a big topic and is definitely
-                        in the advanced section of things. -->
-    <xi:include href="advanced/maven/chapter.xml" />
-<!-- How to use the jetty-ant module -->
-    <xi:include href="advanced/ant/chapter.xml" />
-<!-- How to use the jetty-runner module -->
-    <xi:include href="advanced/runner/chapter.xml" />
-<!-- How to enable jetty setuid on linux and osx -->
-    <xi:include href="advanced/setuid/chapter.xml" />
-<!-- Advanced Security Topics -->
-    <!--xi:include href="advanced/security/chapter.xml" /-->
-<!-- Using jetty in third party frame works like spring or osgi -->
-    <xi:include href="advanced/frameworks/chapter.xml" />
-<!-- What are good things to consider when running jetty, managing garbage
-                        collection, etc etc. -->
-    <xi:include href="advanced/tuning/chapter.xml" />
+    <xi:include href="administration/extras/chapter.xml"/>
+    <!-- How to use the jetty-runner module -->
+    <xi:include href="administration/runner/chapter.xml" />
+    <!-- How to enable jetty setuid on linux and osx -->
+    <xi:include href="administration/setuid/chapter.xml" />
+    <!-- Advanced Security Topics -->
+    <!--xi:include href="administration/security/chapter.xml" /-->
+    <!-- Tuning Jetty, Managing GC, etc .. -->
+    <xi:include href="administration/tuning/chapter.xml" />
   </part>
-  <part xml:id="clients">
-    <title>Jetty Client Guide</title>
-    <xi:include href="clients/http/chapter.xml" />
-    <!--xi:include href="clients/spdy/chapter.xml" /-->
-  </part>
-  <part xml:id="websockets">
-    <title>Jetty WebSockets Guide</title>
+
+  <part xml:id="development">
+    <title>Jetty Development Guide</title>
+    <!-- How to use the jetty-maven-plugin -->
+    <xi:include href="development/maven/chapter.xml" />
+    <!-- How to use the jetty-ant module -->
+    <xi:include href="development/ant/chapter.xml" />
+    <!-- How to write and wire up custom handlers -->
+    <xi:include href="development/handlers/chapter.xml" />
+    <!-- Embedding jetty topics -->
+    <xi:include href="development/embedding/chapter.xml" />
+    <!-- Debugging is rather important for folks, so we should explain some of that -->
+    <xi:include href="development/debugging/chapter.xml"/>
+    <!-- Using jetty in third party frame works like spring or osgi -->
+    <xi:include href="development/frameworks/chapter.xml" />
+    <!-- Jetty HTTP Client -->
+    <xi:include href="development/clients/http/chapter.xml" />
+    <!-- Jetty WebSocket Guide -->
     <!-- Introduction to WebSockets -->
-    <xi:include href="websockets/intro/chapter.xml" />
-    <!-- The Jetty API -->
-    <xi:include href="websockets/jetty/chapter.xml" />
+    <xi:include href="development/websockets/intro/chapter.xml" />
+    <!-- The Jetty WebSocket API -->
+    <xi:include href="development/websockets/jetty/chapter.xml" />
     <!-- JSR-356 Support (FUTURE) -->
-    <!-- xi:include href="websockets/java/chapter.xml" / -->
+    <xi:include href="development/websockets/java/chapter.xml" />
   </part>
+
   <part xml:id="reference">
     <title>Reference Guide</title>
-<!-- How to contribute to jetty, to the documentation, to get additional
-                        help -->
-<!-- We should perhaps start off here with details about the architecture
+    <!-- We should perhaps start off here with details about the architecture
                         of jetty, how it all comes together for the lifecycle of a request, how our
                         pooling works, etc -->
+    <!-- Projects, platforms, services, and distributions of Jetty -->
     <xi:include href="reference/platforms/chapter.xml"/>
+    <!-- The architecture of Jetty -->
     <xi:include href="reference/architecture/chapter.xml" />
+    <!-- How to contribute to jetty, to the documentationnal -->
     <xi:include href="reference/contributing/chapter.xml" />
-<!-- Details on the jetty.xml syntax and conventions -->
+    <!-- Syntax of the Jetty XML -->
     <xi:include href="reference/jetty-xml/chapter.xml" />
     <!-- Now that folks have their webapp deployed into jetty and everything
                         is supposed to be working, how do they debug issues and resolve them? -->
     <xi:include href="reference/troubleshooting/chapter.xml" />
-<!-- Notes about upgrading from previous versions of jetty. -->
+    <!-- Notes about upgrading from previous versions of jetty. -->
     <!--xi:include href="reference/upgrading/chapter.xml" /-->
-<!-- StackOverflow has a lot of information about common questions, we
-                        should mine it periodically to add to this section. NOTE: merge with troubleshooting? -->
+    <!-- StackOverflow has a lot of information about common questions, we
+         should mine it periodically to add to this section. NOTE: merge with troubleshooting? -->
     <!--xi:include href="reference/faq/chapter.xml" /-->
   </part>
 </book>

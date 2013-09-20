@@ -283,7 +283,7 @@ Command Line Options:
       <title>Building the Arguments (Configurations)</title>
 
       <para>Any command line argument not interpreted by start.jar is passed
-      to the started java program as an argument. The default the start.jar
+      to the started java program as an argument. The default start.jar
       mechanism runs XmlConfiguration class which interprets arguments as
       configuration files and property files to run. If no arguments are
       specified, the default of $(jetty.home)/etc/jetty.xml is used.</para>

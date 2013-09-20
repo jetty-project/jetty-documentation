@@ -98,7 +98,7 @@ $ mvn install
     setting up the execution environment for generating the documentation.
     This build should produce xhtml, as well as any other output formats that
     we are working with as time goes on. The downloads are all of the java
-    dependencies that are required to make this while build work. After a
+    dependencies that are required to make this build work. After a
     while the downloading will stop and you'll see the execution of the
     docbkx-maven-plugin.</para>
 
@@ -136,7 +136,7 @@ $ mvn install
     into target/docbkx/xhtml/jetty/jetty.html which is the first page of the
     produced documentation.</para>
 
-    <para><emphasis>Note: if the build is broke, feel free to notify
+    <para><emphasis>Note: if the build is broken, feel free to notify
     us.</emphasis></para>
   </section>
 
@@ -149,20 +149,20 @@ $ mvn install
     from our canonical documentation repository. Obviously we can not allow
     anyone immediate access to this repository so you must make a fork of it
     for your own and then issue back pull requests to build up documentation
-    karma. In english that means that you would go to the url of the
+    karma. In English that means that you would go to the url of the
     documentation in github:</para>
 
     <para><screen><![CDATA[https://github.com/jetty-project/jetty-documentation]]></screen></para>
 
-    <para>When your on this page you will see a little button called 'Fork'
-    which you can click and you'll suddenly be taking back to your main page
+    <para>When you are on this page you will see a little button called 'Fork'
+    which you can click and you will be taken back to your main page
     on github where you have a new repository. When you checkout this
-    repository you are free to commit to your hearts delight all the changes
-    you so direly wish to see in the jetty documentation. You can clone it to
-    your local machine and build it same as above. So lets start small with a
+    repository you are free to commit to your heart's delight all the changes
+    you so direly wish to see in the Jetty documentation. You can clone it to
+    your local machine and build it the same way as above. So let's start small with a
     little example. Find some paragraph in the documentation that you think
-    needs changed. Located that in the local checkout and make the change. Now
-    we follow the process to push that change back into jetty proper. Do make
+    needs changed. Locate that in the local checkout and make the change. Now
+    follow the process to push that change back into Jetty proper. Do make
     sure the change works and the build isn't broken though so make sure you
     run maven and check the output. Then commit the change.</para>
 
@@ -172,9 +172,8 @@ $ git commit -m "Tweaked the introduction to fix a horrid misspelled word." src/
 
     ]]></screen>
 
-    <para>This will commit the change that you made into git which means that
-    now git knows about the change is you now want to push that change up to
-    your repository on github.</para>
+    <para>This will commit the change in your local repository. You can
+    then push the change up to your repository on github.</para>
 
     <screen><![CDATA[
 
@@ -183,11 +182,11 @@ $ git push
     ]]></screen>
 
     <para>Now you'll see some output showing that your change has been
-    migrated to up your repository on github. In fact if you navigate to that
+    propagated to your repository on github. In fact if you navigate to that
     repository at the top of the files list you should see your comment there.
     Success, your change is now positioned for notifying us about it! If you
     click on the commit message itself you'll be taken to a screen that shows
-    what files where changed in that commit. In the upper right corner is a
+    what files were changed in that commit. In the upper right corner is a
     button for 'Pull Request'. When you select this and follow the workflow we
     will then be notified of your contribution and will be able to apply it to
     our git repository upon review.</para>

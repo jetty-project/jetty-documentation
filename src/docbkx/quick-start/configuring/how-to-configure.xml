@@ -171,7 +171,7 @@
           <para>XML files in Jetty or spring IoC format are listed either on
           the command line, ini files or added to the effective command line
           by a module definition. The XML files instantiate and inject the
-          actual java objects that comprise the server, connectors and
+          actual Java objects that comprise the server, connectors and
           contexts. Because Jetty IoC XML files frequently use properties,
           many common configuration tasks can be accomplished without editing
           these XML files. If XML configuration changes are required, the XML
@@ -186,7 +186,7 @@
     <title>Other Configuration Files</title>
 
     <para>In addition to the start configuration files described above, the
-    configuration of the server can use the following file</para>
+    configuration of the server can use the following file:</para>
 
     <variablelist>
       <varlistentry>
@@ -312,7 +312,7 @@
         <term><filename>$JETTY_HOME/start.ini</filename></term>
 
         <listitem>
-          <para>Used for global command line options. In the standard jetty
+          <para>Used for global command line options. In the standard Jetty
           distribution since release 9.1 the contents of start.ini have been
           moved to modular ini files under the <code>start.d/</code> .</para>
         </listitem>
@@ -323,8 +323,8 @@
 
         <listitem>
           <para>A directory of modular ini files that are used to set the
-          OPTION, parameters and configuration files for key jetty modules.
-          These modules may be enable/disabled by renaming the files or since
+          OPTION, parameters and configuration files for key Jetty modules.
+          These modules may be enabled/disabled by renaming the files or since
           release 9.1 by using the --enable or --disable option of
           start.jar</para>
         </listitem>
@@ -357,7 +357,7 @@
     <title>Jetty Port Configuration Example</title>
 
     <para>The following example examines the common Jetty configuration
-    mechanism using the HTTP port as an example. To run the jetty server from
+    mechanism using the HTTP port as an example. To run the Jetty server from
     the distribution, it is just a matter of running the following
     command:</para>
 
@@ -372,7 +372,7 @@
 jetty.port=8080
 </programlisting>
 
-    <para>This sets the jetty port parameter and activates the http module as
+    <para>This sets the Jetty port parameter and activates the http module as
     defined by the modules/http.mod file, which lists the
     <filename>etc/jetty-http.xml</filename> configuration file as an effective
     command line argument. Looking inside that configuration file, we see that
@@ -385,13 +385,13 @@ jetty.port=8080
     <para>The effect of this line is to call ServerConnector.setPort(int) with
     either the value of the <filename>jetty.port</filename> property if set or
     with the value 80. We can see from the start.ini except above that the
-    jetty.port property line is set to 8080, so out of the box, the jetty
+    jetty.port property line is set to 8080, so out of the box, the Jetty
     distribution will use the default 8080 port set inside the
     start.d/http.ini file.</para>
 
     <para>If you wish to change the port, then the start.d/http.ini file can
     be edited and the default value there changed to the new port. However
-    this does mean that a file which is part of the jetty distribution has
+    this does mean that a file which is part of the Jetty distribution has
     been modified, which can make future upgrades more difficult. Thus it is
     normally better to create a jetty.base directory and configure a new
     instance of a server there.</para>

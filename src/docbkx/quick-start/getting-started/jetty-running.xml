@@ -67,7 +67,7 @@
   <section>
     <title>Creating a new Jetty Base</title>
 
-    <para>The demo-base directory described above is and example of the
+    <para>The demo-base directory described above is an example of the
     jetty.base mechanism added in Jetty 9.1. A jetty base allows the
     configuration and web applications of a server instance to be stored
     separately from the jetty distribution, so that upgrades can be done with

@@ -38,7 +38,7 @@
 
   <section xml:id="jetty-javaee-7">
     <title>Java EE 7 Web Profile</title>
-  <para>In the forthcoming Java EE-7 specification, the Web Profile reflects updates in its component specifications and adds some new ones:</para>
+    <para>In the forthcoming Java EE-7 specification, the Web Profile reflects updates in its component specifications and adds some new ones:</para>
 
   <table xml:id="webprofile-7">
     <title>JavaEE7 Web Profile</title>
@@ -430,4 +430,5 @@
     </tbody>
   </tgroup>
   </table>
+</section>
 </section>

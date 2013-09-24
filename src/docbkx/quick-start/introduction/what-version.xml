@@ -50,12 +50,22 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
       </thead>
       <tbody>
         <row>
+          <entry>9.1</entry>
+          <entry>2013</entry>
+          <entry>Eclipse</entry>
+          <entry>1.7</entry>
+          <entry>HTTP/1.1 RFC2616, javax.websocket, SPDY v3</entry>
+          <entry>3.1</entry>
+          <entry>2.3</entry>
+          <entry>Stable</entry>
+        </row>
+        <row>
           <entry>9</entry>
           <entry>2012</entry>
           <entry>Eclipse</entry>
           <entry>1.7</entry>
           <entry>HTTP/1.1 RFC2616, WebSocket RFC 6455, SPDY v3</entry>
-          <entry>3.0 (3.1 branch)</entry>
+          <entry>3.0</entry>
           <entry>2.2</entry>
           <entry>Stable</entry>
         </row>

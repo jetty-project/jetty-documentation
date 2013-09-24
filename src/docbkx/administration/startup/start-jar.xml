@@ -61,14 +61,16 @@
   syntactic sugar that eventually resolve into the 2 basic configuration
   components mentioned above).</para>
 
-  <para>You now have:</para>
+  <para>Startup Features:</para>
 
   <itemizedlist>
     <listitem>
       <para>A separation of the Jetty distribution binaries in <filename
       linkend="startup-base-and-home">${jetty.home}</filename> and the
       environment specific configurations (and binaries) found in <filename
-      linkend="startup-base-and-home">${jetty.base}</filename>.</para>
+      linkend="startup-base-and-home">${jetty.base}</filename> (detailed in
+      <link linkend="startup-jetty-base-and-jetty-home">Managing Jetty Base
+      and Jetty Home</link>)</para>
     </listitem>
 
     <listitem>
@@ -80,11 +82,25 @@
     <listitem>
       <para>All of the pre-built XML configuration files shipped by Jetty, are
       now parameterized with properties that can be specified in your
-      <filename>${jetty.base}/start.ini</filename> </para>
+      <filename>${jetty.base}/start.ini</filename> (demonstrated in <link
+      linkend="quick-start-configure">Quick Start
+      Configuration</link>).</para>
+
+      <para>There is no longer a </para>
     </listitem>
   </itemizedlist>
 
-  <para>All of these</para>
+  <para>These are powerful new features, made to support a variety of styles
+  of configuring Jetty. From a simple property based configuration, to
+  handling multiple installations on a server, to customized stacks of
+  technology on top of Jetty, and even the classic custom xml configurations
+  of old.</para>
+
+  <para>For example, if you use the ${jetty.base} concepts properly, you can
+  upgrade the jetty distribution without having to remake your entire tree of
+  modifications to jetty. Simply separate out your specific modifications to
+  the ${jetty.base} and in the future, just upgrade your ${jetty.home}
+  directory with a new Jetty distribution.</para>
 
   <itemizedlist>
     <title>What happens when you execute start.jar:</title>
@@ -139,12 +155,37 @@
     </listitem>
 
     <listitem>
-      <para>load each xml configuration file in order, applying entire set of
-      properties to each</para>
+      <para>determine run mode:</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>show informational command line options, and exit</para>
+        </listitem>
+
+        <listitem>
+          <para>execute jetty normally, wait for jetty to stop</para>
+        </listitem>
+
+        <listitem>
+          <para>execute a forked jvm to run jetty in, wait for forked jvm to
+          exit</para>
+        </listitem>
+      </itemizedlist>
     </listitem>
 
     <listitem>
-      <para>let xml configurations start Jetty</para>
+      <para>If jetty is to be started:</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>load each xml configuration (in the order determined by the
+          inis and module system)</para>
+        </listitem>
+
+        <listitem>
+          <para>let xml configuration start jetty</para>
+        </listitem>
+      </itemizedlist>
     </listitem>
   </itemizedlist>
 

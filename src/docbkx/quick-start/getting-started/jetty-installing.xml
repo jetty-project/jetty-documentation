@@ -86,7 +86,7 @@
           </row>
 
           <row>
-            <entry>bin</entry>
+            <entry>bin/</entry>
 
             <entry>Utility shell scripts to help run Jetty on Unix
             systems</entry>
@@ -95,30 +95,30 @@
           <row>
             <entry>demo-base</entry>
 
-            <entry>A Jetty base directory to run a jetty server with
+            <entry>A Jetty base directory to run a Jetty server with
             demonstration webapps</entry>
           </row>
 
           <row>
-            <entry>etc</entry>
+            <entry>etc/</entry>
 
             <entry>Directory for Jetty XML configuration files</entry>
           </row>
 
           <row>
-            <entry>lib</entry>
+            <entry>lib/</entry>
 
             <entry>All the JAR files necessary to run Jetty</entry>
           </row>
 
           <row>
-            <entry>logs</entry>
+            <entry>logs/</entry>
 
             <entry>Directory for request logs</entry>
           </row>
 
           <row>
-            <entry>modules</entry>
+            <entry>modules/</entry>
 
             <entry>Directory of module definitions</entry>
           </row>
@@ -130,7 +130,7 @@
           </row>
 
           <row>
-            <entry>resources</entry>
+            <entry>resources/</entry>
 
             <entry>Directory containing additional resources for classpath,
             activated via configuration</entry>
@@ -140,7 +140,7 @@
             <entry>start.d</entry>
 
             <entry>Directory of *.ini files containing arguments that are
-            added to the effective command line (see start.ini) </entry>
+            added to the effective command line (see start.ini)</entry>
           </row>
 
           <row>
@@ -159,7 +159,7 @@
           </row>
 
           <row>
-            <entry>webapps</entry>
+            <entry>webapps/</entry>
 
             <entry>Directory containing webapps that run under the default
             configuration of Jetty</entry>

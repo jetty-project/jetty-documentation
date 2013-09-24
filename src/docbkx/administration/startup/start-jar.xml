@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+//  ========================================================================
+//  Copyright (c) 1995-2012 Mort Bay Consulting Pty. Ltd.
+//  ========================================================================
+//  All rights reserved. This program and the accompanying materials
+//  are made available under the terms of the Eclipse Public License v1.0
+//  and Apache License v2.0 which accompanies this distribution.
+//
+//      The Eclipse Public License is available at
+//      http://www.eclipse.org/legal/epl-v10.html
+//
+//      The Apache License v2.0 is available at
+//      http://www.opensource.org/licenses/apache2.0.php
+//
+//  You may elect to redistribute this code under either of these licenses.
+//  ========================================================================
+-->
+<section version="5.0"
+         xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd"
+         xml:id="start-jar" xmlns="http://docbook.org/ns/docbook"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:xs="http://www.w3.org/2001/XMLSchema"
+         xmlns:xl="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:ns2="http://www.w3.org/1998/Math/MathML"
+         xmlns:ns="http://docbook.org/ns/docbook">
+  <title>Using start.jar</title>
+
+  <para>[details on using the start.jar and how the above concepts are wired
+  up]</para>
+
+  <para/>
+
+  <itemizedlist>
+    <title>Configuration Discovery and Resolution Order:</title>
+
+    <listitem>
+      <para>load and parse <filename>${jetty.base}/start.ini</filename> as
+      command line arguments</para>
+    </listitem>
+
+    <listitem>
+      <para>load and parse all INIs found in
+      <filename>${jetty.base}/start.d/*.ini</filename> as command line
+      arguments</para>
+    </listitem>
+
+    <listitem>
+      <para>parse actual command line arguments used to execute
+      <filename>start.jar</filename></para>
+    </listitem>
+
+    <listitem>
+      <para>resolve any xml configuration files, modules, and libraries using
+      base vs home resolution steps</para>
+
+      <orderedlist>
+        <listitem>
+          <para>check if file exists as relative reference to
+          <filename>${jetty.base}</filename></para>
+        </listitem>
+
+        <listitem>
+          <para>check if file exists as relative reference to
+          <filename>${jetty.home}</filename></para>
+        </listitem>
+
+        <listitem>
+          <para>use default behavior of <code>java.io.File</code></para>
+
+          <para>(Relative to <code>System.getProperty("user.dir")</code> and
+          then as absolute file system path)</para>
+        </listitem>
+      </orderedlist>
+    </listitem>
+
+    <listitem>
+      <para>load any dependant modules. (merge xml, library, and properties
+      results with active command line)</para>
+    </listitem>
+
+    <listitem>
+      <para>build out server classpath</para>
+    </listitem>
+
+    <listitem>
+      <para>load each xml configuration file in order, applying entire set of
+      properties to each.</para>
+    </listitem>
+
+    <listitem>
+      <para>let xml configurations start Jetty.</para>
+    </listitem>
+  </itemizedlist>
+
+  <para/>
+</section>

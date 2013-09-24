@@ -26,7 +26,7 @@
          xmlns:xi="http://www.w3.org/2001/XInclude"
          xmlns:ns2="http://www.w3.org/1998/Math/MathML"
          xmlns:ns="http://docbook.org/ns/docbook">
-  <title>Start Features</title>
+  <title>Start Features [deprecated]</title>
 
   <section>
     <title>Introduction</title>
@@ -35,13 +35,13 @@
     program once you set up a classpath. For example, you can run the
     SimplestServer from the Embedding Jetty Tutorial as follows:</para>
 
-    <screen>java -cp $JETTY_CLASSPATH org.eclipse.jetty.embedded.SimplestServer</screen>
+    <screen><![CDATA[java -cp $JETTY_CLASSPATH org.eclipse.jetty.embedded.SimplestServer]]></screen>
 
     <para>Similarly, if you configure your server with jetty.xml rather than
     with embedded style, this also is just running a Java program, but this
     time with the XMLConfigurator as the main:</para>
 
-    <screen>&gt; java -cp $JETTY_CLASSPATH org.eclipse.jetty.xml.XmlConfiguration etc/jetty.xml</screen>
+    <screen><![CDATA[> java -cp $JETTY_CLASSPATH org.eclipse.jetty.xml.XmlConfiguration etc/jetty.xml]]></screen>
 
     <para>The difficult part of both these examples is knowing what must be on
     the JETTY_CLASSPATH, as the Jetty server comes in many jars encapsulating
@@ -55,12 +55,12 @@
     generic and can start any Java program, the default start.config file is
     for Jetty, so that you can start Jetty with:</para>
 
-    <screen>&gt; java -jar start.jar</screen>
+    <screen><![CDATA[> java -jar start.jar]]></screen>
 
     <para>You can see the effective command line start.jar generates by using
     the --dry-run command line flag:</para>
 
-    <screen>&gt; java -jar start.jar --dry-run
+    <screen><![CDATA[> java -jar start.jar --dry-run
 /usr/local/jvm/jdk1.7.0_17/jre/bin/java \
 -Djetty.home=/home/gregw/src/jetty-9/jetty-distribution/target/distribution \
 -cp /home/gregw/src/jetty-9/jetty-distribution/target/distribution/lib/jetty-xml-9.0.3-SNAPSHOT.jar:\
@@ -99,12 +99,12 @@ org.eclipse.jetty.xml.XmlConfiguration \
 /home/gregw/src/jetty-9/jetty-distribution/target/distribution/etc/jetty-http.xml \
 /home/gregw/src/jetty-9/jetty-distribution/target/distribution/etc/jetty-deploy.xml \
 /home/gregw/src/jetty-9/jetty-distribution/target/distribution/etc/jetty-requestlog.xml \
-/home/gregw/src/jetty-9/jetty-distribution/target/distribution/etc/test-realm.xml</screen>
+/home/gregw/src/jetty-9/jetty-distribution/target/distribution/etc/test-realm.xml]]></screen>
 
     <para>Detailed help is available from the start.jar mechanism with the
     --help argument:</para>
 
-    <screen>&gt; java -jar start.jar --help
+    <screen><![CDATA[> java -jar start.jar --help
 Usage: java -jar start.jar [options...] [properties...] [configs...]
 
   The start.jar builds a classpath and executes a main java class with
@@ -115,26 +115,25 @@ Usage: java -jar start.jar [options...] [properties...] [configs...]
 Command Line Options:
   --help           This help / usage information.
 
-...</screen>
+...]]></screen>
   </section>
 
   <section>
     <title>Start Configuration</title>
 
-    <para>The
-    behaviour of the start.jar mechanism is controlled by the <link
-    xl:href="http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/tree/jetty-start/src/main/resources/org/eclipse/jetty/start/start.config">start.config</link> file, which has a default version for
-    jetty built into the start.jar itself. Only in exceptional circumstances
-    will a jetty user need to edit or replace the start.config file (with the
-    --config=&lt;file&gt; command line option). However, it is the
-    start.config file that knows about the directory layout of the jetty
-    distribution and defines may of the properties and options that can be set
-    to configure jetty, These are described in the next sections, but can also
-    be discovered by listing the start.config file with the --list-config
-    command line option and the processed start configuration can been seen
-    with:</para>
+    <para>The behaviour of the start.jar mechanism is controlled by the <link
+    xl:href="http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/tree/jetty-start/src/main/resources/org/eclipse/jetty/start/start.config">start.config</link>
+    file, which has a default version for jetty built into the start.jar
+    itself. Only in exceptional circumstances will a jetty user need to edit
+    or replace the start.config file (with the --config=&lt;file&gt; command
+    line option). However, it is the start.config file that knows about the
+    directory layout of the jetty distribution and defines may of the
+    properties and options that can be set to configure jetty, These are
+    described in the next sections, but can also be discovered by listing the
+    start.config file with the --list-config command line option and the
+    processed start configuration can been seen with:</para>
 
-    <screen>&gt; java -jar start.jar --list-options</screen>
+    <screen><![CDATA[> java -jar start.jar --list-options]]></screen>
 
     <section>
       <title>Start Properties</title>
@@ -148,7 +147,7 @@ Command Line Options:
       start.jar mechanism, then the port may be changed without editing the
       XML configuration file:</para>
 
-      <screen>&gt; java -jar start.jar jetty.port=80</screen>
+      <screen><![CDATA[> java -jar start.jar jetty.port=80]]></screen>
 
       <para>Note that start properties exist only during the startup of the
       program, while System properties are available at any time during
@@ -241,7 +240,7 @@ Command Line Options:
 
       <para>The start.jar mechanism builds a classpath under the control of
       the start.config and the discovered and defined options. The default
-      start.config builds the classpath from: </para>
+      start.config builds the classpath from:</para>
 
       <para><itemizedlist>
           <listitem>
@@ -276,7 +275,7 @@ Command Line Options:
         </itemizedlist>The following example is a start command line that
       defines additional classpath entries by path, lib and OPTIONS:</para>
 
-      <screen>&gt; java -jar start.jar path=/usr/share/java/wobble.jar lib=/opt/something/lib OPTIONS=jsp,jaas,jmx</screen>
+      <screen><![CDATA[> java -jar start.jar path=/usr/share/java/wobble.jar lib=/opt/something/lib OPTIONS=jsp,jaas,jmx]]></screen>
     </section>
 
     <section>
@@ -295,7 +294,7 @@ Command Line Options:
       options (to disable start.ini see below) and to start a basic server
       with jmx option and configuration and a HTTP connector:</para>
 
-      <screen>&gt; java -jar start.jar --ini OPTIONS=Server,jmx etc/jetty.xml etc/jetty-http.xml etc/jetty-jmx.xml</screen>
+      <screen><![CDATA[> java -jar start.jar --ini OPTIONS=Server,jmx etc/jetty.xml etc/jetty-http.xml etc/jetty-jmx.xml]]></screen>
     </section>
 
     <section>
@@ -324,8 +323,8 @@ Command Line Options:
       argument. The following start.ini sets the options and default
       configuration files for using the server with JMX and SSL:</para>
 
-      <programlisting language="plain">
-<![CDATA[
+      <programlisting language="plain"><![CDATA[
+
 #===========================================================
 # Jetty start.ini example
 #-----------------------------------------------------------
@@ -335,8 +334,8 @@ etc/jetty-http.xml
 
 OPTIONS=jmx
 etc/jetty-jmx.xml
-]]>
-      </programlisting>
+
+      ]]></programlisting>
 
       <para>Note how the OPTIONS property is additive and both the Server and
       jmx options are enabled by this example.</para>
@@ -351,13 +350,13 @@ etc/jetty-jmx.xml
       login service (realm) and client option needed for the test webapp are
       defined in the file <filename>start.d/test-webapp.ini</filename>:</para>
 
-      <programlisting language="plain">
-<![CDATA[
+      <programlisting language="plain"><![CDATA[
+
 # Enabled services and configuration needed by the test webapp
 OPTIONS=client
 etc/test-realm.xml
-]]>
-      </programlisting>
+
+      ]]></programlisting>
     </section>
 
     <section>
@@ -369,8 +368,8 @@ etc/test-realm.xml
       a new JVM is spawned with the arguments. The following start.ini example
       sets the JVM heap memory and enables remote JMX management:</para>
 
-      <programlisting language="plain">
-<![CDATA[
+      <programlisting language="plain"><![CDATA[
+
 #===========================================================
 # Jetty start.jar arguments
 #-----------------------------------------------------------
@@ -382,13 +381,14 @@ OPTIONS=Server,jmx,resources
 etc/jetty-jmx.xml
 etc/jetty.xml
 etc/jetty-ssl.xml
-]]>
-      </programlisting>
+
+      ]]></programlisting>
 
       <note>
-          <para>Note the single quotes used to specfy the commandline in -XX:OnOutOfMemoryError='kill -3 %p'.
-              Double quotes will work for the jvm as well, but not for Jetty's commandline parser. So make sure
-              to use single quotes for such things.</para>
+        <para>Note the single quotes used to specfy the commandline in
+        -XX:OnOutOfMemoryError='kill -3 %p'. Double quotes will work for the
+        jvm as well, but not for Jetty's commandline parser. So make sure to
+        use single quotes for such things.</para>
       </note>
     </section>
   </section>

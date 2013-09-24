@@ -27,5 +27,27 @@
          xmlns:ns="http://docbook.org/ns/docbook">
   <title>Startup Overview</title>
 
-  <para>[overview of the startup architecture]</para>
+  <para>The startup of standalone Jetty is managed by the start.jar bootstrap,
+  which in turn basis the startup configuration from a number of
+  sources:</para>
+
+  <itemizedlist>
+    <listitem>
+      <para>XML Configuration Files</para>
+    </listitem>
+
+    <listitem>
+      <para>Server Classpath Libraries</para>
+    </listitem>
+
+    <listitem>
+      <para>Properties</para>
+    </listitem>
+
+    <listitem>
+      <para>Jetty Base vs Jetty Home Logic</para>
+    </listitem>
+  </itemizedlist>
+
+  <para/>
 </section>

@@ -27,18 +27,67 @@
          xmlns:ns="http://docbook.org/ns/docbook">
   <title>Using start.jar</title>
 
-  <para>[details on using the start.jar and how the above concepts are wired
-  up]</para>
+  <para>The most basic way of starting the Jetty Standalone server is to
+  execute the start.jar.</para>
 
-  <para/>
+  <screen><![CDATA[[jetty-distribution-${project.version}]$ java -jar start.jar
+2013-09-23 11:27:06.654:INFO:oejs.Server:jetty-${project.version}
+...]]></screen>
 
-  <itemizedlist>
-    <title>Configuration Discovery and Resolution Order:</title>
+  <para>The start.jar is a bootstrap for starting up Jetty with the
+  configuration that you desire.</para>
+
+  <para>Jetty is a highly modularized web server container. Very little is
+  mandatory and required, most components are optional and be enabled or
+  disabled based on the needs of your environment.</para>
+
+  <para>Ultimately, at its most basic, Jetty is configured from 2
+  things:</para>
+
+  <orderedlist>
+    <listitem>
+      <para>A set of Libraries and directories that make up the Server
+      Classpath</para>
+    </listitem>
 
     <listitem>
-      <para>load and parse <filename>${jetty.base}/start.ini</filename> as
-      command line arguments</para>
+      <para>A set of Jetty XML configuration files (IoC style) that establish
+      how to build up your Jetty server and its components</para>
     </listitem>
+  </orderedlist>
+
+  <para>However, unlike the past versions of Jetty, starting with Jetty 9.1
+  you now have a few more options on how to configure jetty (these are merely
+  syntactic sugar that eventually resolve into the 2 basic configuration
+  components mentioned above).</para>
+
+  <para>You now have:</para>
+
+  <itemizedlist>
+    <listitem>
+      <para>A separation of the Jetty distribution binaries in <filename
+      linkend="startup-base-and-home">${jetty.home}</filename> and the
+      environment specific configurations (and binaries) found in <filename
+      linkend="startup-base-and-home">${jetty.base}</filename>.</para>
+    </listitem>
+
+    <listitem>
+      <para>You can enable a set of Libraries and XML configuration files via
+      the newly introduced <link linkend="startup-modules">module
+      system</link></para>
+    </listitem>
+
+    <listitem>
+      <para>All of the pre-built XML configuration files shipped by Jetty, are
+      now parameterized with properties that can be specified in your
+      <filename>${jetty.base}/start.ini</filename> </para>
+    </listitem>
+  </itemizedlist>
+
+  <para>All of these</para>
+
+  <itemizedlist>
+    <title>What happens when you execute start.jar:</title>
 
     <listitem>
       <para>load and parse all INIs found in
@@ -47,8 +96,13 @@
     </listitem>
 
     <listitem>
+      <para>load and parse <filename>${jetty.base}/start.ini</filename> as
+      command line arguments</para>
+    </listitem>
+
+    <listitem>
       <para>parse actual command line arguments used to execute
-      <filename>start.jar</filename></para>
+      <filename>start.jar itself</filename></para>
     </listitem>
 
     <listitem>
@@ -86,11 +140,11 @@
 
     <listitem>
       <para>load each xml configuration file in order, applying entire set of
-      properties to each.</para>
+      properties to each</para>
     </listitem>
 
     <listitem>
-      <para>let xml configurations start Jetty.</para>
+      <para>let xml configurations start Jetty</para>
     </listitem>
   </itemizedlist>
 

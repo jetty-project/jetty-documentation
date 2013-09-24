@@ -18,14 +18,14 @@
 -->
 <section version="5.0"
          xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd"
-         xml:id="startup-base-vs-home" xmlns="http://docbook.org/ns/docbook"
+         xml:id="startup-base-and-home" xmlns="http://docbook.org/ns/docbook"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xmlns:xs="http://www.w3.org/2001/XMLSchema"
          xmlns:xl="http://www.w3.org/1999/xlink"
          xmlns:xi="http://www.w3.org/2001/XInclude"
          xmlns:ns2="http://www.w3.org/1998/Math/MathML"
          xmlns:ns="http://docbook.org/ns/docbook">
-  <title>Managing Jetty Base vs Jetty Home</title>
+  <title>Managing Jetty Base and Jetty Home</title>
 
-  <para>[details about jetty.base vs jetty.home logic]</para>
+  <para>[details about jetty.base and jetty.home logic]</para>
 </section>

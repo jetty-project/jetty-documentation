@@ -181,7 +181,7 @@ xmlns:ns="http://docbook.org/ns/docbook">
     <title>Jetty Administration Guide</title>
     <!-- The first Section should contain chapters that are Conceptual in nature -->
     <!-- Information about the start.jar -->
-    <xi:include href="administration/jetty-start/chapter.xml" />
+    <xi:include href="administration/startup/chapter.xml" />
 
     <!-- Following sections should be chapters of a how-to nature.
          All of the chapters in here explain details about the configuration

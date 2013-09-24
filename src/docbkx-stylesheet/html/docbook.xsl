@@ -67,6 +67,9 @@ xmlns:date="http://exslt.org/dates-and-times"
   <!-- squash the generation of title attributes -->
   <xsl:template name="generate.html.title"/>
 
+  <!-- allow sections to be excluded from toc generation -->
+  <xsl:template match="d:section[@role = 'NotInToc']" mode="toc" />
+
   <xsl:template name="user.head.content">
     <link rel="shortcut icon" href="images/favicon.ico" />
     <!--

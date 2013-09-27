@@ -27,7 +27,8 @@
          xmlns:ns="http://docbook.org/ns/docbook"
          status="draft">
   <title>Creating a Custom Protocol</title>
-  <para>To create a custom protocol, complete the following tasks:</para>
+  <para> You can create custom protocols with Jetty. This page provides an example of how to do so, with Telnet as the protocol.</para>
+  <para>To create a custom Telnet protocol, complete the following tasks:</para>
   <itemizedlist>
   <listitem><para>Implement a <code>TelnetServerConnectionFactory</code>.</para></listitem>
   <listitem><para>Implement a <code>TelnetServerConnection</code> by extending <code>o.e.j.io.AbstractConnection</code>.</para></listitem>
@@ -40,7 +41,7 @@
 </section>
 <section xml:id="telnet-server-connection">
 <title>Implementing the TelnetServerConnection</title>
-<para>For the Connection implementation you need to extend from <code>o.e.j.io.AbstractConnection</code> because it provides many facilities.</para>
+<para>For the Connection implementation you need to extend from <code>o.e.j.io.AbstractConnection</code> because it provides many facilities that you would otherwise need to re-implement from scratch.</para>
 
 <para>For each Connection instance there is associated an <code>o.e.j.io.EndPoint</code> instance. Think of <code>EndPoint</code> as a specialized version of JDK’s <code>SocketChannel</code>. You use the <code>EndPoint</code> to read, write, and close. You don’t need to implement <code>EndPoint</code>, because Jetty provides concrete classes for you to use.</para>
 
@@ -53,9 +54,14 @@
 After you read the bytes, you need to parse them. For the Telnet protocol there is not much to parse, but perhaps you have your own commands that you want to interpret and execute. Therefore typically every connection has an associated parser instance. In turn, a parser usually emits parse events that a parser listener interprets, as the following examples illustrate:</para>
 
 <itemizedlist>
-<listitem><para>In HTTP you parse the request string (which emits an event), and you parse headers (each of which emits an event) until the parser recognizes the end of the headers (another event). At that point, the <emphasis>interpreter</emphasis> or parser listener (which for HTTP is <code>o.e.j.server.HttpChannel</code>) has all the information to build a <code>HttpServletRequest</code> object and can call the user code (the web application, that is, servlets/filters).</para></listitem>
+<listitem><para>In HTTP, the Jetty HTTP parser parses the request line (and emits a parser event), then parses the headers (and emits a parser event for
+each) until it recognizes the end of the headers (and emits another
+parser event). At that point, the <emphasis>interpreter</emphasis> or parser listener (which for HTTP is <code>o.e.j.server.HttpChannel</code>) has all the information necessary to build a <code>HttpServletRequest</code> object and can call the user code (the web application, that is, servlets/filters).</para></listitem>
 
-<listitem><para>In SPDY you parse a SPDY frame (a parser event) which an instance of <code>o.e.j.spdy.StandardSession</code>, the parser listener, interprets, and which in turn calls application-provided listeners.</para></listitem>
+<listitem><para>In SPDY, the Jetty SPDY parser parses a SPDY frame (and emits a
+parser event), and the parser listener (an instance of
+o.e.j.spdy.StandardSession) interprets the parser events and calls
+user code (application-provided listeners).</para></listitem>
 </itemizedlist>
 <para>
 With <code>ConnectionFactory</code>, Connection, parser, and parser listeners in place, you have configured the read side.</para>

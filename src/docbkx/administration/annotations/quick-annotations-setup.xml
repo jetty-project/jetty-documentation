@@ -67,4 +67,70 @@ OPTIONS=jndi
   <para>You can now start Jetty and use annotations within your webapps. See
   <link linkend="using-annotations">Using Annotations</link> for more
   information.</para>
+
+  <para>Since <emphasis role="bold">jetty-9.1.0</emphasis> annotation scanning
+  will be conducted by default in a multi-threaded manner. This speeds up the
+  process of opening jar files and looking for <link
+  linkend="discoverable_introspectable_annotations">discoverable
+  annotations</link>. Jetty will use threads from the <link
+  linkend="intro-jetty-configuration-server">configured thread pool</link> to
+  perform the scanning. You can disable threaded scanning and use just the
+  single main execution thread if for some reason you need to. You have
+  several options for doing this:</para>
+
+  <orderedlist>
+    <listitem>
+      <para>Set <emphasis
+      role="bold">org.eclipse.jetty.annotations.multiThreaded</emphasis> to
+      <emphasis role="bold">false</emphasis> on a <link
+      linkend="intro-jetty-configuration-contexts">context attribute</link>
+      for the specific webapp you want to affect</para>
+    </listitem>
+
+    <listitem>
+      <para>Set <emphasis
+      role="bold">org.eclipse.jetty.annotations.multiThreaded</emphasis> to
+      <emphasis role="bold">false</emphasis> on a <link
+      linkend="server_attributes">Server attribute</link> to affect all
+      webapps deployed into that Server<link
+      linkend="server_attributes"/></para>
+    </listitem>
+
+    <listitem>
+      <para>Set <emphasis
+      role="bold">-Dorg.eclipse.jetty.annotations.multiThreaded=false</emphasis>
+      as a System property in a start.ini file or command line to affect all
+      webapps in the jvm</para>
+    </listitem>
+  </orderedlist>
+
+  <para>By default, Jetty will wait up to 60 seconds for the scanning to
+  complete when using the multi-threaded mode. If you would like to make it
+  longer or shorter, you can use any of the following:</para>
+
+  <orderedlist>
+    <listitem>
+      <para>Set <emphasis
+      role="bold">org.eclipse.jetty.annotations.maxWait</emphasis> as a <link
+      linkend="intro-jetty-configuration-contexts">context attribute</link> to
+      the time in seconds you want to maximally wait for scanning to complete.
+      This affects the specific webapp only.</para>
+    </listitem>
+
+    <listitem>
+      <para>Set <emphasis
+      role="bold">org.eclipse.jetty.annotations.maxWait</emphasis> as a <link
+      linkend="server_attributes">Server attribute</link> to the time in
+      secods you want to maximally wait for scanning to complete. This affects
+      all webapps deployed to that Server.</para>
+    </listitem>
+
+    <listitem>
+      <para>Set <emphasis
+      role="bold">-Dorg.eclipse.jetty.annotations.maxWait</emphasis> as a
+      System property to the time in seconds you want to maximally wait for
+      scanning to complete. This affects all webapps deployed in the
+      jvm.</para>
+    </listitem>
+  </orderedlist>
 </section>

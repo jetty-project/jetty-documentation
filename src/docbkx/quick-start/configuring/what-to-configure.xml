@@ -38,8 +38,7 @@
   file and modifying existing configuration values.</para>
 
   <section xml:id="intro-jetty-configuration-server">
-    <title>Configuring the
-    Server</title>
+    <title>Configuring the Server</title>
 
     <para>The Server instance is the central coordination object of a Jetty
     server; it provides services and life cycle management for all other Jetty
@@ -83,7 +82,7 @@
       </varlistentry>
 
       <varlistentry>
-        <term>Server Attributes</term>
+        <term xml:id="server_attributes">Server Attributes</term>
 
         <listitem>
           <para>The server holds a generic attribute map of strings to objects
@@ -219,8 +218,7 @@
   </section>
 
   <section xml:id="intro-jetty-configuration-contexts">
-    <title>Configuring
-    Contexts</title>
+    <title>Configuring Contexts</title>
 
     <para>A Jetty context is a handler that groups other handlers under a
     context path together with associated resources and is roughly equivalent
@@ -350,8 +348,7 @@
   </section>
 
   <section xml:id="intro-jetty-configuration-webapps">
-    <title>Configuring Web
-    Applications</title>
+    <title>Configuring Web Applications</title>
 
     <para>The servlet specification defines a web application, which when
     packaged as a zip is called WAR file (Web application ARchive). Jetty
@@ -452,15 +449,15 @@
       to set the context path:</para>
 
       <informalexample>
-        <programlisting language="xml">
-<![CDATA[
+        <programlisting language="xml"><![CDATA[
+
 <?xml version="1.0"  encoding="ISO-8859-1"?>
 <!DOCTYPE Configure PUBLIC "-" "http://www.eclipse.org/jetty/configure.dtd">
 <Configure class="org.eclipse.jetty.webapp.WebAppContext">
     <Set name="contextPath">/contextpath</Set>
 </Configure>
-]]>
-        </programlisting>
+
+        ]]></programlisting>
       </informalexample>
 
       <para>Alternately, to configure the classpath externally without the
@@ -470,16 +467,16 @@
       to:</para>
 
       <informalexample>
-        <programlisting language="xml">
-<![CDATA[
+        <programlisting language="xml"><![CDATA[
+
 ?xml version="1.0"  encoding="ISO-8859-1"?>
 <!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure.dtd">
 <Configure class="org.eclipse.jetty.webapp.WebAppContext">
   <Set name="war"><SystemProperty name="jetty.home" default="."/>/webapps/test.war</Set>
   <Set name="contextPath">/test</Set>
 </Configure>      
-]]>
-        </programlisting>
+
+        ]]></programlisting>
       </informalexample>
 
       <para>An example of setting the context path is included with the Jetty
@@ -495,16 +492,16 @@
       descriptor with elements like:</para>
 
       <informalexample>
-        <programlisting language="xml">
-<![CDATA[
+        <programlisting language="xml"><![CDATA[
+
 ...
 <login-config>
   <auth-method>BASIC</auth-method>
   <realm-name>Test Realm</realm-name>
 </login-config>
 ...        
-]]>
-        </programlisting>
+
+        ]]></programlisting>
       </informalexample>
 
       <para>This example declares that the BASIC authentication mechanism will
@@ -522,9 +519,9 @@
       <filename>start.ini</filename>.</para>
 
       <informalexample>
-        <programlisting language="rxml">
-          <filename>@GITURL@/tests/test-webapps/test-jetty-webapp/src/main/config/etc/test-realm.xml</filename>
-        </programlisting>
+        <programlisting language="rxml"><![CDATA[
+          ]]><filename>@GITURL@/tests/test-webapps/test-jetty-webapp/src/main/config/etc/test-realm.xml</filename><![CDATA[
+        ]]></programlisting>
       </informalexample>
 
       <para>This creates and configures the LoginService as an aggregate bean
@@ -535,8 +532,7 @@
   </section>
 
   <section xml:id="quickstart-config-deployer">
-    <title >Web Application
-    Deployment</title>
+    <title>Web Application Deployment</title>
 
     <para>Jetty is capable of deploying a variety of Web Application formats.
     This is accomplished via scans of the

@@ -18,8 +18,7 @@
 -->
 <section version="5.0"
          xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd"
-         xml:id="using-annotations"
-         xmlns="http://docbook.org/ns/docbook"
+         xml:id="using-annotations" xmlns="http://docbook.org/ns/docbook"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xmlns:xs="http://www.w3.org/2001/XMLSchema"
          xmlns:xl="http://www.w3.org/1999/xlink"
@@ -89,7 +88,7 @@
     </itemizedlist>
   </section>
 
-  <section>
+  <section xml:id="discoverable_introspectable_annotations">
     <title>Discovered vs Introspected Annotations</title>
 
     <para>Some types of annotation can be placed on any classes, not
@@ -99,9 +98,10 @@
     annotation we call "introspected", meaning that they occur on classes with
     which the container interacts during their lifecycle (eg
     javax.servlet.Servlet, javax.servlet.Filter etc), and hence can be found
-    by simple inspection of the class at that point. </para>
+    by simple inspection of the class at that point.</para>
 
-    <para>Some examples of discovered annotations are:</para>
+    <para xml:id="discovered_annotations">Some examples of discovered
+    annotations are:</para>
 
     <itemizedlist>
       <listitem>

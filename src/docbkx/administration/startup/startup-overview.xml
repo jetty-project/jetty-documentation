@@ -28,26 +28,227 @@
   <title>Startup Overview</title>
 
   <para>The startup of standalone Jetty is managed by the start.jar bootstrap,
-  which in turn basis the startup configuration from a number of
-  sources:</para>
+  which is responsible for:</para>
 
-  <itemizedlist>
-    <listitem>
-      <para>XML Configuration Files</para>
-    </listitem>
+  <variablelist>
+    <varlistentry>
+      <term>Building the classpath</term>
 
-    <listitem>
-      <para>Server Classpath Libraries</para>
-    </listitem>
+      <listitem>
+        <para>The start.jar bootstrap will build a classpath for all the
+        required jetty features and their dependencies. The classpath is built
+        using either the --lib option to start.jar to add an individual
+        classpath entry, or with the --module option that will include all the
+        libs and their dependencies for a module (a named jetty feature).
+        </para>
+      </listitem>
+    </varlistentry>
 
-    <listitem>
-      <para>Properties</para>
-    </listitem>
+    <varlistentry>
+      <term>Instantiating the Server Components</term>
 
-    <listitem>
-      <para>Jetty Base vs Jetty Home Logic</para>
-    </listitem>
-  </itemizedlist>
+      <listitem>
+        <para>The server and it's components are instantiated using either
+        Jetty IoC XML or spring. The Jetty server is just a collection of java
+        POJOs for the server, connectors, session managers etc. These are
+        instantiated, injected and wired up together in XML files, commonly
+        one per module/feature, that are passed as arguments to start.jar
+        </para>
+      </listitem>
+    </varlistentry>
 
-  <para/>
+    <varlistentry>
+      <term>Resolve locations</term>
+
+      <listitem>
+        <para>The start.jar mechanism will resolve canonical locations for the
+        Jetty home directory and the jetty base directory. The jetty home is
+        the location of the standard distribution of jetty and the jetty base
+        is the location of the local server customization and configurations.
+        If the jetty distribution is to be modified then the base and home can
+        be the same directory. Having the base in a different directory allows
+        the distribution to remain unmodified and thus simplifies subsequent
+        server version upgrades. </para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>Parameterize the Server Configuration</term>
+
+      <listitem>
+        <para>The server configuration is primarily determined by the XML
+        files, however many of these files are parameterized to allow simple
+        injection of host names, ports, passwords etc. The start.jar mechanism
+        allows parameters to be set on the command line or in properties
+        files.</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>Discover and deploy standard web applications</term>
+
+      <listitem>
+        <para>If a deployer component is configured, then standard bases web
+        applications will be discovered and individual contexts instantiated,
+        configured and deployed.I</para>
+      </listitem>
+    </varlistentry>
+  </variablelist>
+
+  <para>In order to achieve these start up mechanism, the start.jar
+  uses:</para>
+
+  <variablelist>
+    <varlistentry>
+      <term>Command line arguments</term>
+
+      <listitem>
+        <para>The entire server may be configured with command line arguments
+        that specify libraries, properties and XML files. However in practise
+        the ini and modules mechanisms (below) are used to reduce the
+        verbosity of the command line.</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>Ini files</term>
+
+      <listitem>
+        <para>The contents of the $JETTY_BASE/start.ini and
+        $JETTY_BASE/start.d/*.ini files are used by start.jar as each line
+        being equivalent to a start.jar command line arguments. This allows
+        the configuration of the server to be controlled by either a global
+        start.ini file or by multiple start.d/feature.ini files.</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>Modules</term>
+
+      <listitem>
+        <para>Instead of explicitly listing all the libraries, properties and
+        XML files for a feature, the start.jar mechanism allows for the
+        creation of modules. A module is defined in a modules/*.mod file and
+        includes the libraries, dependencies, XML and template ini files for a
+        jetty feature. Thus a single --module=name command line option can be
+        used as the equivalent of specifying many --lib=location, feature.xml,
+        name=value arguments for a feature and all its dependencies. Modules
+        also use their dependencies to control the ordering of libraries and
+        XML files. </para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>XML Files</term>
+
+      <listitem>
+        <para>The actual POJO components of the server are instantiated and
+        injected by XML files in either jetty IoC or spring format. All major
+        components such as connectors, keystores, session managers, data
+        sources are instantiated in XML files. Typically there are one or more
+        XML file per module and these are defined and activated in the
+        corresponding module.</para>
+      </listitem>
+    </varlistentry>
+  </variablelist>
+
+  <section>
+    <title>Startup Example</title>
+
+    <para>The core jetty server can be started in an empty directory with the
+    following verbose commands:</para>
+
+    <screen>&gt; echo jetty.port:8080 &gt; /tmp/jetty.properties
+&gt; java -Djetty.home=$JETTY_HOME -Djetty.base=$PWD -cp\
+ $JETTY_HOME/lib/jetty-util-$JETTY_VERSION.jar\
+:$JETTY_HOME/lib/jetty-xml-$JETTY_VERSION.jar\
+:$JETTY_HOME/lib/jetty-io-$JETTY_VERSION.jar\
+:$JETTY_HOME/lib/jetty-http-$JETTY_VERSION.jar\
+:$JETTY_HOME/lib/servlet-api-3.1.jar\
+:$JETTY_HOME/lib/jetty-server-$JETTY_VERSION.jar \
+org.eclipse.jetty.xml.XmlConfiguration \
+/tmp/jetty.properties \
+$JETTY_HOME/etc/jetty.xml \
+$JETTY_HOME/etc/jetty-http.xml
+</screen>
+
+    <para>The java command sets up the classpath with the core jetty jars and
+    the servlet API, executes the XmlConfiguration class and passes it some
+    XML files that define the server and a HTTP connector running on the port
+    defined in the jetty.properties file.</para>
+
+    <para>Exactly the same can be achieve with the jetty start.jar mechanism
+    using the following java command line:</para>
+
+    <screen>&gt; java -jar $JETTY_HOME/start.jar --module=http jetty.port=8080</screen>
+
+    <para>This command uses the start.jar mechanism to boot strap the
+    classpath, properties and XML files with the metadata obtained from the
+    <literal>http</literal> module. Specifically the <literal>http</literal>
+    module is defined in the <filename>$JETTY_HOME/modules/http.mod</filename>
+    file and includes the following:</para>
+
+    <screen>&gt; cat $JETTY_HOME/modules/http.mod
+[depend]
+server
+
+[xml]
+etc/jetty-http.xml
+
+[ini-template]
+jetty.port=8080
+http.timeout=30000</screen>
+
+    <para>The <literal>http</literal> module declares that
+    <literal>http</literal> depends on the server module, uses the
+    <filename>jetty-http.xml</filename> file and can be parameterised with
+    <literal>jetty.port</literal> and <literal>http.timeout</literal>
+    parameters. The ini-template section is not actually used by the command
+    above, so the <literal>jetty.port</literal> must still be defined on the
+    command line.</para>
+
+    <para>Following the server dependency, the
+    <filename>$JETTY_HOME/modules/server.mod</filename> file includes:</para>
+
+    <screen>&gt; cat $JETTY_HOME/modules/server.mod
+[lib]
+lib/servlet-api-3.1.jar
+lib/jetty-http-${jetty.version}.jar
+lib/jetty-server-${jetty.version}.jar
+lib/jetty-xml-${jetty.version}.jar
+lib/jetty-util-${jetty.version}.jar
+lib/jetty-io-${jetty.version}.jar
+
+[xml]
+etc/jetty.xml
+
+[ini-template]
+threads.min=10
+threads.max=200
+</screen>
+
+    <para>The <literal>server</literal> module declares the libraries needed
+    by the server and that the <filename>jetty.xml</filename> file is used.
+    The combined meta data of the <literal>http</literal> and
+    <literal>server</literal> modules results in start.jar generating and
+    effective command line that is equivalent to the one at the start of this
+    section. </para>
+
+    <para>The startup of this server can be further simplified by using the
+    ini-template defined by the modules to create a
+    <filename>start.ini</filename> file with the command:</para>
+
+    <screen>&gt; java -jar $JETTY_HOME/start.jar --add-to-start=http
+</screen>
+
+    <para>Once this is done, the start.ini file may be edited to modify any
+    parameters and the server can be run with simple command:</para>
+
+    <screen>&gt; java -jar $JETTY_HOME/start.jar</screen>
+
+    <para>The effective command line generated by the start.jar mechanism can
+    be seen using the <literal>--dry-run</literal> options:</para>
+
+    <screen>&gt; java -jar $JETTY_HOME/start.jar --dry-run</screen>
+  </section>
 </section>

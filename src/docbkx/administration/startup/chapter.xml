@@ -16,7 +16,7 @@
 //  You may elect to redistribute this code under either of these licenses.
 //  ========================================================================
 -->
-<chapter version="5.0"
+<chapter status="draft" version="5.0"
          xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd"
          xml:id="startup" xmlns="http://docbook.org/ns/docbook"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -28,28 +28,46 @@
   <title>Starting Jetty</title>
 
   <!-- architecture overview -->
+
   <xi:include href="startup-overview.xml"/>
 
   <!-- details about the xml config files -->
+
   <xi:include href="startup-xml-config.xml"/>
+
   <!-- details about the classpath setup -->
+
   <xi:include href="startup-classpath.xml"/>
+
   <!-- details about the module system -->
+
   <xi:include href="startup-modules.xml"/>
+
   <!-- document the jetty.base vs jetty.home logic -->
+
   <xi:include href="startup-base-vs-home.xml"/>
+
   <!-- using the start.jar & how above concepts are wired up -->
+
   <xi:include href="start-jar.xml"/>
+
   <!-- troubleshooting startup -->
+
   <xi:include href="startup-troubleshooting.xml"/>
 
   <!-- starting jetty via bin/jetty.sh -->
+
   <xi:include href="startup-jetty-sh.xml"/>
+
   <!-- starting jetty as unix service -->
+
   <xi:include href="startup-unix-service.xml"/>
+
   <!-- starting jetty as service on windows -->
+
   <xi:include href="startup-windows-service.xml"/>
 
   <!-- TODO: remove when content is migrated to new sections -->
+
   <xi:include href="start-features.xml"/>
 </chapter>

@@ -16,7 +16,7 @@
 //  You may elect to redistribute this code under either of these licenses.
 //  ========================================================================
 -->
-<section version="5.0"
+<section status="draft" version="5.0"
          xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd"
          xml:id="start-jar" xmlns="http://docbook.org/ns/docbook"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -86,7 +86,7 @@
       linkend="quick-start-configure">Quick Start
       Configuration</link>).</para>
 
-      <para>There is no longer a </para>
+      <para>There is no longer a</para>
     </listitem>
   </itemizedlist>
 
@@ -265,7 +265,7 @@
 
         <listitem>
           <para>Print the resolved command line that start.jar would use to
-          start a forked instance of Jetty. </para>
+          start a forked instance of Jetty.</para>
         </listitem>
       </varlistentry>
 
@@ -273,7 +273,7 @@
         <term>--exec</term>
 
         <listitem>
-          <para>Start a forked instance of Jetty. </para>
+          <para>Start a forked instance of Jetty.</para>
         </listitem>
       </varlistentry>
     </variablelist>

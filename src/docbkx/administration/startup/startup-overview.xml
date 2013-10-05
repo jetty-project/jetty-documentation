@@ -16,7 +16,7 @@
 //  You may elect to redistribute this code under either of these licenses.
 //  ========================================================================
 -->
-<section status="draft" version="5.0"
+<section version="5.0"
          xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd"
          xml:id="startup-overview" xmlns="http://docbook.org/ns/docbook"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -63,10 +63,10 @@
       <listitem>
         <para>The <filename>start.jar</filename> mechanism will resolve
         canonical locations for the <literal>${jetty.home}</literal> and the
-        <literal>${jetty.base}</literal> directories. </para>
+        <literal>${jetty.base}</literal> directories.</para>
 
         <para>The ${jetty home} directory is the location of the standard
-        distribution of jetty. </para>
+        distribution of jetty.</para>
 
         <para>The ${jetty base} directory is the location of the local server
         customization and configurations.</para>

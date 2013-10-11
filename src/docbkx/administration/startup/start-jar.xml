@@ -27,41 +27,37 @@
          xmlns:ns="http://docbook.org/ns/docbook">
   <title>Using start.jar</title>
 
-  <para>The most basic way of starting the Jetty Standalone server is to
-  execute the start.jar.</para>
+  <para>The most basic way of starting the Jetty standalone server is to
+  execute the <filename>start.jar</filename>, which is a bootstrap for starting Jetty with the configuration you want.</para>
 
   <screen><![CDATA[[jetty-distribution-${project.version}]$ java -jar start.jar
 2013-09-23 11:27:06.654:INFO:oejs.Server:jetty-${project.version}
 ...]]></screen>
 
-  <para>The start.jar is a bootstrap for starting up Jetty with the
-  configuration that you desire.</para>
-
   <para>Jetty is a highly modularized web server container. Very little is
-  mandatory and required, most components are optional and be enabled or
-  disabled based on the needs of your environment.</para>
+  mandatory and required, and most components are optional; you enable or
+  disable them according to the needs of your environment.</para>
 
-  <para>Ultimately, at its most basic, Jetty is configured from 2
-  things:</para>
+  <para>At its most basic, you configure Jetty from two elements:</para>
 
   <orderedlist>
     <listitem>
-      <para>A set of Libraries and directories that make up the Server
-      Classpath</para>
+      <para>A set of libraries and directories that make up the server
+      classpath.</para>
     </listitem>
 
     <listitem>
       <para>A set of Jetty XML configuration files (IoC style) that establish
-      how to build up your Jetty server and its components</para>
+      how to build the Jetty server and its components.</para>
     </listitem>
   </orderedlist>
 
-  <para>However, unlike the past versions of Jetty, starting with Jetty 9.1
-  you now have a few more options on how to configure jetty (these are merely
-  syntactic sugar that eventually resolve into the 2 basic configuration
-  components mentioned above).</para>
+  <para>Starting with Jetty 9.1
+  you have more options on how to configure Jetty (these are merely
+  syntactic sugar that eventually resolve into the two basic configuration
+  components).</para>
 
-  <para>Startup Features:</para>
+  <para>Jetty 9.1 Startup Features include:</para>
 
   <itemizedlist>
     <listitem>
@@ -70,18 +66,18 @@
       environment specific configurations (and binaries) found in <filename
       linkend="startup-base-and-home">${jetty.base}</filename> (detailed in
       <link linkend="startup-jetty-base-and-jetty-home">Managing Jetty Base
-      and Jetty Home</link>)</para>
+      and Jetty Home.</link>)</para>
     </listitem>
 
     <listitem>
-      <para>You can enable a set of Libraries and XML configuration files via
+      <para>You can enable a set of libraries and XML configuration files via
       the newly introduced <link linkend="startup-modules">module
-      system</link></para>
+      system.</link></para>
     </listitem>
 
     <listitem>
-      <para>All of the pre-built XML configuration files shipped by Jetty, are
-      now parameterized with properties that can be specified in your
+      <para>All of the pre-built XML configuration files shipped in Jetty are
+      now parameterized with properties that you can specify in your
       <filename>${jetty.base}/start.ini</filename> (demonstrated in <link
       linkend="quick-start-configure">Quick Start
       Configuration</link>).</para>
@@ -91,99 +87,99 @@
   </itemizedlist>
 
   <para>These are powerful new features, made to support a variety of styles
-  of configuring Jetty. From a simple property based configuration, to
+  of configuring Jetty, from a simple property based configuration, to
   handling multiple installations on a server, to customized stacks of
-  technology on top of Jetty, and even the classic custom xml configurations
+  technology on top of Jetty, and even the classic, custom XML configurations
   of old.</para>
 
-  <para>For example, if you use the ${jetty.base} concepts properly, you can
-  upgrade the jetty distribution without having to remake your entire tree of
-  modifications to jetty. Simply separate out your specific modifications to
-  the ${jetty.base} and in the future, just upgrade your ${jetty.home}
+  <para>For example, if you use the <literal>${jetty.base}</literal> concepts properly, you can
+  upgrade the Jetty distribution without having to remake your entire tree of
+  modifications to Jetty. Simply separate out your specific modifications to
+  the <literal>${jetty.base}</literal>, and in the future, just upgrade your <literal>${jetty.home}</literal>
   directory with a new Jetty distribution.</para>
 
   <itemizedlist>
-    <title>What happens when you execute start.jar:</title>
-
+    <title>Executing start.jar</title>
+<para>When you execute <filename>start.jar</filename> the system:</para>
     <listitem>
-      <para>load and parse all INIs found in
+      <para>Loads and parses all INIs found in
       <filename>${jetty.base}/start.d/*.ini</filename> as command line
-      arguments</para>
+      arguments.</para>
     </listitem>
 
     <listitem>
-      <para>load and parse <filename>${jetty.base}/start.ini</filename> as
-      command line arguments</para>
+      <para>Loads and parses <filename>${jetty.base}/start.ini</filename> as
+      command line arguments.</para>
     </listitem>
 
     <listitem>
-      <para>parse actual command line arguments used to execute
-      <filename>start.jar itself</filename></para>
+      <para>Parses actual command line arguments used to execute
+      <filename>start.jar</filename> itself.</para>
     </listitem>
 
     <listitem>
-      <para>resolve any xml configuration files, modules, and libraries using
-      base vs home resolution steps</para>
+      <para>Resolves any XML configuration files, modules, and libraries using
+      base vs. home resolution steps:</para>
 
       <orderedlist>
         <listitem>
-          <para>check if file exists as relative reference to
-          <filename>${jetty.base}</filename></para>
+          <para>Checks whether file exists as relative reference to
+          <filename>${jetty.base}.</filename></para>
         </listitem>
 
         <listitem>
-          <para>check if file exists as relative reference to
-          <filename>${jetty.home}</filename></para>
+          <para>Checks whether file exists as relative reference to
+          <filename>${jetty.home}.</filename></para>
         </listitem>
 
         <listitem>
-          <para>use default behavior of <code>java.io.File</code></para>
+          <para>Uses default behavior of <code>java.io.File.</code></para>
 
-          <para>(Relative to <code>System.getProperty("user.dir")</code> and
+          <para>(Relative to <code>System.getProperty</code> ("user.dir") and
           then as absolute file system path)</para>
         </listitem>
       </orderedlist>
     </listitem>
 
     <listitem>
-      <para>load any dependant modules. (merge xml, library, and properties
-      results with active command line)</para>
+      <para>Loads any dependent modules (merges XXNK, library, and properties
+      results with active command line).</para>
     </listitem>
 
     <listitem>
-      <para>build out server classpath</para>
+      <para>Builds out server classpath.</para>
     </listitem>
 
     <listitem>
-      <para>determine run mode:</para>
+      <para>Determines run mode:</para>
 
       <itemizedlist>
         <listitem>
-          <para>show informational command line options, and exit</para>
+          <para>Shows informational command line options and exit.</para>
         </listitem>
 
         <listitem>
-          <para>execute jetty normally, wait for jetty to stop</para>
+          <para>Executes Jetty normally, waits for Jetty to stop.</para>
         </listitem>
 
         <listitem>
-          <para>execute a forked jvm to run jetty in, wait for forked jvm to
-          exit</para>
+          <para>Executes a forked JVM to run Jetty in, waits for forked JVM to
+          exit.</para>
         </listitem>
       </itemizedlist>
     </listitem>
 
     <listitem>
-      <para>If jetty is to be started:</para>
+      <para>If you want to start Jetty:</para>
 
       <itemizedlist>
         <listitem>
-          <para>load each xml configuration (in the order determined by the
-          inis and module system)</para>
+          <para>Load each XML configuration (in the order determined by the
+          INIs and module system).</para>
         </listitem>
 
         <listitem>
-          <para>let xml configuration start jetty</para>
+          <para>Let XML configuration start Jetty.</para>
         </listitem>
       </itemizedlist>
     </listitem>
@@ -192,17 +188,17 @@
   <para/>
 
   <section>
-    <title>start.jar command line options</title>
+    <title>start.jar Command Line Options</title>
 
     <variablelist>
-      <title>Basic Command Line Options:</title>
+      <title>Basic command line options:</title>
 
       <varlistentry>
         <term>--help</term>
 
         <listitem>
-          <para>Obtain the current list of command line options and some basic
-          usage help</para>
+          <para>Obtains the current list of command line options and some basic
+          usage help.</para>
         </listitem>
       </varlistentry>
 
@@ -210,7 +206,7 @@
         <term>--version</term>
 
         <listitem>
-          <para>Show the list of server classpath entries, and print version
+          <para>Shows the list of server classpath entries, and prints version
           information found for each entry.</para>
         </listitem>
       </varlistentry>
@@ -219,7 +215,7 @@
         <term>--list-classpath</term>
 
         <listitem>
-          <para>Similar to --version, show the server classpath</para>
+          <para>Similar to --version, shows the server classpath.</para>
         </listitem>
       </varlistentry>
 
@@ -227,22 +223,22 @@
         <term>--list-config</term>
 
         <listitem>
-          <para>List the resolved configuration that will be used to start
-          jetty.</para>
+          <para>Lists the resolved configuration that will start
+          Jetty.</para>
 
           <itemizedlist>
             <title>Output includes:</title>
 
             <listitem>
-              <para>Java Environment</para>
+              <para>Java environment</para>
             </listitem>
 
             <listitem>
-              <para>Jetty Environment</para>
+              <para>Jetty environment</para>
             </listitem>
 
             <listitem>
-              <para>JVM Arguments</para>
+              <para>JVM arguments</para>
             </listitem>
 
             <listitem>
@@ -250,11 +246,11 @@
             </listitem>
 
             <listitem>
-              <para>Server Classpath</para>
+              <para>Server classpath</para>
             </listitem>
 
             <listitem>
-              <para>Server XML Configuration Files</para>
+              <para>Server XML configuration files</para>
             </listitem>
           </itemizedlist>
         </listitem>
@@ -264,7 +260,7 @@
         <term>--dry-run</term>
 
         <listitem>
-          <para>Print the resolved command line that start.jar would use to
+          <para>Prints the resolved command line that <filename>start.jar</filename> should use to
           start a forked instance of Jetty.</para>
         </listitem>
       </varlistentry>
@@ -273,7 +269,7 @@
         <term>--exec</term>
 
         <listitem>
-          <para>Start a forked instance of Jetty.</para>
+          <para>Starts a forked instance of Jetty.</para>
         </listitem>
       </varlistentry>
     </variablelist>
@@ -285,9 +281,9 @@
         <term>--debug</term>
 
         <listitem>
-          <para>Enable debugging output of the startup procedure.</para>
+          <para>Enables debugging output of the startup procedure.</para>
 
-          <para>Note: this does not setup debug logging for jetty
+          <para>Note: This does not set up debug logging for Jetty
           itself.</para>
         </listitem>
       </varlistentry>
@@ -296,12 +292,11 @@
         <term>--start-log-file=&lt;filename&gt;</term>
 
         <listitem>
-          <para>Send all startup output to the filename specified.</para>
+          <para>Sends all startup output to the filename specified.</para>
 
-          <para>Filename is relative to ${jetty.base}.</para>
+          <para>Filename is relative to <filename>${jetty.base}</filename>.</para>
 
-          <para>This is useful for capturing startup issues where the jetty
-          specific logger has not yet kicked in due to a possible startup
+          <para>This is useful for capturing startup issues where the Jetty-specific logger has not yet kicked in due to a possible startup
           configuration error.</para>
         </listitem>
       </varlistentry>
@@ -314,44 +309,44 @@
         <term>--list-modules</term>
 
         <listitem>
-          <para>List all the modules defined by the system.</para>
+          <para>Lists all the modules defined by the system.</para>
 
-          <para>Looking for module files using the <link
+          <para>Looks for module files using the <link
           linkend="startup-base-and-home">normal
           <filename>${jetty.base}</filename> and
           <filename>${jetty.home}</filename> resolution logic</link>.</para>
 
-          <para>Will also list enabled state based on information present on
-          the command line, and all active startup ini files.</para>
+          <para>Also lists enabled state based on information present on
+          the command line, and all active startup INI files.</para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
-        <term>--module=&lt;name&gt;(,&lt;name&gt;)*</term>
+        <term>--module=&lt;name&gt;,(&lt;name&gt;)*</term>
 
         <listitem>
-          <para>Enable 1 or more modules by name. (use --list-modules to see
-          the list of available modules)</para>
+          <para>Enables one or more modules by name (use --list-modules to see
+          the list of available modules).</para>
 
-          <para>This will enable all transitive (dependant) modules from the
+          <para>This enables all transitive (dependent) modules from the
           module system as well.</para>
 
-          <para>If this is used from the shell command line, this is
+          <para>If you use this from the shell command line, it is
           considered a temporary effect, useful for testing out a scenario. If
           you want this module to always be enabled, add this command to your
-          <filename>${jetty.base}/start.ini</filename></para>
+          <filename>${jetty.base}/start.ini.</filename></para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
-        <term>--add-to-start=&lt;name&gt;(,&lt;name&gt;)*</term>
+        <term>--add-to-start=&lt;name&gt;,(&lt;name&gt;)*</term>
 
         <listitem>
-          <para>Enable a module by appending lines to the
+          <para>Enables a module by appending lines to the
           <filename>${jetty.base}/start.ini</filename> file.</para>
 
-          <para>The lines that are added are provided by the module defined
-          ini templates.</para>
+          <para>The lines that are added are provided by the module-defined
+          INI templates.</para>
 
           <para>Note: Transitive modules are also appended.</para>
         </listitem>
@@ -361,14 +356,14 @@
         <term>--add-to-startd=&lt;name&gt;,(&lt;name&gt;)*</term>
 
         <listitem>
-          <para>Enable a module via creation of a module specific ini file in
+          <para>Enables a module via creation of a module-specific INI file in
           the <filename>${jetty.base}/start.d/</filename> directory.</para>
 
-          <para>The content of the new ini is provided by the module defined
+          <para>The content of the new INI is provided by the module-defined
           ini templates.</para>
 
           <para>Note: Transitive modules are also created in the same
-          directory as their own ini files.</para>
+          directory as their own INI files.</para>
         </listitem>
       </varlistentry>
 
@@ -376,7 +371,7 @@
         <term>--write-module-graph=&lt;filename&gt;</term>
 
         <listitem>
-          <para>Advanced feature: Create a graphviz <link
+          <para>Advanced feature: Creates a graphviz <link
           xl:href="http://graphviz.org/content/dot-language">dot file</link>
           of the module graph as it exists for the active
           <filename>${jetty.base}</filename>.</para>
@@ -403,7 +398,7 @@ $ dot -Tpng -o modules.png modules.dot]]></screen>
         <term>--stop</term>
 
         <listitem>
-          <para>Send a stop signal to the running Jetty instance.</para>
+          <para>Sends a stop signal to the running Jetty instance.</para>
 
           <para>Note: The server must have been started with various stop
           properties for this to work.</para>
@@ -417,8 +412,8 @@ $ dot -Tpng -o modules.png modules.dot]]></screen>
               <listitem>
                 <para>The port to use to stop the running Jetty server. This
                 is an internal port, opened on localhost, used solely for
-                stopping the running Jetty server. Choose a port that you will
-                not serve web traffic over.</para>
+                stopping the running Jetty server. Choose a port that you do
+                not use to serve web traffic.</para>
 
                 <para>Required for --stop to function.</para>
               </listitem>
@@ -440,7 +435,7 @@ $ dot -Tpng -o modules.png modules.dot]]></screen>
               <listitem>
                 <para>The time (in seconds) to wait for confirmation that the
                 running Jetty server has stopped. If not specified, the
-                stopper will wait indefinitely for the server to stop.</para>
+                stopper waits indefinitely for the server to stop.</para>
 
                 <para>If the time specified elapses, without a confirmation of
                 server stop, then the --stop command exits with a non-zero

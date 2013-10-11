@@ -98,18 +98,18 @@
       <listitem>
         <para>You can configure the entire server with command line arguments
         that specify libraries, properties and XML files. However in practice
-        the ini and modules mechanisms (below) reduce the
+        the INI and modules mechanisms (below) reduce the
         verbosity of the command line.</para>
       </listitem>
     </varlistentry>
 
     <varlistentry>
-      <term>ini files</term>
+      <term>INI files</term>
 
       <listitem>
         <para>The 
         <filename>start.jar</filename> mechanism uses the contents of the <filename>${jetty.base}/start.ini</filename>
-        and <filename>${jetty.base}/start.d/*.ini</filename> files with each line equivalent to a start.jar command line
+        and <filename>${jetty.base}/start.d/*.ini</filename> files with each line equivalent to a <literal>start.jar</literal> command line
         argument. This means that either a global <filename>start.ini</filename> file or multiple <filename>start.d/feature.ini</filename> files control the configuration of the server.</para>
       </listitem>
     </varlistentry>
@@ -122,7 +122,7 @@
         XML files for a feature, the <filename>start.jar</filename> mechanism
         allows you to create modules. You define a module in a
         <filename>modules/*.mod</filename> file, including the libraries,
-        dependencies, XML, and template ini files for a Jetty feature. Thus you can use a
+        dependencies, XML, and template INI files for a Jetty feature. Thus you can use a
         single <literal>--module=name</literal> command line option as the equivalent of specifying many
         <literal>--lib=location</literal>, feature.xml, name=value arguments
         for a feature and all its dependencies. Modules also use their
@@ -174,9 +174,9 @@ http.timeout=30000]]></screen>
 
     <para>The <literal>http</literal> module declares that
     <literal>http</literal> depends on the server module, uses the
-    <filename>jetty-http.xml</filename> file, and can be parameterised with
+    <filename>jetty-http.xml</filename> file, and can be parameterized with
     <literal>jetty.port</literal> and <literal>http.timeout</literal>
-    parameters. The ini-template section is not actually used by the command
+    parameters. The INI-template section is not actually used by the command
     above, so the <literal>jetty.port</literal> must still be defined on the
     command line.</para>
 
@@ -300,7 +300,7 @@ $JETTY_HOME/etc/jetty-http.xml
     defined in the <filename>jetty.properties</filename> file.</para>
 
     <para>You can further simplify the startup of this server by using the
-    ini-template defined by the modules to create a
+    INI template defined by the modules to create a
     <filename>start.ini</filename> file with the command:</para>
 
     <screen><![CDATA[[user]$ cd jetty-distribution-${project.version}

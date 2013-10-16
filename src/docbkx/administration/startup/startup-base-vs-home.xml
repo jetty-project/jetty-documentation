@@ -99,7 +99,7 @@
   <para>For more details on how startup with start.jar works, see <link
   linkend="execute-start-jar">Using start.jar: Executing</link></para>
 
-  <section>
+  <section xml:id="demo-base">
     <title>Demo-Base in the Jetty Distribution</title>
 
     <para>The Jetty Distribution comes with an example ${jetty.base} which

@@ -16,7 +16,7 @@
 //  You may elect to redistribute this code under either of these licenses.
 //  ========================================================================
 -->
-<section role="NotInToc" status="draft" version="5.0"
+<section version="5.0"
          xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd"
          xml:id="startup-classpath" xmlns="http://docbook.org/ns/docbook"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -27,5 +27,152 @@
          xmlns:ns="http://docbook.org/ns/docbook">
   <title>Managing Server Classpath</title>
 
-  <para>[details about the classpath setup]</para>
+  <para>Jetty Server Classpath is determined by a combination of
+  factors.</para>
+
+  <variablelist>
+    <varlistentry>
+      <term>The ${java.class.path} System Property</term>
+
+      <listitem>
+        <para>If you start Jetty with a JVM specified classpath, then Jetty
+        will use the ${java.class.path} System Property to populate the
+        initial classpath.</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>Module specified Libraries</term>
+
+      <listitem>
+        <para>With Jetty 9.1+ the module system declares various libraries
+        that are required for that module to operate, these module defined
+        libraries are added to the Jetty Server classpath when any module is
+        activated with library declarations.</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>Command Line Libraries</term>
+
+      <listitem>
+        <para>The command line option <literal>--lib=&lt;path&gt;</literal>can
+        be used as a final means to add arbitrary entries to the Jetty Server
+        classpath.</para>
+      </listitem>
+    </varlistentry>
+  </variablelist>
+
+  <para>Of special note, there are 2 structural modules defined to ease some
+  of this for you.</para>
+
+  <variablelist>
+    <varlistentry>
+      <term>--module=ext</term>
+
+      <listitem>
+        <para>The <literal>ext</literal> module will enable the
+        <filename>lib/ext/*.jar</filename> logic.</para>
+
+        <para>If this module is activated, then all jar files found in the
+        lib/ext/ paths will be automatically added to the Jetty Server
+        Classpath.</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>--module=resources</term>
+
+      <listitem>
+        <para>The <literal>resources</literal> module will add the
+        <filename>resources/</filename> directory the classpath.</para>
+
+        <para>If you have 3rd party libraries that lookup resources from the
+        classpath, put your files in here.</para>
+
+        <para>Logging libraries often have classpath lookup of their
+        configuration files (eg: <filename>log4j.properties</filename>,
+        <filename>log4j.xml</filename>,
+        <filename>logging.properties</filename>, and
+        <filename>logback.xml</filename>), so this would be the ideal setup
+        for this sort of configuration demand.</para>
+      </listitem>
+    </varlistentry>
+  </variablelist>
+
+  <note>
+    <para>Both the <literal>ext</literal> and <literal>resources</literal>
+    modules declare relative paths that follow <link
+    linkend="base-vs-home-resolution">Jetty Base and Jetty Home path
+    resolution rules</link>.</para>
+  </note>
+
+  <section>
+    <title>Interrogating the Server Classpath</title>
+
+    <para>The Jetty start.jar has the ability to resolve the classpath from
+    the command line + modules + configuration, and list the classpath entries
+    it will use to start jetty.</para>
+
+    <para>The <literal>--list-classpath</literal> command line option is used
+    as such.</para>
+
+    <para>(Demonstrated with the <link linkend="demo-base">demo-base from the
+    Jetty Distribution</link>)</para>
+
+    <screen><![CDATA[[demo-base]$ java -jar ../start.jar --list-classpath
+
+Jetty Server Classpath:
+-----------------------
+Version Information on 42 entries in the classpath.
+Note: order presented here is how they would appear on the classpath.
+      changes to the --module=name command line options will be reflected here.
+ 0:               9.1.0-DEMO | ${jetty.home}/lib/jetty-client-9.1.0-DEMO.jar
+ 1:      1.4.1.v201005082020 | ${jetty.base}/lib/ext/javax.mail.glassfish-1.4.1.v201005082020.jar
+ 2:               9.1.0-DEMO | ${jetty.base}/lib/ext/test-mock-resources-9.1.0-DEMO.jar
+ 3:                    (dir) | ${jetty.home}/resources
+ 4:                    3.1.0 | ${jetty.home}/lib/servlet-api-3.1.jar
+ 5:                  3.1.RC0 | ${jetty.home}/lib/jetty-schemas-3.1.jar
+ 6:               9.1.0-DEMO | ${jetty.home}/lib/jetty-http-9.1.0-DEMO.jar
+ 7:               9.1.0-DEMO | ${jetty.home}/lib/jetty-continuation-9.1.0-DEMO.jar
+ 8:               9.1.0-DEMO | ${jetty.home}/lib/jetty-server-9.1.0-DEMO.jar
+ 9:               9.1.0-DEMO | ${jetty.home}/lib/jetty-xml-9.1.0-DEMO.jar
+10:               9.1.0-DEMO | ${jetty.home}/lib/jetty-util-9.1.0-DEMO.jar
+11:               9.1.0-DEMO | ${jetty.home}/lib/jetty-io-9.1.0-DEMO.jar
+12:               9.1.0-DEMO | ${jetty.home}/lib/jetty-jaas-9.1.0-DEMO.jar
+13:               9.1.0-DEMO | ${jetty.home}/lib/jetty-jndi-9.1.0-DEMO.jar
+14:      1.1.0.v201105071233 | ${jetty.home}/lib/jndi/javax.activation-1.1.0.v201105071233.jar
+15:      1.4.1.v201005082020 | ${jetty.home}/lib/jndi/javax.mail.glassfish-1.4.1.v201005082020.jar
+16:                      1.2 | ${jetty.home}/lib/jndi/javax.transaction-api-1.2.jar
+17:               9.1.0-DEMO | ${jetty.home}/lib/jetty-rewrite-9.1.0-DEMO.jar
+18:               9.1.0-DEMO | ${jetty.home}/lib/jetty-security-9.1.0-DEMO.jar
+19:               9.1.0-DEMO | ${jetty.home}/lib/jetty-servlet-9.1.0-DEMO.jar
+20:                    3.0.0 | ${jetty.home}/lib/jsp/javax.el-3.0.0.jar
+21:      1.2.0.v201105211821 | ${jetty.home}/lib/jsp/javax.servlet.jsp.jstl-1.2.0.v201105211821.jar
+22:                    2.3.2 | ${jetty.home}/lib/jsp/javax.servlet.jsp-2.3.2.jar
+23:                    2.3.1 | ${jetty.home}/lib/jsp/javax.servlet.jsp-api-2.3.1.jar
+24:                    2.3.3 | ${jetty.home}/lib/jsp/jetty-jsp-jdt-2.3.3.jar
+25:      1.2.0.v201112081803 | ${jetty.home}/lib/jsp/org.apache.taglibs.standard.glassfish-1.2.0.v201112081803.jar
+26:   3.8.2.v20130121-145325 | ${jetty.home}/lib/jsp/org.eclipse.jdt.core-3.8.2.v20130121.jar
+27:               9.1.0-DEMO | ${jetty.home}/lib/jetty-plus-9.1.0-DEMO.jar
+28:               9.1.0-DEMO | ${jetty.home}/lib/jetty-webapp-9.1.0-DEMO.jar
+29:               9.1.0-DEMO | ${jetty.home}/lib/jetty-annotations-9.1.0-DEMO.jar
+30:                      4.1 | ${jetty.home}/lib/annotations/asm-4.1.jar
+31:                      4.1 | ${jetty.home}/lib/annotations/asm-commons-4.1.jar
+32:                      1.2 | ${jetty.home}/lib/annotations/javax.annotation-api-1.2.jar
+33:               9.1.0-DEMO | ${jetty.home}/lib/jetty-deploy-9.1.0-DEMO.jar
+34:                      1.0 | ${jetty.home}/lib/websocket/javax.websocket-api-1.0.jar
+35:               9.1.0-DEMO | ${jetty.home}/lib/websocket/javax-websocket-client-impl-9.1.0-DEMO.jar
+36:               9.1.0-DEMO | ${jetty.home}/lib/websocket/javax-websocket-server-impl-9.1.0-DEMO.jar
+37:               9.1.0-DEMO | ${jetty.home}/lib/websocket/websocket-api-9.1.0-DEMO.jar
+38:               9.1.0-DEMO | ${jetty.home}/lib/websocket/websocket-client-9.1.0-DEMO.jar
+39:               9.1.0-DEMO | ${jetty.home}/lib/websocket/websocket-common-9.1.0-DEMO.jar
+40:               9.1.0-DEMO | ${jetty.home}/lib/websocket/websocket-server-9.1.0-DEMO.jar
+41:               9.1.0-DEMO | ${jetty.home}/lib/websocket/websocket-servlet-9.1.0-DEMO.jar
+]]></screen>
+
+    <para>Of note is that an attempt is made to list the internally declared
+    version of each artifact on the Server Classpath, of potential help when
+    diagnosing classpath issues.</para>
+  </section>
 </section>

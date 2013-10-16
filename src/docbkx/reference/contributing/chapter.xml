@@ -31,6 +31,7 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
   <xi:include href="documentation.xml" />
   <xi:include href="source-build.xml" />
   <xi:include href="coding-standards.xml" />
+  <xi:include href="bugs.xml" />
   <xi:include href="patches.xml" />
   <xi:include href="releasing-jetty.xml" />
   <xi:include href="release-testing.xml" />

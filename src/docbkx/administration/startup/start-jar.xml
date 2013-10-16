@@ -28,7 +28,8 @@
   <title>Using start.jar</title>
 
   <para>The most basic way of starting the Jetty standalone server is to
-  execute the <filename>start.jar</filename>, which is a bootstrap for starting Jetty with the configuration you want.</para>
+  execute the <filename>start.jar</filename>, which is a bootstrap for
+  starting Jetty with the configuration you want.</para>
 
   <screen><![CDATA[[jetty-distribution-${project.version}]$ java -jar start.jar
 2013-09-23 11:27:06.654:INFO:oejs.Server:jetty-${project.version}
@@ -52,10 +53,9 @@
     </listitem>
   </orderedlist>
 
-  <para>Starting with Jetty 9.1
-  you have more options on how to configure Jetty (these are merely
-  syntactic sugar that eventually resolve into the two basic configuration
-  components).</para>
+  <para>Starting with Jetty 9.1 you have more options on how to configure
+  Jetty (these are merely syntactic sugar that eventually resolve into the two
+  basic configuration components).</para>
 
   <para>Jetty 9.1 Startup Features include:</para>
 
@@ -92,15 +92,18 @@
   technology on top of Jetty, and even the classic, custom XML configurations
   of old.</para>
 
-  <para>For example, if you use the <literal>${jetty.base}</literal> concepts properly, you can
-  upgrade the Jetty distribution without having to remake your entire tree of
-  modifications to Jetty. Simply separate out your specific modifications to
-  the <literal>${jetty.base}</literal>, and in the future, just upgrade your <literal>${jetty.home}</literal>
-  directory with a new Jetty distribution.</para>
+  <para>For example, if you use the <literal>${jetty.base}</literal> concepts
+  properly, you can upgrade the Jetty distribution without having to remake
+  your entire tree of modifications to Jetty. Simply separate out your
+  specific modifications to the <literal>${jetty.base}</literal>, and in the
+  future, just upgrade your <literal>${jetty.home}</literal> directory with a
+  new Jetty distribution.</para>
 
-  <itemizedlist>
+  <itemizedlist xml:id="executing-start-jar">
     <title>Executing start.jar</title>
-<para>When you execute <filename>start.jar</filename> the system:</para>
+
+    <para>When you execute <filename>start.jar</filename> the system:</para>
+
     <listitem>
       <para>Loads and parses all INIs found in
       <filename>${jetty.base}/start.d/*.ini</filename> as command line
@@ -197,8 +200,8 @@
         <term>--help</term>
 
         <listitem>
-          <para>Obtains the current list of command line options and some basic
-          usage help.</para>
+          <para>Obtains the current list of command line options and some
+          basic usage help.</para>
         </listitem>
       </varlistentry>
 
@@ -223,8 +226,7 @@
         <term>--list-config</term>
 
         <listitem>
-          <para>Lists the resolved configuration that will start
-          Jetty.</para>
+          <para>Lists the resolved configuration that will start Jetty.</para>
 
           <itemizedlist>
             <title>Output includes:</title>
@@ -260,8 +262,9 @@
         <term>--dry-run</term>
 
         <listitem>
-          <para>Prints the resolved command line that <filename>start.jar</filename> should use to
-          start a forked instance of Jetty.</para>
+          <para>Prints the resolved command line that
+          <filename>start.jar</filename> should use to start a forked instance
+          of Jetty.</para>
         </listitem>
       </varlistentry>
 
@@ -294,10 +297,12 @@
         <listitem>
           <para>Sends all startup output to the filename specified.</para>
 
-          <para>Filename is relative to <filename>${jetty.base}</filename>.</para>
+          <para>Filename is relative to
+          <filename>${jetty.base}</filename>.</para>
 
-          <para>This is useful for capturing startup issues where the Jetty-specific logger has not yet kicked in due to a possible startup
-          configuration error.</para>
+          <para>This is useful for capturing startup issues where the
+          Jetty-specific logger has not yet kicked in due to a possible
+          startup configuration error.</para>
         </listitem>
       </varlistentry>
     </variablelist>
@@ -316,8 +321,8 @@
           <filename>${jetty.base}</filename> and
           <filename>${jetty.home}</filename> resolution logic</link>.</para>
 
-          <para>Also lists enabled state based on information present on
-          the command line, and all active startup INI files.</para>
+          <para>Also lists enabled state based on information present on the
+          command line, and all active startup INI files.</para>
         </listitem>
       </varlistentry>
 
@@ -331,9 +336,9 @@
           <para>This enables all transitive (dependent) modules from the
           module system as well.</para>
 
-          <para>If you use this from the shell command line, it is
-          considered a temporary effect, useful for testing out a scenario. If
-          you want this module to always be enabled, add this command to your
+          <para>If you use this from the shell command line, it is considered
+          a temporary effect, useful for testing out a scenario. If you want
+          this module to always be enabled, add this command to your
           <filename>${jetty.base}/start.ini.</filename></para>
         </listitem>
       </varlistentry>

@@ -140,13 +140,18 @@ httpClient.getAuthenticationStore().clearAuthenticationResults();
     <info>
       <title>Proxy Support</title>
     </info>
-    <para>Jetty HTTP client can be configured to use a forward proxy:</para>
+    <para>Jetty's HTTP client can be configured to use proxies to connect to destinations.</para>
+    <para>Two types of proxies are available out of the box: a HTTP proxy (provided by class
+    <classname>HttpProxy</classname>) and a SOCKS 4 proxy (provided by <classname>Socks4Proxy</classname>).
+    Other implementations may be written by subclassing <classname>ProxyConfiguration.Proxy</classname>.</para>
+    <para>A typical configuration is the following:</para>
     <informalexample>
       <programlisting language="java">
 <![CDATA[
-ProxyConfiguration proxyConfig = new ProxyConfiguration("proxyHost", proxyPort);
+ProxyConfiguration proxyConfig = httpClient.getProxyConfiguration();
+HttpProxy proxy = new HttpProxy("proxyHost", proxyPort);
 // Do not proxy requests for localhost:8080
-proxyConfig.getExcludedOrigins().add("localhost:8080");
+proxy.getExcludedAddresses().add("localhost:8080");
 
 httpClient.setProxyConfiguration(proxyConfig);
 
@@ -154,9 +159,9 @@ ContentResponse response = httpClient.GET(uri);
 ]]>
       </programlisting>
     </informalexample>
-    <para>You specify the proxy host and port, and optionally also the origins that you do not want to be proxied, and
-    then set the proxy configuration on the <code>HttpClient</code> instance.</para>
-    <para>Configured in this way, <code>HttpClient</code> makes requests to the proxy (for plain-text HTTP requests) or
-    establishes a tunnel via HTTP CONNECT (for encrypted HTTPS requests).</para>
+    <para>You specify the proxy host and port, and optionally also the addresses that you do not want to be proxied,
+    and then set the proxy configuration on the <code>HttpClient</code> instance.</para>
+    <para>Configured in this way, <code>HttpClient</code> makes requests to the HTTP proxy (for plain-text HTTP
+    requests) or establishes a tunnel via HTTP CONNECT (for encrypted HTTPS requests).</para>
   </section>
 </section>

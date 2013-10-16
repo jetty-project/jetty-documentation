@@ -76,8 +76,7 @@ ContentResponse response = httpClient.POST("http://domain.com/entity/1")
 ]]>
       </programlisting>
     </informalexample>
-    <para>The POST request is sent with the <code>application/x-www-form-urlencoded</code> content type, and POST
-    parameter values are automatically URL-encoded.</para>
+    <para>The POST parameter values are automatically URL-encoded.</para>
     <para>Jetty HTTP client automatically follows redirects, so automatically handles the typical web pattern <link
     xl:href="http://en.wikipedia.org/wiki/Post/Redirect/Get">POST/Redirect/GET</link>, and the response object contains
     the content of the response of the GET request. Following redirects is a feature that you can enable/disable on a
@@ -144,7 +143,7 @@ ContentResponse response = httpClient.newRequest("http://domain.com/path?query")
     (usually the thread that processes the response, but may also be the thread that processes the request - if the
     request takes more time than the response to be processed) is used to dequeue the next request for the same
     destination and processes it.</para>
-    <para>A simple asynchronous GET request can be written in this way:</para>
+    <para>A simple asynchronous GET request that discards the response content can be written in this way:</para>
     <informalexample>
       <programlisting language="java">
 <![CDATA[

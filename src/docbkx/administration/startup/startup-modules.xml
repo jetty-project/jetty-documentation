@@ -16,7 +16,7 @@
 //  You may elect to redistribute this code under either of these licenses.
 //  ========================================================================
 -->
-<section role="NotInToc" status="draft" version="5.0"
+<section version="5.0"
          xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd"
          xml:id="startup-modules" xmlns="http://docbook.org/ns/docbook"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -27,5 +27,327 @@
          xmlns:ns="http://docbook.org/ns/docbook">
   <title>Managing Startup Modules</title>
 
-  <para>[details about the module system]</para>
+  <para>Starting with Jetty 9.1, a new Module system was introduced. (It
+  replaced the old <filename>start.config</filename> +
+  <literal>OPTIONS</literal> techniques from past Jetty Distributions).</para>
+
+  <para>The standard Jetty Distribution ships with several modules defined in
+  <filename>${jetty.home}/modules/</filename></para>
+
+  <para>What a Jetty Startup Module Defines:</para>
+
+  <variablelist>
+    <varlistentry>
+      <term>A Module Name</term>
+
+      <listitem>
+        <para>The name of the module is the keyword used by the
+        <literal>--module=&lt;name&gt;</literal> command line argument to
+        activate/enable modules, and also find dependant modules.</para>
+
+        <para>The filename of the module defines its name. (eg: server.mod
+        becomes the module named "server")</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>List of Dependant Modules</term>
+
+      <listitem>
+        <para>All modules can declare that they depend on other modules with
+        the <code>[depend]</code> section.</para>
+
+        <para>The list of dependencies is used to transitively resolve other
+        modules that are deemed to be required based on the modules that you
+        activate.</para>
+
+        <para>The order of modules defined in the graph of active modules is
+        used to determine various execution order for configuration, such as
+        Jetty IoC XML configurations, and to resolve conflicting property
+        declarations.</para>
+
+        <para>Of note: there is a special section <code>[optional]</code> used
+        to describe structurally dependant modules that are not technically
+        required, but might be of use to your specific configuration.</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>List of Libraries</term>
+
+      <listitem>
+        <para>Module can optionally declare that they have libraries that they
+        need to function properly.</para>
+
+        <para>The <code>[lib]</code> section declares a set of pathnames that
+        follow the <link linkend="base-vs-home-resolution">Jetty Base and
+        Jetty Home path resolution rules</link>.</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>List of Jetty IoC XML Configurations</term>
+
+      <listitem>
+        <para>A Module can optionally declare a list of Jetty IoC XML
+        configurations used to wire up the functionality that this module
+        defines.</para>
+
+        <para>The <code>[xml]</code> section declares a set of pathnames that
+        follow the <link linkend="base-vs-home-resolution">Jetty Base and
+        Jetty Home path resolution rules</link>.</para>
+
+        <para>Ideally, all XML files are parameterized to accept properties to
+        configure the various elements of the standard configuration. Allowing
+        for a simplified configuration of Jetty for the vast majority of
+        deployments.</para>
+
+        <para>The execution order of the Jetty IoC XML configurations is
+        determined by the graph of active module dependencies resolved via the
+        <code>[depend]</code> sections.</para>
+
+        <para>If the default XML is not sufficient to satisfy your needs, you
+        can override this XML by making your own in the ${jetty.base}/etc/
+        directory, with the same name. The resolution steps for Jetty Base and
+        Jetty Home will ensure that your copy from ${jetty.base} will be
+        picked up over the default one in ${jetty.home}.</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>Jetty INI Template</term>
+
+      <listitem>
+        <para>Each module can optionally declare a startup ini template that
+        is used to insert/append/inject sample configuration elements into the
+        <filename>start.ini</filename> or <filename>start.d/*.ini</filename>
+        files when using the <literal>--add-to-start=&lt;name&gt;</literal> or
+        <literal>--add-to-startd=&lt;name&gt;</literal> command line arguments
+        in <filename>start.jar</filename>.</para>
+
+        <para>Commonly used to present some of the parameterized property
+        options from the Jetty IoC XML configuration files also referenced in
+        the same module.</para>
+
+        <para>The <code>[ini-template]</code> section declares this section of
+        sample configuration.</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>Required Files and Directories</term>
+
+      <listitem>
+        <para>If the activation of a module requires some paths to exist, the
+        <code>[files]</code> section defines them.</para>
+
+        <para>There are 2 modes of operation of the entries in this
+        section.</para>
+
+        <variablelist>
+          <varlistentry>
+            <term>Ensure Directory Exists</term>
+
+            <listitem>
+              <para>If you add a pathname that ends in
+              <filename>"/"</filename> (slash), such as
+              <filename>"webapps/"</filename>, then that directory will be
+              created if it does not yet exist in
+              <filename>${jetty.base}/&lt;pathname&gt;</filename> (eg:
+              <filename>"webapps/"</filename> will result in
+              <filename>${jetty.base}/webapps/</filename> being
+              created)</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>Download File</term>
+
+            <listitem>
+              <para>There is a special syntax to allow you to download a file
+              into a specific location if it doesn't exist yet.</para>
+
+              <para><code>&lt;url&gt;:&lt;pathname&gt;</code></para>
+
+              <para>Currently, the <filename>&lt;url&gt;</filename> must be a
+              <literal>http://</literal> scheme URL (<link linkend="bugs">file
+              a bug</link> if you want more schemes supported). The
+              <filename>&lt;pathname&gt;</filename> portion follows the <link
+              linkend="base-vs-home-resolution">Jetty Base and Jetty Home path
+              resolution rules</link>.</para>
+
+              <para>Example:</para>
+
+              <para><filename>http://repo.corp.com/maven/corp-security-policy-1.0.jar:lib/corp-security-policy.jar</filename></para>
+
+              <para>This will check for the existence of
+              <filename>lib/corp-security-policy.jar</filename>, and if it
+              doesn't exist, it will download the jar file from
+              <filename>http://repo.corp.com/maven/corp-security-policy-1.0.jar</filename></para>
+            </listitem>
+          </varlistentry>
+        </variablelist>
+      </listitem>
+    </varlistentry>
+  </variablelist>
+
+  <section>
+    <title>Enabling Modules</title>
+
+    <para>Jetty ships with many modules defined, and a small subset predefined
+    in the <filename>start.ini</filename> found in the jetty
+    distribution.</para>
+
+    <tip>
+      <para>The default distribution has a commingled
+      <filename>${jetty.home}</filename> and
+      <filename>${jetty.base}</filename>. Where the directories for
+      <filename>${jetty.home}</filename> and
+      <filename>${jetty.base}</filename> point to the same location.</para>
+
+      <para>It is highly encouraged that you learn about the differences in
+      <link linkend="startup-base-and-home">Jetty Base vs Jetty Home</link>
+      and take full advantage of this setup.</para>
+    </tip>
+
+    <para>When you want enable a module, you can use the
+    <literal>--module=&lt;name&gt;</literal> syntax on the command line (or
+    start.ini) to enable it + all of its dependant modules.</para>
+
+    <para>An example of this, with a new, empty, base directory.</para>
+
+    <screen><![CDATA[[/home/user]$ mkdir my-base
+[/home/user]$ cd my-base
+[my-base]$ java -jar ../jetty-distribution/start.jar
+WARNING: Nothing to start, exiting ...
+
+Usage: java -jar start.jar [options] [properties] [configs]
+       java -jar start.jar --help  # for more information
+[my-base]$ java -jar ../jetty-distribution/start.jar --list-config
+
+Java Environment:
+-----------------
+ java.home=/home/joakim/java/jdk-7u21-x64/jre
+ java.vm.vendor=Oracle Corporation
+ java.vm.version=23.21-b01
+ java.vm.name=Java HotSpot(TM) 64-Bit Server VM
+ java.vm.info=mixed mode
+ java.runtime.name=Java(TM) SE Runtime Environment
+ java.runtime.version=1.7.0_21-b11
+ java.io.tmpdir=/tmp
+
+Jetty Environment:
+-----------------
+ jetty.home=/home/joakim/code/intalio/distros/jetty-distribution-9.1.0-DEMO
+ jetty.base=/home/joakim/code/intalio/distros/jetty-distribution-9.1.0-DEMO/my-base
+ jetty.version=9.1.0-DEMO
+
+JVM Arguments:
+--------------
+ (no jvm args specified)
+
+System Properties:
+------------------
+ jetty.base = /home/joakim/code/intalio/distros/jetty-distribution-9.1.0-DEMO/my-base
+ jetty.home = /home/joakim/code/intalio/distros/jetty-distribution-9.1.0-DEMO
+
+Properties:
+-----------
+ (no properties specified)
+
+Jetty Server Classpath:
+-----------------------
+No classpath entries and/or version information available show.
+
+Jetty Active XMLs:
+------------------
+ (no xml files specified)
+
+]]></screen>
+
+    <para>Can't start, as there is no configuration, yet. Lets use a simple
+    one that will start up support for webapps and hot deployment.</para>
+
+    <screen><![CDATA[[my-base]$ java -jar ../jetty-distribution/start.jar --module=webapp,deploy
+2013-10-16 13:30:45.636:INFO:oejs.Server:main: jetty-9.1.0-DEMO
+2013-10-16 13:30:45.656:INFO:oejdp.ScanningAppProvider:main: Deployment monitor [file:/home/user/my-base/webapps] at interval 1
+[Ctrl+C]
+[my-base]$ java -jar ../jetty-distribution/start.jar --module=webapp,deploy --list-config
+Java Environment:
+-----------------
+ java.home=/home/joakim/java/jdk-7u21-x64/jre
+ java.vm.vendor=Oracle Corporation
+ java.vm.version=23.21-b01
+ java.vm.name=Java HotSpot(TM) 64-Bit Server VM
+ java.vm.info=mixed mode
+ java.runtime.name=Java(TM) SE Runtime Environment
+ java.runtime.version=1.7.0_21-b11
+ java.io.tmpdir=/tmp
+
+Jetty Environment:
+-----------------
+ jetty.home=/home/joakim/code/intalio/distros/jetty-distribution-9.1.0-DEMO
+ jetty.base=/home/joakim/code/intalio/distros/jetty-distribution-9.1.0-DEMO/my-base
+ jetty.version=9.1.0-DEMO
+
+JVM Arguments:
+--------------
+ (no jvm args specified)
+
+System Properties:
+------------------
+ jetty.base = /home/joakim/code/intalio/distros/jetty-distribution-9.1.0-DEMO/my-base
+ jetty.home = /home/joakim/code/intalio/distros/jetty-distribution-9.1.0-DEMO
+
+Properties:
+-----------
+ (no properties specified)
+
+Jetty Server Classpath:
+-----------------------
+Version Information on 11 entries in the classpath.
+Note: order presented here is how they would appear on the classpath.
+      changes to the --module=name command line options will be reflected here.
+ 0:                    3.1.0 | ${jetty.home}/lib/servlet-api-3.1.jar
+ 1:                  3.1.RC0 | ${jetty.home}/lib/jetty-schemas-3.1.jar
+ 2:               9.1.0-DEMO | ${jetty.home}/lib/jetty-http-9.1.0-DEMO.jar
+ 3:               9.1.0-DEMO | ${jetty.home}/lib/jetty-continuation-9.1.0-DEMO.jar
+ 4:               9.1.0-DEMO | ${jetty.home}/lib/jetty-server-9.1.0-DEMO.jar
+ 5:               9.1.0-DEMO | ${jetty.home}/lib/jetty-xml-9.1.0-DEMO.jar
+ 6:               9.1.0-DEMO | ${jetty.home}/lib/jetty-util-9.1.0-DEMO.jar
+ 7:               9.1.0-DEMO | ${jetty.home}/lib/jetty-io-9.1.0-DEMO.jar
+ 8:               9.1.0-DEMO | ${jetty.home}/lib/jetty-servlet-9.1.0-DEMO.jar
+ 9:               9.1.0-DEMO | ${jetty.home}/lib/jetty-webapp-9.1.0-DEMO.jar
+10:               9.1.0-DEMO | ${jetty.home}/lib/jetty-deploy-9.1.0-DEMO.jar
+
+Jetty Active XMLs:
+------------------
+ ${jetty.home}/etc/jetty.xml
+ ${jetty.home}/etc/jetty-deploy.xml
+
+]]></screen>
+
+    <para>From here, we can see that the Jetty now starts up with basic WebApp
+    support and automatic deployment.</para>
+
+    <para>Just create a <filename>my-base/webapps/</filename> directory and
+    toss in a simple war file and you now have a functional server.</para>
+
+    <para>To see what modules are active, you can use the
+    <literal>--list-modules</literal> command line argument.</para>
+
+    <screen><![CDATA[[my-base]$ java -jar ../jetty-distribution/start.jar --module=webapp,deploy --list-modules
+...(snip)...
+Jetty Active Module Tree:
+-------------------------
+ + Module: server [transitive]
+   + Module: servlet [transitive]
+     + Module: webapp [enabled]
+       + Module: deploy [enabled]
+]]></screen>
+
+    <para>We declared <code>webapp</code> and <code>deploy</code> modules on
+    the command line with the <code>servlet</code> and <code>server</code>
+    modules being brought into the active module tree transitively.</para>
+  </section>
 </section>

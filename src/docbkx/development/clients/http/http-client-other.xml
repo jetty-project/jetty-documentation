@@ -142,7 +142,8 @@ httpClient.getAuthenticationStore().clearAuthenticationResults();
     </info>
     <para>Jetty's HTTP client can be configured to use proxies to connect to destinations.</para>
     <para>Two types of proxies are available out of the box: a HTTP proxy (provided by class
-    <classname>HttpProxy</classname>) and a SOCKS 4 proxy (provided by <classname>Socks4Proxy</classname>).
+    <classname>org.eclipse.jetty.client.HttpProxy</classname>) and a SOCKS 4 proxy (provided by class
+    <classname>org.eclipse.jetty.client.Socks4Proxy</classname>).
     Other implementations may be written by subclassing <classname>ProxyConfiguration.Proxy</classname>.</para>
     <para>A typical configuration is the following:</para>
     <informalexample>

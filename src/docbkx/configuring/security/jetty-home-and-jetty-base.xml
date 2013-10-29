@@ -1,0 +1,504 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+//  ========================================================================
+//  Copyright (c) 1995-2012 Mort Bay Consulting Pty. Ltd.
+//  ========================================================================
+//  All rights reserved. This program and the accompanying materials
+//  are made available under the terms of the Eclipse Public License v1.0
+//  and Apache License v2.0 which accompanies this distribution.
+//
+//      The Eclipse Public License is available at
+//      http://www.eclipse.org/legal/epl-v10.html
+//
+//      The Apache License v2.0 is available at
+//      http://www.opensource.org/licenses/apache2.0.php
+//
+//  You may elect to redistribute this code under either of these licenses.
+//  ========================================================================
+-->
+<section version="5.0"
+         xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd"
+         xml:id="jetty-home-and-jetty-base" xmlns="http://docbook.org/ns/docbook"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:xs="http://www.w3.org/2001/XMLSchema"
+         xmlns:xl="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:ns2="http://www.w3.org/1998/Math/MathML"
+         xmlns:ns="http://docbook.org/ns/docbook">
+  <title>Jetty 9.1: Using the <literal>${jetty.home}</literal> and <literal>${jetty.base}</literal> Concepts to Configure Security</title>
+  
+  <para>Jetty 9.1 introduces <literal>${jetty.base}</literal> and <literal>${jetty.home}</literal>.</para>
+        <itemizedlist>
+        <listitem><para><literal>${jetty.home}</literal> is the directory location for the jetty distribution (the binaries).</para></listitem>
+        <listitem><para><literal>${jetty.base}</literal> is the directory location for your customizations to the distribution.</para></listitem>
+        </itemizedlist>
+      <para>This separation:</para>
+      <itemizedlist>
+      <listitem><para> ALlows you to manage multiple Jetty installations.</para></listitem>
+      <listitem><para>Makes it simple to retain your current configuration when you upgrade your Jetty distribution.</para></listitem>
+      <para>For more information, see <xref linkend="startup-base-and-home" />.</para>
+      </itemizedlist>
+     <para>Further, Jetty 9.1 parameterizes all of the standard configuration XMLs. For SSL, parameters are now just properties in the <filename>start.ini</filename>, reducing to eliminating the need to edit XML files.</para> 
+     <para>Jetty 9.1 also introduces modules. Instead of explicitly listing all the libraries, properties, and XML files for a feature, Jetty includes software modules, and the <filename>start.jar</filename> mechanism allows you to create new modules. You define a module in a <filename>modules/*.mod</filename> file, including the libraries, dependencies, XML, and template INI files for a Jetty feature. Thus you can use a single <literal>--module=name</literal> command line option as the equivalent of specifying many <literal>--lib=location, feature.xml, name=value</literal> arguments for a feature and all its dependencies. Modules use their dependencies to control the ordering of libraries and XML files. For more information, see <xref linkend="startup-modules" />.</para>
+   
+<section xml:id="configuring-security-jetty91">
+<title>Configuring SSL in Jetty 9.1</title>      
+<para>
+This page describes how to configure SSL in Jetty 9.1. It provides an example of using the <literal>${jetty.home}</literal> and <literal>${jetty.base}</literal> to maximum effect. It also includes a detailed explanation of how modules work.</para> 
+
+<para>This example assumes you have the jetty-distribution unpacked in <filename>/home/user/jetty-distribution-9.1.0.RC0.</filename></para>
+<orderedlist>
+<listitem><para>
+Create a base directory anywhere.</para></listitem>
+
+<screen><![CDATA[
+[/home/user]$ mkdir my-base
+[/home/user]$ cd my-base
+]]></screen>
+
+<listitem><para>
+Add the modules for SSL, HTTP, and webapp deployment.</para></listitem>
+
+<screen><![CDATA[
+[my-base]$ java -jar /home/user/jetty-distribution-9.1.0.RC0/start.jar --add-to-start=ssl,http,deploy
+
+ssl             initialised in ${jetty.base}/start.ini (appended)
+ssl             enabled in     ${jetty.base}/start.ini
+DOWNLOAD: http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/plain/jetty-server/src/main/config/etc/keystore to etc/keystore
+server          initialised in ${jetty.base}/start.ini (appended)
+server          enabled in     ${jetty.base}/start.ini
+http            initialised in ${jetty.base}/start.ini (appended)
+http            enabled in     ${jetty.base}/start.ini
+server          enabled in     ${jetty.base}/start.ini
+deploy          initialised in ${jetty.base}/start.ini (appended)
+deploy          enabled in     ${jetty.base}/start.ini
+MKDIR: ${jetty.base}/webapps
+server          enabled in     ${jetty.base}/start.ini
+]]></screen>
+
+<listitem><para>Look at your directory.</para></listitem>
+<screen><![CDATA[
+[my-base]$ ls -la
+total 20
+drwxrwxr-x   4 user group 4096 Oct  8 06:55 ./
+drwxr-xr-x 103 user group 4096 Oct  8 06:53 ../
+drwxrwxr-x   2 user group 4096 Oct  8 06:55 etc/
+-rw-rw-r--   1 user group  815 Oct  8 06:55 start.ini
+drwxrwxr-x   2 user group 4096 Oct  8 06:55 webapps/
+]]></screen>
+
+<listitem><para>
+Copy your WAR files into webapps.</para></listitem>
+
+<screen><![CDATA[
+[my-base]$ ls -la
+[my-base]$ cp ~/code/project/target/gadget.war webapps/
+]]></screen>
+
+<listitem><para>Copy your keystore into place.</para></listitem>
+
+<screen><![CDATA[
+[my-base]$ cp ~/code/project/keystore etc/keystore
+]]></screen>
+
+<listitem><para>
+Edit the <filename>start.ini</filename> to configure your SSL settings.</para></listitem>
+
+<screen><![CDATA[
+[my-base]$ cat start.ini
+]]></screen>
+
+<listitem><para>Initialize module ssl.</para></listitem>
+
+<screen><![CDATA[
+--module=ssl
+]]></screen>
+
+<listitem><para>Define the port to use for secure redirection.</para></listitem>
+
+<screen><![CDATA[
+jetty.secure.port=8443
+]]></screen>
+
+<listitem><para>Set up a demonstration keystore and truststore.</para></listitem>
+
+<screen><![CDATA[
+jetty.keystore=etc/keystore
+jetty.truststore=etc/keystore
+]]></screen>
+
+<listitem><para>Set the demonstration passwords.</para></listitem>
+
+<note><para>OBF passwords are not secure, just protected from casual observation.</para></note>
+<screen><![CDATA[
+jetty.keystore.password=OBF:1vny1zlo1x8e1vnw1vn61x8g1zlu1vn4
+jetty.keymanager.password=OBF:1u2u1wml1z7s1z7a1wnl1u2g
+jetty.truststore.password=OBF:1vny1zlo1x8e1vnw1vn61x8g1zlu1vn4
+]]></screen>
+
+<listitem><para>Initialize the module server.</para></listitem>
+<screen><![CDATA[
+--module=server
+threads.min=10
+threads.max=200
+threads.timeout=60000
+#jetty.host=myhost.com
+jetty.dump.start=false
+jetty.dump.stop=false
+]]></screen>
+
+<listitem><para>Initialize module http.</para></listitem>
+<screen><![CDATA[
+--module=http
+jetty.port=8080
+http.timeout=30000
+]]></screen>
+
+<listitem><para>Initialize module deploy.</para></listitem>
+<screen><![CDATA[
+--module=deploy
+]]></screen>
+</orderedlist>
+<para>
+Look at the configuration you have at this point.</para>
+<screen><![CDATA[
+[my-base]$ java -jar /home/user/jetty-distribution-9.1.0.RC0/start.jar --list-config
+
+Java Environment:
+-----------------
+ java.home=/home/user/java/jdk-7u21-x64/jre
+ java.vm.vendor=Oracle Corporation
+ java.vm.version=23.21-b01
+ java.vm.name=Java HotSpot(TM) 64-Bit Server VM
+ java.vm.info=mixed mode
+ java.runtime.name=Java(TM) SE Runtime Environment
+ java.runtime.version=1.7.0_21-b11
+ java.io.tmpdir=/tmp
+
+Jetty Environment:
+-----------------
+ jetty.home=/home/user/jetty-distribution-9.1.0.RC0
+ jetty.base=/home/user/my-base
+ jetty.version=9.1.0.RC0
+
+JVM Arguments:
+--------------
+ (no jvm args specified)
+
+System Properties:
+------------------
+ jetty.base = /home/user/my-base
+ jetty.home = /home/user/jetty-distribution-9.1.0.RC0
+
+Properties:
+-----------
+ http.timeout = 30000
+ jetty.dump.start = false
+ jetty.dump.stop = false
+ jetty.keymanager.password = OBF:1u2u1wml1z7s1z7a1wnl1u2g
+ jetty.keystore = etc/keystore
+ jetty.keystore.password = OBF:1vny1zlo1x8e1vnw1vn61x8g1zlu1vn4
+ jetty.port = 8080
+ jetty.secure.port = 8443
+ jetty.truststore = etc/keystore
+ jetty.truststore.password = OBF:1vny1zlo1x8e1vnw1vn61x8g1zlu1vn4
+ threads.max = 200
+ threads.min = 10
+ threads.timeout = 60000
+
+Jetty Server Classpath:
+-----------------------
+Version Information on 11 entries in the classpath.
+Note: order presented here is how they would appear on the classpath.
+      changes to the --module=name command line options will be reflected here.
+ 0:                    3.1.0 | ${jetty.home}/lib/servlet-api-3.1.jar
+ 1:                  3.1.RC0 | ${jetty.home}/lib/jetty-schemas-3.1.jar
+ 2:                9.1.0.RC0 | ${jetty.home}/lib/jetty-http-9.1.0.RC0.jar
+ 3:                9.1.0.RC0 | ${jetty.home}/lib/jetty-continuation-9.1.0.RC0.jar
+ 4:                9.1.0.RC0 | ${jetty.home}/lib/jetty-server-9.1.0.RC0.jar
+ 5:                9.1.0.RC0 | ${jetty.home}/lib/jetty-xml-9.1.0.RC0.jar
+ 6:                9.1.0.RC0 | ${jetty.home}/lib/jetty-util-9.1.0.RC0.jar
+ 7:                9.1.0.RC0 | ${jetty.home}/lib/jetty-io-9.1.0.RC0.jar
+ 8:                9.1.0.RC0 | ${jetty.home}/lib/jetty-servlet-9.1.0.RC0.jar
+ 9:                9.1.0.RC0 | ${jetty.home}/lib/jetty-webapp-9.1.0.RC0.jar
+10:                9.1.0.RC0 | ${jetty.home}/lib/jetty-deploy-9.1.0.RC0.jar
+
+Jetty Active XMLs:
+------------------
+ ${jetty.home}/etc/jetty.xml
+ ${jetty.home}/etc/jetty-http.xml
+ ${jetty.home}/etc/jetty-ssl.xml
+ ${jetty.home}/etc/jetty-deploy.xml
+]]></screen>
+
+<para>Now start Jetty.</para>
+
+<screen><![CDATA[
+[my-base]$ java -jar /home/user/jetty-distribution-9.1.0.RC0/start.jar
+2013-10-08 07:06:55.837:INFO:oejs.Server:main: jetty-9.1.0.RC0
+2013-10-08 07:06:55.853:INFO:oejdp.ScanningAppProvider:main: Deployment monitor [file:/home/joakim/my-base/webapps/] at interval 1
+2013-10-08 07:06:55.872:INFO:oejs.ServerConnector:main: Started ServerConnector@72974691{HTTP/1.1}{0.0.0.0:8080}
+]]></screen>
+</section>
+<section xml:id="reviewing-ssl-config">
+<title>Reviewing the Configuration</title>
+<para>The following sections review this configuration.</para>
+<section xml:id="jetty-base-jetty-home">
+<title><literal>${jetty.base}</literal> and <literal>${jetty.home}</literal></title>
+
+<para>First notice the separation of <literal>${jetty.base}</literal> and <literal>${jetty.home}</literal>.</para>
+<itemizedlist><listitem><para>
+  <filename>${jetty.home}</filename> is where your distribution lies, unchanged, unedited.</para></listitem>
+  <listitem><para><filename>${jetty.base}</filename> is where your customizations are.</para></listitem>
+</itemizedlist>
+</section>
+<section xml:id="modules">
+<title>Modules</title>
+<para>Notice that you have <literal>--module=&lt;name&gt;</literal> here and there; you have wrapped up the goal of a module (libs, configuration XMLs, and properties) into a single unit, with dependencies on other modules.</para>
+
+<para>You can see the list of modules:</para>
+<screen><![CDATA[
+[my-base]$ java -jar /home/user/jetty-distribution-9.1.0.RC0/start.jar --list-modules
+
+Jetty All Available Modules:
+----------------------------
+
+Module: annotations
+      LIB: lib/jetty-annotations-${jetty.version}.jar
+      LIB: lib/annotations/*.jar
+      XML: etc/jetty-annotations.xml
+  depends: [plus]
+
+Module: client
+      LIB: lib/jetty-client-${jetty.version}.jar
+  depends: []
+
+Module: debug
+      XML: etc/jetty-debug.xml
+  depends: [server]
+
+Module: deploy
+      LIB: lib/jetty-deploy-${jetty.version}.jar
+      XML: etc/jetty-deploy.xml
+  depends: [webapp]
+  enabled: ${jetty.base}/start.ini
+
+Module: ext
+      LIB: lib/ext/*.jar
+  depends: []
+
+Module: http
+      XML: etc/jetty-http.xml
+  depends: [server]
+  enabled: ${jetty.base}/start.ini
+
+Module: https
+      XML: etc/jetty-https.xml
+  depends: [ssl]
+
+Module: ipaccess
+      XML: etc/jetty-ipaccess.xml
+  depends: [server]
+
+Module: jaas
+      LIB: lib/jetty-jaas-${jetty.version}.jar
+      XML: etc/jetty-jaas.xml
+  depends: [server]
+
+Module: jaspi
+      LIB: lib/jetty-jaspi-${jetty.version}.jar
+      LIB: lib/jaspi/*.jar
+  depends: [security]
+
+Module: jmx
+      LIB: lib/jetty-jmx-${jetty.version}.jar
+      XML: etc/jetty-jmx.xml
+  depends: []
+
+Module: jndi
+      LIB: lib/jetty-jndi-${jetty.version}.jar
+      LIB: lib/jndi/*.jar
+  depends: [server]
+
+Module: jsp
+      LIB: lib/jsp/*.jar
+  depends: [servlet]
+
+Module: jvm
+  depends: []
+
+Module: logging
+      XML: etc/jetty-logging.xml
+  depends: []
+
+Module: lowresources
+      XML: etc/jetty-lowresources.xml
+  depends: [server]
+
+Module: monitor
+      LIB: lib/jetty-monitor-${jetty.version}.jar
+      XML: etc/jetty-monitor.xml
+  depends: [client, server]
+
+Module: npn
+  depends: []
+
+Module: plus
+      LIB: lib/jetty-plus-${jetty.version}.jar
+      XML: etc/jetty-plus.xml
+  depends: [server, security, jndi]
+
+Module: proxy
+      LIB: lib/jetty-proxy-${jetty.version}.jar
+      XML: etc/jetty-proxy.xml
+  depends: [client, server]
+
+Module: requestlog
+      XML: etc/jetty-requestlog.xml
+  depends: [server]
+
+Module: resources
+      LIB: resources
+  depends: []
+
+Module: rewrite
+      LIB: lib/jetty-rewrite-${jetty.version}.jar
+      XML: etc/jetty-rewrite.xml
+  depends: [server]
+
+Module: security
+      LIB: lib/jetty-security-${jetty.version}.jar
+  depends: [server]
+
+Module: server
+      LIB: lib/servlet-api-3.1.jar
+      LIB: lib/jetty-schemas-3.1.jar
+      LIB: lib/jetty-http-${jetty.version}.jar
+      LIB: lib/jetty-continuation-${jetty.version}.jar
+      LIB: lib/jetty-server-${jetty.version}.jar
+      LIB: lib/jetty-xml-${jetty.version}.jar
+      LIB: lib/jetty-util-${jetty.version}.jar
+      LIB: lib/jetty-io-${jetty.version}.jar
+      XML: etc/jetty.xml
+  depends: []
+  enabled: ${jetty.base}/start.ini
+
+Module: servlet
+      LIB: lib/jetty-servlet-${jetty.version}.jar
+  depends: [server]
+
+Module: servlets
+      LIB: lib/jetty-servlets-${jetty.version}.jar
+  depends: [servlet]
+
+Module: setuid
+      LIB: lib/setuid/jetty-setuid-java-1.0.1.jar
+      XML: etc/jetty-setuid.xml
+  depends: [server]
+
+Module: spdy
+      LIB: lib/spdy/*.jar
+      XML: etc/jetty-ssl.xml
+      XML: etc/jetty-spdy.xml
+  depends: [ssl, npn]
+
+Module: ssl
+      XML: etc/jetty-ssl.xml
+  depends: [server]
+  enabled: ${jetty.base}/start.ini
+
+Module: stats
+      XML: etc/jetty-stats.xml
+  depends: [server]
+
+Module: webapp
+      LIB: lib/jetty-webapp-${jetty.version}.jar
+  depends: [servlet]
+
+Module: websocket
+      LIB: lib/websocket/*.jar
+  depends: [annotations]
+
+Module: xinetd
+      XML: etc/jetty-xinetd.xml
+  depends: [server]
+
+Jetty Active Module Tree:
+-------------------------
+ + Module: server [enabled]
+   + Module: http [enabled]
+   + Module: servlet [transitive]
+   + Module: ssl [enabled]
+     + Module: webapp [transitive]
+       + Module: deploy [enabled]
+]]></screen>
+<para>
+These are the modules by name, the libraries they bring in, the XML configurations they use, the other modules they depend on (even optional ones), and if the module is in use, where it was enabled.</para>
+<para>
+While you can manage the list of active modules yourself, it is much easier to edit the <filename>${jetty.base}/start.ini</filename>.</para>
+<para>
+If you want to start using a new module:</para>
+<screen><![CDATA[
+[my-base] $ java -jar ../jetty-distribution-9.1.0.RC0/start.jar --add-to-start=https
+]]></screen>
+<para>This adds the <literal>--module=</literal> lines and associated properties (the parameterized values mentioned above), to your <filename>start.ini</filename>.</para>
+
+<important><para>Leave the modules and XML files alone in the <filename>${jetty.home}</filename> directory; there is no need to be moving or copying them unless you want to make your own modules or override the behavior of an existing module.</para></important>
+<para>
+Notice that your <filename>${jetty.base}/start.ini</filename> has no references to the XML files. That's because the module system and its graph of dependencies now dictate all of the XML files, and their load order (important!).</para>
+</section>
+<section xml:id="parameterizing">
+<title>Parameters</title>
+<para>
+Next is parameterizing all of the standard configuration XMLs.
+In this example all of the SSL parameters are now just properties in the <filename>start.ini</filename>, reducing or eliminating the need to edit XML files.</para>
+</section>
+
+<section xml:id="override-jetty.home">
+<title>Overriding <filename>${jetty.home}</filename> in <filename>${jetty.base}</filename></title>
+<para>Finally, you can override anything you see in <filename>${jetty.home}</filename> in <filename>${jetty.base}</filename>, even XML configurations and libraries.</para>
+</section>
+<para>For more information on the <filename>start.jar</filename> in 9.1, see <xref linkend="start-jar" />.</para>
+</section>
+
+<section xml:id="summary-configuring-SSL-Jetty-91"> 
+<title>Summary of Configuring SSL in Jetty 9.1</title>
+
+<orderedlist>
+<listitem><para>Download and unpack Jetty 9.1 into <filename>/home/user/jetty-distribution-9.1.0.RC1</filename>.</para></listitem>
+
+<listitem><para>Go to your base directory and just use the distribution, no editing.</para>
+<screen><![CDATA[
+[my-base]$ java -jar /home/user/jetty-distribution-9.1.0.RC1/start.jar
+]]></screen>
+
+<itemizedlist>
+<listitem><para>The Jetty 9.1 distribution provides, out of the box, the XML configuration files, in this case <filename>jetty-http.xml</filename> and <filename>jetty-ssl.xml</filename>. You can find them in <filename>${jetty.home}/etc/</filename> directory.</para></listitem>
+<listitem><para>We have parameterized all of the configurable values in those XMLs.
+You can now set the values using simple properties, either on the command line, or within the <filename>${jetty.base}/start.ini</filename>.</para></listitem>
+<listitem><para>When you activate the module for HTTP or HTTPs, Jetty automatically adds the appropriate libraries and XML to start Jetty. Unless you have a highly custom setup (such as listening on two different ports, using SSL on each, each with its own keystore and configuration), you should have no need to be mucking around in XML files.</para></listitem></itemizedlist></listitem>
+<listitem><para>Use modules to configure HTTPS:
+<itemizedlist>
+<listitem><para>http -&gt; server</para></listitem>
+<listitem><para>https -&gt; ssl -&gt; server</para></listitem>
+</itemizedlist></para>
+<para>
+You can find the details about the modules in <filename>${jetty.home}/modules/</filename>. For SSL they include <filename>modules/http.mod</filename>, <filename>modules/https.mod</filename>, <filename>modules/ssl.mod</filename>, and <filename>modules/server.mod</filename>.</para>
+<para>Ideally, this level of detail is not important to you.
+What is important is that you want to use HTTPS and want to configure it.
+You accomplish that by adding the <literal>--module=https</literal> to your <filename>start.ini</filename>. By default, the module system keeps things sane, and transitively includes all dependent modules as well.</para></listitem></orderedlist>
+<para>
+You can see what the configuration looks like, after all of the modules are resolved, without starting Jetty via:</para>
+<screen><![CDATA[
+[my-base] $ java -jar ../jetty-distribution-9.1.0.RC0/start.jar --list-config
+]]></screen>
+<para>
+Just because the JARs exist on disk does not mean that they are in use. The configuration controls what is used.</para>
+<para>
+Use the <code>--list-config</code> to see the configuration. Notice that only a subset of the JARs from the distribution are in use. The modules you have anabled determine that subset.</para>
+<screen><![CDATA[
+[my-base]$ java -jar ~/jetty-distribution-9.1.0.RC0/start.jar --list-config
+]]></screen>
+</section>
+</section>
+

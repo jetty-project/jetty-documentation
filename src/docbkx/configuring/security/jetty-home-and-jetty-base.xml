@@ -25,7 +25,7 @@
          xmlns:xi="http://www.w3.org/2001/XInclude"
          xmlns:ns2="http://www.w3.org/1998/Math/MathML"
          xmlns:ns="http://docbook.org/ns/docbook">
-  <title>Jetty 9.1: Using the <literal>${jetty.home}</literal> and <literal>${jetty.base}</literal> Concepts to Configure Security</title>
+  <title>Jetty 9.1: Using the ${jetty.home} and ${jetty.base} Concepts to Configure Security</title>
   
   <para>Jetty 9.1 introduces <literal>${jetty.base}</literal> and <literal>${jetty.home}</literal>.</para>
         <itemizedlist>
@@ -34,10 +34,10 @@
         </itemizedlist>
       <para>This separation:</para>
       <itemizedlist>
-      <listitem><para> ALlows you to manage multiple Jetty installations.</para></listitem>
-      <listitem><para>Makes it simple to retain your current configuration when you upgrade your Jetty distribution.</para></listitem>
+      <listitem><para> Allows you to manage multiple Jetty installations.</para></listitem>
+      <listitem><para>Makes it simple to retain your current configuration when you upgrade your Jetty distribution.</para></listitem></itemizedlist>
       <para>For more information, see <xref linkend="startup-base-and-home" />.</para>
-      </itemizedlist>
+      
      <para>Further, Jetty 9.1 parameterizes all of the standard configuration XMLs. For SSL, parameters are now just properties in the <filename>start.ini</filename>, reducing to eliminating the need to edit XML files.</para> 
      <para>Jetty 9.1 also introduces modules. Instead of explicitly listing all the libraries, properties, and XML files for a feature, Jetty includes software modules, and the <filename>start.jar</filename> mechanism allows you to create new modules. You define a module in a <filename>modules/*.mod</filename> file, including the libraries, dependencies, XML, and template INI files for a Jetty feature. Thus you can use a single <literal>--module=name</literal> command line option as the equivalent of specifying many <literal>--lib=location, feature.xml, name=value</literal> arguments for a feature and all its dependencies. Modules use their dependencies to control the ordering of libraries and XML files. For more information, see <xref linkend="startup-modules" />.</para>
    
@@ -49,15 +49,15 @@ This page describes how to configure SSL in Jetty 9.1. It provides an example of
 <para>This example assumes you have the jetty-distribution unpacked in <filename>/home/user/jetty-distribution-9.1.0.RC0.</filename></para>
 <orderedlist>
 <listitem><para>
-Create a base directory anywhere.</para></listitem>
+Create a base directory anywhere.
 
 <screen><![CDATA[
 [/home/user]$ mkdir my-base
 [/home/user]$ cd my-base
 ]]></screen>
-
+</para></listitem>
 <listitem><para>
-Add the modules for SSL, HTTP, and webapp deployment.</para></listitem>
+Add the modules for SSL, HTTP, and webapp deployment.
 
 <screen><![CDATA[
 [my-base]$ java -jar /home/user/jetty-distribution-9.1.0.RC0/start.jar --add-to-start=ssl,http,deploy
@@ -75,8 +75,8 @@ deploy          enabled in     ${jetty.base}/start.ini
 MKDIR: ${jetty.base}/webapps
 server          enabled in     ${jetty.base}/start.ini
 ]]></screen>
-
-<listitem><para>Look at your directory.</para></listitem>
+</para></listitem>
+<listitem><para>Look at your directory.
 <screen><![CDATA[
 [my-base]$ ls -la
 total 20
@@ -86,57 +86,57 @@ drwxrwxr-x   2 user group 4096 Oct  8 06:55 etc/
 -rw-rw-r--   1 user group  815 Oct  8 06:55 start.ini
 drwxrwxr-x   2 user group 4096 Oct  8 06:55 webapps/
 ]]></screen>
-
+</para></listitem>
 <listitem><para>
-Copy your WAR files into webapps.</para></listitem>
+Copy your WAR files into webapps.
 
 <screen><![CDATA[
 [my-base]$ ls -la
 [my-base]$ cp ~/code/project/target/gadget.war webapps/
 ]]></screen>
-
-<listitem><para>Copy your keystore into place.</para></listitem>
+</para></listitem>
+<listitem><para>Copy your keystore into place.
 
 <screen><![CDATA[
 [my-base]$ cp ~/code/project/keystore etc/keystore
 ]]></screen>
-
+</para></listitem>
 <listitem><para>
-Edit the <filename>start.ini</filename> to configure your SSL settings.</para></listitem>
+Edit the <filename>start.ini</filename> to configure your SSL settings.
 
 <screen><![CDATA[
 [my-base]$ cat start.ini
 ]]></screen>
-
-<listitem><para>Initialize module ssl.</para></listitem>
+</para></listitem>
+<listitem><para>Initialize module ssl.
 
 <screen><![CDATA[
 --module=ssl
 ]]></screen>
-
-<listitem><para>Define the port to use for secure redirection.</para></listitem>
+</para></listitem>
+<listitem><para>Define the port to use for secure redirection.
 
 <screen><![CDATA[
 jetty.secure.port=8443
 ]]></screen>
-
-<listitem><para>Set up a demonstration keystore and truststore.</para></listitem>
+</para></listitem>
+<listitem><para>Set up a demonstration keystore and truststore.
 
 <screen><![CDATA[
 jetty.keystore=etc/keystore
 jetty.truststore=etc/keystore
 ]]></screen>
+</para></listitem>
+<listitem><para>Set the demonstration passwords.
 
-<listitem><para>Set the demonstration passwords.</para></listitem>
-
-<note><para>OBF passwords are not secure, just protected from casual observation.</para></note>
 <screen><![CDATA[
 jetty.keystore.password=OBF:1vny1zlo1x8e1vnw1vn61x8g1zlu1vn4
 jetty.keymanager.password=OBF:1u2u1wml1z7s1z7a1wnl1u2g
 jetty.truststore.password=OBF:1vny1zlo1x8e1vnw1vn61x8g1zlu1vn4
 ]]></screen>
-
-<listitem><para>Initialize the module server.</para></listitem>
+</para></listitem>
+<note><para>OBF passwords are not secure, just protected from casual observation.</para></note>
+<listitem><para>Initialize the module server.
 <screen><![CDATA[
 --module=server
 threads.min=10
@@ -146,18 +146,19 @@ threads.timeout=60000
 jetty.dump.start=false
 jetty.dump.stop=false
 ]]></screen>
-
-<listitem><para>Initialize module http.</para></listitem>
+</para></listitem>
+<listitem><para>Initialize module http.
 <screen><![CDATA[
 --module=http
 jetty.port=8080
 http.timeout=30000
 ]]></screen>
-
-<listitem><para>Initialize module deploy.</para></listitem>
+</para></listitem>
+<listitem><para>Initialize module deploy.
 <screen><![CDATA[
 --module=deploy
 ]]></screen>
+</para></listitem>
 </orderedlist>
 <para>
 Look at the configuration you have at this point.</para>
@@ -244,7 +245,7 @@ Jetty Active XMLs:
 <title>Reviewing the Configuration</title>
 <para>The following sections review this configuration.</para>
 <section xml:id="jetty-base-jetty-home">
-<title><literal>${jetty.base}</literal> and <literal>${jetty.home}</literal></title>
+<title>${jetty.base} and ${jetty.home}</title>
 
 <para>First notice the separation of <literal>${jetty.base}</literal> and <literal>${jetty.home}</literal>.</para>
 <itemizedlist><listitem><para>
@@ -445,7 +446,7 @@ If you want to start using a new module:</para>
 
 <important><para>Leave the modules and XML files alone in the <filename>${jetty.home}</filename> directory; there is no need to be moving or copying them unless you want to make your own modules or override the behavior of an existing module.</para></important>
 <para>
-Notice that your <filename>${jetty.base}/start.ini</filename> has no references to the XML files. That's because the module system and its graph of dependencies now dictate all of the XML files, and their load order (important!).</para>
+Notice that your <filename>${jetty.base}/start.ini</filename> has no references to the XML files. That's because the module system and its graph of dependencies now dictate all of the XML files, and their load order.</para>
 </section>
 <section xml:id="parameterizing">
 <title>Parameters</title>
@@ -455,7 +456,7 @@ In this example all of the SSL parameters are now just properties in the <filena
 </section>
 
 <section xml:id="override-jetty.home">
-<title>Overriding <filename>${jetty.home}</filename> in <filename>${jetty.base}</filename></title>
+<title>Overriding ${jetty.home} in ${jetty.base} </title>
 <para>Finally, you can override anything you see in <filename>${jetty.home}</filename> in <filename>${jetty.base}</filename>, even XML configurations and libraries.</para>
 </section>
 <para>For more information on the <filename>start.jar</filename> in 9.1, see <xref linkend="start-jar" />.</para>

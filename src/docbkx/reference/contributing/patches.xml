@@ -23,6 +23,7 @@
          xmlns:xs="http://www.w3.org/2001/XMLSchema"
          xmlns:xl="http://www.w3.org/1999/xlink"
          xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:ns2="http://www.w3.org/1998/Math/MathML"
          xmlns:ns="http://docbook.org/ns/docbook">
   <title>Contributing Patches</title>
 
@@ -99,10 +100,10 @@
 
     <para>From the top level of the cloned project:</para>
 
-    <screen><![CDATA[
+    <screen>
       
-$ git diff > ######.patch
-]]></screen>
+$ git diff &gt; ######.patch
+</screen>
 
     <para>The hash marks should be the bugzilla issue that you will be
     attaching the issue to. All patches coming into jetty must come in through
@@ -113,17 +114,17 @@ $ git diff > ######.patch
     patches that we receive via email. So if you have the bugzilla issue
     created already just attach the issue and feel free to bug us on <xref
         linkend="community-irc">
-        IRC
+         IRC 
       </xref> to take a look. If there is no bugzilla issue yet, create one,
     make sure the patch is named appropriately and attach it.</para>
 
     <para>When the developer reviews the patch and goes to apply it they will
     use:</para>
 
-    <screen><![CDATA[
+    <screen>
       
-$ git apply < ######.patch
-]]></screen>
+$ git apply &lt; ######.patch
+</screen>
 
     <para>If you want to be a nice person, test your patch on a clean clone to
     ensure that it applies cleanly. Nothing frustrates a developer quite like
@@ -149,25 +150,32 @@ $ git apply < ######.patch
 
     <para>From the top level of the cloned project:</para>
 
-    <para>Make your changes and commit them locally using <code>git commit -s</code>. Then
-    use git log to identify the commit(s) you want to include in your
-    patch:</para>
+    <para>Make your changes and commit them locally using <code>git commit
+    -s</code>:</para>
 
-    <screen><![CDATA[
+    <screen>
+      
+$ git commit -s
+ </screen>
+
+    <para> Then use git log to identify the commit(s) you want to include in
+    your patch:</para>
+
+    <screen>
       
 commit 70e29326fe904675f772b88a67128c0b3529565e
-Author: John Doe <john.doe@who.com>
+Author: John Doe &lt;john.doe@who.com&gt;
       Date: Tue Aug 2 14:36:50 2011 +0200 353563:
 HttpDestinationQueueTest too slow
 
-    ]]></screen>
+    </screen>
 
     <para>Use git format-patch to create the patch:</para>
 
-    <screen><![CDATA[
+    <screen>
       
 $ git format-patch -M -B 70e29326fe904675f772b88a67128c0b3529565e
- ]]></screen>
+ </screen>
 
     <para>This will create a single patch file for each commit since the
     specified commit. The names will start with 0001-[commitmessage].patch.
@@ -182,23 +190,26 @@ $ git format-patch -M -B 70e29326fe904675f772b88a67128c0b3529565e
     is recorded locally and the developer will then have a chance to make
     additional commits to address any lingering issues. It is critically
     important that developers applying these sorts of patches are fully aware
-    of what is being committed and what they are signing off on.</para>
+    of what is being committed and what they are accepting.</para>
 
     <para>To apply the patch the developer will use a command like:</para>
 
-    <screen><![CDATA[
+    <screen>
       
-$ git am -s 0001-353563-HttpDestinationQueueTest-too-slow.patch
- ]]></screen>
+$ git am 0001-353563-HttpDestinationQueueTest-too-slow.patch
+ </screen>
 
     <para>Providing it applies cleanly there will now be a commit in their
-    local copy and they can either make additional commits or push it out. The
-    '-s' option attaches a 'Signed By: ' line to the commit with the
-    developers commit information. This is required, without it the commit
-    should be rejected by the eclipse git server as not valid. There is an
-    update hook in place that validates that either the commit or signed by
-    fields are in fact eclipse committers authorized to commit to the
-    repository.</para>
+    local copy and they can either make additional commits or push it out.
+    </para>
+
+    <para><note>
+        <para>It is intended that developers are also able to counter-sign the
+        patch by using the '-s' option with the 'git am' command. However as
+        the git hook that processes the commit currently has a bug it is
+        recommended that developers do NOT use the -s option. See <link
+        xl:href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=415307">https://bugs.eclipse.org/bugs/show_bug.cgi?id=415307</link></para>
+      </note></para>
   </section>
 
   <section xml:id="git-amend">
@@ -208,39 +219,39 @@ $ git am -s 0001-353563-HttpDestinationQueueTest-too-slow.patch
     cleanly with git am, you can use git commit --amend to modify the author
     and signoff the commit. For example:</para>
 
-    <screen><![CDATA[
+    <screen>
       
 $ git checkout -b patch
 $ git apply john-doe.patch
-$ git commit -a -m "<Original commit message from John Doe>"
+$ git commit -a -m "&lt;Original commit message from John Doe&gt;"
 
-    ]]></screen>
+    </screen>
 
     <para>At this point the patch is committed with the committer's name on a
     local branch</para>
 
-    <screen><![CDATA[
+    <screen>
       
-$ git commit --amend --author "John Doe <john.doe@who.com>" --signoff
+$ git commit --amend --author "John Doe &lt;john.doe@who.com&gt;" --signoff
 
-    ]]></screen>
+    </screen>
 
     <para>Now the patch has the right author and it has been signed off</para>
 
-    <screen><![CDATA[
+    <screen>
       
 $ git checkout master
 $ git merge patch
- ]]></screen>
+ </screen>
 
     <para>Now the local branch has been merged into master with the right
     author</para>
 
-    <screen><![CDATA[
+    <screen>
       
 $ git branch -d patch
 $ git push
- ]]></screen>
+ </screen>
   </section>
 
   <section xml:id="gerrit-for-contributors">
@@ -252,20 +263,20 @@ $ git push
 
     <para>Then clone the jetty-project:</para>
 
-    <screen><![CDATA[
+    <screen>
     
 $ git clone ssh://git.eclipse.org:29418/jetty/org.eclipse.jetty.project
  
-    ]]></screen>
+    </screen>
 
     <para><emphasis>Stop.</emphasis> Make sure you have a bugzilla issue open
     for the change that you want to commit into gerrit for review. Also when
     you are ready to commit your change make sure that your commit starts with
     the bugzilla id. For example your commit should look like this:</para>
 
-    <screen><![CDATA[
+    <screen>
       
-$ git commit -m "[Bug 343532] fixed issue" <files>]]></screen>
+$ git commit -m "[Bug 343532] fixed issue" &lt;files&gt;</screen>
 
     <para>Make sure to properly set the changeIds as described here: <link
     xl:href="https://git.eclipse.org/r/Documentation/user-changeid.html">https://git.eclipse.org/r/Documentation/user-changeid.html</link></para>
@@ -273,10 +284,10 @@ $ git commit -m "[Bug 343532] fixed issue" <files>]]></screen>
     <para>Make your changes, commit them as usual with git. Once done
     do:</para>
 
-    <screen><![CDATA[
+    <screen>
     
 $ git push ssh://git.eclipse.org:29418/jetty/org.eclipse.jetty.project HEAD:refs/for/master
- ]]></screen>
+ </screen>
 
     <para>Note the magic: <code>HEAD:refs/for/master</code>. Without gerrit
     will not permit you to push.</para>

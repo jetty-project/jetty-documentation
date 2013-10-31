@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+//  ========================================================================
+//  Copyright (c) 1995-2012 Mort Bay Consulting Pty. Ltd.
+//  ========================================================================
+//  All rights reserved. This program and the accompanying materials
+//  are made available under the terms of the Eclipse Public License v1.0
+//  and Apache License v2.0 which accompanies this distribution.
+//
+//      The Eclipse Public License is available at
+//      http://www.eclipse.org/legal/epl-v10.html
+//
+//      The Apache License v2.0 is available at
+//      http://www.opensource.org/licenses/apache2.0.php
+//
+//  You may elect to redistribute this code under either of these licenses.
+//  ========================================================================
+-->
+<section version="5.0"
+         xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd"
+         xml:id="ref-temporary-directories"
+         xmlns="http://docbook.org/ns/docbook"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:xs="http://www.w3.org/2001/XMLSchema"
+         xmlns:xl="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:ns2="http://www.w3.org/1998/Math/MathML"
+         xmlns:ns="http://docbook.org/ns/docbook">
+  <title>Temporary Directories</title>
+
+  <para>Jetty itself has no temporary directories, but you can assign a
+  directory for each web application, into which the WAR is unpacked, JSPs
+  compiled on-the-fly, etc. If you do not assign a specific temporary
+  directory, Jetty will create one as needed when your web application starts.
+  Whether you set the location of the temporary directory - or you let Jetty
+  create one for you - you also have a choice to either keep or delete the
+  temporary directory when the web application stops.</para>
+
+  <section>
+    <title>The default temp directory</title>
+
+    <para>By default, Jetty will create a temporary directory for each web
+    application. The name of the directory will be of the form:</para>
+
+    <screen>"jetty-"+host+"-"+port+"-"+resourceBase+"-_"+context+"-"+virtualhost+"-"+randomdigits+".dir"</screen>
+
+    <para>For example:</para>
+
+    <screen>jetty-0.0.0.0-8080-test.war-_test-any-8900275691885214790.dir</screen>
+
+    <para>Where <code>0.0.0.0</code> is the host address, <code>8080</code> is
+    the port, <code>test.war</code> is the resourceBase, <code>test</code> is
+    the context path (with / converted to _), <code>any</code> is the virtual
+    host, and <code>randomdigits</code> are a string of digits guaranteed to
+    be unique.</para>
+
+    <para>Once the temp directory is created, it is retrievable as the value
+    (as a File) of the context attribute
+    <code>javax.servlet.context.tempdir.</code></para>
+
+    <section>
+      <title>The location of the temp directory</title>
+
+      <para>By default, jetty will create this directory inside the directory
+      named by the <code>java.io.tmpdir</code> System property. You can
+      instruct Jetty to use a different parent directory by setting the
+      context attribute <code>org.eclipse.jetty.webapp.basetempdir</code> to
+      the name of the desired parent directory. The directory named by this
+      attribute <emphasis>must</emphasis> exist and be
+      <emphasis>writeable</emphasis>. </para>
+
+      <para>As usual with Jetty, you can either set this attribute in a
+      context xml file, or you can do it in code. Here's an example of setting
+      it in an xml file:</para>
+
+      <programlisting language="xml">&lt;Configure class="org.eclipse.jetty.webapp.WebAppContext"&gt;
+
+  &lt;Set name="contextPath"&gt;/test&lt;/Set&gt;
+  &lt;Set name="war"&gt;foo.war&lt;/Set&gt;
+
+  &lt;Call name="setAttribute"&gt;
+    &lt;Arg&gt;org.eclipse.jetty.webapp.basetempdir&lt;/Arg&gt;
+    &lt;Arg&gt;/home/my/foo&lt;/Arg&gt;
+  &lt;/Call&gt;
+&lt;/Configure&gt;
+</programlisting>
+
+      <para>The equivalent in code is:</para>
+
+      <programlisting language="java">WebAppContext context = new WebAppContext();
+context.setContextPath("/test");
+context.setWar("foo.war");
+context.setAttribute("org.eclipse.jetty.webapp.basetempdir", "/tmp/foo");</programlisting>
+    </section>
+  </section>
+
+  <section>
+    <title>Setting a specific temp directory</title>
+
+    <para>To use a particular directory as the temporary directory you can do
+    either:</para>
+
+    <variablelist>
+      <varlistentry>
+        <term>call WebAppContext.setTempDirectory(String dir)</term>
+
+        <listitem>
+          <para>As usual with Jetty, you can do this with an xml file or
+          directly in code. Here's an example of setting the temp directory in
+          xml:</para>
+
+          <para><programlisting language="xml">&lt;Configure class="org.eclipse.jetty.webapp.WebAppContext"&gt;
+
+  &lt;Set name="contextPath"&gt;/test&lt;/Set&gt;
+  &lt;Set name="war"&gt;foo.war&lt;/Set&gt;
+
+  &lt;Set name="tempDirectory"&gt;/some/dir/foo&lt;/Set&gt;
+&lt;/Configure&gt;</programlisting>Here's an example of doing it with java
+          code:</para>
+
+          <programlisting language="java">WebAppContext context = new WebAppContext();
+context.setContextPath("/test");
+context.setWar("foo.war");
+context.setTempDirectory(new File("/some/dir/foo"));</programlisting>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>set the <filename>javax.servlet.context.tempdir</filename>
+        context attribute</term>
+
+        <listitem>
+          <para>You should set this context attribute with the name of
+          directory you want to use as the temp directory. Again, you can do
+          this in xml:</para>
+
+          <programlisting language="xml">&lt;Configure class="org.eclipse.jetty.webapp.WebAppContext"&gt;
+
+  &lt;Set name="contextPath"&gt;/test&lt;/Set&gt;
+  &lt;Set name="war"&gt;foo.war&lt;/Set&gt;
+
+  &lt;Call name="setAttribute"&gt;
+    &lt;Arg&gt;javax.servlet.context.tempdir&lt;/Arg&gt;
+    &lt;Arg&gt;/some/dir/foo&lt;/Arg&gt;
+  &lt;/Call&gt;
+  
+&lt;/Configure&gt;</programlisting>
+
+          <para>Or in java:</para>
+
+          <programlisting language="java">WebAppContext context = new WebAppContext();
+context.setContextPath("/test");
+context.setWar("foo.war");
+context.setAttribute("javax.servlet.context.tempdir", "/some/dir/foo");</programlisting>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+
+    <para>Once a temporary directory has been created by either of these
+    methods, a File instance for it is set as the value of the
+    <code>javax.servlet.context.tempdir</code> attribute of the web
+    application.</para>
+
+    <note>
+      <para>Be wary of setting an explicit temp directory if you are likely to
+      change the jars in WEB-INF/lib between redeployments. There is a JVM bug
+      concerning caching of jar contents: <link
+      xl:href="http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=4774421">http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=4774421</link></para>
+    </note>
+  </section>
+
+  <section>
+    <title>Persisting the temp directory</title>
+
+    <para>Sometimes you may find it useful to keep the contents of the
+    temporary directory between restarts of the web application. By default,
+    Jetty will <emphasis>not</emphasis> persist the temp directory. To cause
+    Jetty to keep it, use <link
+    xl:href="@JDURL@/org/eclipse/jetty/webapp/WebAppContext.html">WebAppContext.setPersistTempDirectory(true)</link>.</para>
+
+    <para>Be aware that if you call setPersistTempDirectory(true), but let
+    Jetty create a new temp directory each time (ie you do NOT set an explicit
+    temp directory), then you will accumulate temp directories in your chosen
+    temp directory location.</para>
+  </section>
+</section>

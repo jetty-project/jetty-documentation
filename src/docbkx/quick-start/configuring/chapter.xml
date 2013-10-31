@@ -24,5 +24,4 @@ xmlns:mth="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/d
   <title>Quick Start Configuration</title>
   <xi:include href="how-to-configure.xml" />
   <xi:include href="what-to-configure.xml" />
-  <xi:include href="temporary-directories.xml"/>
 </chapter>

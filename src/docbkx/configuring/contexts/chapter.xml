@@ -28,6 +28,7 @@ xmlns:ns="http://docbook.org/ns/docbook">
   <xi:include href="setting-context-path.xml" />
   <xi:include href="configuring-virtual-hosts.xml" />
   <xi:include href="configuring-webapps.xml" />
+  <xi:include href="temporary-directories.xml" />
   <xi:include href="serving-webapp-from-particular-port.xml" />
   <xi:include href="custom-error-pages.xml" />
   <xi:include href="setting-form-size.xml"/>

@@ -24,6 +24,7 @@
          xmlns:xs="http://www.w3.org/2001/XMLSchema"
          xmlns:xl="http://www.w3.org/1999/xlink"
          xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:ns2="http://www.w3.org/1998/Math/MathML"
          xmlns:ns="http://docbook.org/ns/docbook">
   <title>Troubleshooting Zip Exceptions</title>
 
@@ -40,9 +41,10 @@
     <title>Remedy</title>
 
     <para>The remedy is to avoid hot replacing Jar or WAR files, which can be
-    difficult if you are using the <link linkend="configuring-specific-webapp-deployment">
-    Webapp Provider</link>. You can use the following techniques to reduce
-    exposure to this issue:</para>
+    difficult if you are using the <link
+    linkend="configuring-specific-webapp-deployment"> Webapp Provider</link>.
+    You can use the following techniques to reduce exposure to this
+    issue:</para>
 
     <itemizedlist>
       <listitem>
@@ -61,10 +63,10 @@
         <para>Deploy a packed WAR file with the <link
         xl:href="@JDURL@/org/eclipse/jetty/webapp/WebAppContext.html#setExtractWAR(boolean)">setExtractWAR</link>
         option set to true. This causes the WAR to be extracted to a <link
-        linkend="temporary-directories">temporary
-        directory</link> and thus to a new location. This might not be
-        sufficient if you want to hot-replace and reextract the WAR, so you
-        might also need to use <link
+        linkend="ref-temporary-directories">temporary directory</link> and
+        thus to a new location. This might not be sufficient if you want to
+        hot-replace and re-extract the WAR, so you might also need to use
+        <link
         xl:href="@JDURL@/org/eclipse/jetty/webapp/WebAppContext.html#setCopyWebInf(boolean)">WebAppContext.setCopyWebInf(true)</link>,
         which (re)copies just the WEB-INF directory to a different
         location.</para>
@@ -78,15 +80,10 @@
       </listitem>
     </itemizedlist>
 
-    <para>Be aware that any of the techniques listed above that involve
-    copying part or all of the webapp will probably not avoid the zip file
-    problem if you are using a <link linkend="temporary-directories">work
-    directory</link> (which avoids re-extraction on start/stop of a context or
-    container).</para>
-
-    <para>If you have problems with <link linkend="troubleshooting-locked-files-on-windows">
-    Windows file-locking</link> preventing static file editing (such as JSP or
-    HTML), use the <link
+    <para>If you have problems with <link
+    linkend="troubleshooting-locked-files-on-windows"> Windows
+    file-locking</link> preventing static file editing (such as JSP or HTML),
+    use the <link
     xl:href="@JDURL@/org/eclipse/jetty/webapp/WebAppContext.html#setCopyWebDir(boolean)">WebAppContext.setCopyWebDir(true)</link>
     option.</para>
   </section>

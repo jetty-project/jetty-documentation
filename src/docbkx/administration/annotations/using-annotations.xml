@@ -134,8 +134,8 @@
     </itemizedlist>
   </section>
 
-  <section>
-    <title>Which Jars Are Examined For Discovered Annotations</title>
+  <section xml:id="jars-scanned-for-annotations">
+    <title>Which Jars Are Scanned For Discovered Annotations</title>
 
     <para>The web.xml file can contain the attribute
     <code>metadata-complete</code>. If this is set to <code>true</code>, then
@@ -162,8 +162,9 @@
     classes that are on the container's classpath to be scanned, then you can
     use the <link
     linkend="container-include-jar-pattern">org.eclipse.jetty.server.webapp.ContainerIncludeJarPattern</link>
-    context attribute to specify a pattern for jars and directories from the
-    container's classpath to scan.</para>
+    <link linkend="context_attributes">context attribute</link> to specify a
+    pattern for jars and directories from the container's classpath to
+    scan.</para>
 
     <para>By default, Jetty will scan <emphasis>all </emphasis>classes from
     <code>WEB-INF/classes</code>, and all jars from <code>WEB-INF/lib</code>
@@ -172,7 +173,151 @@
     significantly speed up deployment by omitting them from scanning. To do
     this, use the <link
     linkend="web-inf-include-jar-pattern">org.eclipse.jetty.server.webapp.WebInfIncludeJarPattern</link>
-    context attribute to define the patterns of jars that you specifically
-    want to be scanned.</para>
+    <link linkend="context_attributes">context attribute</link> to define the
+    patterns of jars that you specifically want to be scanned.</para>
+
+    <para>Note that if you have configured an <link
+    linkend="using-extra-classpath-method">extraClasspath</link> for the
+    webapp, then it participates in the scanning process too. Any classes dirs
+    are treated the same for scanning purposes as if they were in
+    WEB-INF/classes and jars are treated as if they were in
+    WEB-INF/lib.</para>
+
+    <para>See also the next section on <link
+    linkend="servlet-container-initializers">ServletContainerInitializers</link>
+    if you need to <link linkend="servlet-container-initializers">control the
+    order in which they are applied</link>.</para>
+  </section>
+
+  <section>
+    <title>Multi-threaded Annotation Scanning</title>
+
+    <para>Since jetty-9.1.0.RC1,<link linkend="jars-scanned-for-annotations">
+    if annotation scanning is to be performed</link>, by default Jetty will do
+    it in a multi-threaded manner in order to complete it in the minimum
+    amount of time. </para>
+
+    <para>If for some reason you don't want to do it multi-threaded, you can
+    configure Jetty to revert to single-threaded scanning. You have several
+    ways to configure this:</para>
+
+    <orderedlist>
+      <listitem>
+        <para>set the <link linkend="context_attributes">context
+        attribute</link>
+        <code>org.eclipse.jetty.annotations.multiThreaded</code> to
+        <code>false</code> </para>
+      </listitem>
+
+      <listitem>
+        <para>set the <link linkend="server_attributes">Server
+        attribute</link>
+        <code>org.eclipse.jetty.annotations.multiThreaded</code> to
+        <code>false</code> </para>
+      </listitem>
+
+      <listitem>
+        <para>set the System property
+        <code>org.eclipse.jetty.annotations.multiThreaded</code> to
+        <code>false</code> </para>
+      </listitem>
+    </orderedlist>
+
+    <para>Method 1 will only affect the current webapp. Method 2 will affect
+    all webapps deployed to the same Server instance. Method 3 will affect all
+    webapps deployed in the same jvm.</para>
+
+    <para>By default, Jetty will wait a maximum of 60 seconds for all of the
+    scanning threads to complete. You can set this to a higher or lower number
+    of seconds by doing one of the following:</para>
+
+    <orderedlist>
+      <listitem>
+        <para>set the <link linkend="context_attributes">context
+        attribute</link> <code>org.eclipse.jetty.annotations.maxWait</code>
+        </para>
+      </listitem>
+
+      <listitem>
+        <para>set the <link linkend="server_attributes">Server
+        attribute</link> <code>org.eclipse.jetty.annotations.maxWait</code>
+        </para>
+      </listitem>
+
+      <listitem>
+        <para>set the System property
+        <code>org.eclipse.jetty.annotations.maxWait</code> </para>
+      </listitem>
+    </orderedlist>
+
+    <para>Method 1 will only affect the current webapp. Method 2 will affect
+    all webapps deployed to the same Server instance. Method 3 will affect all
+    webapps deployed in the same jvm.</para>
+  </section>
+
+  <section xml:id="servlet-container-initializers">
+    <title>ServletContainerInitializers</title>
+
+    <para><link
+    xl:href="http://docs.oracle.com/javaee/6/api/javax/servlet/ServletContainerInitializer.html">javax.servlet.ServletContainerInitializers</link>
+    can exist in: the container's classpath, the webapp's WEB-INF/classes
+    directory, the webapp's WEB-INF/lib jars, or any external <link
+    linkend="using-extra-classpath-method">extraClasspath</link> that you have
+    configured on the webapp.</para>
+
+    <para>The <link
+    xl:href="http://jcp.org/aboutJava/communityprocess/final/jsr340/">Servlet
+    Specification</link> does not define any order in which these
+    ServletContainerInitializers must be called when the webapp starts. Since
+    jetty-9.1.0.RC1, by default Jetty will call them in the following
+    order:</para>
+
+    <orderedlist>
+      <listitem>
+        <para>ServletContainerInitializers from the container's
+        classpath</para>
+      </listitem>
+
+      <listitem>
+        <para>ServletContainerInitializers from WEB-INF/classes </para>
+      </listitem>
+
+      <listitem>
+        <para>ServletContainerInitializers from WEB-INF/lib jars i<emphasis>n
+        the order established in web.xml</emphasis>, or in the order that the
+        SCI is returned by the <link
+        xl:href="http://docs.oracle.com/javase/6/docs/api/java/util/ServiceLoader.html">javax.util.ServiceLoader</link>
+        if there is <emphasis>no</emphasis> ordering</para>
+      </listitem>
+    </orderedlist>
+
+    <para>As is the case with annotation scanning, the <link
+    linkend="using-extra-classpath-method">extraClasspath</link> is fully
+    considered for ServletContainerInitializer callbacks.
+    ServletContainerInitializers derived from a classes dir on the
+    extraClasspath and jars from an extraClasspath for the webapp are called
+    in step 2 and 3 respectively.</para>
+
+    <para>If you need ServletContainerInitializers called in a specific order
+    that is different from that outlined above, then you can use the <link
+    linkend="context_attributes">context attribute</link>
+    <code>org.eclipse.jetty.containerInitializerOrder</code>. Set it to a list
+    of comma separated class names of ServletContainerInitializers in the
+    order that you want them applied. You may optionally use the wildcard
+    character "*" once in the list. It will match all
+    ServletContainerInitializers not explicitly named in the list. Here's an
+    example, setting the context attribute in code (although you can also do
+    the <link linkend="intro-jetty-configuration-webapps">same in
+    xml</link>):</para>
+
+    <programlisting language="java">WebAppContext context = new WebAppContext();
+context.setAttribute("org.eclipse.jetty.containerInitializerOrder", 
+                     "org.eclipse.jetty.websocket.jsr356.server.deploy.WebSocketServerContainerInitializer, com.acme.Foo.MySCI, *");</programlisting>
+
+    <para>In this example, we ensure that the
+    WebSocketServerContainerInitializer is the very first
+    ServletContainerInitializer that is called, followed by MySCI and then any
+    other ServletContainerInitializers that were discovered but not yet
+    called.</para>
   </section>
 </section>

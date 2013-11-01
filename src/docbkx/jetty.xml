@@ -170,7 +170,6 @@ xmlns:ns="http://docbook.org/ns/docbook">
     <xi:include href="configuring/deploying/chapter.xml" />
     <xi:include href="configuring/contexts/chapter.xml" />
     <xi:include href="configuring/connectors/chapter.xml" />
-    <xi:include href="configuring/logging/chapter.xml" />
     <xi:include href="configuring/security/chapter.xml" />
     <xi:include href="configuring/jsp/chapter.xml" />
   </part>
@@ -218,6 +217,8 @@ xmlns:ns="http://docbook.org/ns/docbook">
     <!--xi:include href="administration/security/chapter.xml" /-->
     <!-- Tuning Jetty, Managing GC, etc .. -->
     <xi:include href="administration/tuning/chapter.xml" />
+    <!-- Logging -->
+    <xi:include href="administration/logging/chapter.xml" />
   </part>
 
   <part xml:id="development">

@@ -91,9 +91,9 @@
 
         <listitem>
           <para>A context configuration file that configures and deploys
-          <filename>test.war. The additional configuration includes the
-          context path as well as setting additional descriptors found in the
-          </filename><filename>test.d</filename> directory.</para>
+          <filename>test.war.</filename> The additional configuration includes
+          the context path as well as setting additional descriptors found in
+          the test.d directory.</para>
         </listitem>
       </varlistentry>
 
@@ -112,7 +112,7 @@
         <listitem>
           <para>A directory containing additional configuration files used by
           <filename>test.xml</filename> to inject extra configuration into
-          test.war.</para>
+          <filename>test.war</filename>.</para>
         </listitem>
       </varlistentry>
 
@@ -121,17 +121,92 @@
 
         <listitem>
           <para>A web application demonstration of asynchronous REST to eBay,
-          automatically deployed to /async-rest based on the file name</para>
+          automatically deployed to /async-rest based on the file name.</para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
-        <term><filename>javadoc.xml</filename></term>
+        <term><filename>test-jaas.war</filename></term>
 
         <listitem>
-          <para>A context configuration that deploys as static content the
-          javadoc directory found at <filename>
-          $jetty.home/javadoc</filename></para>
+          <para>A demonstration web application utilising <link
+          linkend="jaas-support">JAAS</link> for authentication.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><filename>test-jaas.xml</filename></term>
+
+        <listitem>
+          <para>A context configuration file that configures
+          <filename>test-jaas.war</filename>. Additional configuration
+          includes setting up the <link
+          linkend="configuring-login-service">LoginService</link> for
+          authentication and authorization.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><filename>test-jndi.war</filename></term>
+
+        <listitem>
+          <para>A demonstration web application showing the use of <link
+          linkend="jndi">JNDI</link>.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><filename>test-jndi.xml</filename></term>
+
+        <listitem>
+          <para>A context configuration file that configures<filename>
+          test-jndi.war</filename>. Additional configuration includes defining
+          objects in the naming space that can be referenced from the
+          webapp.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><filename>test-spec.war</filename></term>
+
+        <listitem>
+          <para>A demonstration web application that shows the use of
+          annotations, fragments, ServletContainerInitializers and other
+          Servlet Specification 3.0/3.1 features.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><filename>test-spec.xml</filename></term>
+
+        <listitem>
+          <para>A context configuration file that configures<filename>
+          test-spec.war</filename>. Additional configuration includes setting
+          up some objects in the naming space that can be referenced by
+          annotations.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><filename>xref-proxy.war</filename></term>
+
+        <listitem>
+          <para>A demonstration web application that uses a transparent proxy
+          to serve the Jetty src <link
+          xl:href="http://download.eclipse.org/jetty/stable-9/xref/">xref</link>
+          from the Eclipse <link
+          xl:href="http://www.eclipse.org/jetty">website</link>.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><filename>example-moved.xml</filename></term>
+
+        <listitem>
+          <para>A demonstration context configuration file that shows how to
+          use the <link
+          linkend="moved-context-handler">MovedContextHandler</link> to
+          redirect from one path to another.</para>
         </listitem>
       </varlistentry>
     </variablelist>

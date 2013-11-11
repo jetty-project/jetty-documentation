@@ -51,6 +51,7 @@
   <xi:include href="anatomy-of-a-webapp.xml"/>
   <xi:include href="automatic-webapp-deployment.xml"/>
   <xi:include href="configuring-specific-webapp-deployment.xml"/>
+  <xi:include href="deployment-processing-webapps.xml"/>
   <xi:include href="static-content-deployment.xml"/>
   <xi:include href="hot-deployment.xml"/>
   <xi:include href="deployment-architecture.xml"/>

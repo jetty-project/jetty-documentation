@@ -25,18 +25,22 @@
          xmlns:xi="http://www.w3.org/2001/XInclude"
          xmlns:ns2="http://www.w3.org/1998/Math/MathML"
          xmlns:ns="http://docbook.org/ns/docbook">
-  <title>Configuring WebAppContexts</title>
+  <title>Deployment Processing of WebAppContexts</title>
 
   <para>Web applications require a certain amount of processing before they
-  can be deployed: they may need to be unpacked, a special classloader created
-  for their jars, web.xml and web-fragment.xml descriptors processed, and
-  classes scanned for annotations amongst many other things. As web
+  can go into service: they may need to be unpacked, a special classloader
+  created for their jars, web.xml and web-fragment.xml descriptors processed,
+  and classes scanned for annotations amongst many other things. As web
   applications have become more complex, we have added ways to help you
   customize by either broadening or lessening the amount of processing that is
-  done at deployment time. The two principal means for doing this are<link
-  xl:href="@JDURL@/org/eclipse/jetty/webapp/Configuration.html">
-  org.eclipse.jetty.webapp.Configuration</link> classes and some context
-  attributes.</para>
+  done at deployment time. In this section we will look at this processing,
+  and how you can tailor it.</para>
+
+  <para>If instead you're looking for information on how to configure a
+  specific WebAppContext - such as its context path, whether it should be
+  unpacked or not - then you can find that in the section entitled <link
+  linkend="configuring-specific-webapp-deployment">Configuring a Specific
+  WebApp Deployment</link>.</para>
 
   <section xml:id="webapp-configurations">
     <title>Configuration Classes</title>

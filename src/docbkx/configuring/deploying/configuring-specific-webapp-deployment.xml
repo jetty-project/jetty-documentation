@@ -143,8 +143,8 @@
       <code>setAttribute</code> method to set a Servlet context attribute.
       However, since the <filename> web.xml</filename> for the web application
       is processed after the deployment descriptor, the <filename>
-      web.xml</filename> values overwrite identically named attributes from the
-      deployment descriptor.</para>
+      web.xml</filename> values overwrite identically named attributes from
+      the deployment descriptor.</para>
 
       <informalexample>
         <programlisting language="xml">&lt;?xml version="1.0"  encoding="ISO-8859-1"?&gt;
@@ -164,10 +164,10 @@
 
       <para>The following example sets a special <filename>web.xml</filename>
       override descriptor. This descriptor is processed after the web
-      application's <filename>web.xml</filename>, so it may override identically named
-      attributes. This feature is useful if you want to add parameters or
-      additional Servlet mappings without breaking open a packed WAR
-      file.</para>
+      application's <filename>web.xml</filename>, so it may override
+      identically named attributes. This feature is useful if you want to add
+      parameters or additional Servlet mappings without breaking open a packed
+      WAR file.</para>
 
       <informalexample>
         <programlisting language="xml">&lt;?xml version="1.0"  encoding="ISO-8859-1"?&gt;
@@ -209,6 +209,17 @@
   &lt;/Arg&gt;
 &lt;/New&gt;        </programlisting>
       </informalexample>
+
+      <para>There are many other settings that you can change on a <link
+      xl:href="@JDURL@/org/eclipse/jetty/webapp/WebAppContext.html"><code>WebAppContext</code></link>.
+      The <link
+      xl:href="@JDURL@/org/eclipse/jetty/webapp/WebAppContext.html">javadoc</link>
+      for WebAppContext is a good source of information. Also see the
+      documentation on <link linkend="troubleshooting-zip-exceptions">avoiding
+      zip file exceptions</link> for a description of WebAppContext settings
+      that determine such things as whether or not the war is automatically
+      unpacked during deployment, or whether certain sections of a webapp are
+      copied to a temporary location.</para>
     </section>
   </section>
 </section>

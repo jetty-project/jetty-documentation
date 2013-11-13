@@ -29,15 +29,16 @@
 
   <para>Starting with Jetty 9.1, it is now possible to maintain a separation
   between the binary installation of the standalone Jetty (known as
-  ${jetty.home}), and the customizations for your specific environment (known
-  as ${jetty.base}).</para>
+  <filename>${jetty.home}</filename>), and the customizations for your
+  specific environment (known as <filename>${jetty.base}</filename>).</para>
 
   <variablelist>
     <varlistentry>
       <term>Jetty Base</term>
 
       <listitem>
-        <para>Also known as the ${jetty.base} property</para>
+        <para>Also known as the <filename>${jetty.base}</filename>
+        property</para>
 
         <para>This is the location for your configurations and customizations
         to the Jetty distribution.</para>
@@ -48,7 +49,8 @@
       <term>Jetty Home</term>
 
       <listitem>
-        <para>Also known as the ${jetty.home} property.</para>
+        <para>Also known as the <filename>${jetty.home}</filename>
+        property.</para>
 
         <para>This is the location for the Jetty distribution binaries,
         default XML IoC configurations, and default module definitions.</para>
@@ -310,7 +312,7 @@ jetty.dump.stop=false
 
     <para>When Jetty's <filename>start.jar</filename> resolves the entries in
     the start.ini, it will follow the <link
-    linkend="base-vs-home-resolution">resolution rules above</link>. </para>
+    linkend="base-vs-home-resolution">resolution rules above</link>.</para>
 
     <para>For example, the reference to
     <filename>etc/demo-rewrite-rules.xml</filename> was found in
@@ -324,9 +326,11 @@ jetty.dump.stop=false
     behavior of this separation.</para>
 
     <para>The Jetty start.jar and XML files always assume that both
-    ${jetty.home} and ${jetty.base} are defined when starting Jetty.</para>
+    <filename>${jetty.home}</filename> and <filename>${jetty.base}</filename>
+    are defined when starting Jetty.</para>
 
-    <para>You can opt to manually define the ${jetty.home} and ${jetty.base}
+    <para>You can opt to manually define the
+    <filename>${jetty.home}</filename> and <filename>${jetty.base}</filename>
     directories, such as this:</para>
 
     <screen><![CDATA[[jetty-distribution-${project.version}]$ pwd
@@ -342,6 +346,11 @@ jetty.dump.stop=false
     <para>Or you can declare one directory and let the other one be
     discovered.</para>
 
+    <para>The following example uses default discovery of
+    <filename>${jetty.home}</filename> by using the parent directory of
+    wherever start.jar itself is, and a manual declaration of
+    <filename>${jetty.base}</filename>.</para>
+
     <screen><![CDATA[[jetty-distribution-${project.version}]$ pwd
 /home/user/jetty-distribution-${project.version}
 [jetty-distribution-${project.version}]$ java -jar start.jar jetty.base=/home/user/my-base
@@ -354,6 +363,11 @@ jetty.dump.stop=false
     directory that is your ${jetty.base} and starting Jetty by referencing the
     start.jar remotely.</para>
 
+    <para>The following demonstrates this by allowing default discovery of
+    <filename>${jetty.home}</filename> via locating the
+    <filename>start.jar</filename>, and using the <literal>user.dir</literal>
+    System Property for <filename>${jetty.base}</filename>.</para>
+
     <screen><![CDATA[[jetty-distribution-${project.version}]$ pwd
 /home/user/jetty-distribution-${project.version}
 [jetty-distribution-${project.version}]$ cd /home/user/my-base
@@ -364,13 +378,14 @@ jetty.dump.stop=false
 ]]></screen>
 
     <important>
-      <para>Be aware of the ${user.dir} system property, it can only be safely
-      set when the JVM starts, and many 3rd party libraries (especially
-      logging) use this system property.</para>
+      <para>Be aware of the <literal>user.dir</literal> system property, it
+      can only be safely set when the JVM starts, and many 3rd party libraries
+      (especially logging) use this system property.</para>
 
       <para>It is strongly recommended that you sit in the directory that is
-      your desired ${jetty.base} when starting Jetty to have consistent
-      behavior and use of the ${user.dir} system property.</para>
+      your desired <filename>${jetty.base}</filename> when starting Jetty to
+      have consistent behavior and use of the <literal>user.dir</literal>
+      system property.</para>
     </important>
   </section>
 </section>

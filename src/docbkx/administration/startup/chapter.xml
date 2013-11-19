@@ -66,8 +66,4 @@
   <!-- starting jetty as service on windows -->
 
   <xi:include href="startup-windows-service.xml"/>
-
-  <!-- TODO: remove when content is migrated to new sections -->
-
-  <xi:include href="start-features.xml"/>
 </chapter>

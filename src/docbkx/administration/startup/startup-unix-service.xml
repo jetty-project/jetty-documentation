@@ -16,7 +16,7 @@
 //  You may elect to redistribute this code under either of these licenses.
 //  ========================================================================
 -->
-<section role="NotInToc" status="draft" version="5.0"
+<section version="5.0"
          xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd"
          xml:id="startup-unix-service" xmlns="http://docbook.org/ns/docbook"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -25,7 +25,273 @@
          xmlns:xi="http://www.w3.org/2001/XInclude"
          xmlns:ns2="http://www.w3.org/1998/Math/MathML"
          xmlns:ns="http://docbook.org/ns/docbook">
-  <title>Startup via Unix Service</title>
+  <title>Startup a Unix Service using jetty.sh</title>
 
-  <para>[details on how to startup as a unix service]</para>
+  <para>The Standalone Jetty distribution ships with a
+  <filename>bin/jetty.sh</filename> script that can be used by various Unix
+  (including OSX) to manage jetty startup.</para>
+
+  <para>This script is suitable for setting up Jetty as a service in
+  Unix.</para>
+
+  <section>
+    <title>Quick-Start a Jetty Service</title>
+
+    <para>The minimum steps to get Jetty to run as a Service</para>
+
+    <screen><![CDATA[[/opt/jetty]# tar -zxf /home/user/downloads/jetty-distribution-${project.version}.tar.gz 
+[/opt/jetty]# cd jetty-distribution-${project.version}/
+[/opt/jetty/jetty-distribution-${project.version}]# ls
+bin        lib                         modules      resources  start.jar
+demo-base  license-eplv10-aslv20.html  notice.html  start.d    VERSION.txt
+etc        logs                        README.TXT   start.ini  webapps
+
+[/opt/jetty/jetty-distribution-${project.version}]# cp bin/jetty.sh /etc/init.d/jetty
+[/opt/jetty/jetty-distribution-${project.version}]# cd /opt/jetty
+
+[/opt/jetty]# echo JETTY_HOME=`pwd` > /etc/default/jetty
+[/opt/jetty]# cat /etc/default/jetty 
+JETTY_HOME=/opt/jetty/jetty-distribution-${project.version}
+
+[/opt/jetty]# service jetty start
+Starting Jetty: OK Wed Nov 20 10:26:53 MST 2013]]></screen>
+
+    <para>From this simple demonstration we can see that Jetty started
+    successfully as a Unix Service from the
+    <filename>/opt/jetty/jetty-distribution-${project.version}</filename>
+    directory.</para>
+
+    <para>This looks all fine and dandy, however you are running a default
+    Jetty on the root user id.</para>
+  </section>
+
+  <section>
+    <title>Practical Setup of a Jetty Service</title>
+
+    <para>There are various ways this can be accomplished, mostly depending on
+    your Unix environment (and possibly corporate policies)</para>
+
+    <para>The techniques outlined here assume an installation on Linux
+    (demonstrated on Ubuntu 12.04.3 LTS).</para>
+
+    <simplesect>
+      <title>Prepare System</title>
+
+      <para>Prepare some empty directories to work with.</para>
+
+      <screen><![CDATA[# mkdir -p /opt/jetty
+# mkdir -p /opt/web/mybase]]></screen>
+
+      <para>The <filename>/opt/jetty</filename> directory is where the Jetty
+      Distribution will be unpacked.</para>
+
+      <para>The <filename>/opt/web/mybase</filename> is where your specific
+      webapp will be configured.</para>
+
+      <para>Make sure you have Java 7 installed.</para>
+
+      <screen><![CDATA[# java -version
+java version "1.6.0_27"
+OpenJDK Runtime Environment (IcedTea6 1.12.6) (6b27-1.12.6-1ubuntu0.12.04.2)
+OpenJDK 64-Bit Server VM (build 20.0-b12, mixed mode)
+
+# update-alternatives --list java
+/usr/lib/jvm/java-6-openjdk-amd64/jre/bin/java
+/usr/lib/jvm/java-7-openjdk-amd64/jre/bin/java
+
+# update-alternatives --config java
+There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-6-openjdk-amd64/jre/bin/java   1061      auto mode
+  1            /usr/lib/jvm/java-6-openjdk-amd64/jre/bin/java   1061      manual mode
+  2            /usr/lib/jvm/java-7-openjdk-amd64/jre/bin/java   1051      manual mode
+
+Press enter to keep the current choice[*], or type selection number: 2
+update-alternatives: using /usr/lib/jvm/java-7-openjdk-amd64/jre/bin/java to provide /usr/bin/java (java) in manual mode.
+
+# java -version
+java version "1.7.0_25"
+OpenJDK Runtime Environment (IcedTea 2.3.10) (7u25-2.3.10-1ubuntu0.12.04.2)
+OpenJDK 64-Bit Server VM (build 23.7-b01, mixed mode)]]></screen>
+    </simplesect>
+
+    <simplesect>
+      <title>Create a User to Run Jetty</title>
+
+      <para>It is recommended that you create a user to specifically run
+      Jetty. This user should have the minimum set of privileges needed to run
+      Jetty.</para>
+
+      <screen><![CDATA[# useradd --user-group --shell /bin/false --home-dir /opt/jetty/temp jetty]]></screen>
+
+      <para>This will create a user called <literal>jetty</literal>, belonging
+      to the group called <literal>jetty</literal>, with no shell access (aka
+      <filename>/bin/false</filename>), and home directory at
+      <filename>/opt/jetty/temp</filename>.</para>
+    </simplesect>
+
+    <simplesect>
+      <title>Download and Unpack Your Distribution</title>
+
+      <para>Grab a copy of the distribution from the <link
+      linkend="jetty-downloading">Official Eclipse Download Site</link>
+      </para>
+
+      <para>Unpack it into place.</para>
+
+      <screen><![CDATA[[/opt/jetty]# tar -zxf /home/user/Downloads/jetty-distribution-9.1.0.v20131115.tar.gz 
+[/opt/jetty]# ls -F
+jetty-distribution-9.1.0.v20131115/
+[/opt/jetty]# mkdir /opt/jetty/temp]]></screen>
+
+      <para>It might seem strange or undesirable to unpack the first portion
+      of the jetty-distribution directory name too. But starting with Jetty
+      9.1 the split between <filename>${jetty.home}</filename> and
+      <filename>${jetty.base}</filename> allows for easier upgrades of Jetty
+      itself while isolating your webapp specific configuration.</para>
+
+      <para>The <filename>/opt/jetty/temp</filename> directory is created as a
+      durable place for Jetty to use for temp and working directories. Many
+      Unix systems will periodically clean out the /tmp directory, this
+      behavior is undesired in a Servlet container and has been known to cause
+      problems. This durable directory at <filename>/opt/jetty/temp</filename>
+      solves for that behavior.</para>
+    </simplesect>
+
+    <simplesect>
+      <title>Configure your WebApp base</title>
+
+      <para>The directory at <filename>/opt/web/mybase</filename> is going to
+      be a <filename>${jetty.base}</filename>, so lets configure it to hold
+      your webapp and its configuration.</para>
+
+      <tip>
+        <para>In past versions of Jetty, you would configure / modify / add to
+        the jetty-distribution directory directly. While this is still
+        supported, we encourage you to setup a proper
+        <filename>${jetty.base}</filename> directory, as it will benefit you
+        with easier jetty-distribution upgrades in the future.</para>
+      </tip>
+
+      <screen><![CDATA[# cd /opt/web/mybase/
+[/opt/web/mybase]# ls
+[/opt/web/mybase]# java -jar /opt/jetty/jetty-distribution-9.1.0.v20131115/start.jar \
+   --add-to-start=deploy,http,logging
+WARNING: deploy          initialised in ${jetty.base}/start.ini (appended)
+WARNING: deploy          enabled in     ${jetty.base}/start.ini
+WARNING: server          initialised in ${jetty.base}/start.ini (appended)
+WARNING: server          enabled in     ${jetty.base}/start.ini
+WARNING: http            initialised in ${jetty.base}/start.ini (appended)
+WARNING: http            enabled in     ${jetty.base}/start.ini
+WARNING: server          enabled in     ${jetty.base}/start.ini
+WARNING: logging         initialised in ${jetty.base}/start.ini (appended)
+WARNING: logging         enabled in     ${jetty.base}/start.ini
+[/opt/web/mybase]# ls -F
+start.ini  webapps/]]></screen>
+
+      <para>At this point you have configured your mybase to support a basic
+      webapps, with automatic deployment while listening on the the standard
+      HTTP connector, and logging to its logs directory.</para>
+
+      <para>See <link linkend="???">Using start.jar</link> for more details
+      and options on setting up and configuring a
+      <filename>${jetty.base}</filename> directory.</para>
+
+      <para>Copy your war file into place.</para>
+
+      <screen><![CDATA[# cp /home/user/projects/mywebsite.war /opt/web/mybase/webapps/]]></screen>
+
+      <para>Most service installations will want jetty to run on port 80, now
+      is your oportunity to change this from the default value of
+      <literal>8080</literal> to <literal>80</literal>.</para>
+
+      <para>Edit the <filename>/opt/web/mybase/start.ini</filename> and change
+      the <literal>jetty.port</literal> value.</para>
+
+      <screen><![CDATA[# grep jetty.port /opt/web/mybase/start.ini
+jetty.port=80]]></screen>
+    </simplesect>
+
+    <simplesect>
+      <title>Change Permissions</title>
+
+      <para>Change the permissions on the Jetty distribution, and your webapp
+      directories so that the user you created can access it.</para>
+
+      <screen><![CDATA[# chown --recursive jetty /opt/jetty
+# chown --recursive jetty /opt/web/mybase
+]]></screen>
+    </simplesect>
+
+    <simplesect>
+      <title>Configure the Service Layer</title>
+
+      <para>Next we need to make the Unix System aware that we have a new
+      Jetty Service that can be managed by the standard
+      <filename>service</filename> calls.</para>
+
+      <screen><![CDATA[# cp /opt/jetty/jetty-distribution-9.1.0.v20131115/bin/jetty.sh /etc/init.d/jetty
+# echo "JETTY_HOME=/opt/jetty/jetty-distribution-9.1.0.v20131115" > /etc/default/jetty
+# echo "JETTY_BASE=/opt/web/mybase" >> /etc/default/jetty
+# echo "TMPDIR=/opt/jetty/temp" >> /etc/default/jetty]]></screen>
+
+      <para>Test out the configuration</para>
+
+      <screen><![CDATA[# service jetty status
+Checking arguments to Jetty: 
+START_INI      =  /opt/web/mybase/start.ini
+JETTY_HOME     =  /opt/jetty/jetty-distribution-9.1.0.v20131115
+JETTY_BASE     =  /opt/web/mybase
+JETTY_CONF     =  /opt/jetty/jetty-distribution-9.1.0.v20131115/etc/jetty.conf
+JETTY_PID      =  /var/run/jetty.pid
+JETTY_START    =  /opt/jetty/jetty-distribution-9.1.0.v20131115/start.jar
+JETTY_LOGS     =  /opt/web/mybase/logs
+CLASSPATH      =  
+JAVA           =  /usr/bin/java
+JAVA_OPTIONS   =  -Djetty.state=/opt/web/mybase/jetty.state 
+       -Djetty.logs=/opt/web/mybase/logs
+       -Djetty.home=/opt/jetty/jetty-distribution-9.1.0.v20131115 
+       -Djetty.base=/opt/web/mybase 
+       -Djava.io.tmpdir=/opt/jetty/temp
+JETTY_ARGS     =  jetty-logging.xml jetty-started.xml
+RUN_CMD        =  /usr/bin/java 
+       -Djetty.state=/opt/web/mybase/jetty.state 
+       -Djetty.logs=/opt/web/mybase/logs 
+       -Djetty.home=/opt/jetty/jetty-distribution-9.1.0.v20131115 
+       -Djetty.base=/opt/web/mybase 
+       -Djava.io.tmpdir=/opt/jetty/temp
+       -jar /opt/jetty/jetty-distribution-9.1.0.v20131115/start.jar 
+       jetty-logging.xml 
+       jetty-started.xml
+]]></screen>
+    </simplesect>
+
+    <simplesect>
+      <title>Start Your Service</title>
+
+      <para>You now have a configured <filename>${jetty.base}</filename> in
+      <filename>/opt/web/mybase</filename> and a jetty-distribution in
+      <filename>/opt/jetty/jetty-distribution-${project.version}</filename>,
+      along with the service level files necessary to start the
+      service.</para>
+
+      <para>Go ahead, start it.</para>
+
+      <screen><![CDATA[# service jetty start
+Starting Jetty: OK Wed Nov 20 12:35:28 MST 2013
+
+# service jetty check
+..(snip)..
+Jetty running pid=2958
+
+[/opt/web/mybase]# ps u 2958
+USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+jetty     2958  5.3  0.1 11179176 53984 ?      Sl   12:46   0:00 /usr/bin/java -Djetty...
+]]></screen>
+
+      <para>You should now have your server running. Try it out</para>
+    </simplesect>
+  </section>
 </section>

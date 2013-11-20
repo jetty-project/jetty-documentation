@@ -51,13 +51,9 @@
 
   <xi:include href="start-jar.xml"/>
 
-  <!-- troubleshooting startup -->
-
+  <!-- troubleshooting startup
   <xi:include href="startup-troubleshooting.xml"/>
-
-  <!-- starting jetty via bin/jetty.sh -->
-
-  <xi:include href="startup-jetty-sh.xml"/>
+    -->
 
   <!-- starting jetty as unix service -->
 

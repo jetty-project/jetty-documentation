@@ -30,10 +30,10 @@
   <section xml:id="elastic-beanstalk-overview">
     <title>Overview</title>
     <para>
-      Elastic beanstalk has a very <link xl:href="http://aws.amazon.com/about-aws/whats-new/2012/10/02/introducing-aws-elastic-beanstalk-configuration-files/">powerful configuration mechanism</link>elast so this integration taps into that to effectively rework the tomcat configuration and replace it with the bits required to make jetty run in its place. Below is a walk through of what the various configuration files are doing and how the general flow of configuration on beanstalk happens.
+      Elastic beanstalk has a very <link xl:href="http://aws.amazon.com/about-aws/whats-new/2012/10/02/introducing-aws-elastic-beanstalk-configuration-files/">powerful configuration mechanism</link> so this integration taps into that to effectively rework the tomcat configuration and replace it with the bits required to make jetty run in its place. Below is a walk through of what the various configuration files are doing and how the general flow of configuration on beanstalk happens.
     </para>
     <para>
-      There is an .ebextensions directory in your beanstalk application which contains all of the files requires to configure and customize your beanstalk and application combo. Files that end in .config in this directory are processed in alphabetical order.
+      There is an <filename>.ebextensions</filename> directory in your beanstalk application which contains all of the files requires to configure and customize your beanstalk and application combo. Files that end in .config in this directory are processed in alphabetical order.
     </para>
     <variablelist>
       <varlistentry>
@@ -64,13 +64,13 @@
         <term>12-beanstalk.config</term>
         <listitem>
           <para>
-            handles replaceing tomcat with jetty in many configuration files, configures logging and wires up system startup processes. Some files in your <filename>.ebextensions</filename> direction are moved to replace files under /opt/elasticbeanstalk.
+            handles replacing tomcat with jetty in many configuration files, configures logging and wires up system startup processes. Some files in your <filename>.ebextensions</filename> directory are moved to replace files under /opt/elasticbeanstalk.
           </para>
         </listitem>
       </varlistentry>
     </variablelist>
     <para>
-      If you look in the .ebextensions of your application you should also see other jetty specific xml and ini files. The final config file handles these as they are largely customization for your application.
+      If you look in the <filename>.ebextensions</filename> directory of your application you should also see other jetty specific xml and ini files. The final config file handles these as they are largely customization for your application.
     </para>
     <variablelist>
       <varlistentry>
@@ -83,7 +83,7 @@
       </varlistentry>
     </variablelist>
     <para>
-      The files in our example test webapp here enable various OPTIONS for libraries that need loaded, customize the root application being deployed and even deploy additional contexts like we do in our jetty distribution demo. This is also the mechanism that you would use to wire up application specific things, for example if you needed additional software installed, customized directories made, etc.
+      The files in our example test webapp here enable various OPTIONS for libraries that need to be loaded, customize the root application being deployed and even deploy additional contexts like we do in our jetty distribution demo. This is also the mechanism that you would use to wire up application specific things, for example if you needed additional software installed, customized directories made, etc.
     </para>
   </section>
     <section xml:id="elastic-beanstalk-maven">
@@ -104,7 +104,7 @@
           <term>jetty-beanstalk-resources</term>
           <listitem>
             <para>
-              This generates and artifact of files that are downloaded by the configuration process and contains replacements for certain beanstalk files as well as various system level jetty configuration files like an updated <filename>jetty.sh</filename> script for the <filename>/etc/init.d</filename> setup.
+              This generates an artifact of files that are downloaded by the configuration process and contains replacements for certain beanstalk files as well as various system level jetty configuration files like an updated <filename>jetty.sh</filename> script for the <filename>/etc/init.d</filename> setup.
             </para>
           </listitem>
         </varlistentry>
@@ -112,7 +112,7 @@
           <term>jetty-beanstalk-testapp</term>
           <listitem>
             <para>
-              An example webapp that shows both how to combine war file from another maven module with the jetty-beanstalk-overlay to produce a beanstalk enabled application bundle. Also included in this is examples of how to alter jetty configuration for things like a customized <filename>start.ini</filename> file and the like.
+              An example webapp that shows both how to combine the war file from another maven module with the jetty-beanstalk-overlay to produce a beanstalk enabled application bundle. Also included is examples of how to alter the jetty configuration for things like a customized <filename>start.ini</filename> file.
             </para>
           </listitem>
         </varlistentry>

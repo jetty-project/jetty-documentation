@@ -80,15 +80,59 @@ Starting Jetty: OK Wed Nov 20 10:26:53 MST 2013]]></screen>
       <para>Prepare some empty directories to work with.</para>
 
       <screen><![CDATA[# mkdir -p /opt/jetty
-# mkdir -p /opt/web/mybase]]></screen>
+# mkdir -p /opt/web/mybase
+# mkdir -p /opt/jetty/temp]]></screen>
 
-      <para>The <filename>/opt/jetty</filename> directory is where the Jetty
-      Distribution will be unpacked.</para>
+      <para>The directory purposes are as follows:</para>
 
-      <para>The <filename>/opt/web/mybase</filename> is where your specific
-      webapp will be configured.</para>
+      <variablelist>
+        <varlistentry>
+          <term>/opt/jetty</term>
 
-      <para>Make sure you have Java 7 installed.</para>
+          <listitem>
+            <para>Where the Jetty Distribution will be unpacked into</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>/opt/web/mybase</term>
+
+          <listitem>
+            <para>Where your specific set of webapps will be located,
+            including all of the configuration required of the server to make
+            them operational.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>/opt/jetty/temp</term>
+
+          <listitem>
+            <para>This is the temporary directory assigned to Java by the
+            Service Layer (this is what Java sees as the
+            <code>java.io.tmpdir</code> System Property)</para>
+
+            <para>This is intentionally kept separate from the standard temp
+            directory of <filename>/tmp</filename>, as this location doubles
+            as the Servlet Spec work directory. (It is our experience that the
+            standard temp directory is often managed by various cleanup
+            scripts that wreak havoc on a long running Jetty server</para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </simplesect>
+
+    <simplesect>
+      <title>Make sure you have Java 7 Installed</title>
+
+      <para>Jetty ${project.version} requires Java 7 (or greater) to run. Make
+      sure you have it installed.</para>
+
+      <screen><![CDATA[# apt-get install openjdk-7-jdk]]></screen>
+
+      <para>Or download Java 7 from: <link
+      xl:href="http://www.oracle.com/technetwork/java/javase/downloads/index.html">http://www.oracle.com/technetwork/java/javase/downloads/index.html</link>
+      </para>
 
       <screen><![CDATA[# java -version
 java version "1.6.0_27"
@@ -191,9 +235,45 @@ WARNING: logging         enabled in     ${jetty.base}/start.ini
 [/opt/web/mybase]# ls -F
 start.ini  webapps/]]></screen>
 
-      <para>At this point you have configured your mybase to support a basic
-      webapps, with automatic deployment while listening on the the standard
-      HTTP connector, and logging to its logs directory.</para>
+      <para>At this point you have configured your
+      <filename>/opt/web/mybase</filename> to enable the following
+      modules:</para>
+
+      <variablelist>
+        <varlistentry>
+          <term>deploy</term>
+
+          <listitem>
+            <para>This is the module that will perform deployment of web
+            applications (WAR files or exploded directories), or Jetty IoC XML
+            context deployables, from the
+            <filename>/opt/web/mybase/webapps</filename> directory.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>http</term>
+
+          <listitem>
+            <para>This sets up a single Connector that listens for basic HTTP
+            requests.</para>
+
+            <para>See the created <filename>start.ini</filename> for
+            configuring this connector</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>logging</term>
+
+          <listitem>
+            <para>When running Jetty as a service it is very important to have
+            logging enabled. This module will enable the basic STDOUT and
+            STDERR capture logging to the
+            <filename>/opt/web/mybase/logs/</filename> directory.</para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
 
       <para>See <link linkend="???">Using start.jar</link> for more details
       and options on setting up and configuring a
@@ -204,7 +284,7 @@ start.ini  webapps/]]></screen>
       <screen><![CDATA[# cp /home/user/projects/mywebsite.war /opt/web/mybase/webapps/]]></screen>
 
       <para>Most service installations will want jetty to run on port 80, now
-      is your oportunity to change this from the default value of
+      is your opportunity to change this from the default value of
       <literal>8080</literal> to <literal>80</literal>.</para>
 
       <para>Edit the <filename>/opt/web/mybase/start.ini</filename> and change

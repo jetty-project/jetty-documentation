@@ -79,9 +79,9 @@
 
           <entry>high</entry>
 
-          <entry>&lt;7.6.13,8.1.13,9.0.5</entry>
+          <entry>&gt;=9.0.0 &lt;9.0.5</entry>
 
-          <entry>7.6.14,8.1.14,9.0.6 <link
+          <entry>9.0.6 <link
           xl:href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=418014">418014</link></entry>
 
           <entry>Alias checking disabled by NTFS errors on Windows.</entry>
@@ -99,7 +99,7 @@
 
           <entry>medium</entry>
 
-          <entry>&gt;=7.6.9 </entry>
+          <entry>&gt;=7.6.9 &lt;9.0.5</entry>
 
           <entry>7.6.13,8.1.13,9.0.5 <link
           xl:href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=413684">413684</link></entry>

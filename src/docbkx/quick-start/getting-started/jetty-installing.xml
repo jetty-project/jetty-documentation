@@ -93,7 +93,7 @@
           </row>
 
           <row>
-            <entry>demo-base</entry>
+            <entry>demo-base/</entry>
 
             <entry>A Jetty base directory to run a Jetty server with
             demonstration webapps</entry>
@@ -137,7 +137,7 @@
           </row>
 
           <row>
-            <entry>start.d</entry>
+            <entry>start.d/</entry>
 
             <entry>Directory of *.ini files containing arguments that are
             added to the effective command line (see start.ini)</entry>

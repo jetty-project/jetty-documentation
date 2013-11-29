@@ -38,12 +38,17 @@
 2013-09-06 13:52:43.390:INFO:oejs.ServerConnector:main: Started ServerConnector@2edf362d{HTTP/1.1}{0.0.0.0:8080}</screen></para>
 
   <para>You can point a browser at this server at <link
-  linkend="???">http://localhost:8080</link>. Since release 9.1.0, the jetty
-  distribution does not deploy any demo web applications, so to see a more
-  interesting demonstration of the server you need to run from the demo-base
-  directory as follows:</para>
+  linkend="???">http://localhost:8080</link>.</para>
 
-  <screen><emphasis role="bold">&gt; cd $JETTY_HOME/demo-base/
+  <section xml:id="demo-webapps-base">
+    <title>Demo Base</title>
+
+    <para>Since release 9.1.0, the jetty distribution does not deploy any demo
+    web applications, so to see a more interesting demonstration of the server
+    you need to run from the <filename>demo-base</filename> directory as
+    follows:</para>
+
+    <screen><emphasis role="bold">&gt; cd $JETTY_HOME/demo-base/
 &gt; java -jar ../start.jar</emphasis>
 2013-09-06 13:56:35.939:WARN::main: demo test-realm is deployed. DO NOT USE IN PRODUCTION!
 2013-09-06 13:56:35.943:INFO:oejs.Server:main: jetty-9.1.0-SNAPSHOT
@@ -55,24 +60,25 @@
 2013-09-06 13:56:38.579:INFO:oejs.ServerConnector:main: Started ServerConnector@19e0cb78{HTTP/1.1}{0.0.0.0:8080}
 </screen>
 
-  <para>Pointing a browser at <link
-  linkend="???">http://localhost:8080</link>, will now show a welcome page and
-  several demo/test web applications.</para>
+    <para>Pointing a browser at <link
+    linkend="???">http://localhost:8080</link>, will now show a welcome page
+    and several demo/test web applications.</para>
 
-  <warning>
-    <para>The demonstration web applications are not necessarily secure and
-    should not be deployed in production web servers. </para>
-  </warning>
+    <warning>
+      <para>The demonstration web applications are not necessarily secure and
+      should not be deployed in production web servers.</para>
+    </warning>
+  </section>
 
   <section>
     <title>Creating a new Jetty Base</title>
 
-    <para>The demo-base directory described above is an example of the
-    jetty.base mechanism added in Jetty 9.1. A jetty base allows the
-    configuration and web applications of a server instance to be stored
-    separately from the jetty distribution, so that upgrades can be done with
-    minimal disruption. Jetty's default configuration is based on two
-    properties:</para>
+    <para>The <filename>demo-base</filename> directory described above is an
+    example of the <link linkend="startup-base-and-home">jetty.base</link>
+    mechanism added in Jetty 9.1. A jetty base allows the configuration and
+    web applications of a server instance to be stored separately from the
+    jetty distribution, so that upgrades can be done with minimal disruption.
+    Jetty's default configuration is based on two properties:</para>
 
     <variablelist>
       <varlistentry>
@@ -96,9 +102,9 @@
       </varlistentry>
     </variablelist>
 
-    <para>The jetty.home and jetty.base properties may be explicitly set on
-    the command line, or they can be inferred from the environment if used
-    with commands like:</para>
+    <para>The <code>jetty.home</code> and <code>jetty.base</code> properties
+    may be explicitly set on the command line, or they can be inferred from
+    the environment if used with commands like:</para>
 
     <screen><emphasis role="bold">&gt; cd $JETTY_BASE
 &gt; java -jar $JETTY_HOME/start.jar</emphasis></screen>
@@ -143,7 +149,7 @@ server          initialised in ${jetty.base}/start.d/server.ini
     <filename>start.d/*.ini</filename> files. By default, the jetty
     distribution defines the jetty.port property in the
     <filename>start.d/http.ini</filename> file, which may be edited to set
-    another value. </para>
+    another value.</para>
 
     <note>
       <para>The configuration by properties works via the following
@@ -193,15 +199,15 @@ ext             enabled in     ${jetty.home}/start.ini
 2013-09-06 13:52:43.326:INFO:oejs.Server:main: jetty-9.1.0
 [...]</screen>
 
-    <para>The --add-to-startd command sets up the effective command line in the
-    ini files to run a https connection as follows:</para>
+    <para>The --add-to-startd command sets up the effective command line in
+    the ini files to run a https connection as follows:</para>
 
     <itemizedlist>
       <listitem>
         <para>creates the https.ini file that activates and configures the
         https connector module. The https module adds the
         <filename>etc/jetty-https.xml</filename> file to the effective command
-        line. </para>
+        line.</para>
       </listitem>
 
       <listitem>
@@ -222,8 +228,8 @@ ext             enabled in     ${jetty.home}/start.ini
     <note>
       <para>If a single start.ini file is preferred over individual
       <filename>start.d/*.ini</filename> files, then the option
-      --add-to-start=module may be used to append the module activation to
-      the start.ini file rather than create a file in start.d </para>
+      --add-to-start=module may be used to append the module activation to the
+      start.ini file rather than create a file in start.d</para>
     </note>
   </section>
 
@@ -235,8 +241,8 @@ ext             enabled in     ${jetty.home}/start.ini
     Java classpath and list of properties and configuration files to pass to
     the main class of the Jetty XML configuration mechanism. The
     <code>start.jar</code> mechanism has many options which are documented in
-    <xref linkend="advanced-jetty-start"/> and you can see them in summary by
-    using the command:</para>
+    the <link linkend="startup">startup</link> administration section and you
+    can see them in summary by using the command:</para>
 
     <para><screen>&gt; java -jar start.jar --help</screen></para>
   </section>

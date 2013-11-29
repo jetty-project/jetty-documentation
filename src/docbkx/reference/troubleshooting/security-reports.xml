@@ -70,10 +70,8 @@
         <row>
           <entry>2013/11/27</entry>
 
-          <entry>
-            <link
-            xl:href="http://en.securitylab.ru/lab/PT-2013-65">PT-2013-65</link>
-          </entry>
+          <entry><link
+          xl:href="http://en.securitylab.ru/lab/PT-2013-65">PT-2013-65</link></entry>
 
           <entry>medium</entry>
 
@@ -90,10 +88,8 @@
         <row>
           <entry>2013/07/24</entry>
 
-          <entry>
-            <link
-            xl:href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=413684">413684</link>
-          </entry>
+          <entry><link
+          xl:href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=413684">413684</link></entry>
 
           <entry>low</entry>
 
@@ -111,13 +107,9 @@
         <row>
           <entry>2011/12/29</entry>
 
-          <entry>
-            <link
-            xl:href="http://www.ocert.org/advisories/ocert-2011-003.html">CERT2011-003</link>
-
-            <link
-            xl:href="http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2011-4461">CVE-2011-4461</link>
-          </entry>
+          <entry><link
+          xl:href="http://www.ocert.org/advisories/ocert-2011-003.html">CERT2011-003</link><link
+          xl:href="http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2011-4461">CVE-2011-4461</link></entry>
 
           <entry>high</entry>
 
@@ -135,13 +127,9 @@
         <row>
           <entry>2009/11/05</entry>
 
-          <entry>
-            <link
-            xl:href="http://www.kb.cert.org/vuls/id/120541">CERT2011-003</link>
-
-            <link
-            xl:href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2009-3555">CERT2011-003</link>
-          </entry>
+          <entry><link
+          xl:href="http://www.kb.cert.org/vuls/id/120541">CERT2011-003</link><link
+          xl:href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2009-3555">CERT2011-003</link></entry>
 
           <entry>medium</entry>
 
@@ -159,10 +147,8 @@
         <row>
           <entry>2009/06/18</entry>
 
-          <entry>
-            <link
-            xl:href="http://jira.codehaus.org/browse/JETTY-1042">Jetty-1042</link>
-          </entry>
+          <entry><link
+          xl:href="http://jira.codehaus.org/browse/JETTY-1042">Jetty-1042</link></entry>
 
           <entry>low</entry>
 
@@ -178,10 +164,8 @@
         <row>
           <entry>2009/04/30</entry>
 
-          <entry>
-            <link
-            xl:href="http://www.kb.cert.org/vuls/id/402580">CERT402580</link>
-          </entry>
+          <entry><link
+          xl:href="http://www.kb.cert.org/vuls/id/402580">CERT402580</link></entry>
 
           <entry>medium</entry>
 
@@ -189,14 +173,8 @@
 
           <entry>&lt;=6.1.16, &lt;=7.0.0.M2</entry>
 
-          <entry>
-            <para>5.1.15, 6.1.18, 7.0.0.M2</para>
-
-            <para>
-              <link
-              xl:href="http://jira.codehaus.org/browse/JETTY-1004">Jetty-1004</link>
-            </para>
-          </entry>
+          <entry><para>5.1.15, 6.1.18, 7.0.0.M2</para><para><link
+          xl:href="http://jira.codehaus.org/browse/JETTY-1004">Jetty-1004</link></para></entry>
 
           <entry>View arbitrary disk content in some specific
           configurations.</entry>
@@ -205,13 +183,9 @@
         <row>
           <entry>2007/12/22</entry>
 
-          <entry>
-            <link
-            xl:href="http://www.kb.cert.org/vuls/id/553235">CERT553235</link>
-
-            <link
-            xl:href="http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2007-6672">CVE-2007-6672</link>
-          </entry>
+          <entry><link
+          xl:href="http://www.kb.cert.org/vuls/id/553235">CERT553235</link><link
+          xl:href="http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2007-6672">CVE-2007-6672</link></entry>
 
           <entry>high</entry>
 
@@ -219,14 +193,8 @@
 
           <entry>6.1.rrc0-6.1.6</entry>
 
-          <entry>
-            <para>6.1.7</para>
-
-            <para>
-              <link
-              xl:href="http://jira.codehaus.org/browse/JETTY-386">CERT553235</link>
-            </para>
-          </entry>
+          <entry><para>6.1.7</para><para><link
+          xl:href="http://jira.codehaus.org/browse/JETTY-386">CERT553235</link></para></entry>
 
           <entry>Static content visible in WEB-INF and past security
           constraints.</entry>
@@ -235,13 +203,9 @@
         <row>
           <entry>2007/11/05</entry>
 
-          <entry>
-            <link
-            xl:href="http://www.kb.cert.org/vuls/id/438616">CERT438616</link>
-
-            <link
-            xl:href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2007-5614">CVE-2007-5614</link>
-          </entry>
+          <entry><link
+          xl:href="http://www.kb.cert.org/vuls/id/438616">CERT438616</link><link
+          xl:href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2007-5614">CVE-2007-5614</link></entry>
 
           <entry>low</entry>
 
@@ -257,13 +221,9 @@
         <row>
           <entry>2007/11/05</entry>
 
-          <entry>
-            <link
-            xl:href="http://www.kb.cert.org/vuls/id/237888">CERT237888&gt;</link>
-
-            <link
-            xl:href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2007-5613">CVE-2007-5613</link>
-          </entry>
+          <entry><link
+          xl:href="http://www.kb.cert.org/vuls/id/237888">CERT237888&gt;</link><link
+          xl:href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2007-5613">CVE-2007-5613</link></entry>
 
           <entry>low</entry>
 
@@ -279,13 +239,10 @@
         <row>
           <entry>2007/11/03</entry>
 
-          <entry>
-            <link xl:href="http://www.kb.cert.org/vuls/id/212984">CERT212984
-            &gt;</link>
-
-            <link
-            xl:href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2007-5615">CVE-2007-5615</link>
-          </entry>
+          <entry><link
+          xl:href="http://www.kb.cert.org/vuls/id/212984">CERT212984
+          &gt;</link><link
+          xl:href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2007-5615">CVE-2007-5615</link></entry>
 
           <entry>medium</entry>
 
@@ -301,10 +258,8 @@
         <row>
           <entry>2006/11/22</entry>
 
-          <entry>
-            <link
-            xl:href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2006-6969">CVE-2006-6969</link>
-          </entry>
+          <entry><link
+          xl:href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2006-6969">CVE-2006-6969</link></entry>
 
           <entry>low</entry>
 
@@ -320,10 +275,8 @@
         <row>
           <entry>2006/06/01</entry>
 
-          <entry>
-            <link
-            xl:href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2006-2759">CVE-2006-2759</link>
-          </entry>
+          <entry><link
+          xl:href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2006-2759">CVE-2006-2759</link></entry>
 
           <entry>medium</entry>
 
@@ -355,10 +308,8 @@
         <row>
           <entry>2005/11/18</entry>
 
-          <entry>
-            <link
-            xl:href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2006-2758">CVE-2006-2758</link>
-          </entry>
+          <entry><link
+          xl:href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2006-2758">CVE-2006-2758</link></entry>
 
           <entry>medium</entry>
 
@@ -433,75 +384,6 @@
           <entry>3.1.3</entry>
 
           <entry>Fixed trailing null security constraint bypass.</entry>
-        </row>
-      </tbody>
-    </tgroup>
-  </table>
-
-  <section>
-    <title>Known Jetty 6 Issues</title>
-
-    <para>None</para>
-  </section>
-
-  <table>
-    <title>Known Jetty 5 Issues</title>
-
-    <tgroup cols="2">
-      <colspec colwidth="20*"/>
-
-      <colspec colwidth="30*"/>
-
-      <thead>
-        <row>
-          <entry>ID</entry>
-
-          <entry>Explanation</entry>
-        </row>
-      </thead>
-
-      <tbody>
-        <row>
-          <entry>
-            <link xl:href="http://www.kb.cert.org/vuls/id/237888">CERT
-            237888</link>
-
-            <link
-            xl:href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2007-5613">CVE-2007-5613</link>
-          </entry>
-
-          <entry>The demonstration Dump servlet is vulnerable to cross-site
-          scripting. The Dump servlet from Jetty 5 should not be deployed on
-          production sites.</entry>
-        </row>
-
-        <row>
-          <entry>
-            <link xl:href="http://www.kb.cert.org/vuls/id/438616">CERT
-            438616</link>
-
-            <link
-            xl:href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2007-5614">CVE-2007-5614</link>
-          </entry>
-
-          <entry>HTTP Cookie names are not checked for illegal characters.
-          Unvalidated user data should not be used as the basis of a cookie
-          name in an application served by Jetty 5.</entry>
-        </row>
-
-        <row>
-          <entry>
-            <link xl:href="http://www.kb.cert.org/vuls/id/212984">CERT
-            212984</link>
-
-            <link
-            xl:href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2007-5615">CVE-2007-5615</link>
-          </entry>
-
-          <entry>The HTTP header names and values set by an application are
-          not checked for illegal characters. Unvalidated user data should not
-          be used for either a HTTP header name or a HTTP header
-          value.</entry>
         </row>
       </tbody>
     </tgroup>

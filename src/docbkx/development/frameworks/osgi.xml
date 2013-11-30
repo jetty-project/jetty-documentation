@@ -371,7 +371,7 @@ org.osgi.framework.ServiceReference ref = bc.getServiceReference("org.eclipse.je
 }]]></programlisting>
       </informalexample>
 
-      <para> </para>
+      <para/>
     </section>
   </section>
 
@@ -564,7 +564,7 @@ Bundle-SymbolicName: com.acme.sample.web
       <para>You can further customize your webapp by including a jetty context
       xml file that is applied to the webapp. This xml file must be placed in
       <code>META-INF</code> of the bundle, and must be called
-      <code>jetty-webapp-context.xml</code>. </para>
+      <code>jetty-webapp-context.xml</code>.</para>
 
       <para>Here's an example of a webapp bundle listing containing such a
       file:</para>
@@ -1172,11 +1172,22 @@ public void start(final BundleContext context) throws Exception
       to install the JSP related jars into your OSGi container. You can use
       the jars from the <link
       xl:href="http://repo1.maven.org/maven2/org/eclipse/jetty/jetty-distribution/">jetty
-      distribution</link> in the $JETTY_HOME/lib/jsp directory, or you can
-      download them from <link
+      distribution</link> in the <filename>${jetty.home}/lib/jsp</filename>
+      directory, or you can download them from <link
       xl:href="http://repo1.maven.org/maven2/org/eclipse/jetty/orbit/">maven
       central</link>. Here is the list of recommended jars (NOTE the version
       numbers may change in future):</para>
+
+      <para>Alternatively, the following maven meta artifact will be the most
+      current list of JSP artifacts for the version of Jetty you are working
+      with.</para>
+
+      <screen><![CDATA[<dependency>
+  <groupId>org.eclipse.jetty</groupId>
+  <artifactId>jetty-jsp</artifactId>
+  <version>${project.version}</version>
+  <type>pom</type>
+</dependency>]]></screen>
 
       <table>
         <title>Jars Required for JSP</title>
@@ -1192,31 +1203,25 @@ public void start(final BundleContext context) throws Exception
 
           <tbody>
             <row>
-              <entry>com.sun.el-2.2.0.v201303151357.jar</entry>
-
-              <entry>com.sun.el</entry>
-            </row>
-
-            <row>
-              <entry>javax.el-2.2.0.v201303151357.jar</entry>
+              <entry>javax.el-3.0.0.ja</entry>
 
               <entry>javax.el</entry>
             </row>
 
             <row>
-              <entry>javax.servlet.jsp-2.2.0.v201112011158.jar</entry>
+              <entry>javax.servlet.jsp-api-2.3.1.jar</entry>
 
               <entry>javax.servlet.jsp</entry>
             </row>
 
             <row>
-              <entry>javax.servlet.jsp.jstl-1.2.0.v201105211821.jar</entry>
+              <entry>javax.servlet.jsp.jstl-1.2.0.v201105211821.jar </entry>
 
               <entry>javax.servlet.jsp.jstl</entry>
             </row>
 
             <row>
-              <entry>org.apache.jasper.glassfish-2.2.2.v201112011158.jar</entry>
+              <entry>javax.servlet.jsp-2.3.2.jar</entry>
 
               <entry>org.apache.jasper.glassfish</entry>
             </row>

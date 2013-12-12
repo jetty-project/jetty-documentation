@@ -67,7 +67,7 @@
       context attribute <code>org.eclipse.jetty.webapp.basetempdir</code> to
       the name of the desired parent directory. The directory named by this
       attribute <emphasis>must</emphasis> exist and be
-      <emphasis>writeable</emphasis>. </para>
+      <emphasis>writeable</emphasis>.</para>
 
       <para>As usual with Jetty, you can either set this attribute in a
       context xml file, or you can do it in code. Here's an example of setting
@@ -167,6 +167,24 @@ context.setAttribute("javax.servlet.context.tempdir", "/some/dir/foo");</program
       concerning caching of jar contents: <link
       xl:href="http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=4774421">http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=4774421</link></para>
     </note>
+  </section>
+
+  <section>
+    <title>The "work" directory</title>
+
+    <para>Mostly for backward compatibility, from jetty-9.1.1 onwards, it will
+    be possible to create a directory named "work" in the ${jetty.base}
+    directory. If such a directory is found, it is assumed you want to use it
+    as the parent directory for all of the temporary directories of the
+    webapps in that ${jetty.base}. Moreover, as has historically been the
+    case, these temp directories inside the work directory are not cleaned up
+    when jetty exists (or more correctly speaking, the temp dir corresponding
+    to a context is not cleaned up when that context stops). </para>
+
+    <para>When a work directory is used, the algorithm for generating the name
+    of the context-specific temp dirs omits the random digit string. This
+    ensures the name of the dir remains consistent across context
+    restarts.</para>
   </section>
 
   <section>

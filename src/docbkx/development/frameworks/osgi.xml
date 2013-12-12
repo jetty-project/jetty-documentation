@@ -111,6 +111,18 @@
 
             <entry>org.eclipse.jetty.xml</entry>
           </row>
+
+          <row>
+            <entry>servlet-api (minimum version 3.1.0)</entry>
+
+            <entry>javax.servlet-api</entry>
+          </row>
+
+          <row>
+            <entry>jetty-schemas (minimum version 3.1.M0)</entry>
+
+            <entry> org.eclipse.jetty.schemas</entry>
+          </row>
         </tbody>
       </tgroup>
     </table>
@@ -167,22 +179,22 @@
             configure the Jetty container on startup. For example:</para>
 
             <informalexample>
-              <programlisting language="plain"><![CDATA[
+              <programlisting language="plain">
                 jetty.home=/opt/custom/jetty
-              ]]></programlisting>
+              </programlisting>
             </informalexample>
 
             <para>Where <code>/opt/custom/jetty</code> contains:</para>
 
             <informalexample>
-              <programlisting language="plain"><![CDATA[
+              <programlisting language="plain">
 
 etc/jetty.xml
 etc/jetty-selector.xml
 etc/jetty-deployer.xml
 etc/jetty-special.xml
 
-              ]]></programlisting>
+              </programlisting>
             </informalexample>
           </listitem>
         </varlistentry>
@@ -202,18 +214,18 @@ etc/jetty-special.xml
             configuration files. Here's how you would specify it:</para>
 
             <informalexample>
-              <programlisting language="plain"><![CDATA[jetty.home.bundle=org.eclipse.jetty.osgi.boot]]></programlisting>
+              <programlisting language="plain">jetty.home.bundle=org.eclipse.jetty.osgi.boot</programlisting>
             </informalexample>
 
             <para>Here's a partial listing of that jar that shows you the
             names of the xml files contained within it:</para>
 
             <informalexample>
-              <programlisting language="plain"><![CDATA[META-INF/MANIFEST.MF
+              <programlisting language="plain">META-INF/MANIFEST.MF
 jettyhome/etc/jetty.xml
 jettyhome/etc/jetty-deployer.xml
 jettyhome/etc/webdefault.xml
-jettyhome/etc/jetty-selector.xml]]></programlisting>
+jettyhome/etc/jetty-selector.xml</programlisting>
             </informalexample>
           </listitem>
         </varlistentry>
@@ -226,7 +238,7 @@ jettyhome/etc/jetty-selector.xml]]></programlisting>
             used. If not specified, they default to:</para>
 
             <informalexample>
-              <programlisting langauge="plain"><![CDATA[etc/jetty.xml,etc/jetty-selector.xml,etc/jetty-deployer.xml]]></programlisting>
+              <programlisting langauge="plain">etc/jetty.xml,etc/jetty-selector.xml,etc/jetty-deployer.xml</programlisting>
             </informalexample>
 
             <para>Note that the paths can either be relative or absolute, or a
@@ -240,7 +252,7 @@ jettyhome/etc/jetty-selector.xml]]></programlisting>
             <code>/opt/jetty</code>:</para>
 
             <informalexample>
-              <programlisting><![CDATA[etc/jetty.xml, etc/jetty-selector.xml, /opt/jetty/etc/jetty-ssl.xml, /opt/jetty/etc/jetty-https.xml, etc/jetty-deployer.xml]]></programlisting>
+              <programlisting>etc/jetty.xml, etc/jetty-selector.xml, /opt/jetty/etc/jetty-ssl.xml, /opt/jetty/etc/jetty-https.xml, etc/jetty-deployer.xml</programlisting>
             </informalexample>
 
             <para>Note that regardless of whether you set the <emphasis
@@ -268,12 +280,12 @@ jettyhome/etc/jetty-selector.xml]]></programlisting>
       can retrieve a reference to it using the usual OSGi API:</para>
 
       <informalexample>
-        <programlisting language="java"><![CDATA[
+        <programlisting language="java">
 
 org.osgi.framework.BundleContext bc;
 org.osgi.framework.ServiceReference ref = bc.getServiceReference("org.eclipse.jetty.server.Server");
 
-        ]]></programlisting>
+        </programlisting>
       </informalexample>
 
       <para>The Server service has a couple of properties associated with it
@@ -324,7 +336,7 @@ org.osgi.framework.ServiceReference ref = bc.getServiceReference("org.eclipse.je
       configure it so it can be a deployment target:</para>
 
       <informalexample>
-        <programlisting language="java"><![CDATA[public class Activator implements BundleActivator
+        <programlisting language="java">public class Activator implements BundleActivator
 {
 
     public void start(BundleContext context) throws Exception
@@ -344,7 +356,7 @@ org.osgi.framework.ServiceReference ref = bc.getServiceReference("org.eclipse.je
        
     }
 }
-]]></programlisting>
+</programlisting>
       </informalexample>
 
       <para>Now that we have created a new Server called "fooServer", we can
@@ -354,7 +366,7 @@ org.osgi.framework.ServiceReference ref = bc.getServiceReference("org.eclipse.je
       created above:</para>
 
       <informalexample>
-        <programlisting language="java"><![CDATA[public class Activator implements BundleActivator
+        <programlisting language="java">public class Activator implements BundleActivator
 {
 
     public void start(BundleContext context) throws Exception
@@ -368,7 +380,7 @@ org.osgi.framework.ServiceReference ref = bc.getServiceReference("org.eclipse.je
         props.put("managedServerName", "fooServer");
         context.registerService(ContextHandler.class.getName(),webapp,props);
     }
-}]]></programlisting>
+}</programlisting>
       </informalexample>
 
       <para/>
@@ -410,7 +422,7 @@ org.osgi.framework.ServiceReference ref = bc.getServiceReference("org.eclipse.je
           <para><code>MANIFEST</code>:</para>
 
           <informalexample>
-            <programlisting language="plain"><![CDATA[
+            <programlisting language="plain">
 
 Bundle-Name: Web
 Jetty-WarFolderPath: web
@@ -418,13 +430,13 @@ Import-Package: javax.servlet;version="2.6.0",
  javax.servlet.resources;version="2.6.0"
 Bundle-SymbolicName: com.acme.sample.web
 
-            ]]></programlisting>
+            </programlisting>
           </informalexample>
 
           <para>Bundle contents:</para>
 
           <informalexample>
-            <programlisting language="plain"><![CDATA[
+            <programlisting language="plain">
 
 META-INF/MANIFEST.MF
 web/index.html
@@ -433,7 +445,7 @@ web/WEB-INF/web.xml
 com/acme/sample/web/MyStuff.class
 com/acme/sample/web/MyOtherStuff.class
 
-            ]]></programlisting>
+            </programlisting>
           </informalexample>
         </listitem>
       </varlistentry>
@@ -453,7 +465,7 @@ com/acme/sample/web/MyOtherStuff.class
           <para><code>MANIFEST</code>:</para>
 
           <informalexample>
-            <programlisting language="plain"><![CDATA[
+            <programlisting language="plain">
 
 Bundle-Name: Web
 Jetty-WarFolderPath: web
@@ -462,7 +474,7 @@ Import-Package: javax.servlet;version="2.6.0",
  javax.servlet.resources;version="2.6.0"
 Bundle-SymbolicName: com.acme.sample.web
 
-            ]]></programlisting>
+            </programlisting>
           </informalexample>
         </listitem>
       </varlistentry>
@@ -548,13 +560,13 @@ Bundle-SymbolicName: com.acme.sample.web
       <para>For example, suppose we have a bundle whose location is:</para>
 
       <informalexample>
-        <programlisting language="plain" linenumbering="unnumbered"><![CDATA[file://some/where/over/the/rainbow/oz.war]]></programlisting>
+        <programlisting language="plain" linenumbering="unnumbered">file://some/where/over/the/rainbow/oz.war</programlisting>
       </informalexample>
 
       <para>The corresponding synthesized context path would be:</para>
 
       <informalexample>
-        <programlisting language="plain" linenumbering="unnumbered"><![CDATA[/oz]]></programlisting>
+        <programlisting language="plain" linenumbering="unnumbered">/oz</programlisting>
       </informalexample>
     </section>
 
@@ -570,7 +582,7 @@ Bundle-SymbolicName: com.acme.sample.web
       file:</para>
 
       <informalexample>
-        <programlisting language="plain"><![CDATA[
+        <programlisting language="plain">
 
 META-INF/MANIFEST.MF
 META-INF/jetty-webapp-context.xml
@@ -580,20 +592,20 @@ web/WEB-INF/web.xml
 com/acme/sample/web/MyStuff.class
 com/acme/sample/web/MyOtherStuff.class
 
-            ]]></programlisting>
+            </programlisting>
       </informalexample>
 
       <para>Here's an example of the contents of a
       META-INF/jetty-webapp-context.xml file:</para>
 
       <para><informalexample>
-          <programlisting><![CDATA[<?xml version="1.0" encoding="ISO-8859-1"?>
+          <programlisting>&lt;?xml version="1.0" encoding="ISO-8859-1"?&gt;
 
-<!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure_9_0.dtd">
+&lt;!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure_9_0.dtd"&gt;
 
-<Configure class="org.eclipse.jetty.webapp.WebAppContext">
-  <Set name="defaultsDescriptor"><Property name="bundle.root"/>META-INF/webdefault.xml</Set>
-</Configure>]]></programlisting>
+&lt;Configure class="org.eclipse.jetty.webapp.WebAppContext"&gt;
+  &lt;Set name="defaultsDescriptor"&gt;&lt;Property name="bundle.root"/&gt;META-INF/webdefault.xml&lt;/Set&gt;
+&lt;/Configure&gt;</programlisting>
         </informalexample>As you can see, it is a normal context xml file used
       to set up a webapp. There are, however, some additional useful
       properties that can be referenced</para>
@@ -649,25 +661,25 @@ com/acme/sample/web/MyOtherStuff.class
           <para>A context file that is inside the bundle:</para>
 
           <informalexample>
-            <programlisting language="plain"><![CDATA[Jetty-ContextFilePath: ./a/b/c/d/foo.xml]]></programlisting>
+            <programlisting language="plain">Jetty-ContextFilePath: ./a/b/c/d/foo.xml</programlisting>
           </informalexample>
 
           <para>A context file that is on the file system:</para>
 
           <informalexample>
-            <programlisting language="plain"><![CDATA[Jetty-ContextFilePath: /opt/app/contexts/foo.xml]]></programlisting>
+            <programlisting language="plain">Jetty-ContextFilePath: /opt/app/contexts/foo.xml</programlisting>
           </informalexample>
 
           <para>A context file that is relative to jetty.home:</para>
 
           <informalexample>
-            <programlisting language="plain"><![CDATA[Jetty-ContextFilePath: contexts/foo.xml]]></programlisting>
+            <programlisting language="plain">Jetty-ContextFilePath: contexts/foo.xml</programlisting>
           </informalexample>
 
           <para>A number of different context files:</para>
 
           <informalexample>
-            <programlisting language="plain"><![CDATA[Jetty-ContextFilePath: ./a/b/c/d/foo.xml,/opt/app/contexts/foo.xml,contexts/foo.xml]]></programlisting>
+            <programlisting language="plain">Jetty-ContextFilePath: ./a/b/c/d/foo.xml,/opt/app/contexts/foo.xml,contexts/foo.xml</programlisting>
           </informalexample>
         </listitem>
       </varlistentry>
@@ -758,19 +770,19 @@ com/acme/sample/web/MyOtherStuff.class
     <para>The bundle contents:</para>
 
     <informalexample>
-      <programlisting language="plain"><![CDATA[
+      <programlisting language="plain">
 
 META-INF/MANIFEST.MF
 index.html
 com/acme/osgi/Activator.class
 
-      ]]></programlisting>
+      </programlisting>
     </informalexample>
 
     <para>The <code>MANIFEST.MF</code>:</para>
 
     <informalexample>
-      <programlisting language="plain"><![CDATA[
+      <programlisting language="plain">
 
 Bundle-Classpath: .
 Bundle-Name: Jetty OSGi Test WebApp
@@ -787,13 +799,13 @@ Import-Package: org.eclipse.jetty.server.handler;version="[9.0,10)",
  org.xml.sax,org.xml.sax.helpers
 Bundle-SymbolicName: com.acme.testwebapp
 
-      ]]></programlisting>
+      </programlisting>
     </informalexample>
 
     <para>The Activator code:</para>
 
     <informalexample>
-      <programlisting language="java"><![CDATA[
+      <programlisting language="java">
 
 public void start(BundleContext context) throws Exception
 {
@@ -804,7 +816,7 @@ public void start(BundleContext context) throws Exception
     context.registerService(ContextHandler.class.getName(),webapp,props);
 }
 
-      ]]></programlisting>
+      </programlisting>
     </informalexample>
 
     <para>The above setup is sufficient for Jetty to recognize and deploy the
@@ -911,7 +923,7 @@ public void start(BundleContext context) throws Exception
     <para>The bundle contents:</para>
 
     <informalexample>
-      <programlisting language="plain"><![CDATA[
+      <programlisting language="plain">
 
 META-INF/MANIFEST.MF
 static/index.html
@@ -919,13 +931,13 @@ acme.xml
 com/acme/osgi/Activator.class
 com/acme/osgi/Activator$1.class
 
-      ]]></programlisting>
+      </programlisting>
     </informalexample>
 
     <para>The <code>MANIFEST</code>:</para>
 
     <informalexample>
-      <programlisting language="plain"><![CDATA[
+      <programlisting language="plain">
 
 Bundle-Classpath: .
 Bundle-Name: Jetty OSGi Test Context
@@ -943,13 +955,13 @@ Import-Package: javax.servlet;version="2.6.0",
  org.xml.sax,org.xml.sax.helpers
 Bundle-SymbolicName: com.acme.testcontext
 
-      ]]></programlisting>
+      </programlisting>
     </informalexample>
 
     <para>The Activator code:</para>
 
     <informalexample>
-      <programlisting language="java"><![CDATA[
+      <programlisting language="java">
 
 public void start(final BundleContext context) throws Exception
 {
@@ -975,7 +987,7 @@ public void start(final BundleContext context) throws Exception
     context.registerService(ContextHandler.class.getName(),ch,props);
 }
 
-      ]]></programlisting>
+      </programlisting>
     </informalexample>
 
     <para>The contents of the <code>acme.xml</code> context file:</para>
@@ -1173,7 +1185,7 @@ public void start(final BundleContext context) throws Exception
       the jars from the <link
       xl:href="http://repo1.maven.org/maven2/org/eclipse/jetty/jetty-distribution/">jetty
       distribution</link> in the <filename>${jetty.home}/lib/jsp</filename>
-      directory, or you can download them from <link
+      directory, but some you will need to download them from <link
       xl:href="http://repo1.maven.org/maven2/org/eclipse/jetty/orbit/">maven
       central</link>. Here is the list of recommended jars (NOTE the version
       numbers may change in future):</para>
@@ -1182,12 +1194,12 @@ public void start(final BundleContext context) throws Exception
       current list of JSP artifacts for the version of Jetty you are working
       with.</para>
 
-      <screen><![CDATA[<dependency>
-  <groupId>org.eclipse.jetty</groupId>
-  <artifactId>jetty-jsp</artifactId>
-  <version>${project.version}</version>
-  <type>pom</type>
-</dependency>]]></screen>
+      <screen>&lt;dependency&gt;
+  &lt;groupId&gt;org.eclipse.jetty&lt;/groupId&gt;
+  &lt;artifactId&gt;jetty-jsp&lt;/artifactId&gt;
+  &lt;version&gt;${project.version}&lt;/version&gt;
+  &lt;type&gt;pom&lt;/type&gt;
+&lt;/dependency&gt;</screen>
 
       <table>
         <title>Jars Required for JSP</title>
@@ -1203,7 +1215,7 @@ public void start(final BundleContext context) throws Exception
 
           <tbody>
             <row>
-              <entry>javax.el-3.0.0.ja</entry>
+              <entry>javax.el-3.0.0.jar</entry>
 
               <entry>javax.el</entry>
             </row>
@@ -1215,15 +1227,15 @@ public void start(final BundleContext context) throws Exception
             </row>
 
             <row>
-              <entry>javax.servlet.jsp.jstl-1.2.0.v201105211821.jar </entry>
+              <entry>javax.servlet.jsp.jstl-1.2.0.v201105211821.jar</entry>
 
               <entry>javax.servlet.jsp.jstl</entry>
             </row>
 
             <row>
-              <entry>javax.servlet.jsp-2.3.2.jar</entry>
+              <entry>jetty-jsp-fragment-2.3.3.jar</entry>
 
-              <entry>org.apache.jasper.glassfish</entry>
+              <entry>org.eclipse.jetty.jsp.fragment</entry>
             </row>
 
             <row>
@@ -1252,9 +1264,25 @@ public void start(final BundleContext context) throws Exception
       xl:href="http://repo1.maven.org/maven2/org/eclipse/jetty/osgi/jetty-osgi-boot-jsp/">here</link>.</para>
 
       <para>This bundle acts as a fragment extension to the
-      jetty-osgi-boot.jar and adds in support for using JSP. If you do not use
-      taglibs, or you only use the JSTL taglibs then you do not need to do any
-      further configuration.</para>
+      jetty-osgi-boot.jar and adds in support for using JSP. </para>
+
+      <section>
+        <title>The jetty-jsp-fragment jar</title>
+
+        <para>The standard JSP implementation jar from Glassfish does not
+        contain some classes that are essential in an OSGi environment. To
+        overcome this, we provide the jetty-jsp-fragment jar, which provides
+        all necessary JSP implementation classes, a proper OSGi manifest, and
+        also attaches itself as a fragment extension to the
+        jetty-osgi-boot.jar. You can <link
+        xl:href="http://repo1.maven.org/maven2/org/eclipse/jetty/toolchain/jetty-jsp-frament/">download</link>
+        it from the maven central repo <link
+        xl:href="http://repo1.maven.org/maven2/org/eclipse/jetty/toolchain/jetty-jsp-frament/">here</link>.
+        </para>
+
+        <para>If you do not use taglibs, or you only use the JSTL taglibs then
+        you do not need to do any further configuration.</para>
+      </section>
 
       <section>
         <title>Using TagLibs</title>
@@ -1277,7 +1305,7 @@ public void start(final BundleContext context) throws Exception
         a web bundle that uses the Spring servlet framework:</para>
 
         <informalexample>
-          <programlisting condition="[4, 5]" language="plain"><![CDATA[
+          <programlisting condition="[4, 5]" language="plain">
 
 Bundle-SymbolicName: com.acme.sample
 Bundle-Name: WebSample
@@ -1292,7 +1320,7 @@ Import-Package: org.eclipse.virgo.web.dm;version="[3.0.0,4.0.0)",org.s
  rsion="[2.5.6,4.0.0)",org.springframework.web.servlet;version="[2.5.6
  ,4.0.0)",org.springframework.web.servlet.view;version="[2.5.6,4.0.0)"
  
-          ]]></programlisting>
+          </programlisting>
         </informalexample>
 
         <para>The <emphasis role="bold">Require-TldBundle</emphasis> header
@@ -1329,7 +1357,7 @@ Import-Package: org.eclipse.virgo.web.dm;version="[3.0.0,4.0.0)",org.s
               classpath for web bundles. For example:</para>
 
               <informalexample>
-                <programlisting language="plain"><![CDATA[org.eclipse.jetty.osgi.tldbundles=com.acme.special.tags,com.foo.web,org.bar.web.framework]]></programlisting>
+                <programlisting language="plain">org.eclipse.jetty.osgi.tldbundles=com.acme.special.tags,com.foo.web,org.bar.web.framework</programlisting>
               </informalexample>
 
               <para>You will still need to define the <emphasis
@@ -1369,27 +1397,27 @@ Import-Package: org.eclipse.virgo.web.dm;version="[3.0.0,4.0.0)",org.s
               "web":</para>
 
               <informalexample>
-                <programlisting language="xml"><![CDATA[
+                <programlisting language="xml">
 
-<?xml version="1.0"?>
-<!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure_9_0.dtd">
-<Configure id="Server" class="org.eclipse.jetty.server.Server">
-    <Call name="addBean">
-      <Arg>
-        <New id="DeploymentManager" class="org.eclipse.jetty.deploy.DeploymentManager">
-          <Set name="contexts">
-            <Ref refid="Contexts" />
-          </Set>
-          <Call name="setContextAttribute">
-            <Arg>org.eclipse.jetty.server.webapp.ContainerIncludeBundlePattern</Arg>
-            <Arg>.*\.tag$|.*\.web$</Arg>
-          </Call>
-        </New>
-      </Arg>
-    </Call>
-</Configure>
+&lt;?xml version="1.0"?&gt;
+&lt;!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure_9_0.dtd"&gt;
+&lt;Configure id="Server" class="org.eclipse.jetty.server.Server"&gt;
+    &lt;Call name="addBean"&gt;
+      &lt;Arg&gt;
+        &lt;New id="DeploymentManager" class="org.eclipse.jetty.deploy.DeploymentManager"&gt;
+          &lt;Set name="contexts"&gt;
+            &lt;Ref refid="Contexts" /&gt;
+          &lt;/Set&gt;
+          &lt;Call name="setContextAttribute"&gt;
+            &lt;Arg&gt;org.eclipse.jetty.server.webapp.ContainerIncludeBundlePattern&lt;/Arg&gt;
+            &lt;Arg&gt;.*\.tag$|.*\.web$&lt;/Arg&gt;
+          &lt;/Call&gt;
+        &lt;/New&gt;
+      &lt;/Arg&gt;
+    &lt;/Call&gt;
+&lt;/Configure&gt;
 
-                ]]></programlisting>
+                </programlisting>
               </informalexample>
 
               <para>Again, you will still need to define suitable <emphasis

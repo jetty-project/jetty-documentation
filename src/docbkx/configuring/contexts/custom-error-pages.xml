@@ -158,7 +158,7 @@ xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:ns="http://docbook.org/ns/docbo
     implement some or all of the following methods to partially modify the error pages:</para>
     <informalexample>
       <programlisting language="java">
-<![CDATA[void handle(String target, HttpServletRequest request, HttpServletResponse response, int dispatch) throws IOException
+<![CDATA[void handle(String target, Request baseRequest, HttpServletRequest request, HttpServletResponse response) throws IOException
 void handleErrorPage(HttpServletRequest request, Writer writer, int code, String message) throws IOException
 void writeErrorPage(HttpServletRequest request, Writer writer, int code, String message, boolean showStacks) throws IOException
 void writeErrorPageHead(HttpServletRequest request, Writer writer, int code, String message) throws IOException

@@ -78,6 +78,10 @@
 
     <itemizedlist>
       <listitem>
+        <para><xref linkend="hikaricp-datasource"/></para>
+      </listitem>
+
+      <listitem>
         <para><xref linkend="bonecp-datasource"/></para>
       </listitem>
 
@@ -105,6 +109,51 @@
         <para><xref linkend="DB2-pooled-datasource"/></para>
       </listitem>
     </itemizedlist>
+
+    <section xml:id="hikaricp-datasource">
+      <title>HikariCP</title>
+
+      <para>Connection pooling, available at <link
+      xl:href="http://search.maven.org/remotecontent?filepath=com/zaxxer/HikariCP/1.2.6/HikariCP-1.2.6.jar"/>HikariCP
+      Download</link>. All configuration options for HikariCP are described
+      here: <link
+      xl:href="https://github.com/brettwooldridge/HikariCP">BoneCP
+      API</link>.</para>
+
+      <informalexample>
+        <programlisting language="xml"><![CDATA[
+
+  <New id="DSTest" class="org.eclipse.jetty.plus.jndi.Resource">
+     <Arg></Arg>
+     <Arg>jdbc/DSTest</Arg>
+     <Arg>
+       <New class="com.zaxxer.hikari.HikariDataSource">
+         <Arg>
+            <New class="com.zaxxer.hikari.HikariConfig">
+               <Set name="minimumPoolSize">5</Set>
+               <Set name="maximumPoolSize">50</Set>
+               <Set name="dataSourceClassName">com.mysql.jdbc.jdbc2.optional.MysqlDataSource</Set>
+               <Call name="addDataSourceProperty">
+                  <Arg>url</Arg>
+                  <Arg>jdbc.url</Arg>
+               </Call>
+               <Call name="addDataSourceProperty">
+                  <Arg>user</Arg>
+                  <Arg>jdbc.user</Arg>
+               </Call>
+               <Call name="addDataSourceProperty">
+                  <Arg>password</Arg>
+                  <Arg>jdbc.pass</Arg>
+               </Call>
+            </New>
+         </Arg>
+      </New>
+    </Arg>
+  </New>
+
+        ]]></programlisting>
+      </informalexample>
+    </section>
 
     <section xml:id="bonecp-datasource">
       <title>BoneCP</title>

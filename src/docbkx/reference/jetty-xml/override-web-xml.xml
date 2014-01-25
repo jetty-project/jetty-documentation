@@ -106,10 +106,10 @@ import org.eclipse.jetty.webapp.WebAppContext;
             ...
             <artifactId>jetty-maven-plugin</artifactId>
             <configuration>
-                <webAppConfig>
+                <webApp>
                   ...
                   <overrideDescriptor>src/main/resources/override-web.xml</overrideDescriptor>
-                </webAppConfig>
+                </webApp>
             </configuration>
         </plugin>
         ...

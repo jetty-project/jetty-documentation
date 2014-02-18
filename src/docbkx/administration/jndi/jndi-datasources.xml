@@ -117,8 +117,7 @@
       xl:href="http://search.maven.org/remotecontent?filepath=com/zaxxer/HikariCP/1.2.6/HikariCP-1.2.6.jar">HikariCP
       Download</link>. All configuration options for HikariCP are described
       here: <link
-      xl:href="https://github.com/brettwooldridge/HikariCP">BoneCP
-      API</link>.</para>
+      xl:href="https://github.com/brettwooldridge/HikariCP">HikariCP documentation</link>.</para>
 
       <informalexample>
         <programlisting language="xml"><![CDATA[

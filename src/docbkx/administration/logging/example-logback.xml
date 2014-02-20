@@ -179,17 +179,7 @@ if [ ! -f start.ini ] ; then
     exit -1
 fi
 
-if [ -d lib/logging ] ; then
-    echo "ERROR: Existing lib/logging directory exists."
-    echo "       Remove any existing logging implementations"
-    echo "       before running this script, as conflicting logging"
-    echo "       implementations can cause problems."
-    echo "       Then remove the lib/logging directory entirely."
-    exit -1
-fi
-
-mkdir lib/logging
-pushd lib/logging
+pushd lib/etc
 
 curl -O http://repo1.maven.org/maven2/ch/qos/logback/logback-classic/1.0.7/logback-classic-1.0.7.jar
 curl -O http://repo1.maven.org/maven2/ch/qos/logback/logback-core/1.0.7/logback-core-1.0.7.jar
@@ -197,14 +187,16 @@ curl -O http://repo1.maven.org/maven2/org/slf4j/slf4j-api/1.6.6/slf4j-api-1.6.6.
 
 popd
 
-if (grep -E "OPTIONS=.*logging.*" start.ini) 
+if (grep -E "\-\-module=logging" start.ini)
 then
     echo "Logging already present in start.ini"
 else
-    echo "Adding logging to start.ini"
+    echo "Adding logging module to start.ini"
     echo "" >> start.ini
-    echo "# Adding lib/logging to server classpath" >> start.ini
-    echo "OPTIONS=logging" >> start.ini
+    echo "#" >> start.ini
+    echo "# Initialize module logging" >> start.ini
+    echo "#" >> start.ini
+    echo "--module=logging" >> start.ini
 fi
 
 cat << EOFP > resources/jetty-logging.properties
@@ -218,7 +210,7 @@ else
     echo "Creating new resources/logback.xml"
     cat << EOFL > resources/logback.xml
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- 
+<!--
   Example LOGBACK Configuration File
   http://logback.qos.ch/manual/configuration.html
   -->
@@ -230,7 +222,7 @@ else
   </appender>
 
   <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-    <file>\${jetty.home}/logs/jetty.log</file>
+    <file>\${jetty.base}/logs/jetty.log</file>
     <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
       <fileNamePattern>jetty_%d{yyyy-MM-dd}.log</fileNamePattern>
       <maxHistory>30</maxHistory>

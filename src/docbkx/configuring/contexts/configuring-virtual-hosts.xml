@@ -48,7 +48,7 @@
     <listitem>
       <para>Using a <link linkend="deployable-descriptor-file">context
       XML</link> file in the webapps directory (see the example in <link
-      xl:href="@GITURL@/tests/test-webapps/test-jetty-webapp/src/main/config/webapps/test.xml">test.xml</link>
+      xl:href="@GITURL@/tests/test-webapps/test-jetty-webapp/src/main/config/demo-base/webapps/test.xml">test.xml</link>
       in the jetty distribution).</para>
     </listitem>
 

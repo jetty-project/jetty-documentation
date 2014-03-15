@@ -207,6 +207,8 @@ xmlns:ns="http://docbook.org/ns/docbook">
     <xi:include href="administration/spdy/chapter.xml" />
     <!-- NPN -->
     <xi:include href="administration/npn/chapter.xml" />
+    <!-- FastCGI -->
+    <xi:include href="administration/fastcgi/chapter.xml" />
     <!-- Jetty has a number of bundled things, they can go here -->
     <xi:include href="administration/extras/chapter.xml"/>
     <!-- How to use the jetty-runner module -->

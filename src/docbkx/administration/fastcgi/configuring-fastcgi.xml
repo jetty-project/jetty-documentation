@@ -208,27 +208,106 @@ $ cd /usr/jetty/wordpress
             </para>
         </listitem>
     </itemizedlist>
-    <para>
-        The sixth step is to specify a <code>start.ini</code> file that configures the Jetty modules that
-        are needed for Jetty to support FastCGI.
-        The minimal <code>start.ini</code> file is the following:
-    </para>
-    <informalexample>
-        <programlisting><![CDATA[
+
+    <section xml:id="configuring-fastcgi-http">
+        <info>
+            <title>Configuring Jetty to Proxy HTTP to FastCGI</title>
+        </info>
+        <para>
+            In order to configure Jetty to listen for HTTP requests from clients and forward them to
+            the FastCGI server as FastCGI requests, you need to specify a <code>start.ini</code> file
+            that configures the Jetty modules that are needed for Jetty to proxy HTTP to FastCGI.
+            The minimal <code>start.ini</code> file is the following:
+        </para>
+        <informalexample>
+            <programlisting><![CDATA[
 # The 'deploy' module enables Jetty to look up in the 'webapps' directory for files to deploy.
 --module=deploy
 
-# The 'deploy' module enables FastCGI support.
+# The 'fcgi' module enables FastCGI support.
 --module=fcgi
 
 # The 'http' module enables a HTTP connector that listens for client requests on port 8080.
 --module=http
 jetty.port=8080
-        ]]></programlisting>
-    </informalexample>
-    <para>
-        At this point, you can start Jetty (see <xref linkend="startup" />) and hit <code>http://localhost:8080</code>
-        with your browser and enjoy WordPress.
-    </para>
+            ]]></programlisting>
+        </informalexample>
+        <para>
+            At this point, you can start Jetty (see <xref linkend="startup" />), hit <code>http://localhost:8080</code>
+            with your browser and enjoy WordPress:
+        </para>
+        <screen>
+$ cd $JETTY_BASE
+$ java -jar /opt/jetty/start.jar
+        </screen>
+    </section>
 
+    <section xml:id="configuring-fastcgi-spdy">
+        <info>
+            <title>Configuring Jetty to Proxy SPDY to FastCGI</title>
+        </info>
+        <para>
+            In order to configure Jetty to listen for SPDY requests from clients that are SPDY enabled
+            and forward them to the FastCGI server as FastCGI requests, you need to specify a
+            <code>start.ini</code> file that configures the Jetty modules that are needed for Jetty to
+            proxy SPDY to FastCGI.
+        </para>
+        <para>
+            Remember that for SPDY to work you will need to run over SSL, and you will need the NPN boot jar
+            in the boot classpath, as explained in <xref linkend="spdy-configuring" />.
+        </para>
+        <para>
+            Since now your site will run over SSL, you need to make sure that the WordPress URL is also
+            configured so.
+            If you have followed the steps of the <xref linkend="configuring-fastcgi-http">previous section</xref>,
+            your WordPress site is served at <code>http://localhost:8080</code>.
+            You will need to change that to be <code>https://localhost:8443</code> from the WordPress
+            administration web interface, or follow the
+            <link xl:href="http://codex.wordpress.org/Changing_The_Site_URL">WordPress instructions</link>
+            to do so without using the administration web interface.
+        </para>
+        <para>
+            The minimal <code>start.ini</code> file is the following:
+        </para>
+        <informalexample>
+            <programlisting><![CDATA[
+# The 'deploy' module enables Jetty to look up in the 'webapps' directory for files to deploy.
+--module=deploy
+
+# The 'fcgi' module enables FastCGI support.
+--module=fcgi
+
+# The 'spdy' module enables a SPDY connector that listens for client requests on port 8443.
+--module=spdy
+spdy.port=8443
+            ]]></programlisting>
+        </informalexample>
+        <para>
+            Note that we specified the <code>spdy.port</code> to be <code>8443</code>.
+        </para>
+        <para>
+            At this point, you will need the NPN boot jar and the SSL certificate.
+            In this example, you can obtain them very easily using the built-in feature of the Jetty start
+            mechanism that downloads required dependencies, see <xref linkend="startup" />.
+            However, remember that the example SSL certificate that is downloaded will not be valid for your
+            website and that it must not be used in production. It is provided only for testing and example
+            purposes.
+            To leverage the automatic download of required dependencies, issue this command:
+        </para>
+        <screen>
+$ cd $JETTY_BASE
+$ java -jar /opt/jetty/start.jar --create-files
+        </screen>
+        <para>
+            At this point, you can start Jetty (see <xref linkend="startup" />), hit <code>http://localhost:8080</code>
+            with your browser and enjoy WordPress via SPDY using a SPDY enabled browser:
+        </para>
+        <screen>
+$ cd $JETTY_BASE
+$ java -Xbootclasspath/p:lib/npn/npn-boot-&lt;version&gt;.jar -jar /opt/jetty/start.jar
+        </screen>
+        <para>
+            If you don't have a SPDY enabled browser, WordPress will still be available over plain HTTPS.
+        </para>
+    </section>
 </section>

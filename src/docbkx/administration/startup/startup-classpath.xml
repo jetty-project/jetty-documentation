@@ -32,11 +32,11 @@
 
   <variablelist>
     <varlistentry>
-      <term>The ${java.class.path} System Property</term>
+      <term>The java.class.path System Property</term>
 
       <listitem>
         <para>If you start Jetty with a JVM specified classpath, then Jetty
-        will use the ${java.class.path} System Property to populate the
+        will use the java.class.path System Property to populate the
         initial classpath.</para>
       </listitem>
     </varlistentry>

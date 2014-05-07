@@ -55,6 +55,7 @@
   <xi:include href="static-content-deployment.xml"/>
   <xi:include href="hot-deployment.xml"/>
   <xi:include href="deployment-architecture.xml"/>
+  <xi:include href="quickstart-webapp.xml"/>
   <!-- for 9.0.4 release -->
   <xi:include href="overlay-deployer.xml"/>
 </chapter>

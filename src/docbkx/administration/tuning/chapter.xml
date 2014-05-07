@@ -16,18 +16,29 @@
 //  You may elect to redistribute this code under either of these licenses.
 //  ========================================================================
 -->
-<chapter xml:id="optimizing" version="5.0" xmlns="http://docbook.org/ns/docbook"
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xl="http://www.w3.org/1999/xlink"
-xmlns:xi="http://www.w3.org/2001/XInclude"
-xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd">
+<chapter version="5.0"
+         xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd"
+         xml:id="optimizing" xmlns="http://docbook.org/ns/docbook"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:xs="http://www.w3.org/2001/XMLSchema"
+         xmlns:xl="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:ns5="http://www.w3.org/2000/svg"
+         xmlns:ns4="http://www.w3.org/1998/Math/MathML"
+         xmlns:ns3="http://www.w3.org/1999/xhtml"
+         xmlns:ns="http://docbook.org/ns/docbook">
   <title>Optimizing Jetty</title>
-  <section>
-    <para>There are many ways to optimize Jetty, which vary depending on the situation. Are you trying to optimize for
-    number of requests within a given amount of time? Are you trying to optimize the serving of static content? Do you
-    have a large bit of hardware that you want to give entirely over to Jetty to use to its heart's delight? Here are a
-    few of the many different ways to optimize Jetty.</para>
-  </section>
-  <xi:include href="garbage-collection.xml"></xi:include>
-  <xi:include href="high-load.xml"></xi:include>
-  <xi:include href="limit-load.xml"></xi:include>
+
+  <para>There are many ways to optimize Jetty, which vary depending on the
+  situation. Are you trying to optimize for number of requests within a given
+  amount of time? Are you trying to optimize the serving of static content? Do
+  you have a large bit of hardware that you want to give entirely over to
+  Jetty to use to its heart's delight? Here are a few of the many different
+  ways to optimize Jetty.</para>
+
+  <xi:include href="garbage-collection.xml"/>
+
+  <xi:include href="high-load.xml"/>
+
+  <xi:include href="limit-load.xml"/>
 </chapter>

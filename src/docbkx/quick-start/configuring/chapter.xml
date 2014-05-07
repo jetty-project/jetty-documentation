@@ -16,12 +16,19 @@
 //  You may elect to redistribute this code under either of these licenses.
 //  ========================================================================
 -->
-<chapter version="5.0" xml:id="quick-start-configure" xmlns="http://docbook.org/ns/docbook"
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema"
-xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
-xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg"
-xmlns:mth="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook">
-  <title>Quick Start Configuration</title>
-  <xi:include href="how-to-configure.xml" />
-  <xi:include href="what-to-configure.xml" />
+<chapter version="5.0" xml:id="quick-start-configure"
+         xmlns="http://docbook.org/ns/docbook"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:xs="http://www.w3.org/2001/XMLSchema"
+         xmlns:xl="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:xhtml="http://www.w3.org/1999/xhtml"
+         xmlns:svg="http://www.w3.org/2000/svg"
+         xmlns:mth="http://www.w3.org/1998/Math/MathML"
+         xmlns:db="http://docbook.org/ns/docbook">
+  <title>Jetty Configuration Introduction</title>
+
+  <xi:include href="how-to-configure.xml"/>
+
+  <xi:include href="what-to-configure.xml"/>
 </chapter>

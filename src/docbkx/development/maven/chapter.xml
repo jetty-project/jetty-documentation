@@ -28,13 +28,14 @@
          xmlns:db="http://docbook.org/ns/docbook">
   <title>Maven and Jetty</title>
 
-  <section>
-    <para>This chapter explains how to use Jetty with Maven and the Jetty
-    Maven plugin.</para>
-  </section>
+  <para>This chapter explains how to use Jetty with Maven and the Jetty Maven
+  plugin.</para>
 
   <xi:include href="jetty-maven-helloworld.xml"/>
+
   <xi:include href="jetty-maven-plugin.xml"/>
+
   <xi:include href="jetty-maven-scanning.xml"/>
+
   <xi:include href="jetty-jspc-maven-plugin.xml"/>
 </chapter>

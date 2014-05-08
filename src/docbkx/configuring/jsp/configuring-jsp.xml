@@ -26,413 +26,804 @@
          xmlns:ns="http://docbook.org/ns/docbook">
   <title>Configuring JSP</title>
 
-  <para>This document provides information about configuring JSP.</para>
+  <para>This document provides information about configuring Java Server Pages
+  for Jetty.</para>
+
+  <section>
+    <title>Which JSP Implementation</title>
+
+    <para>From jetty-9.2 onwards, we are using Jasper from <link
+    xl:href="http://tomcat.apache.org/tomcat-8.0-doc/jasper-howto.html">Apache</link>
+    as the default JSP container implementation. In previous versions we used
+    Jasper from <link xl:href="http://jsp.java.net">Glassfish</link>, and if
+    you wish to, you can continue to do so. </para>
+
+    <para>The jetty-distribution by default enables the jsp <link
+    linkend="startup-modules">module</link>, and by default, this <link
+    linkend="startup-modules">module</link> is set to Apache Jasper. To change
+    to use Glassfish Jasper instead, edit the
+    <filename>$JETTY_HOME/start.d/jsp.mod</filename> file and change the line
+    indicated:</para>
+
+    <programlisting language="text"><![CDATA[#
+# Jetty JSP Module
+#
+
+[depend]
+servlet
+jsp-impl/${jsp-impl}-jsp
+
+[ini-template]
+# JSP Configuration
+
+# Select JSP implementation, choices are
+#   glassfish : The reference implementation 
+#               default in jetty <= 9.1
+#   apache    : The apache version 
+#               default jetty >= 9.2
+jsp-impl=apache
+
+# To use a non-jdk compiler for JSP compilation when using glassfish uncomment next line
+# -Dorg.apache.jasper.compiler.disablejsr199=true
+]]></programlisting>
+
+    <para>Note that the availability of some JSP features may depend on which
+    JSP container implementation you are using. Note also that it may not be
+    possible to precompile your jsps with one container and deploy to the
+    other. </para>
+  </section>
+
+  <section>
+    <title>Precompiling JSPs</title>
+
+    <para>You can either follow the instructions on precompilation provided by
+    the JSP container of your choice (either <link
+    xl:href="http://jsp.java.net">Glassfish</link> or <link
+    xl:href="http://tomcat.apache.org/tomcat-8.0-doc/jasper-howto.html">Apache</link>),
+    or if you are using maven for your builds, you can use the <link
+    linkend="jetty-jspc-maven-plugin">jetty-jspc-maven</link> plugin to do it
+    for you.</para>
+
+    <para>If you have precompiled your jsps, and have customized the output
+    package prefix (which is <literal>org.apache.jsp</literal> by default),
+    you should configure your webapp context to tell Jetty about this custom
+    package name. You can do this using a servlet context init-param called
+    <literal>org.eclipse.jetty.servlet.jspPackagePrefix</literal>. </para>
+
+    <para>For example, suppose you have precompiled your jsps with the custom
+    package prefix of <literal>com.acme</literal>, then you would add the
+    following lines to your web.xml file:</para>
+
+    <para><informalexample>
+        <para><programlisting language="xml"><![CDATA[  <context-param>
+    <param-name>org.eclipse.jetty.servlet.jspPackagePrefix</param-name>
+    <param-value>com.acme</param-value>
+  </context-param>
+]]></programlisting></para>
+      </informalexample></para>
+
+    <note>
+      <para>both jetty maven plugins - <link
+      linkend="jetty-jspc-maven-plugin">jetty-jspc-maven-plugin</link> and the
+      <link linkend="jetty-maven-plugin">jetty-maven-plugin</link> - will only
+      use Apache Jasper</para>
+    </note>
+
+    <para/>
+  </section>
 
   <section xml:id="compiling-jsps">
-    <title>Compiling JSPs</title>
+    <title>Runtime Compiling JSPs</title>
 
-    <para>To compile <filename>.jsp</filename> files into Java classes, you
-    need a Java compiler. You can acquire a Java compiler from the JVM if you
-    are using a full JDK, or from a third party Jar.</para>
+    <para>Depending on which JSP container you elect to use, the configuration
+    and compilation characteristics will be different.</para>
 
-    <para>By default, the JSP engine Jetty uses tries to use the
-    compiler that is part of the JDK. <emphasis role="bold">NOTE:</emphasis>
-    when using the JDK compiler, the system does <emphasis>not</emphasis> save your class files to disk unless you use the
-    <code>saveBytecode</code> init-param as described below.</para>
+    <section>
+      <title>Apache JSP Container</title>
 
-    <para>If you do not have a full JDK, you can configure the JSP engine
-    to use the Eclipse Java Compiler that Jetty ships in the distro in
-    <filename>$JETTY_HOME/lib/jsp/org.eclipse.jdt.core-3.7.1.jar</filename>. You need to
-    define a SystemProperty that prevents the JSP engine from defaulting to
-    the in-JVM compiler.</para>
+      <para>By default, the Apache JSP container will look for the Eclipse
+      Java Compiler (jdt). The jetty distribution ships a copy of this in
+      $JETTY_HOME/lib/apache-jsp. If you wish to use a different compiler, you
+      will need to configure the <literal>compilerClassName</literal>
+      init-param on the <literal>JspServlet</literal> with the name of the
+      class.<table>
+          <title>Understanding Apache JspServlet Parameters</title>
 
-    <para>Here is the property definition to add to
-    <filename>$JETTY_HOME/start.ini</filename>:</para>
+          <tgroup cols="4">
+            <thead>
+              <row>
+                <entry align="left">init param</entry>
 
-    <informalexample>
-      <programlisting language="text"><![CDATA[
+                <entry align="left">Description</entry>
+
+                <entry align="left">Default</entry>
+
+                <entry
+                align="left"><filename>webdefault.xml</filename></entry>
+              </row>
+            </thead>
+
+            <tbody>
+              <row>
+                <entry>classpath</entry>
+
+                <entry><code>Classpath used for jsp compilation. Only used if
+                org.apache.catalina.jsp_classpath context attribute is not
+                set, which it is in Jetty.</code></entry>
+
+                <entry>-</entry>
+
+                <entry>–</entry>
+              </row>
+
+              <row>
+                <entry>classdebuginfo</entry>
+
+                <entry>Include debugging info in class file.</entry>
+
+                <entry>TRUE</entry>
+
+                <entry>–</entry>
+              </row>
+
+              <row>
+                <entry>checkInterval</entry>
+
+                <entry>Interval in seconds between background recompile
+                checks. Only relevant if <code>
+                development=false</code>.</entry>
+
+                <entry>0</entry>
+
+                <entry>–</entry>
+              </row>
+
+              <row>
+                <entry>development</entry>
+
+                <entry><code>development=true</code>, recompilation checks
+                occur on each request. See also <code>
+                modificationTestInterval</code>.</entry>
+
+                <entry>TRUE</entry>
+
+                <entry>–</entry>
+              </row>
+
+              <row>
+                <entry>displaySourceFragment</entry>
+
+                <entry>Should a source fragment be included in exception
+                messages</entry>
+
+                <entry>TRUE</entry>
+
+                <entry>–</entry>
+              </row>
+
+              <row>
+                <entry>errorOnUseBeanInvalidClassAttribute</entry>
+
+                <entry>Should Jasper issue an error when the value of the
+                class attribute in an useBean action is not a valid bean
+                class</entry>
+
+                <entry>TRUE</entry>
+
+                <entry>–</entry>
+              </row>
+
+              <row>
+                <entry>fork</entry>
+
+                <entry>Should Ant fork its Java compiles of JSP pages?</entry>
+
+                <entry>TRUE</entry>
+
+                <entry>FALSE</entry>
+              </row>
+
+              <row>
+                <entry>keepgenerated</entry>
+
+                <entry>Do you want to keep the generated Java files
+                around?</entry>
+
+                <entry>TRUE</entry>
+
+                <entry>–</entry>
+              </row>
+
+              <row>
+                <entry>trimSpaces</entry>
+
+                <entry>Should white spaces between directives or actions be
+                trimmed?</entry>
+
+                <entry>FALSE</entry>
+
+                <entry>–</entry>
+              </row>
+
+              <row>
+                <entry>enablePooling</entry>
+
+                <entry>Determines whether tag handler pooling is
+                enabled.</entry>
+
+                <entry>TRUE</entry>
+
+                <entry>–</entry>
+              </row>
+
+              <row>
+                <entry>engineOptionsClass</entry>
+
+                <entry> Allows specifying the Options class used to configure
+                Jasper. If not present, the default EmbeddedServletOptions
+                will be used. </entry>
+
+                <entry>–</entry>
+              </row>
+
+              <row>
+                <entry>mappedFile</entry>
+
+                <entry>Support for mapped Files. Generates a servlet that has
+                a print statement per line of the JSP file </entry>
+
+                <entry>TRUE</entry>
+
+                <entry>–</entry>
+              </row>
+
+              <row>
+                <entry>suppressSmap</entry>
+
+                <entry>Generation of SMAP info for JSR45 debugging.</entry>
+
+                <entry>FALSE</entry>
+
+                <entry>–</entry>
+              </row>
+
+              <row>
+                <entry>dumpSmap</entry>
+
+                <entry>Dump SMAP JSR45 info to a file.</entry>
+
+                <entry>FALSE</entry>
+
+                <entry>–</entry>
+              </row>
+
+              <row>
+                <entry>genStrAsCharArray</entry>
+
+                <entry>Option for generating Strings.</entry>
+
+                <entry>FALSE</entry>
+
+                <entry>–</entry>
+              </row>
+
+              <row>
+                <entry>ieClassId</entry>
+
+                <entry>The class-id value to be sent to Internet Explorer when
+                using &lt;jsp:plugin&gt; tags.</entry>
+
+                <entry>clsid:8AD9C840-044E-11D1-B3E9-00805F499D93</entry>
+
+                <entry>–</entry>
+              </row>
+
+              <row>
+                <entry>maxLoadedJsps</entry>
+
+                <entry>The maximum number of JSPs that will be loaded for a
+                web application. If more than this number of JSPs are loaded,
+                the least recently used JSPs will be unloaded so that the
+                number of JSPs loaded at any one time does not exceed this
+                limit. A value of zero or less indicates no limit.</entry>
+
+                <entry>-1</entry>
+
+                <entry>–</entry>
+              </row>
+
+              <row>
+                <entry>jspIdleTimeout</entry>
+
+                <entry>The amount of time in seconds a JSP can be idle before
+                it is unloaded. A value of zero or less indicates never
+                unload. </entry>
+
+                <entry>-1</entry>
+
+                <entry>–</entry>
+              </row>
+
+              <row>
+                <entry>scratchDir</entry>
+
+                <entry>Directory where servlets are generated. See </entry>
+
+                <entry>–</entry>
+
+                <entry>–</entry>
+              </row>
+
+              <row>
+                <entry>compilerClassName</entry>
+
+                <entry>If not set, defaults to the Eclipse jdt
+                compiler.</entry>
+
+                <entry>–</entry>
+              </row>
+
+              <row>
+                <entry>compiler</entry>
+
+                <entry>Used if the Eclipse jdt compiler cannot be found on the
+                classpath. It is the classname of a compiler that Ant should
+                invoke.</entry>
+
+                <entry>–</entry>
+
+                <entry>–</entry>
+              </row>
+
+              <row>
+                <entry>compilerTargetVM</entry>
+
+                <entry>Target vm to compile for.</entry>
+
+                <entry>1.7</entry>
+
+                <entry>–</entry>
+              </row>
+
+              <row>
+                <entry>compilerSourceVM</entry>
+
+                <entry>Sets source compliance level for the jdt
+                compiler.</entry>
+
+                <entry>1.7</entry>
+
+                <entry>–</entry>
+              </row>
+
+              <row>
+                <entry>javaEncoding</entry>
+
+                <entry>Pass through the encoding to use for the
+                compilation.</entry>
+
+                <entry>UTF8</entry>
+
+                <entry>–</entry>
+              </row>
+
+              <row>
+                <entry>modificationTestInterval</entry>
+
+                <entry>If <code>development=true</code>, interval between
+                recompilation checks, triggered by a request.</entry>
+
+                <entry>4</entry>
+
+                <entry>–</entry>
+              </row>
+
+              <row>
+                <entry>xpoweredBy</entry>
+
+                <entry>Generate an X-Powered-By response header.</entry>
+
+                <entry>FALSE</entry>
+
+                <entry>FALSE</entry>
+              </row>
+
+              <row>
+                <entry>recompileOnFail</entry>
+
+                <entry>If a JSP compilation fails should the
+                modificationTestInterval be ignored and the next access
+                trigger a re-compilation attempt? Used in development mode
+                only and is disabled by default as compilation may be
+                expensive and could lead to excessive resource usage.</entry>
+
+                <entry>-</entry>
+
+                <entry>–</entry>
+              </row>
+            </tbody>
+          </tgroup>
+        </table></para>
+    </section>
+
+    <section>
+      <title>Glassfish JSP Container</title>
+
+      <section>
+        <para>To compile <filename>.jsp</filename> files into Java classes,
+        you need a Java compiler. You can acquire a Java compiler from the JVM
+        if you are using a full JDK, or from a third party Jar.</para>
+
+        <para>By default, the Glassfish JSP container tries to use the
+        compiler that is part of the JDK. <emphasis
+        role="bold">NOTE:</emphasis> when using the JDK compiler, the system
+        does <emphasis>not</emphasis> save your class files to disk unless you
+        use the <code>saveBytecode</code> init-param as described
+        below.</para>
+
+        <para>If you do not have a full JDK, you can configure the Eclipse
+        Java Compiler that Jetty ships in the distro in
+        <filename>$JETTY_HOME/lib/jsp/.</filename>You need to define a
+        SystemProperty that prevents the Glassfish JSP engine from defaulting
+        to the in-JVM compiler.</para>
+
+        <para>This is best done when using the standalone distro by
+        uncommenting the System property
+        <literal>org.apache.jasper.compiler.disablejsr199</literal> in the jsp
+        <link linkend="startup-modules">module</link>:</para>
+
+        <informalexample>
+          <programlisting language="text"><![CDATA[
 
  -Dorg.apache.jasper.compiler.disablejsr199=true
 
       ]]></programlisting>
-    </informalexample>
-
-    <para>Alternatively, you can define this SystemProperty in a
-    <filename>$JETTY_HOME/etc/jetty.xml</filename> file:</para>
+        </informalexample>
 
-    <informalexample>
-      <programlisting language="xml"><![CDATA[
+        <para>Or for embedded usages, simply define this as a normal System
+        property.</para>
+      </section>
+    </section>
 
-  <Call class="java.lang.System"  name="setProperty">
-    <Arg>org.apache.jasper.compiler.disablejsr199</Arg>
-    <Arg>true</Arg>
-  </Call>
+    <section xml:id="configuring-jsp-for-jetty">
+      <title>Configuration</title>
 
-      ]]></programlisting>
-    </informalexample>
+      <para>The JSP engine has many configuration parameters. Some parameters
+      affect only precompilation, and some affect runtime recompilation
+      checking. Parameters also differ among the various versions of the JSP
+      engine. This page lists the configuration parameters, their meanings,
+      and their default settings. Set all parameters on the
+      <code>org.apache.jasper.JspServlet</code> instance defined in the <link
+      linkend="webdefault-xml"><filename>webdefault.xml</filename></link>
+      file.</para>
 
-    <para>If you are using the <link linkend="jetty-maven-plugin">Jetty Maven
-    Plugin</link>, you have a number of options:</para>
+      <note>
+        <para>Be careful: for all of these parameters, if the value you set
+        doesn't take effect, try using all lower case instead of camel case,
+        or capitalizing only some of the words in the name, as JSP is
+        inconsistent in its parameter naming strategy.</para>
+      </note>
 
-    <itemizedlist>
-      <listitem>
-        <para>Define the SystemProperty inside the <filename>pom.xml</filename> of your webapp
-        using either the <link
-        xl:href="http://mojo.codehaus.org/properties-maven-plugin/">Properties
-        Maven Plugin</link> or the <link linkend="jetty-maven-plugin">Jetty Maven Plugin's</link> own <link
-        linkend="setting-system-properties">system properties
-        configuration.</link></para>
-      </listitem>
+      <table>
+        <title>Understanding Glassfish JSP Parameters</title>
 
-      <listitem>
-        <para>Add a <filename>jetty.xml</filename> config file and define the SystemProperty in
-        that file.</para>
-      </listitem>
+        <tgroup cols="4">
+          <thead>
+            <row>
+              <entry align="left">init param</entry>
 
-      <listitem>
-        <para>Add the SystemProperty definition to Maven's <link
-        xl:href="http://maven.apache.org/download.cgi">MAVEN_OPTS</link>
-        environment variable.</para>
-      </listitem>
-    </itemizedlist>
-  </section>
+              <entry align="left">Description</entry>
 
-  <section xml:id="configuring-jsp-for-jetty">
-    <title>Configuring JSP for Jetty</title>
+              <entry align="left">Default</entry>
 
-    <para>The JSP engine has many configuration parameters. Some parameters
-    affect only precompilation, and some affect runtime recompilation
-    checking. Parameters also differ among the various versions of the JSP
-    engine. This page lists the configuration parameters, their meanings, and
-    their default settings. Set all parameters on the
-    <code>org.apache.jasper.JspServlet</code> instance defined in the <link
-    linkend="webdefault-xml"><filename>webdefault.xml</filename></link> file.</para>
+              <entry align="left"><filename>webdefault.xml</filename></entry>
+            </row>
+          </thead>
 
-    <note>
-      <para>Be careful: for all of these parameters, if the value you set
-      doesn't take effect, try using all lower case instead of camel case, or
-      capitalizing only some of the words in the name, as JSP is inconsistent
-      in its parameter naming strategy.</para>
-    </note>
+          <tbody>
+            <row>
+              <entry>development</entry>
 
-    <table>
-      <title>Understanding JSP Parameters</title>
+              <entry><code>development=true</code>, recompilation checks occur
+              on each request. See also <code>
+              modificationTestInterval</code>.</entry>
 
-      <tgroup cols="4">
-        <thead>
-          <row>
-            <entry align="left">init param</entry>
+              <entry>TRUE</entry>
 
-            <entry align="left">Description</entry>
+              <entry>–</entry>
+            </row>
 
-            <entry align="left">Default</entry>
+            <row>
+              <entry>fork</entry>
 
-            <entry align="left"><filename>webdefault.xml</filename></entry>
-          </row>
-        </thead>
+              <entry>Should Ant fork its Java compiles of JSP pages?</entry>
 
-        <tbody>
-          <row>
-            <entry>development</entry>
+              <entry>TRUE</entry>
 
-            <entry><code>development=true</code>, recompilation checks occur
-            on each request. See also <code>
-            modificationTestInterval</code>.</entry>
+              <entry>FALSE</entry>
+            </row>
 
-            <entry>TRUE</entry>
+            <row>
+              <entry>keepgenerated</entry>
 
-            <entry>–</entry>
-          </row>
+              <entry>Do you want to keep the generated Java files
+              around?</entry>
 
-          <row>
-            <entry>fork</entry>
+              <entry>FALSE</entry>
 
-            <entry>Should Ant fork its Java compiles of JSP pages?</entry>
+              <entry>–</entry>
+            </row>
 
-            <entry>TRUE</entry>
+            <row>
+              <entry>saveBytecode</entry>
 
-            <entry>FALSE</entry>
-          </row>
+              <entry>If class files are generated as byte arrays, should they
+              be saved to disk at the end of compilations?</entry>
 
-          <row>
-            <entry>keepgenerated</entry>
+              <entry>FALSE</entry>
 
-            <entry>Do you want to keep the generated Java files
-            around?</entry>
+              <entry>–</entry>
+            </row>
 
-            <entry>FALSE</entry>
+            <row>
+              <entry>trimSpaces</entry>
 
-            <entry>–</entry>
-          </row>
+              <entry>Should white spaces between directives or actions be
+              trimmed?</entry>
 
-          <row>
-            <entry>saveBytecode</entry>
+              <entry>FALSE</entry>
 
-            <entry>If class files are generated as byte arrays, should they be
-            saved to disk at the end of compilations?</entry>
+              <entry>–</entry>
+            </row>
 
-            <entry>FALSE</entry>
+            <row>
+              <entry>enablePooling</entry>
 
-            <entry>–</entry>
-          </row>
+              <entry>Determines whether tag handler pooling is
+              enabled.</entry>
 
-          <row>
-            <entry>trimSpaces</entry>
+              <entry>TRUE</entry>
 
-            <entry>Should white spaces between directives or actions be
-            trimmed?</entry>
+              <entry>–</entry>
+            </row>
 
-            <entry>FALSE</entry>
+            <row>
+              <entry>mappedFile</entry>
 
-            <entry>–</entry>
-          </row>
+              <entry>Support for mapped Files. Generates a servlet that has a
+              print statement per line of the JSP file./</entry>
 
-          <row>
-            <entry>enablePooling</entry>
+              <entry>TRUE</entry>
 
-            <entry>Determines whether tag handler pooling is enabled.</entry>
+              <entry>–</entry>
+            </row>
 
-            <entry>TRUE</entry>
+            <row>
+              <entry>sendErrorToClient</entry>
 
-            <entry>–</entry>
-          </row>
+              <entry>If false, stack traces, etc., are sent to std error
+              instead of the client's browser.</entry>
 
-          <row>
-            <entry>mappedFile</entry>
+              <entry>FALSE</entry>
 
-            <entry>Support for mapped Files. Generates a servlet that has a
-            print statement per line of the JSP file./</entry>
+              <entry>–</entry>
+            </row>
 
-            <entry>TRUE</entry>
+            <row>
+              <entry>classdebuginfo</entry>
 
-            <entry>–</entry>
-          </row>
+              <entry>Include debugging info in class file.</entry>
 
-          <row>
-            <entry>sendErrorToClient</entry>
+              <entry>TRUE</entry>
 
-            <entry>If false, stack traces, etc., are sent to std error instead
-            of the client's browser.</entry>
+              <entry>–</entry>
+            </row>
 
-            <entry>FALSE</entry>
+            <row>
+              <entry>checkInterval</entry>
 
-            <entry>–</entry>
-          </row>
+              <entry>Interval in seconds between background recompile checks.
+              Only relevant if <code> development=false</code>.</entry>
 
-          <row>
-            <entry>classdebuginfo</entry>
+              <entry>0</entry>
 
-            <entry>Include debugging info in class file.</entry>
+              <entry>–</entry>
+            </row>
 
-            <entry>TRUE</entry>
+            <row>
+              <entry>suppressSmap</entry>
 
-            <entry>–</entry>
-          </row>
+              <entry>Generation of SMAP info for JSR45 debugging.</entry>
 
-          <row>
-            <entry>checkInterval</entry>
+              <entry>FALSE</entry>
 
-            <entry>Interval in seconds between background recompile checks.
-            Only relevant if <code> development=false</code>.</entry>
+              <entry>–</entry>
+            </row>
 
-            <entry>0</entry>
+            <row>
+              <entry>dumpSmap</entry>
 
-            <entry>–</entry>
-          </row>
+              <entry>Dump SMAP JSR45 info to a file.</entry>
 
-          <row>
-            <entry>suppressSmap</entry>
+              <entry>FALSE</entry>
 
-            <entry>Generation of SMAP info for JSR45 debugging.</entry>
+              <entry>–</entry>
+            </row>
 
-            <entry>FALSE</entry>
+            <row>
+              <entry>genStrAsCharArray</entry>
 
-            <entry>–</entry>
-          </row>
+              <entry>Option for generating Strings.</entry>
 
-          <row>
-            <entry>dumpSmap</entry>
+              <entry>FALSE</entry>
 
-            <entry>Dump SMAP JSR45 info to a file.</entry>
+              <entry>–</entry>
+            </row>
 
-            <entry>FALSE</entry>
+            <row>
+              <entry>genStrAsByteArray</entry>
 
-            <entry>–</entry>
-          </row>
+              <entry>Option for generating Strings.</entry>
 
-          <row>
-            <entry>genStrAsCharArray</entry>
+              <entry>TRUE</entry>
 
-            <entry>Option for generating Strings.</entry>
+              <entry>–</entry>
+            </row>
 
-            <entry>FALSE</entry>
+            <row>
+              <entry>defaultBufferNone</entry>
 
-            <entry>–</entry>
-          </row>
+              <entry/>
 
-          <row>
-            <entry>genStrAsByteArray</entry>
+              <entry>FALSE</entry>
 
-            <entry>Option for generating Strings.</entry>
+              <entry>–</entry>
+            </row>
 
-            <entry>TRUE</entry>
+            <row>
+              <entry>errorOnUseBeanInvalidClassAttribute</entry>
 
-            <entry>–</entry>
-          </row>
+              <entry/>
 
-          <row>
-            <entry>defaultBufferNone</entry>
+              <entry>FALSE</entry>
 
-            <entry/>
+              <entry>–</entry>
+            </row>
 
-            <entry>FALSE</entry>
+            <row>
+              <entry>scratchDir</entry>
 
-            <entry>–</entry>
-          </row>
+              <entry>Directory where servlets are generated. Jetty sets this
+              value according to the [/display/JETTY/Temporary+Directories
+              work dir] settings for the webapp.</entry>
 
-          <row>
-            <entry>errorOnUseBeanInvalidClassAttribute</entry>
+              <entry>–</entry>
 
-            <entry/>
+              <entry>–</entry>
+            </row>
 
-            <entry>FALSE</entry>
+            <row>
+              <entry>compiler</entry>
 
-            <entry>–</entry>
-          </row>
+              <entry>Determined at runtime. For Jetty this is the Eclipse jdt
+              compiler.</entry>
 
-          <row>
-            <entry>scratchDir</entry>
+              <entry>–</entry>
 
-            <entry>Directory where servlets are generated. Jetty sets this
-            value according to the [/display/JETTY/Temporary+Directories work
-            dir] settings for the webapp.</entry>
+              <entry>–</entry>
+            </row>
 
-            <entry>–</entry>
+            <row>
+              <entry>compilerTargetVM</entry>
 
-            <entry>–</entry>
-          </row>
+              <entry>Target vm to compile for.</entry>
 
-          <row>
-            <entry>compiler</entry>
+              <entry>1.5</entry>
 
-            <entry>Determined at runtime. For Jetty this is the Eclipse jdt
-            compiler.</entry>
+              <entry>–</entry>
+            </row>
 
-            <entry>–</entry>
+            <row>
+              <entry>compilerSourceVM</entry>
 
-            <entry>–</entry>
-          </row>
+              <entry>Sets source compliance level for the jdt
+              compiler.</entry>
 
-          <row>
-            <entry>compilerTargetVM</entry>
+              <entry>1.5</entry>
 
-            <entry>Target vm to compile for.</entry>
+              <entry>–</entry>
+            </row>
 
-            <entry>1.5</entry>
+            <row>
+              <entry>javaEncoding</entry>
 
-            <entry>–</entry>
-          </row>
+              <entry>Pass through the encoding to use for the
+              compilation.</entry>
 
-          <row>
-            <entry>compilerSourceVM</entry>
+              <entry>UTF8</entry>
 
-            <entry>Sets source compliance level for the jdt compiler.</entry>
+              <entry>–</entry>
+            </row>
 
-            <entry>1.5</entry>
+            <row>
+              <entry>modificationTestInterval</entry>
 
-            <entry>–</entry>
-          </row>
+              <entry>If <code>development=true</code>, interval between
+              recompilation checks, triggered by a request.</entry>
 
-          <row>
-            <entry>javaEncoding</entry>
+              <entry>0</entry>
 
-            <entry>Pass through the encoding to use for the
-            compilation.</entry>
+              <entry>–</entry>
+            </row>
 
-            <entry>UTF8</entry>
+            <row>
+              <entry>xpoweredBy</entry>
 
-            <entry>–</entry>
-          </row>
+              <entry>Generate an X-Powered-By response header.</entry>
 
-          <row>
-            <entry>modificationTestInterval</entry>
+              <entry>FALSE</entry>
 
-            <entry>If <code>development=true</code>, interval between
-            recompilation checks, triggered by a request.</entry>
+              <entry>FALSE</entry>
+            </row>
 
-            <entry>0</entry>
+            <row>
+              <entry>usePrecompiled/use-precompiled</entry>
 
-            <entry>–</entry>
-          </row>
+              <entry/>
 
-          <row>
-            <entry>xpoweredBy</entry>
+              <entry>FALSE</entry>
 
-            <entry>Generate an X-Powered-By response header.</entry>
+              <entry>–</entry>
+            </row>
 
-            <entry>FALSE</entry>
+            <row>
+              <entry>validating/enableTldValidation</entry>
 
-            <entry>FALSE</entry>
-          </row>
+              <entry>Whether or not to validate tag files against the
+              schema.</entry>
 
-          <row>
-            <entry>usePrecompiled/use-precompiled</entry>
+              <entry>FALSE</entry>
 
-            <entry/>
+              <entry>–</entry>
+            </row>
 
-            <entry>FALSE</entry>
+            <row>
+              <entry>reload-interval</entry>
 
-            <entry>–</entry>
-          </row>
+              <entry>If <code>reload-interval=0</code>, then no runtime
+              checking of JSP, otherwise sets the checking interval for both
+              <code>development=true</code> and
+              <code>development=false</code>.</entry>
 
-          <row>
-            <entry>validating/enableTldValidation</entry>
+              <entry>–</entry>
 
-            <entry>Whether or not to validate tag files against the
-            schema.</entry>
+              <entry>–</entry>
+            </row>
 
-            <entry>FALSE</entry>
+            <row>
+              <entry>initial-capacity/initialCapacity</entry>
 
-            <entry>–</entry>
-          </row>
+              <entry>The initial capacity of the hash maps mapping the name of
+              the JSP to class and JSP file.</entry>
 
-          <row>
-            <entry>reload-interval</entry>
+              <entry>–</entry>
 
-            <entry>If <code>reload-interval=0</code>, then no runtime checking
-            of JSP, otherwise sets the checking interval for both
-            <code>development=true</code> and
-            <code>development=false</code>.</entry>
+              <entry>–</entry>
+            </row>
+          </tbody>
+        </tgroup>
+      </table>
 
-            <entry>–</entry>
+      <para>Much confusion generally ensues about the
+      <code>development</code>, <code>checkInterval</code> and <code>
+      modificationTestInterval</code> parameters and JSP runtime
+      recompilation. Here is a factoring out of the various options:</para>
 
-            <entry>–</entry>
-          </row>
-
-          <row>
-            <entry>initial-capacity/initialCapacity</entry>
-
-            <entry>The initial capacity of the hash maps mapping the name of
-            the JSP to class and JSP file.</entry>
-
-            <entry>–</entry>
-
-            <entry>–</entry>
-          </row>
-        </tbody>
-      </tgroup>
-    </table>
-
-    <para>Much confusion generally ensues about the <code>development</code>,
-    <code>checkInterval</code> and <code> modificationTestInterval</code>
-    parameters and JSP runtime recompilation. Here is a factoring out of the
-    various options:</para>
-
-    <itemizedlist>
-      <listitem>
-        <para>Check the JSP files for possible recompilation on every request:
-        <informalexample>
-            <programlisting language="xml"><![CDATA[
+      <itemizedlist>
+        <listitem>
+          <para>Check the JSP files for possible recompilation on every
+          request: <informalexample>
+              <programlisting language="xml"><![CDATA[
 
 <init-param>
         <param-name>development></param-name>
@@ -440,13 +831,14 @@
 </init-param>
 
         ]]></programlisting>
-          </informalexample></para>
-      </listitem>
+            </informalexample></para>
+        </listitem>
 
-      <listitem>
-        <para>Only check approximately every N seconds, where a request triggers the time-lapse calculation. This example checks every 60
-        seconds: <informalexample>
-            <programlisting language="xml"><![CDATA[
+        <listitem>
+          <para>Only check approximately every N seconds, where a request
+          triggers the time-lapse calculation. This example checks every 60
+          seconds: <informalexample>
+              <programlisting language="xml"><![CDATA[
 
 <init-param>
         <param-name>development></param-name>
@@ -458,15 +850,15 @@
 </init-param>
 
         ]]></programlisting>
-          </informalexample></para>
-      </listitem>
+            </informalexample></para>
+        </listitem>
 
-      <listitem>
-        <para>Do no checking whatsoever, but still compile the JSP on the very
-        first hit. (Be aware that this ''reload-interval'' parameter is shorthand for
-        a ''development=false'' and ''checkInterval=0'' combination.):
-        <informalexample>
-            <programlisting language="xml"><![CDATA[
+        <listitem>
+          <para>Do no checking whatsoever, but still compile the JSP on the
+          very first hit. (Be aware that this ''reload-interval'' parameter is
+          shorthand for a ''development=false'' and ''checkInterval=0''
+          combination.): <informalexample>
+              <programlisting language="xml"><![CDATA[
 
 <init-param>
         <param-name>reload-interval></param-name>
@@ -474,14 +866,14 @@
 </init-param>
 
         ]]></programlisting>
-          </informalexample></para>
-      </listitem>
+            </informalexample></para>
+        </listitem>
 
-      <listitem>
-        <para>Don't do any request-time checking, but instead start a
-        background thread to do checks every N seconds. This example checks
-        every 60 seconds: <informalexample>
-            <programlisting language="xml"><![CDATA[
+        <listitem>
+          <para>Don't do any request-time checking, but instead start a
+          background thread to do checks every N seconds. This example checks
+          every 60 seconds: <informalexample>
+              <programlisting language="xml"><![CDATA[
 
 <init-param>
         <param-name>development></param-name>
@@ -493,16 +885,17 @@
 </init-param>
  
         ]]></programlisting>
-          </informalexample></para>
-      </listitem>
-    </itemizedlist>
+            </informalexample></para>
+        </listitem>
+      </itemizedlist>
+    </section>
   </section>
 
   <section xml:id="modifying-configuration">
-    <title>Modifying the Configuration</title>
+    <title>Modifying Configuration</title>
 
-    <para>There are several options for modifying the JspServlet
-    configuration.</para>
+    <para>Regardless of which JSP container you are using, there are several
+    options for modifying the JspServlet configuration.</para>
 
     <section xml:id="overriding-webdefault.xml">
       <title>Overriding <filename>webdefault.xml</filename></title>
@@ -560,8 +953,9 @@
       <filename>web.xml</filename></title>
 
       <para>Another option is to add an entry for the JSPServlet to the
-      <filename>WEB-INF/web.xml</filename> file of your webapp. You can use
-      the entry in <link
+      <filename>WEB-INF/web.xml</filename> file of your webapp and change or
+      add init-params. You may also add (but not remove) servlet-mappings. You
+      can use the entry in <link
       linkend="webdefault-xml">$JETTY_HOME/etc/webdefault.xml</link> as a
       starting point.</para>
 
@@ -631,21 +1025,18 @@
       <para>If you want to use JSF with your webapp, you need to copy the JSF
       implementation Jar (whichever Jar contains the
       <filename>META-INF/*.tld</filename> files from your chosen JSF
-      implementation) into <filename> $JETTY_HOME/lib/jsp</filename>. This is
-      because the version of the JSP engine from Glassfish that we are using
-      <emphasis>requires</emphasis> that the JSF tags be on the container's
-      classpath, and <emphasis>not</emphasis> on the webapp's
-      classpath.</para>
+      implementation) into Jetty's shared container lib directory. You can
+      either put them into the lib directory matching your JSP container of
+      choice (either $JETTY_HOME/lib/jsp for Glassfish JSP, or
+      $JETTY_HOME/lib/apache-jsp for Apache JSP), or put them into
+      $JETTY_HOME/lib/ext.<filename/> </para>
     </section>
 
     <section xml:id="using-jsf-taglibs-with-jetty-maven-plugin">
       <title>Using JSF Taglibs with Jetty Maven Plugin</title>
 
-      <para>The version of the JSP engine from Glassfish that we are using
-      requires that the JSF tags be on the container classpath, and not on the
-      webapp classpath, so you need to make your JSF jars dependencies of the
-      plugin and <emphasis>not</emphasis> the webapp itself. For
-      example:</para>
+      <para>You should make your JSF jars dependencies of the plugin and
+      <emphasis>not</emphasis> the webapp itself. For example:</para>
 
       <informalexample>
         <programlisting language="xml"><![CDATA[

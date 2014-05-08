@@ -36,7 +36,7 @@
     xl:href="http://tomcat.apache.org/tomcat-8.0-doc/jasper-howto.html">Apache</link>
     as the default JSP container implementation. In previous versions we used
     Jasper from <link xl:href="http://jsp.java.net">Glassfish</link>, and if
-    you wish to, you can continue to do so. </para>
+    you wish to, you can continue to do so.</para>
 
     <para>The jetty-distribution by default enables the jsp <link
     linkend="startup-modules">module</link>, and by default, this <link
@@ -45,32 +45,14 @@
     <filename>$JETTY_HOME/start.d/jsp.mod</filename> file and change the line
     indicated:</para>
 
-    <programlisting language="text"><![CDATA[#
-# Jetty JSP Module
-#
-
-[depend]
-servlet
-jsp-impl/${jsp-impl}-jsp
-
-[ini-template]
-# JSP Configuration
-
-# Select JSP implementation, choices are
-#   glassfish : The reference implementation 
-#               default in jetty <= 9.1
-#   apache    : The apache version 
-#               default jetty >= 9.2
-jsp-impl=apache
-
-# To use a non-jdk compiler for JSP compilation when using glassfish uncomment next line
-# -Dorg.apache.jasper.compiler.disablejsr199=true
-]]></programlisting>
+    <informalexample>
+      <programlisting language="rplain"><filename>@GITURL@/jetty-distribution/src/main/resources/modules/jsp.mod</filename></programlisting>
+    </informalexample>
 
     <para>Note that the availability of some JSP features may depend on which
     JSP container implementation you are using. Note also that it may not be
     possible to precompile your jsps with one container and deploy to the
-    other. </para>
+    other.</para>
   </section>
 
   <section>
@@ -88,7 +70,7 @@ jsp-impl=apache
     package prefix (which is <literal>org.apache.jsp</literal> by default),
     you should configure your webapp context to tell Jetty about this custom
     package name. You can do this using a servlet context init-param called
-    <literal>org.eclipse.jetty.servlet.jspPackagePrefix</literal>. </para>
+    <literal>org.eclipse.jetty.servlet.jspPackagePrefix</literal>.</para>
 
     <para>For example, suppose you have precompiled your jsps with the custom
     package prefix of <literal>com.acme</literal>, then you would add the
@@ -259,9 +241,9 @@ jsp-impl=apache
               <row>
                 <entry>engineOptionsClass</entry>
 
-                <entry> Allows specifying the Options class used to configure
+                <entry>Allows specifying the Options class used to configure
                 Jasper. If not present, the default EmbeddedServletOptions
-                will be used. </entry>
+                will be used.</entry>
 
                 <entry>–</entry>
               </row>
@@ -337,7 +319,7 @@ jsp-impl=apache
 
                 <entry>The amount of time in seconds a JSP can be idle before
                 it is unloaded. A value of zero or less indicates never
-                unload. </entry>
+                unload.</entry>
 
                 <entry>-1</entry>
 
@@ -347,7 +329,7 @@ jsp-impl=apache
               <row>
                 <entry>scratchDir</entry>
 
-                <entry>Directory where servlets are generated. See </entry>
+                <entry>Directory where servlets are generated. See</entry>
 
                 <entry>–</entry>
 
@@ -1029,7 +1011,7 @@ jsp-impl=apache
       either put them into the lib directory matching your JSP container of
       choice (either $JETTY_HOME/lib/jsp for Glassfish JSP, or
       $JETTY_HOME/lib/apache-jsp for Apache JSP), or put them into
-      $JETTY_HOME/lib/ext.<filename/> </para>
+      $JETTY_HOME/lib/ext.<filename/></para>
     </section>
 
     <section xml:id="using-jsf-taglibs-with-jetty-maven-plugin">

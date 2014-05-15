@@ -142,7 +142,7 @@
 <xsl:template name="book.titlepage.recto">
   
 
-<fo:block id="d0e162" text-align="center"><fo:external-graphic src="url(target/docbkx/pdf/jetty/images/jetty-logo-shadow.png)" width="540px" height="auto" content-width="scale-to-fit" content-height="scale-to-fit" content-type="content-type:image/png" text-align="center"/></fo:block>
+<fo:block text-align="center"><fo:external-graphic src="url(target/docbkx/pdf/jetty/images/jetty-logo-shadow.png)" width="540px" height="auto" content-width="scale-to-fit" content-height="scale-to-fit" content-type="content-type:image/png" text-align="center"/></fo:block>
 <fo:block text-align="center" font-size="24pt" border-width="10mm">The Definitive Reference</fo:block>
 
 

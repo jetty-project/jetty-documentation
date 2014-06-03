@@ -26,7 +26,7 @@
          xmlns:ns="http://docbook.org/ns/docbook">
   <title>Managing 1xx Responses</title>
   <para>
-    The <link linkend="http://www.ietf.org/rfc/rfc2616.txt">HTTP RFC</link> allows for 1xx informational responses to be sent before a real content response. Unfortunately the servlet specification does not provide a way for these to be sent, so Jetty has had to provide non-standard handling of these headers.
+    The <link xl:href="http://www.ietf.org/rfc/rfc2616.txt">HTTP RFC</link> allows for 1xx informational responses to be sent before a real content response. Unfortunately the servlet specification does not provide a way for these to be sent, so Jetty has had to provide non-standard handling of these headers.
   </para>
   <section xml:id="100-continue">
     <title>100 Continue</title>
@@ -43,7 +43,7 @@
   <section xml:id="102-processing">
     <title>102 Processing</title>
     <para>
-      <link linkend="http://www.ietf.org/rfc/rfc2518.txt">RFC 2518</link> defines the 102 processing response that can be sent "when the server has a reasonable expectation that the request will take significant time to complete. As guidance, if a method is taking longer than 20 seconds (a reasonable, but arbitrary value) to process the server SHOULD return a 102 (Processing) response".
+      <link xl:href="http://www.ietf.org/rfc/rfc2518.txt">RFC 2518</link> defines the 102 processing response that can be sent "when the server has a reasonable expectation that the request will take significant time to complete. As guidance, if a method is taking longer than 20 seconds (a reasonable, but arbitrary value) to process the server SHOULD return a 102 (Processing) response".
     </para>
     <para>
       So if a request is received with the Expect: 102-processing header, then a filter/servlet may send a 102 response (without terminating further processing) by calling <code>servletResponse.sendError(102);</code>.

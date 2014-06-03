@@ -328,7 +328,7 @@ $ mv <old release> /home/data/httpd/archive.eclipse.org/jetty/
       </listitem>
     </orderedlist>
     <para>
-      Lastly, the <code>&#36;{project.version}</code> of the <filename>pom.xml</filename> is the latest released version of the Jetty so when making a new release we want to update this so that our documentation is being generated with useful defaults in many of our examples.  Throughout much of the documentation we use <code>&#36;{project.version}</code> which is resolved in the build to make examples that can be cut and paste straight out of the documentation and automatically use the latest version available, so once the release is available in maven central update the version in the documentation's <filename>pom.xml</filename> and push it.  The automated build will update the <link xl:href="http://www.eclipse.org/jetty/documentation/current">documentation/current/</link> url.
+      Lastly, the <code>${project.version}</code> of the <filename>pom.xml</filename> is the latest released version of the Jetty so when making a new release we want to update this so that our documentation is being generated with useful defaults in many of our examples.  Throughout much of the documentation we use <code>${project.version}</code> which is resolved in the build to make examples that can be cut and paste straight out of the documentation and automatically use the latest version available, so once the release is available in maven central update the version in the documentation's <filename>pom.xml</filename> and push it.  The automated build will update the <link xl:href="http://www.eclipse.org/jetty/documentation/current">documentation/current/</link> url.
     </para>
     
   </section>

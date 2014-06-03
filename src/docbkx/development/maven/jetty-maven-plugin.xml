@@ -47,21 +47,21 @@
     <filename>pom.xml</filename> definition:</para>
 
     <informalexample>
-      <programlisting language="xml">
+      <programlisting language="xml"><![CDATA[
 
-&lt;plugin&gt;
-  &lt;groupId&gt;org.eclipse.jetty&lt;/groupId&gt;
-  &lt;artifactId&gt;jetty-maven-plugin&lt;/artifactId&gt;
-  &lt;version&gt;&amp;#36;{project.version}&lt;/version&gt;
-&lt;/plugin&gt;
+<plugin>
+  <groupId>org.eclipse.jetty</groupId>
+  <artifactId>jetty-maven-plugin</artifactId>
+  <version>&#36;{project.version}</version>
+</plugin>
 
-      </programlisting>
+      ]]></programlisting>
     </informalexample>
 
     <para>Then, from the same directory as your root
     <filename>pom.xml</filename>, type:</para>
 
-    <screen>mvn jetty:run</screen>
+    <screen><![CDATA[mvn jetty:run]]></screen>
 
     <para>This starts Jetty and serves up your project on
     http://localhost:8080/.</para>
@@ -91,12 +91,12 @@
     <para>To see a list of all goals supported by the Jetty Maven plugin,
     do:</para>
 
-    <screen>mvn jetty:help</screen>
+    <screen><![CDATA[mvn jetty:help]]></screen>
 
     <para>To see the detailed list of parameters that can be configured for a
     particular goal, in addition to its description, do:</para>
 
-    <screen>mvn jetty:help -Ddetail=true -Dgoal= goal-name</screen>
+    <screen><![CDATA[mvn jetty:help -Ddetail=true -Dgoal= goal-name]]></screen>
   </section>
 
   <section xml:id="configuring-jetty-container">
@@ -365,23 +365,23 @@
             configure the connectors. Here's the relevant section:</para>
 
             <informalexample>
-              <programlisting language="xml">    &lt;New id="httpConfig" class="org.eclipse.jetty.server.HttpConfiguration"&gt;
-      &lt;Set name="secureScheme"&gt;https&lt;/Set&gt;
-      &lt;Set name="securePort"&gt;&lt;Property name="jetty.secure.port" default="8443" /&gt;&lt;/Set&gt;
-      &lt;Set name="outputBufferSize"&gt;32768&lt;/Set&gt;
-      &lt;Set name="requestHeaderSize"&gt;8192&lt;/Set&gt;
-      &lt;Set name="responseHeaderSize"&gt;8192&lt;/Set&gt;
-      &lt;Set name="sendServerVersion"&gt;true&lt;/Set&gt;
-      &lt;Set name="sendDateHeader"&gt;false&lt;/Set&gt;
-      &lt;Set name="headerCacheSize"&gt;512&lt;/Set&gt;
+              <programlisting language="xml"><![CDATA[    <New id="httpConfig" class="org.eclipse.jetty.server.HttpConfiguration">
+      <Set name="secureScheme">https</Set>
+      <Set name="securePort"><Property name="jetty.secure.port" default="8443" /></Set>
+      <Set name="outputBufferSize">32768</Set>
+      <Set name="requestHeaderSize">8192</Set>
+      <Set name="responseHeaderSize">8192</Set>
+      <Set name="sendServerVersion">true</Set>
+      <Set name="sendDateHeader">false</Set>
+      <Set name="headerCacheSize">512</Set>
 
-      &lt;!-- Uncomment to enable handling of X-Forwarded- style headers
-      &lt;Call name="addCustomizer"&gt;
-        &lt;Arg&gt;&lt;New class="org.eclipse.jetty.server.ForwardedRequestCustomizer"/&gt;&lt;/Arg&gt;
-      &lt;/Call&gt;
-      --&gt;
-    &lt;/New&gt;
-</programlisting>
+      <!-- Uncomment to enable handling of X-Forwarded- style headers
+      <Call name="addCustomizer">
+        <Arg><New class="org.eclipse.jetty.server.ForwardedRequestCustomizer"/></Arg>
+      </Call>
+      -->
+    </New>
+]]></programlisting>
             </informalexample>
           </listitem>
         </varlistentry>
@@ -415,13 +415,13 @@
       above:</para>
 
       <informalexample>
-        <programlisting language="xml">&lt;plugin&gt;
-  &lt;groupId&gt;org.eclipse.jetty&lt;/groupId&gt;
-  &lt;artifactId&gt;jetty-maven-plugin&lt;/artifactId&gt;
-  &lt;configuration&gt;
-    &lt;jettyXml&gt;jetty.xml,jetty-ssl.xml,jetty-https.xml&lt;/jettyXml&gt;
-  &lt;/configuration&gt;
-&lt;/plugin&gt;</programlisting>
+        <programlisting language="xml"><![CDATA[<plugin>
+  <groupId>org.eclipse.jetty</groupId>
+  <artifactId>jetty-maven-plugin</artifactId>
+  <configuration>
+    <jettyXml>jetty.xml,jetty-ssl.xml,jetty-https.xml</jettyXml>
+  </configuration>
+</plugin>]]></programlisting>
       </informalexample>
 
       <caution>
@@ -440,13 +440,13 @@
       apply:</para>
 
       <informalexample>
-        <programlisting language="xml">&lt;plugin&gt;
-  &lt;groupId&gt;org.eclipse.jetty&lt;/groupId&gt;
-  &lt;artifactId&gt;jetty-maven-plugin&lt;/artifactId&gt;
-  &lt;configuration&gt;
-    &lt;jettyXml&gt;jetty.xml,jetty-http.xml,jetty-ssl.xml,jetty-https.xml&lt;/jettyXml&gt;
-  &lt;/configuration&gt;
-&lt;/plugin&gt;</programlisting>
+        <programlisting language="xml"><![CDATA[<plugin>
+  <groupId>org.eclipse.jetty</groupId>
+  <artifactId>jetty-maven-plugin</artifactId>
+  <configuration>
+    <jettyXml>jetty.xml,jetty-http.xml,jetty-ssl.xml,jetty-https.xml</jettyXml>
+  </configuration>
+</plugin>]]></programlisting>
       </informalexample>
 
       <para>Alternatively, you can use the <link
@@ -582,7 +582,7 @@
     <itemizedlist>
       <listitem>
         <para>resources in
-        <filename>${basedir}/src/main/webapp</filename></para>
+        <filename>${project.basedir}/src/main/webapp</filename></para>
       </listitem>
 
       <listitem>
@@ -592,7 +592,7 @@
 
       <listitem>
         <para><filename>web.xml</filename> in
-        <filename>${basedir}/src/main/webapp/WEB-INF/</filename></para>
+        <filename>${project.basedir}/src/main/webapp/WEB-INF/</filename></para>
       </listitem>
     </itemizedlist>
 
@@ -610,23 +610,24 @@
     of: code, compile, reassemble, redeploy, test.</para>
 
     <para>Here is a small example, which turns on scanning for changes every
-    ten seconds, and sets the webapp context path to "/test":</para>
+    ten seconds, and sets the webapp context path to
+    <literal>/test</literal>:</para>
 
     <informalexample>
-      <programlisting language="xml">
+      <programlisting language="xml"><![CDATA[
 
-&lt;plugin&gt;
-  &lt;groupId&gt;org.eclipse.jetty&lt;/groupId&gt;
-  &lt;artifactId&gt;jetty-maven-plugin&lt;/artifactId&gt;
-  &lt;configuration&gt;
-    &lt;scanIntervalSeconds&gt;10&lt;/scanIntervalSeconds&gt;
-    &lt;webApp&gt;
-      &lt;contextPath&gt;/test&lt;/contextPath&gt;
-    &lt;/webApp&gt;
-  &lt;/configuration&gt;
-&lt;/plugin&gt;
+<plugin>
+  <groupId>org.eclipse.jetty</groupId>
+  <artifactId>jetty-maven-plugin</artifactId>
+  <configuration>
+    <scanIntervalSeconds>10</scanIntervalSeconds>
+    <webApp>
+      <contextPath>/test</contextPath>
+    </webApp>
+  </configuration>
+</plugin>
       
-      </programlisting>
+      ]]></programlisting>
     </informalexample>
 
     <section xml:id="configuring-additional-parameters">
@@ -719,46 +720,46 @@
       <para>Here's an example:</para>
 
       <informalexample>
-        <programlisting language="xml">
+        <programlisting language="xml"><![CDATA[
 
-&lt;project&gt;
+<project>
 ... 
-  &lt;plugins&gt;
+  <plugins>
 ... 
-    &lt;plugin&gt;
-      &lt;groupId&gt;org.eclipse.jetty&lt;/groupId&gt;
-      &lt;artifactId&gt;jetty-maven-plugin&lt;/artifactId&gt;
-      &lt;configuration&gt;
-        &lt;webAppSourceDirectory&gt;&amp;#36;{basedir}/src/staticfiles&lt;/webAppSourceDirectory&gt;
-        &lt;webApp&gt;
-          &lt;contextPath&gt;/&lt;/contextPath&gt;
-          &lt;descriptor&gt;&amp;#36;{basedir}/src/over/here/web.xml&lt;/descriptor&gt;
-          &lt;jettyEnvXml&gt;&amp;#36;{basedir}/src/over/here/jetty-env.xml&lt;/jettyEnvXml&gt;
-        &lt;/webApp&gt;
-        &lt;classesDirectory&gt;&amp;#36;{basedir}/somewhere/else&lt;/classesDirectory&gt;
-        &lt;scanTargets&gt;
-          &lt;scanTarget&gt;src/mydir&lt;/scanTarget&gt;
-          &lt;scanTarget&gt;src/myfile.txt&lt;/scanTarget&gt;
-        &lt;/scanTargets&gt;
-        &lt;scanTargetPatterns&gt;
-          &lt;scanTargetPattern&gt;
-            &lt;directory&gt;src/other-resources&lt;/directory&gt;
-            &lt;includes&gt;
-              &lt;include&gt;**/*.xml&lt;/include&gt;
-              &lt;include&gt;**/*.properties&lt;/include&gt;
-            &lt;/includes&gt;
-            &lt;excludes&gt;
-              &lt;exclude&gt;**/myspecial.xml&lt;/exclude&gt;
-              &lt;exclude&gt;**/myspecial.properties&lt;/exclude&gt;
-            &lt;/excludes&gt;
-          &lt;/scanTargetPattern&gt;
-        &lt;/scanTargetPatterns&gt;
-      &lt;/configuration&gt;
-    &lt;/plugin&gt;
-  &lt;/plugins&gt;
-&lt;/project&gt;
+    <plugin>
+      <groupId>org.eclipse.jetty</groupId>
+      <artifactId>jetty-maven-plugin</artifactId>
+      <configuration>
+        <webAppSourceDirectory>&#36;{basedir}/src/staticfiles</webAppSourceDirectory>
+        <webApp>
+          <contextPath>/</contextPath>
+          <descriptor>&#36;{basedir}/src/over/here/web.xml</descriptor>
+          <jettyEnvXml>&#36;{basedir}/src/over/here/jetty-env.xml</jettyEnvXml>
+        </webApp>
+        <classesDirectory>&#36;{basedir}/somewhere/else</classesDirectory>
+        <scanTargets>
+          <scanTarget>src/mydir</scanTarget>
+          <scanTarget>src/myfile.txt</scanTarget>
+        </scanTargets>
+        <scanTargetPatterns>
+          <scanTargetPattern>
+            <directory>src/other-resources</directory>
+            <includes>
+              <include>**/*.xml</include>
+              <include>**/*.properties</include>
+            </includes>
+            <excludes>
+              <exclude>**/myspecial.xml</exclude>
+              <exclude>**/myspecial.properties</exclude>
+            </excludes>
+          </scanTargetPattern>
+        </scanTargetPatterns>
+      </configuration>
+    </plugin>
+  </plugins>
+</project>
         
-        </programlisting>
+        ]]></programlisting>
       </informalexample>
 
       <para>If, for whatever reason, you cannot run on an unassembled webapp,
@@ -793,23 +794,23 @@
       <para>Here's how to set it:</para>
 
       <informalexample>
-        <programlisting language="xml">
+        <programlisting language="xml"><![CDATA[
 
-&lt;project&gt;
+<project>
 ... 
-  &lt;plugins&gt;
+  <plugins>
 ...
-    &lt;plugin&gt;
-      &lt;groupId&gt;org.eclipse.jetty&lt;/groupId&gt;
-      &lt;artifactId&gt;jetty-maven-plugin&lt;/artifactId&gt;
-      &lt;configuration&gt;
-        &lt;war&gt;&amp;#36;{basedir}/target/mycustom.war&lt;/war&gt;
-      &lt;/configuration&gt;
-    &lt;/plugin&gt;
-  &lt;/plugins&gt;
-&lt;/project&gt;
+    <plugin>
+      <groupId>org.eclipse.jetty</groupId>
+      <artifactId>jetty-maven-plugin</artifactId>
+      <configuration>
+        <war>&#36;{basedir}/target/mycustom.war</war>
+      </configuration>
+    </plugin>
+  </plugins>
+</project>
         
-        </programlisting>
+        ]]></programlisting>
       </informalexample>
     </section>
   </section>
@@ -842,23 +843,23 @@
       <para>Here's how to set it:</para>
 
       <informalexample>
-        <programlisting language="xml">
+        <programlisting language="xml"><![CDATA[
 
-&lt;project&gt; 
+<project> 
 ... 
-  &lt;plugins&gt;
+  <plugins>
 ... 
-    &lt;plugin&gt;
-      &lt;groupId&gt;org.eclipse.jetty&lt;/groupId&gt;
-      &lt;artifactId&gt;maven-jetty-plugin&lt;/artifactId&gt;
-      &lt;configuration&gt;
-        &lt;war&gt;&amp;#36;{basedir}/target/myfunkywebapp&lt;/war&gt;
-      &lt;/configuration&gt;
-    &lt;/plugin&gt;
-  &lt;/plugins&gt;
-&lt;/project&gt;
+    <plugin>
+      <groupId>org.eclipse.jetty</groupId>
+      <artifactId>maven-jetty-plugin</artifactId>
+      <configuration>
+        <war>&#36;{basedir}/target/myfunkywebapp</war>
+      </configuration>
+    </plugin>
+  </plugins>
+</project>
         
-        </programlisting>
+        ]]></programlisting>
       </informalexample>
     </section>
   </section>
@@ -890,43 +891,43 @@
       <para>Here's the configuration:</para>
 
       <informalexample>
-        <programlisting language="xml">
+        <programlisting language="xml"><![CDATA[
 
-&lt;project&gt;
+<project>
 ... 
-  &lt;plugins&gt;
+  <plugins>
 ... 
-  &lt;plugin&gt;
-    &lt;groupId&gt;org.eclipse.jetty&lt;/groupId&gt;
-    &lt;artifactId&gt;jetty-maven-plugin&lt;/artifactId&gt;
-    &lt;configuration&gt;
-      &lt;war&gt;&amp;#36;{basedir}/target/mycustom.war&lt;/war&gt;
-    &lt;/configuration&gt;
-    &lt;executions&gt;
-      &lt;execution&gt;
-        &lt;id&gt;start-jetty&lt;/id&gt;
-        &lt;phase&gt;test-compile&lt;/phase&gt;
-        &lt;goals&gt;
-          &lt;goal&gt;deploy-war&lt;/goal&gt;
-        &lt;/goals&gt;
-        &lt;configuration&gt;
-          &lt;daemon&gt;true&lt;/daemon&gt;
-          &lt;reload&gt;manual&lt;/reload&gt;
-        &lt;/configuration&gt;
-      &lt;/execution&gt;
-      &lt;execution&gt;
-        &lt;id&gt;stop-jetty&lt;/id&gt;
-        &lt;phase&gt;test&lt;/phase&gt;
-        &lt;goals&gt;
-          &lt;goal&gt;stop&lt;/goal&gt;
-        &lt;/goals&gt;
-      &lt;/execution&gt;
-     &lt;/executions&gt;
-    &lt;/plugin&gt;
-  &lt;/plugins&gt;
-&lt;/project&gt;
+  <plugin>
+    <groupId>org.eclipse.jetty</groupId>
+    <artifactId>jetty-maven-plugin</artifactId>
+    <configuration>
+      <war>&#36;{basedir}/target/mycustom.war</war>
+    </configuration>
+    <executions>
+      <execution>
+        <id>start-jetty</id>
+        <phase>test-compile</phase>
+        <goals>
+          <goal>deploy-war</goal>
+        </goals>
+        <configuration>
+          <daemon>true</daemon>
+          <reload>manual</reload>
+        </configuration>
+      </execution>
+      <execution>
+        <id>stop-jetty</id>
+        <phase>test</phase>
+        <goals>
+          <goal>stop</goal>
+        </goals>
+      </execution>
+     </executions>
+    </plugin>
+  </plugins>
+</project>
         
-        </programlisting>
+        ]]></programlisting>
       </informalexample>
     </section>
   </section>
@@ -1111,7 +1112,7 @@
       <para>To deploy your unassembled web app to Jetty running in a new
       JVM:</para>
 
-      <screen>mvn jetty:run-forked</screen>
+      <screen><![CDATA[mvn jetty:run-forked]]></screen>
 
       <para>Jetty continues to execute until you either:</para>
 
@@ -1159,39 +1160,39 @@
     Jetty:</para>
 
     <informalexample>
-      <programlisting language="xml">
+      <programlisting language="xml"><![CDATA[
 
-&lt;plugin&gt;
-  &lt;groupId&gt;org.eclipse.jetty&lt;/groupId&gt;
-  &lt;artifactId&gt;jetty-maven-plugin&lt;/artifactId&gt;
-  &lt;configuration&gt;
-    &lt;scanIntervalSeconds&gt;10&lt;/scanIntervalSeconds&gt;
-    &lt;stopKey&gt;foo&lt;/stopKey&gt;
-    &lt;stopPort&gt;9999&lt;/stopPort&gt;
-  &lt;/configuration&gt;
-  &lt;executions&gt;
-    &lt;execution&gt;
-      &lt;id&gt;start-jetty&lt;/id&gt;
-      &lt;phase&gt;pre-integration-test&lt;/phase&gt;
-      &lt;goals&gt;
-        &lt;goal&gt;start&lt;/goal&gt;
-      &lt;/goals&gt;
-      &lt;configuration&gt;
-        &lt;scanIntervalSeconds&gt;0&lt;/scanIntervalSeconds&gt;
-        &lt;daemon&gt;true&lt;/daemon&gt;
-      &lt;/configuration&gt;
-    &lt;/execution&gt;
-    &lt;execution&gt;
-      &lt;id&gt;stop-jetty&lt;/id&gt;
-      &lt;phase&gt;post-integration-test&lt;/phase&gt;
-       &lt;goals&gt;
-         &lt;goal&gt;stop&lt;/goal&gt;
-       &lt;/goals&gt;
-     &lt;/execution&gt;
-  &lt;/executions&gt;
-&lt;/plugin&gt;
+<plugin>
+  <groupId>org.eclipse.jetty</groupId>
+  <artifactId>jetty-maven-plugin</artifactId>
+  <configuration>
+    <scanIntervalSeconds>10</scanIntervalSeconds>
+    <stopKey>foo</stopKey>
+    <stopPort>9999</stopPort>
+  </configuration>
+  <executions>
+    <execution>
+      <id>start-jetty</id>
+      <phase>pre-integration-test</phase>
+      <goals>
+        <goal>start</goal>
+      </goals>
+      <configuration>
+        <scanIntervalSeconds>0</scanIntervalSeconds>
+        <daemon>true</daemon>
+      </configuration>
+    </execution>
+    <execution>
+      <id>stop-jetty</id>
+      <phase>post-integration-test</phase>
+       <goals>
+         <goal>stop</goal>
+       </goals>
+     </execution>
+  </executions>
+</plugin>
       
-      </programlisting>
+      ]]></programlisting>
     </informalexample>
 
     <para>Of course, you can use this goal from the command line ( <code>mvn
@@ -1242,24 +1243,24 @@
     <para>Here's a configuration example:</para>
 
     <informalexample>
-      <programlisting language="xml">
+      <programlisting language="xml"><![CDATA[
 
-&lt;plugin&gt;
-  &lt;groupId&gt;org.eclipse.jetty&lt;/groupId&gt;
-  &lt;artifactId&gt;jetty-maven-plugin&lt;/artifactId&gt;
-  &lt;configuration&gt;
-    &lt;stopPort&gt;9966&lt;/stopPort&gt;
-    &lt;stopKey&gt;foo&lt;/stopKey&gt;
-    &lt;stopWait&gt;10&lt;/stopWait&gt;
-  &lt;/configuration&gt;
-&lt;/plugin&gt;
+<plugin>
+  <groupId>org.eclipse.jetty</groupId>
+  <artifactId>jetty-maven-plugin</artifactId>
+  <configuration>
+    <stopPort>9966</stopPort>
+    <stopKey>foo</stopKey>
+    <stopWait>10</stopWait>
+  </configuration>
+</plugin>
       
-      </programlisting>
+      ]]></programlisting>
     </informalexample>
 
     <para>Then, while Jetty is running (in another window), type:</para>
 
-    <screen>mvn jetty:stop</screen>
+    <screen><![CDATA[mvn jetty:stop]]></screen>
 
     <para>The <code>stopPort</code> must be free on the machine you are
     running on. If this is not the case, you get an "Address already in use"
@@ -1292,24 +1293,24 @@
       <para>Suppose your webapp depends on the following wars:</para>
 
       <para><informalexample>
-          <programlisting language="xml">
+          <programlisting language="xml"><![CDATA[
 
-&lt;dependency&gt;
-  &lt;groupId&gt;com.acme&lt;/groupId&gt;
-  &lt;artifactId&gt;X&lt;/artifactId&gt;
-  &lt;type&gt;war&lt;/type&gt;
-&lt;/dependency&gt;
-&lt;dependency&gt;
-  &lt;groupId&gt;com.acme&lt;/groupId&gt;
-  &lt;artifactId&gt;Y&lt;/artifactId&gt;
-  &lt;type&gt;war&lt;/type&gt;
-&lt;/dependency&gt;
+<dependency>
+  <groupId>com.acme</groupId>
+  <artifactId>X</artifactId>
+  <type>war</type>
+</dependency>
+<dependency>
+  <groupId>com.acme</groupId>
+  <artifactId>Y</artifactId>
+  <type>war</type>
+</dependency>
           
-          </programlisting>
+          ]]></programlisting>
         </informalexample></para>
 
       <para><parameter>Containing:</parameter> <informalexample>
-          <programlisting language="text">
+          <programlisting language="text"><![CDATA[
 
 WebAppX: 
 
@@ -1324,34 +1325,34 @@ WebAppY:
  /WEB-INF/web.xml
  /WEB-INF/special.xml
         
-        </programlisting>
+        ]]></programlisting>
         </informalexample>They are configured for the <link
       xl:href="http://maven.apache.org/plugins/maven-war-plugin/overlays.html">maven-war-plugin</link>:
       <informalexample>
-          <para><programlisting language="xml">&lt;plugin&gt;
-  &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
-  &lt;artifactId&gt;maven-war-plugin&lt;/artifactId&gt;
-  &lt;configuration&gt;
-    &lt;overlays&gt;
-      &lt;overlay&gt;
-        &lt;groupId&gt;com.acme&lt;/groupId&gt;
-        &lt;artifactId&gt;X&lt;/artifactId&gt;
-        &lt;excludes&gt;
-          &lt;exclude&gt;bar.jsp&lt;/exclude&gt;
-        &lt;/excludes&gt;
-      &lt;/overlay&gt;
-      &lt;overlay&gt;
-        &lt;groupId&gt;com.acme&lt;/groupId&gt;
-        &lt;artifactId&gt;Y&lt;/artifactId&gt;
-        &lt;excludes&gt;
-          &lt;exclude&gt;baz.jsp&lt;/exclude&gt;
-        &lt;/excludes&gt;
-      &lt;/overlay&gt;
-      &lt;overlay&gt;
-      &lt;/overlay&gt;
-    &lt;/overlays&gt;
-  &lt;/configuration&gt;
-&lt;/plugin&gt;</programlisting></para>
+          <para><programlisting language="xml"><![CDATA[<plugin>
+  <groupId>org.apache.maven.plugins</groupId>
+  <artifactId>maven-war-plugin</artifactId>
+  <configuration>
+    <overlays>
+      <overlay>
+        <groupId>com.acme</groupId>
+        <artifactId>X</artifactId>
+        <excludes>
+          <exclude>bar.jsp</exclude>
+        </excludes>
+      </overlay>
+      <overlay>
+        <groupId>com.acme</groupId>
+        <artifactId>Y</artifactId>
+        <excludes>
+          <exclude>baz.jsp</exclude>
+        </excludes>
+      </overlay>
+      <overlay>
+      </overlay>
+    </overlays>
+  </configuration>
+</plugin>]]></programlisting></para>
         </informalexample>Then executing jetty:run would yield the following
       ordering of resources: <code>com.acme.X.war : com.acme.Y.war:
       ${project.basedir}/src/main/webapp</code>. Note that the current
@@ -1381,22 +1382,22 @@ WebAppY:
       <para>For example, suppose our webapp depends on these two wars:</para>
 
       <informalexample>
-        <programlisting language="xml">&lt;dependency&gt;
-  &lt;groupId&gt;com.acme&lt;/groupId&gt;
-  &lt;artifactId&gt;X&lt;/artifactId&gt;
-  &lt;type&gt;war&lt;/type&gt;
-&lt;/dependency&gt;
-&lt;dependency&gt;
-  &lt;groupId&gt;com.acme&lt;/groupId&gt;
-  &lt;artifactId&gt;Y&lt;/artifactId&gt;
-  &lt;type&gt;war&lt;/type&gt;
-&lt;/dependency&gt;</programlisting>
+        <programlisting language="xml"><![CDATA[<dependency>
+  <groupId>com.acme</groupId>
+  <artifactId>X</artifactId>
+  <type>war</type>
+</dependency>
+<dependency>
+  <groupId>com.acme</groupId>
+  <artifactId>Y</artifactId>
+  <type>war</type>
+</dependency>]]></programlisting>
       </informalexample>
 
       <para>Suppose the webapps contain:</para>
 
       <informalexample>
-        <programlisting language="text">WebAppX: 
+        <programlisting language="text"><![CDATA[WebAppX: 
 
  /foo.jsp 
  /bar.jsp 
@@ -1408,19 +1409,19 @@ WebAppY:
  /baz.jsp
  /WEB-INF/web.xml 
  /WEB-INF/special.xml
-        </programlisting>
+        ]]></programlisting>
       </informalexample>
 
       <para>Then our webapp has available these additional resources:</para>
 
       <informalexample>
-        <programlisting language="text">
+        <programlisting language="text"><![CDATA[
 /foo.jsp (X) 
 /bar.jsp (X) 
 /baz.jsp (Y) 
 /WEB-INF/web.xml (X)
 /WEB-INF/special.xml (Y)
-                </programlisting>
+                ]]></programlisting>
       </informalexample>
     </section>
   </section>
@@ -1432,24 +1433,24 @@ WebAppY:
     setting up the HashLoginService for a webapp:</para>
 
     <informalexample>
-      <programlisting language="xml">
-&lt;plugin&gt;
-  &lt;groupId&gt;org.eclipse.jetty&lt;/groupId&gt;
-  &lt;artifactId&gt;jetty-maven-plugin&lt;/artifactId&gt;
-  &lt;configuration&gt;
-    &lt;scanIntervalSeconds&gt;10&lt;/scanIntervalSeconds&gt;
-    &lt;webApp&gt;
-      &lt;contextPath&gt;/test&lt;/contextPath&gt;
-    &lt;/webApp&gt;
-    &lt;loginServices&gt;
-      &lt;loginService implementation="org.eclipse.jetty.security.HashLoginService"&gt;
-        &lt;name&gt;Test Realm&lt;/name&gt;
-        &lt;config&gt;&amp;#36;{basedir}/src/etc/realm.properties&lt;/config&gt;
-      &lt;/loginService&gt;
-    &lt;/loginServices&gt;
-  &lt;/configuration&gt;
-&lt;/plugin&gt;
-           </programlisting>
+      <programlisting language="xml"><![CDATA[
+<plugin>
+  <groupId>org.eclipse.jetty</groupId>
+  <artifactId>jetty-maven-plugin</artifactId>
+  <configuration>
+    <scanIntervalSeconds>10</scanIntervalSeconds>
+    <webApp>
+      <contextPath>/test</contextPath>
+    </webApp>
+    <loginServices>
+      <loginService implementation="org.eclipse.jetty.security.HashLoginService">
+        <name>Test Realm</name>
+        <config>&#36;{basedir}/src/etc/realm.properties</config>
+      </loginService>
+    </loginServices>
+  </configuration>
+</plugin>
+           ]]></programlisting>
     </informalexample>
   </section>
 
@@ -1465,16 +1466,16 @@ WebAppY:
     situation, but without the war. Here's a configuration example:</para>
 
     <informalexample>
-      <programlisting language="xml">
-&lt;configuration&gt;
-  &lt;webApp&gt;
-    &lt;contextPath&gt;/&amp;#36;{build.finalName}&lt;/contextPath&gt;
-    &lt;baseResource implementation="org.eclipse.jetty.util.resource.ResourceCollection"&gt;
-      &lt;resourcesAsCSV&gt;src/main/webapp,/home/johndoe/path/to/my/other/source,/yet/another/folder&lt;/resourcesAsCSV&gt;
-    &lt;/baseResource&gt;
-  &lt;/webApp&gt;
-&lt;/configuration&gt;      
-      </programlisting>
+      <programlisting language="xml"><![CDATA[
+<configuration>
+  <webApp>
+    <contextPath>/&#36;{build.finalName}</contextPath>
+    <baseResource implementation="org.eclipse.jetty.util.resource.ResourceCollection">
+      <resourcesAsCSV>src/main/webapp,/home/johndoe/path/to/my/other/source,/yet/another/folder</resourcesAsCSV>
+    </baseResource>
+  </webApp>
+</configuration>      
+      ]]></programlisting>
     </informalexample>
   </section>
 
@@ -1490,28 +1491,28 @@ WebAppY:
     <para>Putting the configuration in webapp A's <code>pom.xml</code>:</para>
 
     <informalexample>
-      <programlisting language="xml">
-&lt;plugin&gt;
-  &lt;groupId&gt;org.eclipse.jetty&lt;/groupId&gt;
-  &lt;artifactId&gt;jetty-maven-plugin&lt;/artifactId&gt;
-  &lt;configuration&gt;
-    &lt;scanIntervalSeconds&gt;10&lt;/scanIntervalSeconds&gt;
-    &lt;webApp&gt;
-      &lt;contextPath&gt;/test&lt;/contextPath&gt;
-    &lt;/webApp&gt;
-    &lt;contextHandlers&gt;
-      &lt;contextHandler implementation="org.eclipse.jetty.webapp.WebAppContext"&gt;
-        &lt;war&gt;&amp;#36;{basedir}../../B.war&lt;/war&gt;
-        &lt;contextPath&gt;/B&lt;/contextPath&gt;
-      &lt;/contextHandler&gt;
-      &lt;contextHandler implementation="org.eclipse.jetty.webapp.WebAppContext"&gt;
-        &lt;war&gt;&amp;#36;{basedir}../../C.war&lt;/war&gt;
-        &lt;contextPath&gt;/B&lt;/contextPath&gt;
-      &lt;/contextHandler&gt;
-    &lt;/contextHandlers&gt;
-  &lt;/configuration&gt;
-&lt;/plugin&gt;
-            </programlisting>
+      <programlisting language="xml"><![CDATA[
+<plugin>
+  <groupId>org.eclipse.jetty</groupId>
+  <artifactId>jetty-maven-plugin</artifactId>
+  <configuration>
+    <scanIntervalSeconds>10</scanIntervalSeconds>
+    <webApp>
+      <contextPath>/test</contextPath>
+    </webApp>
+    <contextHandlers>
+      <contextHandler implementation="org.eclipse.jetty.webapp.WebAppContext">
+        <war>&#36;{basedir}../../B.war</war>
+        <contextPath>/B</contextPath>
+      </contextHandler>
+      <contextHandler implementation="org.eclipse.jetty.webapp.WebAppContext">
+        <war>&#36;{basedir}../../C.war</war>
+        <contextPath>/B</contextPath>
+      </contextHandler>
+    </contextHandlers>
+  </configuration>
+</plugin>
+            ]]></programlisting>
     </informalexample>
 
     <para>Alternatively, add a <filename>jetty.xml</filename> file to webapp
@@ -1519,45 +1520,45 @@ WebAppY:
     distribution, and then add WebAppContexts for the other 2 webapps:</para>
 
     <informalexample>
-      <programlisting language="xml">
-&lt;Ref refid="Contexts"&gt;
-  &lt;Call name="addHandler"&gt;
-    &lt;Arg&gt;
-      &lt;New class="org.eclipse.jetty.webapp.WebAppContext"&gt;
-        &lt;Set name="contextPath"&gt;/B&lt;/Set&gt;
-        &lt;Set name="war"&gt;../../B.war&lt;/Set&gt;
-      &lt;/New&gt;
-    &lt;/Arg&gt;
-  &lt;/Call&gt;
-  &lt;Call&gt; 
-    &lt;Arg&gt;
-      &lt;New class="org.eclipse.jetty.webapp.WebAppContext"&gt;
-        &lt;Set name="contextPath"&gt;/C&lt;/Set&gt;
-        &lt;Set name="war"&gt;../../C.war&lt;/Set&gt;
-      &lt;/New&gt;
-    &lt;/Arg&gt;
-  &lt;/Call&gt;
-&lt;/Ref&gt;      
-      </programlisting>
+      <programlisting language="xml"><![CDATA[
+<Ref refid="Contexts">
+  <Call name="addHandler">
+    <Arg>
+      <New class="org.eclipse.jetty.webapp.WebAppContext">
+        <Set name="contextPath">/B</Set>
+        <Set name="war">../../B.war</Set>
+      </New>
+    </Arg>
+  </Call>
+  <Call> 
+    <Arg>
+      <New class="org.eclipse.jetty.webapp.WebAppContext">
+        <Set name="contextPath">/C</Set>
+        <Set name="war">../../C.war</Set>
+      </New>
+    </Arg>
+  </Call>
+</Ref>      
+      ]]></programlisting>
     </informalexample>
 
     <para>Then configure the location of this <filename>jetty.xml</filename>
     file into webapp A's jetty plugin:</para>
 
     <informalexample>
-      <programlisting language="xml">
-&lt;plugin&gt;
-  &lt;groupId&gt;org.eclipse.jetty&lt;/groupId&gt;
-  &lt;artifactId&gt;jetty-maven-plugin&lt;/artifactId&gt;
-  &lt;configuration&gt;
-    &lt;scanIntervalSeconds&gt;10&lt;/scanIntervalSeconds&gt;
-    &lt;webApp&gt;
-      &lt;contextPath&gt;/test&lt;/contextPath&gt;
-    &lt;/webApp&gt;
-    &lt;jettyXml&gt;src/main/etc/jetty.xml&lt;/jettyXml&gt;
-  &lt;/configuration&gt;
-&lt;/plugin&gt;      
-      </programlisting>
+      <programlisting language="xml"><![CDATA[
+<plugin>
+  <groupId>org.eclipse.jetty</groupId>
+  <artifactId>jetty-maven-plugin</artifactId>
+  <configuration>
+    <scanIntervalSeconds>10</scanIntervalSeconds>
+    <webApp>
+      <contextPath>/test</contextPath>
+    </webApp>
+    <jettyXml>src/main/etc/jetty.xml</jettyXml>
+  </configuration>
+</plugin>      
+      ]]></programlisting>
     </informalexample>
 
     <para>For either of these solutions, the other webapps must already have
@@ -1584,30 +1585,30 @@ WebAppY:
     logger:</para>
 
     <informalexample>
-      <programlisting language="xml">
+      <programlisting language="xml"><![CDATA[
 
-&lt;plugin&gt;
-  &lt;groupId&gt;org.codehaus.mojo&lt;/groupId&gt;
-  &lt;artifactId&gt;properties-maven-plugin&lt;/artifactId&gt;
-  &lt;version&gt;1.0-alpha-2&lt;/version&gt;
-  &lt;executions&gt;
-    &lt;execution&gt;
-      &lt;goals&gt;
-        &lt;goal&gt;set-system-properties&lt;/goal&gt;
-      &lt;/goals&gt;
-      &lt;configuration&gt;
-        &lt;properties&gt;
-          &lt;property&gt;
-            &lt;name&gt;logback.configurationFile&lt;/name&gt;
-            &lt;value&gt;&amp;#36;{project.baseUri}/resources/logback.xml&lt;/value&gt;
-          &lt;/property&gt;
-        &lt;/properties&gt;
-      &lt;/configuration&gt;
-    &lt;/execution&gt;
-  &lt;/executions&gt;
-&lt;/plugin&gt;
+<plugin>
+  <groupId>org.codehaus.mojo</groupId>
+  <artifactId>properties-maven-plugin</artifactId>
+  <version>1.0-alpha-2</version>
+  <executions>
+    <execution>
+      <goals>
+        <goal>set-system-properties</goal>
+      </goals>
+      <configuration>
+        <properties>
+          <property>
+            <name>logback.configurationFile</name>
+            <value>&#36;{project.baseUri}/resources/logback.xml</value>
+          </property>
+        </properties>
+      </configuration>
+    </execution>
+  </executions>
+</plugin>
 
-      </programlisting>
+      ]]></programlisting>
     </informalexample>
 
     <para>Note that if a System property is already set (for example, from the
@@ -1622,23 +1623,23 @@ WebAppY:
       POM:</para>
 
       <informalexample>
-        <programlisting language="xml">
-&lt;plugin&gt; 
-  &lt;groupId&gt;org.eclipse.jetty&lt;/groupId&gt;
-  &lt;artifactId&gt;jetty-maven-plugin&lt;/artifactId&gt;
-  &lt;configuration&gt; 
-    &lt;systemProperties&gt;
-      &lt;systemProperty&gt;
-        &lt;name&gt;fooprop&lt;/name&gt;
-        &lt;value&gt;222&lt;/value&gt;
-      &lt;/systemProperty&gt;
-    &lt;/systemProperties&gt;
-    &lt;webApp&gt;
-      &lt;contextPath&gt;/test&lt;/contextPath&gt;
-    &lt;/webApp&gt;
-  &lt;/configuration&gt; 
-&lt;/plugin&gt;
-                </programlisting>
+        <programlisting language="xml"><![CDATA[
+<plugin> 
+  <groupId>org.eclipse.jetty</groupId>
+  <artifactId>jetty-maven-plugin</artifactId>
+  <configuration> 
+    <systemProperties>
+      <systemProperty>
+        <name>fooprop</name>
+        <value>222</value>
+      </systemProperty>
+    </systemProperties>
+    <webApp>
+      <contextPath>/test</contextPath>
+    </webApp>
+  </configuration> 
+</plugin>
+                ]]></programlisting>
       </informalexample>
 
       <para>To change the default behaviour so that these system properties
@@ -1646,24 +1647,24 @@ WebAppY:
       parameter:</para>
 
       <informalexample>
-        <programlisting language="xml">
-&lt;plugin&gt; 
-  &lt;groupId&gt;org.eclipse.jetty&lt;/groupId&gt;
-  &lt;artifactId&gt;jetty-maven-plugin&lt;/artifactId&gt;
-  &lt;configuration&gt;
-    &lt;systemProperties&gt;
-      &lt;force&gt;true&lt;/force&gt;
-      &lt;systemProperty&gt;
-       &lt;name&gt;fooprop&lt;/name&gt;
-       &lt;value&gt;222&lt;/value&gt;
-     &lt;/systemProperty&gt;
-    &lt;/systemProperties&gt;
-    &lt;webApp&gt;
-      &lt;contextPath&gt;/test&lt;/contextPath&gt;
-    &lt;/webApp&gt;
-  &lt;/configuration&gt;
-&lt;/plugin&gt;
-                </programlisting>
+        <programlisting language="xml"><![CDATA[
+<plugin> 
+  <groupId>org.eclipse.jetty</groupId>
+  <artifactId>jetty-maven-plugin</artifactId>
+  <configuration>
+    <systemProperties>
+      <force>true</force>
+      <systemProperty>
+       <name>fooprop</name>
+       <value>222</value>
+     </systemProperty>
+    </systemProperties>
+    <webApp>
+      <contextPath>/test</contextPath>
+    </webApp>
+  </configuration>
+</plugin>
+                ]]></programlisting>
       </informalexample>
     </section>
 
@@ -1679,26 +1680,26 @@ WebAppY:
       contains the following:</para>
 
       <informalexample>
-        <programlisting language="text">
+        <programlisting language="text"><![CDATA[
 fooprop=222
-                </programlisting>
+                ]]></programlisting>
       </informalexample>
 
       <para>This can be configured on the plugin like so:</para>
 
       <informalexample>
-        <programlisting language="xml">
-&lt;plugin&gt;
-  &lt;groupId&gt;org.eclipse.jetty&lt;/groupId&gt;
-  &lt;artifactId&gt;jetty-maven-plugin&lt;/artifactId&gt;
-  &lt;configuration&gt;
-    &lt;systemPropertiesFile&gt;&amp;#36;{basedir}/mysys.props&lt;/systemPropertiesFile&gt;
-    &lt;webApp&gt;
-      &lt;contextPath&gt;/test&lt;/contextPath&gt;
-    &lt;/webApp&gt;
-  &lt;/configuration&gt;
-&lt;/plugin&gt;
-                </programlisting>
+        <programlisting language="xml"><![CDATA[
+<plugin>
+  <groupId>org.eclipse.jetty</groupId>
+  <artifactId>jetty-maven-plugin</artifactId>
+  <configuration>
+    <systemPropertiesFile>&#36;{basedir}/mysys.props</systemPropertiesFile>
+    <webApp>
+      <contextPath>/test</contextPath>
+    </webApp>
+  </configuration>
+</plugin>
+                ]]></programlisting>
       </informalexample>
 
       <para>You can instead specify the file by setting the System property

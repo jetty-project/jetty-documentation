@@ -105,6 +105,10 @@
               <filters>
                 <filter>${basedir}/src/main/filters/jetty.properties</filter>
               </filters>
+              <delimiters>
+                <delimiter>@*@</delimiter>
+              </delimiters>
+              <useDefaultDelimiters>false</useDefaultDelimiters>
             </configuration>
           </execution>
         </executions>

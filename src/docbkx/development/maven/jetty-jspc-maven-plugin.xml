@@ -67,7 +67,7 @@
         <term>webXmlFragment</term>
 
         <listitem>
-          <para>Default value: ${basedir}/target/webfrag.xml</para>
+          <para>Default value: ${project.basedir}/target/webfrag.xml</para>
 
           <para>File into which to generate the servlet declarations. Will be
           merged with an existing web.xml.</para>
@@ -78,7 +78,7 @@
         <term>webAppSourceDirectory</term>
 
         <listitem>
-          <para>Default value: ${basedir}/src/main/webapp</para>
+          <para>Default value: ${project.basedir}/src/main/webapp</para>
 
           <para>Root of resources directory where jsps, tags etc are
           located.</para>
@@ -90,7 +90,7 @@
 
         <listitem>
           <para>Default value:
-          ${basedir}/src/main/webapp/WEB-INF/web.xml</para>
+          ${project.basedir}/src/main/webapp/WEB-INF/web.xml</para>
 
           <para>The web.xml file to use to merge with the generated
           fragments.</para>
@@ -227,7 +227,7 @@
   &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
   &lt;artifactId&gt;maven-war-plugin&lt;/artifactId&gt;
   &lt;configuration&gt;
-    &lt;webXml&gt;${basedir}/target/web.xml&lt;/webXml&gt;
+    &lt;webXml&gt;${project.basedir}/target/web.xml&lt;/webXml&gt;
   &lt;/configuration&gt;
 &lt;/plugin&gt;
 

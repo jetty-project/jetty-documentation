@@ -6,7 +6,7 @@
   </formats>
   <fileSets>
     <fileSet>
-      <directory>${basedir}/target/docbkx/html/jetty</directory>
+      <directory>${project.basedir}/target/docbkx/html/jetty</directory>
       <outputDirectory>${version}</outputDirectory>
       <includes>
         <include>**</include>

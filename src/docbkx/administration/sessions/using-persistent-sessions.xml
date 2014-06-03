@@ -132,7 +132,7 @@
       <contextPath>${jetty.contextRoot}</contextPath>
       <sessionHandler implementation="org.eclipse.jetty.server.session.SessionHandler">
         <sessionManager implementation="org.eclipse.jetty.server.session.HashSessionManager">
-          <storeDirectory>${basedir}/target/jetty-sessions</storeDirectory>
+          <storeDirectory>${project.basedir}/target/jetty-sessions</storeDirectory>
           <idleSavePeriod>1</idleSavePeriod>
         </sessionManager>
       </sessionHandler>

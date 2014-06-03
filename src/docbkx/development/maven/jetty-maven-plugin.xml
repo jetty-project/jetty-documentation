@@ -52,7 +52,7 @@
 <plugin>
   <groupId>org.eclipse.jetty</groupId>
   <artifactId>jetty-maven-plugin</artifactId>
-  <version>&#36;{project.version}</version>
+  <version>&#36;{jettyVersion}</version>
 </plugin>
 
       ]]></programlisting>

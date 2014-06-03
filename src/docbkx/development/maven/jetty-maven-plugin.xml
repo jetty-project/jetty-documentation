@@ -52,7 +52,7 @@
 <plugin>
   <groupId>org.eclipse.jetty</groupId>
   <artifactId>jetty-maven-plugin</artifactId>
-  <version>&#36;{project.version}</version>
+  <version>@project.version@</version>
 </plugin>
 
       ]]></programlisting>
@@ -674,8 +674,8 @@
 
           <listitem>
             <para>By default, this is set to
-            <filename>${basedir}/src/main/webapp</filename>. If your static
-            sources are in a different location, set this parameter
+            <filename>${project.basedir}/src/main/webapp</filename>. If your
+            static sources are in a different location, set this parameter
             accordingly.</para>
           </listitem>
         </varlistentry>
@@ -730,13 +730,13 @@
       <groupId>org.eclipse.jetty</groupId>
       <artifactId>jetty-maven-plugin</artifactId>
       <configuration>
-        <webAppSourceDirectory>&#36;{basedir}/src/staticfiles</webAppSourceDirectory>
+        <webAppSourceDirectory>${project.basedir}/src/staticfiles</webAppSourceDirectory>
         <webApp>
           <contextPath>/</contextPath>
-          <descriptor>&#36;{basedir}/src/over/here/web.xml</descriptor>
-          <jettyEnvXml>&#36;{basedir}/src/over/here/jetty-env.xml</jettyEnvXml>
+          <descriptor>${project.basedir}/src/over/here/web.xml</descriptor>
+          <jettyEnvXml>${project.basedir}/src/over/here/jetty-env.xml</jettyEnvXml>
         </webApp>
-        <classesDirectory>&#36;{basedir}/somewhere/else</classesDirectory>
+        <classesDirectory>${project.basedir}/somewhere/else</classesDirectory>
         <scanTargets>
           <scanTarget>src/mydir</scanTarget>
           <scanTarget>src/myfile.txt</scanTarget>
@@ -804,7 +804,7 @@
       <groupId>org.eclipse.jetty</groupId>
       <artifactId>jetty-maven-plugin</artifactId>
       <configuration>
-        <war>&#36;{basedir}/target/mycustom.war</war>
+        <war>${project.basedir}/target/mycustom.war</war>
       </configuration>
     </plugin>
   </plugins>
@@ -853,7 +853,7 @@
       <groupId>org.eclipse.jetty</groupId>
       <artifactId>maven-jetty-plugin</artifactId>
       <configuration>
-        <war>&#36;{basedir}/target/myfunkywebapp</war>
+        <war>${project.basedir}/target/myfunkywebapp</war>
       </configuration>
     </plugin>
   </plugins>
@@ -901,7 +901,7 @@
     <groupId>org.eclipse.jetty</groupId>
     <artifactId>jetty-maven-plugin</artifactId>
     <configuration>
-      <war>&#36;{basedir}/target/mycustom.war</war>
+      <war>${project.basedir}/target/mycustom.war</war>
     </configuration>
     <executions>
       <execution>
@@ -1445,7 +1445,7 @@ WebAppY:
     <loginServices>
       <loginService implementation="org.eclipse.jetty.security.HashLoginService">
         <name>Test Realm</name>
-        <config>&#36;{basedir}/src/etc/realm.properties</config>
+        <config>${project.basedir}/src/etc/realm.properties</config>
       </loginService>
     </loginServices>
   </configuration>
@@ -1469,7 +1469,7 @@ WebAppY:
       <programlisting language="xml"><![CDATA[
 <configuration>
   <webApp>
-    <contextPath>/&#36;{build.finalName}</contextPath>
+    <contextPath>/${build.finalName}</contextPath>
     <baseResource implementation="org.eclipse.jetty.util.resource.ResourceCollection">
       <resourcesAsCSV>src/main/webapp,/home/johndoe/path/to/my/other/source,/yet/another/folder</resourcesAsCSV>
     </baseResource>
@@ -1502,11 +1502,11 @@ WebAppY:
     </webApp>
     <contextHandlers>
       <contextHandler implementation="org.eclipse.jetty.webapp.WebAppContext">
-        <war>&#36;{basedir}../../B.war</war>
+        <war>${project.basedir}../../B.war</war>
         <contextPath>/B</contextPath>
       </contextHandler>
       <contextHandler implementation="org.eclipse.jetty.webapp.WebAppContext">
-        <war>&#36;{basedir}../../C.war</war>
+        <war>${project.basedir}../../C.war</war>
         <contextPath>/B</contextPath>
       </contextHandler>
     </contextHandlers>
@@ -1600,7 +1600,7 @@ WebAppY:
         <properties>
           <property>
             <name>logback.configurationFile</name>
-            <value>&#36;{project.baseUri}/resources/logback.xml</value>
+            <value>${project.baseUri}/resources/logback.xml</value>
           </property>
         </properties>
       </configuration>
@@ -1693,7 +1693,7 @@ fooprop=222
   <groupId>org.eclipse.jetty</groupId>
   <artifactId>jetty-maven-plugin</artifactId>
   <configuration>
-    <systemPropertiesFile>&#36;{basedir}/mysys.props</systemPropertiesFile>
+    <systemPropertiesFile>${project.basedir}/mysys.props</systemPropertiesFile>
     <webApp>
       <contextPath>/test</contextPath>
     </webApp>

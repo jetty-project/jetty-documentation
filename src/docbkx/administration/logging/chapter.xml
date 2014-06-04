@@ -31,11 +31,13 @@
   <para>This chapter discusses various options for configuring logging.</para>
 
   <xi:include href="configuring-jetty-logging.xml"/>
+  <xi:include href="default-logging-with-stderrlog.xml"/>
 
   <xi:include href="configuring-jetty-request-logs.xml"/>
 
   <xi:include href="example-apache-log4j.xml"/>
   <xi:include href="example-java-util-logging.xml"/>
+  <xi:include href="example-java-util-logging-native.xml"/>
   <xi:include href="example-logback.xml"/>
   <xi:include href="example-slf4j-multiple-loggers.xml"/>
   <xi:include href="example-logback-centralized-logging.xml"/>

@@ -18,7 +18,7 @@
 -->
 <section version="5.0"
          xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd"
-         xml:id="example-logging-logback"
+         xml:id="example-logging-java-util-logging-native"
          xmlns="http://docbook.org/ns/docbook"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xmlns:xs="http://www.w3.org/2001/XMLSchema"
@@ -26,38 +26,50 @@
          xmlns:xi="http://www.w3.org/2001/XInclude"
          xmlns:ns2="http://www.w3.org/1998/Math/MathML"
          xmlns:ns="http://docbook.org/ns/docbook">
-  <title>Example: Logging with Logback</title>
+  <title>Example: Logging with Java's java.util.logging via
+  JavaUtilLog</title>
 
   <para>It is possible to have the Jetty Server logging configured so that
-  Logback controls the output of logging events produced by Jetty. This is
-  accomplished by configuring Jetty for logging to <literal><link
-  xl:href="http://logback.qos.ch/">Logback</link></literal>, which uses <link
-  xl:href="http://slf4j.org/manual.html">Slf4j</link> and the <link
-  xl:href="http://logback.qos.ch/">Logback Implementation for
-  Slf4j</link>.</para>
+  <literal><link
+  xl:href="http://docs.oracle.com/javase/7/docs/api/java/util/logging/package-summary.html">java.util.logging</link></literal>
+  controls the output of logging events produced by Jetty.</para>
+
+  <para>This example demonstrates how to configuring Jetty for logging to
+  <literal><link
+  xl:href="http://docs.oracle.com/javase/7/docs/api/java/util/logging/package-summary.html">java.util.logging</link></literal>
+  via Jetty's own JavaUtilLog implementation.</para>
+
+  <important>
+    <para>While this is a valid setup, the Jetty project recommends always
+    using the <link linkend="example-logging-java-util-logging">slf4j to
+    java.util.logging configuration</link> for memory and performance reasons.
+    (this naive implementation is very non-performant and is not guaranteed to
+    exist in the future)</para>
+  </important>
 
   <simplesect>
-    <title>Quick Setup of Logback Logging using Jetty 9.2.1+</title>
+    <title>Quick Setup of java.util.logging (native) Logging using Jetty
+    9.2.1+</title>
 
     <para>A convenient replacement <literal>logging</literal> module has been
     created to bootstrap your <filename>${jetty.base}</filename> directory for
-    logging with logback.</para>
+    logging with java.util.logging.</para>
 
     <screen><![CDATA[[mybase]$ mkdir modules
 [mybase]$ cd modules
-[modules]$ curl -O https://raw.githubusercontent.com/jetty-project/logging-modules/master/logback/logging.mod
+[modules]$ curl -O https://raw.githubusercontent.com/jetty-project/logging-modules/master/java.util.logging-native/logging.mod
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
-100   742  100   742    0     0   2196      0 --:--:-- --:--:-- --:--:--  2201
+100   623  100   623    0     0   1879      0 --:--:-- --:--:-- --:--:--  1876
 [modules]$ cd ..
 [mybase]$ java -jar /opt/jetty-dist/start.jar --add-to-start=logging
 INFO: logging         initialised in ${jetty.base}/start.ini (appended)
 MKDIR: ${jetty.base}/logs
-DOWNLOAD: http://central.maven.org/maven2/org/slf4j/slf4j-api/1.6.6/slf4j-api-1.6.6.jar to lib/logging/slf4j-api-1.6.6.jar
-DOWNLOAD: http://repo1.maven.org/maven2/ch/qos/logback/logback-core/1.0.7/logback-core-1.0.7.jar to lib/logging/logback-core-1.0.7.jar
-DOWNLOAD: http://repo1.maven.org/maven2/ch/qos/logback/logback-classic/1.0.7/logback-classic-1.0.7.jar to lib/logging/logback-classic-1.0.7.jar
-DOWNLOAD: https://raw.githubusercontent.com/jetty-project/logging-modules/master/logback/logback.xml to resources/logback.xml
-DOWNLOAD: https://raw.githubusercontent.com/jetty-project/logging-modules/master/logback/jetty-logging.properties to resources/jetty-logging.properties
+DOWNLOAD: https://raw.githubusercontent.com/jetty-project/logging-modules/master/java.util.logging-native/jetty-logging.xml to etc/jetty-logging.xml
+DOWNLOAD: https://raw.githubusercontent.com/jetty-project/logging-modules/master/java.util.logging-native/logging.properties to resources/logging.properties
+DOWNLOAD: https://raw.githubusercontent.com/jetty-project/logging-modules/master/java.util.logging-native/jetty-logging.properties to resources/jetty-logging.properties
+INFO: resources       initialised transitively
+INFO: resources       enabled in     ${jetty.base}/${jetty.base}
 [mybase]$ java -jar /opt/jetty-dist/start.jar
 ]]></screen>
   </simplesect>
@@ -107,39 +119,67 @@ DOWNLOAD: https://raw.githubusercontent.com/jetty-project/logging-modules/master
           </listitem>
 
           <listitem>
-            <para>Required libraries are downloaded (if not present already):
-            slf4j-api, logback-core, and logback-classic.</para>
-
-            <para>The libraries are put in the
-            <filename>${jetty.base}/lib/logging/</filename> directory.</para>
-          </listitem>
-
-          <listitem>
             <para>Required configuration files are downloaded (if not present
             already): <filename>jetty-logging.properties</filename>, and
-            <filename>logback.xml</filename></para>
+            <filename>logging.properties</filename></para>
 
             <para>The configuration files are put in the
             <filename>${jetty.base}/resources/</filename> directory.</para>
+          </listitem>
+
+          <listitem>
+            <para>Required <literal>java.util.logging</literal> initialization
+            commands are downloaded (if not present already):
+            <filename>jetty-logging.xml</filename></para>
+
+            <para>The xml file is put in the
+            <filename>${jetty.base}/etc/</filename> directory.</para>
           </listitem>
         </orderedlist>
       </listitem>
 
       <listitem>
         <para>At this point you have your <filename>mybase</filename>
-        configured so that the jetty server itself will log using logback,
-        using the logback configuration found in
-        <filename>mybase/resources/logback.xml</filename></para>
+        configured so that the jetty server itself will log using
+        java.util.logging, using the java.util.logging configuration found in
+        <filename>mybase/resources/logging.properties</filename></para>
       </listitem>
     </orderedlist>
 
     <para>You can verify the server classpath by using the <command>start.jar
     --list-config</command> command.</para>
 
-    <para>In essence, Jetty is now configured to emit its own logging events
-    to slf4j, and slf4j itself is using the static log binder found in
-    logback-classic.jar. Making all Jetty + Slf4j + Logback events emitted by
-    the Jetty server go to Logback for routing (to console, file, syslog,
-    etc...)</para>
+    <para>In essence, Jetty is now configured to use
+    <literal>org.eclipse.jetty.util.log.JavaUtilLog</literal>, which emit its
+    own logging events to java.util.logging. Making all Jetty +
+    java.util.logging events emitted by the Jetty server go to
+    java.util.logging for routing (to console, file, etc...)</para>
+
+    <para>If you have any custom java.util.logging handlers that you want to
+    use, put the implementation jar in your
+    <filename>${jetty.base}/lib/logging/</filename> directory and reference
+    them in the
+    <filename>${jetty.base}/resources/logging.properties</filename>
+    file.</para>
+
+    <note>
+      <para><literal>java.util.logging</literal> is configured via the
+      <filename>${jetty.base}/resources/logging.properties</filename> file
+      during a valid startup of Jetty. This means that if there is any startup
+      errors that occur before <literal>java.util.logging</literal> is
+      configured, they will likely be lost and/or not routed through your
+      configuration. (Other logging frameworks are more reliable in that they
+      always initialize and configure on first use, unlike
+      java.util.logging)</para>
+
+      <para>While it is possible to configure java.util.logging sooner, even
+      at JVM startup, the example demonstrated here does not show this
+      technique. For more information consult the <link
+      xl:href="http://docs.oracle.com/javase/7/docs/api/java/util/logging/LogManager.html">official
+      java.util.logging.LogManager javadoc documentation from
+      Oracle</link>.</para>
+    </note>
+
+    <para/>
   </simplesect>
 </section>

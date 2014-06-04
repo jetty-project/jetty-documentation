@@ -92,9 +92,10 @@
 
         <itemizedlist>
           <listitem>
-            <para>If property <code>org.eclipse.jetty.util.log.class</code> is
-            defined, load the class it defines as the logger implementation
-            from the server classpath.</para>
+            <para>If property
+            <literal>org.eclipse.jetty.util.log.class</literal> is defined,
+            load the class it defines as the logger implementation from the
+            server classpath.</para>
           </listitem>
 
           <listitem>
@@ -121,164 +122,57 @@
   </section>
 
   <section xml:id="configuring-jetty-stderrlog">
-    <title>Configuring Jetty StdErrLog</title>
+    <title>The jetty-logging.properties file</title>
 
-    <para>If you select the default Jetty logger (StdErrLog), you can then use
-    further properties (either as system properties or in a
-    <code>jetty-logging.properties</code> as outlined in <xref
-    linkend="selecting-log-framework"/>) to control event levels to log and to
-    adjust the format of those logs.</para>
+    <para>By default, the internal Jetty Logging discovery mechanism will load
+    logging specific properties from a classpath resource called
+    <filename>jetty-logging.properties</filename> and then initialize the
+    Logging from a combination of properties found in that file, along with
+    any System Properties.</para>
 
-    <para><variablelist>
-        <varlistentry>
-          <term><code>&lt;name&gt;.LEVEL=&lt;level&gt;</code></term>
+    <para>A typical jetty-logging.properties file will include at least the
+    declaration of which logging implementation you want to use by defining a
+    value for the <literal>org.eclipse.jetty.util.log.class</literal>
+    property.</para>
 
-          <listitem>
-            <para>Sets the logging level for all loggers within the
-            <literal>name</literal> specified to the level, which can be (in
-            increasing order of restriction) ALL, DEBUG, INFO, WARN, OFF. The
-            name (or hierarchy) can be a specific fully qualified class or a
-            package namespace, for example,
-            <code>-Dorg.eclipse.jetty.http.LEVEL=DEBUG</code> is a package
-            namespace approach to turn all loggers in the Jetty HTTP package
-            to DEBUG level, and
-            <code>-Dorg.eclipse.jetty.io.ChanelEndPoint.LEVEL=ALL</code> turns
-            on all logging events for the specific class, including DEBUG,
-            INFO, WARN (and even special internally ignored exception
-            classes). If more than one system property specifies a logging
-            level, the most specific one applies.</para>
-          </listitem>
-        </varlistentry>
+    <para>Examples for various logging frameworks can be found later in this
+    documentation.</para>
 
-        <varlistentry>
-          <term><code>&lt;name&gt;.SOURCE=&lt;boolean&gt;</code></term>
+    <itemizedlist>
+      <listitem>
+        <para>Default Logging with <link
+        linkend="default-logging-with-stderrlog">Jetty's
+        StdErrLog</link></para>
+      </listitem>
 
-          <listitem>
-            <para>Named Logger specific, attempts to print the Java source
-            file name and line number from where the logging event originated.
-            Name must be a fully qualified class name (this configurabale  does not support package name hierarchy). Default is false. Be aware
-            that this is a slow operation and has an impact on
-            performance.</para>
-          </listitem>
-        </varlistentry>
+      <listitem>
+        <para>Using <link linkend="example-logging-log4j">Log4j via
+        Slf4jLog</link></para>
+      </listitem>
 
-        <varlistentry>
-          <term><code>&lt;name&gt;.STACKS=&lt;boolean&gt;</code></term>
+      <listitem>
+        <para>Using <link linkend="example-logging-logback">Logback via
+        Slf4jLog</link></para>
+      </listitem>
 
-          <listitem>
-            <para>Named Logger specific, controls the display of stacktraces.
-            Name must be a fully qualified class name (this configurabale  does not support package name hierarchy). Default is true.</para>
-          </listitem>
-        </varlistentry>
+      <listitem>
+        <para>Using java.util.logging via Slf4jLog</para>
+      </listitem>
 
-        <varlistentry>
-          <term><code>org.eclipse.jetty.util.log.stderr.SOURCE=&lt;boolean&gt;</code></term>
+      <listitem>
+        <para>Using java.util.logging via Jetty's JavaUtilLog</para>
+      </listitem>
 
-          <listitem>
-            <para>Special Global Configuration. Attempts to print the Java
-            source file name and line number from where the logging event
-            originated. Default is false.</para>
-          </listitem>
-        </varlistentry>
+      <listitem>
+        <para>Capturing <link
+        linkend="example-slf4j-multiple-loggers">Multiple Logging Frameworks
+        via Slf4jLog</link></para>
+      </listitem>
 
-        <varlistentry>
-          <term><code>org.eclipse.jetty.util.log.stderr.LONG=&lt;boolean&gt;</code></term>
-
-          <listitem>
-            <para>Special Global Configuration. When true, outputs logging
-            events to STDERR using long form, fully qualified class names.
-            When false, uses abbreviated package names. Default is
-            false.</para>
-          </listitem>
-        </varlistentry>
-      </variablelist></para>
-
-    <para>Deprecated Parameters:</para>
-
-    <para><variablelist>
-        <varlistentry>
-          <term><code>org.eclipse.jetty.util.log.DEBUG</code></term>
-
-          <listitem>
-            <para>Formerly used to enable DEBUG level logging on any logger
-            used within Jetty (not just Jetty's own logger).</para>
-
-            <para>Replaced with using the logger implementation specific
-            configuration and level filtering.</para>
-          </listitem>
-        </varlistentry>
-
-        <varlistentry>
-          <term><code>org.eclipse.jetty.util.log.stderr.DEBUG</code></term>
-
-          <listitem>
-            <para>Formerly used to enable DEBUG level logging on the internal
-            Jetty StdErrLog implementation.</para>
-
-            <para>Replaced with
-            <code>-Dorg.eclipse.jetty.LEVEL=DEBUG</code></para>
-          </listitem>
-        </varlistentry>
-
-        <varlistentry>
-          <term><code>DEBUG</code></term>
-
-          <listitem>
-            <para>Ancient debugging flag that turned on all debugging, even
-            non-logging debugging. </para>
-
-            <para>Jetty no longer uses because many third party libraries employ this overly simple property name, which would generate far
-            too much console output.</para>
-          </listitem>
-        </varlistentry>
-      </variablelist></para>
-
-    <section xml:id="changing-log-level-resources-jetty-logging-properties">
-      <title>Changing log level in
-      <code>resources/jetty-logging.properties</code></title>
-
-      <programlisting language="properties"><![CDATA[# Set up logging implementation
-org.eclipse.jetty.util.log.class=org.eclipse.jetty.util.log.StdErrLog
-org.eclipse.jetty.LEVEL=INFO
-# Make websocket more verbose for testing
-org.eclipse.jetty.websocket.LEVEL=DEBUG]]></programlisting>
-<itemizedlist>
-      <listitem><para>This sets the Logging Implementation to StdErrLog.</para></listitem>
-   <listitem><para>Configures the logging level for
-      "<literal>org.eclipse.jetty</literal>" to be
-      <literal>INFO.</literal></para></listitem>
-
-      <listitem><para>Configures the logging level for
-      "<literal>org.eclipse.jetty.websocket</literal>" to be
-      <literal>DEBUG</literal>.</para></listitem>
-      </itemizedlist>
-    </section>
-
-    <section xml:id="changing-log-level-etc-jetty.xml">
-      <title>Changing log level in <filename>etc/jetty.xml</filename></title>
-
-      <programlisting language="xml"><![CDATA[<Call class="org.eclipse.jetty.util.log.Log" name="getRootLogger">
-  <Call name="setDebugEnabled">
-    <Arg type="boolean">true</Arg>
-  </Call>
-</Call>      ]]></programlisting>
-
-      <para>This technique, from older versions of Jetty, configures
-      all of the StdErrLog loggers (no other implementations support this) to
-      be logging at DEBUG level.</para>
-    </section>
-
-    <section xml:id="using-etc-jetty-logging.xml">
-      <title>Using <filename>etc/jetty-logging.xml</filename></title>
-
-      <para>You can use <filename>etc/jetty-logging.xml</filename> to take all
-      <code>System.out</code> and <code>System.err</code> output (from any
-      source) and route it to a rolling log file. To do so, include
-      <filename>etc/jetty-logging.xml</filename> on Jetty startup.</para>
-
-      <informalexample>
-        <screen language="bash"><![CDATA[$ java -jar start.jar etc/jetty-logging.xml      ]]></screen>
-      </informalexample>
-    </section>
+      <listitem>
+        <para><link linkend="example-logging-logback-centralized">Centralized
+        Logging with Logback and Sfl4jLog</link></para>
+      </listitem>
+    </itemizedlist>
   </section>
 </section>

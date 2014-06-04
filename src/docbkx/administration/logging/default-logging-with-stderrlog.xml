@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+//  ========================================================================
+//  Copyright (c) 1995-2012 Mort Bay Consulting Pty. Ltd.
+//  ========================================================================
+//  All rights reserved. This program and the accompanying materials
+//  are made available under the terms of the Eclipse Public License v1.0
+//  and Apache License v2.0 which accompanies this distribution.
+//
+//      The Eclipse Public License is available at
+//      http://www.eclipse.org/legal/epl-v10.html
+//
+//      The Apache License v2.0 is available at
+//      http://www.opensource.org/licenses/apache2.0.php
+//
+//  You may elect to redistribute this code under either of these licenses.
+//  ========================================================================
+-->
+<section version="5.0"
+         xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd"
+         xml:id="default-logging-with-stderrlog"
+         xmlns="http://docbook.org/ns/docbook"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:xs="http://www.w3.org/2001/XMLSchema"
+         xmlns:xl="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:ns2="http://www.w3.org/1998/Math/MathML"
+         xmlns:ns="http://docbook.org/ns/docbook">
+  <title>Default Logging with Jetty's StdErrLog</title>
+
+  <para>If you do nothing to configure your own logging framework, then Jetty
+  will default to using an internal
+  <literal>org.eclipse.jetty.util.log.StdErrLog</literal> implementation. This
+  will output all logging events to STDERR (aka System.err).</para>
+
+  <para>Simply use Jetty and you get StdErrLog based logging output.</para>
+
+  <simplesect>
+    <title>Capturing Console Output to File</title>
+
+    <para>Included in the Jetty distribution is a logging module that is
+    capable of performing simple capturing of all STDOUT and STDERR output to
+    a file that is rotated daily.</para>
+
+    <para>To enable on the command line:</para>
+
+    <informalexample>
+      <screen language="bash"><![CDATA[[my-base]$ java -jar /opt/jetty/start.jar ]]><emphasis
+          role="bold">--module=logging</emphasis><![CDATA[
+]]></screen>
+    </informalexample>
+
+    <para>You can also include the <command>--module=logging</command> command
+    in your <filename>${jetty.base}/start.ini</filename></para>
+
+    <informalexample>
+      <screen language="bash"><![CDATA[[my-base]$ java -jar /opt/jetty/start.jar ]]><emphasis
+          role="bold">--add-to-start=logging</emphasis><![CDATA[
+]]></screen>
+    </informalexample>
+
+    <para>The default configuration for logging output will create a file
+    <filename>${jetty.logs}/yyyy_mm_dd.stderrout.log</filename> which allows
+    you to configure the output directory by setting the
+    <literal>jetty.logs</literal> property to a path of your choice.</para>
+
+    <para>If you want a more advanced configuration of your logging output,
+    consider using your logging library of choice. </para>
+  </simplesect>
+
+  <simplesect>
+    <title>Configuring StdErrLog</title>
+
+    <para>The recommended way to configure StdErrLog is to create a
+    <filename>${jetty.home}/resources/jetty-logging.properties</filename>
+    file, specify the Log implementation to StdErrLog and then setup your
+    logging levels.</para>
+
+    <para><programlisting language="properties"><![CDATA[# Configure Jetty for StdErrLog Logging
+org.eclipse.jetty.util.log.class=org.eclipse.jetty.util.log.StrErrLog
+# Overall Logging Level is INFO
+org.eclipse.jetty.LEVEL=INFO
+# Detail Logging for WebSocket
+org.eclipse.jetty.websocket.LEVEL=DEBUG
+]]></programlisting></para>
+
+    <para>There are a number of properties you can define in here that will
+    affect the StdErrLog behavior.</para>
+
+    <para><variablelist>
+        <varlistentry>
+          <term><code>&lt;name&gt;.LEVEL=&lt;level&gt;</code></term>
+
+          <listitem>
+            <para>Sets the logging level for all loggers within the
+            <literal>name</literal> specified to the level, which can be (in
+            increasing order of restriction) <literal>ALL</literal>,
+            <literal>DEBUG</literal>, <literal>INFO</literal>,
+            <literal>WARN</literal>, <literal>OFF</literal>. The name (or
+            hierarchy) can be a specific fully qualified class or a package
+            namespace, for example,
+            <code>org.eclipse.jetty.http.LEVEL=DEBUG</code> is a package
+            namespace approach to turn all loggers in the Jetty HTTP package
+            to DEBUG level, and
+            <code>org.eclipse.jetty.io.ChanelEndPoint.LEVEL=ALL</code> turns
+            on all logging events for the specific class, including
+            <literal>DEBUG</literal>, <literal>INFO</literal>,
+            <literal>WARN</literal> (and even special internally ignored
+            exception classes). If more than one system property specifies a
+            logging level, the most specific one applies.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term><code>&lt;name&gt;.SOURCE=&lt;boolean&gt;</code></term>
+
+          <listitem>
+            <para>Named Logger specific, attempts to print the Java source
+            file name and line number from where the logging event originated.
+            Name must be a fully qualified class name (this configurable does
+            not support package name hierarchy). Default is false. Be aware
+            that this is a slow operation and has an impact on
+            performance.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term><code>&lt;name&gt;.STACKS=&lt;boolean&gt;</code></term>
+
+          <listitem>
+            <para>Named Logger specific, controls the display of stacktraces.
+            Name must be a fully qualified class name (this configurable does
+            not support package name hierarchy). </para>
+
+            <para>Default is true.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term><code>org.eclipse.jetty.util.log.stderr.SOURCE=&lt;boolean&gt;</code></term>
+
+          <listitem>
+            <para>Special Global Configuration. Attempts to print the Java
+            source file name and line number from where the logging event
+            originated. Default is false.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term><code>org.eclipse.jetty.util.log.stderr.LONG=&lt;boolean&gt;</code></term>
+
+          <listitem>
+            <para>Special Global Configuration. When true, outputs logging
+            events to STDERR using long form, fully qualified class names.
+            When false, uses abbreviated package names. </para>
+
+            <para>Default is false.</para>
+
+            <para>Example when set to false:</para>
+
+            <screen><![CDATA[2014-06-03 14:36:16.013:INFO:oejs.Server:main: jetty-9.2.0.v20140526
+2014-06-03 14:36:16.028:INFO:oejdp.ScanningAppProvider:main: Deployment monitor [file:/opt/jetty/demo-base/webapps/] at interval 1
+2014-06-03 14:36:16.051:INFO:oejsh.ContextHandler:main: Started o.e.j.s.h.MovedContextHandler@7d256e50{/oldContextPath,null,AVAILABLE}
+2014-06-03 14:36:17.880:INFO:oejs.ServerConnector:main: Started ServerConnector@34f2d11a{HTTP/1.1}{0.0.0.0:8080}
+2014-06-03 14:36:17.888:INFO:oejs.Server:main: Started @257ms
+]]></screen>
+
+            <para>Example when set to true:</para>
+
+            <screen><![CDATA[2014-06-03 14:38:19.019:INFO:org.eclipse.jetty.server.Server:main: jetty-9.2.0.v20140526
+2014-06-03 14:38:19.032:INFO:org.eclipse.jetty.deploy.providers.ScanningAppProvider:main: Deployment monitor [file:/opt/jetty/demo-base/webapps/] at interval 1
+2014-06-03 14:38:19.054:INFO:org.eclipse.jetty.server.handler.ContextHandler:main: Started o.e.j.s.h.MovedContextHandler@246d8660{/oldContextPath,null,AVAILABLE}
+2014-06-03 14:38:20.715:INFO:org.eclipse.jetty.server.ServerConnector:main: Started ServerConnector@59f625be{HTTP/1.1}{0.0.0.0:8080}
+2014-06-03 14:38:20.723:INFO:org.eclipse.jetty.server.Server:main: Started @243ms
+]]></screen>
+          </listitem>
+        </varlistentry>
+      </variablelist></para>
+
+    <para>Deprecated Parameters:</para>
+
+    <para>These parameters existed in prior versions of Jetty, and are no
+    longer supported. They are included here for historical (and search
+    engine) reasons.</para>
+
+    <para><variablelist>
+        <varlistentry>
+          <term><code>org.eclipse.jetty.util.log.DEBUG</code></term>
+
+          <listitem>
+            <para>Formerly used to enable DEBUG level logging on any logger
+            used within Jetty (not just Jetty's own logger).</para>
+
+            <para>Replaced with using the logger implementation specific
+            configuration and level filtering.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term><code>org.eclipse.jetty.util.log.stderr.DEBUG</code></term>
+
+          <listitem>
+            <para>Formerly used to enable DEBUG level logging on the internal
+            Jetty StdErrLog implementation.</para>
+
+            <para>Replaced with level specific equivalent: example:
+            <code>org.eclipse.jetty.LEVEL=DEBUG</code></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term><code>DEBUG</code></term>
+
+          <listitem>
+            <para>Ancient debugging flag that turned on all debugging, even
+            non-logging debugging.</para>
+
+            <para>Jetty no longer uses because many third party libraries
+            employ this overly simple property name, which would generate far
+            too much console output.</para>
+          </listitem>
+        </varlistentry>
+      </variablelist></para>
+  </simplesect>
+</section>

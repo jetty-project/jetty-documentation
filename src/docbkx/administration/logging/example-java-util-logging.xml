@@ -26,225 +26,163 @@
          xmlns:xi="http://www.w3.org/2001/XInclude"
          xmlns:ns2="http://www.w3.org/1998/Math/MathML"
          xmlns:ns="http://docbook.org/ns/docbook">
-  <title>Example: Logging with Java's java.util.logging</title>
+  <title>Example: Logging with Java's java.util.logging via Slf4j</title>
 
-  <para>This page describes how to configure Jetty for logging with Java's
+  <para>It is possible to have the Jetty Server logging configured so that
   <literal><link
-  xl:href="http://docs.oracle.com/javase/7/docs/api/java/util/logging/package-summary.html">java.util.logging</link></literal>, which uses
-  <link xl:href="http://slf4j.org/manual.html">Slf4j</link> and the <link
+  xl:href="http://docs.oracle.com/javase/7/docs/api/java/util/logging/package-summary.html">java.util.logging</link></literal>
+  controls the output of logging events produced by Jetty. </para>
+
+  <para>This example demonstrates how to configuring Jetty for logging to
+  <literal><link
+  xl:href="http://docs.oracle.com/javase/7/docs/api/java/util/logging/package-summary.html">java.util.logging</link></literal>
+  via <link xl:href="http://slf4j.org/manual.html">Slf4j</link> and the <link
   xl:href="http://slf4j.org/manual.html#swapping">Slf4j binding layer for
-  <literal>java.util.logging</literal></link>.</para>
+  java.util.logging</link>. If you want to use the built-in native JavaUtilLog
+  implementation, see <link
+  linkend="example-logging-java-util-logging-native"/></para>
 
   <simplesect>
-    <title>The Required JARs</title>
+    <title>Quick Setup of java.util.logging (Slf4j) Logging using Jetty
+    9.2.1+</title>
 
-    <para>You need to download two JARs, which you can do by clicking the following links:</para>
+    <para>A convenient replacement <literal>logging</literal> module has been
+    created to bootstrap your <filename>${jetty.base}</filename> directory for
+    logging with java.util.logging.</para>
 
-    <para><variablelist>
-        <varlistentry>
-          <term><filename><link
-          xl:href="http://repo1.maven.org/maven2/org/slf4j/slf4j-jdk14/1.6.6/slf4j-jdk14-1.6.6.jar">slf4j-jdk14-1.6.6.jar</link></filename></term>
-
-          <listitem>
-            <para>The Slf4j binding layer for JDK 1.4 logging (also
-            known as <literal>java.util.logging</literal>).</para>
-          </listitem>
-        </varlistentry>
-
-        <varlistentry>
-          <term><filename><link
-          xl:href="http://repo1.maven.org/maven2/org/slf4j/slf4j-api/1.6.6/slf4j-api-1.6.6.jar">slf4j-api-1.6.6.jar</link></filename></term>
-
-          <listitem>
-            <para>The basic Slf4j API that Jetty's Slf4jLog
-            implementation uses.</para>
-          </listitem>
-        </varlistentry>
-      </variablelist></para>
-  </simplesect>
-
-  <simplesect>
-    <title>Configuring Server Classpath</title>
-
-    <para>For the Server to use these new JARs you need to put
-    them in place and tell Jetty to load them on each startup.</para>
-
-    <para>Create a <filename>${jetty.home}/lib/logging/</filename> directory and place the two JAR files
-    you downloaded there.</para>
-
-    <screen language="bash"><![CDATA[[jetty-distribution-${project.version}]$ ls -l ]]><emphasis
-        role="bold">lib/logging/</emphasis><![CDATA[
-total 40
--rw-rw-r-- 1 jetty jetty 26176 Mar 11 16:38 ]]><emphasis role="bold">slf4j-api-1.6.6.jar</emphasis><![CDATA[
--rw-rw-r-- 1 jetty jetty  8845 Mar 11 16:38 ]]><emphasis role="bold">slf4j-jdk14-1.6.6.jar</emphasis></screen>
-
-    <para>Next you need to edit the <filename>${jetty.home}/start.ini</filename> to get Jetty to
-    load these logging files into the Server classpath. Check for the following entries. If they are missing, add them at the end of the file.
-    </para>
-
-    <programlisting condition="[2,4]" language="properties"><![CDATA[# Configure java.util.logging from resources/logging.properties
-etc/jetty-jdk-logging.xml
-# Adding lib/logging to server classpath
-OPTIONS=logging]]></programlisting>
-
-    <para>Now verify that the server classpath loads the two JARs.</para>
-
-    <screen><![CDATA[[jetty-distribution-${project.version}]$ ]]><emphasis
-        role="bold">java -jar start.jar --version</emphasis><![CDATA[ | grep logging
-Active Options: [Server, client, ext, jmx, jsp, ]]><emphasis role="bold">logging</emphasis><![CDATA[, resources, websocket]
-18:                1.6.6 | ${jetty.home}/lib/logging/]]><emphasis role="bold">slf4j-api-1.6.6.jar</emphasis><![CDATA[
-19:                1.6.6 | ${jetty.home}/lib/logging/]]><emphasis role="bold">slf4j-jdk14-1.6.6.jar</emphasis><![CDATA[
+    <screen><![CDATA[[mybase]$ mkdir modules
+[mybase]$ cd modules
+[modules]$ curl -O https://raw.githubusercontent.com/jetty-project/logging-modules/master/java.util.logging-slf4j/logging.mod
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100   826  100   826    0     0   2468      0 --:--:-- --:--:-- --:--:--  2473
+[modules]$ cd ..
+[mybase]$ java -jar /opt/jetty-dist/start.jar --add-to-start=logging
+INFO: logging         initialised in ${jetty.base}/start.ini (appended)
+MKDIR: ${jetty.base}/logs
+DOWNLOAD: http://central.maven.org/maven2/org/slf4j/slf4j-jdk14/1.6.6/slf4j-jdk14-1.6.6.jar to lib/logging/slf4j-jdk14-1.6.6.jar
+DOWNLOAD: http://central.maven.org/maven2/org/slf4j/slf4j-api/1.6.6/slf4j-api-1.6.6.jar to lib/logging/slf4j-api-1.6.6.jar
+DOWNLOAD: https://raw.githubusercontent.com/jetty-project/logging-modules/master/java.util.logging-slf4j/jetty-logging.xml to etc/jetty-logging.xml
+DOWNLOAD: https://raw.githubusercontent.com/jetty-project/logging-modules/master/java.util.logging-slf4j/logging.properties to resources/logging.properties
+DOWNLOAD: https://raw.githubusercontent.com/jetty-project/logging-modules/master/java.util.logging-slf4j/jetty-logging.properties to resources/jetty-logging.properties
+[mybase]$ java -jar /opt/jetty-dist/start.jar
 ]]></screen>
   </simplesect>
 
   <simplesect>
-    <title>Configuring Server Logging</title>
+    <title>That's Cool! But what just happened?</title>
 
-    <para>If you have a
-    <filename>${jetty.home}/resources/jetty-logging.properties</filename> file,
-    make sure it contains just the following:</para>
+    <para>The replacement <filename>logging.mod</filename> performs a number
+    of tasks.</para>
 
-    <para><programlisting language="properties"><![CDATA[# Configure Jetty for SLf4j Logging
-org.eclipse.jetty.util.log.class=org.eclipse.jetty.util.log.Slf4jLog]]></programlisting></para>
+    <orderedlist>
+      <listitem>
+        <para><filename>mybase</filename> is a
+        <filename>${jetty.base}</filename> directory</para>
+      </listitem>
 
-    <para>This tells Jetty to use the Slf4jLog implementation for its
-    internal logging.</para>
-  </simplesect>
+      <listitem>
+        <para>The jetty-distribution is unpacked (and untouched) into
+        <filename>/opt/jetty-dist/ </filename>and becomes the
+        <filename>${jetty.home}</filename> directory for this
+        demonstration.</para>
+      </listitem>
 
-  <simplesect>
-    <title>Configuring java.util.logging</title>
+      <listitem>
+        <para>The <command>curl</command> command downloads the replacement
+        <filename>logging.mod</filename> and puts it into the
+        <filename>${jetty.base}/modules/</filename> directory for use by
+        mybase only.</para>
+      </listitem>
 
-    <para>You need a
-    <filename>${jetty.home}/resources/logging.properties</filename> file to
-    define what you want <literal>java.util.logging</literal> to do, and finally a way to have
-    <literal>java.util.logging</literal> use this configuration.</para>
+      <listitem>
+        <para>The <command>start.jar --add-to-start=logging</command> command
+        performs a number of steps to make the logging module available to the
+        <filename>${jetty.base}</filename> configuration.</para>
 
-    <para>Example
-    <filename>${jetty.home}/resources/logging.properties</filename>
-    file</para>
+        <orderedlist>
+          <listitem>
+            <para>The <command>--module=logging</command> command is added to
+            the <filename>${jetty.base}/start.ini</filename>
+            configuration</para>
+          </listitem>
 
-    <para><programlisting language="properties"><![CDATA[handlers=java.util.logging.FileHandler, java.util.logging.ConsoleHandler
-java.util.logging.ConsoleHandler.level=INFO
-java.util.logging.ConsoleHandler.formatter=java.util.logging.SimpleFormatter
+          <listitem>
+            <para>Required <filename>${jetty.base}</filename> directories are
+            created: <filename>${jetty.base}/logs</filename> and
+            <filename>${jetty.base}/resources</filename></para>
+          </listitem>
 
-java.util.logging.FileHandler.level=INFO
-java.util.logging.FileHandler.pattern=logs/jetty.log
+          <listitem>
+            <para>Required libraries are downloaded (if not present already):
+            slf4j-api, and slf4j-jdk14.</para>
 
-# Write 10MB before rotating this file
-java.util.logging.FileHandler.limit=10000000
+            <para>The libraries are put in the
+            <filename>${jetty.base}/lib/logging/</filename> directory.</para>
+          </listitem>
 
-# Number of rotating files to be used
-java.util.logging.FileHandler.count=4
-java.util.logging.FileHandler.formatter=java.util.logging.SimpleFormatter
+          <listitem>
+            <para>Required configuration files are downloaded (if not present
+            already): <filename>jetty-logging.properties</filename>, and
+            <filename>logging.properties</filename></para>
 
-.level=INFO]]></programlisting>Finally, you'll want a way for this
-    java.util.logging configuration to take effect on server start.</para>
+            <para>The configuration files are put in the
+            <filename>${jetty.base}/resources/</filename> directory.</para>
+          </listitem>
 
-    <para>Contents of <filename>etc/jetty-jdk-logging.xml</filename> file that you added earlier to
-    the <filename>start.ini</filename>.</para>
+          <listitem>
+            <para>Required <literal>java.util.logging</literal> initialization
+            commands are downloaded (if not present already):
+            <filename>jetty-logging.xml</filename></para>
 
-    <programlisting condition="[9]" language="xml"><![CDATA[<?xml version="1.0"?>
-<!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure_9_0.dtd">
+            <para>The xml file is put in the
+            <filename>${jetty.base}/etc/</filename> directory.</para>
+          </listitem>
+        </orderedlist>
+      </listitem>
 
-<Configure id="Server" class="org.eclipse.jetty.server.Server">
-  <Call id="logMgr" class="java.util.logging.LogManager" name="getLogManager">
-    <Call name="readConfiguration">
-      <Arg class="java.io.InputStream">
-        <New class="java.io.FileInputStream">
-          <Arg class="java.lang.String"><Property name="jetty.home" default="."/>/resources/logging.properties</Arg>
-        </New>
-      </Arg>
-    </Call>
-  </Call>
-</Configure>]]></programlisting>
-  </simplesect>
+      <listitem>
+        <para>At this point you have your <filename>mybase</filename>
+        configured so that the jetty server itself will log using
+        java.util.logging, using the java.util.logging configuration found in
+        <filename>mybase/resources/logging.properties</filename></para>
+      </listitem>
+    </orderedlist>
 
-  <simplesect>
-    <title>Scripted Installation of java.util.logging</title>
+    <para>You can verify the server classpath by using the <command>start.jar
+    --list-config</command> command.</para>
 
-    <programlisting language="bash"><![CDATA[#!/bin/bash
-# -------------------------------------------
-# FOR DEMONSTRATION PURPOSES ONLY
-# USE AT YOUR OWN RISK
-# ------------------------------------------- 
+    <para>In essence, Jetty is now configured to emit its own logging events
+    to slf4j, and slf4j itself is using the static log binder found in
+    slf4j-jdk14.jar. Making all Jetty + Slf4j + java.util.logging events
+    emitted by the Jetty server go to java.util.logging for routing (to
+    console, file, etc...)</para>
 
-if [ ! -f start.ini ] ; then
-    echo "ERROR: Not in \${jetty.home} directory"
-    exit -1
-fi
+    <para>If you have any custom java.util.logging handlers that you want to
+    use, put the implementation jar in your
+    <filename>${jetty.base}/lib/logging/</filename> directory and reference
+    them in the
+    <filename>${jetty.base}/resources/logging.properties</filename>
+    file.</para>
 
-if [ -d lib/logging ] ; then
-    echo "ERROR: Existing lib/logging directory exists."
-    echo "       Remove any existing logging implementations"
-    echo "       before running this script, as conflicting logging"
-    echo "       implementations can cause problems."
-    echo "       Then remove the lib/logging directory entirely."
-    exit -1
-fi
+    <note>
+      <para><literal>java.util.logging</literal> is configured via the
+      <filename>${jetty.base}/resources/logging.properties</filename> file
+      during a valid startup of Jetty. This means that if there is any startup
+      errors that occur before <literal>java.util.logging</literal> is
+      configured, they will likely be lost and/or not routed through your
+      configuration. (Other logging frameworks are more reliable in that they
+      always initialize and configure on first use, unlike
+      java.util.logging)</para>
 
-mkdir lib/logging
-pushd lib/logging
+      <para>While it is possible to configure java.util.logging sooner, even
+      at JVM startup, the example demonstrated here does not show this
+      technique. For more information consult the <link
+      xl:href="http://docs.oracle.com/javase/7/docs/api/java/util/logging/LogManager.html">official
+      java.util.logging.LogManager javadoc documentation from
+      Oracle</link>.</para>
+    </note>
 
-curl -O http://repo1.maven.org/maven2/org/slf4j/slf4j-jdk14/1.6.6/slf4j-jdk14-1.6.6.jar
-curl -O http://repo1.maven.org/maven2/org/slf4j/slf4j-api/1.6.6/slf4j-api-1.6.6.jar
-
-popd
-
-echo "Creating etc/jetty-jdk-logging.xml"
-cat << EOFX > etc/jetty-jdk-logging.xml
-<?xml version="1.0"?>
-<!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure_9_0.dtd">
-
-<Configure id="Server" class="org.eclipse.jetty.server.Server">
-  <Call id="logMgr" class="java.util.logging.LogManager" name="getLogManager">
-    <Call name="readConfiguration">
-      <Arg class="java.io.InputStream">
-        <New class="java.io.FileInputStream">
-          <Arg class="java.lang.String"><Property name="jetty.home" default="."/>/resources/logging.properties</Arg>
-        </New>
-      </Arg>
-    </Call>
-  </Call>
-</Configure>
-EOFX
-
-if (grep -E "OPTIONS=.*logging.*" start.ini) 
-then
-    echo "Logging already present in start.ini"
-else
-    echo "Adding logging to start.ini"
-    cat << EOFI >> start.ini
-# Configure java.util.logging from resources/logging.properties
-etc/jetty-jdk-logging.xml
-# Adding lib/logging to server classpath
-OPTIONS=logging
-EOFI
-fi
-
-echo "Rewriting resources/jetty-logging.properties"
-cat << EOFP > resources/jetty-logging.properties
-org.eclipse.jetty.util.log.class=org.eclipse.jetty.util.log.Slf4jLog
-EOFP
-
-echo "Rewriting resources/logging.properties"
-cat << EOFJ > resources/logging.properties
-handlers=java.util.logging.FileHandler, java.util.logging.ConsoleHandler
-java.util.logging.ConsoleHandler.level=INFO
-java.util.logging.ConsoleHandler.formatter=java.util.logging.SimpleFormatter
-
-java.util.logging.FileHandler.level=INFO
-java.util.logging.FileHandler.pattern=logs/jetty.log
-
-# Write 10MB before rotating this file
-java.util.logging.FileHandler.limit=10000000
-
-# Number of rotating files to be used
-java.util.logging.FileHandler.count=4
-java.util.logging.FileHandler.formatter=java.util.logging.SimpleFormatter
-
-.level=INFO
-EOFJ
-
-]]></programlisting>
+    <para/>
   </simplesect>
 </section>

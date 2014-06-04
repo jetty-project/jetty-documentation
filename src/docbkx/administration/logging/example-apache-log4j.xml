@@ -57,6 +57,8 @@ DOWNLOAD: http://central.maven.org/maven2/org/slf4j/slf4j-log4j12/1.6.6/slf4j-lo
 DOWNLOAD: http://central.maven.org/maven2/log4j/log4j/1.2.17/log4j-1.2.17.jar to lib/logging/log4j-1.2.17.jar
 DOWNLOAD: https://raw.githubusercontent.com/jetty-project/logging-modules/master/log4j-1.2/log4j.properties to resources/log4j.properties
 DOWNLOAD: https://raw.githubusercontent.com/jetty-project/logging-modules/master/log4j-1.2/jetty-logging.properties to resources/jetty-logging.properties
+INFO: resources       initialised transitively
+INFO: resources       enabled in     ${jetty.base}/start.ini
 [mybase]$ java -jar /opt/jetty-dist/start.jar
 ]]></screen>
   </simplesect>
@@ -107,7 +109,7 @@ DOWNLOAD: https://raw.githubusercontent.com/jetty-project/logging-modules/master
 
           <listitem>
             <para>Required libraries are downloaded (if not present already):
-            slf4j-api, slf4j-log4j, and log4j itself. </para>
+            slf4j-api, slf4j-log4j, and log4j itself.</para>
 
             <para>The libraries are put in the
             <filename>${jetty.base}/lib/logging/</filename> directory.</para>

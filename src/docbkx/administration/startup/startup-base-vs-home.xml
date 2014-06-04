@@ -110,7 +110,7 @@
 
     <para>How to use the demo-base directory as a Jetty Base directory.</para>
 
-    <screen><![CDATA[[jetty-distribution-${project.version}]$ ls -la
+    <screen><![CDATA[[jetty-distribution-@project.version@]$ ls -la
 total 496
 drwxrwxr-x 11 user group   4096 Oct  8 15:23 ./
 drwxr-xr-x 14 user group   4096 Oct  8 13:04 ../
@@ -129,11 +129,11 @@ drwxrwxr-x  2 user group   4096 Oct  8 06:54 start.d/
 -rw-rw-r--  1 user group  71921 Sep 30 19:55 start.jar
 -rw-rw-r--  1 user group 336468 Sep 30 19:55 VERSION.txt
 drwxrwxr-x  2 user group   4096 Oct  8 06:54 webapps/
-[jetty-distribution-${project.version}]$ cd demo-base
+[jetty-distribution-@project.version@]$ cd demo-base
 [demo-base]$ java -jar ../start.jar
 2013-10-16 09:08:47.800:WARN::main: demo test-realm is deployed. DO NOT USE IN PRODUCTION!
 2013-10-16 09:08:47.802:INFO:oejs.Server:main: jetty-${project.version}
-2013-10-16 09:08:47.817:INFO:oejdp.ScanningAppProvider:main: Deployment monitor [file:/home/user/jetty-distribution-${project.version}/demo-base/webapps/] at interval 1
+2013-10-16 09:08:47.817:INFO:oejdp.ScanningAppProvider:main: Deployment monitor [file:/home/user/jetty-distribution-@project.version@/demo-base/webapps/] at interval 1
 2013-10-16 09:08:48.072:WARN::main: async-rest webapp is deployed. DO NOT USE IN PRODUCTION!
 ...
 ]]></screen>
@@ -333,10 +333,10 @@ jetty.dump.stop=false
     <filename>${jetty.home}</filename> and <filename>${jetty.base}</filename>
     directories, such as this:</para>
 
-    <screen><![CDATA[[jetty-distribution-${project.version}]$ pwd
-/home/user/jetty-distribution-${project.version}
-[jetty-distribution-${project.version}]$ java -jar start.jar \
-    jetty.home=/home/user/jetty-distribution-${project.version} \
+    <screen><![CDATA[[jetty-distribution-@project.version@]$ pwd
+/home/user/jetty-distribution-@project.version@
+[jetty-distribution-@project.version@]$ java -jar start.jar \
+    jetty.home=/home/user/jetty-distribution-@project.version@ \
     jetty.base=/home/user/my-base
 2013-10-16 09:08:47.802:INFO:oejs.Server:main: jetty-${project.version}
 2013-10-16 09:08:47.817:INFO:oejdp.ScanningAppProvider:main: Deployment monitor [file:/home/user/my-base/webapps/] at interval 1
@@ -351,9 +351,9 @@ jetty.dump.stop=false
     wherever start.jar itself is, and a manual declaration of
     <filename>${jetty.base}</filename>.</para>
 
-    <screen><![CDATA[[jetty-distribution-${project.version}]$ pwd
-/home/user/jetty-distribution-${project.version}
-[jetty-distribution-${project.version}]$ java -jar start.jar jetty.base=/home/user/my-base
+    <screen><![CDATA[[jetty-distribution-@project.version@]$ pwd
+/home/user/jetty-distribution-@project.version@
+[jetty-distribution-@project.version@]$ java -jar start.jar jetty.base=/home/user/my-base
 2013-10-16 09:08:47.802:INFO:oejs.Server:main: jetty-${project.version}
 2013-10-16 09:08:47.817:INFO:oejdp.ScanningAppProvider:main: Deployment monitor [file:/home/user/my-base/webapps/] at interval 1
 ...
@@ -368,10 +368,10 @@ jetty.dump.stop=false
     <filename>start.jar</filename>, and using the <literal>user.dir</literal>
     System Property for <filename>${jetty.base}</filename>.</para>
 
-    <screen><![CDATA[[jetty-distribution-${project.version}]$ pwd
-/home/user/jetty-distribution-${project.version}
-[jetty-distribution-${project.version}]$ cd /home/user/my-base
-[my-base]$ java -jar /home/user/jetty-distribution-${project.version}/start.jar
+    <screen><![CDATA[[jetty-distribution-@project.version@]$ pwd
+/home/user/jetty-distribution-@project.version@
+[jetty-distribution-@project.version@]$ cd /home/user/my-base
+[my-base]$ java -jar /home/user/jetty-distribution-@project.version@/start.jar
 2013-10-16 09:08:47.802:INFO:oejs.Server:main: jetty-${project.version}
 2013-10-16 09:08:47.817:INFO:oejdp.ScanningAppProvider:main: Deployment monitor [file:/home/user/my-base/webapps/] at interval 1
 ...

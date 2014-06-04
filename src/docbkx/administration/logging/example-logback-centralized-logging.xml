@@ -156,7 +156,7 @@
     them in place and tell Jetty to load them on each startup. Create a <filename>${jetty.home}/lib/logging/</filename> directory and place the seven files
     you downloaded there.</para>
 
-    <screen language="bash"><![CDATA[[jetty-distribution-${project.version}]$ ls -l ]]><emphasis
+    <screen language="bash"><![CDATA[[jetty-distribution-@project.version@]$ ls -l ]]><emphasis
         role="bold">lib/logging/</emphasis><![CDATA[
 total 632
 -rw-rw-r-- 1 jetty jetty  17289 Mar 12 16:21 ]]><emphasis role="bold">jcl-over-slf4j-1.6.6.jar</emphasis><![CDATA[
@@ -182,7 +182,7 @@ OPTIONS=logging]]></programlisting>
 
     <para>Now verify that the server classpath loads the seven JARs.</para>
 
-    <screen><![CDATA[[jetty-distribution-${project.version}]$ ]]><emphasis
+    <screen><![CDATA[[jetty-distribution-@project.version@]$ ]]><emphasis
         role="bold">java -jar start.jar --version</emphasis><![CDATA[ | grep logging
 Active Options: [Server, client, ext, jmx, jsp, ]]><emphasis role="bold">logging</emphasis><![CDATA[, resources, websocket]
 18:                1.6.6 | ${jetty.home}/lib/logging/]]><emphasis role="bold">jcl-over-slf4j-1.6.6.jar</emphasis><![CDATA[
@@ -320,7 +320,7 @@ org.eclipse.jetty.util.log.class=org.eclipse.jetty.util.log.Slf4jLog]]></program
     set up. Run the following command and check the last section of the output.
     It should contain the highlighted entries.</para>
 
-    <para><screen><![CDATA[[jetty-distribution-${project.version}]$ ]]><emphasis
+    <para><screen><![CDATA[[jetty-distribution-@project.version@]$ ]]><emphasis
           role="bold">java -jar start.jar --help</emphasis><![CDATA[
 ...
   The current start.ini arguments are:
@@ -346,7 +346,7 @@ org.eclipse.jetty.util.log.class=org.eclipse.jetty.util.log.Slf4jLog]]></program
     <para>You have now configured Jetty for all logging APIs. Just start
     Jetty to start using it.</para>
 
-    <para><screen><![CDATA[[jetty-distribution-${project.version}]$ java -jar start.jar ]]></screen>
+    <para><screen><![CDATA[[jetty-distribution-@project.version@]$ java -jar start.jar ]]></screen>
         </para>
   </simplesect>
 </section>

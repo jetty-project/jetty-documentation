@@ -39,26 +39,26 @@
 
     <para>The minimum steps to get Jetty to run as a Service</para>
 
-    <screen><![CDATA[[/opt/jetty]# tar -zxf /home/user/downloads/jetty-distribution-${project.version}.tar.gz 
-[/opt/jetty]# cd jetty-distribution-${project.version}/
-[/opt/jetty/jetty-distribution-${project.version}]# ls
+    <screen><![CDATA[[/opt/jetty]# tar -zxf /home/user/downloads/jetty-distribution-@project.version@.tar.gz 
+[/opt/jetty]# cd jetty-distribution-@project.version@/
+[/opt/jetty/jetty-distribution-@project.version@]# ls
 bin        lib                         modules      resources  start.jar
 demo-base  license-eplv10-aslv20.html  notice.html  start.d    VERSION.txt
 etc        logs                        README.TXT   start.ini  webapps
 
-[/opt/jetty/jetty-distribution-${project.version}]# cp bin/jetty.sh /etc/init.d/jetty
-[/opt/jetty/jetty-distribution-${project.version}]# cd /opt/jetty
+[/opt/jetty/jetty-distribution-@project.version@]# cp bin/jetty.sh /etc/init.d/jetty
+[/opt/jetty/jetty-distribution-@project.version@]# cd /opt/jetty
 
 [/opt/jetty]# echo JETTY_HOME=`pwd` > /etc/default/jetty
 [/opt/jetty]# cat /etc/default/jetty 
-JETTY_HOME=/opt/jetty/jetty-distribution-${project.version}
+JETTY_HOME=/opt/jetty/jetty-distribution-@project.version@
 
 [/opt/jetty]# service jetty start
 Starting Jetty: OK Wed Nov 20 10:26:53 MST 2013]]></screen>
 
     <para>From this simple demonstration we can see that Jetty started
     successfully as a Unix Service from the
-    <filename>/opt/jetty/jetty-distribution-${project.version}</filename>
+    <filename>/opt/jetty/jetty-distribution-@project.version@</filename>
     directory.</para>
 
     <para>This looks all fine and dandy, however you are running a default
@@ -353,7 +353,7 @@ RUN_CMD        =  /usr/bin/java
 
       <para>You now have a configured <filename>${jetty.base}</filename> in
       <filename>/opt/web/mybase</filename> and a jetty-distribution in
-      <filename>/opt/jetty/jetty-distribution-${project.version}</filename>,
+      <filename>/opt/jetty/jetty-distribution-@project.version@</filename>,
       along with the service level files necessary to start the
       service.</para>
 

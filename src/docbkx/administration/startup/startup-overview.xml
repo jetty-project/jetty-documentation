@@ -151,8 +151,8 @@
     <filename>start.jar</filename> mechanism using the following Java command
     line:</para>
 
-    <screen><![CDATA[[user]$ cd jetty-distribution-${project.version}
-[jetty-distribution-${project.version}]$ java -jar start.jar --module=http jetty.port=8080]]></screen>
+    <screen><![CDATA[[user]$ cd jetty-distribution-@project.version@
+[jetty-distribution-@project.version@]$ java -jar start.jar --module=http jetty.port=8080]]></screen>
 
     <para>This command uses the <filename>start.jar</filename> mechanism to
     bootstrap the classpath, properties, and XML files with the metadata
@@ -161,7 +161,7 @@
     <filename>${jetty.home}/modules/http.mod</filename> file, and includes the
     following:</para>
 
-    <screen><![CDATA[[jetty-distribution-${project.version}]$ cat modules/http.mod
+    <screen><![CDATA[[jetty-distribution-@project.version@]$ cat modules/http.mod
 [depend]
 server
 
@@ -184,7 +184,7 @@ http.timeout=30000]]></screen>
     <filename>${jetty.home}/modules/server.mod</filename> file
     includes:</para>
 
-    <screen><![CDATA[[jetty-distribution-${project.version}]$ cat modules/server.mod
+    <screen><![CDATA[[jetty-distribution-@project.version@]$ cat modules/server.mod
 [lib]
 lib/servlet-api-3.1.jar
 lib/jetty-http-${jetty.version}.jar
@@ -273,12 +273,12 @@ Jetty Active XMLs:
     line for what the <filename>start.jar</filename> bootstrap above
     performs.</para>
 
-    <screen><![CDATA[[user]$ cd jetty-distribution-${project.version}
-[jetty-distribution-${project.version}]$ echo jetty.port=8080 > /tmp/jetty.properties
-[jetty-distribution-${project.version}]$ export JETTY_HOME=`pwd`
-[jetty-distribution-${project.version}]$ export JETTY_BASE=`pwd`
-[jetty-distribution-${project.version}]$ export JETTY_VERSION="${project.version}"
-[jetty-distribution-${project.version}]$ java -Djetty.home=$JETTY_HOME \
+    <screen><![CDATA[[user]$ cd jetty-distribution-@project.version@
+[jetty-distribution-@project.version@]$ echo jetty.port=8080 > /tmp/jetty.properties
+[jetty-distribution-@project.version@]$ export JETTY_HOME=`pwd`
+[jetty-distribution-@project.version@]$ export JETTY_BASE=`pwd`
+[jetty-distribution-@project.version@]$ export JETTY_VERSION="${project.version}"
+[jetty-distribution-@project.version@]$ java -Djetty.home=$JETTY_HOME \
 -Djetty.base=$JETTY_BASE \
 -cp \
  $JETTY_HOME/lib/servlet-api-3.1.jar\
@@ -303,8 +303,8 @@ $JETTY_HOME/etc/jetty-http.xml
     INI template defined by the modules to create a
     <filename>start.ini</filename> file with the command:</para>
 
-    <screen><![CDATA[[user]$ cd jetty-distribution-${project.version}
-[jetty-distribution-${project.version}]$ mkdir example-base
+    <screen><![CDATA[[user]$ cd jetty-distribution-@project.version@
+[jetty-distribution-@project.version@]$ mkdir example-base
 [example-base]$ cd example-base
 [example-base]$ ls -la
 total 8

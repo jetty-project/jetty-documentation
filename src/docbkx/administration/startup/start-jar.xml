@@ -31,7 +31,7 @@
   execute the <filename>start.jar</filename>, which is a bootstrap for
   starting Jetty with the configuration you want.</para>
 
-  <screen><![CDATA[[jetty-distribution-${project.version}]$ java -jar start.jar
+  <screen><![CDATA[[jetty-distribution-@project.version@]$ java -jar start.jar
 2013-09-23 11:27:06.654:INFO:oejs.Server:jetty-${project.version}
 ...]]></screen>
 

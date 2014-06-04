@@ -41,7 +41,7 @@
 
     <revhistory>
       <revision>
-        <revnumber>${project.version}</revnumber>
+        <revnumber>@project.version@</revnumber>
 
         <date><?dbtimestamp format="Y-m-d H:M:S"?></date>
 

@@ -141,7 +141,7 @@ Java HotSpot(TM) 64-Bit Server VM (build 24.45-b08, mixed mode)]]></screen>
     linkend="jetty-downloading">Official Eclipse Download Site</link></para>
 
     <para>Open it up the downloaded Zip in Windows Explorer and drag the
-    contents of the <filename>jetty-distribution-${project.version}</filename>
+    contents of the <filename>jetty-distribution-@project.version@</filename>
     directory into place at <filename>C:\opt\jetty</filename></para>
 
     <para>Once you are complete, the contents of the

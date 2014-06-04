@@ -28,325 +28,241 @@
          xmlns:ns="http://docbook.org/ns/docbook">
   <title>Example: Centralized Logging with Logback</title>
 
-  <para>The term <emphasis>Centralized Logging</emphasis> refers to a forced logging
-  configuration for the Jetty Server and all web applications that are
+  <para>The term <emphasis>Centralized Logging</emphasis> refers to a forced
+  logging configuration for the Jetty Server and all web applications that are
   deployed on the server. It routes all logging events from the web
   applications to a single configuration on the Server side.</para>
 
-  <para>The example below shows how to accomplish this with Jetty and
-  Slf4j, using Logback to manage the final writing of logs to disk.</para>
+  <para>The example below shows how to accomplish this with Jetty and Slf4j,
+  using Logback to manage the final writing of logs to disk.</para>
+
+  <important>
+    <para>This mechanism forces all webapps to use the server's configuration
+    for logging, something that isn't 100% appropriate for all webapps.</para>
+
+    <para>An example would be having Jenkins-CI deployed as an webapp, if you
+    force its logging configuration to the server side, you lose the ability
+    on <link xl:href="http://jenkins-ci.org/">Jenkins-CI</link> to see the
+    logs from the various builds (as now those logs are actually going to the
+    main server log)</para>
+  </important>
+
+  <para>This configuration is essentially the multiple logger configuration
+  with added configuration to the deployers to force a WebAppClassLoader
+  change to use the server classpath over the webapps classpath for the logger
+  specific classes.</para>
+
+  <para>The technique used by this configuration is to provide an <link
+  xl:href="http://download.eclipse.org/jetty/stable-9/apidocs/org/eclipse/jetty/deploy/AppLifeCycle.Binding.html">AppLifeCycle.Binding</link>
+  against the <link
+  xl:href="http://download.eclipse.org/jetty/stable-9/apidocs/org/eclipse/jetty/deploy/AppLifeCycle.html"><literal>"deploying"</literal>
+  node</link> that modifies the <link
+  xl:href="http://download.eclipse.org/jetty/stable-9/apidocs/org/eclipse/jetty/webapp/WebAppContext.html#addSystemClass(java.lang.String)">WebAppContext.addSystemClass(String)</link>
+  for the common logging classes. (See <link
+  xl:href="https://github.com/jetty-project/jetty-webapp-logging/blob/master/src/main/java/org/eclipse/jetty/webapp/logging/CentralizedWebAppLoggingBinding.java">org.eclipse.jetty.logging.CentralizedWebAppLoggingBinding</link>
+  for actual implementation)</para>
 
   <simplesect>
-    <title>The Required JARs</title>
+    <title>Quick Setup of Centralized Logging using Jetty 9.2.1+</title>
 
-    <para>You need to download seven JARs, which you can do by clicking the following links:</para>
+    <para>A convenient replacement <literal>logging</literal> module has been
+    created to bootstrap your <filename>${jetty.base}</filename> directory for
+    capturing all Jetty server logging from multiple logging frameworks into a
+    single logging output file managed by logback.</para>
 
-    <para><variablelist>
-        <varlistentry>
-          <term><filename><link
-          xl:href="http://central.maven.org/maven2/ch/qos/logback/logback-classic/1.0.7/logback-classic-1.0.7.jar">logback-classic-1.0.7.jar</link></filename></term>
-
-          <listitem>
-            <para>The underlying logging framework and adaption layer.
-            for Slf4j</para>
-          </listitem>
-        </varlistentry>
-
-        <varlistentry>
-          <term><filename><link
-          xl:href="http://central.maven.org/maven2/ch/qos/logback/logback-core/1.0.7/logback-core-1.0.7.jar">logback-core-1.0.7.jar</link></filename></term>
-
-          <listitem>
-            <para>The common implementation classes for the Logback
-            project.</para>
-          </listitem>
-        </varlistentry>
-
-        <varlistentry>
-          <term><link
-          xl:href="http://central.maven.org/maven2/org/slf4j/log4j-over-slf4j/1.6.6/log4j-over-slf4j-1.6.6.jar"><filename>log4j-over-slf4j-1.6.6.jar</filename></link></term>
-
-          <listitem>
-            <para>The Slf4j Binding JAR for Log4j.</para>
-          </listitem>
-        </varlistentry>
-
-        <varlistentry>
-          <term><link
-          xl:href="http://central.maven.org/maven2/org/slf4j/jul-to-slf4j/1.6.6/jul-to-slf4j-1.6.6.jar"><filename>jul-to-slf4j-1.6.6.jar</filename></link></term>
-
-          <listitem>
-            <para>The Slf4j Binding JAR for <literal>java.util.logging</literal>.</para>
-          </listitem>
-        </varlistentry>
-
-        <varlistentry>
-          <term><link
-          xl:href="http://central.maven.org/maven2/org/slf4j/jcl-over-slf4j/1.6.6/jcl-over-slf4j-1.6.6.jar"><filename>jcl-over-slf4j-1.6.6.jar</filename></link></term>
-
-          <listitem>
-            <para>The Slf4j Binding JAR for Commons Logging.</para>
-          </listitem>
-        </varlistentry>
-
-        <varlistentry>
-          <term><filename><link
-          xl:href="http://central.maven.org/maven2/org/slf4j/slf4j-api/1.6.6/slf4j-api-1.6.6.jar">slf4j-api-1.6.6.jar</link></filename></term>
-
-          <listitem>
-            <para>The basic Slf4j API that Jetty's Slf4jLog
-            implementation uses.</para>
-          </listitem>
-        </varlistentry>
-
-        <varlistentry>
-          <term><link
-          xl:href="http://central.maven.org/maven2/org/eclipse/jetty/jetty-webapp-logging/9.0.0/jetty-webapp-logging-9.0.0.jar">jetty-webapp-logging-9.0.0.jar</link></term>
-
-          <listitem>
-            <para>Provides a custom Deployment Lifecycle Binding to force web
-            applications to use Server side logging implementations. See <link
-            xl:href="https://github.com/jetty-project/jetty-webapp-logging">github.com/jetty-project/jetty-webapp-logging</link>
-            for source.</para>
-          </listitem>
-        </varlistentry>
-      </variablelist>This allows you to capture logging events generated by
-    any of the following APIs.</para>
-
-    <itemizedlist>
-      <listitem>
-        <para><link
-        xl:href="http://slf4j.org/apidocs/org/apache/log4j/Logger.html">org.slf4j.Logger</link>
-        - Slf4j API</para>
-      </listitem>
-
-      <listitem>
-        <para><link
-        xl:href="http://logback.qos.ch/apidocs/ch/qos/logback/classic/Logger.html">ch.qos.logback.classic.Logger</link>
-        - Logback API</para>
-      </listitem>
-
-      <listitem>
-        <para><link
-        xl:href="http://logging.apache.org/log4j/1.2/apidocs/org/apache/log4j/Logger.html">org.apache.log4j.Logger</link>
-        - Apache Log4j API</para>
-      </listitem>
-
-      <listitem>
-        <para><link
-        xl:href="http://docs.oracle.com/javase/7/docs/api/java/util/logging/Logger.html">java.util.logging.Logger</link>
-        - Core java.util.logging API</para>
-      </listitem>
-
-      <listitem>
-        <para><link
-        xl:href="http://commons.apache.org/proper/commons-logging//commons-logging-1.1/apidocs/org/apache/commons/logging/Log.html">org.apache.commons.logging.Log</link>
-        - Apache Commons Logging API</para>
-      </listitem>
-    </itemizedlist>
-
-    <para>Any logging event from those APIs now routes to Logback
-    Classic.</para>
-  </simplesect>
-
-  <simplesect>
-    <title>Configuring Server Classpath</title>
-
-    <para>For the Server to use these new JARs you need to put
-    them in place and tell Jetty to load them on each startup. Create a <filename>${jetty.home}/lib/logging/</filename> directory and place the seven files
-    you downloaded there.</para>
-
-    <screen language="bash"><![CDATA[[jetty-distribution-@project.version@]$ ls -l ]]><emphasis
-        role="bold">lib/logging/</emphasis><![CDATA[
-total 632
--rw-rw-r-- 1 jetty jetty  17289 Mar 12 16:21 ]]><emphasis role="bold">jcl-over-slf4j-1.6.6.jar</emphasis><![CDATA[
--rw-rw-r-- 1 jetty jetty   6221 Mar 12 16:21 ]]><emphasis role="bold">jetty-webapp-logging-9.0.0.jar</emphasis><![CDATA[
--rw-rw-r-- 1 jetty jetty   4955 Mar 12 16:21 ]]><emphasis role="bold">jul-to-slf4j-1.6.6.jar</emphasis><![CDATA[
--rw-rw-r-- 1 jetty jetty  20647 Mar 12 16:21 ]]><emphasis role="bold">log4j-over-slf4j-1.6.6.jar</emphasis><![CDATA[
--rw-rw-r-- 1 jetty jetty 251679 Mar 12 16:21 ]]><emphasis role="bold">logback-classic-1.0.7.jar</emphasis><![CDATA[
--rw-rw-r-- 1 jetty jetty 364399 Mar 12 16:21 ]]><emphasis role="bold">logback-core-1.0.7.jar</emphasis><![CDATA[
--rw-rw-r-- 1 jetty jetty  26176 Mar 12 16:21 ]]><emphasis role="bold">slf4j-api-1.6.6.jar
-</emphasis><![CDATA[
-]]></screen>
-
-    <para>Next edit the
-    <filename>${jetty.home}/start.ini</filename> to get jetty to load these
-    logging files into the Server classpath. Check for the following entries. If they are missing, add them at the end of the file.</para>
-
-    <programlisting language="properties"><![CDATA[# Force Server side Logging APIs
-etc/jetty-webapp-logging.xml
-# Enable jul-to-slf4j layer
-etc/jetty-jul-to-slf4j.xml
-# Adding lib/logging to server classpath
-OPTIONS=logging]]></programlisting>
-
-    <para>Now verify that the server classpath loads the seven JARs.</para>
-
-    <screen><![CDATA[[jetty-distribution-@project.version@]$ ]]><emphasis
-        role="bold">java -jar start.jar --version</emphasis><![CDATA[ | grep logging
-Active Options: [Server, client, ext, jmx, jsp, ]]><emphasis role="bold">logging</emphasis><![CDATA[, resources, websocket]
-18:                1.6.6 | ${jetty.home}/lib/logging/]]><emphasis role="bold">jcl-over-slf4j-1.6.6.jar</emphasis><![CDATA[
-19:                9.0.0 | ${jetty.home}/lib/logging/]]><emphasis role="bold">jetty-webapp-logging-9.0.0.jar</emphasis><![CDATA[
-20:                1.6.6 | ${jetty.home}/lib/logging/]]><emphasis role="bold">jul-to-slf4j-1.6.6.jar</emphasis><![CDATA[
-21:                1.6.6 | ${jetty.home}/lib/logging/]]><emphasis role="bold">log4j-over-slf4j-1.6.6.jar</emphasis><![CDATA[
-22:                1.0.7 | ${jetty.home}/lib/logging/]]><emphasis role="bold">logback-classic-1.0.7.jar</emphasis><![CDATA[
-23:                1.0.7 | ${jetty.home}/lib/logging/]]><emphasis role="bold">logback-core-1.0.7.jar</emphasis><![CDATA[
-24:                1.6.6 | ${jetty.home}/lib/logging/]]><emphasis role="bold">slf4j-api-1.6.6.jar</emphasis><![CDATA[
+    <screen><![CDATA[[mybase]$ mkdir modules
+[mybase]$ cd modules
+[modules]$ curl -O https://raw.githubusercontent.com/jetty-project/logging-modules/master/capture-all/logging.mod
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100  1416  100  1416    0     0   4241      0 --:--:-- --:--:-- --:--:--  4252
+[master]$ curl -O https://raw.githubusercontent.com/jetty-project/logging-modules/master/centralized/webapp-logging.mod
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100   660  100   660    0     0   2032      0 --:--:-- --:--:-- --:--:--  2037
+[modules]$ cd ..
+[mybase]$ java -jar /opt/jetty-dist/start.jar --add-to-start=logging,webapp-logging
+INFO: logging         initialised in ${jetty.base}/start.ini (appended)
+MKDIR: ${jetty.base}/logs
+DOWNLOAD: http://central.maven.org/maven2/org/slf4j/slf4j-api/1.6.6/slf4j-api-1.6.6.jar to lib/logging/slf4j-api-1.6.6.jar
+DOWNLOAD: http://central.maven.org/maven2/org/slf4j/log4j-over-slf4j/1.6.6/log4j-over-slf4j-1.6.6.jar to lib/logging/log4j-over-slf4j-1.6.6.jar
+DOWNLOAD: http://central.maven.org/maven2/org/slf4j/jul-to-slf4j/1.6.6/jul-to-slf4j-1.6.6.jar to lib/logging/jul-to-slf4j-1.6.6.jar
+DOWNLOAD: http://central.maven.org/maven2/org/slf4j/jcl-over-slf4j/1.6.6/jcl-over-slf4j-1.6.6.jar to lib/logging/jcl-over-slf4j-1.6.6.jar
+DOWNLOAD: http://central.maven.org/maven2/ch/qos/logback/logback-core/1.0.7/logback-core-1.0.7.jar to lib/logging/logback-core-1.0.7.jar
+DOWNLOAD: http://central.maven.org/maven2/ch/qos/logback/logback-classic/1.0.7/logback-classic-1.0.7.jar to lib/logging/logback-classic-1.0.7.jar
+DOWNLOAD: https://raw.githubusercontent.com/jetty-project/logging-modules/master/capture-all/logback.xml to resources/logback.xml
+DOWNLOAD: https://raw.githubusercontent.com/jetty-project/logging-modules/master/capture-all/jetty-logging.properties to resources/jetty-logging.properties
+DOWNLOAD: https://raw.githubusercontent.com/jetty-project/logging-modules/master/capture-all/jetty-logging.xml to etc/jetty-logging.xml
+INFO: resources       initialised transitively
+INFO: resources       enabled in     ${jetty.base}/start.ini
+INFO: webapp-logging  initialised in ${jetty.base}/start.ini (appended)
+DOWNLOAD: http://central.maven.org/maven2/org/eclipse/jetty/jetty-webapp-logging/9.0.0/jetty-webapp-logging-9.0.0.jar to lib/webapp-logging/jetty-webapp-logging-9.0.0.jar
+DOWNLOAD: https://raw.githubusercontent.com/jetty-project/jetty-webapp-logging/master/src/main/config/etc/jetty-webapp-logging.xml to etc/jetty-webapp-logging.xml
+DOWNLOAD: https://raw.githubusercontent.com/jetty-project/jetty-webapp-logging/master/src/main/config/etc/jetty-mdc-handler.xml to etc/jetty-mdc-handler.xml
+INFO: deploy          initialised transitively
+INFO: deploy          enabled in     ${jetty.base}/start.ini
+INFO: logging         initialised transitively
+INFO: resources       initialised transitively
+INFO: resources       enabled in     ${jetty.base}/start.ini
+[mybase]$ java -jar /opt/jetty-dist/start.jar
 ]]></screen>
   </simplesect>
 
   <simplesect>
-    <title>Configuring Server Logging</title>
+    <title>That's cool and all, but tell me what that just did.</title>
 
-    <para>If you have a
-    <filename>${jetty.home}/resources/jetty-logging.properties</filename> file,
-    make sure it contains just the following:</para>
+    <para>The replacement <filename>logging.mod</filename> performs a number
+    of tasks.</para>
 
-    <para><programlisting language="properties"><![CDATA[# Configure Jetty for SLf4j Logging
-org.eclipse.jetty.util.log.class=org.eclipse.jetty.util.log.Slf4jLog]]></programlisting></para>
+    <orderedlist>
+      <listitem>
+        <para><filename>mybase</filename> is a
+        <filename>${jetty.base}</filename> directory</para>
+      </listitem>
 
-    <para>This tells Jetty to use the Slf4jLog implementation for its
-    internal Logging.</para>
-  </simplesect>
+      <listitem>
+        <para>The jetty-distribution is unpacked (and untouched) into
+        <filename>/opt/jetty-dist/ </filename>and becomes the
+        <filename>${jetty.home}</filename> directory for this
+        demonstration.</para>
+      </listitem>
 
-  <simplesect>
-    <title>Forcing Server Logging APIs on Web Applications</title>
+      <listitem>
+        <para>The <command>curl</command> command downloads the replacement
+        <filename>logging.mod</filename> and puts it into the
+        <filename>${jetty.base}/modules/</filename> directory for use by
+        mybase only.</para>
+      </listitem>
 
-    <para>To force all deployed web applications to use the Server
-    side implementations for the various Logging APIs, use a
-    custom <link linkend="udm-lifecycle-bindings">Deployment Lifecycle
-    Binding</link> to configure the Web Application ClassLoader
-    appropriately.</para>
+      <listitem>
+        <para>The <command>start.jar
+        --add-to-start=logging,webapp-logging</command> command performs a
+        number of steps to make the logging module available to the
+        <filename>${jetty.base}</filename> configuration.</para>
 
-    <para>A custom Deployment Lifecycle Binding for this precise purpose is
-    provided as part of the
-    <filename>jetty-webapp-logging.jar</filename>.</para>
+        <orderedlist>
+          <listitem>
+            <para>Several entries are added to the
+            <filename>${jetty.base}/start.ini</filename> configuration</para>
 
-    <para>The implementation for the <filename><link
-    xl:href="https://github.com/jetty-project/jetty-webapp-logging/blob/jetty-webapp-logging-9.0.0/src/main/java/org/eclipse/jetty/webapp/logging/CentralizedWebAppLoggingBinding.java">CentralizedWebAppLoggingBinding</link></filename>
-    class is in the <filename>jetty-webapp-logging.jar</filename>:</para>
+            <orderedlist>
+              <listitem>
+                <para><command>--module=logging</command> is added to enable
+                the logging module</para>
+              </listitem>
 
-    <para><programlisting language="rjava"><filename>https://raw.github.com/jetty-project/jetty-webapp-logging/jetty-webapp-logging-9.0.0/src/main/java/org/eclipse/jetty/webapp/logging/CentralizedWebAppLoggingBinding.java</filename></programlisting>For Jetty's DeploymentManager to utilize this class, 
-    create the <link
-    xl:href="https://github.com/jetty-project/jetty-webapp-logging/blob/jetty-webapp-logging-9.0.0/src/main/config/etc/jetty-webapp-logging.xml"><filename>etc/jetty-webapp-logging.xml</filename></link>
-    file (the same one that is referenced above in the
-    <filename>start.ini</filename>).</para>
+              <listitem>
+                <para><command>--module=webapp-logging</command> is added to
+                enable the webapp-logging module</para>
+              </listitem>
+            </orderedlist>
+          </listitem>
 
-    <para><programlisting language="rxml"><filename>https://raw.github.com/jetty-project/jetty-webapp-logging/jetty-webapp-logging-9.0.0/src/main/config/etc/jetty-webapp-logging.xml</filename></programlisting>The
-    configuration of the <filename>start.ini</filename> above uses this XML file.</para>
-  </simplesect>
+          <listitem>
+            <para>Required <filename>${jetty.base}</filename> directories are
+            created: <filename>${jetty.base}/logs</filename> and
+            <filename>${jetty.base}/resources</filename></para>
+          </listitem>
 
-  <simplesect>
-    <title>Initializing Jul-to-Slf4j Bridge</title>
+          <listitem>
+            <para>Required logging libraries are downloaded (if not present
+            already):</para>
 
-    <para>There is an extra requirement when using the jul-to-slf4j.jar to inform <literal>java.util.logging</literal> of the existence of the <link
-    xl:href="http://slf4j.org/api/org/slf4j/bridge/SLF4JBridgeHandler.html">SLF4JBridgeHandler</link>.</para>
+            <itemizedlist>
+              <listitem>
+                <para>slf4j-api.jar - API jar for Slf4j (used by most of the
+                rest of the jars)</para>
+              </listitem>
 
-    <para>Satisfy this requirement by including a new
-    <filename>etc/jetty-jul-to-slf4j.xml</filename> file, in
-    the <filename>start.ini</filename> above.</para>
+              <listitem>
+                <para>log4j-over-slf4j.jar - Slf4j jar that captures all log4j
+                emitted logging events</para>
+              </listitem>
 
-    <programlisting language="xml"><![CDATA[<?xml version="1.0"?>
-<!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure_9_0.dtd">
+              <listitem>
+                <para>jul-to-slf4j.jar - Slf4j jar that captures all
+                java.util.logging events</para>
+              </listitem>
 
-<Configure id="Server" class="org.eclipse.jetty.server.Server">
-  <Call class="org.slf4j.bridge.SLF4JBridgeHandler" name="removeHandlersForRootLogger"/>
-  <Call class="org.slf4j.bridge.SLF4JBridgeHandler" name="install"/>
-</Configure>
-]]></programlisting>
-  </simplesect>
+              <listitem>
+                <para>jcl-over-slf4j.jar - Slf4j jar that captures all
+                commons-logging events</para>
+              </listitem>
 
-  <simplesect>
-    <title>Configuring Logback</title>
+              <listitem>
+                <para>logback-classic.jar - the Slf4j adapter jar that routes
+                all of the captured logging events to logback itself.</para>
+              </listitem>
 
-    <para>You need a
-    <filename>${jetty.home}/resources/logback.xml</filename> file to define
-    what you want Logback to do. It will be automatically located and loaded
-    on Logging startup.</para>
+              <listitem>
+                <para>logback-core.jar - the logback implementation jar, that
+                handles all of the filtering and output of the logging
+                events.</para>
+              </listitem>
+            </itemizedlist>
 
-    <para>Example <filename>${jetty.home}/resources/logback.xml</filename>
-    file</para>
+            <para>These libraries are put in the
+            <filename>${jetty.base}/lib/logging/</filename> directory.</para>
+          </listitem>
 
-    <para><programlisting language="xml"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
-<!-- 
-  Example LOGBACK Configuration File
-  http://logback.qos.ch/manual/configuration.html
-  -->
-<configuration>
-  <!-- address performance concern with jul-to-slf4j -->
-  <contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator">
-    <resetJUL>true</resetJUL>
-  </contextListener>
+          <listitem>
+            <para>Required webapp-logging library are downloaded (if not
+            present already):</para>
 
-  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
-    <encoder>
-      <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
-    </encoder>
-  </appender>
+            <itemizedlist>
+              <listitem>
+                <para>jetty-webapp-logging.jar - the jetty side deployment
+                manger app-lifecycle bindings for modifying the
+                WebAppClassloaders of deployed webapps.</para>
+              </listitem>
+            </itemizedlist>
 
-  <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-    <file>\${jetty.home}/logs/jetty.log</file>
-    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-      <fileNamePattern>jetty_%d{yyyy-MM-dd}.log</fileNamePattern>
-      <maxHistory>30</maxHistory>
-    </rollingPolicy>
+            <para>This library is put in the
+            <filename>${jetty.base}/lib/webapp-logging/</filename>
+            directory.</para>
+          </listitem>
 
-    <encoder>
-      <pattern>%-4relative [%thread] %-5level %logger{35} - %msg%n</pattern>
-    </encoder>
-  </appender>
+          <listitem>
+            <para>Required configuration files are downloaded (if not present
+            already): <filename>jetty-logging.properties</filename>, and
+            <filename>logback.xml</filename></para>
 
-  <root level="info">
-    <appender-ref ref="STDOUT" />
-    <appender-ref ref="FILE" />
-  </root>
-</configuration>
-]]></programlisting></para>
+            <para>The configuration files are put in the
+            <filename>${jetty.base}/resources/</filename> directory.</para>
+          </listitem>
 
-    <para><caution>
-        <para>When using the jul-to-slf4j Binding JAR, be sure you also
-        use the <link
-        xl:href="http://logback.qos.ch/manual/configuration.html#LevelChangePropagator">LevelChangePropagator</link>
-        (as referenced in the <link
-        xl:href="http://slf4j.org/api/org/slf4j/bridge/SLF4JBridgeHandler.html">SLF4JBridgeHandler
-        javadoc</link>.</para>
-      </caution></para>
-  </simplesect>
+          <listitem>
+            <para>Required initialization commands are downloaded (if not
+            present already): <filename>jetty-logging.xml</filename>,
+            <filename>jetty-webapp-logging.xml</filename>, and
+            <filename>jetty-mdc-handler.xml</filename></para>
 
-  <simplesect>
-    <title>Verifying the start.ini configuration</title>
+            <para>These xml files are put in the
+            <filename>${jetty.base}/etc/</filename> directory.</para>
+          </listitem>
+        </orderedlist>
+      </listitem>
 
-    <para>Before you start Jetty, verify that your <filename>start.ini</filename> is correctly
-    set up. Run the following command and check the last section of the output.
-    It should contain the highlighted entries.</para>
+      <listitem>
+        <para>At this point you have your <filename>mybase</filename>
+        configured so that the jetty server itself will log using slf4j, and
+        all other logging events from other Jetty Server components (such as
+        database drivers, security layers, jsp, mail, and other 3rd party
+        server components) are routed to logback for filtering and
+        output.</para>
 
-    <para><screen><![CDATA[[jetty-distribution-@project.version@]$ ]]><emphasis
-          role="bold">java -jar start.jar --help</emphasis><![CDATA[
-...
-  The current start.ini arguments are:
+        <para>All webapps deployed via the DeploymentManager have their
+        WebAppClassLoader modified to use server side classes and
+        configuration for all logging implementations.</para>
+      </listitem>
+    </orderedlist>
 
-    OPTIONS=Server,websocket,resources,ext
-    etc/jetty.xml
-    OPTIONS=client
-    etc/test-realm.xml
-    OPTIONS=jmx
-    etc/jetty-jmx.xml
-    OPTIONS=jsp
-    etc/jetty-http.xml
-    etc/jetty-deploy.xml
-    etc/jetty-requestlog.xml
-    ]]><emphasis role="bold">etc/jetty-webapp-logging.xml</emphasis><![CDATA[
-    ]]><emphasis role="bold">etc/jetty-jul-to-slf4j.xml</emphasis><![CDATA[
-    ]]><emphasis role="bold">OPTIONS=logging</emphasis></screen></para>
-  </simplesect>
+    <para>You can verify the server classpath by using the <command>start.jar
+    --list-config</command> command.</para>
 
-  <simplesect>
-    <title>Start Jetty</title>
-
-    <para>You have now configured Jetty for all logging APIs. Just start
-    Jetty to start using it.</para>
-
-    <para><screen><![CDATA[[jetty-distribution-@project.version@]$ java -jar start.jar ]]></screen>
-        </para>
+    <para>In essence, Jetty is now configured to emit its own logging events
+    to slf4j, and various slf4j bridge jars are acting on behalf of log4j,
+    java.util.logging, and commons-logging, routing all of the logging events
+    to logback (a slf4j adapter) for routing (to console, file, etc...)</para>
   </simplesect>
 </section>

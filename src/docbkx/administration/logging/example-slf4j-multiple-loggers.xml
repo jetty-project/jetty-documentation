@@ -366,9 +366,11 @@ INFO: resources       enabled in     ${jetty.base}/start.ini
 
       <listitem>
         <para>At this point you have your <filename>mybase</filename>
-        configured so that the jetty server itself will log using
-        java.util.logging, using the java.util.logging configuration found in
-        <filename>mybase/resources/logging.properties</filename></para>
+        configured so that the jetty server itself will log using slf4j, and
+        all other logging events from other Jetty Server components (such as
+        database drivers, security layers, jsp, mail, and other 3rd party
+        server components) are routed to logback for filtering and
+        output.</para>
       </listitem>
     </orderedlist>
 

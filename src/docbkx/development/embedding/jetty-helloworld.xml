@@ -43,8 +43,8 @@
 
     <screen><![CDATA[mkdir Demo
 cd Demo
-wget -O jetty-all.jar -U none http://repo1.maven.org/maven2/org/eclipse/jetty/aggregate/jetty-all/9.0.0-RC1/jetty-all-9.0.0-RC1.jar
-wget -O servlet-api.jar -U none http://repo1.maven.org/maven2/org/eclipse/jetty/orbit/javax.servlet/3.0.0.v201112011016/javax.servlet-3.0.0.v201112011016.jar]]></screen>
+wget -O jetty-all.jar -U none http://central.maven.org/maven2/org/eclipse/jetty/aggregate/jetty-all/9.0.0-RC1/jetty-all-9.0.0-RC1.jar
+wget -O servlet-api.jar -U none http://central.maven.org/maven2/org/eclipse/jetty/orbit/javax.servlet/3.0.0.v201112011016/javax.servlet-3.0.0.v201112011016.jar]]></screen>
   </section>
 
   <section xml:id="writing-helloworld-example">

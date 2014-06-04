@@ -61,7 +61,7 @@
 	<section xml:id="cross-origin-setup">
 		<title>Setup</title>
 		<para>
-			You will need to put the jetty-servlets.jar file onto your classpath. If you are creating a webapp, ensure that this jar is included in your webapp's WEB-INF/lib. Or, if you are running jetty embedded you will need to ensure that jetty-servlets.jar is on the execution classpath. You can download the jetty-servlets.jar from the Maven Central Repository at http://repo1.maven.org/maven2/org/eclipse/jetty/jetty-servlets/.
+			You will need to put the jetty-servlets.jar file onto your classpath. If you are creating a webapp, ensure that this jar is included in your webapp's WEB-INF/lib. Or, if you are running jetty embedded you will need to ensure that jetty-servlets.jar is on the execution classpath. You can download the jetty-servlets.jar from the Maven Central Repository at http://central.maven.org/maven2/org/eclipse/jetty/jetty-servlets/.
 		</para>
 	</section>
 	<section xml:id="cross-origin-config">

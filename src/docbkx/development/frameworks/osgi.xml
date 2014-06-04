@@ -136,9 +136,9 @@
 
       <para>Now that you have the basic set of Jetty jars installed, you can
       install the <link
-      xl:href="http://repo1.maven.org/maven2/org/eclipse/jetty/osgi/jetty-osgi-boot/">jetty-osgi-boot.jar</link>
+      xl:href="http://central.maven.org/maven2/org/eclipse/jetty/osgi/jetty-osgi-boot/">jetty-osgi-boot.jar</link>
       bundle, downloadable from the maven central repo <link
-      xl:href="http://repo1.maven.org/maven2/org/eclipse/jetty/osgi/jetty-osgi-boot/">here.</link></para>
+      xl:href="http://central.maven.org/maven2/org/eclipse/jetty/osgi/jetty-osgi-boot/">here.</link></para>
 
       <para>This bundle will instantiate and make available the Jetty OSGi
       container.</para>
@@ -1183,10 +1183,10 @@ public void start(final BundleContext context) throws Exception
       <para>In order to use JSPs with your webapps and bundles you will need
       to install the JSP related jars into your OSGi container. You can use
       the jars from the <link
-      xl:href="http://repo1.maven.org/maven2/org/eclipse/jetty/jetty-distribution/">jetty
+      xl:href="http://central.maven.org/maven2/org/eclipse/jetty/jetty-distribution/">jetty
       distribution</link> in the <filename>${jetty.home}/lib/jsp</filename>
       directory, but some you will need to download them from <link
-      xl:href="http://repo1.maven.org/maven2/org/eclipse/jetty/orbit/">maven
+      xl:href="http://central.maven.org/maven2/org/eclipse/jetty/orbit/">maven
       central</link>. Here is the list of recommended jars (NOTE the version
       numbers may change in future):</para>
 
@@ -1258,10 +1258,10 @@ public void start(final BundleContext context) throws Exception
       <title>The jetty-osgi-boot-jsp jar</title>
 
       <para>To be able to use JSPs you will need to also install the <link
-      xl:href="http://repo1.maven.org/maven2/org/eclipse/jetty/osgi/jetty-osgi-boot-jsp/">jetty-osgi-boot-jsp.jar</link>
+      xl:href="http://central.maven.org/maven2/org/eclipse/jetty/osgi/jetty-osgi-boot-jsp/">jetty-osgi-boot-jsp.jar</link>
       into your OSGi container. This jar can be obtained from maven central
       <link
-      xl:href="http://repo1.maven.org/maven2/org/eclipse/jetty/osgi/jetty-osgi-boot-jsp/">here</link>.</para>
+      xl:href="http://central.maven.org/maven2/org/eclipse/jetty/osgi/jetty-osgi-boot-jsp/">here</link>.</para>
 
       <para>This bundle acts as a fragment extension to the
       jetty-osgi-boot.jar and adds in support for using JSP.</para>
@@ -1275,9 +1275,9 @@ public void start(final BundleContext context) throws Exception
         all necessary JSP implementation classes, a proper OSGi manifest, and
         also attaches itself as a fragment extension to the
         jetty-osgi-boot.jar. You can <link
-        xl:href="http://repo1.maven.org/maven2/org/eclipse/jetty/toolchain/jetty-jsp-frament/">download</link>
+        xl:href="http://central.maven.org/maven2/org/eclipse/jetty/toolchain/jetty-jsp-frament/">download</link>
         it from the maven central repo <link
-        xl:href="http://repo1.maven.org/maven2/org/eclipse/jetty/toolchain/jetty-jsp-frament/">here</link>.</para>
+        xl:href="http://central.maven.org/maven2/org/eclipse/jetty/toolchain/jetty-jsp-frament/">here</link>.</para>
 
         <para>If you do not use taglibs, or you only use the JSTL taglibs then
         you do not need to do any further configuration.</para>

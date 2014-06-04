@@ -209,9 +209,9 @@
 
           <para>The JspC class actually performs the precompilation. All
           setters on the JspC class are available. You can <link
-          xl:href="http://repo1.maven.org/maven2/org/glassfish/web/javax.servlet.jsp/2.3.2/javax.servlet.jsp-2.3.2-javadoc.jar">download</link>
+          xl:href="http://central.maven.org/maven2/org/glassfish/web/javax.servlet.jsp/2.3.2/javax.servlet.jsp-2.3.2-javadoc.jar">download</link>
           the <link linkend="???">javadoc</link> <link
-          xl:href="http://repo1.maven.org/maven2/org/glassfish/web/javax.servlet.jsp/2.3.2/javax.servlet.jsp-2.3.2-javadoc.jar">here</link>.</para>
+          xl:href="http://central.maven.org/maven2/org/glassfish/web/javax.servlet.jsp/2.3.2/javax.servlet.jsp-2.3.2-javadoc.jar">here</link>.</para>
         </listitem>
       </varlistentry>
     </variablelist>

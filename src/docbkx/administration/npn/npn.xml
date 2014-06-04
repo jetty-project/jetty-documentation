@@ -62,7 +62,7 @@
       bundle.</para>
 
       <para>You can download the jetty-osgi-npn jar from maven central:
-      http://repo1.maven.org/maven2/org/eclipse/jetty/osgi/jetty-osgi-npn/</para>
+      http://central.maven.org/maven2/org/eclipse/jetty/osgi/jetty-osgi-npn/</para>
     </section>
   </section>
 

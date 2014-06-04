@@ -57,7 +57,7 @@
 
       <listitem>
         <para><link
-        xl:href="http://repo1.maven.org/maven2/org/eclipse/jetty/jetty-ant/">Get</link>
+        xl:href="http://central.maven.org/maven2/org/eclipse/jetty/jetty-ant/">Get</link>
         the jetty-ant Jar.</para>
       </listitem>
 

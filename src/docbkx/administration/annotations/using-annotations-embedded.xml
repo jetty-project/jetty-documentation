@@ -35,7 +35,7 @@
     of your application. You can obtain them from the <link
     xl:href="http://download.eclipse.org/jetty/stable-9/dist/">jetty
     distribution</link>, or the <link
-    xl:href="http://repo1.maven.org/maven2/org/eclipse/jetty/jetty-annotations">maven
+    xl:href="http://central.maven.org/maven2/org/eclipse/jetty/jetty-annotations">maven
     repository</link>:</para>
 
     <programlisting><![CDATA[jetty-plus.jar

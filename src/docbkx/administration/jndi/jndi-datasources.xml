@@ -192,7 +192,7 @@
       <title>c3p0</title>
 
       <para>Connection pooling, available at <link
-      xl:href="http://repo1.maven.org/maven2/c3p0/c3p0/0.9.1.2/c3p0-0.9.1.2.jar">c3p0
+      xl:href="http://central.maven.org/maven2/c3p0/c3p0/0.9.1.2/c3p0-0.9.1.2.jar">c3p0
       Jar</link>.</para>
 
       <informalexample>
@@ -219,7 +219,7 @@
       <title>DBCP</title>
 
       <para>Connection pooling, available at <link
-      xl:href="http://repo1.maven.org/maven2/commons-dbcp/commons-dbcp/1.2/commons-dbcp-1.2.jar">dbcp
+      xl:href="http://central.maven.org/maven2/commons-dbcp/commons-dbcp/1.2/commons-dbcp-1.2.jar">dbcp
       Jar</link>.</para>
 
       <informalexample>

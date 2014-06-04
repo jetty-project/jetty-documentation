@@ -44,7 +44,7 @@
     <para><variablelist>
         <varlistentry>
           <term><filename><link
-          xl:href="http://repo1.maven.org/maven2/ch/qos/logback/logback-classic/1.0.7/logback-classic-1.0.7.jar">logback-classic-1.0.7.jar</link></filename></term>
+          xl:href="http://central.maven.org/maven2/ch/qos/logback/logback-classic/1.0.7/logback-classic-1.0.7.jar">logback-classic-1.0.7.jar</link></filename></term>
 
           <listitem>
             <para>The underlying logging framework and adaption layer.
@@ -54,7 +54,7 @@
 
         <varlistentry>
           <term><filename><link
-          xl:href="http://repo1.maven.org/maven2/ch/qos/logback/logback-core/1.0.7/logback-core-1.0.7.jar">logback-core-1.0.7.jar</link></filename></term>
+          xl:href="http://central.maven.org/maven2/ch/qos/logback/logback-core/1.0.7/logback-core-1.0.7.jar">logback-core-1.0.7.jar</link></filename></term>
 
           <listitem>
             <para>The common implementation classes for the Logback
@@ -64,7 +64,7 @@
 
         <varlistentry>
           <term><link
-          xl:href="http://repo1.maven.org/maven2/org/slf4j/log4j-over-slf4j/1.6.6/log4j-over-slf4j-1.6.6.jar"><filename>log4j-over-slf4j-1.6.6.jar</filename></link></term>
+          xl:href="http://central.maven.org/maven2/org/slf4j/log4j-over-slf4j/1.6.6/log4j-over-slf4j-1.6.6.jar"><filename>log4j-over-slf4j-1.6.6.jar</filename></link></term>
 
           <listitem>
             <para>The Slf4j Binding JAR for Log4j.</para>
@@ -73,7 +73,7 @@
 
         <varlistentry>
           <term><link
-          xl:href="http://repo1.maven.org/maven2/org/slf4j/jul-to-slf4j/1.6.6/jul-to-slf4j-1.6.6.jar"><filename>jul-to-slf4j-1.6.6.jar</filename></link></term>
+          xl:href="http://central.maven.org/maven2/org/slf4j/jul-to-slf4j/1.6.6/jul-to-slf4j-1.6.6.jar"><filename>jul-to-slf4j-1.6.6.jar</filename></link></term>
 
           <listitem>
             <para>The Slf4j Binding JAR for <literal>java.util.logging</literal>.</para>
@@ -82,7 +82,7 @@
 
         <varlistentry>
           <term><link
-          xl:href="http://repo1.maven.org/maven2/org/slf4j/jcl-over-slf4j/1.6.6/jcl-over-slf4j-1.6.6.jar"><filename>jcl-over-slf4j-1.6.6.jar</filename></link></term>
+          xl:href="http://central.maven.org/maven2/org/slf4j/jcl-over-slf4j/1.6.6/jcl-over-slf4j-1.6.6.jar"><filename>jcl-over-slf4j-1.6.6.jar</filename></link></term>
 
           <listitem>
             <para>The Slf4j Binding JAR for Commons Logging.</para>
@@ -91,7 +91,7 @@
 
         <varlistentry>
           <term><filename><link
-          xl:href="http://repo1.maven.org/maven2/org/slf4j/slf4j-api/1.6.6/slf4j-api-1.6.6.jar">slf4j-api-1.6.6.jar</link></filename></term>
+          xl:href="http://central.maven.org/maven2/org/slf4j/slf4j-api/1.6.6/slf4j-api-1.6.6.jar">slf4j-api-1.6.6.jar</link></filename></term>
 
           <listitem>
             <para>The basic Slf4j API that Jetty's Slf4jLog
@@ -101,7 +101,7 @@
 
         <varlistentry>
           <term><link
-          xl:href="http://repo1.maven.org/maven2/org/eclipse/jetty/jetty-webapp-logging/9.0.0/jetty-webapp-logging-9.0.0.jar">jetty-webapp-logging-9.0.0.jar</link></term>
+          xl:href="http://central.maven.org/maven2/org/eclipse/jetty/jetty-webapp-logging/9.0.0/jetty-webapp-logging-9.0.0.jar">jetty-webapp-logging-9.0.0.jar</link></term>
 
           <listitem>
             <para>Provides a custom Deployment Lifecycle Binding to force web

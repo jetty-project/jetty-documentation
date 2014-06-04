@@ -37,7 +37,7 @@
     <orderedlist>
       <listitem>
         <para><link
-        xl:href="http://repo1.maven.org/maven2/org/eclipse/jetty/jetty-runner/">Get</link>
+        xl:href="http://central.maven.org/maven2/org/eclipse/jetty/jetty-runner/">Get</link>
         the jetty-runner jar, from <link
         xl:href="http://search.maven.org/#browse">maven central</link></para>
       </listitem>

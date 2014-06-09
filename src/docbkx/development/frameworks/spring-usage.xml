@@ -22,12 +22,12 @@ xmlns:xi="http://www.w3.org/2001/XInclude"
 xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd">
 	<title>Spring Setup</title>
 	<para>
-		You can assemble and configure Jetty in code or with almost any IoC style framework including Spring.
+		You can assemble and configure Jetty in code or with almost any IoC style framework including Spring.  If all you want to do is setup a Jetty server in your stock Spring usage, simply look at the xml snippet below as an example.  If you want to replace the jetty-xml being used to start the normal Jetty distribution with spring, you may do so however currently it will not leverage the rest of the module system.  If you are interested in doing this as anything other then a novelty contact us and let us know and we can work out a suitable jetty.base example. 
 	</para>
 	<section>
 		<title>Downloading the Jetty-Spring Module and Dependencies</title>
 		<para>
-			The jetty-spring module is available as a Maven artifact.  You can obtain it through the following maven cooridates:
+			The jetty-spring module is available as a Maven artifact.  You can obtain it through the following maven coordinates:
 		</para>
 		<informalexample>
 			<programlisting language="xml">
@@ -115,10 +115,15 @@ $ wget --user-agent=other http://repo2.maven.org/maven2/commons-logging/commons-
 		</programlisting>
 	</informalexample>
 </section>
-<section>
+<!--
+  This is not valid given the distribution structure or purpose of Jetty 9.1+
+
+  a mod file needs to work with everything else, not in exclusion so either we would have to have all other mod files also expose a spring beans alternative or this is purely and academic exercise...in which case not appropriate for our production distribution.  If we want an example, we should publish a jetty.base with specifically this functionality and clearly state it is stand alone.
+	-->
+<!--section>
 	<title>Starting Jetty Distribution with Spring</title>
 	<para>
-		As a purely optional effort to illustrate how this works, if you want to use spring to start up the jetty distribution then all you need to do is make these changes and then run it appropriately.
+		As a purely optional effort to illustrate how this works, if you want to use spring to start up the jetty distribution then all you need to do is make these changes and then run it appropriately.  
 	</para>
 
 	<itemizedlist>
@@ -146,5 +151,5 @@ $ java -jar start.jar OPTIONS=Server,All,spring start.class=org.eclipse.jetty.sp
 	<para>
 		This uses the jetty-spring Main class to load the Spring configuration file and join the resulting server.  Jetty is now started up through spring as opposed to the normal jetty xml configuration mechanism.
 	</para>
-</section>
+</section-->
 </section>

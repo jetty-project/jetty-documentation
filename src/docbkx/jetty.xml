@@ -274,6 +274,10 @@
 
     <xi:include href="administration/spdy/chapter.xml"/>
 
+    <!-- ALPN -->
+
+    <xi:include href="administration/alpn/chapter.xml"/>
+
     <!-- NPN -->
 
     <xi:include href="administration/npn/chapter.xml"/>

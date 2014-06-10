@@ -24,7 +24,9 @@
 
     <para>The Jetty project provides an implementation of the Transport Layer
     Security (TLS) extension for Next Protocol Negotiation (NPN) for OpenJDK 7
-    or greater. NPN allows the application layer to negotiate which protocol
+    (but not for OpenJDK 8 or greater - see <xref linkend="alpn-chapter" />
+    for using a TLS protocol negotiation extension with OpenJDK 8 or greater).
+    NPN allows the application layer to negotiate which protocol
     to use over the secure connection.</para>
 
     <para>NPN currently negotiates using SPDY as an application level protocol
@@ -94,7 +96,7 @@
     <example label="Client Example">
       <programlisting language="java"><![CDATA[
 SSLContext sslContext = ...;
-SSLSocket sslSocket = (SSLSocket)context.getSocketFactory().createSocket("localhost", server.getLocalPort());
+final SSLSocket sslSocket = (SSLSocket)context.getSocketFactory().createSocket("localhost", server.getLocalPort());
 
 NextProtoNego.put(sslSocket, new NextProtoNego.ClientProvider()
 {
@@ -107,11 +109,13 @@ NextProtoNego.put(sslSocket, new NextProtoNego.ClientProvider()
     @Override
     public void unsupported()
     {
+        NextProtoNego.remove(sslSocket);
     }
 
     @Override
     public String selectProtocol(List<String> protocols)
     {
+        NextProtoNego.remove(sslSocket);
         return protocols.get(0);
     }
 });
@@ -119,21 +123,21 @@ NextProtoNego.put(sslSocket, new NextProtoNego.ClientProvider()
     </example>
 
     <para>The NPN implementation calls
-    <code>NextProtoNego.ClientProvider</code> methods <code>supports(),
-    unsupported()</code> and <code>selectProtocol(List&lt;String&gt;)</code>,
-    so that the client application can decide:</para>
+    <code>NextProtoNego.ClientProvider</code> methods <code>supports()</code>,
+    <code>unsupported()</code> and <code>selectProtocol(List&lt;String&gt;)</code>,
+    so that the client application can:</para>
 
     <itemizedlist>
       <listitem>
-        <para>whether to support NPN.</para>
+        <para>decide whether to support NPN.</para>
       </listitem>
 
       <listitem>
-        <para>whether the server supports NPN.</para>
+        <para>know whether the server supports NPN.</para>
       </listitem>
 
       <listitem>
-        <para>to select one of the protocols the server supports.</para>
+        <para>select one of the protocols the server supports.</para>
       </listitem>
     </itemizedlist>
   </section>
@@ -146,33 +150,35 @@ NextProtoNego.put(sslSocket, new NextProtoNego.ClientProvider()
 
     <example label="Server Example">
       <programlisting language="java"><![CDATA[
-SSLSocket sslSocket = ...;
+final SSLSocket sslSocket = ...;
 NextProtoNego.put(sslSocket, new NextProtoNego.ServerProvider()
 {
     @Override
     public void unsupported()
     {
+        NextProtoNego.remove(sslSocket);
     }
 
     @Override
     public List<String> protocols()
     {
-       return Arrays.asList("http/1.1");
+        return Arrays.asList("http/1.1");
     }
 
     @Override
     public void protocolSelected(String protocol)
     {
-       System.out.println("Protocol Selected is: " + protocol);
+        NextProtoNego.remove(sslSocket);
+        System.out.println("Protocol Selected is: " + protocol);
     }
 });
 ]]></programlisting>
     </example>
 
     <para>The NPN implementation calls
-    <code>NextProtoNego.ServerProvider</code> methods <code>unsupported(),
-    protocols()</code> and <code>protocolSelected(String),</code> so that the
-    server application can</para>
+    <code>NextProtoNego.ServerProvider</code> methods <code>unsupported()</code>,
+    <code>protocols()</code> and <code>protocolSelected(String),</code> so that the
+    server application can:</para>
 
     <itemizedlist>
       <listitem>
@@ -198,22 +204,20 @@ NextProtoNego.put(sslSocket, new NextProtoNego.ServerProvider()
     sslSocket (or sslEngine), either directly or indirectly.</para>
 
     <para>Since the NextProtoNego class holds [sslSocket/sslEngine, provider]
-    pairs in a WeakHashMap, if the value (that is, the provider
+    pairs in a <code>WeakHashMap</code>, if the value (that is, the provider
     implementation) holds a strong (even indirect) reference to the key, then
-    the WeakHashMap entries are never removed, leading to a memory
+    the <code>WeakHashMap</code> entries are never removed, leading to a memory
     leak.</para>
 
-    <para>For example, in Jetty the implementation of
-    NextProtoNego.ServerProvider requires a reference to an
-    org.eclipse.jetty.io.nio.SslConnection that in turn holds a reference to
-    the sslEngine. Therefore the NextProtoNego.ServerProvider implementation
-    does not use the SslConnection directly, but instead via an
-    AtomicReference that is cleared upon connection close.</para>
+    <para>It is important that implementations of <code>NextProtoNego.ServerProvider</code>
+    and <code>NextProtoNego.ClientProvider</code> remove the <code>sslSocket</code>
+    or <code>sslEngine</code> when the negotiation is complete, like shown in
+    the examples above.</para>
 
     <para>Be aware that declaring the SslConnection as a final local variable
     and referencing it from within the anonymous NextProtoNego.ServerProvider
-    class generates a hidden field in the anonymous inner class, causing the
-    memory leak, so you must avoid doing so.</para>
+    class generates a hidden field in the anonymous inner class, that may cause
+    a memory leak if the implementation does not call <code>NextProtoNego.remove()</code>.</para>
   </section>
 
   <section xml:id="npn-tests">

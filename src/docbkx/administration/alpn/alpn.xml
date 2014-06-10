@@ -26,7 +26,7 @@
     raised the need of protocol negotiation within a Transport Layer
     Security (TLS) handshake.
     Two protocol negotiation solutions have been proposed: an older one,
-    called NPN (see <xref linkend="npn" />) and a newer one, called
+    called NPN (see <xref linkend="npn-chapter" />) and a newer one, called
     <link xl:href="http://tools.ietf.org/html/draft-ietf-tls-applayerprotoneg">ALPN</link>
     (Application Layer Protocol Negotiation).</para>
 
@@ -142,23 +142,23 @@ ALPN.put(sslSocket, new ALPN.ClientProvider()
     <code>ALPN.ClientProvider</code> methods <code>supports()</code>,
     <code>protocols()</code>, <code>unsupported()</code> and
     <code>selected(String)</code>,
-    so that the client application can decide:</para>
+    so that the client application can:</para>
 
     <itemizedlist>
       <listitem>
-        <para>whether to support ALPN.</para>
+        <para>decide whether to support ALPN.</para>
       </listitem>
 
       <listitem>
-        <para>the protocols supported.</para>
+        <para>provide the protocols supported.</para>
       </listitem>
 
       <listitem>
-        <para>whether the server supports ALPN.</para>
+        <para>know whether the server supports ALPN.</para>
       </listitem>
 
       <listitem>
-        <para>the protocol chosen by the server.</para>
+        <para>know the protocol chosen by the server.</para>
       </listitem>
     </itemizedlist>
   </section>

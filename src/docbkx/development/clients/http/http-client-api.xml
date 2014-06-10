@@ -423,13 +423,18 @@ ContentResponse response = httpClient
 InputStreamResponseListener listener = new InputStreamResponseListener();
 httpClient.newRequest("http://domain.com/path")
         .send(listener);
+
 // Wait for the response headers to arrive
 Response response = listener.get(5, TimeUnit.SECONDS);
+
 // Look at the response
 if (response.getStatus() == 200)
 {
-    InputStream responseContent = listener.getInputStream();
-    // Your logic here
+    // Use try-with-resources to close input stream.
+    try (InputStream responseContent = listener.getInputStream())
+    {
+        // Your logic here
+    }
 }
 ]]>
         </programlisting>

@@ -332,16 +332,17 @@ Jetty Active XMLs:
 
     <para>Just create a <filename>my-base/webapps/</filename> directory and
     toss in a simple war file and you now have a functional server.</para>
+  </section>
 
-    <section xml:id="startup-listing-modules">
-      <title>Listing Available and Active Modules</title>
+  <section xml:id="startup-listing-modules">
+    <title>Listing Available and Active Modules</title>
 
-      <para>To see which modules are <emphasis>available</emphasis>, use the
-      <literal>--list-modules</literal> command line argument. This command
-      will also show you which modules are <emphasis>enabled</emphasis>.
-      Here's an example</para>
+    <para>To see which modules are <emphasis>available</emphasis>, use the
+    <literal>--list-modules</literal> command line argument. This command will
+    also show you which modules are <emphasis>enabled</emphasis>. Here's an
+    example</para>
 
-      <screen><![CDATA[[my-base]$ java -jar ../start.jar --list-modules
+    <screen><![CDATA[[my-base]$ java -jar ../start.jar --list-modules
 Jetty All Available Modules:
 ----------------------------
 
@@ -604,7 +605,6 @@ Jetty Active Module Tree:
 
 ]]></screen>
 
-      <para/>
-    </section>
+    <para/>
   </section>
 </section>

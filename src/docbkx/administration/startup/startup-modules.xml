@@ -333,21 +333,278 @@ Jetty Active XMLs:
     <para>Just create a <filename>my-base/webapps/</filename> directory and
     toss in a simple war file and you now have a functional server.</para>
 
-    <para>To see what modules are active, you can use the
-    <literal>--list-modules</literal> command line argument.</para>
+    <section xml:id="startup-listing-modules">
+      <title>Listing Available and Active Modules</title>
 
-    <screen><![CDATA[[my-base]$ java -jar ../jetty-distribution/start.jar --module=webapp,deploy --list-modules
-...(snip)...
+      <para>To see which modules are <emphasis>available</emphasis>, use the
+      <literal>--list-modules</literal> command line argument. This command
+      will also show you which modules are <emphasis>enabled</emphasis>.
+      Here's an example</para>
+
+      <screen><![CDATA[[my-base]$ java -jar ../start.jar --list-modules
+Jetty All Available Modules:
+----------------------------
+
+ + Module: annotations
+   Depend: plus
+      LIB: lib/jetty-annotations-${jetty.version}.jar
+      LIB: lib/annotations/*.jar
+      XML: etc/jetty-annotations.xml
+  Enabled: <via transitive reference>
+
+ * Module: client
+      LIB: lib/jetty-client-${jetty.version}.jar
+  Enabled: <via> /home/foo/jetty-distribution/demo-base/start.ini
+
+ * Module: continuation
+      LIB: lib/jetty-continuation-${jetty.version}.jar
+  Enabled: <via> /home/foo/jetty-distribution/demo-base/start.ini
+
+ - Module: debug
+   Depend: server
+      XML: etc/jetty-debug.xml
+  Enabled: <not enabled in this configuration>
+
+ * Module: deploy
+   Depend: webapp
+      LIB: lib/jetty-deploy-${jetty.version}.jar
+      XML: etc/jetty-deploy.xml
+  Enabled: <via> /home/foo/jetty-distribution/demo-base/start.ini
+
+ * Module: ext
+      LIB: lib/ext/**.jar
+  Enabled: <via> /home/foo/jetty-distribution/demo-base/start.ini
+
+ - Module: fcgi
+   Depend: client
+   Depend: servlet
+      LIB: lib/jetty-proxy-${jetty.version}.jar
+      LIB: lib/fcgi/*.jar
+  Enabled: <not enabled in this configuration>
+
+ * Module: http
+   Depend: server
+      XML: etc/jetty-http.xml
+  Enabled: <via> /home/foo/jetty-distribution/demo-base/start.d/http.ini
+
+ * Module: https
+   Depend: ssl
+      XML: etc/jetty-https.xml
+  Enabled: <via> /home/foo/jetty-distribution/demo-base/start.d/https.ini
+
+ - Module: ipaccess
+   Depend: server
+      XML: etc/jetty-ipaccess.xml
+  Enabled: <not enabled in this configuration>
+
+ * Module: jaas
+   Depend: server
+      LIB: lib/jetty-jaas-${jetty.version}.jar
+      XML: etc/jetty-jaas.xml
+  Enabled: <via> /home/foo/jetty-distribution/demo-base/start.ini
+
+ - Module: jaspi
+   Depend: security
+      LIB: lib/jetty-jaspi-${jetty.version}.jar
+      LIB: lib/jaspi/*.jar
+  Enabled: <not enabled in this configuration>
+
+ - Module: jmx
+   Depend: server
+      LIB: lib/jetty-jmx-${jetty.version}.jar
+      XML: etc/jetty-jmx.xml
+  Enabled: <not enabled in this configuration>
+
+ - Module: jmx-remote
+   Depend: jmx
+      XML: etc/jetty-jmx-remote.xml
+  Enabled: <not enabled in this configuration>
+
+ + Module: jndi
+   Depend: server
+      LIB: lib/jetty-jndi-${jetty.version}.jar
+      LIB: lib/jndi/*.jar
+  Enabled: <via transitive reference>
+
+ * Module: jsp
+   Depend: jsp-impl
+   Depend: servlet
+  Enabled: <via> /home/foo/jetty-distribution/demo-base/start.d/jsp.ini
+
+ + Module: jsp-impl
+      Ref: jsp-impl/apache-jsp
+      LIB: lib/apache-jsp/*.jar
+  Enabled: <via transitive reference>
+
+ + Module: jstl-impl
+      Ref: jsp-impl/apache-jstl
+      LIB: lib/apache-jstl/*.jar
+  Enabled: <via transitive reference>
+
+ * Module: jstl
+   Depend: jsp
+   Depend: jstl-impl
+  Enabled: <via> /home/foo/jetty-distribution/demo-base/start.d/jstl.ini
+
+ - Module: jvm
+  Enabled: <not enabled in this configuration>
+
+ - Module: logging
+      LIB: lib/logging/**.jar
+      LIB: resources/
+      XML: etc/jetty-logging.xml
+  Enabled: <not enabled in this configuration>
+
+ - Module: lowresources
+   Depend: server
+      XML: etc/jetty-lowresources.xml
+  Enabled: <not enabled in this configuration>
+
+ - Module: monitor
+   Depend: client
+   Depend: server
+      LIB: lib/monitor/jetty-monitor-${jetty.version}.jar
+      XML: etc/jetty-monitor.xml
+  Enabled: <not enabled in this configuration>
+
+ + Module: plus
+   Depend: webapp
+   Depend: server
+   Depend: security
+   Depend: jndi
+      LIB: lib/jetty-plus-${jetty.version}.jar
+      XML: etc/jetty-plus.xml
+  Enabled: <via transitive reference>
+
+ - Module: protonego
+   Depend: protonego-impl/${protonego}
+  Enabled: <not enabled in this configuration>
+
+ - Module: proxy
+   Depend: client
+   Depend: servlet
+      LIB: lib/jetty-proxy-${jetty.version}.jar
+      XML: etc/jetty-proxy.xml
+  Enabled: <not enabled in this configuration>
+
+ - Module: quickstart
+   Depend: plus
+   Depend: server
+   Depend: annotations
+      LIB: lib/jetty-quickstart-${jetty.version}.jar
+  Enabled: <not enabled in this configuration>
+
+ - Module: requestlog
+   Depend: server
+      XML: etc/jetty-requestlog.xml
+  Enabled: <not enabled in this configuration>
+
+ * Module: resources
+      LIB: resources/
+  Enabled: <via> /home/foo/jetty-distribution/demo-base/start.ini
+
+ * Module: rewrite
+   Depend: server
+      LIB: lib/jetty-rewrite-${jetty.version}.jar
+      XML: etc/jetty-rewrite.xml
+  Enabled: <via> /home/foo/jetty-distribution/demo-base/start.ini
+
+ + Module: security
+   Depend: server
+      LIB: lib/jetty-security-${jetty.version}.jar
+  Enabled: <via transitive reference>
+
+ * Module: server
+      LIB: lib/servlet-api-3.1.jar
+      LIB: lib/jetty-schemas-3.1.jar
+      LIB: lib/jetty-http-${jetty.version}.jar
+      LIB: lib/jetty-server-${jetty.version}.jar
+      LIB: lib/jetty-xml-${jetty.version}.jar
+      LIB: lib/jetty-util-${jetty.version}.jar
+      LIB: lib/jetty-io-${jetty.version}.jar
+      XML: etc/jetty.xml
+  Enabled: <via> /home/foo/jetty-distribution/demo-base/start.ini
+
+ + Module: servlet
+   Depend: server
+      LIB: lib/jetty-servlet-${jetty.version}.jar
+  Enabled: <via transitive reference>
+
+ * Module: servlets
+   Depend: servlet
+      LIB: lib/jetty-servlets-${jetty.version}.jar
+  Enabled: <via> /home/foo/jetty-distribution/demo-base/start.ini
+
+ * Module: setuid
+   Depend: server
+      LIB: lib/setuid/jetty-setuid-java-1.0.1.jar
+      XML: etc/jetty-setuid.xml
+  Enabled: <via> /home/foo/jetty-distribution/demo-base/start.ini
+
+ - Module: spdy
+   Depend: protonego
+   Depend: ssl
+      LIB: lib/spdy/*.jar
+      XML: etc/jetty-ssl.xml
+      XML: etc/jetty-spdy.xml
+  Enabled: <not enabled in this configuration>
+
+ * Module: ssl
+   Depend: server
+      XML: etc/jetty-ssl.xml
+  Enabled: <via> /home/foo/jetty-distribution/demo-base/start.d/ssl.ini
+
+ - Module: stats
+   Depend: server
+      XML: etc/jetty-stats.xml
+  Enabled: <not enabled in this configuration>
+
+ + Module: webapp
+   Depend: security
+   Depend: servlet
+      LIB: lib/jetty-webapp-${jetty.version}.jar
+  Enabled: <via transitive reference>
+
+ * Module: websocket
+   Depend: annotations
+      LIB: lib/websocket/*.jar
+  Enabled: <via> /home/foo/jetty-distribution/demo-base/start.ini
+
+ - Module: xinetd
+   Depend: server
+      XML: etc/jetty-xinetd.xml
+  Enabled: <not enabled in this configuration>
+
 Jetty Active Module Tree:
 -------------------------
- + Module: server [transitive]
-   + Module: servlet [transitive]
-     + Module: webapp [enabled]
-       + Module: deploy [enabled]
+ + Module: client [enabled]
+ + Module: continuation [enabled]
+ + Module: ext [enabled]
+ + Module: jsp-impl [transitive]
+ + Module: jstl-impl [transitive]
+ + Module: resources [enabled]
+   + Module: server [enabled]
+     + Module: http [enabled]
+     + Module: jaas [enabled]
+     + Module: jndi [transitive]
+     + Module: rewrite [enabled]
+     + Module: security [transitive]
+     + Module: servlet [transitive]
+     + Module: setuid [enabled]
+     + Module: ssl [enabled]
+       + Module: https [enabled]
+       + Module: jsp [enabled]
+       + Module: servlets [enabled]
+       + Module: webapp [transitive]
+         + Module: deploy [enabled]
+         + Module: jstl [enabled]
+         + Module: plus [transitive]
+           + Module: annotations [transitive]
+             + Module: websocket [enabled]
+
 ]]></screen>
 
-    <para>We declared <code>webapp</code> and <code>deploy</code> modules on
-    the command line with the <code>servlet</code> and <code>server</code>
-    modules being brought into the active module tree transitively.</para>
+      <para/>
+    </section>
   </section>
 </section>

@@ -32,10 +32,10 @@
   command:</para>
 
   <para><screen><emphasis role="bold">&gt; cd $JETTY_HOME
-&gt; java -jar start.jar</emphasis>
+&gt; java -jar start.jar</emphasis><![CDATA[
 2013-09-06 13:52:43.326:INFO:oejs.Server:main: jetty-9.1.0
 2013-09-06 13:52:43.358:INFO:oejdp.ScanningAppProvider:main: Deployment monitor [file:/home/gregw/src/jetty-9.1/jetty-distribution/target/distribution/webapps/] at interval 1
-2013-09-06 13:52:43.390:INFO:oejs.ServerConnector:main: Started ServerConnector@2edf362d{HTTP/1.1}{0.0.0.0:8080}</screen></para>
+2013-09-06 13:52:43.390:INFO:oejs.ServerConnector:main: Started ServerConnector@2edf362d{HTTP/1.1}{0.0.0.0:8080}]]></screen></para>
 
   <para>You can point a browser at this server at <link
   linkend="???">http://localhost:8080</link>.</para>
@@ -49,7 +49,7 @@
     follows:</para>
 
     <screen><emphasis role="bold">&gt; cd $JETTY_HOME/demo-base/
-&gt; java -jar ../start.jar</emphasis>
+&gt; java -jar ../start.jar</emphasis><![CDATA[
 2013-09-06 13:56:35.939:WARN::main: demo test-realm is deployed. DO NOT USE IN PRODUCTION!
 2013-09-06 13:56:35.943:INFO:oejs.Server:main: jetty-9.1.0-SNAPSHOT
 2013-09-06 13:56:35.976:INFO:oejdp.ScanningAppProvider:main: Deployment monitor [file:/home/gregw/src/jetty-9.1/jetty-distribution/target/distribution/demo-base/webapps/] at interval 1
@@ -58,7 +58,7 @@
 [...]
 2013-09-06 13:56:38.572:INFO:oejsh.ContextHandler:main: Started o.e.j.w.WebAppContext@2757052e{/,file:/home/gregw/src/jetty-9.1/jetty-distribution/target/distribution/demo-base/webapps/ROOT/,AVAILABLE}{/ROOT}
 2013-09-06 13:56:38.579:INFO:oejs.ServerConnector:main: Started ServerConnector@19e0cb78{HTTP/1.1}{0.0.0.0:8080}
-</screen>
+]]></screen>
 
     <para>Pointing a browser at <link
     linkend="???">http://localhost:8080</link>, will now show a welcome page
@@ -70,7 +70,7 @@
     </warning>
   </section>
 
-  <section>
+  <section xml:id="creating-jetty-base">
     <title>Creating a new Jetty Base</title>
 
     <para>The <filename>demo-base</filename> directory described above is an
@@ -114,25 +114,25 @@
 
     <screen><emphasis role="bold">&gt; mkdir /tmp/mybase
 &gt; cd /tmp/mybase
-&gt; java -jar $JETTY_HOME/start.jar</emphasis>
+&gt; java -jar $JETTY_HOME/start.jar</emphasis><![CDATA[
 WARNING: Nothing to start, exiting ...
 
 Usage: java -jar start.jar [options] [properties] [configs]
        java -jar start.jar --help  # for more information
 
-&gt;<emphasis role="bold">java -jar $JETTY_HOME/start.jar --add-to-startd=http,deploy</emphasis>
+>]]><emphasis role="bold">java -jar $JETTY_HOME/start.jar --add-to-startd=http,deploy</emphasis><![CDATA[
 http            initialised in ${jetty.base}/start.d/http.ini (created)
 server          initialised in ${jetty.base}/start.d/server.ini (created)
 deploy          initialised in ${jetty.base}/start.d/deploy.ini (created)
 MKDIR: ${jetty.base}/webapps
 server          initialised in ${jetty.base}/start.d/server.ini
 
-<emphasis role="bold">&gt; java -jar $JETTY_HOME/start.jar</emphasis>
+]]><emphasis role="bold">&gt; java -jar $JETTY_HOME/start.jar</emphasis><![CDATA[
 2013-09-06 14:59:32.542:INFO:oejs.Server:main: jetty-9.1.0-SNAPSHOT
 2013-09-06 14:59:32.572:INFO:oejdp.ScanningAppProvider:main: Deployment monitor [file:/tmp/mybase/webapps/] at interval 1
 2013-09-06 14:59:32.602:INFO:oejs.ServerConnector:main: Started ServerConnector@405a2273{HTTP/1.1}{0.0.0.0:8080}
 
-[...]</screen>
+[...]]]></screen>
   </section>
 
   <section xml:id="quickstart-changing-jetty-port">
@@ -188,16 +188,16 @@ server          initialised in ${jetty.base}/start.d/server.ini
     <para>To add the HTTPS connector to a jetty configuration, the https
     module can be activated by the following command:</para>
 
-    <screen><emphasis role="bold">&gt; java -jar start.jar --add-to-startd=https</emphasis>
+    <screen><emphasis role="bold">&gt; java -jar start.jar --add-to-startd=https</emphasis><![CDATA[
 https           initialised in ${jetty.home}/start.d/https.ini (created)
 ssl             initialised in ${jetty.home}/start.d/ssl.ini (created)
 server          enabled in     ${jetty.home}/start.ini
 resources       enabled in     ${jetty.home}/start.ini
 ext             enabled in     ${jetty.home}/start.ini
 
-<emphasis role="bold">&gt; java -jar start.jar</emphasis>
+]]><emphasis role="bold">&gt; java -jar start.jar</emphasis><![CDATA[
 2013-09-06 13:52:43.326:INFO:oejs.Server:main: jetty-9.1.0
-[...]</screen>
+[...]]]></screen>
 
     <para>The --add-to-startd command sets up the effective command line in
     the ini files to run a https connection as follows:</para>
@@ -231,6 +231,23 @@ ext             enabled in     ${jetty.home}/start.ini
       --add-to-start=module may be used to append the module activation to the
       start.ini file rather than create a file in start.d</para>
     </note>
+
+    <section xml:id="quickstart-changing-https-port">
+      <title>Changing the Jetty HTTPS Port</title>
+
+      <para>You can configure the SSL connector to run on a different port by
+      setting the <code>https.port</code> property on the command line:</para>
+
+      <para><screen><emphasis role="bold">&gt; cd $JETTY_HOME/demo-base
+&gt; java -jar start.jar https.port=8444</emphasis></screen>Alternatively,
+      property values can be added to the effective command line built from
+      the <filename>start.ini</filename> file and
+      <filename>start.d/*.ini</filename> files. If you used the
+      --add-to-startd command to enable https, then you can edit this property
+      in the <filename>start.d/https.ini</filename> file. If you used
+      --add-to-start command, then you can edit this propery in the start.ini
+      file.</para>
+    </section>
   </section>
 
   <section>
@@ -244,6 +261,6 @@ ext             enabled in     ${jetty.home}/start.ini
     the <link linkend="startup">startup</link> administration section and you
     can see them in summary by using the command:</para>
 
-    <para><screen>&gt; java -jar start.jar --help</screen></para>
+    <para><screen><![CDATA[> java -jar start.jar --help]]></screen></para>
   </section>
 </section>

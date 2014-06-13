@@ -57,12 +57,14 @@
 
     <screen><![CDATA[[mybase]$ mkdir modules
 [mybase]$ cd modules
-[modules]$ curl -O https://raw.githubusercontent.com/jetty-project/logging-modules/master/java.util.logging-native/logging.mod
+
+[modules]$ ]]><emphasis role="bold">curl -O https://raw.githubusercontent.com/jetty-project/logging-modules/master/java.util.logging-native/logging.mod</emphasis><![CDATA[
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
 100   623  100   623    0     0   1879      0 --:--:-- --:--:-- --:--:--  1876
 [modules]$ cd ..
-[mybase]$ java -jar /opt/jetty-dist/start.jar --add-to-start=logging
+
+[mybase]$ ]]><emphasis role="bold">java -jar /opt/jetty-dist/start.jar --add-to-start=logging</emphasis><![CDATA[
 INFO: logging         initialised in ${jetty.base}/start.ini (appended)
 MKDIR: ${jetty.base}/logs
 DOWNLOAD: https://raw.githubusercontent.com/jetty-project/logging-modules/master/java.util.logging-native/jetty-logging.xml to etc/jetty-logging.xml
@@ -70,7 +72,8 @@ DOWNLOAD: https://raw.githubusercontent.com/jetty-project/logging-modules/master
 DOWNLOAD: https://raw.githubusercontent.com/jetty-project/logging-modules/master/java.util.logging-native/jetty-logging.properties to resources/jetty-logging.properties
 INFO: resources       initialised transitively
 INFO: resources       enabled in     ${jetty.base}/${jetty.base}
-[mybase]$ java -jar /opt/jetty-dist/start.jar
+
+[mybase]$ ]]><emphasis role="bold">java -jar /opt/jetty-dist/start.jar</emphasis><![CDATA[
 ]]></screen>
   </simplesect>
 

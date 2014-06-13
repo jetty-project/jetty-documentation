@@ -67,9 +67,10 @@ dl {
 }
 
 pre {
-  font-family: "Consolas", "Bitstream Vera Sans Mono", "Courier New", Courier, monospace;
+  font-family: "Bitstream Vera Sans Mono", "Courier New", Courier, monospace;
   font-weight: normal !important;
   font-style: normal !important;
+  font-size: 10pt !important;
   margin: 0px;
   overflow-x: auto;
 }

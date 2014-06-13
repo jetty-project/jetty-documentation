@@ -72,16 +72,19 @@
 
     <screen><![CDATA[[mybase]$ mkdir modules
 [mybase]$ cd modules
-[modules]$ curl -O https://raw.githubusercontent.com/jetty-project/logging-modules/master/capture-all/logging.mod
+
+[modules]$ ]]><emphasis role="bold">curl -O https://raw.githubusercontent.com/jetty-project/logging-modules/master/capture-all/logging.mod</emphasis><![CDATA[
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
 100  1416  100  1416    0     0   4241      0 --:--:-- --:--:-- --:--:--  4252
-[master]$ curl -O https://raw.githubusercontent.com/jetty-project/logging-modules/master/centralized/webapp-logging.mod
+
+[master]$ ]]><emphasis role="bold">curl -O https://raw.githubusercontent.com/jetty-project/logging-modules/master/centralized/webapp-logging.mod</emphasis><![CDATA[
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
 100   660  100   660    0     0   2032      0 --:--:-- --:--:-- --:--:--  2037
 [modules]$ cd ..
-[mybase]$ java -jar /opt/jetty-dist/start.jar --add-to-start=logging,webapp-logging
+
+[mybase]$ ]]><emphasis role="bold">java -jar /opt/jetty-dist/start.jar --add-to-start=logging,webapp-logging</emphasis><![CDATA[
 INFO: logging         initialised in ${jetty.base}/start.ini (appended)
 MKDIR: ${jetty.base}/logs
 DOWNLOAD: http://central.maven.org/maven2/org/slf4j/slf4j-api/1.6.6/slf4j-api-1.6.6.jar to lib/logging/slf4j-api-1.6.6.jar
@@ -104,7 +107,8 @@ INFO: deploy          enabled in     ${jetty.base}/start.ini
 INFO: logging         initialised transitively
 INFO: resources       initialised transitively
 INFO: resources       enabled in     ${jetty.base}/start.ini
-[mybase]$ java -jar /opt/jetty-dist/start.jar
+
+[mybase]$ ]]><emphasis role="bold">java -jar /opt/jetty-dist/start.jar</emphasis><![CDATA[
 ]]></screen>
   </simplesect>
 

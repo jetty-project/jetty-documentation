@@ -87,25 +87,25 @@
     example of a jetty.xml setup:</para>
 
     <informalexample>
-      <programlisting language="xml">
+      <programlisting language="xml"><![CDATA[
         
-&lt;Set name="sessionIdManager"&gt;
-        &lt;New id="mongoIdMgr" class="org.eclipse.jetty.nosql.mongodb.MongoSessionIdManager"&gt;
-          &lt;Arg&gt;
-            &lt;Ref id="Server"/&gt;
-          &lt;/Arg&gt;
-          &lt;Set name="workerName"&gt;fred&lt;/Set&gt;
-          &lt;Set name="scavengeInterval"&gt;60&lt;/Set&gt;
-        &lt;/New&gt;
-      &lt;/Set&gt;
-      &lt;Call name="setAttribute"&gt;
-        &lt;Arg&gt;mongoIdMgr&lt;/Arg&gt;
-        &lt;Arg&gt;
-          &lt;Ref id="mongoIdMgr"/&gt;
-        &lt;/Arg&gt;
-      &lt;/Call&gt;
+<Set name="sessionIdManager">
+        <New id="mongoIdMgr" class="org.eclipse.jetty.nosql.mongodb.MongoSessionIdManager">
+          <Arg>
+            <Ref id="Server"/>
+          </Arg>
+          <Set name="workerName">fred</Set>
+          <Set name="scavengeInterval">60</Set>
+        </New>
+      </Set>
+      <Call name="setAttribute">
+        <Arg>mongoIdMgr</Arg>
+        <Arg>
+          <Ref id="mongoIdMgr"/>
+        </Arg>
+      </Call>
       
-    </programlisting>
+    ]]></programlisting>
     </informalexample>
 
     <para>Notice that the MongoSessionIdManager needs access to a mongodb
@@ -116,46 +116,46 @@
     instances, this is an example of how that would look.</para>
 
     <informalexample>
-      <programlisting language="xml">
+      <programlisting language="xml"><![CDATA[
       
-&lt;New id="mongodb" class="com.mongodb.Mongo"&gt;
-      &lt;Arg&gt;
-        &lt;New class="java.util.ArrayList"&gt;
-          &lt;Call name="add"&gt;
-            &lt;Arg&gt;
-              &lt;New class="com.mongodb.ServerAddress"&gt;
-                &lt;Arg type="java.lang.String"&gt;foo.example.com&lt;/Arg&gt;
-                &lt;Arg type="int"&gt;27017&lt;/Arg&gt;
-              &lt;/New&gt;
-            &lt;/Arg&gt;
-          &lt;/Call&gt;
-          &lt;!-- Add more Call statements here as desired --&gt; &lt;/New&gt;
-      &lt;/Arg&gt;
+<New id="mongodb" class="com.mongodb.Mongo">
+      <Arg>
+        <New class="java.util.ArrayList">
+          <Call name="add">
+            <Arg>
+              <New class="com.mongodb.ServerAddress">
+                <Arg type="java.lang.String">foo.example.com</Arg>
+                <Arg type="int">27017</Arg>
+              </New>
+            </Arg>
+          </Call>
+          <!-- Add more Call statements here as desired --> </New>
+      </Arg>
 
-      &lt;Call name="getDB"&gt;
-        &lt;Arg&gt;HttpSessions&lt;/Arg&gt;
-        &lt;Call id="sessionDocument" name="getCollection"&gt;
-          &lt;Arg&gt;sessions&lt;/Arg&gt;
-        &lt;/Call&gt;
-      &lt;/Call&gt;
-      &lt;!-- If you want to configure Jetty to be able to read through the slaves, call the following: --&gt;
-      &lt;Call name="slaveOk"/&gt;
-    &lt;/New&gt;
+      <Call name="getDB">
+        <Arg>HttpSessions</Arg>
+        <Call id="sessionDocument" name="getCollection">
+          <Arg>sessions</Arg>
+        </Call>
+      </Call>
+      <!-- If you want to configure Jetty to be able to read through the slaves, call the following: -->
+      <Call name="slaveOk"/>
+    </New>
 
-    &lt;Set name="sessionIdManager"&gt;
-      &lt;New id="mongoIdMgr" class="org.eclipse.jetty.nosql.mongodb.MongoSessionIdManager"&gt;
-        &lt;Arg&gt;
-          &lt;Ref id="Server"/&gt;
-        &lt;/Arg&gt;
-        &lt;Arg&gt;
-          &lt;Ref id="sessionDocument"/&gt;
-        &lt;/Arg&gt;
-        &lt;Set name="workerName"&gt;fred&lt;/Set&gt;
-        &lt;Set name="scavengePeriod"&gt;60&lt;/Set&gt;
-      &lt;/New&gt;
-    &lt;/Set&gt;
+    <Set name="sessionIdManager">
+      <New id="mongoIdMgr" class="org.eclipse.jetty.nosql.mongodb.MongoSessionIdManager">
+        <Arg>
+          <Ref id="Server"/>
+        </Arg>
+        <Arg>
+          <Ref id="sessionDocument"/>
+        </Arg>
+        <Set name="workerName">fred</Set>
+        <Set name="scavengePeriod">60</Set>
+      </New>
+    </Set>
     
-  </programlisting>
+  ]]></programlisting>
     </informalexample>
 
     <para>As Jetty configuration files are direct mappings of XML to Java, it
@@ -163,7 +163,7 @@
     anyway:</para>
 
     <informalexample>
-      <programlisting language="java">
+      <programlisting language="java"><![CDATA[
     
 Server server = new Server();
      ...
@@ -171,7 +171,7 @@ Server server = new Server();
  idMgr.setWorkerName("fred");
  idMgr.setScavengePeriod(60);
  server.setSessionIdManager(idMgr);
-  </programlisting>
+  ]]></programlisting>
     </informalexample>
 
     <para>The MongoDB Session Id Manager has slightly different options then
@@ -280,55 +280,55 @@ Server server = new Server();
     Ref:</para>
 
     <informalexample>
-      <programlisting language="xml">
+      <programlisting language="xml"><![CDATA[
     
-&lt;Ref name="Server" id="Server"&gt;
-    &lt;Call id="mongoIdMgr" name="getSessionIdManager"/&gt;
-  &lt;/Ref&gt;
+<Ref name="Server" id="Server">
+    <Call id="mongoIdMgr" name="getSessionIdManager"/>
+  </Ref>
 
-  &lt;Set name="sessionHandler"&gt;
-    &lt;New class="org.eclipse.jetty.server.session.SessionHandler"&gt;
-      &lt;Arg&gt;
-        &lt;New id="mongoMgr" class="org.eclipse.jetty.nosql.mongodb.MongoSessionManager"&gt;
-          &lt;Set name="idManager"&gt;
-            &lt;Ref id="mongoIdMgr"/&gt;
-          &lt;/Set&gt;
-        &lt;/New&gt;
-      &lt;/Arg&gt;
-    &lt;/New&gt;
-  &lt;/Set&gt;
+  <Set name="sessionHandler">
+    <New class="org.eclipse.jetty.server.session.SessionHandler">
+      <Arg>
+        <New id="mongoMgr" class="org.eclipse.jetty.nosql.mongodb.MongoSessionManager">
+          <Set name="sessionIdManager">
+            <Ref id="mongoIdMgr"/>
+          </Set>
+        </New>
+      </Arg>
+    </New>
+  </Set>
   
-</programlisting>
+]]></programlisting>
     </informalexample>
 
     <para>From a <filename>WEB-INF/jetty-web.xml</filename> file, you can
     reference the Server instance directly:</para>
 
     <informalexample>
-      <programlisting language="xml">
+      <programlisting language="xml"><![CDATA[
   
-&lt;Get name="server"&gt;
-  &lt;Get id="mongoIdMgr" name="sessionIdManager"/&gt;
-&lt;/Get&gt;
-&lt;Set name="sessionHandler"&gt;
-  &lt;New class="org.eclipse.jetty.server.session.SessionHandler"&gt;
-    &lt;Arg&gt;
-      &lt;New class="org.eclipse.jetty.nosql.mongodb.MongoSessionManager"&gt;
-        &lt;Set name="idManager"&gt;
-          &lt;Ref id="mongoIdMgr"/&gt;
-        &lt;/Set&gt;
-      &lt;/New&gt;
-    &lt;/Arg&gt;
-  &lt;/New&gt;
-&lt;/Set&gt;
+<Get name="server">
+  <Get id="mongoIdMgr" name="sessionIdManager"/>
+</Get>
+<Set name="sessionHandler">
+  <New class="org.eclipse.jetty.server.session.SessionHandler">
+    <Arg>
+      <New class="org.eclipse.jetty.nosql.mongodb.MongoSessionManager">
+        <Set name="sessionIdManager">
+          <Ref id="mongoIdMgr"/>
+        </Set>
+      </New>
+    </Arg>
+  </New>
+</Set>
 
-</programlisting>
+]]></programlisting>
     </informalexample>
 
     <para>If you're embedding this in code:</para>
 
     <informalexample>
-      <programlisting language="java">
+      <programlisting language="java"><![CDATA[
 
 //assuming you have already set up the MongoSessionIdManager as shown earlier
  //and have a reference to the Server instance:
@@ -336,10 +336,10 @@ Server server = new Server();
  WebAppContext wac = new WebAppContext();
   ... //configure your webapp context
  MongoSessionManager mongoMgr = new MongoSessionManager();
- mongoMgr.setIdManager(server.getSessionIdManager());
+ mongoMgr.setSessionIdManager(server.getSessionIdManager());
  wac.setSessionHandler(mongoMgr);
  
-</programlisting>
+]]></programlisting>
     </informalexample>
   </section>
 </section>

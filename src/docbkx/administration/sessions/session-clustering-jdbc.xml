@@ -84,26 +84,26 @@
     file. Here is an example of a jetty.xml setup:</para>
 
     <informalexample>
-      <programlisting language="xml">
+      <programlisting language="xml"><![CDATA[
         
-&lt;Set name="sessionIdManager"&gt;
-        &lt;New id="jdbcidmgr" class="org.eclipse.jetty.server.session.JDBCSessionIdManager"&gt;
-          &lt;Arg&gt;
-            &lt;Ref id="Server"/&gt;
-          &lt;/Arg&gt;
-          &lt;Set name="workerName"&gt;fred&lt;/Set&gt;
-          &lt;Set name="DatasourceName"&gt;javax.sql.DataSource/default&lt;/Set&gt;
-          &lt;Set name="scavengeInterval"&gt;60&lt;/Set&gt;
-        &lt;/New&gt;
-      &lt;/Set&gt;
-      &lt;Call name="setAttribute"&gt;
-        &lt;Arg&gt;jdbcIdMgr&lt;/Arg&gt;
-        &lt;Arg&gt;
-          &lt;Ref id="jdbcidmgr"/&gt;
-        &lt;/Arg&gt;
-      &lt;/Call&gt;
+<Set name="sessionIdManager">
+        <New id="jdbcidmgr" class="org.eclipse.jetty.server.session.JDBCSessionIdManager">
+          <Arg>
+            <Ref id="Server"/>
+          </Arg>
+          <Set name="workerName">fred</Set>
+          <Set name="DatasourceName">javax.sql.DataSource/default</Set>
+          <Set name="scavengeInterval">60</Set>
+        </New>
+      </Set>
+      <Call name="setAttribute">
+        <Arg>jdbcIdMgr</Arg>
+        <Arg>
+          <Ref id="jdbcidmgr"/>
+        </Arg>
+      </Call>
       
-    </programlisting>
+    ]]></programlisting>
     </informalexample>
 
     <para>Notice that the JDBCSessionIdManager needs access to a database. The
@@ -114,29 +114,29 @@
     Driver information instead. Here's an example:</para>
 
     <informalexample>
-      <programlisting language="xml">
+      <programlisting language="xml"><![CDATA[
       
-&lt;Set name="sessionIdManager"&gt;
-      &lt;New id="jdbcidmgr" class="org.eclipse.jetty.server.session.JDBCSessionIdManager"&gt;
-        &lt;Arg&gt;
-          &lt;Ref id="Server"/&gt;
-        &lt;/Arg&gt;
-        &lt;Set name="workerName"&gt;fred&lt;/Set&gt;
-        &lt;Call name="setDriverInfo"&gt;j
-          &lt;Arg&gt;com.mysql.jdbc.Driver&lt;/Arg&gt;
-          &lt;Arg&gt;jdbc:mysql://127.0.0.1:3306/sessions?user=janb&lt;/Arg&gt;
-        &lt;/Call&gt;
-        &lt;Set name="scavengeInterval"&gt;60&lt;/Set&gt;
-      &lt;/New&gt;
-    &lt;/Set&gt;
-    &lt;Call name="setAttribute"&gt;
-      &lt;Arg&gt;jdbcIdMgr&lt;/Arg&gt;
-      &lt;Arg&gt;
-        &lt;Ref id="jdbcidmgr"/&gt;
-      &lt;/Arg&gt;
-    &lt;/Call&gt;
+<Set name="sessionIdManager">
+      <New id="jdbcidmgr" class="org.eclipse.jetty.server.session.JDBCSessionIdManager">
+        <Arg>
+          <Ref id="Server"/>
+        </Arg>
+        <Set name="workerName">fred</Set>
+        <Call name="setDriverInfo">j
+          <Arg>com.mysql.jdbc.Driver</Arg>
+          <Arg>jdbc:mysql://127.0.0.1:3306/sessions?user=janb</Arg>
+        </Call>
+        <Set name="scavengeInterval">60</Set>
+      </New>
+    </Set>
+    <Call name="setAttribute">
+      <Arg>jdbcIdMgr</Arg>
+      <Arg>
+        <Ref id="jdbcidmgr"/>
+      </Arg>
+    </Call>
     
-  </programlisting>
+  ]]></programlisting>
     </informalexample>
 
     <para>As Jetty configuration files are direct mappings of XML to Java, it
@@ -144,7 +144,7 @@
     anyway:</para>
 
     <informalexample>
-      <programlisting language="java">
+      <programlisting language="java"><![CDATA[
     
 Server server = new Server();
      ...
@@ -153,7 +153,7 @@ idMgr.setWorkerName("fred");
 idMgr.setDriverInfo("com.mysql.jdbc.Driver", "jdbc:mysql://127.0.0.1:3306/sessions?user=janb");
 idMgr.setScavengeInterval(60);
 server.setSessionIdManager(idMgr);
- </programlisting>
+ ]]></programlisting>
     </informalexample>
 
     <para>You must configure the JDBCSessionIdManager with a workerName that
@@ -224,12 +224,12 @@ server.setSessionIdManager(idMgr);
       and its single column. This example will use java code, but as explained
       above, you may also do this via a jetty xml configuration file:</para>
 
-      <programlisting language="java">JDBCSessionIdManager idManager = new JDBCSessionIdManager(server);
+      <programlisting language="java"><![CDATA[JDBCSessionIdManager idManager = new JDBCSessionIdManager(server);
 
 SessionIdTableSchema idTableSchema = new SessionIdTableSchema();
 idTableSchema.setTableName("mysessionids");
 idTableSchema.setIdColumn("theid");
-idManager.setSessionIdTableSchema(idTableSchema);</programlisting>
+idManager.setSessionIdTableSchema(idTableSchema);]]></programlisting>
 
       <para>In a similar fashion, you can change the names of the table and
       columns for the JettySessions table. <emphasis
@@ -237,7 +237,7 @@ idManager.setSessionIdTableSchema(idTableSchema);</programlisting>
       SessionTableSchema instances are set on the JDBCSessionIdManager
       class.</para>
 
-      <programlisting language="java">JDBCSessionIdManager idManager = new JDBCSessionIdManager(server);
+      <programlisting language="java"><![CDATA[JDBCSessionIdManager idManager = new JDBCSessionIdManager(server);
 
 SessionTableSchema sessionTableSchema = new SessionTableSchema();
 sessionTableSchema.setTableName("mysessions");
@@ -252,7 +252,7 @@ sessionTableSchema.setLastNodeColumn("lnode");
 sessionTableSchema.setLastSavedTimeColumn("lstime");
 sessionTableSchema.setMapColumn("mo");
 sessionTableSchema.setMaxIntervalColumn("mi");           
-idManager.setSessionTableSchema(sessionTableSchema);</programlisting>
+idManager.setSessionTableSchema(sessionTableSchema);]]></programlisting>
     </section>
   </section>
 
@@ -269,57 +269,57 @@ idManager.setSessionTableSchema(sessionTableSchema);</programlisting>
     Ref:</para>
 
     <informalexample>
-      <programlisting language="xml">
+      <programlisting language="xml"><![CDATA[
     
-&lt;Ref name="Server" id="Server"&gt;
-    &lt;Call id="jdbcIdMgr" name="getAttribute"&gt;
-      &lt;Arg&gt;jdbcIdMgr&lt;/Arg&gt;
-    &lt;/Call&gt;
-  &lt;/Ref&gt;
+<Ref name="Server" id="Server">
+    <Call id="jdbcIdMgr" name="getAttribute">
+      <Arg>jdbcIdMgr</Arg>
+    </Call>
+  </Ref>
 
-  &lt;Set name="sessionHandler"&gt;
-    &lt;New class="org.eclipse.jetty.server.session.SessionHandler"&gt;
-      &lt;Arg&gt;
-        &lt;New id="jdbcmgr" class="org.eclipse.jetty.server.session.JDBCSessionManager"&gt;
-          &lt;Set name="idManager"&gt;
-            &lt;Ref id="jdbcIdMgr"/&gt;
-          &lt;/Set&gt;
-        &lt;/New&gt;
-      &lt;/Arg&gt;
-    &lt;/New&gt;
-  &lt;/Set&gt;
+  <Set name="sessionHandler">
+    <New class="org.eclipse.jetty.server.session.SessionHandler">
+      <Arg>
+        <New id="jdbcmgr" class="org.eclipse.jetty.server.session.JDBCSessionManager">
+          <Set name="sessionIdManager">
+            <Ref id="jdbcIdMgr"/>
+          </Set>
+        </New>
+      </Arg>
+    </New>
+  </Set>
   
-</programlisting>
+]]></programlisting>
     </informalexample>
 
     <para>From a <filename>WEB-INF/jetty-web.xml</filename> file, you can
     reference the Server instance directly:</para>
 
     <informalexample>
-      <programlisting language="xml">
+      <programlisting language="xml"><![CDATA[
   
-&lt;Get name="server"&gt;
-  &lt;Get id="jdbcIdMgr" name="sessionIdManager"/&gt;
-&lt;/Get&gt;
-&lt;Set name="sessionHandler"&gt;
-  &lt;New class="org.eclipse.jetty.server.session.SessionHandler"&gt;
-    &lt;Arg&gt;
-      &lt;New class="org.eclipse.jetty.server.session.JDBCSessionManager"&gt;
-        &lt;Set name="idManager"&gt;
-          &lt;Ref id="jdbcIdMgr"/&gt;
-        &lt;/Set&gt;
-      &lt;/New&gt;
-    &lt;/Arg&gt;
-  &lt;/New&gt;
-&lt;/Set&gt;
+<Get name="server">
+  <Get id="jdbcIdMgr" name="sessionIdManager"/>
+</Get>
+<Set name="sessionHandler">
+  <New class="org.eclipse.jetty.server.session.SessionHandler">
+    <Arg>
+      <New class="org.eclipse.jetty.server.session.JDBCSessionManager">
+        <Set name="sessionIdManager">
+          <Ref id="jdbcIdMgr"/>
+        </Set>
+      </New>
+    </Arg>
+  </New>
+</Set>
 
-</programlisting>
+]]></programlisting>
     </informalexample>
 
     <para>If you're embedding this in code:</para>
 
     <informalexample>
-      <programlisting language="java">
+      <programlisting language="java"><![CDATA[
 
 //assuming you have already set up the JDBCSessionIdManager as shown earlier
 //and have a reference to the Server instance:
@@ -327,10 +327,10 @@ idManager.setSessionTableSchema(sessionTableSchema);</programlisting>
 WebAppContext wac = new WebAppContext();
  ... //configure your webapp context
 JDBCSessionManager jdbcMgr = new JDBCSessionManager();
-jdbcMgr.setIdManager(server.getSessionIdManager());
+jdbcMgr.setSessionIdManager(server.getSessionIdManager());
 wac.setSessionHandler(jdbcMgr);
 
-</programlisting>
+]]></programlisting>
     </informalexample>
   </section>
 </section>

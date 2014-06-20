@@ -286,13 +286,15 @@ public class TestListener implements ServletContextListener
    version="3.0"&gt;
 
    &lt;session-config&gt;
-      &lt;comment&gt;This is my special cookie configuration&lt;/comment&gt;
-      &lt;domain&gt;foo.com&lt;/domain&gt;
-      &lt;http-only&gt;false&lt;/http-only&gt;
-      &lt;max-age&gt;30000&lt;/max-age&gt;
-      &lt;path&gt;/my/special/path&lt;/path&gt;
-      &lt;secure&gt;true&lt;/secure&gt;
-      &lt;name&gt;FOO_SESSION&lt;/name&gt;
+      &lt;cookie-config&gt;
+         &lt;comment&gt;This is my special cookie configuration&lt;/comment&gt;
+         &lt;domain&gt;foo.com&lt;/domain&gt;
+         &lt;http-only&gt;false&lt;/http-only&gt;
+         &lt;max-age&gt;30000&lt;/max-age&gt;
+         &lt;path&gt;/my/special/path&lt;/path&gt;
+         &lt;secure&gt;true&lt;/secure&gt;
+         &lt;name&gt;FOO_SESSION&lt;/name&gt;
+      &lt;/cookie-config&gt;
    &lt;/session-config&gt;
 &lt;/web-app&gt;</programlisting>
     </section>

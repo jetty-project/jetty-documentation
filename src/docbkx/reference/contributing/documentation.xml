@@ -79,7 +79,7 @@
 
     <screen linenumbering="numbered"><![CDATA[
 
-$ git clone git@github.com:jetty-project/jetty-documentation.git
+$ git clone https://github.com/jetty-project/jetty-documentation.git
       
     ]]></screen>
 

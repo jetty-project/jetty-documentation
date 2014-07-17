@@ -61,11 +61,18 @@
     web application) which will create MyEchoSocket instances when
     encountering HTTP Upgrade requests.</para>
 
-    <para>The WebSocketServlet.configure(WebSocketServletFactory factory) is
-    where you put your specific configuration for your WebSocket. In the
-    example we specify a 10 second idle timeout and register MyEchoSocket with
-    the default WebSocketCreator the WebSocket class we want to be created on
-    Upgrade.</para>
+    <para>The <link
+    xl:href="http://download.eclipse.org/jetty/stable-9/apidocs/org/eclipse/jetty/websocket/servlet/WebSocketServlet.html#configure(org.eclipse.jetty.websocket.servlet.WebSocketServletFactory)"><code>WebSocketServlet.configure(WebSocketServletFactory
+    factory)</code></link> is where you put your specific configuration for
+    your WebSocket. In the example we specify a 10 second idle timeout and
+    register MyEchoSocket with the default WebSocketCreator the WebSocket
+    class we want to be created on Upgrade.</para>
+
+    <note>
+      <para>It is important that you take in account any firewall or router
+      timeouts when configuring websockets. Be sure the websocket
+      configuration is lower than your firewall or router.</para>
+    </note>
   </section>
 
   <section>
@@ -74,14 +81,13 @@
     <para>All WebSocket's are created via whatever <link
     xl:href="@JDURL@/org/eclipse/jetty/websocket/servlet/WebSocketCreator.html">WebSocketCreator</link>
     you have registered with the <link
-    xl:href="@JDURL@/org/eclipse/jetty/websocket/servlet/WebSocketServletFactory.html">WebSocketServletFactory</link>.
-    </para>
+    xl:href="@JDURL@/org/eclipse/jetty/websocket/servlet/WebSocketServletFactory.html">WebSocketServletFactory</link>.</para>
 
     <para>By default, the WebSocketServletFactory is a simple WebSocketCreator
     capable of creating a single WebSocket object. Use <link
     xl:href="@JDURL@/org/eclipse/jetty/websocket/servlet/WebSocketServletFactory.html#register(java.lang.Class)"><code>WebSocketCreator.register(Class&lt;?&gt;
     websocket)</code></link> to tell the WebSocketServletFactory which class
-    it should instantiate (make sure it has a default constructor). </para>
+    it should instantiate (make sure it has a default constructor).</para>
 
     <para>If you have a more complicated creation scenario, you might want to
     provide your own WebSocketCreator that bases the WebSocket it creates off

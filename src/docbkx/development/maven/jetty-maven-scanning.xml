@@ -61,7 +61,7 @@
             or &lt;webAppSourceDirectory&gt;/WEB-INF/jetty-web.xml,
             &lt;webAppSourceDirectory&gt;/WEB-INF/jetty-web.xml,
             &lt;scanTargets&gt;, &lt;scanTargetPatterns&gt;, any <link
-            xl:href="http://download.eclipse.org/jetty/stable-9/apidocs/org/eclipse/jetty/webapp/WebAppContext.html#setDefaultsDescriptor%28java.lang.String%29">defaultsDescriptor</link>
+            xl:href="@JDURL@/org/eclipse/jetty/webapp/WebAppContext.html#setDefaultsDescriptor%28java.lang.String%29">defaultsDescriptor</link>
             for the webapp, any <link
             xl:href="@JDURL@/org/eclipse/jetty/webapp/WebAppContext.html#setOverrideDescriptor%28java.lang.String%29">overrideDescriptor</link>
             for the webapp</entry>

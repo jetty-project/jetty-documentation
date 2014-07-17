@@ -115,7 +115,7 @@
     <note>
       <para>You can create your own custom logging by providing an
       implementation of the <link
-      xl:href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/util/log/Logger.html">Jetty
+      xl:href="@JDURL@org/eclipse/jetty/util/log/Logger.html">Jetty
       Logger API</link>. For an example of a custom logger, see <link
       xl:href="http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/tree/jetty-util/src/main/java/org/eclipse/jetty/util/log/JavaUtilLog.java">JavaUtilLog.java</link>.</para>
     </note>

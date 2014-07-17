@@ -96,7 +96,7 @@ wget -O servlet-api.jar -U none http://central.maven.org/maven2/org/eclipse/jett
 
       <listitem>
         <para>Explore the complete <link
-        xl:href="http://download.eclipse.org/jetty/stable-9/apidocs/">jetty
+        xl:href="@JDURL@/">jetty
         javadoc</link></para>
       </listitem>
 

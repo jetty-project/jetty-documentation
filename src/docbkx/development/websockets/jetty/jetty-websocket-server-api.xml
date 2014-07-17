@@ -62,7 +62,7 @@
     encountering HTTP Upgrade requests.</para>
 
     <para>The <link
-    xl:href="http://download.eclipse.org/jetty/stable-9/apidocs/org/eclipse/jetty/websocket/servlet/WebSocketServlet.html#configure(org.eclipse.jetty.websocket.servlet.WebSocketServletFactory)"><code>WebSocketServlet.configure(WebSocketServletFactory
+    xl:href="@JDURL@/org/eclipse/jetty/websocket/servlet/WebSocketServlet.html#configure(org.eclipse.jetty.websocket.servlet.WebSocketServletFactory)"><code>WebSocketServlet.configure(WebSocketServletFactory
     factory)</code></link> is where you put your specific configuration for
     your WebSocket. In the example we specify a 10 second idle timeout and
     register MyEchoSocket with the default WebSocketCreator the WebSocket

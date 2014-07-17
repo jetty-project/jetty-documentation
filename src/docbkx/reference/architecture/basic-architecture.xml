@@ -30,7 +30,7 @@
     <title>View from 20,000 feet</title>
 
     <para>The Jetty <link
-    xl:href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/server/Server.html">Server</link>
+    xl:href="@JDURL@/org/eclipse/jetty/server/Server.html">Server</link>
     is the plumbing between a collection of Connectors that accept HTTP
     connections and a collection of Handlers that service requests from the
     connections and produce responses, with threads from a thread pool doing

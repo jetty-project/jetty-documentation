@@ -74,7 +74,7 @@
     <screen><![CDATA[$ java -jar $JETTY_HOME/start.jar --add-to-startd=quickstart]]></screen>
 
     <para>Also the webapps you deploy need to be instances of <link
-    xl:href="http://download.eclipse.org/jetty/stable-9/apidocs/org/eclipse/jetty/quickstart/QuickStartWebApp.html"><literal>org.eclipse.jetty.quickstart.QuickStartWebApp</literal></link>
+    xl:href="@JDURL@/org/eclipse/jetty/quickstart/QuickStartWebApp.html"><literal>org.eclipse.jetty.quickstart.QuickStartWebApp</literal></link>
     rather than the normal
     <literal>org.eclipse.jetty.webapp.WebAppContext</literal>. If your web
     application already has a <filename>webapps/myapp.xml</filename> file,
@@ -104,7 +104,7 @@
 
     <para>It is also possible to preconfigure a war file manually by running
     the class <link
-    xl:href="http://download.eclipse.org/jetty/stable-9/apidocs/org/eclipse/jetty/quickstart/PreconfigureQuickStartWar.html">org.eclipse.jetty.quickstart.PreconfigureQuickStartWar</link>
+    xl:href="@JDURL@/org/eclipse/jetty/quickstart/PreconfigureQuickStartWar.html">org.eclipse.jetty.quickstart.PreconfigureQuickStartWar</link>
     as a main, down simply with the jetty-all aggregate jar:</para>
 
     <screen><![CDATA[$ java -cp jetty-all-9.2.0.jar:servlet.jar org.eclipse.jetty.quickstart.PreconfigureQuickStartWar myapp.war]]></screen>

@@ -53,11 +53,11 @@
   specific classes.</para>
 
   <para>The technique used by this configuration is to provide an <link
-  xl:href="http://download.eclipse.org/jetty/stable-9/apidocs/org/eclipse/jetty/deploy/AppLifeCycle.Binding.html">AppLifeCycle.Binding</link>
+  xl:href="@JDURL@org/eclipse/jetty/deploy/AppLifeCycle.Binding.html">AppLifeCycle.Binding</link>
   against the <link
-  xl:href="http://download.eclipse.org/jetty/stable-9/apidocs/org/eclipse/jetty/deploy/AppLifeCycle.html"><literal>"deploying"</literal>
+  xl:href="@JDURL@/org/eclipse/jetty/deploy/AppLifeCycle.html"><literal>"deploying"</literal>
   node</link> that modifies the <link
-  xl:href="http://download.eclipse.org/jetty/stable-9/apidocs/org/eclipse/jetty/webapp/WebAppContext.html#addSystemClass(java.lang.String)">WebAppContext.addSystemClass(String)</link>
+  xl:href="@JDURL@/org/eclipse/jetty/webapp/WebAppContext.html#addSystemClass(java.lang.String)">WebAppContext.addSystemClass(String)</link>
   for the common logging classes. (See <link
   xl:href="https://github.com/jetty-project/jetty-webapp-logging/blob/master/src/main/java/org/eclipse/jetty/webapp/logging/CentralizedWebAppLoggingBinding.java">org.eclipse.jetty.logging.CentralizedWebAppLoggingBinding</link>
   for actual implementation)</para>

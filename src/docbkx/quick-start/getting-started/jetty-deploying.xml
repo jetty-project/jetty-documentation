@@ -193,7 +193,7 @@
         <listitem>
           <para>A demonstration web application that uses a transparent proxy
           to serve the Jetty src <link
-          xl:href="http://download.eclipse.org/jetty/stable-9/xref/">xref</link>
+          xl:href="@JXURL@/">xref</link>
           from the Eclipse <link
           xl:href="http://www.eclipse.org/jetty">website</link>.</para>
         </listitem>

@@ -32,7 +32,7 @@
 
   <para>Many users of Jetty never need to write a Jetty Handler, but instead
   use the <link
-  xl:href="http://download.eclipse.org/jetty/stable-7/xref/org/eclipse/jetty/servlet/package-summary.html">Servlet
+  xl:href="@JXURL@/org/eclipse/jetty/servlet/package-summary.html">Servlet
   API.</link> You can reuse the existing Jetty handlers for context, security,
   sessions and servlets without the need for extension. However, some users
   might have special requirements or footprint concerns that prohibit the use
@@ -323,11 +323,9 @@ Response base_response = response instanceof Response ? (Response)response : Htt
   <section xml:id="more-about-handlers">
     <title>More About Handlers</title>
 
-    <para>See <link
-    xl:href="http://download.eclipse.org/jetty/stable-7/xref/">Jetty 7 Latest
-    Source XRef</link> and <link
-    xl:href="http://download.eclipse.org/jetty/stable-7/apidocs/">Jetty 7
-    Latest JavaDoc</link> for detailed information on each Jetty
-    handler.</para>
+    <para>See
+    <link xl:href="@JXURL@/">Jetty Latest Source XRef</link> and
+    <link xl:href="@JDURL@/">Jetty Latest JavaDoc</link>
+    for detailed information on each Jetty handler.</para>
   </section>
 </section>

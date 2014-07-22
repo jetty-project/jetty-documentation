@@ -936,169 +936,17 @@
     <title>jetty:run-forked</title>
 
     <para>This goal allows you to start the webapp in a new JVM, optionally
-    passing arguments to that new JVM.</para>
+    passing arguments to that new JVM. This goal supports the same
+    configuration parameters as the <code>jetty:run</code> goal with a couple
+    of extras to help configure the forked process.</para>
 
     <section>
       <title>Configuration</title>
 
-      <para>NOTE: unfortunately, unlike most of the other goals, this one does
-      NOT support a <emphasis role="bold"> webApp</emphasis> parameter to
-      configure the webapp. Therefore, if your webapp requires a lot of
-      configuration, it will be difficult to switch between eg
-      <code>jetty:run</code> and <code> jetty:run-forked</code>
-      executions.</para>
-
-      <para>The available configuration parameters are:</para>
+      <para>The available configuration parameters - in addition to those for
+      the <code>jetty:run</code> goal - are:</para>
 
       <variablelist>
-        <varlistentry>
-          <term>jettyXml</term>
-
-          <listitem>
-            <para>The locations of jetty xml configuration files used to
-            configure the container in the new JVM.</para>
-          </listitem>
-        </varlistentry>
-
-        <varlistentry>
-          <term>contextXml</term>
-
-          <listitem>
-            <para>Optional. The location of a context xml file to configure
-            the webapp in the new JVM.</para>
-          </listitem>
-        </varlistentry>
-
-        <varlistentry>
-          <term>contextPath</term>
-
-          <listitem>
-            <para>Optional. The context path for the webapp in the new JVM.
-            Defaults to <filename> /${project.artifactId}</filename>.
-            Overrides a setting inside a <code>contextXml</code> file.</para>
-          </listitem>
-        </varlistentry>
-
-        <varlistentry>
-          <term>webAppSourceDirectory</term>
-
-          <listitem>
-            <para>Optional. The location of the static resources for your
-            webapp. Defaults to <filename> src/main/webapp</filename>.
-            Overrides a <code>Set name="baseResource"</code> setting inside a
-            <code> contextXml</code> file.</para>
-          </listitem>
-        </varlistentry>
-
-        <varlistentry>
-          <term>resourceBases</term>
-
-          <listitem>
-            <para>Optional. An array of directories containing static content
-            that form the resource base for your webapp, in conjunction with
-            the <filename>webAppSourceDirectory</filename>. See also <code>
-            baseAppFirst</code>.</para>
-          </listitem>
-        </varlistentry>
-
-        <varlistentry>
-          <term>baseAppFirst</term>
-
-          <listitem>
-            <para>Defaults to "true". Controls whether the
-            <filename>webAppSourceDirectory</filename> or <filename>
-            resourceBases</filename> are first on the list of resources that
-            form the base resource for the webapp.</para>
-          </listitem>
-        </varlistentry>
-
-        <varlistentry>
-          <term>webXml</term>
-
-          <listitem>
-            <para>The location of the <filename>web.xml</filename> file.
-            Defaults to <filename> src/main/webapp/WEB-INF/web.xml</filename>.
-            Overrides a <code>Set name="descriptor"</code> inside a
-            <filename>contextXml</filename> file.</para>
-          </listitem>
-        </varlistentry>
-
-        <varlistentry>
-          <term>tmpDirectory</term>
-
-          <listitem>
-            <para>Temporary directory to use for the webapp. Defaults to
-            <code> ${project.build.directory}/tmp</code>.</para>
-          </listitem>
-        </varlistentry>
-
-        <varlistentry>
-          <term>classesDirectory</term>
-
-          <listitem>
-            <para>The location of the compiled classes for the webapp.
-            Defaults to <filename>
-            ${project.build.outputDirectory}</filename>.</para>
-          </listitem>
-        </varlistentry>
-
-        <varlistentry>
-          <term>testClassesDirectory</term>
-
-          <listitem>
-            <para>The location of the compiled test classes for the webapp.
-            Defaults to <filename>
-            ${project.build.testOutputDirectory}</filename>.</para>
-          </listitem>
-        </varlistentry>
-
-        <varlistentry>
-          <term>useTestScope</term>
-
-          <listitem>
-            <para>–Defaults to "false". If true, the test classes and
-            dependencies of <code> &lt;scope&gt;test&gt;/scope&gt;</code> are
-            placed on the webapp's classpath.</para>
-          </listitem>
-        </varlistentry>
-
-        <varlistentry>
-          <term>useProvidedScope</term>
-
-          <listitem>
-            <para>Defaults to "false". If true, the dependencies of scope
-            "provided" are placed on the jetty container's classpath.</para>
-          </listitem>
-        </varlistentry>
-
-        <varlistentry>
-          <term>stopPort</term>
-
-          <listitem>
-            <para>Mandatory. A port number for jetty to listen on to receive a
-            stop command to cause it to shutdown. If configured, the stopKey
-            is used to authenticate an incoming stop command.</para>
-          </listitem>
-        </varlistentry>
-
-        <varlistentry>
-          <term>stopKey</term>
-
-          <listitem>
-            <para>Mandatory. A string value that has to be sent to the
-            <code>stopPort</code> to authenticate the stop command.</para>
-          </listitem>
-        </varlistentry>
-
-        <varlistentry>
-          <term>skip</term>
-
-          <listitem>
-            <para>Optional. Defaults to false. If true, the execution of this
-            plugin is skipped.</para>
-          </listitem>
-        </varlistentry>
-
         <varlistentry>
           <term>jvmArgs</term>
 
@@ -1107,7 +955,92 @@
             to the forked JVM.</para>
           </listitem>
         </varlistentry>
+
+        <varlistentry>
+          <term>waitForChild</term>
+
+          <listitem>
+            <para>Default is <code>true</code>. This causes the parent process
+            to wait for the forked process to exit. In this case you can use
+            <code>cntrl-c</code> to terminate both processes. It is more
+            useful to set it to <code>false</code>, in which case the parent
+            process terminates whilst leaving the child process running. You
+            use the <code>jetty:stop</code> goal to stop the child
+            process.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>maxStartupLines</term>
+
+          <listitem>
+            <para>Default is <code>50</code>. This is maximum number of lines
+            the parent process reads from the child process to receive an
+            indication that the child has started. If the child process
+            produces an excessive amount of output on stdout you may need to
+            increase this number.</para>
+          </listitem>
+        </varlistentry>
       </variablelist>
+
+      <para>Some of the container configuration parameters are <emphasis
+      role="bold">NOT</emphasis> available with this goal:</para>
+
+      <para><variablelist>
+          <varlistentry>
+            <term>scanIntervalSeconds</term>
+
+            <listitem>
+              <para>Not supported. The forked jetty will not monitor and
+              redeploy the webapp.</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>reload</term>
+
+            <listitem>
+              <para>Not supported. The forked jetty will not redeploy the
+              webapp.</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>httpConnector</term>
+
+            <listitem>
+              <para>Not supported. To define custom connectors use a jetty xml
+              file instead.</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>loginServices</term>
+
+            <listitem>
+              <para>Not supported. To define LoginServices use a jetty xml or
+              context xml file instead.</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>requestLog</term>
+
+            <listitem>
+              <para>Not supported. To define a RequestLog setup, use a jetty
+              xml or context xml file instead.</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>systemProperties</term>
+
+            <listitem>
+              <para>Not supported. Use the <code>jvmArgs</code> parameter to
+              pass system properties to the forked process.</para>
+            </listitem>
+          </varlistentry>
+        </variablelist></para>
 
       <para>To deploy your unassembled web app to Jetty running in a new
       JVM:</para>
@@ -1119,7 +1052,8 @@
       <itemizedlist>
         <listitem>
           <para>Press <code>cntrl-c</code> in the terminal window to stop the
-          plugin, which also stops the forked JVM.</para>
+          plugin, which also stops the forked JVM (only if you started with
+          <code>waitForChild=true</code>)</para>
         </listitem>
 
         <listitem>
@@ -1129,10 +1063,10 @@
       </itemizedlist>
 
       <note>
-        <para>If you want to set a custom port, you need to specify it in a
-        <filename>jetty.xml</filename> file rather than setting the connector
-        and port tags. You can specify the location of the
-        <filename>jetty.xml</filename> using the <code>jettyXml</code>
+        <para>If you want to set a custom port for the jetty connector you
+        need to specify it in a <filename>jetty xml</filename> file rather
+        than setting the connector and port tags. You can specify the location
+        of the <filename>jetty.xml</filename> using the <code>jettyXml</code>
         parameter.</para>
       </note>
     </section>
@@ -1234,8 +1168,7 @@
           <para>The maximum time in seconds that the plugin will wait for
           confirmation that jetty has stopped. If false or not specified, the
           plugin does not wait for confirmation but exits after issuing the
-          stop command. <emphasis role="bold">This parameter is available only
-          since jetty-9.5.</emphasis></para>
+          stop command. <emphasis role="bold"/></para>
         </listitem>
       </varlistentry>
     </variablelist>
@@ -1266,6 +1199,44 @@
     running on. If this is not the case, you get an "Address already in use"
     error message after the "Started SelectedChannelConnector ..."
     message.</para>
+  </section>
+
+  <section>
+    <title>jetty:effective-web-xml</title>
+
+    <para>This goal calculates a synthetic web.xml (the "effective web.xml")
+    according to the rules of the Servlet Specification taking into account
+    all sources of discoverable configuration of web components in your
+    application: descriptors (webdefault.xml, web.xml, web-fragment.xmls,
+    web-override.xml) and discovered annotations (@WebServlet, @WebFilter,
+    @WebListener). The effective web.xml from these combined sources is
+    generated and displayed as maven log output. Other useful information
+    about your webapp that is produced as part of the analysis is also stored
+    as context parameters in the effective-web.xml. The following
+    configuration parameters allow you to save the file:</para>
+
+    <para><variablelist>
+        <varlistentry>
+          <term>deleteOnExit</term>
+
+          <listitem>
+            <para>By default this is <code>true</code>. If set to
+            <code>false</code>, the effective web.xml is generated into a file
+            called <code>effective-web.xml</code> in the build
+            <code>target</code> directory.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>effectiveWebXml</term>
+
+          <listitem>
+            <para>The full path name of a file into which you would like the
+            effective web xml generated.</para>
+          </listitem>
+        </varlistentry>
+      </variablelist>Note that no programmatic declarations of servlets,
+    filters and listeners will be taken into account. </para>
   </section>
 
   <section xml:id="using-overlaid-wars">

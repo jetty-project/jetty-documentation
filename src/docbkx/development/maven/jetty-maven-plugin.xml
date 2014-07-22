@@ -1212,8 +1212,14 @@
     @WebListener). The effective web.xml from these combined sources is
     generated and displayed as maven log output. Other useful information
     about your webapp that is produced as part of the analysis is also stored
-    as context parameters in the effective-web.xml. The following
-    configuration parameters allow you to save the file:</para>
+    as context parameters in the effective-web.xml. The effective-web.xml can
+    be used in conjunction with the <link
+    linkend="quickstart-webapp">Quickstart</link> feature to quickly start
+    your webapp (note that Quickstart is not appropriate for the mvn jetty
+    goals). </para>
+
+    <para>The following configuration parameters allow you to save the
+    file:</para>
 
     <para><variablelist>
         <varlistentry>

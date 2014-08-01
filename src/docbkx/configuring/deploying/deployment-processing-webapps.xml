@@ -194,7 +194,7 @@
 
       <para>Firstly, lets look at how Configurations help enable JNDI.</para>
 
-      <section>
+      <section xml:id="jndi-configuration-classes">
         <title>Example: JNDI Configurations</title>
 
         <para>JNDI lookups within web applications require the container to
@@ -282,27 +282,27 @@
         Configurations for both JNDI <emphasis>and</emphasis>
         annotations:</para>
 
-        <programlisting language="xml">&lt;?xml version="1.0"?&gt;
-&lt;!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure_9_0.dtd"&gt;
+        <programlisting language="xml"><![CDATA[<?xml version="1.0"?>
+<!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure_9_0.dtd">
 
-&lt;Configure class="org.eclipse.jetty.webapp.WebAppContext"&gt;
+<Configure class="org.eclipse.jetty.webapp.WebAppContext">
 
-  &lt;Set name="war"&gt;&lt;SystemProperty name="jetty.home" default="."/&gt;/webapps/my-cool-webapp&lt;/Set&gt;
+  <Set name="war"><SystemProperty name="jetty.home" default="."/>/webapps/my-cool-webapp</Set>
 
-  &lt;Set name="configurationClasses"&gt;
-    &lt;Array type="java.lang.String"&gt;
-      &lt;Item&gt;org.eclipse.jetty.webapp.WebInfConfiguration&lt;/Item&gt;
-      &lt;Item&gt;org.eclipse.jetty.webapp.WebXmlConfiguration&lt;/Item&gt;
-      &lt;Item&gt;org.eclipse.jetty.webapp.MetaInfConfiguration&lt;/Item&gt;
-      &lt;Item&gt;org.eclipse.jetty.webapp.FragmentConfiguration&lt;/Item&gt;
-      &lt;Item&gt;org.eclipse.jetty.plus.webapp.EnvConfiguration&lt;/Item&gt;
-      &lt;Item&gt;org.eclipse.jetty.plus.webapp.PlusConfiguration&lt;/Item&gt;
-      &lt;Item&gt;org.eclipse.jetty.annotations.AnnotationConfiguration&lt;/Item&gt;
-      &lt;Item&gt;org.eclipse.jetty.webapp.JettyWebXmlConfiguration&lt;/Item&gt;
-    &lt;/Array&gt;
-  &lt;/Set&gt;
+  <Set name="configurationClasses">
+    <Array type="java.lang.String">
+      <Item>org.eclipse.jetty.webapp.WebInfConfiguration</Item>
+      <Item>org.eclipse.jetty.webapp.WebXmlConfiguration</Item>
+      <Item>org.eclipse.jetty.webapp.MetaInfConfiguration</Item>
+      <Item>org.eclipse.jetty.webapp.FragmentConfiguration</Item>
+      <Item>org.eclipse.jetty.plus.webapp.EnvConfiguration</Item>
+      <Item>org.eclipse.jetty.plus.webapp.PlusConfiguration</Item>
+      <Item>org.eclipse.jetty.annotations.AnnotationConfiguration</Item>
+      <Item>org.eclipse.jetty.webapp.JettyWebXmlConfiguration</Item>
+    </Array>
+  </Set>
 
-&lt;/Configure&gt;</programlisting>
+</Configure>]]></programlisting>
 
         <para>Of course, you can also use this method to reduce the
         Configurations applied to a specific WebAppContext.</para>
@@ -317,40 +317,40 @@
         linkend="default-web-app-provider">WebAppProvider</link>. They will
         then be applied to each WebAppContext deployed by the deployer:</para>
 
-        <programlisting language="xml">&lt;?xml version="1.0"?&gt;
-&lt;!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure_9_0.dtd"&gt;
+        <programlisting language="xml"><![CDATA[<?xml version="1.0"?>
+<!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure_9_0.dtd">
 
-&lt;Configure id="Server" class="org.eclipse.jetty.server.Server"&gt;
+<Configure id="Server" class="org.eclipse.jetty.server.Server">
 
-  &lt;Call name="addBean"&gt;
-    &lt;Arg&gt;
-      &lt;New id="DeploymentManager" class="org.eclipse.jetty.deploy.DeploymentManager"&gt;
-        &lt;Set name="contexts"&gt;
-          &lt;Ref refid="Contexts" /&gt;
-        &lt;/Set&gt;
-        &lt;Call id="webappprovider" name="addAppProvider"&gt;
-          &lt;Arg&gt;
-            &lt;New class="org.eclipse.jetty.deploy.providers.WebAppProvider"&gt;
-              &lt;Set name="monitoredDirName"&gt;&lt;Property name="jetty.home" default="." /&gt;/webapps&lt;/Set&gt;
-              &lt;Set name="configurationClasses"&gt;
-                &lt;Array type="java.lang.String"&gt;
-                  &lt;Item&gt;org.eclipse.jetty.webapp.WebInfConfiguration&lt;/Item&gt;
-                  &lt;Item&gt;org.eclipse.jetty.webapp.WebXmlConfiguration&lt;/Item&gt;
-                  &lt;Item&gt;org.eclipse.jetty.webapp.MetaInfConfiguration&lt;/Item&gt;
-                  &lt;Item&gt;org.eclipse.jetty.webapp.FragmentConfiguration&lt;/Item&gt;
-                  &lt;Item&gt;org.eclipse.jetty.plus.webapp.EnvConfiguration&lt;/Item&gt;
-                  &lt;Item&gt;org.eclipse.jetty.plus.webapp.PlusConfiguration&lt;/Item&gt;
-                  &lt;Item&gt;org.eclipse.jetty.annotations.AnnotationConfiguration&lt;/Item&gt;
-                  &lt;Item&gt;org.eclipse.jetty.webapp.JettyWebXmlConfiguration&lt;/Item&gt;
-                &lt;/Array&gt;
-              &lt;/Set&gt;
-            &lt;/New&gt;
-          &lt;/Arg&gt;
-        &lt;/Call&gt;
-      &lt;/New&gt;
-    &lt;/Arg&gt;
-  &lt;/Call&gt;
-&lt;/Configure&gt; </programlisting>
+  <Call name="addBean">
+    <Arg>
+      <New id="DeploymentManager" class="org.eclipse.jetty.deploy.DeploymentManager">
+        <Set name="contexts">
+          <Ref refid="Contexts" />
+        </Set>
+        <Call id="webappprovider" name="addAppProvider">
+          <Arg>
+            <New class="org.eclipse.jetty.deploy.providers.WebAppProvider">
+              <Set name="monitoredDirName"><Property name="jetty.home" default="." />/webapps</Set>
+              <Set name="configurationClasses">
+                <Array type="java.lang.String">
+                  <Item>org.eclipse.jetty.webapp.WebInfConfiguration</Item>
+                  <Item>org.eclipse.jetty.webapp.WebXmlConfiguration</Item>
+                  <Item>org.eclipse.jetty.webapp.MetaInfConfiguration</Item>
+                  <Item>org.eclipse.jetty.webapp.FragmentConfiguration</Item>
+                  <Item>org.eclipse.jetty.plus.webapp.EnvConfiguration</Item>
+                  <Item>org.eclipse.jetty.plus.webapp.PlusConfiguration</Item>
+                  <Item>org.eclipse.jetty.annotations.AnnotationConfiguration</Item>
+                  <Item>org.eclipse.jetty.webapp.JettyWebXmlConfiguration</Item>
+                </Array>
+              </Set>
+            </New>
+          </Arg>
+        </Call>
+      </New>
+    </Arg>
+  </Call>
+</Configure> ]]></programlisting>
       </section>
 
       <section>
@@ -365,29 +365,29 @@
         $JETTY_HOME/etc/jetty-plus.xml file from the Jetty
         distribution:</para>
 
-        <programlisting language="xml">&lt;?xml version="1.0"?&gt;
-&lt;!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure_9_0.dtd"&gt;
+        <programlisting language="xml"><![CDATA[<?xml version="1.0"?>
+<!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure_9_0.dtd">
 
-&lt;Configure id="Server" class="org.eclipse.jetty.server.Server"&gt;
+<Configure id="Server" class="org.eclipse.jetty.server.Server">
 
-  &lt;!-- =========================================================== --&gt;
-  &lt;!-- Add plus Configuring classes to all webapps for this Server --&gt;
-  &lt;!-- =========================================================== --&gt;
-  &lt;Call class="org.eclipse.jetty.webapp.Configuration$ClassList" name="setServerDefault"&gt;
-    &lt;Arg&gt;&lt;Ref refid="Server" /&gt;&lt;/Arg&gt;
-    &lt;Call name="addAfter"&gt;
-      &lt;Arg name="afterClass"&gt;org.eclipse.jetty.webapp.FragmentConfiguration&lt;/Arg&gt;
-      &lt;Arg&gt;
-        &lt;Array type="String"&gt;
-          &lt;Item&gt;org.eclipse.jetty.plus.webapp.EnvConfiguration&lt;/Item&gt;
-          &lt;Item&gt;org.eclipse.jetty.plus.webapp.PlusConfiguration&lt;/Item&gt;
-        &lt;/Array&gt;
-      &lt;/Arg&gt;
-    &lt;/Call&gt;
-  &lt;/Call&gt;
+  <!-- =========================================================== -->
+  <!-- Add plus Configuring classes to all webapps for this Server -->
+  <!-- =========================================================== -->
+  <Call class="org.eclipse.jetty.webapp.Configuration$ClassList" name="setServerDefault">
+    <Arg><Ref refid="Server" /></Arg>
+    <Call name="addAfter">
+      <Arg name="afterClass">org.eclipse.jetty.webapp.FragmentConfiguration</Arg>
+      <Arg>
+        <Array type="String">
+          <Item>org.eclipse.jetty.plus.webapp.EnvConfiguration</Item>
+          <Item>org.eclipse.jetty.plus.webapp.PlusConfiguration</Item>
+        </Array>
+      </Arg>
+    </Call>
+  </Call>
 
-&lt;/Configure&gt;
-</programlisting>
+</Configure>
+]]></programlisting>
 
         <para>The <link
         xl:href="@JDURL@/org/eclipse/jetty/webapp/Configuration.html">org.eclipse.jetty.webapp.Configuration.ClassList</link>
@@ -446,17 +446,17 @@
       whose name starts with "foo-" or "bar-", or a directory named
       "classes":</para>
 
-      <programlisting language="xml">&lt;?xml version="1.0"?&gt;
-&lt;!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure_9_0.dtd"&gt;
+      <programlisting language="xml"><![CDATA[<?xml version="1.0"?>
+<!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure_9_0.dtd">
 
-&lt;Configure class="org.eclipse.jetty.webapp.WebAppContext"&gt;
+<Configure class="org.eclipse.jetty.webapp.WebAppContext">
 
-    &lt;Call name="setContextAttribute"&gt;
-      &lt;Arg&gt;org.eclipse.jetty.server.webapp.ContainerIncludeJarPattern&lt;/Arg&gt;
-      &lt;Arg&gt;.*/foo-[^/]*\.jar$|.*/bar-[^/]*\.jar$|.*/classes/.*&lt;/Arg&gt;
-    &lt;/Call&gt;
+    <Call name="setContextAttribute">
+      <Arg>org.eclipse.jetty.server.webapp.ContainerIncludeJarPattern</Arg>
+      <Arg>.*/foo-[^/]*\.jar$|.*/bar-[^/]*\.jar$|.*/classes/.*</Arg>
+    </Call>
 
-&lt;/Configure&gt;</programlisting>
+</Configure>]]></programlisting>
 
       <para>Note that the order of the patterns defines the ordering of the
       scanning of the jars or class directories.</para>
@@ -477,17 +477,17 @@
       code) of a pattern that matches any jar that starts with
       "spring-":</para>
 
-      <programlisting language="xml">&lt;?xml version="1.0"?&gt;
-&lt;!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure_9_0.dtd"&gt;
+      <programlisting language="xml"><![CDATA[<?xml version="1.0"?>
+<!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure_9_0.dtd">
 
-&lt;Configure class="org.eclipse.jetty.webapp.WebAppContext"&gt;
+<Configure class="org.eclipse.jetty.webapp.WebAppContext">
 
-    &lt;Call name="setContextAttribute"&gt;
-      &lt;Arg&gt;org.eclipse.jetty.server.webapp.WebInfIncludeJarPattern&lt;/Arg&gt;
-      &lt;Arg&gt;.*/spring-[^/]*\.jar$&lt;/Arg&gt;
-    &lt;/Call&gt;
+    <Call name="setContextAttribute">
+      <Arg>org.eclipse.jetty.server.webapp.WebInfIncludeJarPattern</Arg>
+      <Arg>.*/spring-[^/]*\.jar$</Arg>
+    </Call>
 
-&lt;/Configure&gt;</programlisting>
+</Configure>]]></programlisting>
 
       <para>Note that the order of the patterns defines the ordering of the
       scanning of the jars.</para>

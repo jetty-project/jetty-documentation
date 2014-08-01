@@ -24,113 +24,64 @@
          xmlns:xs="http://www.w3.org/2001/XMLSchema"
          xmlns:xl="http://www.w3.org/1999/xlink"
          xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:ns4="http://www.w3.org/2000/svg"
+         xmlns:ns3="http://www.w3.org/1999/xhtml"
          xmlns:ns2="http://www.w3.org/1998/Math/MathML"
          xmlns:ns="http://docbook.org/ns/docbook">
   <title>Quick Setup</title>
 
-  <para>If you are using the standard distribution of Jetty, and want to
-  enable processing of annotation for <emphasis>all</emphasis> your webapps,
-  edit the <filename>$JETTY_HOME/start.ini</filename> file and uncomment the
-  following lines:</para>
+  <section>
+    <title>Jetty Distribution</title>
 
-  <informalexample>
-    <programlisting language="bash"><![CDATA[
+    <para>If you are using the jetty distribution, then annotations are
+    enabled by default. The <emphasis role="bold">annotations</emphasis> <link
+    linkend="startup-modules">module</link> and its transitive dependencies
+    are responsible for making annotation processing available.</para>
 
-#==========================================================
-# Enable servlet 3.1 annotations
-# -----------------------------------------------------------
-OPTIONS=annotations
-etc/jetty-annotations.xml
+    <para>Note that annotations that relate to <link
+    linkend="jndi">JNDI</link>, such as @Resource and @Resources are enabled
+    via the <emphasis role="bold">jndi</emphasis> module, which is a
+    transitive dependency on the annotations module, and thus is also enabled
+    by default for the distribution.</para>
+  </section>
 
-# ===========================================================
-# Enable additional webapp environment configurators 
-# -----------------------------------------------------------
-OPTIONS=plus
-etc/jetty-plus.xml
-]]></programlisting>
-  </informalexample>
+  <section>
+    <title>Jetty Maven Plugin</title>
 
-  <para>If you want to use annotations that relate to <link
-  linkend="jndi">JNDI</link>, such as @Resource and @Resources then you should
-  also uncomment these other lines also:</para>
+    <para>Annotations and JNDI are pre-enabled for the maven plugin.</para>
+  </section>
 
-  <informalexample>
-    <programlisting language="bash"><![CDATA[
+  <section>
+    <title>Embedding</title>
 
-#===========================================================
-# JNDI
-#-----------------------------------------------------------
-OPTIONS=jndi
-    ]]></programlisting>
-  </informalexample>
+    <para>To use annotations in an embedded scenario, you will need to include
+    the jetty-annotations jar and all its dependencies onto your classpath,
+    and you will also need to include the
+    org.eclipse.jetty.annotations.AnnotationConfiguration into the list of
+    <link linkend="webapp-configurations">Configuration classes</link> applied
+    to the org.eclipse.jetty.webapp.WebAppContext representing your
+    webapp.</para>
 
-  <para>You can now start Jetty and use annotations within your webapps. See
-  <link linkend="using-annotations">Using Annotations</link> for more
-  information.</para>
+    <para>Here is an example application that sets up the standard
+    test-spec.war webapp from the distribution in embedded fashion. It can be
+    found in the jetty git repository in the examples/embedded project. Note
+    that the test-spec.war uses not only annotations, but also <link
+    linkend="jndi">JNDI</link>, so this example also enables their processing
+    (via the <link
+    linkend="jndi-configuration-classes">org.eclipse.jetty.plus.webapp.EnvConfiguration</link>,
+    <link
+    linkend="jndi-configuration-classes">org.eclipse.jetty.plus.webapp.PlusConfiguration</link>
+    and their related jars).</para>
 
-  <para>Since <emphasis role="bold">jetty-9.1.0</emphasis> annotation scanning
-  will be conducted by default in a multi-threaded manner. This speeds up the
-  process of opening jar files and looking for <link
-  linkend="discoverable_introspectable_annotations">discoverable
-  annotations</link>. Jetty will use threads from the <link
-  linkend="intro-jetty-configuration-server">configured thread pool</link> to
-  perform the scanning. You can disable threaded scanning and use just the
-  single main execution thread if for some reason you need to. You have
-  several options for doing this:</para>
+    <para><example>
+        <title><link
+        xl:href="@GITURL@/examples/embedded/src/main/java/org/eclipse/jetty/embedded/FileServer.java">ServerWithAnnotations.java</link></title>
 
-  <orderedlist>
-    <listitem>
-      <para>Set <emphasis
-      role="bold">org.eclipse.jetty.annotations.multiThreaded</emphasis> to
-      <emphasis role="bold">false</emphasis> on a <link
-      linkend="intro-jetty-configuration-contexts">context attribute</link>
-      for the specific webapp you want to affect</para>
-    </listitem>
-
-    <listitem>
-      <para>Set <emphasis
-      role="bold">org.eclipse.jetty.annotations.multiThreaded</emphasis> to
-      <emphasis role="bold">false</emphasis> on a <link
-      linkend="server_attributes">Server attribute</link> to affect all
-      webapps deployed into that Server<link
-      linkend="server_attributes"/></para>
-    </listitem>
-
-    <listitem>
-      <para>Set <emphasis
-      role="bold">-Dorg.eclipse.jetty.annotations.multiThreaded=false</emphasis>
-      as a System property in a start.ini file or command line to affect all
-      webapps in the jvm</para>
-    </listitem>
-  </orderedlist>
-
-  <para>By default, Jetty will wait up to 60 seconds for the scanning to
-  complete when using the multi-threaded mode. If you would like to make it
-  longer or shorter, you can use any of the following:</para>
-
-  <orderedlist>
-    <listitem>
-      <para>Set <emphasis
-      role="bold">org.eclipse.jetty.annotations.maxWait</emphasis> as a <link
-      linkend="intro-jetty-configuration-contexts">context attribute</link> to
-      the time in seconds you want to maximally wait for scanning to complete.
-      This affects the specific webapp only.</para>
-    </listitem>
-
-    <listitem>
-      <para>Set <emphasis
-      role="bold">org.eclipse.jetty.annotations.maxWait</emphasis> as a <link
-      linkend="server_attributes">Server attribute</link> to the time in
-      secods you want to maximally wait for scanning to complete. This affects
-      all webapps deployed to that Server.</para>
-    </listitem>
-
-    <listitem>
-      <para>Set <emphasis
-      role="bold">-Dorg.eclipse.jetty.annotations.maxWait</emphasis> as a
-      System property to the time in seconds you want to maximally wait for
-      scanning to complete. This affects all webapps deployed in the
-      jvm.</para>
-    </listitem>
-  </orderedlist>
+        <programlisting language="rjava-no-parse"><![CDATA[
+    ]]><filename>
+      @GITURL@/examples/embedded/src/main/java/org/eclipse/jetty/embedded/ServerWithAnnotations.java
+    </filename><![CDATA[
+  ]]></programlisting>
+      </example></para>
+  </section>
 </section>

@@ -29,7 +29,7 @@
   <para>This document provides information about configuring Java Server Pages
   for Jetty.</para>
 
-  <section>
+  <section xml:id="which-jsp-implementation">
     <title>Which JSP Implementation</title>
 
     <para>From jetty-9.2 onwards, we are using Jasper from <link
@@ -53,6 +53,34 @@
     JSP container implementation you are using. Note also that it may not be
     possible to precompile your jsps with one container and deploy to the
     other.</para>
+
+    <section>
+      <title>JSPs and Embedding</title>
+
+      <para>If you have an embedded setup for your webapp and wish to use
+      jsps, you will need to ensure that a JSP engine is correctly
+      initialized.</para>
+
+      <para>For both Apache and Glassfish JSP engines, a Servlet Specification
+      3.1 style <link
+      linkend="servlet-container-initializers">ServletContainerInitializer</link>
+      is used to accomplish this. You will need to ensure that this
+      ServletContainerInitializer is run by jetty. Perhaps the easiest way to
+      do this is to enable annotations processing so that jetty automatically
+      discovers and runs it. The <link linkend="embedded-examples">Embedded
+      Examples</link> section includes a <link
+      linkend="embedded-webapp-jsp">worked code example</link> of how to do
+      this.</para>
+
+      <para>Alternatively, you can manually wire in the appropriate
+      ServletContainerInitializer as shown in the <link
+      xl:href="https://github.com/jetty-project/embedded-jetty-jsp/blob/master/src/main/java/org/eclipse/jetty/demo/Main.java">embedded-jetty-jsp</link>
+      example on <link
+      xl:href="https://github.com/jetty-project">github</link>, in which case
+      you will not need the jetty-annotations jar on your classpath, nor
+      include the AnnotationConfiguration in the list of <link
+      linkend="webapp-configurations">configuration classes</link>.</para>
+    </section>
   </section>
 
   <section>
@@ -90,8 +118,6 @@
       <link linkend="jetty-maven-plugin">jetty-maven-plugin</link> - will only
       use Apache Jasper</para>
     </note>
-
-    <para/>
   </section>
 
   <section xml:id="compiling-jsps">
@@ -991,8 +1017,62 @@
     <title>Using JSTL Taglibs</title>
 
     <para>The JavaServer Pages Standlard Tag Library (JSTL) is part of the
-    Jetty distribution (in <code>$JETTY_HOME/lib/jsp</code>) and is
-    automatically on the classpath.</para>
+    Jetty distribution and is automatically put on the classpath when you
+    <link linkend="which-jsp-implementation">select your flavour of
+    JSP</link>. It is also automatically on the classpath for the jetty maven
+    plugin, which uses the Apache JSP engine as of jetty-9.2.</para>
+
+    <section>
+      <title>Embedding</title>
+
+      <para>If you are using jetty in an embedded scenario, and you need to
+      use JSTL, then you must ensure that the JSTL jars are included on the
+      <emphasis>container's</emphasis> classpath - that is the classpath that
+      is the <emphasis>parent</emphasis> of the webapp's classpath. This is a
+      restriction that arises from the Java EE specification.</para>
+
+      <para>The jars that you will include will depend on the flavour of JSP
+      that you are using. </para>
+
+      <section>
+        <title>With Glassfish JSP</title>
+
+        <para>You will need to put the jstl jars that are present in
+        $jetty.home/lib/jsp onto the <emphasis>container's</emphasis>
+        classpath. The Glassfish JSP engine will find the jstl tag definitions
+        inside these jars during startup.</para>
+      </section>
+
+      <section>
+        <title>With Apache JSP</title>
+
+        <para>You will need to put the jars that are present in the
+        $jetty.home/lib/apache-jstl directory onto the
+        <emphasis>container's</emphasis> classpath. The Apache JSP engine will
+        find the jstl tag definitions inside these jars during startup.</para>
+
+        <para>As an efficiency enhancement, you can have jetty examine the
+        jstl jars to find the tags, and pre-feed them into the Apache JSP
+        engine. This is more efficient, because jetty will only scan the jars
+        you tell it to, whereas the Apache JSP engine will scan every jar,
+        which can be time-consuming in applications with a lot of jars on the
+        container classpath.</para>
+
+        <para>To take advantage of this efficiency enhancement, set up the
+        <link
+        linkend="container-include-jar-pattern">org.eclipse.jetty.server.webapp.ContainerIncludeJarPattern</link>
+        to include a <link
+        xl:href="http://docs.oracle.com/javase/7/docs/api/java/util/regex/Pattern.html">pattern</link>
+        that will match the names of the jstl jars. The <link
+        linkend="embedded-examples">Embedded Examples</link> section includes
+        a <link linkend="embedded-webapp-jsp">worked code example</link> of
+        how to do this, here's a snippet from it:</para>
+
+        <para><informalexample>
+            <para><programlisting language="java"><![CDATA[  webapp.setAttribute("org.eclipse.jetty.server.webapp.ContainerIncludeJarPattern",".*/[^/]*taglibs.*\\.jar$");]]></programlisting></para>
+          </informalexample></para>
+      </section>
+    </section>
   </section>
 
   <section xml:id="using-jsf-taglibs">
@@ -1011,7 +1091,7 @@
       either put them into the lib directory matching your JSP container of
       choice (either $JETTY_HOME/lib/jsp for Glassfish JSP, or
       $JETTY_HOME/lib/apache-jsp for Apache JSP), or put them into
-      $JETTY_HOME/lib/ext.<filename/></para>
+      $JETTY_HOME/lib/ext.</para>
     </section>
 
     <section xml:id="using-jsf-taglibs-with-jetty-maven-plugin">

@@ -418,6 +418,7 @@
         <programlisting language="xml"><![CDATA[<plugin>
   <groupId>org.eclipse.jetty</groupId>
   <artifactId>jetty-maven-plugin</artifactId>
+  <version>@project.version@</version>
   <configuration>
     <jettyXml>jetty.xml,jetty-ssl.xml,jetty-https.xml</jettyXml>
   </configuration>
@@ -443,6 +444,7 @@
         <programlisting language="xml"><![CDATA[<plugin>
   <groupId>org.eclipse.jetty</groupId>
   <artifactId>jetty-maven-plugin</artifactId>
+  <version>@project.version@</version>
   <configuration>
     <jettyXml>jetty.xml,jetty-http.xml,jetty-ssl.xml,jetty-https.xml</jettyXml>
   </configuration>
@@ -619,6 +621,7 @@
 <plugin>
   <groupId>org.eclipse.jetty</groupId>
   <artifactId>jetty-maven-plugin</artifactId>
+  <version>@project.version@</version>
   <configuration>
     <scanIntervalSeconds>10</scanIntervalSeconds>
     <webApp>
@@ -729,6 +732,7 @@
     <plugin>
       <groupId>org.eclipse.jetty</groupId>
       <artifactId>jetty-maven-plugin</artifactId>
+      <version>@project.version@</version>
       <configuration>
         <webAppSourceDirectory>${project.basedir}/src/staticfiles</webAppSourceDirectory>
         <webApp>
@@ -803,6 +807,7 @@
     <plugin>
       <groupId>org.eclipse.jetty</groupId>
       <artifactId>jetty-maven-plugin</artifactId>
+      <version>@project.version@</version>
       <configuration>
         <war>${project.basedir}/target/mycustom.war</war>
       </configuration>
@@ -852,6 +857,7 @@
     <plugin>
       <groupId>org.eclipse.jetty</groupId>
       <artifactId>maven-jetty-plugin</artifactId>
+      <version>@project.version@</version>
       <configuration>
         <war>${project.basedir}/target/myfunkywebapp</war>
       </configuration>
@@ -868,10 +874,10 @@
     <title>jetty:deploy-war</title>
 
     <para>This is basically the same as <code>jetty:run-war</code>, but
-    without assembling the WAR of the current module. Unlike
-    <code>run-war</code>, the phase in which this plugin executes is not bound
-    to the "package" phase. For example, you might want to start Jetty on the
-    "test-compile" phase and stop Jetty on the "test-phase".</para>
+    without assembling the WAR of the current module - you can nominate the
+    location of any war to run. Unlike <code>run-war</code>, the phase in
+    which this plugin executes is not bound to the "package" phase - you may
+    bind it to any phase to use it.</para>
 
     <section>
       <title>Configuration</title>
@@ -884,6 +890,19 @@
             <para>The location of the WAR file. This defaults to <code>
             ${project.build.directory}/${project.build.finalName}</code>, but
             you can override the default by setting this parameter.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>daemon</term>
+
+          <listitem>
+            <para>If true, this plugin will start jetty but let the build
+            continue. This is useful if you want to start jetty as an
+            execution binding in a particular phase and then stop it in
+            another. Alternatively, you can set this parameter to false, in
+            which case jetty will block and you will need to use a cntrl-c to
+            stop it.</para>
           </listitem>
         </varlistentry>
       </variablelist>
@@ -900,8 +919,11 @@
   <plugin>
     <groupId>org.eclipse.jetty</groupId>
     <artifactId>jetty-maven-plugin</artifactId>
+    <version>@project.version@</version>
     <configuration>
-      <war>${project.basedir}/target/mycustom.war</war>
+      <war>/opt/special/some-app.war</war>
+      <stopKey>alpha</stopKey>
+      <stopPort>9099</stopPort>
     </configuration>
     <executions>
       <execution>
@@ -910,10 +932,6 @@
         <goals>
           <goal>deploy-war</goal>
         </goals>
-        <configuration>
-          <daemon>true</daemon>
-          <reload>manual</reload>
-        </configuration>
       </execution>
       <execution>
         <id>stop-jetty</id>
@@ -1086,12 +1104,9 @@
     <para>For example, you can configure the plugin to start your webapp at
     the beginning of your unit tests and stop at the end. To do this, you need
     to set up a couple of <code>execution</code> scenarios for the Jetty
-    plugin and use the <code>&lt;daemon&gt;true&lt;/daemon&gt; </code>
-    configuration option to force Jetty to execute only while Maven is
-    running, instead of running indefinitely. You use the
-    <code>pre-integration-test</code> and <code>post-integration-test</code>
-    Maven build phases to trigger the execution and termination of
-    Jetty:</para>
+    plugin. You use the <code>pre-integration-test</code> and
+    <code>post-integration-test</code> Maven build phases to trigger the
+    execution and termination of Jetty:</para>
 
     <informalexample>
       <programlisting language="xml"><![CDATA[
@@ -1099,6 +1114,7 @@
 <plugin>
   <groupId>org.eclipse.jetty</groupId>
   <artifactId>jetty-maven-plugin</artifactId>
+  <version>@project.version@</version>
   <configuration>
     <scanIntervalSeconds>10</scanIntervalSeconds>
     <stopKey>foo</stopKey>
@@ -1113,7 +1129,6 @@
       </goals>
       <configuration>
         <scanIntervalSeconds>0</scanIntervalSeconds>
-        <daemon>true</daemon>
       </configuration>
     </execution>
     <execution>
@@ -1128,10 +1143,6 @@
       
       ]]></programlisting>
     </informalexample>
-
-    <para>Of course, you can use this goal from the command line ( <code>mvn
-    jetty:start</code>), however you need to be sure that all generated
-    classes and files for your webapp are already present first.</para>
   </section>
 
   <section xml:id="jetty-stop-goal">
@@ -1139,8 +1150,8 @@
 
     <para>The stop goal stops a running instance of jetty. To use it, you need
     to configure the plugin with a special port number and key. That same port
-    number and key will also be used by the <code> <link
-    linkend="jetty-start-goal">start</link> </code> goal.</para>
+    number and key will also be used by the other goals that start
+    jetty.</para>
 
     <variablelist>
       <varlistentry>
@@ -1168,7 +1179,7 @@
           <para>The maximum time in seconds that the plugin will wait for
           confirmation that jetty has stopped. If false or not specified, the
           plugin does not wait for confirmation but exits after issuing the
-          stop command. <emphasis role="bold"/></para>
+          stop command. </para>
         </listitem>
       </varlistentry>
     </variablelist>
@@ -1181,6 +1192,7 @@
 <plugin>
   <groupId>org.eclipse.jetty</groupId>
   <artifactId>jetty-maven-plugin</artifactId>
+  <version>@project.version@</version>
   <configuration>
     <stopPort>9966</stopPort>
     <stopKey>foo</stopKey>
@@ -1216,7 +1228,7 @@
     be used in conjunction with the <link
     linkend="quickstart-webapp">Quickstart</link> feature to quickly start
     your webapp (note that Quickstart is not appropriate for the mvn jetty
-    goals). </para>
+    goals).</para>
 
     <para>The following configuration parameters allow you to save the
     file:</para>
@@ -1242,7 +1254,7 @@
           </listitem>
         </varlistentry>
       </variablelist>Note that no programmatic declarations of servlets,
-    filters and listeners will be taken into account. </para>
+    filters and listeners will be taken into account.</para>
   </section>
 
   <section xml:id="using-overlaid-wars">
@@ -1309,6 +1321,7 @@ WebAppY:
           <para><programlisting language="xml"><![CDATA[<plugin>
   <groupId>org.apache.maven.plugins</groupId>
   <artifactId>maven-war-plugin</artifactId>
+  <version>@project.version@</version>
   <configuration>
     <overlays>
       <overlay>
@@ -1414,6 +1427,7 @@ WebAppY:
 <plugin>
   <groupId>org.eclipse.jetty</groupId>
   <artifactId>jetty-maven-plugin</artifactId>
+  <version>@project.version@</version>
   <configuration>
     <scanIntervalSeconds>10</scanIntervalSeconds>
     <webApp>
@@ -1472,6 +1486,7 @@ WebAppY:
 <plugin>
   <groupId>org.eclipse.jetty</groupId>
   <artifactId>jetty-maven-plugin</artifactId>
+  <version>@project.version@</version>
   <configuration>
     <scanIntervalSeconds>10</scanIntervalSeconds>
     <webApp>
@@ -1527,6 +1542,7 @@ WebAppY:
 <plugin>
   <groupId>org.eclipse.jetty</groupId>
   <artifactId>jetty-maven-plugin</artifactId>
+  <version>@project.version@</version>
   <configuration>
     <scanIntervalSeconds>10</scanIntervalSeconds>
     <webApp>
@@ -1551,11 +1567,12 @@ WebAppY:
     properties for the execution of the plugin. This feature is useful to tidy
     up the command line and save a lot of typing.</para>
 
-    <para>However, sometimes it is not possible to use this feature to set
-    System properties - sometimes the software component using the System
-    property is already initialized by the time that maven runs (in which case
-    you will need to provide the System property on the command line), or by
-    the time that jetty runs. In the latter case, you can use the <link
+    <para>However, <emphasis role="bold">sometimes it is not possible to use
+    this feature to set System properties</emphasis> - sometimes the software
+    component using the System property is already initialized by the time
+    that maven runs (in which case you will need to provide the System
+    property on the command line), or by the time that jetty runs. In the
+    latter case, you can use the <link
     xl:href="http://mojo.codehaus.org/properties-maven-plugin/">maven
     properties plugin</link> to define the system properties instead. Here's
     an example that configures the logback logging system as the jetty

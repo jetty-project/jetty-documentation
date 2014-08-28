@@ -195,7 +195,7 @@
     <para>Since jetty-9.1.0.RC1,<link linkend="jars-scanned-for-annotations">
     if annotation scanning is to be performed</link>, by default Jetty will do
     it in a multi-threaded manner in order to complete it in the minimum
-    amount of time. </para>
+    amount of time.</para>
 
     <para>If for some reason you don't want to do it multi-threaded, you can
     configure Jetty to revert to single-threaded scanning. You have several
@@ -206,20 +206,20 @@
         <para>set the <link linkend="context_attributes">context
         attribute</link>
         <code>org.eclipse.jetty.annotations.multiThreaded</code> to
-        <code>false</code> </para>
+        <code>false</code></para>
       </listitem>
 
       <listitem>
         <para>set the <link linkend="server_attributes">Server
         attribute</link>
         <code>org.eclipse.jetty.annotations.multiThreaded</code> to
-        <code>false</code> </para>
+        <code>false</code></para>
       </listitem>
 
       <listitem>
         <para>set the System property
         <code>org.eclipse.jetty.annotations.multiThreaded</code> to
-        <code>false</code> </para>
+        <code>false</code></para>
       </listitem>
     </orderedlist>
 
@@ -234,19 +234,19 @@
     <orderedlist>
       <listitem>
         <para>set the <link linkend="context_attributes">context
-        attribute</link> <code>org.eclipse.jetty.annotations.maxWait</code>
-        </para>
+        attribute</link>
+        <code>org.eclipse.jetty.annotations.maxWait</code></para>
       </listitem>
 
       <listitem>
         <para>set the <link linkend="server_attributes">Server
-        attribute</link> <code>org.eclipse.jetty.annotations.maxWait</code>
-        </para>
+        attribute</link>
+        <code>org.eclipse.jetty.annotations.maxWait</code></para>
       </listitem>
 
       <listitem>
         <para>set the System property
-        <code>org.eclipse.jetty.annotations.maxWait</code> </para>
+        <code>org.eclipse.jetty.annotations.maxWait</code></para>
       </listitem>
     </orderedlist>
 
@@ -279,7 +279,7 @@
       </listitem>
 
       <listitem>
-        <para>ServletContainerInitializers from WEB-INF/classes </para>
+        <para>ServletContainerInitializers from WEB-INF/classes</para>
       </listitem>
 
       <listitem>
@@ -298,26 +298,63 @@
     extraClasspath and jars from an extraClasspath for the webapp are called
     in step 2 and 3 respectively.</para>
 
-    <para>If you need ServletContainerInitializers called in a specific order
-    that is different from that outlined above, then you can use the <link
-    linkend="context_attributes">context attribute</link>
-    <code>org.eclipse.jetty.containerInitializerOrder</code>. Set it to a list
-    of comma separated class names of ServletContainerInitializers in the
-    order that you want them applied. You may optionally use the wildcard
-    character "*" once in the list. It will match all
-    ServletContainerInitializers not explicitly named in the list. Here's an
-    example, setting the context attribute in code (although you can also do
-    the <link linkend="intro-jetty-configuration-webapps">same in
-    xml</link>):</para>
+    <section>
+      <title>Controlling the order of ServletContainerInitializer
+      invocation</title>
 
-    <programlisting language="java">WebAppContext context = new WebAppContext();
+      <section>
+        <para>If you need ServletContainerInitializers called in a specific
+        order that is different from that outlined above, then you can use the
+        <link linkend="context_attributes">context attribute</link>
+        <code>org.eclipse.jetty.containerInitializerOrder</code>. Set it to a
+        list of comma separated class names of ServletContainerInitializers in
+        the order that you want them applied. You may optionally use the
+        wildcard character "*" <emphasis role="bold">once</emphasis> in the
+        list. It will match all ServletContainerInitializers not explicitly
+        named in the list. Here's an example, setting the context attribute in
+        code (although you can also do the <link
+        linkend="intro-jetty-configuration-webapps">same in
+        xml</link>):</para>
+
+        <programlisting language="java"><![CDATA[WebAppContext context = new WebAppContext();
 context.setAttribute("org.eclipse.jetty.containerInitializerOrder", 
-                     "org.eclipse.jetty.websocket.jsr356.server.deploy.WebSocketServerContainerInitializer, com.acme.Foo.MySCI, *");</programlisting>
+                     "org.eclipse.jetty.websocket.jsr356.server.deploy.WebSocketServerContainerInitializer, com.acme.Foo.MySCI, *");]]></programlisting>
 
-    <para>In this example, we ensure that the
-    WebSocketServerContainerInitializer is the very first
-    ServletContainerInitializer that is called, followed by MySCI and then any
-    other ServletContainerInitializers that were discovered but not yet
-    called.</para>
+        <para>In this example, we ensure that the
+        WebSocketServerContainerInitializer is the very first
+        ServletContainerInitializer that is called, followed by MySCI and then
+        any other ServletContainerInitializers that were discovered but not
+        yet called.</para>
+      </section>
+    </section>
+
+    <section>
+      <title>Excluding ServletContainerInitializers</title>
+
+      <para>By default, as according to the Servlet Specification, all
+      ServletContainerInitializers that are discovered are invoked (see above
+      for how to control the invocation order). Sometimes, you may need to
+      prevent some being called at all.</para>
+
+      <para>In this case, you can define the
+      <code>org.eclipse.jetty.containerInitializerExclusionPattern</code>
+      <link linkend="context_attributes">context attribute</link>. This is a
+      regular expression that defines <link
+      xl:href="http://docs.oracle.com/javase/7/docs/api/java/util/regex/Pattern.html">patterns</link>
+      of classnames that you want to exclude. Here's an example, setting the
+      context attribute in code, although you may do exactly the <link
+      linkend="intro-jetty-configuration-webapps">same in xml</link>:</para>
+
+      <para><programlisting language="java"><![CDATA[WebAppContext context = new WebAppContext();
+context.setAttribute("org.eclipse.jetty.containerInitializerExclusionPattern", 
+                     "com.acme.*|com.corp.SlowContainerInitializer");]]></programlisting>In
+      this example we exclude <emphasis role="bold">all</emphasis>
+      ServletContainerInitializers in the com.acme package, and the
+      SlowContainerInitializer.</para>
+
+      <para>It is possible to use exclusion and ordering together to control
+      ServletContainerInitializer invocation - the exclusions will be applied
+      before the ordering.</para>
+    </section>
   </section>
 </section>

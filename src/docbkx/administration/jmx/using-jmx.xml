@@ -147,7 +147,7 @@ Server server = new Server();
 
 // Setup JMX
 MBeanContainer mbContainer=new MBeanContainer(ManagementFactory.getPlatformMBeanServer());
-server.getContainer().addEventListener(mbContainer);
+server.addEventListener(mbContainer);
 server.addBean(mbContainer);
 
 // Add loggers MBean to server (will be picked up by MBeanContainer above)
@@ -158,7 +158,7 @@ server.addBean(Log.getLog());
 
         <para>Notice that Jetty creates the MBeanContainer immediately after
         creating the Server, and immediately after registering it as an
-        EventListener of the Server's Container object.</para>
+        EventListener of the Server object (which is also a Container object).</para>
 
         <para>Because logging is initialized prior to the MBeanContainer (even
         before the Server itself), it is necessary to register the logger

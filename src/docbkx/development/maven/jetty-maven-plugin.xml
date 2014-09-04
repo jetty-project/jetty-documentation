@@ -1179,7 +1179,7 @@
           <para>The maximum time in seconds that the plugin will wait for
           confirmation that jetty has stopped. If false or not specified, the
           plugin does not wait for confirmation but exits after issuing the
-          stop command. </para>
+          stop command.</para>
         </listitem>
       </varlistentry>
     </variablelist>
@@ -1493,11 +1493,11 @@ WebAppY:
       <contextPath>/test</contextPath>
     </webApp>
     <contextHandlers>
-      <contextHandler implementation="org.eclipse.jetty.webapp.WebAppContext">
+      <contextHandler implementation="org.eclipse.jetty.maven.plugin.JettyWebAppContext">
         <war>${project.basedir}../../B.war</war>
         <contextPath>/B</contextPath>
       </contextHandler>
-      <contextHandler implementation="org.eclipse.jetty.webapp.WebAppContext">
+      <contextHandler implementation="org.eclipse.jetty.maven.plugin.JettyWebAppContext">
         <war>${project.basedir}../../C.war</war>
         <contextPath>/B</contextPath>
       </contextHandler>
@@ -1506,6 +1506,16 @@ WebAppY:
 </plugin>
             ]]></programlisting>
     </informalexample>
+
+    <para><important>
+        <para>If the ContextHandler you are deploying is a webapp, it is
+        <emphasis role="bold">essential</emphasis> that you use an
+        <code>org.eclipse.jetty.maven.plugin.JettyWebAppContext</code>
+        instance rather than a standard
+        <code>org.eclipse.jetty.webapp.WebAppContext</code> instance. Only the
+        former will allow the webapp to function correctly in the maven
+        environment.</para>
+      </important></para>
 
     <para>Alternatively, add a <filename>jetty.xml</filename> file to webapp
     A. Copy the <filename> jetty.xml</filename> file from the jetty
@@ -1516,7 +1526,7 @@ WebAppY:
 <Ref refid="Contexts">
   <Call name="addHandler">
     <Arg>
-      <New class="org.eclipse.jetty.webapp.WebAppContext">
+      <New class="org.eclipse.jetty.maven.plugin.JettyWebAppContext">
         <Set name="contextPath">/B</Set>
         <Set name="war">../../B.war</Set>
       </New>
@@ -1524,7 +1534,7 @@ WebAppY:
   </Call>
   <Call> 
     <Arg>
-      <New class="org.eclipse.jetty.webapp.WebAppContext">
+      <New class="org.eclipse.jetty.maven.plugin.JettyWebAppContext">
         <Set name="contextPath">/C</Set>
         <Set name="war">../../C.war</Set>
       </New>

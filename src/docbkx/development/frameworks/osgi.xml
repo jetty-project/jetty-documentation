@@ -1465,7 +1465,7 @@ Import-Package: org.eclipse.virgo.web.dm;version="[3.0.0,4.0.0)",org.s
           <row>
             <entry>org.ow2.asm.asm-tree-4.1.jar</entry>
 
-            <entry>org.objectweb.asm.tre</entry>
+            <entry>org.objectweb.asm.tree</entry>
           </row>
 
           <row>
@@ -1475,7 +1475,7 @@ Import-Package: org.eclipse.virgo.web.dm;version="[3.0.0,4.0.0)",org.s
           </row>
 
           <row>
-            <entry>org.apache.aries.spifly.org.apache.aries.spifly.dnyamic.bundle-1.0.0.jar</entry>
+            <entry>org.apache.aries.spifly.org.apache.aries.spifly.dynamic.bundle-1.0.0.jar</entry>
 
             <entry>org.apache.aries.spifly.dynamic.bundle</entry>
           </row>

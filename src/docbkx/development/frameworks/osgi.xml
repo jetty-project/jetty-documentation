@@ -113,19 +113,20 @@
           </row>
 
           <row>
-            <entry>servlet-api (minimum version 3.1.0)</entry>
+            <entry>jetty-osgi-servlet-api</entry>
 
-            <entry>javax.servlet-api</entry>
-          </row>
-
-          <row>
-            <entry>jetty-schemas (minimum version 3.1.M0)</entry>
-
-            <entry>org.eclipse.jetty.schemas</entry>
+            <entry>org.eclipse.jetty.toolchain</entry>
           </row>
         </tbody>
       </tgroup>
     </table>
+
+    <note>
+      <para>We recommend that you also deploy the <link
+      linkend="osgi-annotations">annotation-related</link> jars also, as
+      increasingly the Servlet Specification relies on annotations for
+      functionality.</para>
+    </note>
   </section>
 
   <section>
@@ -409,7 +410,8 @@ org.osgi.framework.ServiceReference ref = bc.getServiceReference("org.eclipse.je
       </varlistentry>
 
       <varlistentry>
-        <term>Bundle MANIFEST contains Jetty-WarFolderPath</term>
+        <term>Bundle MANIFEST contains Jetty-WarFolderPath or
+        Jetty-WarResourcePath</term>
 
         <listitem>
           <para>This is the location within the bundle of the webapp
@@ -425,9 +427,9 @@ org.osgi.framework.ServiceReference ref = bc.getServiceReference("org.eclipse.je
             <programlisting language="plain"><![CDATA[
 
 Bundle-Name: Web
-Jetty-WarFolderPath: web
-Import-Package: javax.servlet;version="2.6.0",
- javax.servlet.resources;version="2.6.0"
+Jetty-WarResourcePath: web
+Import-Package: javax.servlet;version="3.1",
+ javax.servlet.resources;version="3.1"
 Bundle-SymbolicName: com.acme.sample.web
 
             ]]></programlisting>
@@ -468,10 +470,10 @@ com/acme/sample/web/MyOtherStuff.class
             <programlisting language="plain"><![CDATA[
 
 Bundle-Name: Web
-Jetty-WarFolderPath: web
+Jetty-WarResourcePath: web
 Web-ContextPath: /sample
-Import-Package: javax.servlet;version="2.6.0",
- javax.servlet.resources;version="2.6.0"
+Import-Package: javax.servlet;version="3.1",
+ javax.servlet.resources;version="3.1"
 Bundle-SymbolicName: com.acme.sample.web
 
             ]]></programlisting>
@@ -542,6 +544,38 @@ Bundle-SymbolicName: com.acme.sample.web
           <para>The name of the Server instance to which to deploy this webapp
           bundle. If not specified, defaults to the default Server instance
           called "defaultJettyServer".</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>Jetty-WarFragmentResourcePath</term>
+
+        <listitem>
+          <para>The path within a fragment hosted by the web-bundle that
+          contains static resources for the webapp. The path is appended to
+          the base resource for the webapp (see Jetty-WarResourcePath).</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>Jetty-WarPrependFragmentResourcePath</term>
+
+        <listitem>
+          <para>The path within a fragment hosted by the web-bundle that
+          contains static resources for the webapp.The path is prepended to
+          the base resource for the webapp (see Jetty-WarResourcePath).</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>Jetty-ContextFilePath</term>
+
+        <listitem>
+          <para>A comma separated list of paths within the webapp bundle to
+          Jetty context files that will be applied to the webapp.
+          Alternatively you may include a single Jetty context file called
+          "jetty-webapp-context.xml" in the webapp bundle's META-INF directory
+          and it will be automatically applied to the webapp.</para>
         </listitem>
       </varlistentry>
     </variablelist>
@@ -811,7 +845,7 @@ public void start(BundleContext context) throws Exception
 {
     WebAppContext webapp = new WebAppContext();
     Dictionary props = new Hashtable();
-    props.put("Jetty-WarFolderPath",".");
+    props.put("Jetty-WarResourcePath",".");
     props.put("contextPath","/acme");
     context.registerService(ContextHandler.class.getName(),webapp,props);
 }
@@ -827,7 +861,7 @@ public void start(BundleContext context) throws Exception
 
     <variablelist>
       <varlistentry>
-        <term>Jetty-WarFolderPath</term>
+        <term>Jetty-WarResourcePath</term>
 
         <listitem>
           <para>The location within the bundle of the root of the static
@@ -897,6 +931,26 @@ public void start(BundleContext context) throws Exception
           <para>The name of the Server instance to which to deploy this
           webapp. If not specified, defaults to the default Server instance
           called "defaultJettyServer".</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>Jetty-WarFragmentResourcePath</term>
+
+        <listitem>
+          <para>The path within a fragment hosted by the web-bundle that
+          contains static resources for the webapp. The path is appended to
+          the base resource for the webapp (see Jetty-WarResourcePath).</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>Jetty-WarPrependFragmentResourcePath</term>
+
+        <listitem>
+          <para>The path within a fragment hosted by the web-bundle that
+          contains static resources for the webapp.The path is prepended to
+          the base resource for the webapp (see Jetty-WarResourcePath).</para>
         </listitem>
       </varlistentry>
     </variablelist>
@@ -1184,8 +1238,9 @@ public void start(final BundleContext context) throws Exception
       to install the JSP related jars into your OSGi container. You can use
       the jars from the <link
       xl:href="http://central.maven.org/maven2/org/eclipse/jetty/jetty-distribution/">jetty
-      distribution</link> in the <filename>${jetty.home}/lib/jsp</filename>
-      directory, but some you will need to download them from <link
+      distribution</link> in the
+      <filename>${jetty.home}/lib/apache-jsp</filename> directory, but some
+      you will need to download them from <link
       xl:href="http://central.maven.org/maven2/org/eclipse/jetty/orbit/">maven
       central</link>. Here is the list of recommended jars (NOTE the version
       numbers may change in future):</para>
@@ -1196,7 +1251,7 @@ public void start(final BundleContext context) throws Exception
 
       <screen><![CDATA[<dependency>
   <groupId>org.eclipse.jetty</groupId>
-  <artifactId>jetty-jsp</artifactId>
+  <artifactId>apache-jsp</artifactId>
   <version>${project.version}</version>
   <type>pom</type>
 </dependency>]]></screen>
@@ -1215,27 +1270,27 @@ public void start(final BundleContext context) throws Exception
 
           <tbody>
             <row>
-              <entry>javax.el-3.0.0.jar</entry>
+              <entry>apache-el</entry>
 
-              <entry>javax.el</entry>
+              <entry>org.mortbay.jasper.apache-el</entry>
             </row>
 
             <row>
-              <entry>javax.servlet.jsp-api-2.3.1.jar</entry>
+              <entry>apache-jsp</entry>
 
-              <entry>javax.servlet.jsp</entry>
+              <entry>org.mortbay.jasper.apache-jsp</entry>
+            </row>
+
+            <row>
+              <entry>apache-jsp</entry>
+
+              <entry>org.eclipse.jetty.apache-jsp</entry>
             </row>
 
             <row>
               <entry>javax.servlet.jsp.jstl-1.2.0.v201105211821.jar</entry>
 
               <entry>javax.servlet.jsp.jstl</entry>
-            </row>
-
-            <row>
-              <entry>jetty-jsp-fragment-2.3.3.jar</entry>
-
-              <entry>org.eclipse.jetty.jsp.fragment</entry>
             </row>
 
             <row>
@@ -1248,6 +1303,19 @@ public void start(final BundleContext context) throws Exception
               <entry>org.eclipse.jdt.core-3.8.2.v20130121.jar</entry>
 
               <entry>org.eclipse.jdt.core.compiler.batch</entry>
+            </row>
+
+            <row>
+              <entry>jetty-osgi-boot-jsp</entry>
+
+              <entry>org.eclipse.jetty.osgi.boot.jsp</entry>
+            </row>
+
+            <row>
+              <entry>The <link linkend="osgi-annotations">annotation
+              jars</link></entry>
+
+              <entry/>
             </row>
           </tbody>
         </tgroup>
@@ -1265,23 +1333,6 @@ public void start(final BundleContext context) throws Exception
 
       <para>This bundle acts as a fragment extension to the
       jetty-osgi-boot.jar and adds in support for using JSP.</para>
-
-      <section>
-        <title>The jetty-jsp-fragment jar</title>
-
-        <para>The standard JSP implementation jar from Glassfish does not
-        contain some classes that are essential in an OSGi environment. To
-        overcome this, we provide the jetty-jsp-fragment jar, which provides
-        all necessary JSP implementation classes, a proper OSGi manifest, and
-        also attaches itself as a fragment extension to the
-        jetty-osgi-boot.jar. You can <link
-        xl:href="http://central.maven.org/maven2/org/eclipse/jetty/toolchain/jetty-jsp-frament/">download</link>
-        it from the maven central repo <link
-        xl:href="http://central.maven.org/maven2/org/eclipse/jetty/toolchain/jetty-jsp-frament/">here</link>.</para>
-
-        <para>If you do not use taglibs, or you only use the JSTL taglibs then
-        you do not need to do any further configuration.</para>
-      </section>
 
       <section>
         <title>Using TagLibs</title>
@@ -1430,12 +1481,12 @@ Import-Package: org.eclipse.virgo.web.dm;version="[3.0.0,4.0.0)",org.s
     </section>
   </section>
 
-  <section>
+  <section xml:id="osgi-annotations">
     <title>Using Annotations/ServletContainerInitializers</title>
 
     <para>Annotations are very much part of the Servlet 3.0 and 3.1
-    specifications. In order to use them with Jetty, you will need to deploy
-    some extra jars into your OSGi container: </para>
+    specifications. In order to use them with Jetty in OSGi, you will need to
+    deploy some extra jars into your OSGi container:</para>
 
     <table>
       <title>Jars Required for Annotations</title>
@@ -1451,31 +1502,31 @@ Import-Package: org.eclipse.virgo.web.dm;version="[3.0.0,4.0.0)",org.s
 
         <tbody>
           <row>
-            <entry>org.ow2.asm.asm-4.1.jar</entry>
+            <entry>org.ow2.asm.asm-5.0.1.jar</entry>
 
             <entry>org.objectweb.asm</entry>
           </row>
 
           <row>
-            <entry>org.ow2.asm.asm-commons-4.1.jar</entry>
+            <entry>org.ow2.asm.asm-commons-5.0.1.jar</entry>
 
             <entry>org.objectweb.asm.commons</entry>
           </row>
 
           <row>
-            <entry>org.ow2.asm.asm-tree-4.1.jar</entry>
+            <entry>org.ow2.asm.asm-tree-5.0.1.jar</entry>
 
             <entry>org.objectweb.asm.tree</entry>
           </row>
 
           <row>
-            <entry>org.apache.aries.org.apache.aries.util-1.0.0.jar</entry>
+            <entry>org.apache.aries.org.apache.aries.util-1.0.1.jar</entry>
 
             <entry>org.apache.aries.util</entry>
           </row>
 
           <row>
-            <entry>org.apache.aries.spifly.org.apache.aries.spifly.dynamic.bundle-1.0.0.jar</entry>
+            <entry>org.apache.aries.spifly.org.apache.aries.spifly.dynamic.bundle-1.0.1.jar</entry>
 
             <entry>org.apache.aries.spifly.dynamic.bundle</entry>
           </row>

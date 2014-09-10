@@ -35,58 +35,50 @@
   <section xml:id="contributing-cla">
     <title>Sign a CLA</title>
 
-    <para>Traditionally Eclipse has been more then a little difficult to
-    contribute code to as someone other then a committer on the given project.
-    The 3 questions would come up over and over again when trying to process
-    non-trivial contributions.</para>
+    <para>The Eclipse Foundation has a strong Intelectual Property policy
+    which tracks contributions in detail to ensure that:</para>
 
     <orderedlist>
       <listitem>
-        <para>Did you author 100% of the content you’re contributing?</para>
+        <para>Did the contributor author 100% of the content?</para>
       </listitem>
 
       <listitem>
-        <para>Do you have the rights to contribute this content to
-        Eclipse?</para>
+        <para>Does the contributor have the rights to contribute this content
+        to Eclipse?</para>
       </listitem>
 
       <listitem>
-        <para>Are you willing to contribute the content under the project’s
-        license(s) (e.g. EPL)</para>
+        <para>Is the contribution under the project’s license(s) (e.g.
+        EPL)</para>
       </listitem>
     </orderedlist>
 
-    <para>On every bugzilla that we considered that contained more then a
-    handful of lines of patch code we would have to ask these questions, with
-    good reason since that is sort of important for the overall IP cleaniless
-    argument that Eclipse makes. However it has always been a bit awkward to
-    have the patch ready, waiting and itching to apply, but having to stop at
-    that point and ask the three questions.</para>
-
-    <para>Well no longer!</para>
-
-    <para>We refer you to this <link
-    xl:href="http://mmilinkov.wordpress.com/2013/02/21/a-major-overhaul-of-eclipse-ip/">wonderful
-    blog entry</link> that details out the changes far better then we could
-    here. Long story short, we want you to sign and submit a contributer
-    license agreement before you go any further in the process of contributing
-    a patch. The actual agreement can be seen <link
-    xl:href="http://www.eclipse.org/legal/CLA.php"> on the eclipse legal
-    site</link>. If you want to sign the agreement, check out the <link
-    xl:href="http://www.eclipse.org/legal/clafaq.php">Eclipse CLA FAQ</link>
-    and look at item 10 on the list.</para>
+    <para>Thus a contributor needs to e-sign a <link xl:href="???">Contributor
+    Licence Agreement</link> (for more explanation see the <link
+    xl:href="http://www.eclipse.org/legal/clafaq.php">Eclipse CLA FAQ</link> )
+    regardless of how their contribution patch is provided.</para>
 
     <tip>
-      <title>Eclipse CLA - For the Impatient</title>
+      <title>Signing an Eclipse CLA</title>
 
       <para>Log into the <link
       xl:href="https://projects.eclipse.org/user/login/sso">Eclipse projects
       forge</link> (you will need to create an account with the Eclipse
       Foundation if you have not already done so); click on "Contributor
       License Agreement"; and Complete the form. Be sure to use the same email
-      address when you register for the account that you intend to use on Git
-      commit records.</para>
+      address when you create any Git commit records.</para>
     </tip>
+  </section>
+
+  <section>
+    <title>Use Bugzilla</title>
+
+    <para>Once a CLA has been signed, then patches should always be
+    contributed with an associated <link xl:href="???">project
+    bugzilla</link>. The CLA symbol next to the contributors name in the
+    bugzilla should be green to indicate the CLA is on record. This will allow
+    the authors contribution to both be tracked and acknowledged.</para>
   </section>
 
   <section xml:id="git-diff">
@@ -100,10 +92,10 @@
 
     <para>From the top level of the cloned project:</para>
 
-    <screen>
-      
-$ git diff &gt; ######.patch
-</screen>
+    <screen><![CDATA[      
+$ git diff > ######.patch
+
+]]></screen>
 
     <para>The hash marks should be the bugzilla issue that you will be
     attaching the issue to. All patches coming into jetty must come in through
@@ -121,10 +113,10 @@ $ git diff &gt; ######.patch
     <para>When the developer reviews the patch and goes to apply it they will
     use:</para>
 
-    <screen>
-      
-$ git apply &lt; ######.patch
-</screen>
+    <screen><![CDATA[      
+$ git apply < ######.patch
+
+]]></screen>
 
     <para>If you want to be a nice person, test your patch on a clean clone to
     ensure that it applies cleanly. Nothing frustrates a developer quite like
@@ -153,29 +145,25 @@ $ git apply &lt; ######.patch
     <para>Make your changes and commit them locally using <code>git commit
     -s</code>:</para>
 
-    <screen>
-      
+    <screen><![CDATA[      
 $ git commit -s
- </screen>
+ ]]></screen>
 
-    <para> Then use git log to identify the commit(s) you want to include in
+    <para>Then use git log to identify the commit(s) you want to include in
     your patch:</para>
 
-    <screen>
-      
+    <screen><![CDATA[      
 commit 70e29326fe904675f772b88a67128c0b3529565e
-Author: John Doe &lt;john.doe@who.com&gt;
+Author: John Doe <john.doe@who.com>
       Date: Tue Aug 2 14:36:50 2011 +0200 353563:
 HttpDestinationQueueTest too slow
-
-    </screen>
+    ]]></screen>
 
     <para>Use git format-patch to create the patch:</para>
 
-    <screen>
-      
+    <screen><![CDATA[      
 $ git format-patch -M -B 70e29326fe904675f772b88a67128c0b3529565e
- </screen>
+ ]]></screen>
 
     <para>This will create a single patch file for each commit since the
     specified commit. The names will start with 0001-[commitmessage].patch.
@@ -194,14 +182,13 @@ $ git format-patch -M -B 70e29326fe904675f772b88a67128c0b3529565e
 
     <para>To apply the patch the developer will use a command like:</para>
 
-    <screen>
-      
+    <screen><![CDATA[    
 $ git am 0001-353563-HttpDestinationQueueTest-too-slow.patch
- </screen>
+ ]]></screen>
 
     <para>Providing it applies cleanly there will now be a commit in their
-    local copy and they can either make additional commits or push it out.
-    </para>
+    local copy and they can either make additional commits or push it
+    out.</para>
 
     <para><note>
         <para>It is intended that developers are also able to counter-sign the
@@ -210,160 +197,198 @@ $ git am 0001-353563-HttpDestinationQueueTest-too-slow.patch
         recommended that developers do NOT use the -s option. See <link
         xl:href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=415307">https://bugs.eclipse.org/bugs/show_bug.cgi?id=415307</link></para>
       </note></para>
-  </section>
 
-  <section xml:id="git-amend">
-    <title>Git Amend</title>
+    <section xml:id="git-amend">
+      <title>Git Amend</title>
 
-    <para>Alternatively, for troublesome patches that do not seem to apply
-    cleanly with git am, you can use git commit --amend to modify the author
-    and signoff the commit. For example:</para>
+      <para>If a committer is having trouble applying the patch cleanly with
+      git am, they can use git commit --amend to modify the author and signoff
+      the commit. For example:</para>
 
-    <screen>
-      
+      <screen><![CDATA[      
 $ git checkout -b patch
 $ git apply john-doe.patch
-$ git commit -a -m "&lt;Original commit message from John Doe&gt;"
+$ git commit -a -m "<Original commit message from John Doe>"
+    ]]></screen>
 
-    </screen>
+      <para>At this point the patch is committed with the committer's name on
+      a local branch</para>
 
-    <para>At this point the patch is committed with the committer's name on a
-    local branch</para>
+      <screen><![CDATA[      
+$ git commit --amend --author "John Doe <john.doe@who.com>" --signoff
+    ]]></screen>
 
-    <screen>
-      
-$ git commit --amend --author "John Doe &lt;john.doe@who.com&gt;" --signoff
+      <para>Now the patch has the right author and it has been signed
+      off</para>
 
-    </screen>
-
-    <para>Now the patch has the right author and it has been signed off</para>
-
-    <screen>
-      
+      <screen><![CDATA[      
 $ git checkout master
 $ git merge patch
- </screen>
+ ]]></screen>
 
-    <para>Now the local branch has been merged into master with the right
-    author</para>
+      <para>Now the local branch has been merged into master with the right
+      author</para>
 
-    <screen>
-      
+      <screen><![CDATA[      
 $ git branch -d patch
 $ git push
- </screen>
+ ]]></screen>
+    </section>
   </section>
 
-  <section xml:id="gerrit-for-contributors">
-    <title>Gerrit for Contributors</title>
+  <section>
+    <title>Contributing with Gerrit</title>
 
-    <para>Prepare yourself for using gerrit by following the steps described
-    here: <link
-    xl:href="https://git.eclipse.org/r/Documentation/user-upload.html">https://git.eclipse.org/r/Documentation/user-upload.html</link></para>
+    <para><link xl:href="https://wiki.eclipse.org/Gerrit">Gerrit</link> is a
+    web based code review system, facilitating online code reviews for
+    projects using the Git version control system.</para>
 
-    <para>Then clone the jetty-project:</para>
+    <section xml:id="gerrit-for-contributors">
+      <title>Gerrit for Contributors</title>
 
-    <screen>
-    
+      <para>Prepare yourself for using gerrit by following the steps described
+      here: <link
+      xl:href="https://git.eclipse.org/r/Documentation/user-upload.html">https://git.eclipse.org/r/Documentation/user-upload.html</link></para>
+
+      <para>Then clone the jetty-project:</para>
+
+      <screen><![CDATA[    
 $ git clone ssh://git.eclipse.org:29418/jetty/org.eclipse.jetty.project
- 
-    </screen>
+     ]]></screen>
 
-    <para><emphasis>Stop.</emphasis> Make sure you have a bugzilla issue open
-    for the change that you want to commit into gerrit for review. Also when
-    you are ready to commit your change make sure that your commit starts with
-    the bugzilla id. For example your commit should look like this:</para>
+      <para><emphasis>Stop.</emphasis> Make sure you have a bugzilla issue
+      open for the change that you want to commit into gerrit for review. Also
+      when you are ready to commit your change make sure that your commit
+      starts with the bugzilla id. For example your commit should look like
+      this:</para>
 
-    <screen>
-      
-$ git commit -m "[Bug 343532] fixed issue" &lt;files&gt;</screen>
+      <screen><![CDATA[     
+$ git commit -m "[Bug 343532] fixed issue" <files>
 
-    <para>Make sure to properly set the changeIds as described here: <link
-    xl:href="https://git.eclipse.org/r/Documentation/user-changeid.html">https://git.eclipse.org/r/Documentation/user-changeid.html</link></para>
+]]></screen>
 
-    <para>Make your changes, commit them as usual with git. Once done
-    do:</para>
+      <para>Make sure to properly set the changeIds as described here: <link
+      xl:href="https://git.eclipse.org/r/Documentation/user-changeid.html">https://git.eclipse.org/r/Documentation/user-changeid.html</link></para>
 
-    <screen>
-    
+      <para>Make your changes, commit them as usual with git. Once done
+      do:</para>
+
+      <screen><![CDATA[    
 $ git push ssh://git.eclipse.org:29418/jetty/org.eclipse.jetty.project HEAD:refs/for/master
- </screen>
 
-    <para>Note the magic: <code>HEAD:refs/for/master</code>. Without gerrit
-    will not permit you to push.</para>
+]]></screen>
 
-    <para>Review your changes on your gerrit dashboard: <link
-    xl:href="https://git.eclipse.org/r/#/">https://git.eclipse.org/r/#/</link></para>
+      <para>Note the magic: <code>HEAD:refs/for/master</code>. Without gerrit
+      will not permit you to push.</para>
 
-    <para>Finally get some coffee and relax. You've contributed something to
-    jetty, woohooo. :)</para>
+      <para>Review your changes on your gerrit dashboard: <link
+      xl:href="https://git.eclipse.org/r/#/">https://git.eclipse.org/r/#/</link></para>
+
+      <para>Finally get some coffee and relax. You've contributed something to
+      jetty, woohooo. :)</para>
+    </section>
+
+    <section xml:id="gerrit-for-committers">
+      <title>Gerrit for Committers</title>
+
+      <para>Using gerrit is pretty simple. Once you have logged in you should
+      first register your interest in the project repositories you want to be
+      notified of patches on. This option is located under your user Settings
+      near your name in the upper right hand corner. Click on 'Watched
+      Projects' and then start typing 'jetty' into the project name box and it
+      will offer completions for the jetty projects.</para>
+
+      <para>Now that you are watching the appropriate projects you should get
+      email notifications of commits into gerrit. It is critical that you
+      follow strict committer IP process when reviewing commits. Egregious
+      violations of this process can result into committer status
+      issues.</para>
+
+      <para>On the top of the screen click My -&gt; Watched Changes for a list
+      of the commits available for review. These represent people waiting to
+      have their work reviewed. Once you select an issue to review you will
+      see a list of changes at the bottom, click on these and look over the
+      changes. You can have a dialog back and forth with the user through the
+      comments on the patch. Providing they used the ChangeId setup correctly
+      they will be able to issue updates to their patch for further review.
+      Once you are happy with a review change set click on the Review button.
+      This brings up a screen with three important questions.</para>
+
+      <variablelist>
+        <varlistentry>
+          <term>Verified</term>
+
+          <listitem>
+            <para>Have you verified if this patch is acceptable.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>Code Review</term>
+
+          <listitem>
+            <para>How acceptable is this review change set? Are you willing to
+            testitfy that it is good enough or does it bear further
+            review.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>IP Clean</term>
+
+          <listitem>
+            <para>Does this commit follow acceptable IP guidelines? If
+            anything looks suspicious then follow up with comments to clarify
+            any potential issues. Commits with minor changes to existing
+            classes and projects are fine and should reference a corresponding
+            bugzilla id in their commit message.</para>
+
+            <para>Completely new features and large contributions require a
+            corresponding CQ reference.</para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+
+      <para>Assuming sufficient approval through the review process there will
+      be an option to Review and Submit and the commit will pass through into
+      jetty proper. You may also review and comment without submitting so the
+      Review button is useful for clearly stating the reviewers comments and
+      concerns regarding the three items mentioned above. Multiple reviewers
+      are able to collaborate on a given patch as well.</para>
+    </section>
   </section>
 
-  <section xml:id="gerrit-for-committers">
-    <title>Gerrit for Committers</title>
+  <section>
+    <title>Contributing via GitHub PullRequests</title>
 
-    <para>Using gerrit is pretty simple. Once you have logged in you should
-    first register your interest in the project repositories you want to be
-    notified of patches on. This option is located under your user Settings
-    near your name in the upper right hand corner. Click on 'Watched Projects'
-    and then start typing 'jetty' into the project name box and it will offer
-    completions for the jetty projects.</para>
+    <para>The jetty eclipse git repository is mirrored to github at <link
+    xl:href="https://github.com/eclipse/jetty.project">http://github.com/eclipse/jetty.project</link>.
+    Github has a suite of collaboration tools for submitting and reviewing
+    contributions, but unfortunately the Eclipse Foundations IP policy
+    prevents direct merging of github pull requests. However, if a contributor
+    makes a pull request and references that in a bugzilla with a signed CLA,
+    then a Jetty committer should be able to fetch, merge and commit the pull
+    requests without the need to create a separate patch.</para>
 
-    <para>Now that you are watching the appropriate projects you should get
-    email notifications of commits into gerrit. It is critical that you follow
-    strict committer IP process when reviewing commits. Egregious violations
-    of this process can result into committer status issues.</para>
+    <section>
+      <title>Github pull requests for Committers</title>
 
-    <para>On the top of the screen click My -&gt; Watched Changes for a list
-    of the commits available for review. These represent people waiting to
-    have their work reviewed. Once you select an issue to review you will see
-    a list of changes at the bottom, click on these and look over the changes.
-    You can have a dialog back and forth with the user through the comments on
-    the patch. Providing they used the ChangeId setup correctly they will be
-    able to issue updates to their patch for further review. Once you are
-    happy with a review change set click on the Review button. This brings up
-    a screen with three important questions.</para>
+      <para>A committer can prepare their repository for accepting Github pull
+      requests as follows:</para>
 
-    <variablelist>
-      <varlistentry>
-        <term>Verified</term>
+      <screen><![CDATA[$ git remote add github https://github.com/eclipse/jetty.project.git
+$ git config --add remote.github.fetch "+refs/pull/*/head:refs/remotes/origin/pr/*"]]></screen>
 
-        <listitem>
-          <para>Have you verified if this patch is acceptable.</para>
-        </listitem>
-      </varlistentry>
+      <para>A committer can then fetch the latest pull request and check them
+      out as follows (for pull request #123):</para>
 
-      <varlistentry>
-        <term>Code Review</term>
+      <screen><![CDATA[$ git fetch github
+$ git checkout pr/123]]></screen>
 
-        <listitem>
-          <para>How acceptable is this review change set? Are you willing to
-          testitfy that it is good enough or does it bear further
-          review.</para>
-        </listitem>
-      </varlistentry>
-
-      <varlistentry>
-        <term>IP Clean</term>
-
-        <listitem>
-          <para>Does this commit follow acceptable IP guidelines? If anything
-          looks suspicious then follow up with comments to clarify any
-          potential issues. Commits with minor changes to existing classes and
-          projects are fine and should reference a corresponding bugzilla id
-          in their commit message.</para>
-
-          <para>Completely new features and large contributions require a
-          corresponding CQ reference.</para>
-        </listitem>
-      </varlistentry>
-    </variablelist>
-
-    <para>Assuming sufficient approval through the review process there will
-    be an option to Review and Submit and the commit will pass through into
-    jetty proper. You may also review and comment without submitting so the
-    Review button is useful for clearly stating the reviewers comments and
-    concerns regarding the three items mentioned above. Multiple reviewers are
-    able to collaborate on a given patch as well.</para>
+      <para>The committer can then use normal git commands to merge the
+      contribution back to the master branch. The commits may need to be
+      signed off so they can be pushed using the git amend technique
+      above.</para>
+    </section>
   </section>
 </section>

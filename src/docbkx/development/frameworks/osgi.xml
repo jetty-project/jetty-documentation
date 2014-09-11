@@ -1270,33 +1270,33 @@ public void start(final BundleContext context) throws Exception
 
           <tbody>
             <row>
-              <entry>apache-el</entry>
+              <entry>org.mortbay.jasper:apache-el</entry>
 
               <entry>org.mortbay.jasper.apache-el</entry>
             </row>
 
             <row>
-              <entry>apache-jsp</entry>
+              <entry>org.mortbay.jasper:apache-jsp</entry>
 
               <entry>org.mortbay.jasper.apache-jsp</entry>
             </row>
 
             <row>
-              <entry>apache-jsp</entry>
+              <entry>org.eclipse.jetty:apache-jsp</entry>
 
               <entry>org.eclipse.jetty.apache-jsp</entry>
             </row>
 
             <row>
-              <entry>javax.servlet.jsp.jstl-1.2.0.v201105211821.jar</entry>
+              <entry>org.eclipse.jetty.orbit:javax.servlet.jsp.jstl-1.2.0.v201105211821.jar</entry>
 
               <entry>javax.servlet.jsp.jstl</entry>
             </row>
 
             <row>
-              <entry>org.apache.taglibs.standard.glassfish-1.2.0.v201112081803.jar</entry>
+              <entry>org.glassfish.web:javax.servlet.jsp.jstl-1.2.2.jar</entry>
 
-              <entry>org.apache.taglibs.standard.glassfish</entry>
+              <entry>org.glassfish.web.javax.servlet.jsp.jstl</entry>
             </row>
 
             <row>
@@ -1306,7 +1306,7 @@ public void start(final BundleContext context) throws Exception
             </row>
 
             <row>
-              <entry>jetty-osgi-boot-jsp</entry>
+              <entry>org.eclipse.jetty.osgi:jetty-osgi-boot-jsp</entry>
 
               <entry>org.eclipse.jetty.osgi.boot.jsp</entry>
             </row>
@@ -1502,37 +1502,37 @@ Import-Package: org.eclipse.virgo.web.dm;version="[3.0.0,4.0.0)",org.s
 
         <tbody>
           <row>
-            <entry>org.ow2.asm.asm-5.0.1.jar</entry>
+            <entry>org.ow2.asm:asm-5.0.1.jar</entry>
 
             <entry>org.objectweb.asm</entry>
           </row>
 
           <row>
-            <entry>org.ow2.asm.asm-commons-5.0.1.jar</entry>
+            <entry>org.ow2.asm:asm-commons-5.0.1.jar</entry>
 
             <entry>org.objectweb.asm.commons</entry>
           </row>
 
           <row>
-            <entry>org.ow2.asm.asm-tree-5.0.1.jar</entry>
+            <entry>org.ow2.asm:asm-tree-5.0.1.jar</entry>
 
             <entry>org.objectweb.asm.tree</entry>
           </row>
 
           <row>
-            <entry>org.apache.aries.org.apache.aries.util-1.0.1.jar</entry>
+            <entry>org.apache.aries:org.apache.aries.util-1.0.1.jar</entry>
 
             <entry>org.apache.aries.util</entry>
           </row>
 
           <row>
-            <entry>org.apache.aries.spifly.org.apache.aries.spifly.dynamic.bundle-1.0.1.jar</entry>
+            <entry>org.apache.aries.spifly:org.apache.aries.spifly.dynamic.bundle-1.0.1.jar</entry>
 
             <entry>org.apache.aries.spifly.dynamic.bundle</entry>
           </row>
 
           <row>
-            <entry>javax.annotation.javax.annotation-api-1.2.jar</entry>
+            <entry>javax.annotation:javax.annotation-api-1.2.jar</entry>
 
             <entry>javax.annotation-api</entry>
           </row>

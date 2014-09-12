@@ -16,90 +16,56 @@
 //  You may elect to redistribute this code under either of these licenses.
 //  ========================================================================
 -->
-<section xml:id="framework-weld" 
-	version="5.0" xmlns="http://docbook.org/ns/docbook"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-	xmlns:xl="http://www.w3.org/1999/xlink"
-	xmlns:xi="http://www.w3.org/2001/XInclude"
-	xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd">
-	<title>Weld</title>
-	<para>
-		<link xl:href="http://seamframework.org/Weld">Weld</link> can be used to add support for CDI (Contexts and Dependency Injection) to Servlets, Listeners and Filters.  It is easily configured with Jetty 9.
-	</para>
-	<section xml:id="weld-setup-distro">
-		<title>Weld Setup</title>
-		<para>
-			The easiest way to configure weld is within the jetty distribution itself.
-		</para>
-		<important>
-			<title>Filters and Servlets Only</title>
-			<para>
-				At the moment, only filters and servlets are supported for CDI with Weld.  ServletContextListeners can not be configured with CDI (until we sort out the proper solution to the issue).
-			</para>
-		</important>
-		<orderedlist>
-			<listitem>
-				<para>
-					Create the directory <filename>$jetty.home/lib/weld</filename>.
-				</para>
-			</listitem>
-			<listitem>
-				<para>
-					Download the <link xl:href="http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22weld-servlet%22">weld-servlet artifact</link> and place it into the newly created directory.
-				</para>
-				
-				<informalexample>
-					<programlisting language="xml">
-<![CDATA[
-<dependency>
-	<groupId>org.jboss.weld.servlet</groupId>
-	<artifactId>weld-servlet</artifactId>
-	<version>2.0.0.FINAL</version>
-</dependency>
-]]>
-					</programlisting>
-				</informalexample>
-			</listitem>
-			<listitem>
-				<para>
-					Edit the <filename>start.ini</filename> file and add an OPTION line for weld near the end.
-				</para>
-				<informalexample>
-					<programlisting language="plain">
-<![CDATA[
-OPTIONS=weld
-]]>
-					</programlisting>
-				</informalexample>
-			</listitem>
-			<listitem>
-				<para>
-					Continue editting the <filename>start.ini</filename> file and uncomment the lines for <emphasis role="bold">jndi</emphasis>, <emphasis role="bold">annotations</emphasis> and <emphasis role="bold">plus</emphasis>.
-				</para>
-			</listitem>
-			<listitem>
-				<para>
-					Ensure your <filename>WEB-INF/web.xml</filename> contains the following listeners.
-				</para>
-				<informalexample>
-					<programlisting language="xml">
-<![CDATA[
+<section version="5.0"
+         xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd"
+         xml:id="framework-weld" xmlns="http://docbook.org/ns/docbook"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:xs="http://www.w3.org/2001/XMLSchema"
+         xmlns:xl="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:ns="http://docbook.org/ns/docbook">
+  <title>Weld</title>
+
+  <para><link xl:href="http://seamframework.org/Weld">Weld</link> can be used
+  to add support for CDI (Contexts and Dependency Injection) to Servlets,
+  Listeners and Filters. It is easily configured with Jetty 9.</para>
+
+  <section xml:id="weld-setup-distro">
+    <title>Weld Setup</title>
+
+    <para>The easiest way to configure weld is within the jetty distribution
+    itself:</para>
+
+    <orderedlist>
+      <listitem>
+        <para>Enable the weld startup <link
+        linkend="startup-modules">module</link></para>
+      </listitem>
+
+      <listitem>
+        <para>Ensure your <filename>WEB-INF/web.xml</filename> contains the
+        following listeners.</para>
+
+        <informalexample>
+          <programlisting language="xml"><![CDATA[
+
 <listener>
   <listener-class>org.jboss.weld.environment.servlet.BeanManagerResourceBindingListener</listener-class>
 </listener>
 <listener>
   <listener-class>org.jboss.weld.environment.servlet.Listener</listener-class>
 </listener>
-]]>
-					</programlisting>
-				</informalexample>
-			</listitem>
-		</orderedlist>
-		<para>
-			That should be it so when you start up your jetty distribution with the webapp you should see the following output (providing your logging is the default configuration).
-		</para>
-		<screen>
-<![CDATA[
+]]></programlisting>
+        </informalexample>
+      </listitem>
+    </orderedlist>
+
+    <para>That should be it so when you start up your jetty distribution with
+    the webapp you should see the following output (providing your logging is
+    the default configuration).</para>
+
+    <screen><![CDATA[
+
 013-05-30 15:49:01.511:INFO:oejs.Server:main: jetty-9.0.3.v20130506
 2013-05-30 15:49:01.564:INFO:oejdp.ScanningAppProvider:main: Deployment monitor [file:/Users/jesse/Desktop/jetty-distribution-9.0.3.v20130506/webapps/] at interval 1
 2013-05-30 15:49:01.764:INFO:oejpw.PlusConfiguration:main: No Transaction manager found - if your webapp requires one, please configure one.
@@ -117,7 +83,12 @@ May 30, 2013 3:49:02 PM org.jboss.weld.interceptor.util.InterceptionTypeRegistry
 WARNING: Class 'javax.ejb.PrePassivate' not found, interception based on it is not enabled
 2013-05-30 15:49:02.919:INFO:oejsh.ContextHandler:main: Started o.e.j.w.WebAppContext@40a49a3{/simple-web,file:/private/var/folders/br/kbs2g3753c54wmv4j31pnw5r0000gn/T/jetty-0.0.0.0-8080-simple-web.war-_simple-web-any-/webapp/,AVAILABLE}{/simple-web.war}
 2013-05-30 15:49:02.940:INFO:oejs.ServerConnector:main: Started ServerConnector@430e0623{HTTP/1.1}{0.0.0.0:8080}
-]]>
-		</screen>
-	</section>
+
+]]></screen>
+
+    <para>For use with the jetty-maven-plugin, the best idea is to make the
+    org.jboss.weld.servlet:weld-servlet artifact a <emphasis>plugin</emphasis>
+    dependency (<emphasis>not</emphasis> a webapp dependency), then follow
+    step 2 above.</para>
+  </section>
 </section>

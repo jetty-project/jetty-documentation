@@ -27,25 +27,18 @@
          xmlns:ns="http://docbook.org/ns/docbook">
   <title>Quick Setup</title>
 
-  <para>If you are using the standard distribution of Jetty, and want to
-  enable JNDI for <emphasis>all</emphasis> your webapps, edit the
-  <filename>$JETTY_HOME/start.ini</filename> file and uncomment the following
-  lines:</para>
+  <para>If you are using the standard distribution of Jetty, you must enable
+  the jndi <link linkend="startup-modules">module</link>, if it is not already
+  enabled via a transitive dependency from another module. Assuming you have
+  jetty <link linkend="startup-base-and-home">installed</link> in /opt/jetty,
+  and you have made a <link linkend="startup-base-and-home">jetty base</link>
+  in /opt/jetty/my-base, do:</para>
 
   <informalexample>
-    <programlisting language="bash"><![CDATA[
-# ===========================================================
-# Enable JNDI 
-# -----------------------------------------------------------
-OPTIONS=jndi
-
-# ===========================================================
-# Enable additional webapp environment configurators 
-# -----------------------------------------------------------
-OPTIONS=plus
-etc/jetty-plus.xml
-
-    ]]></programlisting>
+    <screen language="bash"><![CDATA[cd /opt/jetty
+cd my-base
+java -jar ../start.jar --add-to-startd=jndi
+    ]]></screen>
   </informalexample>
 
   <para>You can now start Jetty and use JNDI within your webapps. See <link

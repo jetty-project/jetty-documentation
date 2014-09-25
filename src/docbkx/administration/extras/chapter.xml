@@ -27,7 +27,7 @@
          xmlns:ns4="http://www.w3.org/1998/Math/MathML"
          xmlns:ns3="http://www.w3.org/1999/xhtml"
          xmlns:ns="http://docbook.org/ns/docbook">
-  <title>Bundled Servlets, Filters, and Handlers</title>
+  <title>Provided Servlets, Filters, and Handlers</title>
 
   <para>Jetty ships with a bundle of servlets that interact with the key
   classes. Most are in the org.eclipse.jetty.servlets package. These servlets
@@ -70,4 +70,6 @@
   <xi:include href="default-handler.xml"/>
 
   <xi:include href="error-handler.xml"/>
+
+  <xi:include href="rewrite-handler.xml"/>
 </chapter>

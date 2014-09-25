@@ -294,9 +294,6 @@
 
     <xi:include href="administration/runner/chapter.xml"/>
 
-    <!-- How to enable jetty setuid on linux and osx -->
-
-    <xi:include href="administration/setuid/chapter.xml"/>
 
     <!-- Advanced Security Topics -->
 

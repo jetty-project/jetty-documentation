@@ -21,6 +21,5 @@ xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclud
 xmlns:svg="http://www.w3.org/2000/svg" xmlns:mth="http://www.w3.org/1998/Math/MathML"
 xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
   <title>Handlers</title>
-  <xi:include href="rewrite-handler.xml"/>
   <xi:include href="writing-custom-handlers.xml" />
 </chapter>

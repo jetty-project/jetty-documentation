@@ -32,8 +32,31 @@
   also be configured to redirect the response, set a cookie or response code
   on the response, modify the header, etc.</para>
 
-  <section>
-    <title>Quick Start</title>
+  <section xml:id="rewrite-handler-metadata">
+    <title>Info</title>
+
+    <para>
+      <itemizedlist>
+        <listitem>
+          <para>Classname:
+          org.eclipse.jetty.rewrite.handler.RewriteHandler</para>
+        </listitem>
+
+        <listitem>
+          <para>Maven artifact: org.eclipse.jetty:jetty-rewrite</para>
+        </listitem>
+
+        <listitem>
+          <para>Javadoc: <link
+          xl:href="???">@JDURL@/org/eclipse/jetty/rewrite/handler/RewriteHandler.html</link></para>
+        </listitem>
+
+        <listitem>
+          <para>Xref: <link
+          xl:href="@JXURL@/org/eclipse/jetty/rewrite/handler/RewriteHandler.html">@JXURL@/org/eclipse/jetty/rewrite/handler/RewriteHandler.html</link></para>
+        </listitem>
+      </itemizedlist>
+    </para>
 
     <para>The standard Jetty distribution bundle contains the
     <literal>jetty-rewrite</literal> <link
@@ -54,73 +77,35 @@ $ java -jar start.jar --add-to-startd=rewrite
   </note>
 
   <section>
-    <title>Configuring Rules</title>
+    <title>Usage</title>
 
-    <para>The rules are configured using <filename>jetty.xml</filename>
-    syntax. This example file shows how to add the rewrite handler for the
-    entire server:</para>
+    <para>The rewrite module enables the following jetty xml config file on
+    the execution path:</para>
 
     <informalexample>
-      <programlisting language="xml"><![CDATA[
-<Configure id="Server" class="org.eclipse.jetty.server.Server">
-    <!-- create and configure the rewrite handler -->
-    <New id="Rewrite" class="org.eclipse.jetty.rewrite.handler.RewriteHandler">
-      <Set name="rewriteRequestURI">true</Set>
-      <Set name="rewritePathInfo">false</Set>
-      <Set name="originalPathAttribute">requestedPath</Set>
- 
-      <!-- redirect the response. This is a redirect which is visible to the browser.
-           After the redirect, the browser address bar will show /redirected -->
-      <Call name="addRule">
-        <Arg>
-          <New class="org.eclipse.jetty.rewrite.handler.RedirectPatternRule">
-            <Set name="pattern">/redirect/*</Set>
-            <Set name="replacement">/redirected</Set>
-          </New>
-        </Arg>
-      </Call>
- 
-      <!-- rewrite the request URI. This is an internal rewrite, visible to server,
-           but the browser will still show /some/old/context -->
-      <Call name="addRule">
-        <Arg>
-          <New class="org.eclipse.jetty.rewrite.handler.RewritePatternRule">
-            <Set name="pattern">/some/old/context</Set>
-            <Set name="replacement">/some/new/context</Set>
-          </New>
-        </Arg>
-      </Call>
- 
-      <!-- reverse the order of the path sections. Internal rewrite -->
-      <Call name="addRule">
-        <Arg>
-          <New class="org.eclipse.jetty.rewrite.handler.RewriteRegexRule">
-            <Set name="regex">/reverse/([^/]*)/(.*)</Set>
-            <Set name="replacement">/reverse/$2/$1</Set>
-          </New>
-        </Arg>
-      </Call>
-    </New>
- 
-     <!-- add the rewrite handler to the server -->
-    <Set name="handler"><Ref id="Rewrite" /></Set>
-</Configure>
-
-      ]]></programlisting>
+      <programlisting language="rxml"><filename>@GITURL@/jetty-rewrite/src/main/config/etc/jetty-rewrite.xml</filename>
+      </programlisting>
     </informalexample>
 
-    <para>See <filename>the demo-base/etc/demo-rewrite-rules.xml</filename>
-    file in the standard distribution for more configuration examples.</para>
-  </section>
+    <para>As the commented out code shows, you configure the RewriteHandler by
+    adding various rules. </para>
 
-  <section>
-    <title>Embedded Example</title>
-
-    <para>This is an example for embedded Jetty, which does the same thing as
-    the configuration file example above:</para>
+    <para>There is an example of <link linkend="rewrite-rules">rules</link>
+    configuration in the standard distribution in the
+    <filename>demo-base/etc/demo-rewrite-rules.xml</filename> file:</para>
 
     <informalexample>
-      <programlisting language="java"><![CDATA[
+      <programlisting language="rxml"><filename>@GITURL@/tests/test-webapps/test-jetty-webapp/src/main/config/demo-base/etc/demo-rewrite-rules.xml</filename></programlisting>
+    </informalexample>
+
+    <section>
+      <title>Embedded Example</title>
+
+      <para>This is an example for embedded Jetty, which does something
+      similar to the configuration file example above:</para>
+
+      <informalexample>
+        <programlisting language="java"><![CDATA[
 
   Server server = new Server();
  
@@ -147,10 +132,11 @@ $ java -jar start.jar --add-to-startd=rewrite
   server.setHandler(rewrite);
   
       ]]></programlisting>
-    </informalexample>
+      </informalexample>
+    </section>
   </section>
 
-  <section>
+  <section xml:id="rewrite-rules">
     <title>Rules</title>
 
     <para>There are several types of rules that are written extending useful

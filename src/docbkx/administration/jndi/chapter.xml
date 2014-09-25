@@ -26,7 +26,6 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
   an optional feature for which you need to do some setup. </para>
 
   <xi:include href="quick-jndi-setup.xml"/>
-  <xi:include href="detailed-jndi-setup.xml"/>
   <xi:include href="using-jndi.xml"/>
   <xi:include href="jndi-configuration.xml" />
   <xi:include href="jndi-embedded.xml" />

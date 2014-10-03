@@ -48,7 +48,7 @@
     you need to run from the <filename>demo-base</filename> directory as
     follows:</para>
 
-    <screen><emphasis role="bold">&gt; cd $HOME/jetty-distributino-9/demo-base/
+    <screen><emphasis role="bold">&gt; cd $HOME/jetty-distribution-9/demo-base/
 &gt; java -jar ../start.jar</emphasis><![CDATA[
 2013-09-06 13:56:35.939:WARN::main: demo test-realm is deployed. DO NOT USE IN PRODUCTION!
 2013-09-06 13:56:35.943:INFO:oejs.Server:main: jetty-9-demo

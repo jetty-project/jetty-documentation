@@ -31,10 +31,10 @@
   <para>To start Jetty on the default port of 8080, run the following
   command:</para>
 
-  <para><screen><emphasis role="bold">&gt; cd $JETTY_HOME
+  <para><screen><emphasis role="bold">&gt; cd $HOME/jetty-distribution-9
 &gt; java -jar start.jar</emphasis><![CDATA[
-2013-09-06 13:52:43.326:INFO:oejs.Server:main: jetty-9.1.0
-2013-09-06 13:52:43.358:INFO:oejdp.ScanningAppProvider:main: Deployment monitor [file:/home/gregw/src/jetty-9.1/jetty-distribution/target/distribution/webapps/] at interval 1
+2013-09-06 13:52:43.326:INFO:oejs.Server:main: jetty-9-demo
+2013-09-06 13:52:43.358:INFO:oejdp.ScanningAppProvider:main: Deployment monitor [file:/home/user/jetty-distribution-9/webapps/] at interval 1
 2013-09-06 13:52:43.390:INFO:oejs.ServerConnector:main: Started ServerConnector@2edf362d{HTTP/1.1}{0.0.0.0:8080}]]></screen></para>
 
   <para>You can point a browser at this server at <link
@@ -48,15 +48,15 @@
     you need to run from the <filename>demo-base</filename> directory as
     follows:</para>
 
-    <screen><emphasis role="bold">&gt; cd $JETTY_HOME/demo-base/
+    <screen><emphasis role="bold">&gt; cd $HOME/jetty-distributino-9/demo-base/
 &gt; java -jar ../start.jar</emphasis><![CDATA[
 2013-09-06 13:56:35.939:WARN::main: demo test-realm is deployed. DO NOT USE IN PRODUCTION!
-2013-09-06 13:56:35.943:INFO:oejs.Server:main: jetty-9.1.0-SNAPSHOT
-2013-09-06 13:56:35.976:INFO:oejdp.ScanningAppProvider:main: Deployment monitor [file:/home/gregw/src/jetty-9.1/jetty-distribution/target/distribution/demo-base/webapps/] at interval 1
+2013-09-06 13:56:35.943:INFO:oejs.Server:main: jetty-9-demo
+2013-09-06 13:56:35.976:INFO:oejdp.ScanningAppProvider:main: Deployment monitor [file:/home/user/jetty-distribution-9/demo-base/webapps/] at interval 1
 2013-09-06 13:56:36.240:INFO:oejpw.PlusConfiguration:main: No Transaction manager found - if your webapp requires one, please configure one.
 2013-09-06 13:56:36.732:WARN::main: async-rest webapp is deployed. DO NOT USE IN PRODUCTION!
 [...]
-2013-09-06 13:56:38.572:INFO:oejsh.ContextHandler:main: Started o.e.j.w.WebAppContext@2757052e{/,file:/home/gregw/src/jetty-9.1/jetty-distribution/target/distribution/demo-base/webapps/ROOT/,AVAILABLE}{/ROOT}
+2013-09-06 13:56:38.572:INFO:oejsh.ContextHandler:main: Started o.e.j.w.WebAppContext@2757052e{/,file:/home/user/jetty-distribution-9/demo-base/webapps/ROOT/,AVAILABLE}{/ROOT}
 2013-09-06 13:56:38.579:INFO:oejs.ServerConnector:main: Started ServerConnector@19e0cb78{HTTP/1.1}{0.0.0.0:8080}
 ]]></screen>
 
@@ -106,29 +106,29 @@
     may be explicitly set on the command line, or they can be inferred from
     the environment if used with commands like:</para>
 
-    <screen><emphasis role="bold">&gt; cd $JETTY_BASE
-&gt; java -jar $JETTY_HOME/start.jar</emphasis></screen>
+    <screen><emphasis role="bold">&gt; cd $HOME/my-base
+&gt; java -jar $HOME/jetty-distribution-9/start.jar</emphasis></screen>
 
     <para>The following commands create a new base directory and enable a HTTP
     connector and web application deployer in it:</para>
 
     <screen><emphasis role="bold">&gt; mkdir /tmp/mybase
 &gt; cd /tmp/mybase
-&gt; java -jar $JETTY_HOME/start.jar</emphasis><![CDATA[
+&gt; java -jar $HOME/jetty-distribution-9/start.jar</emphasis><![CDATA[
 WARNING: Nothing to start, exiting ...
 
 Usage: java -jar start.jar [options] [properties] [configs]
        java -jar start.jar --help  # for more information
 
->]]><emphasis role="bold">java -jar $JETTY_HOME/start.jar --add-to-startd=http,deploy</emphasis><![CDATA[
+> ]]><emphasis role="bold">java -jar $HOME/jetty-distribution-9/start.jar --add-to-startd=http,deploy</emphasis><![CDATA[
 http            initialised in ${jetty.base}/start.d/http.ini (created)
 server          initialised in ${jetty.base}/start.d/server.ini (created)
 deploy          initialised in ${jetty.base}/start.d/deploy.ini (created)
 MKDIR: ${jetty.base}/webapps
 server          initialised in ${jetty.base}/start.d/server.ini
 
-]]><emphasis role="bold">&gt; java -jar $JETTY_HOME/start.jar</emphasis><![CDATA[
-2013-09-06 14:59:32.542:INFO:oejs.Server:main: jetty-9.1.0-SNAPSHOT
+]]><emphasis role="bold">&gt; java -jar $HOME/jetty-distribution-9/start.jar</emphasis><![CDATA[
+2013-09-06 14:59:32.542:INFO:oejs.Server:main: jetty-9-demo
 2013-09-06 14:59:32.572:INFO:oejdp.ScanningAppProvider:main: Deployment monitor [file:/tmp/mybase/webapps/] at interval 1
 2013-09-06 14:59:32.602:INFO:oejs.ServerConnector:main: Started ServerConnector@405a2273{HTTP/1.1}{0.0.0.0:8080}
 
@@ -141,7 +141,7 @@ server          initialised in ${jetty.base}/start.d/server.ini
     <para>You can configure Jetty to run on a different port by setting the
     <code>jetty.port</code> Property on the command line:</para>
 
-    <para><screen><emphasis role="bold">&gt; cd $JETTY_HOME/demo-base
+    <para><screen><emphasis role="bold">&gt; cd $HOME/jetty-distribution-9/demo-base
 &gt; java -jar start.jar jetty.port=8081</emphasis></screen></para>
 
     <para>Alternatively, property values can be added to the effective command
@@ -238,7 +238,7 @@ ext             enabled in     ${jetty.home}/start.ini
       <para>You can configure the SSL connector to run on a different port by
       setting the <code>https.port</code> property on the command line:</para>
 
-      <para><screen><emphasis role="bold">&gt; cd $JETTY_HOME/demo-base
+      <para><screen><emphasis role="bold">&gt; cd $HOME/jetty-distribution-9/demo-base
 &gt; java -jar start.jar https.port=8444</emphasis></screen>Alternatively,
       property values can be added to the effective command line built from
       the <filename>start.ini</filename> file and

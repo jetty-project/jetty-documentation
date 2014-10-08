@@ -185,9 +185,9 @@ OpenJDK 64-Bit Server VM (build 23.7-b01, mixed mode)]]></screen>
 
       <para>Unpack it into place.</para>
 
-      <screen><![CDATA[[/opt/jetty]# tar -zxf /home/user/Downloads/jetty-distribution-9.1.0.v20131115.tar.gz 
+      <screen><![CDATA[[/opt/jetty]# tar -zxf /home/user/Downloads/jetty-distribution-@project.version@.tar.gz 
 [/opt/jetty]# ls -F
-jetty-distribution-9.1.0.v20131115/
+jetty-distribution-@project.version@/
 [/opt/jetty]# mkdir /opt/jetty/temp]]></screen>
 
       <para>It might seem strange or undesirable to unpack the first portion
@@ -221,7 +221,7 @@ jetty-distribution-9.1.0.v20131115/
 
       <screen><![CDATA[# cd /opt/web/mybase/
 [/opt/web/mybase]# ls
-[/opt/web/mybase]# java -jar /opt/jetty/jetty-distribution-9.1.0.v20131115/start.jar \
+[/opt/web/mybase]# java -jar /opt/jetty/jetty-distribution-@project.version@/start.jar \
    --add-to-start=deploy,http,logging
 WARNING: deploy          initialised in ${jetty.base}/start.ini (appended)
 WARNING: deploy          enabled in     ${jetty.base}/start.ini
@@ -312,8 +312,8 @@ jetty.port=80]]></screen>
       Jetty Service that can be managed by the standard
       <filename>service</filename> calls.</para>
 
-      <screen><![CDATA[# cp /opt/jetty/jetty-distribution-9.1.0.v20131115/bin/jetty.sh /etc/init.d/jetty
-# echo "JETTY_HOME=/opt/jetty/jetty-distribution-9.1.0.v20131115" > /etc/default/jetty
+      <screen><![CDATA[# cp /opt/jetty/jetty-distribution-@project.version@/bin/jetty.sh /etc/init.d/jetty
+# echo "JETTY_HOME=/opt/jetty/jetty-distribution-@project.version@" > /etc/default/jetty
 # echo "JETTY_BASE=/opt/web/mybase" >> /etc/default/jetty
 # echo "TMPDIR=/opt/jetty/temp" >> /etc/default/jetty]]></screen>
 
@@ -322,27 +322,27 @@ jetty.port=80]]></screen>
       <screen><![CDATA[# service jetty status
 Checking arguments to Jetty: 
 START_INI      =  /opt/web/mybase/start.ini
-JETTY_HOME     =  /opt/jetty/jetty-distribution-9.1.0.v20131115
+JETTY_HOME     =  /opt/jetty/jetty-distribution-@project.version@
 JETTY_BASE     =  /opt/web/mybase
-JETTY_CONF     =  /opt/jetty/jetty-distribution-9.1.0.v20131115/etc/jetty.conf
+JETTY_CONF     =  /opt/jetty/jetty-distribution-@project.version@/etc/jetty.conf
 JETTY_PID      =  /var/run/jetty.pid
-JETTY_START    =  /opt/jetty/jetty-distribution-9.1.0.v20131115/start.jar
+JETTY_START    =  /opt/jetty/jetty-distribution-@project.version@/start.jar
 JETTY_LOGS     =  /opt/web/mybase/logs
 CLASSPATH      =  
 JAVA           =  /usr/bin/java
 JAVA_OPTIONS   =  -Djetty.state=/opt/web/mybase/jetty.state 
        -Djetty.logs=/opt/web/mybase/logs
-       -Djetty.home=/opt/jetty/jetty-distribution-9.1.0.v20131115 
+       -Djetty.home=/opt/jetty/jetty-distribution-@project.version@ 
        -Djetty.base=/opt/web/mybase 
        -Djava.io.tmpdir=/opt/jetty/temp
 JETTY_ARGS     =  jetty-logging.xml jetty-started.xml
 RUN_CMD        =  /usr/bin/java 
        -Djetty.state=/opt/web/mybase/jetty.state 
        -Djetty.logs=/opt/web/mybase/logs 
-       -Djetty.home=/opt/jetty/jetty-distribution-9.1.0.v20131115 
+       -Djetty.home=/opt/jetty/jetty-distribution-@project.version@ 
        -Djetty.base=/opt/web/mybase 
        -Djava.io.tmpdir=/opt/jetty/temp
-       -jar /opt/jetty/jetty-distribution-9.1.0.v20131115/start.jar 
+       -jar /opt/jetty/jetty-distribution-@project.version@/start.jar 
        jetty-logging.xml 
        jetty-started.xml
 ]]></screen>

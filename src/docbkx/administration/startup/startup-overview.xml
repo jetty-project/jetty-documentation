@@ -211,7 +211,7 @@ threads.max=200
     <para>Another way to see this is by asking Jetty what its configuration looks
     like:</para>
 
-    <screen><![CDATA[[jetty-distribution-9.1.0-DEMO]$ java -jar start.jar --module=http jetty.port=9099 --list-config
+    <screen><![CDATA[[jetty-distribution-@project.version@DEMO]$ java -jar start.jar --module=http jetty.port=9099 --list-config
 
 Java Environment:
 -----------------
@@ -226,8 +226,8 @@ Java Environment:
 
 Jetty Environment:
 -----------------
- jetty.home=/opt/jetty/jetty-distribution-9.1.0-DEMO
- jetty.base=/opt/jetty/jetty-distribution-9.1.0-DEMO
+ jetty.home=/opt/jetty/jetty-distribution-@project.version@DEMO
+ jetty.base=/opt/jetty/jetty-distribution-@project.version@DEMO
  jetty.version=9.1.0-DEMO
 
 JVM Arguments:
@@ -236,8 +236,8 @@ JVM Arguments:
 
 System Properties:
 ------------------
- jetty.home = /opt/jetty/jetty-distribution-9.1.0-DEMO
- jetty.base = /opt/jetty/jetty-distribution-9.1.0-DEMO
+ jetty.home = /opt/jetty/jetty-distribution-@project.version@DEMO
+ jetty.base = /opt/jetty/jetty-distribution-@project.version@DEMO
 
 Properties:
 -----------

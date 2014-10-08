@@ -86,7 +86,7 @@
     detailed explanation of how modules work.</para>
 
     <para>This example assumes you have the jetty-distribution unpacked in
-    <filename>/home/user/jetty-distribution-9.1.0.RC0.</filename></para>
+    <filename>/home/user/jetty-distribution-@project.version@.</filename></para>
 
     <orderedlist>
       <listitem>
@@ -96,7 +96,7 @@
       </listitem>
 
       <listitem>
-        <para>Add the modules for SSL, HTTP, and webapp deployment. <screen><![CDATA[[my-base]$ java -jar /home/user/jetty-distribution-9.1.0.RC0/start.jar --add-to-start=ssl,http,deploy
+        <para>Add the modules for SSL, HTTP, and webapp deployment. <screen><![CDATA[[my-base]$ java -jar /home/user/jetty-distribution-@project.version@/start.jar --add-to-start=ssl,http,deploy
 
 ssl             initialised in ${jetty.base}/start.ini (appended)
 ssl             enabled in     ${jetty.base}/start.ini
@@ -195,7 +195,7 @@ http.timeout=30000
 
     <para>Look at the configuration you have at this point.</para>
 
-    <screen><![CDATA[[my-base]$ java -jar /home/user/jetty-distribution-9.1.0.RC0/start.jar --list-config
+    <screen><![CDATA[[my-base]$ java -jar /home/user/jetty-distribution-@project.version@/start.jar --list-config
 
 Java Environment:
 -----------------
@@ -210,7 +210,7 @@ Java Environment:
 
 Jetty Environment:
 -----------------
- jetty.home=/home/user/jetty-distribution-9.1.0.RC0
+ jetty.home=/home/user/jetty-distribution-@project.version@
  jetty.base=/home/user/my-base
  jetty.version=9.1.0.RC0
 
@@ -221,7 +221,7 @@ JVM Arguments:
 System Properties:
 ------------------
  jetty.base = /home/user/my-base
- jetty.home = /home/user/jetty-distribution-9.1.0.RC0
+ jetty.home = /home/user/jetty-distribution-@project.version@
 
 Properties:
 -----------
@@ -266,7 +266,7 @@ Jetty Active XMLs:
 
     <para>Now start Jetty.</para>
 
-    <screen><![CDATA[[my-base]$ java -jar /home/user/jetty-distribution-9.1.0.RC0/start.jar
+    <screen><![CDATA[[my-base]$ java -jar /home/user/jetty-distribution-@project.version@/start.jar
 2013-10-08 07:06:55.837:INFO:oejs.Server:main: jetty-9.1.0.RC0
 2013-10-08 07:06:55.853:INFO:oejdp.ScanningAppProvider:main: Deployment monitor [file:/home/joakim/my-base/webapps/] at interval 1
 2013-10-08 07:06:55.872:INFO:oejs.ServerConnector:main: Started ServerConnector@72974691{HTTP/1.1}{0.0.0.0:8080}
@@ -307,7 +307,7 @@ Jetty Active XMLs:
 
       <para>You can see the list of modules:</para>
 
-      <screen><![CDATA[[my-base]$ java -jar /home/user/jetty-distribution-9.1.0.RC0/start.jar --list-modules
+      <screen><![CDATA[[my-base]$ java -jar /home/user/jetty-distribution-@project.version@/start.jar --list-modules
 
 Jetty All Available Modules:
 ----------------------------
@@ -493,7 +493,7 @@ Jetty Active Module Tree:
 
       <para>If you want to start using a new module:</para>
 
-      <screen><![CDATA[[my-base] $ java -jar ../jetty-distribution-9.1.0.RC0/start.jar --add-to-start=https
+      <screen><![CDATA[[my-base] $ java -jar ../jetty-distribution-@project.version@/start.jar --add-to-start=https
 ]]></screen>
 
       <para>This adds the <literal>--module=</literal> lines and associated
@@ -541,14 +541,14 @@ Jetty Active Module Tree:
     <orderedlist>
       <listitem>
         <para>Download and unpack Jetty 9.1 into
-        <filename>/home/user/jetty-distribution-9.1.0.RC1</filename>.</para>
+        <filename>/home/user/jetty-distribution-@project.version@</filename>.</para>
       </listitem>
 
       <listitem>
         <para>Go to your base directory and just use the distribution, no
         editing.</para>
 
-        <screen><![CDATA[[my-base]$ java -jar /home/user/jetty-distribution-9.1.0.RC1/start.jar
+        <screen><![CDATA[[my-base]$ java -jar /home/user/jetty-distribution-@project.version@/start.jar
 ]]></screen>
 
         <itemizedlist>
@@ -608,7 +608,7 @@ Jetty Active Module Tree:
     <para>You can see what the configuration looks like, after all of the
     modules are resolved, without starting Jetty via:</para>
 
-    <screen><![CDATA[[my-base] $ java -jar ../jetty-distribution-9.1.0.RC0/start.jar --list-config
+    <screen><![CDATA[[my-base] $ java -jar ../jetty-distribution-@project.version@/start.jar --list-config
 ]]></screen>
 
     <para>Just because the JARs exist on disk does not mean that they are in
@@ -618,7 +618,7 @@ Jetty Active Module Tree:
     that only a subset of the JARs from the distribution are in use. The
     modules you have anabled determine that subset.</para>
 
-    <screen><![CDATA[[my-base]$ java -jar ~/jetty-distribution-9.1.0.RC0/start.jar --list-config
+    <screen><![CDATA[[my-base]$ java -jar ~/jetty-distribution-@project.version@/start.jar --list-config
 ]]></screen>
   </section>
 </section>

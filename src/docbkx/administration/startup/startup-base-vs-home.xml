@@ -159,8 +159,8 @@ Java Environment:
 
 Jetty Environment:
 -----------------
- jetty.home=/home/user/jetty-distribution-9.1.0-DEMO
- jetty.base=/home/user/jetty-distribution-9.1.0-DEMO/demo-base
+ jetty.home=/home/user/jetty-distribution-@project.version@DEMO
+ jetty.base=/home/user/jetty-distribution-@project.version@DEMO/demo-base
  jetty.version=9.1.0-DEMO
 
 JVM Arguments:
@@ -169,8 +169,8 @@ JVM Arguments:
 
 System Properties:
 ------------------
- jetty.base = /home/user/jetty-distribution-9.1.0-DEMO/demo-base
- jetty.home = /home/user/jetty-distribution-9.1.0-DEMO
+ jetty.base = /home/user/jetty-distribution-@project.version@DEMO/demo-base
+ jetty.home = /home/user/jetty-distribution-@project.version@DEMO
 
 Properties:
 -----------

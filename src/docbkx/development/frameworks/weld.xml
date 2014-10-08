@@ -67,7 +67,7 @@
     <screen><![CDATA[
 
 013-05-30 15:49:01.511:INFO:oejs.Server:main: jetty-9.0.3.v20130506
-2013-05-30 15:49:01.564:INFO:oejdp.ScanningAppProvider:main: Deployment monitor [file:/Users/jesse/Desktop/jetty-distribution-9.0.3.v20130506/webapps/] at interval 1
+2013-05-30 15:49:01.564:INFO:oejdp.ScanningAppProvider:main: Deployment monitor [file:/Users/jesse/Desktop/jetty-distribution-@project.version@/webapps/] at interval 1
 2013-05-30 15:49:01.764:INFO:oejpw.PlusConfiguration:main: No Transaction manager found - if your webapp requires one, please configure one.
 May 30, 2013 3:49:01 PM org.jboss.weld.bootstrap.WeldBootstrap <clinit>
 INFO: WELD-000900 2.0.0 (Final)

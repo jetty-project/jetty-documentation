@@ -79,6 +79,8 @@
                 <exclude>**/images/*</exclude>
                 <exclude>**/*.swp</exclude>
                 <exclude>**/*.orig</exclude>
+                <exclude>*.sh</exclude>
+                <exclude>*.sed</exclude>
               </excludes>
             </validationSet>
           </validationSets>

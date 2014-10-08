@@ -227,7 +227,7 @@ Usage: java -jar start.jar [options] [properties] [configs]
 
 Java Environment:
 -----------------
- java.home=/home/joakim/java/jdk-7u21-x64/jre
+ java.home=/usr/lib/jvm/jdk-7u21-x64/jre
  java.vm.vendor=Oracle Corporation
  java.vm.version=23.21-b01
  java.vm.name=Java HotSpot(TM) 64-Bit Server VM
@@ -238,8 +238,8 @@ Java Environment:
 
 Jetty Environment:
 -----------------
- jetty.home=/home/joakim/code/intalio/distros/jetty-distribution-@project.version@DEMO
- jetty.base=/home/joakim/code/intalio/distros/jetty-distribution-@project.version@DEMO/my-base
+ jetty.home=/home/user/jetty-distribution-@project.version@DEMO
+ jetty.base=/home/user/jetty-distribution-@project.version@DEMO/my-base
  jetty.version=9.1.0-DEMO
 
 JVM Arguments:
@@ -248,8 +248,8 @@ JVM Arguments:
 
 System Properties:
 ------------------
- jetty.base = /home/joakim/code/intalio/distros/jetty-distribution-@project.version@DEMO/my-base
- jetty.home = /home/joakim/code/intalio/distros/jetty-distribution-@project.version@DEMO
+ jetty.base = /home/user/jetty-distribution-@project.version@DEMO/my-base
+ jetty.home = /home/user/jetty-distribution-@project.version@DEMO
 
 Properties:
 -----------
@@ -275,7 +275,7 @@ Jetty Active XMLs:
 [my-base]$ java -jar ../jetty-distribution/start.jar --module=webapp,deploy --list-config
 Java Environment:
 -----------------
- java.home=/home/joakim/java/jdk-7u21-x64/jre
+ java.home=/usr/lib/jvm/jdk-7u21-x64/jre
  java.vm.vendor=Oracle Corporation
  java.vm.version=23.21-b01
  java.vm.name=Java HotSpot(TM) 64-Bit Server VM
@@ -286,8 +286,8 @@ Java Environment:
 
 Jetty Environment:
 -----------------
- jetty.home=/home/joakim/code/intalio/distros/jetty-distribution-@project.version@DEMO
- jetty.base=/home/joakim/code/intalio/distros/jetty-distribution-@project.version@DEMO/my-base
+ jetty.home=/home/user/jetty-distribution-@project.version@DEMO
+ jetty.base=/home/user/jetty-distribution-@project.version@DEMO/my-base
  jetty.version=9.1.0-DEMO
 
 JVM Arguments:
@@ -296,8 +296,8 @@ JVM Arguments:
 
 System Properties:
 ------------------
- jetty.base = /home/joakim/code/intalio/distros/jetty-distribution-@project.version@DEMO/my-base
- jetty.home = /home/joakim/code/intalio/distros/jetty-distribution-@project.version@DEMO
+ jetty.base = /home/user/jetty-distribution-@project.version@DEMO/my-base
+ jetty.home = /home/user/jetty-distribution-@project.version@DEMO
 
 Properties:
 -----------

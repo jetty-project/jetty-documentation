@@ -80,7 +80,7 @@
 [2093] java -jar start.jar
 
 2013-07-26 15:47:53.480:INFO:oejs.Server:main: jetty-9.0.4.v20130625
-2013-07-26 15:47:53.549:INFO:oejdp.ScanningAppProvider:main: Deployment monitor [file:/home/janb/usr_local_java/jetty/jetty-distribution-@project.version@/webapps/] at interval 1
+2013-07-26 15:47:53.549:INFO:oejdp.ScanningAppProvider:main: Deployment monitor [file:/home/user/jetty-distribution-@project.version@/webapps/] at interval 1
 Jul 26, 2013 3:47:53 PM com.sun.xml.ws.transport.http.servlet.WSServletContextListener contextInitialized
 INFO: WSSERVLET12: JAX-WS context listener initializing
 Jul 26, 2013 3:47:56 PM com.sun.xml.ws.server.MonitorBase createRoot

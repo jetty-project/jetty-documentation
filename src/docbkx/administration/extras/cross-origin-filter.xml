@@ -85,8 +85,8 @@
     in your webapp's WEB-INF/lib. Or, if you are running jetty embedded you
     will need to ensure that jetty-servlets.jar is on the execution classpath.
     You can download the jetty-servlets.jar from the Maven Central Repository
-    at
-    http://central.maven.org/maven2/org/eclipse/jetty/jetty-servlets/.</para>
+    at <link
+    xl:href="http://central.maven.org/maven2/org/eclipse/jetty/jetty-servlets/">http://central.maven.org/maven2/org/eclipse/jetty/jetty-servlets/</link>.</para>
   </section>
 
   <section xml:id="cross-origin-config">

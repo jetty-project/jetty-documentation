@@ -44,7 +44,7 @@
 &lt;plugin&gt;
   &lt;groupId&gt;org.eclipse.jetty&lt;/groupId&gt;
    &lt;artifactId&gt;jetty-jspc-maven-plugin&lt;/artifactId&gt;
-   &lt;version&gt;9.1.0.RC1&lt;/version&gt;
+   &lt;version&gt;@project.version@&lt;/version&gt;
    &lt;executions&gt;
      &lt;execution&gt;
        &lt;id&gt;jspc&lt;/id&gt;
@@ -260,7 +260,7 @@
         &lt;plugin&gt;
           &lt;groupId&gt;org.eclipse.jetty&lt;/groupId&gt;
           &lt;artifactId&gt;jetty-jspc-maven-plugin&lt;/artifactId&gt;
-          &lt;version&gt;9.1.0.RC1&lt;/version&gt;
+          &lt;version&gt;@project.version@&lt;/version&gt;
           &lt;!-- put your configuration in here --&gt;
         &lt;/plugin&gt;
         &lt;plugin&gt;
@@ -353,7 +353,7 @@ $ mvn -Dprod package
 &lt;plugin&gt;
     &lt;groupId&gt;org.eclipse.jetty&lt;/groupId&gt;
      &lt;artifactId&gt;jetty-jspc-maven-plugin&lt;/artifactId&gt;
-     &lt;version&gt;9.1.0.RC1&lt;/version&gt;
+     &lt;version&gt;@project.version@&lt;/version&gt;
      &lt;executions&gt;
        &lt;execution&gt;
          &lt;id&gt;jspc&lt;/id&gt;

@@ -43,7 +43,7 @@
   <section xml:id="demo-webapps-base">
     <title>Demo Base</title>
 
-    <para>Since release 9.1.0, the jetty distribution does not deploy any demo
+    <para>Since release 9.1, the jetty distribution does not deploy any demo
     web applications, so to see a more interesting demonstration of the server
     you need to run from the <filename>demo-base</filename> directory as
     follows:</para>
@@ -196,7 +196,7 @@ resources       enabled in     ${jetty.home}/start.ini
 ext             enabled in     ${jetty.home}/start.ini
 
 ]]><emphasis role="bold">&gt; java -jar start.jar</emphasis><![CDATA[
-2013-09-06 13:52:43.326:INFO:oejs.Server:main: jetty-9.1.0
+2013-09-06 13:52:43.326:INFO:oejs.Server:main: jetty-9...
 [...]]]></screen>
 
     <para>The --add-to-startd command sets up the effective command line in

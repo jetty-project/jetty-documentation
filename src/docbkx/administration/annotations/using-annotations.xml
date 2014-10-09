@@ -192,7 +192,7 @@
   <section>
     <title>Multi-threaded Annotation Scanning</title>
 
-    <para>Since jetty-9.1.0.RC1,<link linkend="jars-scanned-for-annotations">
+    <para>Since jetty-9.1,<link linkend="jars-scanned-for-annotations">
     if annotation scanning is to be performed</link>, by default Jetty will do
     it in a multi-threaded manner in order to complete it in the minimum
     amount of time.</para>
@@ -269,7 +269,7 @@
     xl:href="http://jcp.org/aboutJava/communityprocess/final/jsr340/">Servlet
     Specification</link> does not define any order in which these
     ServletContainerInitializers must be called when the webapp starts. Since
-    jetty-9.1.0.RC1, by default Jetty will call them in the following
+    jetty-9.1, by default Jetty will call them in the following
     order:</para>
 
     <orderedlist>

@@ -268,7 +268,7 @@ Jetty Active XMLs:
 
     <screen><![CDATA[[my-base]$ java -jar /home/user/jetty-distribution-@project.version@/start.jar
 2013-10-08 07:06:55.837:INFO:oejs.Server:main: jetty-@project.version@
-2013-10-08 07:06:55.853:INFO:oejdp.ScanningAppProvider:main: Deployment monitor [file:/home/joakim/my-base/webapps/] at interval 1
+2013-10-08 07:06:55.853:INFO:oejdp.ScanningAppProvider:main: Deployment monitor [file:/home/user/my-base/webapps/] at interval 1
 2013-10-08 07:06:55.872:INFO:oejs.ServerConnector:main: Started ServerConnector@72974691{HTTP/1.1}{0.0.0.0:8080}
 ]]></screen>
   </section>

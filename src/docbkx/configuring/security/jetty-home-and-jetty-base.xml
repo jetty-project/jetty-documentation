@@ -199,7 +199,7 @@ http.timeout=30000
 
 Java Environment:
 -----------------
- java.home=/home/user/java/jdk-7u21-x64/jre
+ java.home=/usr/lib/jvm/jdk-7u21-x64/jre
  java.vm.vendor=Oracle Corporation
  java.vm.version=23.21-b01
  java.vm.name=Java HotSpot(TM) 64-Bit Server VM

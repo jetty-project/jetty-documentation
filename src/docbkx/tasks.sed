@@ -7,5 +7,6 @@ s/9\.1\.0\.RC1/@project.version@/g
 s/9\.1\.0-DEMO/@project.version@/g
 s@/Users/jesse/Desktop/jetty-dist@/home/user/jetty-dist/@g
 s@/home/joakim/java/@/usr/lib/jvm/@g
+s@/home/user/java/@/usr/lib/jvm/@g
 s@/home/joakim/code/intalio/distros/@/home/user/@g
 

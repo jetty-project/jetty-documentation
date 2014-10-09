@@ -132,7 +132,7 @@ drwxrwxr-x  2 user group   4096 Oct  8 06:54 webapps/
 [jetty-distribution-@project.version@]$ cd demo-base
 [demo-base]$ java -jar ../start.jar
 2013-10-16 09:08:47.800:WARN::main: demo test-realm is deployed. DO NOT USE IN PRODUCTION!
-2013-10-16 09:08:47.802:INFO:oejs.Server:main: jetty-${project.version}
+2013-10-16 09:08:47.802:INFO:oejs.Server:main: jetty-@project.version@
 2013-10-16 09:08:47.817:INFO:oejdp.ScanningAppProvider:main: Deployment monitor [file:/home/user/jetty-distribution-@project.version@/demo-base/webapps/] at interval 1
 2013-10-16 09:08:48.072:WARN::main: async-rest webapp is deployed. DO NOT USE IN PRODUCTION!
 ...
@@ -338,7 +338,7 @@ jetty.dump.stop=false
 [jetty-distribution-@project.version@]$ java -jar start.jar \
     jetty.home=/home/user/jetty-distribution-@project.version@ \
     jetty.base=/home/user/my-base
-2013-10-16 09:08:47.802:INFO:oejs.Server:main: jetty-${project.version}
+2013-10-16 09:08:47.802:INFO:oejs.Server:main: jetty-@project.version@
 2013-10-16 09:08:47.817:INFO:oejdp.ScanningAppProvider:main: Deployment monitor [file:/home/user/my-base/webapps/] at interval 1
 ...
 ]]></screen>
@@ -354,7 +354,7 @@ jetty.dump.stop=false
     <screen><![CDATA[[jetty-distribution-@project.version@]$ pwd
 /home/user/jetty-distribution-@project.version@
 [jetty-distribution-@project.version@]$ java -jar start.jar jetty.base=/home/user/my-base
-2013-10-16 09:08:47.802:INFO:oejs.Server:main: jetty-${project.version}
+2013-10-16 09:08:47.802:INFO:oejs.Server:main: jetty-@project.version@
 2013-10-16 09:08:47.817:INFO:oejdp.ScanningAppProvider:main: Deployment monitor [file:/home/user/my-base/webapps/] at interval 1
 ...
 ]]></screen>
@@ -372,7 +372,7 @@ jetty.dump.stop=false
 /home/user/jetty-distribution-@project.version@
 [jetty-distribution-@project.version@]$ cd /home/user/my-base
 [my-base]$ java -jar /home/user/jetty-distribution-@project.version@/start.jar
-2013-10-16 09:08:47.802:INFO:oejs.Server:main: jetty-${project.version}
+2013-10-16 09:08:47.802:INFO:oejs.Server:main: jetty-@project.version@
 2013-10-16 09:08:47.817:INFO:oejdp.ScanningAppProvider:main: Deployment monitor [file:/home/user/my-base/webapps/] at interval 1
 ...
 ]]></screen>

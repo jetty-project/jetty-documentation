@@ -23,6 +23,7 @@
          xmlns:xs="http://www.w3.org/2001/XMLSchema"
          xmlns:xl="http://www.w3.org/1999/xlink"
          xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:ns2="http://www.w3.org/1998/Math/MathML"
          xmlns:ns="http://docbook.org/ns/docbook">
   <title>Using Maven</title>
 
@@ -256,11 +257,11 @@ public class HelloServlet extends HttpServlet
       <informalexample>
         <programlisting language="xml"><![CDATA[<?xml version="1.0" encoding="ISO-8859-1"?>
 <web-app 
-   xmlns="http://java.sun.com/xml/ns/javaee" 
+   xmlns="http://xmlns.jcp.org/xml/ns/javaee"
    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-   xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+   xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
    metadata-complete="false"
-   version="3.0">
+   version="3.1">
 
   <servlet>
     <servlet-name>Hello</servlet-name>
@@ -297,14 +298,14 @@ public class HelloServlet extends HttpServlet
   <name>Jetty HelloWorld WebApp</name>
 
   <properties>
-      <jettyVersion>9.0.2.v20130417</jettyVersion> /// Adapt this to a version found on http://repo.maven.apache.org/maven2/org/eclipse/jetty/jetty-maven-plugin/
+      <jettyVersion>@project.version@</jettyVersion>
   </properties>
 
   <dependencies>
     <dependency>
-      <groupId>org.eclipse.jetty.orbit</groupId>
-      <artifactId>javax.servlet</artifactId>
-      <version>3.0.0.v201112011016</version>
+      <groupId>javax.servlet</groupId>
+      <artifactId>javax.servlet-api</artifactId>
+      <version>3.1.0</version>
       <scope>provided</scope>
     </dependency>
   </dependencies>

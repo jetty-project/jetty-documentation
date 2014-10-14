@@ -194,20 +194,20 @@
 &lt;Configure class="org.eclipse.jetty.webapp.WebAppContext"&gt;
   &lt;Set name="contextPath"&gt;/wiki&lt;/Set&gt;
   &lt;Set name="war"&gt;&lt;SystemProperty name="myapp.home"/&gt;/myapp.war&lt;/Set&gt;
-&lt;/Configure&gt;
 
-&lt;New id="DSTest" class="org.eclipse.jetty.plus.jndi.Resource"&gt;
-  &lt;Arg&gt;&lt;/Arg&gt;
-  &lt;Arg&gt;jdbc/DSTest&lt;/Arg&gt;
-  &lt;Arg&gt;
-    &lt;New class="org.apache.commons.dbcp.BasicDataSource"&gt;
-      &lt;Set name="driverClassName"&gt;org.some.Driver&lt;/Set&gt;
-      &lt;Set name="url"&gt;jdbc.url&lt;/Set&gt;
-      &lt;Set name="username"&gt;jdbc.user&lt;/Set&gt;
-      &lt;Set name="password"&gt;jdbc.pass&lt;/Set&gt;
-    &lt;/New&gt;
-  &lt;/Arg&gt;
-&lt;/New&gt;        </programlisting>
+  &lt;New id="DSTest" class="org.eclipse.jetty.plus.jndi.Resource"&gt;
+    &lt;Arg&gt;&lt;/Arg&gt;
+    &lt;Arg&gt;jdbc/DSTest&lt;/Arg&gt;
+    &lt;Arg&gt;
+      &lt;New class="org.apache.commons.dbcp.BasicDataSource"&gt;
+        &lt;Set name="driverClassName"&gt;org.some.Driver&lt;/Set&gt;
+        &lt;Set name="url"&gt;jdbc.url&lt;/Set&gt;
+        &lt;Set name="username"&gt;jdbc.user&lt;/Set&gt;
+        &lt;Set name="password"&gt;jdbc.pass&lt;/Set&gt;
+      &lt;/New&gt;
+    &lt;/Arg&gt;
+  &lt;/New&gt;
+&lt;/Configure&gt;</programlisting>
       </informalexample>
 
       <para>There are many other settings that you can change on a <link

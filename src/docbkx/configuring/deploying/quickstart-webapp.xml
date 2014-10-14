@@ -82,7 +82,7 @@
     you can create an <filename>webapps/myapp.xml</filename> file as
     follows:</para>
 
-    <programlisting><![CDATA[<?xml version="1.0" encoding="ISO-8859-1"?>
+    <programlisting><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure_9_0.dtd">
 <Configure class="org.eclipse.jetty.quickstart.QuickStartWebApp">
   <Set name="war"><Property name="jetty.webapps" default="."/>/benchmark.war</Set>

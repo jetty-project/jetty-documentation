@@ -88,7 +88,7 @@ bar.getParent().setName("demo2");      ]]></programlisting>
 
       <programlisting language="xml">
 <![CDATA[
-<?xml version="1.0"  encoding="ISO-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE Configure PUBLIC "-//Mort Bay Consulting//DTD Configure//EN" "http://www.eclipse.org/jetty/configure_9_0.dtd">
 ...
 ]]>

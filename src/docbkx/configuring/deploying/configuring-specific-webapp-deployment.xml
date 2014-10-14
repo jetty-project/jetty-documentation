@@ -81,7 +81,7 @@
       <filename>/wiki</filename>:</para>
 
       <informalexample>
-        <programlisting language="xml">&lt;?xml version="1.0"  encoding="ISO-8859-1"?&gt;
+        <programlisting language="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure_9_0.dtd"&gt;
 
 &lt;Configure class="org.eclipse.jetty.webapp.WebAppContext"&gt;
@@ -98,7 +98,7 @@
       </note>
 
       <informalexample>
-        <programlisting language="xml">&lt;?xml version="1.0"  encoding="ISO-8859-1"?&gt;
+        <programlisting language="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure_9_0.dtd"&gt;
 
 &lt;Configure class="org.eclipse.jetty.webapp.WebAppContext"&gt;
@@ -128,7 +128,7 @@
       deploys.</para>
 
       <informalexample>
-        <programlisting language="xml">&lt;?xml version="1.0"  encoding="ISO-8859-1"?&gt;
+        <programlisting language="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure_9_0.dtd"&gt;
 
 &lt;Configure class="org.eclipse.jetty.webapp.WebAppContext"&gt;
@@ -147,7 +147,7 @@
       the deployment descriptor.</para>
 
       <informalexample>
-        <programlisting language="xml">&lt;?xml version="1.0"  encoding="ISO-8859-1"?&gt;
+        <programlisting language="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure_9_0.dtd"&gt;
 
 &lt;Configure class="org.eclipse.jetty.webapp.WebAppContext"&gt;
@@ -170,7 +170,7 @@
       WAR file.</para>
 
       <informalexample>
-        <programlisting language="xml">&lt;?xml version="1.0"  encoding="ISO-8859-1"?&gt;
+        <programlisting language="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure_9_0.dtd"&gt;
 
 &lt;Configure class="org.eclipse.jetty.webapp.WebAppContext"&gt;
@@ -188,7 +188,7 @@
       previous example), to include it.</para>
 
       <informalexample>
-        <programlisting language="xml">&lt;?xml version="1.0"  encoding="ISO-8859-1"?&gt;
+        <programlisting language="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure_9_0.dtd"&gt;
 
 &lt;Configure class="org.eclipse.jetty.webapp.WebAppContext"&gt;

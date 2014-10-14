@@ -109,7 +109,7 @@ xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:ns="http://docbook.org/ns/docbo
     flexible error page mapping is below:</para>
     <informalexample>
       <programlisting language="xml">
-<![CDATA[<?xml version="1.0"  encoding="ISO-8859-1"?>
+<![CDATA[<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE Configure PUBLIC "-//Mort Bay Consulting//DTD Configure//EN" "http://jetty.eclipse.org/configure.dtd">
 
 <Configure class="org.eclipse.jetty.webapp.WebAppContext">

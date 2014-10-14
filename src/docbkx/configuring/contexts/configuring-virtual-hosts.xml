@@ -179,7 +179,7 @@
     with a <link linkend="deployable-descriptor-file">context XML</link> file:
     </para>
 
-    <programlisting language="xml">&lt;?xml version="1.0"  encoding="ISO-8859-1"?&gt;
+    <programlisting language="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure_9_0.dtd"&gt;
 
 &lt;Configure class="org.eclipse.jetty.webapp.WebAppContext"&gt;
@@ -245,7 +245,7 @@
     <para>For <code>blah</code> webapp:</para>
 
     <informalexample>
-      <programlisting language="xml">&lt;?xml version="1.0"  encoding="ISO-8859-1"?&gt;
+      <programlisting language="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure_9_0.dtd"&gt;
 
 &lt;Configure class="org.eclipse.jetty.webapp.WebAppContext"&gt;
@@ -282,7 +282,7 @@
     <para>For <code>other</code> webapp:</para>
 
     <informalexample>
-      <programlisting language="xml">&lt;?xml version="1.0"  encoding="ISO-8859-1"?&gt;
+      <programlisting language="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure_9_0.dtd"&gt;
 
 &lt;Configure class="org.eclipse.jetty.webapp.WebAppContext"&gt;
@@ -375,7 +375,7 @@
     <para>For foo webapp:</para>
 
     <informalexample>
-      <programlisting language="xml">&lt;?xml version="1.0"  encoding="ISO-8859-1"?&gt;
+      <programlisting language="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure_9_0.dtd"&gt;
 
 &lt;Configure class="org.eclipse.jetty.webapp.WebAppContext"&gt;
@@ -395,7 +395,7 @@
     <para>For bar webapp:</para>
 
     <informalexample>
-      <programlisting language="xml">&lt;?xml version="1.0"  encoding="ISO-8859-1"?&gt;
+      <programlisting language="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure_9_0.dtd"&gt;
 
 &lt;Configure class="org.eclipse.jetty.webapp.WebAppContext"&gt;

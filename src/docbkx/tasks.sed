@@ -11,4 +11,5 @@ s@/home/joakim/java/@/usr/lib/jvm/@g
 s@/home/user/java/@/usr/lib/jvm/@g
 s@/home/joakim/code/intalio/distros/@/home/user/@g
 s@/home/joakim/@/home/user/@g
+s@xml version="1.0" *encoding="ISO-8859-1"@xml version="1.0" encoding="UTF-8"@g
 

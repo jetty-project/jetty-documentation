@@ -634,7 +634,7 @@ com/acme/sample/web/MyOtherStuff.class
       META-INF/jetty-webapp-context.xml file:</para>
 
       <para><informalexample>
-          <programlisting><![CDATA[<?xml version="1.0" encoding="ISO-8859-1"?>
+          <programlisting><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
 
 <!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure_9_0.dtd">
 

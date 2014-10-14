@@ -255,7 +255,7 @@ public class HelloServlet extends HttpServlet
       add the following contents:</para>
 
       <informalexample>
-        <programlisting language="xml"><![CDATA[<?xml version="1.0" encoding="ISO-8859-1"?>
+        <programlisting language="xml"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
 <web-app 
    xmlns="http://xmlns.jcp.org/xml/ns/javaee"
    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"

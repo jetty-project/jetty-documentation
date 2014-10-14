@@ -257,7 +257,7 @@ templates/jtracTemplate=jtrac-2.1.0
     <informalexample>
       <programlisting language="xml">
 <![CDATA[
-<?xml version="1.0"  encoding="ISO-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure.dtd">
 <Configure class="org.eclipse.jetty.webapp.WebAppContext">
   <Set name="contextPath">/</Set>
@@ -278,7 +278,7 @@ templates/jtracTemplate=jtrac-2.1.0
     <informalexample>
       <programlisting language="xml">
 <![CDATA[
-<?xml version="1.0"  encoding="ISO-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure.dtd">
 <Configure class="org.eclipse.jetty.overlays.TemplateContext">
   <Get name="resourceCache">
@@ -369,7 +369,7 @@ instances/jtracTemplate=red/
     <informalexample>
       <programlisting language="xml">
 <![CDATA[
-<?xml version="1.0"  encoding="ISO-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure.dtd">
 <Configure class="org.eclipse.jetty.webapp.WebAppContext">
   <Set name="virtualHosts">

@@ -353,6 +353,11 @@ NextProtoNego.put(sslSocket, new NextProtoNego.ServerProvider()
 
             <entry>1.7.0u55 - 1.7.0u60 - 1.7.0u65 - 1.7.0u67</entry>
           </row>
+          <row>
+            <entry>1.1.9.v20141016</entry>
+
+            <entry>1.7.0u71 - 1.7.0u72</entry>
+          </row>
         </tbody>
       </tgroup>
     </table>

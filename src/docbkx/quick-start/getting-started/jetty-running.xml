@@ -142,7 +142,7 @@ server          initialised in ${jetty.base}/start.d/server.ini
     <code>jetty.port</code> Property on the command line:</para>
 
     <para><screen><emphasis role="bold">&gt; cd $HOME/jetty-distribution-9/demo-base
-&gt; java -jar start.jar jetty.port=8081</emphasis></screen></para>
+&gt; java -jar ../start.jar jetty.port=8081</emphasis></screen></para>
 
     <para>Alternatively, property values can be added to the effective command
     line built from the <filename>start.ini</filename> file and
@@ -204,7 +204,7 @@ ext             enabled in     ${jetty.home}/start.ini
 
     <itemizedlist>
       <listitem>
-        <para>creates the https.ini file that activates and configures the
+        <para>creates the start.d/https.ini file that activates and configures the
         https connector module. The https module adds the
         <filename>etc/jetty-https.xml</filename> file to the effective command
         line.</para>
@@ -239,7 +239,7 @@ ext             enabled in     ${jetty.home}/start.ini
       setting the <code>https.port</code> property on the command line:</para>
 
       <para><screen><emphasis role="bold">&gt; cd $HOME/jetty-distribution-9/demo-base
-&gt; java -jar start.jar https.port=8444</emphasis></screen>Alternatively,
+&gt; java -jar ../start.jar https.port=8444</emphasis></screen>Alternatively,
       property values can be added to the effective command line built from
       the <filename>start.ini</filename> file and
       <filename>start.d/*.ini</filename> files. If you used the

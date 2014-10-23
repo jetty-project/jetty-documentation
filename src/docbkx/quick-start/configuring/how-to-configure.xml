@@ -331,7 +331,7 @@
       </varlistentry>
 
       <varlistentry>
-        <term><filename>$JETTY_HOME/lib/*.xml</filename></term>
+        <term><filename>$JETTY_HOME/etc/*.xml</filename></term>
 
         <listitem>
           <para>Jetty IoC XML files that configure individual features; for

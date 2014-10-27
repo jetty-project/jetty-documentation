@@ -150,28 +150,28 @@
       <listitem>
         <para><link
         xl:href="@JDURL@/org/eclipse/jetty/deploy/bindings/StandardDeployer.html">
-        StandardDeployer</link> âDeploys the ContextHandler into Jetty in
+        StandardDeployer</link> — Deploys the ContextHandler into Jetty in
         the appropriate place.</para>
       </listitem>
 
       <listitem>
         <para><link
         xl:href="@JDURL@/org/eclipse/jetty/deploy/bindings/StandardStarter.html">
-        StandardStarter</link> âSets the ContextHandler to started and start
+        StandardStarter</link> — Sets the ContextHandler to started and start
         accepting incoming requests.</para>
       </listitem>
 
       <listitem>
         <para><link
         xl:href="@JDURL@/org/eclipse/jetty/deploy/bindings/StandardStopper.html">
-        StandardStopper</link> âStops the ContextHandler and stops accepting
+        StandardStopper</link> — Stops the ContextHandler and stops accepting
         incoming requests.</para>
       </listitem>
 
       <listitem>
         <para><link
         xl:href="@JDURL@/org/eclipse/jetty/deploy/bindings/StandardUndeployer.html">
-        StandardUndeployer</link> âRemoves the ContextHandler from
+        StandardUndeployer</link> — Removes the ContextHandler from
         Jetty.</para>
       </listitem>
     </itemizedlist>

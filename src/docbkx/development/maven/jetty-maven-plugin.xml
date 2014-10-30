@@ -218,6 +218,15 @@
       </varlistentry>
 
       <varlistentry>
+        <term>dumpOnStart</term>
+
+        <listitem>
+          <para>Optional. Default value is false. If true, then jetty will
+          dump out the server structure on start.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
         <term>loginServices</term>
 
         <listitem>
@@ -257,6 +266,27 @@
             </itemizedlist><parameter>See <link
           linkend="configuring-jetty-request-logs">Configuring Request
           Logs</link> for more information.</parameter></para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>server</term>
+
+        <listitem>
+          <para>Optional since jetty-9.3.1. This would configure an instance
+          of the <link
+          xl:href="@GITURL@/jetty-server/src/main/java/org/eclipse/jetty/server/Server.java"><classname>org.eclipse.jetty.server.Server</classname></link>
+          for the plugin to use, however it is usually NOT necessary to
+          configure this, as the plugin will automatically configure one for
+          you. In particular, if you use the jettyXml element, then you
+          generally DON'T want to define this element, as you are probably
+          using the jettyXml file to configure up a Server with a special
+          constructor argument, such as a custom threadpool. If you define
+          both a server element AND use a jettyXml element which points to a
+          config file that has a line like "&lt;Configure id="Server"
+          class="org.eclipse.jetty.server.Server"&gt;" then the the xml
+          configuration will override what you configure for the server in the
+          pom.</para>
         </listitem>
       </varlistentry>
 

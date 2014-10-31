@@ -53,9 +53,9 @@
   .
   .
   <Set name="sessionHandler">
-    <New class="org.eclipse.jetty.servlet.SessionHandler">
+    <New class="org.eclipse.jetty.server.session.SessionHandler">
       <Arg>
-        <New class="org.eclipse.jetty.servlet.HashSessionManager">
+        <New class="org.eclipse.jetty.server.session.HashSessionManager">
           <Set name="storeDirectory">your/chosen/directory/goes/here</Set>
         </New>
       </Arg>
@@ -103,9 +103,9 @@
 
     <informalexample>
       <programlisting language="xml"><![CDATA[<Set name="sessionHandler">
-  <New class="org.eclipse.jetty.servlet.SessionHandler">
+  <New class="org.eclipse.jetty.server.session.SessionHandler">
     <Arg>
-      <New class="org.eclipse.jetty.servlet.HashSessionManager">
+      <New class="org.eclipse.jetty.server.session.HashSessionManager">
         <Set name="lazyLoad">true</Set>
       </New>
     </Arg>

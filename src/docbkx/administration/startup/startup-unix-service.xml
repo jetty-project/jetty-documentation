@@ -48,7 +48,7 @@ etc        logs                        README.TXT   start.ini  webapps
 
 [/opt/jetty/jetty-distribution-@project.version@]# cp bin/jetty.sh /etc/init.d/jetty
 [/opt/jetty/jetty-distribution-@project.version@]# echo JETTY_HOME=`pwd` > /etc/default/jetty
-[/opt/jetty/jetty-distribution-@project.version@]# cat /etc/default/jetty 
+[/opt/jetty/jetty-distribution-@project.version@]# cat /etc/default/jetty
 JETTY_HOME=/opt/jetty/jetty-distribution-@project.version@
 
 [/opt/jetty/jetty-distribution-@project.version@]# service jetty start

@@ -1239,7 +1239,7 @@ public void start(final BundleContext context) throws Exception
       to install the JSP and JSTL jars and their dependencies into your OSGi
       container. Some you will find in the Jetty distribution, whereas others
       you will need to download from <link
-      xl:href="http://central.maven.org/maven2/org/eclipse/jetty/orbit/">maven
+      xl:href="http://central.maven.org/maven2/org/eclipse/jetty/orbit/">Maven
       central</link>. Here is the list of recommended jars (NOTE the version
       numbers may change in future):</para>
 
@@ -1300,22 +1300,6 @@ public void start(final BundleContext context) throws Exception
             </row>
 
             <row>
-              <entry>org.eclipse.jetty.orbit:javax.servlet.jsp.jstl-1.2.0.v201105211821.jar</entry>
-
-              <entry>javax.servlet.jsp.jstl</entry>
-
-              <entry>Distribution lib/jsp</entry>
-            </row>
-
-            <row>
-              <entry>org.glassfish.web:javax.servlet.jsp.jstl-1.2.2.jar</entry>
-
-              <entry>org.glassfish.web.javax.servlet.jsp.jstl</entry>
-
-              <entry>Distribution lib/jsp</entry>
-            </row>
-
-            <row>
               <entry>org.eclipse.jetty.osgi:jetty-osgi-boot-jsp</entry>
 
               <entry>org.eclipse.jetty.osgi.boot.jsp</entry>
@@ -1351,6 +1335,123 @@ public void start(final BundleContext context) throws Exception
           </listitem>
         </orderedlist>
       </note>
+
+      <para>For the JSTL library, we recommend the use of the implementation
+      from Glassfish, as it has fewer dependencies:</para>
+
+      <table>
+        <title>Jars Required for Glassfish JSTL</title>
+
+        <tgroup cols="3">
+          <thead>
+            <row>
+              <entry>Jar</entry>
+
+              <entry>Bundle Symbolic Name</entry>
+
+              <entry>Location</entry>
+            </row>
+          </thead>
+
+          <tbody>
+            <row>
+              <entry>The jsp jars</entry>
+
+              <entry/>
+
+              <entry/>
+            </row>
+
+            <row>
+              <entry>
+              org.eclipse.jetty.orbit:javax.servlet.jsp.jstl-1.2.0.v201105211821.jar</entry>
+
+              <entry>javax.servlet.jsp.jstl</entry>
+
+              <entry>Distribution lib/jsp</entry>
+            </row>
+
+            <row>
+              <entry>
+              org.glassfish.web:javax.servlet.jsp.jstl-1.2.2.jar</entry>
+
+              <entry>org.glassfish.web.javax.servlet.jsp.jstl</entry>
+
+              <entry>Distribution lib/jsp</entry>
+            </row>
+          </tbody>
+        </tgroup>
+      </table>
+
+      <para>However, if you wish, you may use the JSTL implementation from
+      Apache instead, although you will need to source some dependency jars
+      with suitable OSGi manifests:</para>
+
+      <table>
+        <title>Jars Required for Apache JSTL</title>
+
+        <tgroup cols="3">
+          <thead>
+            <row>
+              <entry>Jar</entry>
+
+              <entry>Bundle Symbolic Name</entry>
+
+              <entry>Location</entry>
+            </row>
+          </thead>
+
+          <tbody>
+            <row>
+              <entry>The jsp jars</entry>
+
+              <entry/>
+
+              <entry/>
+            </row>
+
+            <row>
+              <entry>org.apache.taglibs:taglibs-standard-spec:jar:1.2.1</entry>
+
+              <entry>org.apache.taglibs.taglibs-standard-spec</entry>
+
+              <entry>Distribution lib/apache-jstl</entry>
+            </row>
+
+            <row>
+              <entry>org.apache.taglibs:taglibs-standard-spec:jar:1.2.1</entry>
+
+              <entry>org.apache.taglibs.standard-impl</entry>
+
+              <entry>Distribution lib/apache-jstl</entry>
+            </row>
+
+            <row>
+              <entry>org.apache.xalan 2.7.1</entry>
+
+              <entry/>
+
+              <entry>Try <link
+              xl:href="http://download.eclipse.org/tools/orbit/downloads/drops/R20140525021250/repository/plugins/org.apache.xalan_2.7.1.v201005080400.jar">Eclipse
+              Orbit</link></entry>
+            </row>
+
+            <row>
+              <entry>org.apache.xml.serializer 2.7.1</entry>
+
+              <entry/>
+
+              <entry>
+              Try
+              <link
+              xl:href="http://download.eclipse.org/tools/orbit/downloads/drops/R20140525021250/repository/plugins/org.apache.xml.serializer_2.7.1.v201005080400.jar">Eclipse
+              Orbit</link></entry>
+            </row>
+          </tbody>
+        </tgroup>
+      </table>
+
+      <para/>
     </section>
 
     <section>
@@ -1679,7 +1780,7 @@ Import-Package: org.eclipse.virgo.web.dm;version="[3.0.0,4.0.0)",org.s
     <title>Felix</title>
 
     <para>The Jetty OSGi integration has been successfully tested against
-    Felix 4.4.1. </para>
+    Felix 4.4.1.</para>
 
     <para>Unfortunately, as of Felix 4.x there is a difficultly with the
     resolution of the javax.transaction package. A <link
@@ -1692,7 +1793,7 @@ Import-Package: org.eclipse.virgo.web.dm;version="[3.0.0,4.0.0)",org.s
     change the declaration of the javax.sql and javax.transaction
     packages</filename> and set the changed lines as the value of the
     <code>org.osgi.framework.system.packages</code> property in the
-    <filename>conf/config.properties</filename> file. </para>
+    <filename>conf/config.properties</filename> file.</para>
 
     <para>The <filename>default.properties</filename> file defines the default
     <code>org.osgi.framework.system.packages</code> property like this:</para>

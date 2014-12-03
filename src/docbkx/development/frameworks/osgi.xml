@@ -411,8 +411,8 @@ org.osgi.framework.ServiceReference ref = bc.getServiceReference("org.eclipse.je
       </varlistentry>
 
       <varlistentry>
-        <term>Bundle MANIFEST contains Jetty-WarFolderPath or
-        Jetty-WarResourcePath</term>
+        <term>Bundle MANIFEST contains Jetty-WarFolderPath (for releases prior
+        to jetty-9.3) or Jetty-WarResourcePath</term>
 
         <listitem>
           <para>This is the location within the bundle of the webapp
@@ -862,7 +862,8 @@ public void start(BundleContext context) throws Exception
 
     <variablelist>
       <varlistentry>
-        <term>Jetty-WarResourcePath</term>
+        <term>Jetty-WarFolderPath (for releases prior to 9.3) or
+        Jetty-WarResourcePath</term>
 
         <listitem>
           <para>The location within the bundle of the root of the static
@@ -1363,8 +1364,7 @@ public void start(final BundleContext context) throws Exception
             </row>
 
             <row>
-              <entry>
-              org.eclipse.jetty.orbit:javax.servlet.jsp.jstl-1.2.0.v201105211821.jar</entry>
+              <entry>org.eclipse.jetty.orbit:javax.servlet.jsp.jstl-1.2.0.v201105211821.jar</entry>
 
               <entry>javax.servlet.jsp.jstl</entry>
 
@@ -1372,8 +1372,7 @@ public void start(final BundleContext context) throws Exception
             </row>
 
             <row>
-              <entry>
-              org.glassfish.web:javax.servlet.jsp.jstl-1.2.2.jar</entry>
+              <entry>org.glassfish.web:javax.servlet.jsp.jstl-1.2.2.jar</entry>
 
               <entry>org.glassfish.web.javax.servlet.jsp.jstl</entry>
 
@@ -1441,9 +1440,7 @@ public void start(final BundleContext context) throws Exception
 
               <entry/>
 
-              <entry>
-              Try
-              <link
+              <entry>Try <link
               xl:href="http://download.eclipse.org/tools/orbit/downloads/drops/R20140525021250/repository/plugins/org.apache.xml.serializer_2.7.1.v201005080400.jar">Eclipse
               Orbit</link></entry>
             </row>

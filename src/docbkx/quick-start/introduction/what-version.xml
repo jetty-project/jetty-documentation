@@ -16,141 +16,246 @@
 //  You may elect to redistribute this code under either of these licenses.
 //  ========================================================================
 -->
-<section xml:id="what-jetty-version" version="5.0" xmlns="http://docbook.org/ns/docbook"
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xl="http://www.w3.org/1999/xlink"
-xmlns:xi="http://www.w3.org/2001/XInclude"
-xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd">
+<section version="5.0"
+         xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd"
+         xml:id="what-jetty-version" xmlns="http://docbook.org/ns/docbook"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:xs="http://www.w3.org/2001/XMLSchema"
+         xmlns:xl="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:ns="http://docbook.org/ns/docbook">
   <title>What Version Do I Use?</title>
-  <para>Jetty 9 is the most recent version of Jetty and has a great many improvements over previous versions. One
-  improvement is this documentation which focuses on Jetty 9. While many people continue to use older versions of
-  Jetty, we generally recommend using Jetty 9 as it represents the version of Jetty that we will actively maintain and
-  improve over the next few years.</para>
+
+  <para>Jetty 9 is the most recent version of Jetty and has a great many
+  improvements over previous versions. One improvement is this documentation
+  which focuses on Jetty 9. While many people continue to use older versions
+  of Jetty, we generally recommend using Jetty 9 as it represents the version
+  of Jetty that we will actively maintain and improve over the next few
+  years.</para>
+
   <table>
     <title>Jetty Versions</title>
+
     <tgroup cols="8">
-      <colspec colwidth="8*" />
-      <colspec colwidth="9*" />
-      <colspec colwidth="15*" />
-      <colspec colwidth="6*" />
-      <colspec colwidth="20*" />
-      <colspec colwidth="10*" />
-      <colspec colwidth="6*" />
-      <colspec colwidth="20*" />
+      <colspec colwidth="8*"/>
+
+      <colspec colwidth="9*"/>
+
+      <colspec colwidth="15*"/>
+
+      <colspec colwidth="6*"/>
+
+      <colspec colwidth="20*"/>
+
+      <colspec colwidth="10*"/>
+
+      <colspec colwidth="6*"/>
+
+      <colspec colwidth="20*"/>
+
       <thead>
         <row>
           <entry>Version</entry>
+
           <entry>Year</entry>
+
           <entry>Home</entry>
+
           <entry>JVM</entry>
+
           <entry>Protocols</entry>
+
           <entry>Servlet</entry>
+
           <entry>JSP</entry>
+
           <entry>Status</entry>
         </row>
       </thead>
+
       <tbody>
         <row>
-          <entry>9.1</entry>
-          <entry>2013</entry>
+          <entry>9.3</entry>
+
+          <entry>2014</entry>
+
           <entry>Eclipse</entry>
+
           <entry>1.7</entry>
-          <entry>HTTP/1.1 RFC2616, javax.websocket, SPDY v3</entry>
+
+          <entry>HTTP/1.1, HTTP/2 RFC2616,javax.websocket, SPDY v3</entry>
+
           <entry>3.1</entry>
+
           <entry>2.3</entry>
-          <entry>Stable</entry>
+
+          <entry>Experimental</entry>
         </row>
+
         <row>
-          <entry>9</entry>
-          <entry>2012</entry>
+          <entry>9.2</entry>
+
+          <entry>2014</entry>
+
           <entry>Eclipse</entry>
+
           <entry>1.7</entry>
-          <entry>HTTP/1.1 RFC2616, WebSocket RFC 6455, SPDY v3</entry>
-          <entry>3.0</entry>
-          <entry>2.2</entry>
+
+          <entry>HTTP/1.1 RFC2616,javax.websocket, SPDY v3</entry>
+
+          <entry>3.1</entry>
+
+          <entry>2.3</entry>
+
           <entry>Stable</entry>
         </row>
+
         <row>
           <entry>8</entry>
+
           <entry>2009-</entry>
+
           <entry>Eclipse/Codehaus</entry>
+
           <entry>1.6</entry>
+
           <entry>HTTP/1.1 RFC2616, WebSocket RFC 6455, SPDY v3</entry>
+
           <entry>3.0</entry>
+
           <entry>2.2</entry>
+
           <entry>Mature</entry>
         </row>
+
         <row>
           <entry>7</entry>
+
           <entry>2008-</entry>
+
           <entry>Eclipse/Codehaus</entry>
+
           <entry>1.5</entry>
+
           <entry>HTTP/1.1 RFC2616, WebSocket RFC 6455, SPDY v3</entry>
+
           <entry>2.5</entry>
+
           <entry>2.1</entry>
+
           <entry>Mature</entry>
         </row>
+
         <row>
           <entry>6</entry>
+
           <entry>2006-2010</entry>
+
           <entry>Codehaus</entry>
+
           <entry>1.4-1.5</entry>
+
           <entry>HTTP/1.1 RFC2616</entry>
+
           <entry>2.5</entry>
+
           <entry>2.0</entry>
+
           <entry>Venerable</entry>
         </row>
+
         <row>
           <entry>5</entry>
+
           <entry>2003-2009</entry>
+
           <entry>Sourceforge</entry>
+
           <entry>1.2-1.5</entry>
+
           <entry>HTTP/1.1 RFC2616</entry>
+
           <entry>2.4</entry>
+
           <entry>2.0</entry>
+
           <entry>Deprecated</entry>
         </row>
+
         <row>
           <entry>4</entry>
+
           <entry>2001-2006</entry>
+
           <entry>Sourceforge</entry>
+
           <entry>1.2, J2ME</entry>
+
           <entry>HTTP/1.1 RFC2616</entry>
+
           <entry>2.3</entry>
+
           <entry>1.2</entry>
+
           <entry>Ancient</entry>
         </row>
+
         <row>
           <entry>3</entry>
+
           <entry>1999-2002</entry>
+
           <entry>Sourceforge</entry>
+
           <entry>1.2</entry>
+
           <entry>HTTP/1.1 RFC2068</entry>
+
           <entry>2.2</entry>
+
           <entry>1.1</entry>
+
           <entry>Fossilized</entry>
         </row>
+
         <row>
           <entry>2</entry>
+
           <entry>1998-2000</entry>
+
           <entry>Mortbay</entry>
+
           <entry>1.1</entry>
+
           <entry>HTTP/1.0 RFC1945</entry>
+
           <entry>2.1</entry>
+
           <entry>1.0</entry>
+
           <entry>Legendary</entry>
         </row>
+
         <row>
           <entry>1</entry>
+
           <entry>1995-1998</entry>
+
           <entry>Mortbay</entry>
+
           <entry>1.0</entry>
+
           <entry>HTTP/1.0 RFC1945</entry>
+
           <entry>-</entry>
+
           <entry>-</entry>
+
           <entry>Mythical</entry>
         </row>
       </tbody>
     </tgroup>
   </table>
-  <para />
+
+  <para/>
 </section>

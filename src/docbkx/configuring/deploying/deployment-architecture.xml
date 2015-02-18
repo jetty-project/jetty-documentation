@@ -150,8 +150,8 @@
       <listitem>
         <para><link
         xl:href="@JDURL@/org/eclipse/jetty/deploy/bindings/StandardDeployer.html">
-        StandardDeployer</link> — Deploys the ContextHandler into Jetty in
-        the appropriate place.</para>
+        StandardDeployer</link> — Deploys the ContextHandler into Jetty in the
+        appropriate place.</para>
       </listitem>
 
       <listitem>
@@ -213,30 +213,30 @@
     file.</para>
 
     <para><informalexample>
-        <programlisting language="xml">&lt;?xml version="1.0"?&gt;
-&lt;!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure_9_0.dtd"&gt;
-&lt;Configure id="Server" class="org.eclipse.jetty.server.Server"&gt;
+        <programlisting language="xml"><![CDATA[<?xml version="1.0"?>
+<!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure_9_0.dtd">
+<Configure id="Server" class="org.eclipse.jetty.server.Server">
 
-  &lt;Call name="addBean"&gt;
-    &lt;Arg&gt;
-      &lt;New id="DeploymentManager" class="org.eclipse.jetty.deploy.DeploymentManager"&gt;
-        &lt;Set name="contexts"&gt;
-          &lt;Ref refid="Contexts" /&gt;
-        &lt;/Set&gt;
-        &lt;Call id="webappprovider" name="addAppProvider"&gt;
-          &lt;Arg&gt;
-            &lt;New class="org.eclipse.jetty.deploy.providers.WebAppProvider"&gt;
-              &lt;Set name="monitoredDirName"&gt;&lt;Property name="jetty.home" default="." /&gt;/webapps&lt;/Set&gt;
-              &lt;Set name="defaultsDescriptor"&gt;&lt;Property name="jetty.home" default="." /&gt;/etc/webdefault.xml&lt;/Set&gt;
-              &lt;Set name="scanInterval"&gt;1&lt;/Set&gt;
-              &lt;Set name="extractWars"&gt;true&lt;/Set&gt;
-            &lt;/New&gt;
-          &lt;/Arg&gt;
-        &lt;/Call&gt;
-      &lt;/New&gt;
-    &lt;/Arg&gt;
-  &lt;/Call&gt;
-&lt;/Configure&gt;    </programlisting>
+  <Call name="addBean">
+    <Arg>
+      <New id="DeploymentManager" class="org.eclipse.jetty.deploy.DeploymentManager">
+        <Set name="contexts">
+          <Ref refid="Contexts" />
+        </Set>
+        <Call id="webappprovider" name="addAppProvider">
+          <Arg>
+            <New class="org.eclipse.jetty.deploy.providers.WebAppProvider">
+              <Set name="monitoredDirName"><Property name="jetty.home" default="." />/webapps</Set>
+              <Set name="defaultsDescriptor"><Property name="jetty.home" default="." />/etc/webdefault.xml</Set>
+              <Set name="scanInterval">1</Set>
+              <Set name="extractWars">true</Set>
+            </New>
+          </Arg>
+        </Call>
+      </New>
+    </Arg>
+  </Call>
+</Configure>    ]]></programlisting>
       </informalexample></para>
 
     <para>The above configuration will create a DeploymentManager tracked as a
@@ -298,28 +298,27 @@
 
               <listitem>
                 <para>In the special case where both a WAR file and XML file
-                exists for same base name, then the WAR file is flagged as
-                not-deployable, and the XML file is assumed to configure and
-                reference the WAR file. (see <xref
-                linkend="configuring-specific-webapp-deployment"/>)</para>
+                exists for same base name the XML file is assumed to configure
+                and reference the WAR file (see <xref
+                linkend="configuring-specific-webapp-deployment"/>). Since
+                jetty-9.2.7, if either the WAR file or its corresponding XML
+                file changes, the webapp will be redeployed.</para>
               </listitem>
 
               <listitem>
-                <para>And directory is considered to be deployable</para>
+                <para>A directory is considered to be deployable</para>
               </listitem>
 
               <listitem>
                 <para>In the special case where both a Directory and WAR file
-                of the same name exists, the directory is flagged as
-                not-deployable, and the WAR file is assumed to be and
+                of the same name exists the WAR file is assumed to be an
                 automatic deployable.</para>
               </listitem>
 
               <listitem>
                 <para>In the special case where both a DIrectory and XML file
-                of the same name exists, the directory is flagged as
-                not-deployable, and the XML file is assumed to configure and
-                reference the Directory.</para>
+                of the same name exists the XML file is assumed to configure
+                and reference the Directory.</para>
               </listitem>
 
               <listitem>
@@ -329,9 +328,9 @@
 
               <listitem>
                 <para>If automatic deployment is used, and the special
-                filename <filename>root.war</filename> or directory name
-                <filename>root</filename> will result in a deployment to the
-                <literal>"/"</literal> context path.</para>
+                filename <filename>root.war/ROOT.war</filename> or directory
+                name <filename>root/ROOT</filename> will result in a
+                deployment to the <literal>"/"</literal> context path.</para>
               </listitem>
             </orderedlist>
           </listitem>

@@ -70,7 +70,7 @@
             <informalexample>
                 <programlisting language="rjava-no-parse">
                     <filename>
-                        @GITURL@/jetty-spdy/spdy-http-server/src/main/java/org/eclipse/jetty/spdy/server/http/ReferrerPushStrategy.java
+                        @GITURL@/jetty-spdy/spdy-http-server/src/main/java/org/eclipse/jetty/spdy/server/http/ReferrerPushStrategy.java?h=jetty-9.2.x
                     </filename>
                 </programlisting>
             </informalexample>

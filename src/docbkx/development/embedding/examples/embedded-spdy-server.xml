@@ -31,13 +31,13 @@
     </para>
     <example>
         <title>
-            <link xl:href="@GITURL@/examples/embedded/src/main/java/org/eclipse/jetty/embedded/SpdyServer.java">
-                SpdyServer.java
+            <link xl:href="@GITURL@/examples/embedded/src/main/java/org/eclipse/jetty/embedded/SpdyServer.java?h=jetty-9.2.x">
+                SpdyServer.java?h=jetty-9.2.x
             </link>
         </title>
         <programlisting language="rjava-no-parse">
             <filename>
-                @GITURL@/examples/embedded/src/main/java/org/eclipse/jetty/embedded/SpdyServer.java
+                @GITURL@/examples/embedded/src/main/java/org/eclipse/jetty/embedded/SpdyServer.java?h=jetty-9.2.x
             </filename>
         </programlisting>
     </example>

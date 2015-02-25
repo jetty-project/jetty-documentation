@@ -133,7 +133,7 @@ $ mvn install
     repository automatically.</para>
 
     <note>
-      Jetty has a great many test cases that run through the course of its build. Periodically we find some test cases to be more timing dependent then they should be and this results in intermittient test failures. You can help track these down by openning a bug report.
+      Jetty has a great many test cases that run through the course of its build. Periodically we find some test cases to be more time dependent than they should be and this results in intermittent test failures. You can help track these down by opening a bug report.
     </note>
   </section>
 

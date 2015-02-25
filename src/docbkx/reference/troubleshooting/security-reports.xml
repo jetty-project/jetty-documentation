@@ -68,6 +68,24 @@
 
       <tbody>
         <row>
+          <entry>2015/02/24</entry>
+
+          <entry>CVE-2015-2080</entry>
+
+          <entry>high</entry>
+
+          <entry>high</entry>
+
+          <entry>&gt;=9.2.3 &lt;9.2.9</entry>
+
+          <entry>9.2.9</entry>
+
+          <entry><link
+          xl:href="http://blog.gdssecurity.com/labs/2015/2/25/jetleak-vulnerability-remote-leakage-of-shared-buffers-in-je.html">JetLeak
+          exposure of past buffers during HttpParser error</link></entry>
+        </row>
+
+        <row>
           <entry>2013/11/27</entry>
 
           <entry><link

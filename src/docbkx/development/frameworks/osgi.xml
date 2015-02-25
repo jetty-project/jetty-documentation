@@ -241,7 +241,7 @@ jettyhome/etc/jetty-selector.xml]]></programlisting>
             used. If not specified, they default to:</para>
 
             <informalexample>
-              <programlisting langauge="plain"><![CDATA[etc/jetty.xml,etc/jetty-selector.xml,etc/jetty-deployer.xml]]></programlisting>
+              <programlisting language="plain"><![CDATA[etc/jetty.xml,etc/jetty-selector.xml,etc/jetty-deployer.xml]]></programlisting>
             </informalexample>
 
             <para>Note that the paths can either be relative or absolute, or a

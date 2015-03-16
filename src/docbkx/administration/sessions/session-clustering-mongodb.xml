@@ -47,7 +47,7 @@
   investigating this solution in order to scale to large amount of users and
   sessions, so careful attention should be paid to your usage scenario.
   Applications with a heavy write profile to their sessions will consume more
-  network bandwidth then profiles that are predominately read oriented. We
+  network bandwidth than profiles that are predominately read oriented. We
   recommend using this session manager with largely read based session
   scenarios.</para>
 

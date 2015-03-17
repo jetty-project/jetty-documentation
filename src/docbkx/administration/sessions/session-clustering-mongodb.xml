@@ -337,7 +337,7 @@ Server server = new Server();
   ... //configure your webapp context
  MongoSessionManager mongoMgr = new MongoSessionManager();
  mongoMgr.setSessionIdManager(server.getSessionIdManager());
- wac.setSessionHandler(mongoMgr);
+ wac.setSessionHandler(new SessionHandler(mongoMgr));
  
 ]]></programlisting>
     </informalexample>

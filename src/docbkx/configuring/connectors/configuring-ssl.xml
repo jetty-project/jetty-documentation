@@ -22,7 +22,7 @@
         >
   <title>Configuring SSL/TLS</title>
 
-  <para>This document provides an overview of how to configure SSL and TSL
+  <para>This document provides an overview of how to configure SSL and TLS
   for Jetty.</para>
 
   <section xml:id="tls-and-ssl-versions">

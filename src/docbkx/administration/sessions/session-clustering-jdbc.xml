@@ -122,7 +122,7 @@
           <Ref id="Server"/>
         </Arg>
         <Set name="workerName">fred</Set>
-        <Call name="setDriverInfo">j
+        <Call name="setDriverInfo">
           <Arg>com.mysql.jdbc.Driver</Arg>
           <Arg>jdbc:mysql://127.0.0.1:3306/sessions?user=janb</Arg>
         </Call>

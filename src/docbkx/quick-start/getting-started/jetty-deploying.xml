@@ -28,7 +28,7 @@
          xmlns:ns="http://docbook.org/ns/docbook">
   <title>Deploying Web Applications</title>
 
-  <para>Jetty server instances that configures the deploy module will have a
+  <para>Jetty server instances that configure the deploy module will have a
   web application deployer that hot deploys files found in the<filename>
   webapps</filename> directory. Standard WAR files and jetty configuration
   files that you place in the <filename> webapps</filename> directory are hot

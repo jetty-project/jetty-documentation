@@ -20,10 +20,24 @@
          xml:id="configuring-ssl" xmlns="http://docbook.org/ns/docbook"
          xmlns:xl="http://www.w3.org/1999/xlink"
         >
-  <title>Configuring SSL</title>
+  <title>Configuring SSL/TLS</title>
 
-  <para>This document provides an overview of how to configure SSL (also known as TLS)
+  <para>This document provides an overview of how to configure SSL and TLS
   for Jetty.</para>
+
+  <section xml:id="tls-and-ssl-versions">
+    <title>TLS and SSL versions</title>
+    <para>Which browser/OS supports which protocols can be
+      <link xl:href="https://en.wikipedia.org/wiki/Transport_Layer_Security#Web_browsers">found on Wikipedia</link></para>
+    <itemizedlist>
+      <listitem>TLS v1.1 and v1.2: The protocols which should be used wherever possible. All CBC based ciphers are
+        supported since Java 7, the new GCM modes are supported since Java 8.</listitem>
+      <listitem>TLS v1.0: still ok but affected by the POODLE attack too. To support oder browsers this protocol
+        version is still needed.</listitem>
+      <listitem>SSL v3: is now deprecated and should only be enabled if you still need to
+        support very old browsers like Internet Explorer 6 on Windows XP which does not support TLS 1.0 (or is disabled by default).</listitem>
+    </itemizedlist>
+  </section>
 
   <section xml:id="understanding-certificates-and-keys">
     <title>Understanding Certificates and Keys</title>
@@ -57,13 +71,13 @@
         <itemizedlist>
           <listitem>
             <para><link
-            xl:href="http://docs.oracle.com/javase/7/docs/technotes/tools/solaris/keytool.html">Keytool
+            xl:href="http://docs.oracle.com/javase/8/docs/technotes/tools/unix/keytool.html">Keytool
             for Unix</link></para>
           </listitem>
 
           <listitem>
             <para><link
-            xl:href="http://docs.oracle.com/javase/7/docs/technotes/tools/windows/keytool.html">Keytool
+            xl:href="http://docs.oracle.com/javase/8/docs/technotes/tools/windows/keytool.html">Keytool
             for Windows</link></para>
           </listitem>
         </itemizedlist>
@@ -194,7 +208,7 @@
         only mandatory response is to provide the fully qualified host name of
         the server at the "first and last name" prompt. For example:</para>
 
-        <screen><![CDATA[$ keytool -keystore keystore -alias jetty -genkey -keyalg RSA
+        <screen><![CDATA[$ keytool -keystore keystore -alias jetty -genkey -keyalg RSA -sigalg SHA256withRSA
  Enter keystore password:  password
  What is your first and last name?
    [Unknown]:  jetty.eclipse.org
@@ -225,6 +239,9 @@
         sites need a trusted certificate, as shown in the section <link
         linkend="generating-csr-from-keytool">generating a CSR with
         keytool</link>.</para>
+        <para>If you want to use only a self signed certificate for some kind of
+        internal admin panel add -validity &lt;days&gt; to the keytool call
+        above, otherwise your certificate is only valid for one month.</para>
       </section>
 
       <section xml:id="generating-keys-and-certificates-openssl">
@@ -233,7 +250,7 @@
         <para>The following command generates a key pair in the file
         <filename>jetty.key</filename>:</para>
 
-        <screen><![CDATA[$ openssl genrsa -des3 -out jetty.key]]></screen>
+        <screen><![CDATA[$ openssl genrsa -aes128 -out jetty.key]]></screen>
 
         <para>You might also want to use the <filename>-rand</filename> file
         argument to provide an arbitrary file that helps seed the random
@@ -242,37 +259,40 @@
         <para>The following command generates a certificate for the key into
         the file <filename> jetty.crt</filename>:</para>
 
-        <screen><![CDATA[$ openssl req -new -x509 -key jetty.key -out jetty.crt]]></screen>
+        <screen><![CDATA[$ openssl req -new -x509 -b2048 -sha256 -key jetty.key -out jetty.crt]]></screen>
+
+        <para>Adding -sha256 ensures to get a certificate with the now recommended SHA-256 signature algorithm.
+          For the paranoid ones add -b4096 to get a 4069bits long key.</para>
 
         <para>The next command prompts for information about the certificate
         and for passwords to protect both the keystore and the keys within it.
         The only mandatory response is to provide the fully qualified host
         name of the server at the "Common Name" prompt. For example:</para>
 
-        <screen><![CDATA[$ openssl genrsa -des3 -out jetty.key
- Generating RSA private key, 512 bit long modulus
- ...........................++++++++++++
- ..++++++++++++
- e is 65537 (0x10001)
- Enter pass phrase for jetty.key:
- Verifying - Enter pass phrase for jetty.key:
+        <screen><![CDATA[$ openssl genrsa -aes128 -out jetty.key
+Generating RSA private key, 2048 bit long modulus
+..............+++
+......................................................................+++
+e is 65537 (0x10001)
+Enter pass phrase for jetty.key:
+Verifying - Enter pass phrase for jetty.key:
 
-$ openssl req -new -x509 -key jetty.key -out jetty.crt
- Enter pass phrase for jetty.key:
- You are about to be asked to enter information to be incorporated
- into your certificate request.
- What you are about to enter is what is called a Distinguished Name or a DN.
- There are quite a few fields but you can leave some blank
- For some fields there is a default value,
- If you enter '.', the field is left blank.
- -----
- Country Name (2 letter code) [AU]:.
- State or Province Name (full name) [Some-State]:.
- Locality Name (eg, city) []:.
- Organization Name (eg, company) [Internet Widgets Pty Ltd]:Mort Bay Consulting Pty. Ltd.
- Organizational Unit Name (eg, section) []:Jetty
- Common Name (eg, YOUR name) []:jetty.eclipse.org
- Email Address []:
+$ openssl req -new -x509 -newkey rsa:2048 -sha256 -key jetty.key -out jetty.crt
+Enter pass phrase for jetty.key:
+You are about to be asked to enter information that will be incorporated
+into your certificate request.
+What you are about to enter is what is called a Distinguished Name or a DN.
+There are quite a few fields but you can leave some blank
+For some fields there will be a default value,
+If you enter '.', the field will be left blank.
+-----
+Country Name (2 letter code) [AU]:
+State or Province Name (full name) [Some-State]:
+Locality Name (eg, city) []:
+Organization Name (eg, company) [Internet Widgits Pty Ltd]:Mort Bay Consulting Pty. Ltd.
+Organizational Unit Name (eg, section) []:Jetty
+Common Name (e.g. server FQDN or YOUR name) []:jetty.eclipse.org
+Email Address []:
 
 $]]></screen>
 
@@ -489,21 +509,21 @@ $ openssl pkcs12 -export -inkey example.key -in cert-chain.txt -out example.pkcs
       <para>The keyManagerPassword is passed as the password arg to KeyManagerFactory.init(...). If there is no
           keymanagerpassword, then the keystorepassword is used instead. If there is no trustmanager set, then the
           keystore is used as the trust store and the keystorepassword is used as the truststore password</para>
-          
-      <para>There is no need to create a new instance of SslContextFactory using the xml above as one exists in jetty-ssl.xml. 
-          Edit the paths and passwords in jetty-ssl.xml and ensure you add following lines to start.ini after 
+
+      <para>There is no need to create a new instance of SslContextFactory using the xml above as one exists in jetty-ssl.xml.
+          Edit the paths and passwords in jetty-ssl.xml and ensure you add following lines to start.ini after
           the line jetty.dump.stop=:</para>
-          
+
       <informalexample>
         <programlisting language="plain"><![CDATA[
           etc/jetty-ssl.xml
 		  etc/jetty-https.xml]]></programlisting></informalexample>
-		  
+
 	  <para>Optionally, configure the https port either in jetty-https.xml like this:
 		  <informalexample>
         <programlisting language="xml"><![CDATA[<Set name="port">8443</Set>]]></programlisting>
       </informalexample>
-		  or via the commandline e.g. 
+		  or via the commandline e.g.
 		  <screen><![CDATA[$ java -jar start.jar https.port=8443]]></screen>
 		  </para>
     </section>
@@ -525,61 +545,42 @@ $ openssl pkcs12 -export -inkey example.key -in cert-chain.txt -out example.pkcs
               You can get them by obtaining an instance of SSLEngine and call getSupportedCipherSuites().
               Tools like ssllabs.com might report slightly different names which will be ignored.</para></note>
 
+          <note><para>It's recommended to install the Java Cryptography Extension (JCE) Unlimited Strength policy files
+            in your JRE to get full strength ciphers like AES-256. They can be found on the
+            <link xl:href="http://www.oracle.com/technetwork/java/javase/downloads/index.html">Java download page</link>.
+              Just overwrite the two present JAR files in <code>&lt;JRE_HOME&gt;/lib/security/</code>
+          </para></note>
+
           <para>Both setIncludeCipherSuites and setExcludeCipherSuites can be feed by the exact cipher suite
-              name used in the jdk or by using regular expressions.
+              name used in the JDK or by using regular expressions.
           </para>
 
           <para>
-              Here's a couple of examples on how to include only RC4 cipher suites. All of them will protect the
-              server from the <link xl:href="https://www.google.com/search?q=beast+attack">BEAST</link> attack.
+              Here's an example of how to include all safe cipher suites and disable old insecure ones.
           </para>
 
-          <para>Include a preferred set of cipher suites:</para>
+          <para>Include all ciphers which support <link xl:href="https://en.wikipedia.org/wiki/Forward_secrecy">Forward Secrecy</link> using regex:</para>
           <informalexample>
               <programlisting language="xml"><![CDATA[
               <Set name="IncludeCipherSuites">
                 <Array type="String">
-                    <Item>TLS_RSA_WITH_RC4_128_MD5</Item>
-                    <Item>TLS_RSA_WITH_RC4_128_SHA</Item>
-                    <Item>TLS_ECDHE_RSA_WITH_RC4_128_SHA</Item>
+                    <Item>TLS_DHE_RSA.*</Item>
+                    <Item>TLS_ECDHE.*</Item>
                 </Array>
               </Set>]]>
               </programlisting>
           </informalexample>
 
-          <para>Include all RC4 cipher suites by using a regex:</para>
-          <informalexample>
-              <programlisting language="xml"><![CDATA[
-              <Set name="IncludeCipherSuites">
-                <Array type="String">
-                    <Item>.*RC4.*</Item>
-                </Array>
-              </Set>]]>
-              </programlisting>
-          </informalexample>
-
-          <para>Exclude all non RC4 cipher suites:</para>
+          <para>Exclude all old, insecure or anonymous cipher suites:</para>
           <informalexample>
             <programlisting language="xml"><![CDATA[
             <Set name="ExcludeCipherSuites">
               <Array type="String">
-                <Item>SSL_RSA_WITH_DES_CBC_SHA</Item>
-                <Item>SSL_DHE_RSA_WITH_DES_CBC_SHA</Item>
-                <Item>SSL_DHE_DSS_WITH_DES_CBC_SHA</Item>
-                <Item>SSL_RSA_EXPORT_WITH_RC4_40_MD5</Item>
-                <Item>SSL_RSA_EXPORT_WITH_DES40_CBC_SHA</Item>
-                <Item>SSL_DHE_RSA_EXPORT_WITH_DES40_CBC_SHA</Item>
-                <Item>SSL_DHE_DSS_EXPORT_WITH_DES40_CBC_SHA</Item>
-                <Item>TLS_DHE_RSA_WITH_AES_128_CBC_SHA256</Item>
-                <Item>TLS_RSA_WITH_AES_128_CBC_SHA</Item>
-                <Item>TLS_DHE_RSA_WITH_AES_128_CBC_SHA</Item>
-                <Item>TLS_RSA_WITH_AES_128_CBC_SHA256</Item>
-                <Item>TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA</Item>
-                <Item>TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256</Item>
-                <Item>TLS_RSA_WITH_3DES_EDE_CBC_SHA</Item>
-                <Item>TLS_DHE_RSA_WITH_3DES_EDE_CBC_SHA</Item>
-                <Item>TLS_ECDHE_RSA_WITH_3DES_EDE_CBC_SHA</Item>
-                <Item>RSA_WITH_3DES_EDE_CBC_SHA</Item>
+                <Item>.*NULL.*</Item>
+                <Item>.*RC4.*</Item>
+                <Item>.*MD5.*</Item>
+                <Item>.*DES.*</Item>
+                <Item>.*DSS.*</Item>
               </Array>
             </Set>]]>
             </programlisting>
@@ -590,6 +591,35 @@ $ openssl pkcs12 -export -inkey example.key -in cert-chain.txt -out example.pkcs
                   need to specify specific cipher suites. This configuration will adapt to any
                   additions/removals of cipher suites to new versions of the JDK.</para>
           </note>
+
+          <para>
+            Since 2014 SSLv3 is considered insecure and should be disabled.
+          </para>
+          <informalexample>
+            <programlisting language="xml"><![CDATA[
+              <Set name="ExcludeProtocols">
+                   <Array type="java.lang.String">
+                       <Item>SSLv3</Item>
+                   </Array>
+              </Set>
+              ]]>
+            </programlisting>
+          </informalexample>
+          <note>
+            <para>
+              Note that disabling SSLv3 prevents very old browsers like Internet Explorer 6 on Windows XP from connecting.
+            </para>
+          </note>
+
+          <para>
+            TLS renegotiation should be disabled too to prevent an attack based on this feature.
+          </para>
+          <informalexample>
+            <programlisting language="xml"><![CDATA[
+              <Set name="renegotiationAllowed">FALSE</Set>
+              ]]>
+            </programlisting>
+          </informalexample>
 
       </section>
 

@@ -510,6 +510,9 @@ $ openssl pkcs12 -export -inkey example.key -in cert-chain.txt -out example.pkcs
           keymanagerpassword, then the keystorepassword is used instead. If there is no trustmanager set, then the
           keystore is used as the trust store and the keystorepassword is used as the truststore password</para>
 
+      <para>The key and store passwords may also be set using the system properties: "org.eclipse.jetty.ssl.keypassword" 
+      "org.eclipse.jetty.ssl.password".  This is not a recommended usage.</para>
+
       <para>There is no need to create a new instance of SslContextFactory using the xml above as one exists in jetty-ssl.xml.
           Edit the paths and passwords in jetty-ssl.xml and ensure you add following lines to start.ini after
           the line jetty.dump.stop=:</para>

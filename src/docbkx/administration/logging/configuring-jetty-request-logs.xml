@@ -55,7 +55,7 @@
     <emphasis><code>NCSARequestLog</code></emphasis> which supports the NCSA format in
     files that you can roll over on a daily basis.</para>
 
-    <para>The <link xl:href="http://http://logback.qos.ch/">Logback
+    <para>The <link xl:href="http://logback.qos.ch/">Logback
     Project</link> offers <link
     xl:href="http://logback.qos.ch/access.html">another implementation</link>
     of a RequestLog interface, providing rich and powerful HTTP-access log

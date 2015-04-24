@@ -1437,6 +1437,77 @@ m.put("keyName", new String("value1"));                ]]></programlisting>
       </tgroup>
     </informaltable>
 
+    <para>The <code>name</code> attribute may be a comma separated list of property names,
+    with the first property name being the "official" name, and the others names being old,
+    deprecated property names that are kept for backward compatibility. A warning log is
+    issued when deprecated property names are used.</para>
+
+    <para>The <code>default</code> attribute contains the value to use in case none of the
+    property names is found.</para>
+    <para>The <code>default</code> attribute value is itself subject to property expansion;
+    properties are referenced using the <code>${propertyName|defaultValue}</code> syntax,
+    so the whole <code>Property</code> element may have this form:</para>
+
+      <informalexample>
+        <programlisting language="xml"><![CDATA[
+<Property name="filePath,fileName" default="${myTmpDir|/tmp}/myPath" />
+        ]]></programlisting>
+      </informalexample>
+
+    <para>In the example above, the property <code>filePath</code> is looked up first.
+    If it is not found, then the property <code>fileName</code> is looked up next.
+    If it is found a warning log is issued to remind that <code>fileName</code> is
+    deprecated and <code>filePath</code> should be used instead.
+    If it is not found, then the <code>default</code> attribute is considered, and
+    the <code>myTmpDir</code> property looked up.
+    If it is not present, then the value <code>/tmp</code> is used.
+    The value obtained by the resolution of the property present in the value of the
+    <code>default</code> attribute is then concatenated to the string
+    <code>/myPath</code>. The table below illustrates the behaviour:</para>
+
+    <informaltable>
+      <tgroup cols="4">
+        <thead>
+          <row>
+            <entry align="center">filePath</entry>
+            <entry align="center">fileName</entry>
+            <entry align="center">myTmpDir</entry>
+            <entry align="center">&lt;Property&gt;</entry>
+          </row>
+        </thead>
+
+        <tbody>
+          <row>
+            <entry>/foo</entry>
+            <entry>&#160;</entry>
+            <entry>&#160;</entry>
+            <entry>/foo</entry>
+          </row>
+
+          <row>
+            <entry>&#160;</entry>
+            <entry>/bar</entry>
+            <entry>&#160;</entry>
+            <entry>/bar</entry>
+          </row>
+
+          <row>
+            <entry>&#160;</entry>
+            <entry>&#160;</entry>
+            <entry>/baz</entry>
+            <entry>/baz/myPath</entry>
+          </row>
+
+          <row>
+            <entry>&#160;</entry>
+            <entry>&#160;</entry>
+            <entry>&#160;</entry>
+            <entry>/tmp/myPath</entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </informaltable>
+
     <section>
       <title>Can Contain</title>
 

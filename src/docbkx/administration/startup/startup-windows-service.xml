@@ -190,6 +190,10 @@ Java HotSpot(TM) 64-Bit Server VM (build 24.45-b08, mixed mode)]]></screen>
     <filename>prunmgr.exe</filename> and <filename>prunsrv.exe</filename>
     files into the <filename>C:\opt</filename> directory.</para>
 
+	<para>Make sure to get the right version of <filename>prunsrv.exe</filename>
+	for your environment. The ZIP file has both 32 bit and 64 bit versions of this 
+	file.</para>
+
     <para>Once you are complete, the contents of <filename>C:\opt</filename>
     directory should look like this:</para>
 

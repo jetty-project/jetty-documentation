@@ -1529,7 +1529,7 @@ WebAppY:
       </contextHandler>
       <contextHandler implementation="org.eclipse.jetty.maven.plugin.JettyWebAppContext">
         <war>${project.basedir}../../C.war</war>
-        <contextPath>/B</contextPath>
+        <contextPath>/C</contextPath>
       </contextHandler>
     </contextHandlers>
   </configuration>

@@ -111,10 +111,10 @@ import org.eclipse.jetty.webapp.WebAppContext;
             ...
             <artifactId>jetty-maven-plugin</artifactId>
             <configuration>
-                <webAppConfig>
+                <webApp>
                   ...
                   <defaultsDescriptor>/my/path/to/webdefault.xml</defaultsDescriptor>
-                </webAppConfig>
+                </webApp>
             </configuration>
         </plugin>
         ...

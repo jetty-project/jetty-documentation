@@ -64,8 +64,6 @@
 
       <keyword>http</keyword>
 
-      <keyword>spdy</keyword>
-
       <keyword>websocket</keyword>
 
       <keyword>eclipse</keyword>
@@ -270,17 +268,9 @@
 
     <xi:include href="administration/jmx/chapter.xml"/>
 
-    <!-- SPDY -->
-
-    <xi:include href="administration/spdy/chapter.xml"/>
-
     <!-- ALPN -->
 
     <xi:include href="administration/alpn/chapter.xml"/>
-
-    <!-- NPN -->
-
-    <xi:include href="administration/npn/chapter.xml"/>
 
     <!-- FastCGI -->
 
@@ -293,7 +283,6 @@
     <!-- How to use the jetty-runner module -->
 
     <xi:include href="administration/runner/chapter.xml"/>
-
 
     <!-- Advanced Security Topics -->
 

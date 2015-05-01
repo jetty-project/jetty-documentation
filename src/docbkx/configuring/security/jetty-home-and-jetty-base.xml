@@ -26,8 +26,8 @@
          xmlns:xi="http://www.w3.org/2001/XInclude"
          xmlns:ns2="http://www.w3.org/1998/Math/MathML"
          xmlns:ns="http://docbook.org/ns/docbook">
-  <title>Jetty 9.1: Using the ${jetty.home} and ${jetty.base} Concepts to
-  Configure Security</title>
+  <title>Using the ${jetty.home} and ${jetty.base} Concepts to Configure
+  Security</title>
 
   <para>Jetty 9.1 introduces <literal>${jetty.base}</literal> and
   <literal>${jetty.home}</literal>.</para>
@@ -78,10 +78,10 @@
   files. For more information, see <xref linkend="startup-modules"/>.</para>
 
   <section xml:id="configuring-security-jetty91">
-    <title>Configuring SSL in Jetty 9.1</title>
+    <title>Configuring SSL in with modules</title>
 
-    <para>This page describes how to configure SSL in Jetty 9.1. It provides
-    an example of using the <literal>${jetty.home}</literal> and
+    <para>This page describes how to configure SSL in Jetty with modules. It
+    provides an example of using the <literal>${jetty.home}</literal> and
     <literal>${jetty.base}</literal> to maximum effect. It also includes a
     detailed explanation of how modules work.</para>
 
@@ -90,13 +90,13 @@
 
     <orderedlist>
       <listitem>
-        <para>Create a base directory anywhere. <screen><![CDATA[[/home/user]$ mkdir my-base
+        <para>Create a base directory anywhere. <screen>[/home/user]$ mkdir my-base
 [/home/user]$ cd my-base
-]]></screen></para>
+</screen></para>
       </listitem>
 
       <listitem>
-        <para>Add the modules for SSL, HTTP, and webapp deployment. <screen><![CDATA[[my-base]$ java -jar /home/user/jetty-distribution-@project.version@/start.jar --add-to-start=ssl,http,deploy
+        <para>Add the modules for SSL, HTTP, and webapp deployment. <screen>[my-base]$ java -jar /home/user/jetty-distribution-@project.version@/start.jar --add-to-start=http,https,deploy
 
 ssl             initialised in ${jetty.base}/start.ini (appended)
 ssl             enabled in     ${jetty.base}/start.ini
@@ -110,58 +110,58 @@ deploy          initialised in ${jetty.base}/start.ini (appended)
 deploy          enabled in     ${jetty.base}/start.ini
 MKDIR: ${jetty.base}/webapps
 server          enabled in     ${jetty.base}/start.ini
-]]></screen></para>
+</screen></para>
       </listitem>
 
       <listitem>
-        <para>Look at your directory. <screen><![CDATA[[my-base]$ ls -la
+        <para>Look at your directory. <screen>[my-base]$ ls -la
 total 20
 drwxrwxr-x   4 user group 4096 Oct  8 06:55 ./
 drwxr-xr-x 103 user group 4096 Oct  8 06:53 ../
 drwxrwxr-x   2 user group 4096 Oct  8 06:55 etc/
 -rw-rw-r--   1 user group  815 Oct  8 06:55 start.ini
 drwxrwxr-x   2 user group 4096 Oct  8 06:55 webapps/
-]]></screen></para>
+</screen></para>
       </listitem>
 
       <listitem>
-        <para>Copy your WAR files into webapps. <screen><![CDATA[[my-base]$ ls -la
+        <para>Copy your WAR files into webapps. <screen>[my-base]$ ls -la
 [my-base]$ cp ~/code/project/target/gadget.war webapps/
-]]></screen></para>
+</screen></para>
       </listitem>
 
       <listitem>
-        <para>Copy your keystore into place. <screen><![CDATA[[my-base]$ cp ~/code/project/keystore etc/keystore
-]]></screen></para>
+        <para>Copy your keystore into place. <screen>[my-base]$ cp ~/code/project/keystore etc/keystore
+</screen></para>
       </listitem>
 
       <listitem>
         <para>Edit the <filename>start.ini</filename> to configure your SSL
-        settings. <screen><![CDATA[[my-base]$ cat start.ini
-]]></screen></para>
+        settings. <screen>[my-base]$ cat start.ini
+</screen></para>
       </listitem>
 
       <listitem>
-        <para>Initialize module ssl. <screen><![CDATA[--module=ssl
-]]></screen></para>
+        <para>Initialize module ssl. <screen>--module=ssl
+</screen></para>
       </listitem>
 
       <listitem>
-        <para>Define the port to use for secure redirection. <screen><![CDATA[jetty.secure.port=8443
-]]></screen></para>
+        <para>Define the port to use for secure redirection. <screen>jetty.secure.port=8443
+</screen></para>
       </listitem>
 
       <listitem>
-        <para>Set up a demonstration keystore and truststore. <screen><![CDATA[jetty.keystore=etc/keystore
+        <para>Set up a demonstration keystore and truststore. <screen>jetty.keystore=etc/keystore
 jetty.truststore=etc/keystore
-]]></screen></para>
+</screen></para>
       </listitem>
 
       <listitem>
-        <para>Set the demonstration passwords. <screen><![CDATA[jetty.keystore.password=OBF:1vny1zlo1x8e1vnw1vn61x8g1zlu1vn4
+        <para>Set the demonstration passwords. <screen>jetty.keystore.password=OBF:1vny1zlo1x8e1vnw1vn61x8g1zlu1vn4
 jetty.keymanager.password=OBF:1u2u1wml1z7s1z7a1wnl1u2g
 jetty.truststore.password=OBF:1vny1zlo1x8e1vnw1vn61x8g1zlu1vn4
-]]></screen></para>
+</screen></para>
       </listitem>
 
       <note>
@@ -170,32 +170,32 @@ jetty.truststore.password=OBF:1vny1zlo1x8e1vnw1vn61x8g1zlu1vn4
       </note>
 
       <listitem>
-        <para>Initialize the module server. <screen><![CDATA[--module=server
+        <para>Initialize the module server. <screen>--module=server
 threads.min=10
 threads.max=200
 threads.timeout=60000
 #jetty.host=myhost.com
 jetty.dump.start=false
 jetty.dump.stop=false
-]]></screen></para>
+</screen></para>
       </listitem>
 
       <listitem>
-        <para>Initialize module http. <screen><![CDATA[--module=http
+        <para>Initialize module http. <screen>--module=http
 jetty.port=8080
 http.timeout=30000
-]]></screen></para>
+</screen></para>
       </listitem>
 
       <listitem>
-        <para>Initialize module deploy. <screen><![CDATA[--module=deploy
-]]></screen></para>
+        <para>Initialize module deploy. <screen>--module=deploy
+</screen></para>
       </listitem>
     </orderedlist>
 
     <para>Look at the configuration you have at this point.</para>
 
-    <screen><![CDATA[[my-base]$ java -jar /home/user/jetty-distribution-@project.version@/start.jar --list-config
+    <screen>[my-base]$ java -jar /home/user/jetty-distribution-@project.version@/start.jar --list-config
 
 Java Environment:
 -----------------
@@ -262,15 +262,15 @@ Jetty Active XMLs:
  ${jetty.home}/etc/jetty-http.xml
  ${jetty.home}/etc/jetty-ssl.xml
  ${jetty.home}/etc/jetty-deploy.xml
-]]></screen>
+</screen>
 
     <para>Now start Jetty.</para>
 
-    <screen><![CDATA[[my-base]$ java -jar /home/user/jetty-distribution-@project.version@/start.jar
+    <screen>[my-base]$ java -jar /home/user/jetty-distribution-@project.version@/start.jar
 2013-10-08 07:06:55.837:INFO:oejs.Server:main: jetty-@project.version@
 2013-10-08 07:06:55.853:INFO:oejdp.ScanningAppProvider:main: Deployment monitor [file:/home/user/my-base/webapps/] at interval 1
 2013-10-08 07:06:55.872:INFO:oejs.ServerConnector:main: Started ServerConnector@72974691{HTTP/1.1}{0.0.0.0:8080}
-]]></screen>
+</screen>
   </section>
 
   <section xml:id="reviewing-ssl-config">
@@ -307,7 +307,7 @@ Jetty Active XMLs:
 
       <para>You can see the list of modules:</para>
 
-      <screen><![CDATA[[my-base]$ java -jar /home/user/jetty-distribution-@project.version@/start.jar --list-modules
+      <screen>[my-base]$ java -jar /home/user/jetty-distribution-@project.version@/start.jar --list-modules
 
 Jetty All Available Modules:
 ----------------------------
@@ -480,7 +480,7 @@ Jetty Active Module Tree:
    + Module: ssl [enabled]
      + Module: webapp [transitive]
        + Module: deploy [enabled]
-]]></screen>
+</screen>
 
       <para>These are the modules by name, the libraries they bring in, the
       XML configurations they use, the other modules they depend on (even
@@ -493,8 +493,8 @@ Jetty Active Module Tree:
 
       <para>If you want to start using a new module:</para>
 
-      <screen><![CDATA[[my-base] $ java -jar ../jetty-distribution-@project.version@/start.jar --add-to-start=https
-]]></screen>
+      <screen>[my-base] $ java -jar ../jetty-distribution-@project.version@/start.jar --add-to-start=https
+</screen>
 
       <para>This adds the <literal>--module=</literal> lines and associated
       properties (the parameterized values mentioned above), to your
@@ -548,8 +548,8 @@ Jetty Active Module Tree:
         <para>Go to your base directory and just use the distribution, no
         editing.</para>
 
-        <screen><![CDATA[[my-base]$ java -jar /home/user/jetty-distribution-@project.version@/start.jar
-]]></screen>
+        <screen>[my-base]$ java -jar /home/user/jetty-distribution-@project.version@/start.jar
+</screen>
 
         <itemizedlist>
           <listitem>
@@ -608,8 +608,8 @@ Jetty Active Module Tree:
     <para>You can see what the configuration looks like, after all of the
     modules are resolved, without starting Jetty via:</para>
 
-    <screen><![CDATA[[my-base] $ java -jar ../jetty-distribution-@project.version@/start.jar --list-config
-]]></screen>
+    <screen>[my-base] $ java -jar ../jetty-distribution-@project.version@/start.jar --list-config
+</screen>
 
     <para>Just because the JARs exist on disk does not mean that they are in
     use. The configuration controls what is used.</para>
@@ -618,7 +618,7 @@ Jetty Active Module Tree:
     that only a subset of the JARs from the distribution are in use. The
     modules you have anabled determine that subset.</para>
 
-    <screen><![CDATA[[my-base]$ java -jar ~/jetty-distribution-@project.version@/start.jar --list-config
-]]></screen>
+    <screen>[my-base]$ java -jar ~/jetty-distribution-@project.version@/start.jar --list-config
+</screen>
   </section>
 </section>

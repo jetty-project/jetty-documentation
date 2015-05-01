@@ -41,10 +41,10 @@
     method, URL, result, size, referrer, and user agent, for example:</para>
 
     <informalexample>
-      <screen><![CDATA[123.4.5.6 - - [27/Aug/2004:10:16:17 +0000]
+      <screen>123.4.5.6 - - [27/Aug/2004:10:16:17 +0000]
   "GET /jetty/tut/XmlConfiguration.html HTTP/1.1"
   200 76793 "http://localhost:8080/jetty/tut/logging.html"
-  "Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.6) Gecko/20040614 Firefox/0.8"]]></screen>
+  "Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.6) Gecko/20040614 Firefox/0.8"</screen>
     </informalexample>
   </section>
 
@@ -52,14 +52,13 @@
     <title>Implementing a Request Log</title>
 
     <para>Jetty provides an implementation called
-    <emphasis><code>NCSARequestLog</code></emphasis> which supports the NCSA format in
-    files that you can roll over on a daily basis.</para>
+    <emphasis><code>NCSARequestLog</code></emphasis> which supports the NCSA
+    format in files that you can roll over on a daily basis.</para>
 
-    <para>The <link xl:href="http://logback.qos.ch/">Logback
-    Project</link> offers <link
-    xl:href="http://logback.qos.ch/access.html">another implementation</link>
-    of a RequestLog interface, providing rich and powerful HTTP-access log
-    functionality.</para>
+    <para>The <link xl:href="http://logback.qos.ch/">Logback Project</link>
+    offers <link xl:href="http://logback.qos.ch/access.html">another
+    implementation</link> of a RequestLog interface, providing rich and
+    powerful HTTP-access log functionality.</para>
 
     <para>If neither of these options meets your needs, you can implement a
     custom request logger by implementing Jetty's <link
@@ -74,49 +73,25 @@
     <para>To configure a single request log for the entire Jetty Server
     instance:</para>
 
-    <programlisting language="xml"><![CDATA[<Set name="handler">
-  <New id="Handlers" class="org.eclipse.jetty.server.handler.HandlerCollection">
-    <Set name="handlers">
-      <Array type="org.eclipse.jetty.server.Handler">
-        <Item>
-          <New id="Contexts" class="org.eclipse.jetty.server.handler.ContextHandlerCollection"/>
-        </Item>
-        <Item>
-          <New id="DefaultHandler" class="org.eclipse.jetty.server.handler.DefaultHandler"/>
-        </Item>
-        <Item>
-          <New id="RequestLog" class="org.eclipse.jetty.server.handler.RequestLogHandler"/>
-        </Item>
-      </Array>
-    </Set>
-  </New>
-</Set>
-<Ref refid="RequestLog">
-  <Set name="requestLog">
-    <New id="RequestLogImpl" class="org.eclipse.jetty.server.NCSARequestLog">
-      <Arg><SystemProperty name="jetty.logs" default="./logs"/>/yyyy_mm_dd.request.log</Arg>
-      <Set name="retainDays">90</Set>
-      <Set name="append">true</Set>
-      <Set name="extended">false</Set>
-      <Set name="LogTimeZone">GMT</Set>
-    </New>
-  </Set>
-</Ref>      ]]></programlisting>
+    <programlisting language="xml">&lt;Configure id="Server" class="org.eclipse.jetty.server.Server"&gt;
+  &lt;Set name="RequestLog"&gt;
+    &lt;New id="RequestLog" class="org.eclipse.jetty.server.AsyncNCSARequestLog"&gt;
+      &lt;Set name="filename"&gt;/var/log/jetty/yyyy_mm_dd.request.log&lt;/Set&gt;
+      &lt;Set name="append"&gt;true&lt;/Set&gt;
+      &lt;Set name="extended"&gt;false&lt;/Set&gt;
+      &lt;Set name="LogTimeZone"&gt;GMT&lt;/Set&gt;
+    &lt;/New&gt;
+  &lt;/Set&gt;
+&lt;/Configure&gt;</programlisting>
 
     <para>The equivalent code is:</para>
 
-    <programlisting language="java"><![CDATA[HandlerCollection handlers = new HandlerCollection();
-ContextHandlerCollection contexts = new ContextHandlerCollection();
-RequestLogHandler requestLogHandler = new RequestLogHandler();
-handlers.setHandlers(new Handler[]{contexts,new DefaultHandler(),requestLogHandler});
-server.setHandler(handlers);
- 
-NCSARequestLog requestLog = new NCSARequestLog("./logs/jetty-yyyy_mm_dd.request.log");
-requestLog.setRetainDays(90);
+    <programlisting language="java">NCSARequestLog requestLog = new NCSARequestLog("/var/logs/jetty/jetty-yyyy_mm_dd.request.log");
 requestLog.setAppend(true);
 requestLog.setExtended(false);
 requestLog.setLogTimeZone("GMT");
-requestLogHandler.setRequestLog(requestLog);   ]]></programlisting>
+
+server.setRequestLog(requestLog);</programlisting>
 
     <para>This configures a request log in
     <filename>$JETTY_HOME/logs</filename> with filenames including the date.
@@ -134,22 +109,22 @@ requestLogHandler.setRequestLog(requestLog);   ]]></programlisting>
     <para>To configure a separate request log for a web application, add the
     following to the context XML file.</para>
 
-    <programlisting language="xml"><![CDATA[<Configure class="org.eclipse.jetty.webapp.WebAppContext">
+    <programlisting language="xml">&lt;Configure class="org.eclipse.jetty.webapp.WebAppContext"&gt;
   ...
-  <Set name="handler">
-    <New id="RequestLog" class="org.eclipse.jetty.server.handler.RequestLogHandler">
-      <Set name="requestLog">
-        <New id="RequestLogImpl" class="org.eclipse.jetty.server.NCSARequestLog">
-          <Set name="filename"><Property name="jetty.logs" default="./logs"/>/test-yyyy_mm_dd.request.log</Set>
-          <Set name="filenameDateFormat">yyyy_MM_dd</Set>
-          <Set name="LogTimeZone">GMT</Set>
-          <Set name="retainDays">90</Set>
-          <Set name="append">true</Set>
-        </New>
-      </Set>
-    </New>
-  </Set>
+  &lt;Set name="handler"&gt;
+    &lt;New id="RequestLog" class="org.eclipse.jetty.server.handler.RequestLogHandler"&gt;
+      &lt;Set name="requestLog"&gt;
+        &lt;New id="RequestLogImpl" class="org.eclipse.jetty.server.NCSARequestLog"&gt;
+          &lt;Set name="filename"&gt;&lt;Property name="jetty.logs" default="./logs"/&gt;/test-yyyy_mm_dd.request.log&lt;/Set&gt;
+          &lt;Set name="filenameDateFormat"&gt;yyyy_MM_dd&lt;/Set&gt;
+          &lt;Set name="LogTimeZone"&gt;GMT&lt;/Set&gt;
+          &lt;Set name="retainDays"&gt;90&lt;/Set&gt;
+          &lt;Set name="append"&gt;true&lt;/Set&gt;
+        &lt;/New&gt;
+      &lt;/Set&gt;
+    &lt;/New&gt;
+  &lt;/Set&gt;
   ...
-</Configure>      ]]></programlisting>
+&lt;/Configure&gt;      </programlisting>
   </section>
 </section>

@@ -58,17 +58,17 @@
   <section xml:id="gzip-filter-usage">
     <title>Usage</title>
 
-    <para>The Jetty GzipHandler is a compression filter that you can apply to
+    <para>The Jetty GzipHandler is a compression handler that you can apply to
     any dynamic resource (servlet). It fixes many of the bugs in commonly
     available compression filters: it works with asynchronous servlets; it
     handles all ways to set content length. We have tested it with Jetty
     continuations and suspending requests. Some user-agents might be excluded
-    from compression to avoid common browser bugs (yes, this means IE!).
-    </para>
+    from compression to avoid common browser bugs (yes, this means
+    IE!).</para>
 
-    <para>The GzipHandler is added to the entire server by the jetty-gzip.xml
-    file. It may also be added to individual contexts in a context xml
-    file.</para>
+    <para>The GzipHandler is added to the entire server by the
+    etc/jetty-gzip.xml file from the gzip.mod module. It may also be added to
+    individual contexts in a context xml file.</para>
   </section>
 
   <section xml:id="gzip-filter-rules">
@@ -79,7 +79,15 @@
 
     <itemizedlist>
       <listitem>
-        <para>The filter is mapped to a matching path</para>
+        <para>It is mapped to a matching path</para>
+      </listitem>
+
+      <listitem>
+        <para>The request method is configured to support gzip</para>
+      </listitem>
+
+      <listitem>
+        <para>The request is not from an excluded User-Agent</para>
       </listitem>
 
       <listitem>
@@ -97,9 +105,7 @@
       </listitem>
 
       <listitem>
-        <para>The content-type is in the comma separated list of mimeTypes set
-        in the mimeTypes initParameter or if no mimeTypes are defined the
-        content-type is not "application/gzip"</para>
+        <para>The content-type does not match an excluded mime-type</para>
       </listitem>
 
       <listitem>
@@ -111,26 +117,17 @@
     header, then gzip will be used.</para>
 
     <para>Compressing the content can greatly improve the network bandwidth
-    usage, but at a cost of memory and CPU cycles. If this filter is mapped
-    for static content, then use of efficient direct NIO may be prevented,
-    thus use of the gzip mechanism of the DefaultServlet is advised
-    instead.</para>
+    usage, but at a cost of memory and CPU cycles. The <link
+    linkend="default-servlet">DefaultServlet</link> is capable of serving
+    pre-compressed static content, which saves memory and CPU. By default, the
+    GzipHandler will check to see if pre-compressed content exists, and pass
+    the request through to be handled by the DefaultServlet.</para>
   </section>
 
   <section xml:id="gzip-filter-init">
     <title>Gzip Configuration</title>
 
     <variablelist>
-      <varlistentry>
-        <term>bufferSize</term>
-
-        <listitem>
-          <para>The output buffer size which defaults to 8192. Be careful with
-          this parameter as values &lt;= 0 will lead to an
-          IllegalArgumentException.</para>
-        </listitem>
-      </varlistentry>
-
       <varlistentry>
         <term>minGzipSize</term>
 
@@ -141,7 +138,16 @@
       </varlistentry>
 
       <varlistentry>
-        <term>deflateCompressionLevel</term>
+        <term>checkGzExists</term>
+
+        <listitem>
+          <para>True by default. If set to false, the handler will not check
+          for pre-compressed content.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>compressionLevel</term>
 
         <listitem>
           <para>The compression level used for deflate compression.
@@ -150,84 +156,63 @@
       </varlistentry>
 
       <varlistentry>
-        <term>deflateNoWrap</term>
+        <term>includedMethods</term>
 
         <listitem>
-          <para>The noWrap setting for deflate compression. Defaults to true.
-          (true/false)</para>
+          <para>List of HTTP methods to compress. If not set, only GET
+          requests are compressed.</para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
-        <term>methods</term>
+        <term>includedMimeTypes</term>
 
         <listitem>
-          <para>Comma separated list of HTTP methods to compress. If not set,
-          only GET requests are compressed.</para>
+          <para>List of mime types to compress.</para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
-        <term>mimeTypes</term>
+        <term>excludedMimeTypes</term>
 
         <listitem>
-          <para>Comma separated list of mime types to compress. See
-          description above.</para>
+          <para>List of mime types not to compress.</para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
-        <term>excludedAgents</term>
+        <term>excludedAgentPatterns</term>
 
         <listitem>
-          <para>Comma separated list of user agents to exclude from
-          compression. Does a String.contains(CharSequence) to check if the
-          excluded agent occurs in the user-agent header. If it does -&gt; no
-          compression</para>
+          <para>A list of regex patterns for User-Agent names from which
+          requests should not be compressed.</para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
-        <term>excludeAgentPatterns</term>
+        <term>excludedPaths</term>
 
         <listitem>
-          <para>Same as excludedAgents, but accepts regex patterns for more
-          complex matching.</para>
-        </listitem>
-      </varlistentry>
-
-      <varlistentry>
-        <term>excludePaths</term>
-
-        <listitem>
-          <para>Comma separated list of paths to exclude from compression.
-          Does a String.startsWith(String) comparison to check if the path
-          matches.If it does match -&gt; no compression. To match subpaths use
+          <para>List of paths to exclude from compression. Does a
+          String.startsWith(String) comparison to check if the path matches.If
+          it does match -&gt; no compression. To match subpaths use
           excludePathPatterns instead.</para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
-        <term>excludePathPatterns</term>
+        <term>includedPaths</term>
 
         <listitem>
-          <para>Same as excludePath, but accepts regex patterns for more
-          complex matching.</para>
+          <para>List of paths to consider for compression.</para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
-        <term>vary</term>
+        <term>includePaths</term>
 
         <listitem>
-          <para>Set to the value of the Vary header sent with responses that
-          could be compressed. By default it is set to 'Vary: Accept-Encoding,
-          User-Agent' since IE6 is excluded by default from the
-          excludedAgents. If user-agents are not to be excluded, then this can
-          be set to 'Vary: Accept-Encoding'. Note also that shared caches may
-          cache copies of a resource that is varied by User-Agent - one per
-          variation of the User-Agent, unless the cache does some
-          normalization of the UA string.</para>
+          <para>List of paths to definitely consider for compression.</para>
         </listitem>
       </varlistentry>
     </variablelist>

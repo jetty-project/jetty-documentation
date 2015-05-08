@@ -35,7 +35,7 @@
   must obey the Serialization contract, and servlets must call the
   Session.setAttribute() method to ensure that changes are persisted.</para>
 
-  <para>The persistent session mechanism works in conjunction with a load
+  <para>The session persistence mechanism works in conjunction with a load
   balancer that supports stickiness. Stickiness can be based on various data
   items, such as source IP address or characteristics of the session ID or a
   load-balancer specific mechanism. For those load balancers that examine the
@@ -77,48 +77,66 @@
   </section>
 
   <section>
-    <title>Configuring the MongoDBSessionIdManager</title>
+    <title>The nosql Module</title>
 
-    <para
-    xl:href="@JDURL@/org/eclipse/jetty/nosql/mongodb.MongoSessionIdManager.html">You
-    need to configure an <link xl:href="???"><code
-    xl:href="@JDURL@/org/eclipse/jetty/nosql/mongodb/MongoSessionIdManager.html">org.eclipse.jetty.nosql.mongodb.MongoSessionIdManager</code></link>
-    instance, either in embedded code or in a jetty.xml file. Here is an
-    example of a jetty.xml setup:</para>
+    <para>When using the jetty distribution, to enable the mongodb session
+    persistence mechanism, you will first need to enable the nosql <link
+    linkend="startup-modules">module</link> for your <link
+    linkend="creating-jetty-base">base</link> using the --add-to-start or
+    --add-to-startd argument to the <link
+    linkend="startup-overview">start.jar</link>. This module will
+    automatically download the mongodb-java-driver and install it to your
+    base's lib/nosql directory.</para>
+
+    <para>You will also find the following properties, either in your base's
+    start.d/nosql.ini file or appended to your start.ini, depending on how you
+    enabled the module:</para>
 
     <informalexample>
-      <programlisting language="xml"><![CDATA[
-        
-<Set name="sessionIdManager">
-        <New id="mongoIdMgr" class="org.eclipse.jetty.nosql.mongodb.MongoSessionIdManager">
-          <Arg>
-            <Ref id="Server"/>
-          </Arg>
-          <Set name="workerName">fred</Set>
-          <Set name="scavengeInterval">60</Set>
-        </New>
-      </Set>
-      <Call name="setAttribute">
-        <Arg>mongoIdMgr</Arg>
-        <Arg>
-          <Ref id="mongoIdMgr"/>
-        </Arg>
-      </Call>
-      
-    ]]></programlisting>
+      <programlisting><![CDATA[## Unique identifier for this node in the cluster
+jetty.nosqlSession.workerName=node1
+
+
+## Interval in seconds between scavenging expired sessions
+jetty.nosqlSession.scavenge=1800
+]]></programlisting>
     </informalexample>
 
-    <para>Notice that the MongoSessionIdManager needs access to a mongodb
-    cluster. The default settings are for localhost and default port for mongo
-    db.</para>
+    <para>The <code>jetty.nosqlSession.workerName</code> is the unique name
+    for this jetty Server instance. It will be used by the sticky load
+    balancer to uniquely identify the node. You should change this value on
+    <emphasis role="bold">each</emphasis> node to which you install mongodb
+    session management.</para>
 
-    <para>The more complex setup is to configure with remote mongodb
-    instances, this is an example of how that would look.</para>
+    <para>The <code>jetty.nosqlSession.scavenge</code> property defines the
+    time in seconds between runs of the scavengeer: the scavenger is a task
+    which runs periodically to clean out sessions that have expired but become
+    stranded in the database for whatever reason.</para>
 
-    <informalexample>
-      <programlisting language="xml"><![CDATA[
-      
-<New id="mongodb" class="com.mongodb.Mongo">
+    <para>These properties are substituted into the configuration of the
+    MongoDBSessionIdManager and MongoSessionManager.</para>
+
+    <section>
+      <title>Configuring the MongoSessionIdManager</title>
+
+      <para
+      xl:href="@JDURL@/org/eclipse/jetty/nosql/mongodb.MongoSessionIdManager.html">The
+      nosql module will have installed file called
+      ${jetty.home}/etc/jetty-nosql.xml. This file configures an instance of
+      the MongoSessionIdManager that will be shared across all webapps
+      deployed on that server. It looks like this:</para>
+
+      <programlisting language="rxml"><filename>@GITURL@/jetty-nosql/src/main/config/etc/jetty-nosql.xml</filename></programlisting>
+
+      <para>The MongoSessionIdManager needs access to a mongodb cluster, and
+      the jetty-nosql.xml file assumes the defaults of localhost and default
+      mongodb port. If you need to configure something else, you will need to
+      edit this file. Here's an example of a more complex setup to use a
+      remote mongodb instance:</para>
+
+      <informalexample>
+        <programlisting language="xml"><![CDATA[
+    <New id="mongodb" class="com.mongodb.Mongo">
       <Arg>
         <New class="java.util.ArrayList">
           <Call name="add">
@@ -150,137 +168,131 @@
         <Arg>
           <Ref id="sessionDocument"/>
         </Arg>
-        <Set name="workerName">fred</Set>
-        <Set name="scavengePeriod">60</Set>
+        <Set name="workerName"><Property name="jetty.nosqlSession.workerName" default="node1"/></Set>
+        <Set name="scavengePeriod"><Property name="jetty.nosqlSession.scavenge" default="1800"/></Set>
       </New>
     </Set>
     
   ]]></programlisting>
-    </informalexample>
+      </informalexample>
 
-    <para>As Jetty configuration files are direct mappings of XML to Java, it
-    is straightforward to see how to do this in code, but here's an example
-    anyway:</para>
+      <para>As Jetty configuration files are direct mappings of XML to Java,
+      it is straightforward to see how to do this in code, but here's an
+      example anyway:</para>
 
-    <informalexample>
-      <programlisting language="java"><![CDATA[
+      <informalexample>
+        <programlisting language="java"><![CDATA[
     
-Server server = new Server();
+ Server server = new Server();
      ...
  MongoSessionIdManager idMgr = newMongoSessionIdManager(server);
- idMgr.setWorkerName("fred");
- idMgr.setScavengePeriod(60);
+ idMgr.setWorkerName("node1");
+ idMgr.setScavengePeriod(1800);
  server.setSessionIdManager(idMgr);
   ]]></programlisting>
-    </informalexample>
+      </informalexample>
 
-    <para>The MongoDB Session Id Manager has slightly different options then
-    some of our more traditional session options. The mongodb session id
-    manager has the same scavenge timers which govern the setting of a valid
-    session to invalid after a certain period of inactivity. New to this
-    session id manager is the extra purge setting which governs removal from
-    the mongodb cluster. This can be configured through the 'purge' option.
-    Purge is by default set to true and by default runs daily for each node on
-    the cluster. Also able to be configured is the age in which an invalid
-    session will be retained which is set to 1 day by default. This means that
-    invalid sessions will be removed after lingering in the mongodb instance
-    for a day. There is also an option for purging valid sessions that have
-    not been used recently. The default time for this is 1 week. You can
-    disable these behaviors by setting purge to false.</para>
+      <para>The MongoSessionIdManager has slightly different options than some
+      of our more traditional session options. The MongoDBSessionIdManager has
+      the same scavenge timers which govern the setting of a valid session to
+      invalid after a certain period of inactivity. New to this session id
+      manager is the extra purge setting which governs removal from the
+      mongodb cluster. This can be configured through the 'purge' option.
+      Purge is by default set to true and by default runs daily for each node
+      on the cluster. Also able to be configured is the age in which an
+      invalid session will be retained which is set to 1 day by default. This
+      means that invalid sessions will be removed after lingering in the
+      mongodb instance for a day. There is also an option for purging valid
+      sessions that have not been used recently. The default time for this is
+      1 week. You can disable these behaviors by setting purge to
+      false.</para>
 
-    <para>You must configure the MongoSessionIdManager with a workerName that
-    is unique across the cluster. Typically the name relates to the physical
-    node on which the instance is executing. If this name is not unique, your
-    load balancer might fail to distribute your sessions correctly.</para>
+      <variablelist>
+        <varlistentry>
+          <term>scavengeDelay</term>
 
-    <para>You can also configure how often the persistent session mechanism
-    sweeps the mongo cluster looking for old, expired sessions with the
-    scavengePeriod setting. The default value is 60 seconds. We recommend that
-    you not increase the frequency because doing so increases the load on the
-    database with very little gain; old, expired sessions can harmlessly sit
-    in the database.</para>
+          <listitem>
+            <para>How long to delay before periodically looking for sessions
+            to scavenge?</para>
+          </listitem>
+        </varlistentry>
 
-    <variablelist>
-      <varlistentry>
-        <term>scavengeDelay</term>
+        <varlistentry>
+          <term>scavengePeriod</term>
 
-        <listitem>
-          <para>How long to delay before periodically looking for sessions to
-          scavenge?</para>
-        </listitem>
-      </varlistentry>
+          <listitem>
+            <para>How much time after a scavenge has completed should you wait
+            before doing it again?</para>
+          </listitem>
+        </varlistentry>
 
-      <varlistentry>
-        <term>scavengePeriod</term>
+        <varlistentry>
+          <term>purge (Boolean)</term>
 
-        <listitem>
-          <para>How much time after a scavenge has completed should you wait
-          before doing it again?</para>
-        </listitem>
-      </varlistentry>
+          <listitem>
+            <para>Do you want to purge (delete) sessions that are invalid from
+            the session store completely?</para>
+          </listitem>
+        </varlistentry>
 
-      <varlistentry>
-        <term>purge (Boolean)</term>
+        <varlistentry>
+          <term>purgeDelay</term>
 
-        <listitem>
-          <para>Do you want to purge (delete) sessions that are invalid from
-          the session store completely?</para>
-        </listitem>
-      </varlistentry>
+          <listitem>
+            <para>How often do you want to perform this purge
+            operation?</para>
+          </listitem>
+        </varlistentry>
 
-      <varlistentry>
-        <term>purgeDelay</term>
+        <varlistentry>
+          <term>purgeInvalidAge</term>
 
-        <listitem>
-          <para>How often do you want to perform this purge operation?</para>
-        </listitem>
-      </varlistentry>
+          <listitem>
+            <para>How old should an invalid session be before it is eligible
+            to be purged?</para>
+          </listitem>
+        </varlistentry>
 
-      <varlistentry>
-        <term>purgeInvalidAge</term>
+        <varlistentry>
+          <term>purgeValidAge</term>
 
-        <listitem>
-          <para>How old should an invalid session be before it is eligible to
-          be purged?</para>
-        </listitem>
-      </varlistentry>
+          <listitem>
+            <para>How old should a valid session be before it is eligible to
+            be marked invalid and purged? Should this occur at all?</para>
+          </listitem>
+        </varlistentry>
 
-      <varlistentry>
-        <term>purgeValidAge</term>
+        <varlistentry>
+          <term>preserveOnStop</term>
 
-        <listitem>
-          <para>How old should a valid session be before it is eligible to be
-          marked invalid and purged? Should this occur at all?</para>
-        </listitem>
-      </varlistentry>
+          <listitem>
+            <para>Whether or not to retain all sessions when the session
+            manager stops. Default is <code>true</code>.</para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </section>
 
-      <varlistentry>
-        <term>preserveOnStop</term>
+    <section>
+      <title>Configuring a MongoSessionManager</title>
 
-        <listitem>
-          <para>Whether or not to retain all sessions when the session manager
-          stops. Default is <code>true</code>.</para>
-        </listitem>
-      </varlistentry>
-    </variablelist>
-  </section>
+      <para>As mentioned elsewhere, there should be one MongoSessionManager
+      per context (ie webapp). It will need to reference the single
+      MongoSessionIdManager configured previously for the Server.</para>
 
-  <section>
-    <title>Configuring a MongoSessionManager</title>
+      <para>The way you configure a <link
+      xl:href="@JDURL@/org/eclipse/jetty/nosql/MongoSessionManager.html">org.eclipse.jetty.nosql.mongodb.MongoSessionManager</link>
+      depends on whether you're configuring from a <link
+      linkend="deployable-descriptor-file">context xml</link> file or a <link
+      linkend="jetty-web-xml-config">jetty-web.xml</link> file or code. The
+      basic difference is how you get a reference to the Jetty
+      <code>org.eclipse.jetty.server.Server</code> instance.</para>
 
-    <para>The way you configure a <link
-    xl:href="@JDURL@/org/eclipse/jetty/nosql/MongoSessionManager.html">org.eclipse.jetty.nosql.mongodb.MongoSessionManager</link>
-    depends on whether you're configuring from a <link
-    linkend="deployable-descriptor-file">context xml</link> file or a <link
-    linkend="jetty-web-xml-config">jetty-web.xml</link> file or code. The
-    basic difference is how you get a reference to the Jetty
-    <code>org.eclipse.jetty.server.Server</code> instance.</para>
+      <para>From a context xml file, you reference the Server instance as a
+      Ref:</para>
 
-    <para>From a context xml file, you reference the Server instance as a
-    Ref:</para>
-
-    <informalexample>
-      <programlisting language="xml"><![CDATA[
+      <informalexample>
+        <programlisting language="xml"><![CDATA[
     
 <Ref name="Server" id="Server">
     <Call id="mongoIdMgr" name="getSessionIdManager"/>
@@ -299,13 +311,13 @@ Server server = new Server();
   </Set>
   
 ]]></programlisting>
-    </informalexample>
+      </informalexample>
 
-    <para>From a <filename>WEB-INF/jetty-web.xml</filename> file, you can
-    reference the Server instance directly:</para>
+      <para>From a <filename>WEB-INF/jetty-web.xml</filename> file, you can
+      reference the Server instance directly:</para>
 
-    <informalexample>
-      <programlisting language="xml"><![CDATA[
+      <informalexample>
+        <programlisting language="xml"><![CDATA[
   
 <Get name="server">
   <Get id="mongoIdMgr" name="sessionIdManager"/>
@@ -323,12 +335,12 @@ Server server = new Server();
 </Set>
 
 ]]></programlisting>
-    </informalexample>
+      </informalexample>
 
-    <para>If you're embedding this in code:</para>
+      <para>If you're embedding this in code:</para>
 
-    <informalexample>
-      <programlisting language="java"><![CDATA[
+      <informalexample>
+        <programlisting language="java"><![CDATA[
 
 //assuming you have already set up the MongoSessionIdManager as shown earlier
  //and have a reference to the Server instance:
@@ -340,6 +352,7 @@ Server server = new Server();
  wac.setSessionHandler(new SessionHandler(mongoMgr));
  
 ]]></programlisting>
-    </informalexample>
+      </informalexample>
+    </section>
   </section>
 </section>

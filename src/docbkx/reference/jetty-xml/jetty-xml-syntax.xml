@@ -30,35 +30,35 @@
     sets some attributes:</para>
 
     <informalexample>
-      <programlisting language="xml"><![CDATA[<?xml version="1.0"?>
-<!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure.dtd">
-<Configure id="foo" class="com.acme.Foo">
-  <Set name="name">demo</Set>
-  <Set name="nested">
-    <New id="bar" class="com.acme.Bar">
-      <Arg>true</Arg>
-      <Set name="wibble">10</Set>
-      <Set name="wobble">xyz</Set>
-      <Set name="parent"><Ref refid="foo"/></Set>
-      <Call name="init">
-         <Arg>false</Arg>
-      </Call>
-    </New>
-  </Set>
+      <programlisting language="xml">&lt;?xml version="1.0"?&gt;
+&lt;!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure.dtd"&gt;
+&lt;Configure id="foo" class="com.acme.Foo"&gt;
+  &lt;Set name="name"&gt;demo&lt;/Set&gt;
+  &lt;Set name="nested"&gt;
+    &lt;New id="bar" class="com.acme.Bar"&gt;
+      &lt;Arg&gt;true&lt;/Arg&gt;
+      &lt;Set name="wibble"&gt;10&lt;/Set&gt;
+      &lt;Set name="wobble"&gt;xyz&lt;/Set&gt;
+      &lt;Set name="parent"&gt;&lt;Ref refid="foo"/&gt;&lt;/Set&gt;
+      &lt;Call name="init"&gt;
+         &lt;Arg&gt;false&lt;/Arg&gt;
+      &lt;/Call&gt;
+    &lt;/New&gt;
+  &lt;/Set&gt;
 
-  <Ref refid="bar">
-    <Set name="wibble">20</Set>
-    <Get name="parent">
-      <Set name="name">demo2</Set>
-    </Get>
-  </Ref>
-</Configure>      ]]></programlisting>
+  &lt;Ref refid="bar"&gt;
+    &lt;Set name="wibble"&gt;20&lt;/Set&gt;
+    &lt;Get name="parent"&gt;
+      &lt;Set name="name"&gt;demo2&lt;/Set&gt;
+    &lt;/Get&gt;
+  &lt;/Ref&gt;
+&lt;/Configure&gt;      </programlisting>
     </informalexample>
 
     <para>The XML above is equivalent to the following Java code:</para>
 
     <informalexample>
-      <programlisting language="java"><![CDATA[com.acme.Foo foo = new com.acme.Foo();
+      <programlisting language="java">com.acme.Foo foo = new com.acme.Foo();
 foo.setName("demo");
 
 com.acme.Bar bar = new com.acme.Bar(true);
@@ -70,7 +70,7 @@ bar.init(false);
 foo.setNested(bar);
 
 bar.setWibble(20);
-bar.getParent().setName("demo2");      ]]></programlisting>
+bar.getParent().setName("demo2");      </programlisting>
     </informalexample>
   </section>
 
@@ -87,11 +87,11 @@ bar.getParent().setName("demo2");      ]]></programlisting>
       to be used to validate the XML like:</para>
 
       <programlisting language="xml">
-<![CDATA[
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE Configure PUBLIC "-//Mort Bay Consulting//DTD Configure//EN" "http://www.eclipse.org/jetty/configure_9_0.dtd">
+
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;!DOCTYPE Configure PUBLIC "-//Mort Bay Consulting//DTD Configure//EN" "http://www.eclipse.org/jetty/configure_9_0.dtd"&gt;
 ...
-]]>
+
       </programlisting>
 
       <para>Typcically a good XML editor will fetch the DTD from the URL and
@@ -120,24 +120,22 @@ bar.getParent().setName("demo2");      ]]></programlisting>
       name fields to explain the scope</para>
 
       <programlisting language="xml">
-<![CDATA[
-<Configure class="com.example.Foo">
-  <Set name="fieldOnFoo">value</Set>
-  <Set name="fieldOnFoo">
-    <New class="com.example.Bar">
-      <Set name=fieldOnBar>value</Set>
-      <Call name="methodOnBarWithNoArgs"/>
-    </New>
-  </Set>
+&lt;Configure class="com.example.Foo"&gt;
+  &lt;Set name="fieldOnFoo"&gt;value&lt;/Set&gt;
+  &lt;Set name="fieldOnFoo"&gt;
+    &lt;New class="com.example.Bar"&gt;
+      &lt;Set name=fieldOnBar&gt;value&lt;/Set&gt;
+      &lt;Call name="methodOnBarWithNoArgs"/&gt;
+    &lt;/New&gt;
+  &lt;/Set&gt;
 
-  <Call name="methodOnFoo">
-    <Arg>value for first arg of methodOnFoo</Arg>
-    <Arg><New class="com.example.Bar"/></Arg>
-    <Set name="fieldOnObjectReturnedByMethodOnFoo">value</Set>
-    <Call name="methodOnObjectReturnedByMethodOnFooWithNoArgs"/>
-  </Call>
-</Configure>
-]]>
+  &lt;Call name="methodOnFoo"&gt;
+    &lt;Arg&gt;value for first arg of methodOnFoo&lt;/Arg&gt;
+    &lt;Arg&gt;&lt;New class="com.example.Bar"/&gt;&lt;/Arg&gt;
+    &lt;Set name="fieldOnObjectReturnedByMethodOnFoo"&gt;value&lt;/Set&gt;
+    &lt;Call name="methodOnObjectReturnedByMethodOnFooWithNoArgs"/&gt;
+  &lt;/Call&gt;
+&lt;/Configure&gt;
       </programlisting>
     </section>
 
@@ -171,6 +169,49 @@ bar.getParent().setName("demo2");      ]]></programlisting>
       object when first creating or referring to this object. You can then use
       the <link linkend="jetty-xml-ref">Ref element</link> to reference the
       object later. The id must be unique for each object you create.</para>
+    </section>
+
+    <section>
+      <title>Attribute vs Element Style</title>
+
+      <para>For XML elements that contain only other XML Elements, there is a
+      choice of using attributes or elements style. The following is an
+      example of attribute style:</para>
+
+      <programlisting>  &lt;Call id="result" class="org.example.SomeClass" name="someMethod" arg="value0,value1"/&gt;</programlisting>
+
+      <para>Attribute style has the benefit of brevity, but is limited by:
+      values can only be Strings; multivalued items can not contain ',';
+      values may not be subject to property expansion or other elements that
+      return values. Thus the more verbose element style is available and the
+      following is semantically equivalent to the attribute style
+      above:</para>
+
+      <programlisting>  &lt;Call&gt;
+    &lt;Id&gt;result&lt;/Id&gt;
+    &lt;Class&gt;org.example.SomeClass&lt;/Class&gt;
+    &lt;Name&gt;someMethod&lt;/Name&gt;
+    &lt;Arg&gt;value0&lt;/Arg&gt;
+    &lt;Arg&gt;value1&lt;/Arg&gt;
+  &lt;/Call&gt;</programlisting>
+
+      <para>Note that multivalued elements like Arg, must be repeated and may
+      not be comma separated like they are when provided as attributes. It is
+      possible to use a mix of styles and the following example shows a more
+      typical example that uses property expansion as the reason for element
+      style:</para>
+
+      <programlisting>  &lt;Call id="result" name="someMethod"&gt;
+    &lt;Class&gt;&lt;Property name="which.class"&gt;
+      &lt;Default&gt;&lt;Property name="default.class" default="org.example.SomeClass"/&gt;
+    &lt;/Property&gt;&lt;/Class&gt;
+    &lt;Arg&gt;value0&lt;/Arg&gt;
+    &lt;Arg&gt;value1&lt;/Arg&gt;
+  &lt;/Call&gt;</programlisting>
+
+      <para>Attributes may not be expressed as elements when their parent
+      element is one that contains data. Thus Arg, Item, Set, Put and Get
+      elements may not have their attributes expressed as elements.</para>
     </section>
   </section>
 
@@ -246,16 +287,16 @@ bar.getParent().setName("demo2");      ]]></programlisting>
         <title>Basic Example</title>
 
         <informalexample>
-          <programlisting language="xml"><![CDATA[<Configure class="org.eclipse.jetty.server.Server">
-  <Set name="port">8080</Set>
-</Configure>          ]]></programlisting>
+          <programlisting language="xml">&lt;Configure class="org.eclipse.jetty.server.Server"&gt;
+  &lt;Set name="port"&gt;8080&lt;/Set&gt;
+&lt;/Configure&gt;          </programlisting>
         </informalexample>
 
         <para>This is equivalent to:</para>
 
         <informalexample>
-          <programlisting language="java"><![CDATA[org.eclipse.jetty.server.Server server = new org.eclipse.jetty.server.Server();
-server.setPort(8080);          ]]></programlisting>
+          <programlisting language="java">org.eclipse.jetty.server.Server server = new org.eclipse.jetty.server.Server();
+server.setPort(8080);          </programlisting>
         </informalexample>
       </section>
 
@@ -266,22 +307,22 @@ server.setPort(8080);          ]]></programlisting>
         <para>(etc/jetty.xml)</para>
 
         <informalexample>
-          <programlisting language="xml"><![CDATA[<Configure id="Server" class="org.eclipse.jetty.server.Server">
-  <!-- basic configuration here -->
-</Configure>          ]]></programlisting>
+          <programlisting language="xml">&lt;Configure id="Server" class="org.eclipse.jetty.server.Server"&gt;
+  &lt;!-- basic configuration here --&gt;
+&lt;/Configure&gt;          </programlisting>
         </informalexample>
 
         <para>(etc/jetty-logging.xml)</para>
 
         <informalexample>
-          <programlisting language="xml"><![CDATA[<Configure id="Server" class="org.eclipse.jetty.server.Server">
-  <!-- assumes that you have the basic server configuration set up; this file only contains additional configuration for logging -->
-</Configure>         ]]></programlisting>
+          <programlisting language="xml">&lt;Configure id="Server" class="org.eclipse.jetty.server.Server"&gt;
+  &lt;!-- assumes that you have the basic server configuration set up; this file only contains additional configuration for logging --&gt;
+&lt;/Configure&gt;         </programlisting>
         </informalexample>
 
         <para>Then run the combined configuration using:</para>
 
-        <screen linenumbering="numbered"><![CDATA[java -jar start.jar etc/jetty.xml jetty-logging.xml        ]]></screen>
+        <screen linenumbering="numbered">java -jar start.jar etc/jetty.xml jetty-logging.xml        </screen>
       </section>
     </section>
   </section>
@@ -366,9 +407,9 @@ value text, <Get>, <Call>, <New>, <Ref>, <Array>, <Map>, <SystemProperty>, <Prop
         <title>Basic Example</title>
 
         <informalexample>
-          <programlisting language="xml"><![CDATA[<Configure id="server" class="org.eclipse.jetty.server.Server">
-  <Set name="port">8080</Set>
-</Configure>          ]]></programlisting>
+          <programlisting language="xml">&lt;Configure id="server" class="org.eclipse.jetty.server.Server"&gt;
+  &lt;Set name="port"&gt;8080&lt;/Set&gt;
+&lt;/Configure&gt;          </programlisting>
         </informalexample>
       </section>
 
@@ -376,9 +417,9 @@ value text, <Get>, <Call>, <New>, <Ref>, <Array>, <Map>, <SystemProperty>, <Prop
         <title>Set via a System Property</title>
 
         <informalexample>
-          <programlisting language="xml"><![CDATA[<Configure id="server" class="org.eclipse.jetty.server.Server">
-  <Set name="port"><SystemProperty name="jetty.port" /></Set>
-</Configure>          ]]></programlisting>
+          <programlisting language="xml">&lt;Configure id="server" class="org.eclipse.jetty.server.Server"&gt;
+  &lt;Set name="port"&gt;&lt;SystemProperty name="jetty.port" /&gt;&lt;/Set&gt;
+&lt;/Configure&gt;          </programlisting>
         </informalexample>
       </section>
 
@@ -386,26 +427,26 @@ value text, <Get>, <Call>, <New>, <Ref>, <Array>, <Map>, <SystemProperty>, <Prop
         <title>Creating a NewObject and Setting It on the Server</title>
 
         <informalexample>
-          <programlisting language="xml"><![CDATA[<Configure id="server" class="org.eclipse.jetty.server.Server">
-  <Set name="threadPool">
-    <New class="org.eclipse.jetty.util.thread.QueuedThreadPool">
-      <Set name="minThreads">10</Set>
-      <Set name="maxThreads">1000</Set>
-    </New>
-  </Set>
-</Configure>          ]]></programlisting>
+          <programlisting language="xml">&lt;Configure id="server" class="org.eclipse.jetty.server.Server"&gt;
+  &lt;Set name="threadPool"&gt;
+    &lt;New class="org.eclipse.jetty.util.thread.QueuedThreadPool"&gt;
+      &lt;Set name="minThreads"&gt;10&lt;/Set&gt;
+      &lt;Set name="maxThreads"&gt;1000&lt;/Set&gt;
+    &lt;/New&gt;
+  &lt;/Set&gt;
+&lt;/Configure&gt;          </programlisting>
         </informalexample>
 
         <para>This is equivalent to:</para>
 
         <informalexample>
-          <programlisting language="java"><![CDATA[org.eclipse.jetty.server.Server server = new org.eclipse.jetty.server.Server();
+          <programlisting language="java">org.eclipse.jetty.server.Server server = new org.eclipse.jetty.server.Server();
 
 org.eclipse.jetty.util.thread.QueuedThreadPool threadPool = new org.eclipse.jetty.util.thread.QueuedThreadPool();
 threadPool.setMinThreads(10);
 threadPool.setMaxThreads(1000);
 
-server.setThreadPool(threadPool);          ]]></programlisting>
+server.setThreadPool(threadPool);          </programlisting>
         </informalexample>
       </section>
 
@@ -413,9 +454,9 @@ server.setThreadPool(threadPool);          ]]></programlisting>
         <title>Invoking a Static Setter</title>
 
         <informalexample>
-          <programlisting language="xml"><![CDATA[<Configure id="server" class="org.eclipse.jetty.server.Server">
-  <Set class="org.eclipse.jetty.util.log.Log" name="logToParent">loggerName</Set>
-</Configure">          ]]></programlisting>
+          <programlisting language="xml">&lt;Configure id="server" class="org.eclipse.jetty.server.Server"&gt;
+  &lt;Set class="org.eclipse.jetty.util.log.Log" name="logToParent"&gt;loggerName&lt;/Set&gt;
+&lt;/Configure"&gt;          </programlisting>
         </informalexample>
       </section>
     </section>
@@ -501,9 +542,9 @@ server.setThreadPool(threadPool);          ]]></programlisting>
         /&gt;.</para>
 
         <informalexample>
-          <programlisting language="xml"><![CDATA[<Configure id="server" class="org.eclipse.jetty.server.Server">
-  <Get id="Logger" class="org.eclipse.jetty.util.log.Log" name="log"/>
-</Configure>          ]]></programlisting>
+          <programlisting language="xml">&lt;Configure id="server" class="org.eclipse.jetty.server.Server"&gt;
+  &lt;Get id="Logger" class="org.eclipse.jetty.util.log.Log" name="log"/&gt;
+&lt;/Configure&gt;          </programlisting>
         </informalexample>
       </section>
 
@@ -512,13 +553,13 @@ server.setThreadPool(threadPool);          ]]></programlisting>
         Object</title>
 
         <informalexample>
-          <programlisting language="xml"><![CDATA[<Configure id="server" class="org.eclipse.jetty.server.Server">
-    <Get class="java.lang.System" name="out">
-      <Call name="println">
-        <Arg>Server version is: <Get class="org.eclipse.jetty.server.Server" name="version"/></Arg>
-      </Call>
-    </Get>
-</Configure>          ]]></programlisting>
+          <programlisting language="xml">&lt;Configure id="server" class="org.eclipse.jetty.server.Server"&gt;
+    &lt;Get class="java.lang.System" name="out"&gt;
+      &lt;Call name="println"&gt;
+        &lt;Arg&gt;Server version is: &lt;Get class="org.eclipse.jetty.server.Server" name="version"/&gt;&lt;/Arg&gt;
+      &lt;/Call&gt;
+    &lt;/Get&gt;
+&lt;/Configure&gt;          </programlisting>
         </informalexample>
       </section>
     </section>
@@ -588,9 +629,9 @@ value text, <Get>, <Call>, <New>, <Ref>, <Array>, <Map>, <SystemProperty>, <Prop
       <title>Example</title>
 
       <informalexample>
-        <programlisting language="xml"><![CDATA[<Get name="someKindOfMap">
-   <Put name="keyName">objectValue</Put>
-</Get>        ]]></programlisting>
+        <programlisting language="xml">&lt;Get name="someKindOfMap"&gt;
+   &lt;Put name="keyName"&gt;objectValue&lt;/Put&gt;
+&lt;/Get&gt;        </programlisting>
       </informalexample>
     </section>
   </section>
@@ -643,6 +684,15 @@ value text, <Get>, <Call>, <New>, <Ref>, <Array>, <Map>, <SystemProperty>, <Prop
             <entry>if present, you can use this id to refer to any object
             returned by the call, for later use.</entry>
           </row>
+
+          <row>
+            <entry>arg</entry>
+
+            <entry>no</entry>
+
+            <entry>comma separated list of arguments may be used for simple
+            string values rather than Arg elements</entry>
+          </row>
         </tbody>
       </tgroup>
     </informaltable>
@@ -650,7 +700,8 @@ value text, <Get>, <Call>, <New>, <Ref>, <Array>, <Map>, <SystemProperty>, <Prop
     <section>
       <title>Can Contain</title>
 
-      <para><link linkend="jetty-xml-arg">Arg element</link>, <link
+      <para>Attributes as elements (Id, Name, Class) plus <link
+      linkend="jetty-xml-arg">Arg element</link>, <link
       linkend="jetty-xml-set">Set element</link>, <link
       linkend="jetty-xml-get">Get element</link>, <link
       linkend="jetty-xml-put">Put element</link>, <link
@@ -671,17 +722,17 @@ value text, <Get>, <Call>, <New>, <Ref>, <Array>, <Map>, <SystemProperty>, <Prop
         <title>Basic example</title>
 
         <informalexample>
-          <programlisting language="xml"><![CDATA[<Call name="doFoo">
-  <Arg>bar</Arg>
-  <Set name="test">1, 2, 3</Set>
-</Call>          ]]></programlisting>
+          <programlisting language="xml">&lt;Call name="doFoo"&gt;
+  &lt;Arg&gt;bar&lt;/Arg&gt;
+  &lt;Set name="test"&gt;1, 2, 3&lt;/Set&gt;
+&lt;/Call&gt;          </programlisting>
         </informalexample>
 
         <para>This is equivalent to:</para>
 
         <informalexample>
-          <programlisting language="java"><![CDATA[Object o2 = o1.doFoo("bar");
-o2.setTest("1, 2, 3");          ]]></programlisting>
+          <programlisting language="java">Object o2 = o1.doFoo("bar");
+o2.setTest("1, 2, 3");          </programlisting>
         </informalexample>
       </section>
 
@@ -689,15 +740,15 @@ o2.setTest("1, 2, 3");          ]]></programlisting>
         <title>Invoking a static method</title>
 
         <informalexample>
-          <programlisting language="xml"><![CDATA[<Call class="com.acme.Foo" name="setString">
-  <Arg>somestring</Arg>
-</Call>          ]]></programlisting>
+          <programlisting language="xml">&lt;Call class="com.acme.Foo" name="setString"&gt;
+  &lt;Arg&gt;somestring&lt;/Arg&gt;
+&lt;/Call&gt;          </programlisting>
         </informalexample>
 
         <para>which is equivalent to:</para>
 
         <informalexample>
-          <programlisting language="java"><![CDATA[com.acme.Foo.setString("somestring");          ]]></programlisting>
+          <programlisting language="java">com.acme.Foo.setString("somestring");          </programlisting>
         </informalexample>
       </section>
 
@@ -706,21 +757,21 @@ o2.setTest("1, 2, 3");          ]]></programlisting>
         Magic</title>
 
         <informalexample>
-          <programlisting language="xml"><![CDATA[<Configure id="Server" class="org.eclipse.jetty.server.Server">
-  <Call name="getPort" id="port" />
-  <Call class="com.acme.Environment" name="setPort">
-    <Arg>
-      <Ref refid="port"/>
-    </Arg>
-  </Call>
-</Configure>          ]]></programlisting>
+          <programlisting language="xml">&lt;Configure id="Server" class="org.eclipse.jetty.server.Server"&gt;
+  &lt;Call name="getPort" id="port" /&gt;
+  &lt;Call class="com.acme.Environment" name="setPort"&gt;
+    &lt;Arg&gt;
+      &lt;Ref refid="port"/&gt;
+    &lt;/Arg&gt;
+  &lt;/Call&gt;
+&lt;/Configure&gt;          </programlisting>
         </informalexample>
 
         <para>which is equivalent to:</para>
 
         <informalexample>
-          <programlisting language="java"><![CDATA[org.mortbay.jetty.Server server = new org.mortbay.jetty.Server();
-com.acme.Environment.setPort( server.getPort() );          ]]></programlisting>
+          <programlisting language="java">org.mortbay.jetty.Server server = new org.mortbay.jetty.Server();
+com.acme.Environment.setPort( server.getPort() );          </programlisting>
         </informalexample>
       </section>
     </section>
@@ -737,7 +788,9 @@ com.acme.Environment.setPort( server.getPort() );          ]]></programlisting>
     SystemProperty, etc., as values. The optional type attribute can force the
     type of the value. If you don't specify a type, white space is trimmed out
     of the value. If it contains multiple elements as values, they are added
-    as strings before being converted to any specified type.</para>
+    as strings before being converted to any specified type. Simple String
+    arguments can also be specified as a string separated arg attribute on the
+    parent element.</para>
 
     <informaltable>
       <tgroup cols="3">
@@ -789,12 +842,12 @@ value text, <Get>, <Call>, <New>, <Ref>, <Array>, <Map>, <SystemProperty>, <Prop
         <title>Basic examples</title>
 
         <informalexample>
-          <programlisting language="xml"><![CDATA[<Arg>foo</Arg> <!-- String -->
-<Arg>true</Arg> <!-- Boolean -->
-<Arg>1</Arg> <!-- int, long, short, float, double -->
-<Arg><Ref refid="foo" /></Arg>  <!-- any object; reference a previously created object with id "foo", and pass it as a parameter -->
-<Arg></Arg> <!-- null value -->
-<Arg type="String"></Arg> <!-- empty string "" ->          ]]></programlisting>
+          <programlisting language="xml">&lt;Arg&gt;foo&lt;/Arg&gt; &lt;!-- String --&gt;
+&lt;Arg&gt;true&lt;/Arg&gt; &lt;!-- Boolean --&gt;
+&lt;Arg&gt;1&lt;/Arg&gt; &lt;!-- int, long, short, float, double --&gt;
+&lt;Arg&gt;&lt;Ref refid="foo" /&gt;&lt;/Arg&gt;  &lt;!-- any object; reference a previously created object with id "foo", and pass it as a parameter --&gt;
+&lt;Arg&gt;&lt;/Arg&gt; &lt;!-- null value --&gt;
+&lt;Arg type="String"&gt;&lt;/Arg&gt; &lt;!-- empty string "" -&gt;          </programlisting>
         </informalexample>
       </section>
 
@@ -804,7 +857,7 @@ value text, <Get>, <Call>, <New>, <Ref>, <Array>, <Map>, <SystemProperty>, <Prop
         <para>This explicitly coerces the type to a boolean:</para>
 
         <informalexample>
-          <programlisting language="xml"><![CDATA[<Arg type="boolean">False</Arg>          ]]></programlisting>
+          <programlisting language="xml">&lt;Arg type="boolean"&gt;False&lt;/Arg&gt;          </programlisting>
         </informalexample>
       </section>
 
@@ -816,35 +869,35 @@ value text, <Get>, <Call>, <New>, <Ref>, <Array>, <Map>, <SystemProperty>, <Prop
         to methods and to constructors:</para>
 
         <informalexample>
-          <programlisting language="xml"><![CDATA[<Call class="com.acme.Environment" name="setFoo">
-  <Arg>
-    <New class="com.acme.Foo">
-      <Arg>bar</Arg>
-    </New>
-  </Arg>
-</Call>          ]]></programlisting>
+          <programlisting language="xml">&lt;Call class="com.acme.Environment" name="setFoo"&gt;
+  &lt;Arg&gt;
+    &lt;New class="com.acme.Foo"&gt;
+      &lt;Arg&gt;bar&lt;/Arg&gt;
+    &lt;/New&gt;
+  &lt;/Arg&gt;
+&lt;/Call&gt;          </programlisting>
         </informalexample>
 
         <para>This is equivalent to:</para>
 
         <informalexample>
-          <programlisting language="java"><![CDATA[com.acme.Environment.setFoo(new com.acme.Foo("bar"));          ]]></programlisting>
+          <programlisting language="java">com.acme.Environment.setFoo(new com.acme.Foo("bar"));          </programlisting>
         </informalexample>
 
         <informalexample>
-          <programlisting language="xml"><![CDATA[<New class="com.acme.Baz">
-  <Arg>
-    <Call id="bar" class="com.acme.MyStaticObjectFactory" name="createObject">
-      <Arg>2</Arg>
-    </Call>
-  </Arg>
-</New>          ]]></programlisting>
+          <programlisting language="xml">&lt;New class="com.acme.Baz"&gt;
+  &lt;Arg&gt;
+    &lt;Call id="bar" class="com.acme.MyStaticObjectFactory" name="createObject"&gt;
+      &lt;Arg&gt;2&lt;/Arg&gt;
+    &lt;/Call&gt;
+  &lt;/Arg&gt;
+&lt;/New&gt;          </programlisting>
         </informalexample>
 
         <para>This is equivalent to:</para>
 
         <informalexample>
-          <programlisting language="java"><![CDATA[new com.acme.Baz(com.acme.MyStaticObjectFactory.createObject(2));          ]]></programlisting>
+          <programlisting language="java">new com.acme.Baz(com.acme.MyStaticObjectFactory.createObject(2));          </programlisting>
         </informalexample>
       </section>
     </section>
@@ -891,6 +944,15 @@ value text, <Get>, <Call>, <New>, <Ref>, <Array>, <Map>, <SystemProperty>, <Prop
             <entry>gives a unique name to the object which can be referenced
             later by Ref elements.</entry>
           </row>
+
+          <row>
+            <entry>arg</entry>
+
+            <entry>no</entry>
+
+            <entry>comma separated list of arguments may be used for simple
+            string values rather than Arg elements</entry>
+          </row>
         </tbody>
       </tgroup>
     </informaltable>
@@ -898,7 +960,8 @@ value text, <Get>, <Call>, <New>, <Ref>, <Array>, <Map>, <SystemProperty>, <Prop
     <section>
       <title>Can Contain</title>
 
-      <para><link linkend="jetty-xml-arg">Arg element</link>, <link
+      <para>Attributes as elements (Id, Class) plus <link
+      linkend="jetty-xml-arg">Arg element</link>, <link
       linkend="jetty-xml-set">Set element</link>, <link
       linkend="jetty-xml-get">Get element</link>, <link
       linkend="jetty-xml-put">Put element</link>, <link
@@ -910,7 +973,8 @@ value text, <Get>, <Call>, <New>, <Ref>, <Array>, <Map>, <SystemProperty>, <Prop
       linkend="jetty-xml-property">Property element</link></para>
     </section>
 
-    <!-- <Arg>, <Set>,<Get>, <Put>, <Call>, <New>, <Ref>, <Array>, <Map>, <Property> -->
+    <!-- <Arg>, <Set>,<Get>, <Put>, <Call>, <New>, <Ref>, <Array>, <Map>, <Property> 
+-->
 
     <section>
       <title>Examples</title>
@@ -919,15 +983,15 @@ value text, <Get>, <Call>, <New>, <Ref>, <Array>, <Map>, <SystemProperty>, <Prop
         <title>Basic example</title>
 
         <informalexample>
-          <programlisting language="xml"><![CDATA[<New class="com.acme.Foo">
-  <Arg>bar</Arg>
-</New>          ]]></programlisting>
+          <programlisting language="xml">&lt;New class="com.acme.Foo"&gt;
+  &lt;Arg&gt;bar&lt;/Arg&gt;
+&lt;/New&gt;          </programlisting>
         </informalexample>
 
         <para>which is equivalent to:</para>
 
         <informalexample>
-          <programlisting language="java"><![CDATA[com.acme.Foo foo = new com.acme.Foo("bar");          ]]></programlisting>
+          <programlisting language="java">com.acme.Foo foo = new com.acme.Foo("bar");          </programlisting>
         </informalexample>
       </section>
 
@@ -935,13 +999,13 @@ value text, <Get>, <Call>, <New>, <Ref>, <Array>, <Map>, <SystemProperty>, <Prop
         <title>Instantiate with the Default Constructor</title>
 
         <informalexample>
-          <programlisting language="xml"><![CDATA[<New class="com.acme.Foo" />          ]]></programlisting>
+          <programlisting language="xml">&lt;New class="com.acme.Foo" /&gt;          </programlisting>
         </informalexample>
 
         <para>which is equivalent to:</para>
 
         <informalexample>
-          <programlisting language="java"><![CDATA[com.acme.Foo foo = new com.acme.Foo();        ]]></programlisting>
+          <programlisting language="java">com.acme.Foo foo = new com.acme.Foo();        </programlisting>
         </informalexample>
       </section>
 
@@ -950,18 +1014,18 @@ value text, <Get>, <Call>, <New>, <Ref>, <Array>, <Map>, <SystemProperty>, <Prop
         Further</title>
 
         <informalexample>
-          <programlisting language="xml"><![CDATA[<New id="foo" class="com.acme.Foo">
-   <Arg>bar</Arg>
-   <Arg>baz</Arg>
-   <Set name="test">1, 2, 3</Set>
- </New>          ]]></programlisting>
+          <programlisting language="xml">&lt;New id="foo" class="com.acme.Foo"&gt;
+   &lt;Arg&gt;bar&lt;/Arg&gt;
+   &lt;Arg&gt;baz&lt;/Arg&gt;
+   &lt;Set name="test"&gt;1, 2, 3&lt;/Set&gt;
+ &lt;/New&gt;          </programlisting>
         </informalexample>
 
         <para>which is equivalent to:</para>
 
         <informalexample>
-          <programlisting language="java"><![CDATA[Object foo = new com.acme.Foo("bar", "baz");
-foo.setTest("1, 2, 3");]]></programlisting>
+          <programlisting language="java">Object foo = new com.acme.Foo("bar", "baz");
+foo.setTest("1, 2, 3");</programlisting>
         </informalexample>
       </section>
     </section>
@@ -1033,15 +1097,15 @@ foo.setTest("1, 2, 3");]]></programlisting>
         constructor:</para>
 
         <informalexample>
-          <programlisting language="xml"><![CDATA[<Get id="foo" name="xFoo" />
-<Set name="test"><Ref refid="foo"/></Set>            ]]></programlisting>
+          <programlisting language="xml">&lt;Get id="foo" name="xFoo" /&gt;
+&lt;Set name="test"&gt;&lt;Ref refid="foo"/&gt;&lt;/Set&gt;            </programlisting>
         </informalexample>
 
         <para>This is equivalent to:</para>
 
         <informalexample>
-          <programlisting language="java"><![CDATA[foo = getXFoo();
-setSomeMethod(foo);            ]]></programlisting>
+          <programlisting language="java">foo = getXFoo();
+setSomeMethod(foo);            </programlisting>
         </informalexample>
       </section>
 
@@ -1049,17 +1113,17 @@ setSomeMethod(foo);            ]]></programlisting>
         <title>Manipulating the Object Returned by Ref</title>
 
         <informalexample>
-          <programlisting language="xml"><![CDATA[<Get id="foo" name="xFoo" />
-<Ref refid="foo">
-  <Set name="test">1, 2, 3</Set>
-</Ref>            ]]></programlisting>
+          <programlisting language="xml">&lt;Get id="foo" name="xFoo" /&gt;
+&lt;Ref refid="foo"&gt;
+  &lt;Set name="test"&gt;1, 2, 3&lt;/Set&gt;
+&lt;/Ref&gt;            </programlisting>
         </informalexample>
 
         <para>This is equivalent to:</para>
 
         <informalexample>
-          <programlisting language="java"><![CDATA[foo = getXFoo();
-foo.setTest("1, 2, 3");            ]]></programlisting>
+          <programlisting language="java">foo = getXFoo();
+foo.setTest("1, 2, 3");            </programlisting>
         </informalexample>
       </section>
 
@@ -1071,58 +1135,58 @@ foo.setTest("1, 2, 3");            ]]></programlisting>
         equivalent:</para>
 
         <informalexample>
-          <programlisting language="xml"><![CDATA[<!-- using Ref in conjunction with Get -->
-<Configure id="Server" class="org.eclipse.jetty.server.Server">
-  <Get id="Logger" class="org.eclipse.jetty.util.log.Log" name="log"/>
-  <Ref refid="Logger">
-    <Set name="debugEnabled">true</Set>
-  </Ref>
-</Configure>
-<!-- calling the setter directly on the object returned by Get -->
-<Configure id="Server" class="org.eclipse.jetty.server.Server">
-  <Get class="org.eclipse.jetty.util.log.Log" name="log">
-    <Set name="debugEnabled">true</Set>
-  </Get>
-</Configure>            ]]></programlisting>
+          <programlisting language="xml">&lt;!-- using Ref in conjunction with Get --&gt;
+&lt;Configure id="Server" class="org.eclipse.jetty.server.Server"&gt;
+  &lt;Get id="Logger" class="org.eclipse.jetty.util.log.Log" name="log"/&gt;
+  &lt;Ref refid="Logger"&gt;
+    &lt;Set name="debugEnabled"&gt;true&lt;/Set&gt;
+  &lt;/Ref&gt;
+&lt;/Configure&gt;
+&lt;!-- calling the setter directly on the object returned by Get --&gt;
+&lt;Configure id="Server" class="org.eclipse.jetty.server.Server"&gt;
+  &lt;Get class="org.eclipse.jetty.util.log.Log" name="log"&gt;
+    &lt;Set name="debugEnabled"&gt;true&lt;/Set&gt;
+  &lt;/Get&gt;
+&lt;/Configure&gt;            </programlisting>
         </informalexample>
 
         <para>Here is a more practical example, taken from the handler
         configuration section in <code> etc/jetty.xml</code>:</para>
 
         <informalexample>
-          <programlisting language="xml"><![CDATA[<Set name="handler">
-  <New id="Handlers" class="org.eclipse.jetty.server.handler.HandlerCollection">
-    <Set name="handlers">
-      <Array type="org.eclipse.jetty.server.Handler">
-        <Item>
-          <!-- create a new instance of a ContextHandlerCollection named "Contexts" -->
-          <New id="Contexts" class="org.eclipse.jetty.server.handler.ContextHandlerCollection"/>
-        </Item>
-        <Item>
-          <New id="DefaultHandler" class="org.eclipse.jetty.server.handler.DefaultHandler"/>
-        </Item>
-        <Item>
-          <!-- create a new instance of a RequestLogHandler named "RequestLog" -->
-          <New id="RequestLog" class="org.eclipse.jetty.server.handler.RequestLogHandler"/>
-        </Item>
-      </Array>
-    </Set>
-  </New>
-</Set>
+          <programlisting language="xml">&lt;Set name="handler"&gt;
+  &lt;New id="Handlers" class="org.eclipse.jetty.server.handler.HandlerCollection"&gt;
+    &lt;Set name="handlers"&gt;
+      &lt;Array type="org.eclipse.jetty.server.Handler"&gt;
+        &lt;Item&gt;
+          &lt;!-- create a new instance of a ContextHandlerCollection named "Contexts" --&gt;
+          &lt;New id="Contexts" class="org.eclipse.jetty.server.handler.ContextHandlerCollection"/&gt;
+        &lt;/Item&gt;
+        &lt;Item&gt;
+          &lt;New id="DefaultHandler" class="org.eclipse.jetty.server.handler.DefaultHandler"/&gt;
+        &lt;/Item&gt;
+        &lt;Item&gt;
+          &lt;!-- create a new instance of a RequestLogHandler named "RequestLog" --&gt;
+          &lt;New id="RequestLog" class="org.eclipse.jetty.server.handler.RequestLogHandler"/&gt;
+        &lt;/Item&gt;
+      &lt;/Array&gt;
+    &lt;/Set&gt;
+  &lt;/New&gt;
+&lt;/Set&gt;
 
-<Call name="addBean">
-  <Arg>
-    <New class="org.eclipse.jetty.deploy.ContextDeployer">
-      <!-- pass in the ContextHandlerCollection object ("Contexts") that was created earlier, as an argument -->
-      <Set name="contexts"><Ref refid="Contexts"/></Set>
-    </New>
-  </Arg>
-</Call>
+&lt;Call name="addBean"&gt;
+  &lt;Arg&gt;
+    &lt;New class="org.eclipse.jetty.deploy.ContextDeployer"&gt;
+      &lt;!-- pass in the ContextHandlerCollection object ("Contexts") that was created earlier, as an argument --&gt;
+      &lt;Set name="contexts"&gt;&lt;Ref refid="Contexts"/&gt;&lt;/Set&gt;
+    &lt;/New&gt;
+  &lt;/Arg&gt;
+&lt;/Call&gt;
 
-<!-- configure the RequestLogHandler object ("RequestLog") that we created earlier -->
-<Ref refid="RequestLog">
+&lt;!-- configure the RequestLogHandler object ("RequestLog") that we created earlier --&gt;
+&lt;Ref refid="RequestLog"&gt;
   ....
-</Ref>            ]]></programlisting>
+&lt;/Ref&gt;            </programlisting>
         </informalexample>
       </section>
     </section>
@@ -1178,16 +1242,16 @@ foo.setTest("1, 2, 3");            ]]></programlisting>
       <title>Example</title>
 
       <informalexample>
-        <programlisting language="xml"><![CDATA[<Array type="java.lang.String">
-   <Item>value0</Item>
-   <Item><New class="java.lang.String"><Arg>value1</Arg></New></Item>
-</Array>]]></programlisting>
+        <programlisting language="xml">&lt;Array type="java.lang.String"&gt;
+   &lt;Item&gt;value0&lt;/Item&gt;
+   &lt;Item&gt;&lt;New class="java.lang.String"&gt;&lt;Arg&gt;value1&lt;/Arg&gt;&lt;/New&gt;&lt;/Item&gt;
+&lt;/Array&gt;</programlisting>
       </informalexample>
 
       <para>This is equivalent to:</para>
 
       <informalexample>
-        <programlisting language="java"><![CDATA[String[] a = new String[] { "value0", new String("value1") };              ]]></programlisting>
+        <programlisting language="java">String[] a = new String[] { "value0", new String("value1") };              </programlisting>
       </informalexample>
     </section>
   </section>
@@ -1287,19 +1351,19 @@ foo.setTest("1, 2, 3");            ]]></programlisting>
       <title>Example</title>
 
       <informalexample>
-        <programlisting language="xml"><![CDATA[<Map>
-  <Entry>
-    <Item>keyName</Item>
-    <Item><New class="java.lang.String"><Arg>value1</Arg></New></Item>
-  </Entry>
-</Map>                ]]></programlisting>
+        <programlisting language="xml">&lt;Map&gt;
+  &lt;Entry&gt;
+    &lt;Item&gt;keyName&lt;/Item&gt;
+    &lt;Item&gt;&lt;New class="java.lang.String"&gt;&lt;Arg&gt;value1&lt;/Arg&gt;&lt;/New&gt;&lt;/Item&gt;
+  &lt;/Entry&gt;
+&lt;/Map&gt;                </programlisting>
       </informalexample>
 
       <para>This is equivalent to:</para>
 
       <informalexample>
-        <programlisting language="java"><![CDATA[Map m = new HashMap();
-m.put("keyName", new String("value1"));                ]]></programlisting>
+        <programlisting language="java">Map m = new HashMap();
+m.put("keyName", new String("value1"));                </programlisting>
       </informalexample>
     </section>
   </section>
@@ -1368,20 +1432,20 @@ m.put("keyName", new String("value1"));                ]]></programlisting>
     <section>
       <title>Can Contain</title>
 
-      <para>Cannot contain anything.</para>
+      <para>Only attributes as Elements (Id, Name, Default).</para>
     </section>
 
     <section>
       <title>Example</title>
 
       <informalexample>
-        <programlisting language="xml"><![CDATA[<SystemProperty name="jetty.port" default="8080"/>                ]]></programlisting>
+        <programlisting language="xml">&lt;SystemProperty name="jetty.port" default="8080"/&gt;                </programlisting>
       </informalexample>
 
       <para>That is equivalent to:</para>
 
       <informalexample>
-        <programlisting language="java"><![CDATA[System.getProperty("jetty.port", "8080");                ]]></programlisting>
+        <programlisting language="java">System.getProperty("jetty.port", "8080");                </programlisting>
       </informalexample>
 
       <para>Both try to retrieve the value of jetty.port. If jetty.port is not
@@ -1437,102 +1501,29 @@ m.put("keyName", new String("value1"));                ]]></programlisting>
       </tgroup>
     </informaltable>
 
-    <para>The <code>name</code> attribute may be a comma separated list of property names,
-    with the first property name being the "official" name, and the others names being old,
-    deprecated property names that are kept for backward compatibility. A warning log is
-    issued when deprecated property names are used.</para>
-
-    <para>The <code>default</code> attribute contains the value to use in case none of the
-    property names is found.</para>
-    <para>The <code>default</code> attribute value is itself subject to property expansion;
-    properties are referenced using the <code>${propertyName|defaultValue}</code> syntax,
-    so the whole <code>Property</code> element may have this form:</para>
-
-      <informalexample>
-        <programlisting language="xml"><![CDATA[
-<Property name="filePath,fileName" default="${myTmpDir|/tmp}/myPath" />
-        ]]></programlisting>
-      </informalexample>
-
-    <para>In the example above, the property <code>filePath</code> is looked up first.
-    If it is not found, then the property <code>fileName</code> is looked up next.
-    If it is found a warning log is issued to remind that <code>fileName</code> is
-    deprecated and <code>filePath</code> should be used instead.
-    If it is not found, then the <code>default</code> attribute is considered, and
-    the <code>myTmpDir</code> property looked up.
-    If it is not present, then the value <code>/tmp</code> is used.
-    The value obtained by the resolution of the property present in the value of the
-    <code>default</code> attribute is then concatenated to the string
-    <code>/myPath</code>. The table below illustrates the behaviour:</para>
-
-    <informaltable>
-      <tgroup cols="4">
-        <thead>
-          <row>
-            <entry align="center">filePath</entry>
-            <entry align="center">fileName</entry>
-            <entry align="center">myTmpDir</entry>
-            <entry align="center">&lt;Property&gt;</entry>
-          </row>
-        </thead>
-
-        <tbody>
-          <row>
-            <entry>/foo</entry>
-            <entry>&#160;</entry>
-            <entry>&#160;</entry>
-            <entry>/foo</entry>
-          </row>
-
-          <row>
-            <entry>&#160;</entry>
-            <entry>/bar</entry>
-            <entry>&#160;</entry>
-            <entry>/bar</entry>
-          </row>
-
-          <row>
-            <entry>&#160;</entry>
-            <entry>&#160;</entry>
-            <entry>/baz</entry>
-            <entry>/baz/myPath</entry>
-          </row>
-
-          <row>
-            <entry>&#160;</entry>
-            <entry>&#160;</entry>
-            <entry>&#160;</entry>
-            <entry>/tmp/myPath</entry>
-          </row>
-        </tbody>
-      </tgroup>
-    </informaltable>
+    <para>The <code>name</code> attribute may be a comma separated list of
+    property names, with the first property name being the "official" name,
+    and the others names being old, deprecated property names that are kept
+    for backward compatibility. A warning log is issued when deprecated
+    property names are used. The <code>default</code> attribute contains the
+    value to use in case none of the property names is found.</para>
 
     <section>
       <title>Can Contain</title>
 
-      <para><link linkend="jetty-xml-set">Set element</link>, <link
-      linkend="jetty-xml-get">Get element</link>, <link
-      linkend="jetty-xml-put">Put element</link>, <link
-      linkend="jetty-xml-call">Call element</link>, <link
-      linkend="jetty-xml-new">New element</link>, <link
-      linkend="jetty-xml-ref">Ref element</link>, <link
-      linkend="jetty-xml-array">Array element</link>, <link
-      linkend="jetty-xml-map">Map element</link>, <link
-      linkend="jetty-xml-property">Property element</link></para>
+      <para>The attributes may be expressed as contained Elements (Id, Name,
+      Default).</para>
     </section>
-
-    <!--<Set>,<Get>, <Put>, <Call>, <New>, <Ref>, <Array>, <Map>, <Property>-->
 
     <section>
       <title>Example</title>
 
       <informalexample>
-        <programlisting language="xml"><![CDATA[<Property name="Server">
-  <Call id="jdbcIdMgr" name="getAttribute">
-    <Arg>jdbcIdMgr</Arg>
-  </Call>
-</Property>                ]]></programlisting>
+        <programlisting language="xml">&lt;Property name="Server"&gt;
+  &lt;Call id="jdbcIdMgr" name="getAttribute"&gt;
+    &lt;Arg&gt;jdbcIdMgr&lt;/Arg&gt;
+  &lt;/Call&gt;
+&lt;/Property&gt;                </programlisting>
       </informalexample>
     </section>
   </section>

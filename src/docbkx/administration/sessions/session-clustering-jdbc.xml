@@ -76,168 +76,185 @@
   </section>
 
   <section>
-    <title>Configuring the JDBCSessionIdManager</title>
+    <title>The jdbc-session Module</title>
 
-    <para>You need to configure an
-    <code>org.eclipse.jetty.server.session.JDBCSessionIdManager</code>
-    instance, either in embedded code or in a <filename>jetty.xml</filename>
-    file. Here is an example of a jetty.xml setup:</para>
+    <para>When using the jetty distribution, to enable jdbc session
+    persistence, you will first need to enable the jdbc-session <link
+    linkend="startup-modules">module</link> for your <link
+    linkend="creating-jetty-base">base</link> using the --add-to-start or
+    --add-to-startd argument to the <link
+    linkend="startup-overview">start.jar</link>. </para>
+
+    <para>You will also find the following properties, either in your base's
+    start.d/jdbc-session.ini file or appended to your start.ini, depending on
+    how you enabled the module:</para>
 
     <informalexample>
-      <programlisting language="xml"><![CDATA[
-        
-<Set name="sessionIdManager">
-        <New id="jdbcidmgr" class="org.eclipse.jetty.server.session.JDBCSessionIdManager">
-          <Arg>
-            <Ref id="Server"/>
-          </Arg>
-          <Set name="workerName">fred</Set>
-          <Set name="DatasourceName">javax.sql.DataSource/default</Set>
-          <Set name="scavengeInterval">60</Set>
-        </New>
-      </Set>
-      <Call name="setAttribute">
-        <Arg>jdbcIdMgr</Arg>
-        <Arg>
-          <Ref id="jdbcidmgr"/>
-        </Arg>
-      </Call>
-      
-    ]]></programlisting>
+      <programlisting><![CDATA[## Unique identifier for this node in the cluster
+jetty.jdbcSession.workerName=node1
+
+##Uncomment either the datasource name or driverClass and connectionURL
+#jetty.jdbcSession.datasource=sessions
+jetty.jdbcSession.driverClass=org.apache.derby.jdbc.EmbeddedDriver
+jetty.jdbcSession.connectionURL=jdbc:derby:sessions;create=true
+
+]]></programlisting>
     </informalexample>
 
-    <para>Notice that the JDBCSessionIdManager needs access to a database. The
-    <filename>jetty.xml</filename> above configures it with the name of a
-    <code>javax.sql.DataSource</code> that is defined elsewhere. Consult Jetty
-    Naming Resources for more information on how to configure database access
-    with Jetty. If you don't want to use a DataSource, you can configure JDBC
-    Driver information instead. Here's an example:</para>
+    <para><variablelist>
+        <varlistentry>
+          <term>jetty.jdbcSession.workerName</term>
 
-    <informalexample>
-      <programlisting language="xml"><![CDATA[
-      
-<Set name="sessionIdManager">
-      <New id="jdbcidmgr" class="org.eclipse.jetty.server.session.JDBCSessionIdManager">
-        <Arg>
-          <Ref id="Server"/>
-        </Arg>
-        <Set name="workerName">fred</Set>
-        <Call name="setDriverInfo">
-          <Arg>com.mysql.jdbc.Driver</Arg>
-          <Arg>jdbc:mysql://127.0.0.1:3306/sessions?user=janb</Arg>
-        </Call>
-        <Set name="scavengeInterval">60</Set>
-      </New>
-    </Set>
-    <Call name="setAttribute">
-      <Arg>jdbcIdMgr</Arg>
-      <Arg>
-        <Ref id="jdbcidmgr"/>
-      </Arg>
-    </Call>
-    
-  ]]></programlisting>
-    </informalexample>
+          <listitem>
+            <para>The name that uniquely identifies this node in the cluster.
+            This value will also be used by the sticky load balancer to
+            identify the node. Don't forget to change the value of this
+            property on <emphasis role="bold">each</emphasis> node on which
+            you enable jdbc session clustering.</para>
+          </listitem>
+        </varlistentry>
 
-    <para>As Jetty configuration files are direct mappings of XML to Java, it
-    is straightforward to see how to do this in code, but here's an example
-    anyway:</para>
+        <varlistentry>
+          <term>jetty.jdbcSession.scavenge</term>
 
-    <informalexample>
-      <programlisting language="java"><![CDATA[
+          <listitem>
+            <para>The time in seconds between sweeps of a task which scavenges
+            old expired sessions. The default is 10 mins. We don't recommend
+            you increase the frequency bcause doing so increases the load on
+            the database with very little gain.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>jetty.jdbcSession.datasource</term>
+
+          <listitem>
+            <para>The name of a javax.sql.DataSource that gives access to the
+            database that holds the session information. You should configure
+            <emphasis role="bold">either</emphasis> this or the jdbc driver
+            information described next.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>jetty.jdbcSession.datasource and
+          jetty.jdbcSession.connectionURL</term>
+
+          <listitem>
+            <para>This is the name of the jdbc driver class, and a jdbc
+            connection url suitable for that driver. You should configure
+            <emphasis role="bold">either</emphasis> this or the jdbc
+            datasource name described above.</para>
+          </listitem>
+        </varlistentry>
+      </variablelist>These properties are applied to the JDBCSessionIdManager
+    described below.</para>
+
+    <section>
+      <title>Configuring the JDBCSessionIdManager</title>
+
+      <para
+      xl:href="@JDURL@/org/eclipse/jetty/nosql/mongodb.MongoSessionIdManager.html">The
+      jdbc-session module will have installed file called
+      ${jetty.home}/etc/jetty-jdbc-sessions.xml. This file configures an
+      instance of the JDBCSessionIdManager that will be shared across all
+      webapps deployed on that server. It looks like this:</para>
+
+      <programlisting language="rxml"><filename>@GITURL@/jetty-server/src/main/config/etc/jetty-jdbc-sessions.xml</filename></programlisting>
+
+      <para>As well as uncommenting and setting up appropriate values for the
+      properties we discussed above, you will also need to edit this file and
+      uncomment <emphasis role="bold">either</emphasis> the datasource or the
+      driver info elements.</para>
+
+      <para>As Jetty configuration files are direct mappings of XML to Java,
+      it is straightforward to see how to do this in code, but here's an
+      example anyway:</para>
+
+      <informalexample>
+        <programlisting language="java"><![CDATA[
     
 Server server = new Server();
      ...
 JDBCSessionIdManager idMgr = new JDBCSessionIdManager(server);
-idMgr.setWorkerName("fred");
+idMgr.setWorkerName("node1");
 idMgr.setDriverInfo("com.mysql.jdbc.Driver", "jdbc:mysql://127.0.0.1:3306/sessions?user=janb");
-idMgr.setScavengeInterval(60);
+idMgr.setScavengeInterval(600);
 server.setSessionIdManager(idMgr);
  ]]></programlisting>
-    </informalexample>
+      </informalexample>
 
-    <para>You must configure the JDBCSessionIdManager with a workerName that
-    is unique across the cluster. Typically the name relates to the physical
-    node on which the instance is executing. If this name is not unique, your
-    load balancer might fail to distribute your sessions correctly.</para>
+      <section>
+        <title>Configuring the Database Schema</title>
 
-    <para>You can also configure how often the persistent session mechanism
-    sweeps the database looking for old, expired sessions with the
-    scavengeInterval setting. The default value is 10mins. We recommend that
-    you not increase the frequency because doing so increases the load on the
-    database with very little gain; old, expired sessions can harmlessly sit
-    in the database.</para>
+        <para>You may find it necessary to change the names of the tables and
+        columns that the JDBC Session management uses to store the session
+        information. The defaults used are:</para>
 
-    <section>
-      <title>Configuring the Database Schema</title>
+        <para><table border="1">
+            <caption>Default Values for Session Id Table</caption>
 
-      <para>You may find it necessary to change the names of the tables and
-      columns that the JDBC Session management uses to store the session
-      information. The defaults used are:</para>
+            <colgroup width="16%"/>
 
-      <para><table border="1">
-          <caption>Default Values for Session Id Table</caption>
+            <colgroup width="84%"/>
 
-          <colgroup width="16%"/>
+            <tr>
+              <td>table name</td>
 
-          <colgroup width="84%"/>
+              <td>JettySessionIds</td>
+            </tr>
 
-          <tr>
-            <td>table name</td>
+            <tr>
+              <td>columns</td>
 
-            <td>JettySessionIds</td>
-          </tr>
+              <td>id</td>
+            </tr>
+          </table><table border="1">
+            <caption>Default Values for Session Table</caption>
 
-          <tr>
-            <td>columns</td>
+            <colgroup width="15%"/>
 
-            <td>id</td>
-          </tr>
-        </table><table border="1">
-          <caption>Default Values for Session Table</caption>
+            <colgroup width="85%"/>
 
-          <colgroup width="15%"/>
+            <tr>
+              <td>table name</td>
 
-          <colgroup width="85%"/>
+              <td>JettySessions</td>
+            </tr>
 
-          <tr>
-            <td>table name</td>
+            <tr>
+              <td>columns</td>
 
-            <td>JettySessions</td>
-          </tr>
+              <td>rowId, sessionId, contextPath, virtualHost, lastNode,
+              accessTime, lastAccessTime, createTime, cookieTime,
+              lastSavedTime, expiryTime, maxInterval, map</td>
+            </tr>
+          </table>To change these values, use the <link
+        xl:href="@JDURL@/org/eclipse/jetty/server/session/SessionIdTableSchema.html">org.eclipse.jetty.server.session.SessionIdTableSchema</link>
+        and <link
+        xl:href="@JDURL@/org/eclipse/jetty/server/session/SessionTableSchema.html">org.eclipse.jetty.server.session.SessionTableSchema</link>
+        classes. These classes have getter/setter methods for the table name
+        and all columns.</para>
 
-          <tr>
-            <td>columns</td>
+        <para>Here's an example of changing the name of JettySessionsId table
+        and its single column. This example will use java code, but as
+        explained above, you may also do this via a jetty xml configuration
+        file:</para>
 
-            <td>rowId, sessionId, contextPath, virtualHost, lastNode,
-            accessTime, lastAccessTime, createTime, cookieTime, lastSavedTime,
-            expiryTime, maxInterval, map</td>
-          </tr>
-        </table>To change these values, use the <link
-      xl:href="@JDURL@/org/eclipse/jetty/server/session/SessionIdTableSchema.html">org.eclipse.jetty.server.session.SessionIdTableSchema</link>
-      and <link
-      xl:href="@JDURL@/org/eclipse/jetty/server/session/SessionTableSchema.html">org.eclipse.jetty.server.session.SessionTableSchema</link>
-      classes. These classes have getter/setter methods for the table name and
-      all columns.</para>
-
-      <para>Here's an example of changing the name of JettySessionsId table
-      and its single column. This example will use java code, but as explained
-      above, you may also do this via a jetty xml configuration file:</para>
-
-      <programlisting language="java"><![CDATA[JDBCSessionIdManager idManager = new JDBCSessionIdManager(server);
+        <programlisting language="java"><![CDATA[JDBCSessionIdManager idManager = new JDBCSessionIdManager(server);
 
 SessionIdTableSchema idTableSchema = new SessionIdTableSchema();
 idTableSchema.setTableName("mysessionids");
 idTableSchema.setIdColumn("theid");
 idManager.setSessionIdTableSchema(idTableSchema);]]></programlisting>
 
-      <para>In a similar fashion, you can change the names of the table and
-      columns for the JettySessions table. <emphasis
-      role="bold">Note</emphasis> that both the SessionIdTableSchema and the
-      SessionTableSchema instances are set on the JDBCSessionIdManager
-      class.</para>
+        <para>In a similar fashion, you can change the names of the table and
+        columns for the JettySessions table. <emphasis
+        role="bold">Note</emphasis> that both the SessionIdTableSchema and the
+        SessionTableSchema instances are set on the JDBCSessionIdManager
+        class.</para>
 
-      <programlisting language="java"><![CDATA[JDBCSessionIdManager idManager = new JDBCSessionIdManager(server);
+        <programlisting language="java"><![CDATA[JDBCSessionIdManager idManager = new JDBCSessionIdManager(server);
 
 SessionTableSchema sessionTableSchema = new SessionTableSchema();
 sessionTableSchema.setTableName("mysessions");
@@ -253,60 +270,60 @@ sessionTableSchema.setLastSavedTimeColumn("lstime");
 sessionTableSchema.setMapColumn("mo");
 sessionTableSchema.setMaxIntervalColumn("mi");           
 idManager.setSessionTableSchema(sessionTableSchema);]]></programlisting>
+      </section>
     </section>
-  </section>
 
-  <section>
-    <title>Configuring the JDBCSessionManager</title>
+    <section>
+      <title>Configuring the JDBCSessionManager</title>
 
-    <para>The way you configure a JDBCSessionManager depends on whether you're
-    configuring from a context xml file or a
-    <filename>jetty-web.xml</filename> file or code. The basic difference is
-    how you get a reference to the Jetty
-    <code>org.eclipse.jetty.server.Server</code> instance.</para>
+      <para>As mentioned elsewhere, there should be one JDBCSessionManager per
+      context (ie webapp). It will need to reference the single
+      JDBCSessionIdManager configured previously for the Server.</para>
 
-    <para>From a context xml file, you reference the Server instance as a
-    Ref:</para>
+      <para>The way you configure a JDBCSessionManager depends on whether
+      you're configuring from a context xml file or a
+      <filename>jetty-web.xml</filename> file or code. The basic difference is
+      how you get a reference to the Jetty
+      <code>org.eclipse.jetty.server.Server</code> instance.</para>
 
-    <informalexample>
-      <programlisting language="xml"><![CDATA[
-    
-<Ref name="Server" id="Server">
-    <Call id="jdbcIdMgr" name="getAttribute">
-      <Arg>jdbcIdMgr</Arg>
-    </Call>
+      <para>From a context xml file, you reference the Server instance as a
+      Ref:</para>
+
+      <informalexample>
+        <programlisting language="xml"><![CDATA[
+  <Ref id="Server">
+    <Call id="idMgr" name="getSessionIdManager"/>
   </Ref>
-
   <Set name="sessionHandler">
     <New class="org.eclipse.jetty.server.session.SessionHandler">
       <Arg>
         <New id="jdbcmgr" class="org.eclipse.jetty.server.session.JDBCSessionManager">
           <Set name="sessionIdManager">
-            <Ref id="jdbcIdMgr"/>
+            <Ref id="idMgr"/>
           </Set>
         </New>
       </Arg>
     </New>
   </Set>
-  
+
 ]]></programlisting>
-    </informalexample>
+      </informalexample>
 
-    <para>From a <filename>WEB-INF/jetty-web.xml</filename> file, you can
-    reference the Server instance directly:</para>
+      <para>From a <filename>WEB-INF/jetty-web.xml</filename> file, you can
+      reference the Server instance directly:</para>
 
-    <informalexample>
-      <programlisting language="xml"><![CDATA[
+      <informalexample>
+        <programlisting language="xml"><![CDATA[
   
 <Get name="server">
-  <Get id="jdbcIdMgr" name="sessionIdManager"/>
+  <Get id="idMgr" name="sessionIdManager"/>
 </Get>
 <Set name="sessionHandler">
   <New class="org.eclipse.jetty.server.session.SessionHandler">
     <Arg>
       <New class="org.eclipse.jetty.server.session.JDBCSessionManager">
         <Set name="sessionIdManager">
-          <Ref id="jdbcIdMgr"/>
+          <Ref id="idMgr"/>
         </Set>
       </New>
     </Arg>
@@ -314,12 +331,12 @@ idManager.setSessionTableSchema(sessionTableSchema);]]></programlisting>
 </Set>
 
 ]]></programlisting>
-    </informalexample>
+      </informalexample>
 
-    <para>If you're embedding this in code:</para>
+      <para>If you're embedding this in code:</para>
 
-    <informalexample>
-      <programlisting language="java"><![CDATA[
+      <informalexample>
+        <programlisting language="java"><![CDATA[
 
 //assuming you have already set up the JDBCSessionIdManager as shown earlier
 //and have a reference to the Server instance:
@@ -331,6 +348,7 @@ jdbcMgr.setSessionIdManager(server.getSessionIdManager());
 wac.setSessionHandler(jdbcMgr);
 
 ]]></programlisting>
-    </informalexample>
+      </informalexample>
+    </section>
   </section>
 </section>

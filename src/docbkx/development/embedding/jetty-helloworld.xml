@@ -66,12 +66,12 @@
     contains many examples of writing against the Jetty API. This tutorial
     uses a simple HelloWorld handler with a main method to run the server. You
     can either <link
-    xl:href="@GITURL@/examples/embedded/src/main/java/HelloWorld.java">download</link>
+    xl:href="@GITURL@/examples/embedded/src/main/java/org/eclipse/jetty/embedded/HelloWorld.java">download</link>
     or create in an editor the file <filename>HelloWorld.java</filename> with
     the following content:</para>
 
     <informalexample>
-      <programlisting language="rjava"><filename>@GITURL@/examples/embedded/src/main/java/HelloWorld.java</filename></programlisting>
+      <programlisting language="rjava"><filename>@GITURL@/examples/embedded/src/main/java/org/eclipse/jetty/embedded/HelloWorld.java</filename></programlisting>
     </informalexample>
   </section>
 
@@ -80,7 +80,8 @@
 
     <para>The following command compiles the HelloWorld class:</para>
 
-    <screen><![CDATA[javac -cp servlet-api.jar:jetty-all.jar HelloWorld.java]]></screen>
+    <screen><![CDATA[> mkdir classes
+> javac -d classes -cp servlet-api.jar:jetty-all.jar HelloWorld.java]]></screen>
   </section>
 
   <section xml:id="running-handler-and-server">
@@ -88,7 +89,8 @@
 
     <para>The following command runs the HelloWorld example:</para>
 
-    <screen><![CDATA[java -cp .:servlet-api.jar:jetty-all.jar HelloWorld]]></screen>
+    <screen><![CDATA[> java -cp classes:servlet-api.jar:jetty-all.jar org.eclipse.jetty.embedded.HelloWorld]]></screen>
+    
 
     <para>You can now point your browser at <link
     xl:href="http://localhost:8080/">http://localhost:8080</link> to see your

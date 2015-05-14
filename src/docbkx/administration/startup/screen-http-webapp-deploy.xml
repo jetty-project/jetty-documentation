@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<screen version="5.0"
+         xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd"
+         xmlns="http://docbook.org/ns/docbook"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:xs="http://www.w3.org/2001/XMLSchema"
+         xmlns:ns="http://docbook.org/ns/docbook">
+[mybase]$ java -jar /opt/jetty-distribution/start.jar --add-to-start=http,webapp,deploy
+
+INFO: server          initialised (transitively) in ${jetty.base}/start.ini
+INFO: http            initialised in ${jetty.base}/start.ini
+INFO: security        initialised (transitively) in ${jetty.base}/start.ini
+INFO: servlet         initialised (transitively) in ${jetty.base}/start.ini
+INFO: webapp          initialised in ${jetty.base}/start.ini
+INFO: deploy          initialised in ${jetty.base}/start.ini
+MKDIR: ${jetty.base}/webapps
+INFO: Base directory was modified
+</screen>

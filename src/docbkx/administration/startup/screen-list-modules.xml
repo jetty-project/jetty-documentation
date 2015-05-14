@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<screen version="5.0"
+         xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd"
+         xmlns="http://docbook.org/ns/docbook"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:xs="http://www.w3.org/2001/XMLSchema"
+         xmlns:ns="http://docbook.org/ns/docbook">
+[mybase]$ java -jar /opt/jetty-distribution/start.jar --list-modules
+
+Jetty All Available Modules:
+----------------------------
+
+ [ ] Module: alpn
+     Depend: ssl
+     Depend: alpn-impl/alpn-${java.version}
+        LIB: lib/jetty-alpn-client-${jetty.version}.jar
+        LIB: lib/jetty-alpn-server-${jetty.version}.jar
+        XML: etc/jetty-alpn.xml
+    Enabled: &lt;not enabled in this configuration&gt;
+
+ [ ] Module: protonego-boot
+        Ref: alpn-impl/alpn-1.8.0_45
+    Enabled: &lt;not enabled in this configuration&gt;
+
+ [ ] Module: annotations
+     Depend: plus
+        LIB: lib/jetty-annotations-${jetty.version}.jar
+        LIB: lib/annotations/*.jar
+        XML: etc/jetty-annotations.xml
+    Enabled: &lt;not enabled in this configuration&gt;
+
+ [ ] Module: apache-jsp
+        LIB: lib/apache-jsp/*.jar
+    Enabled: &lt;not enabled in this configuration&gt;
+
+ [ ] Module: apache-jstl
+        LIB: lib/apache-jstl/*.jar
+    Enabled: &lt;not enabled in this configuration&gt;
+
+ [ ] Module: cdi
+     Depend: deploy
+     Depend: annotations
+     Depend: plus
+     Depend: jsp
+        LIB: lib/cdi/*.jar
+        LIB: lib/cdi-core-${jetty.version}.jar
+        LIB: lib/cdi-servlet-${jetty.version}.jar
+        XML: etc/jetty-cdi.xml
+    Enabled: &lt;not enabled in this configuration&gt;
+
+ [ ] Module: client
+        LIB: lib/jetty-client-${jetty.version}.jar
+    Enabled: &lt;not enabled in this configuration&gt;
+
+ [ ] Module: continuation
+        LIB: lib/jetty-continuation-${jetty.version}.jar
+    Enabled: &lt;not enabled in this configuration&gt;
+
+ [ ] Module: debuglog
+     Depend: server
+        XML: etc/jetty-debug.xml
+    Enabled: &lt;not enabled in this configuration&gt;
+
+ [x] Module: deploy
+     Depend: webapp
+        LIB: lib/jetty-deploy-${jetty.version}.jar
+        XML: etc/jetty-deploy.xml
+    Enabled: &lt;via&gt; ${jetty.base}/start.ini
+
+ [ ] Module: ext
+        LIB: lib/ext/**.jar
+    Enabled: &lt;not enabled in this configuration&gt;
+
+ [ ] Module: fcgi
+     Depend: servlet
+     Depend: client
+        LIB: lib/jetty-proxy-${jetty.version}.jar
+        LIB: lib/fcgi/*.jar
+    Enabled: &lt;not enabled in this configuration&gt;
+
+ [ ] Module: gzip
+     Depend: server
+        XML: etc/jetty-gzip.xml
+    Enabled: &lt;not enabled in this configuration&gt;
+
+ [ ] Module: hawtio
+     Depend: stats
+     Depend: deploy
+     Depend: jmx
+        XML: etc/hawtio.xml
+    Enabled: &lt;not enabled in this configuration&gt;
+
+ [ ] Module: home-base-warning
+        XML: etc/home-base-warning.xml
+    Enabled: &lt;not enabled in this configuration&gt;
+
+ [x] Module: http
+     Depend: server
+        XML: etc/jetty-http.xml
+    Enabled: &lt;via&gt; ${jetty.base}/start.ini
+
+ [ ] Module: http2
+     Depend: ssl
+     Depend: alpn
+        LIB: lib/http2/*.jar
+        XML: etc/jetty-http2.xml
+    Enabled: &lt;not enabled in this configuration&gt;
+
+ [ ] Module: http2c
+     Depend: http
+        LIB: lib/http2/*.jar
+        XML: etc/jetty-http2c.xml
+    Enabled: &lt;not enabled in this configuration&gt;
+
+ [ ] Module: https
+     Depend: ssl
+        XML: etc/jetty-https.xml
+    Enabled: &lt;not enabled in this configuration&gt;
+
+ [ ] Module: infinispan
+     Depend: annotations
+     Depend: webapp
+        LIB: lib/jetty-infinispan-${jetty.version}.jar
+        LIB: lib/infinispan/*.jar
+        XML: etc/jetty-infinispan.xml
+    Enabled: &lt;not enabled in this configuration&gt;
+
+ [ ] Module: ipaccess
+     Depend: server
+        XML: etc/jetty-ipaccess.xml
+    Enabled: &lt;not enabled in this configuration&gt;
+
+ [ ] Module: jaas
+     Depend: server
+        LIB: lib/jetty-jaas-${jetty.version}.jar
+        XML: etc/jetty-jaas.xml
+    Enabled: &lt;not enabled in this configuration&gt;
+
+ [ ] Module: jamon
+     Depend: stats
+     Depend: deploy
+     Depend: jmx
+     Depend: jsp
+        LIB: lib/jamon/**.jar
+        XML: etc/jamon.xml
+    Enabled: &lt;not enabled in this configuration&gt;
+
+ [ ] Module: jaspi
+     Depend: security
+        LIB: lib/jetty-jaspi-${jetty.version}.jar
+        LIB: lib/jaspi/*.jar
+    Enabled: &lt;not enabled in this configuration&gt;
+
+ [ ] Module: jdbc-sessions
+     Depend: annotations
+     Depend: webapp
+        XML: etc/jetty-jdbc-sessions.xml
+    Enabled: &lt;not enabled in this configuration&gt;
+
+ [ ] Module: jminix
+     Depend: stats
+     Depend: jmx
+        LIB: lib/jminix/**.jar
+        XML: etc/jminix.xml
+    Enabled: &lt;not enabled in this configuration&gt;
+
+ [ ] Module: jmx
+     Depend: server
+        LIB: lib/jetty-jmx-${jetty.version}.jar
+        XML: etc/jetty-jmx.xml
+    Enabled: &lt;not enabled in this configuration&gt;
+
+ [ ] Module: jmx-remote
+     Depend: jmx
+        XML: etc/jetty-jmx-remote.xml
+    Enabled: &lt;not enabled in this configuration&gt;
+
+ [ ] Module: jndi
+     Depend: server
+        LIB: lib/jetty-jndi-${jetty.version}.jar
+        LIB: lib/jndi/*.jar
+    Enabled: &lt;not enabled in this configuration&gt;
+
+ [ ] Module: jolokia
+     Depend: stats
+     Depend: deploy
+     Depend: jmx
+        XML: etc/jolokia.xml
+    Enabled: &lt;not enabled in this configuration&gt;
+
+ [ ] Module: jsp
+     Depend: servlet
+     Depend: annotations
+     Depend: apache-jsp
+    Enabled: &lt;not enabled in this configuration&gt;
+
+ [ ] Module: jstl
+     Depend: jsp
+     Depend: apache-jstl
+    Enabled: &lt;not enabled in this configuration&gt;
+
+ [ ] Module: jvm
+    Enabled: &lt;not enabled in this configuration&gt;
+
+ [ ] Module: logging
+        LIB: lib/logging/**.jar
+        LIB: resources/
+        XML: etc/jetty-logging.xml
+    Enabled: &lt;not enabled in this configuration&gt;
+
+ [ ] Module: lowresources
+     Depend: server
+        XML: etc/jetty-lowresources.xml
+    Enabled: &lt;not enabled in this configuration&gt;
+
+ [ ] Module: monitor
+     Depend: server
+     Depend: client
+        LIB: lib/monitor/jetty-monitor-${jetty.version}.jar
+        XML: etc/jetty-monitor.xml
+    Enabled: &lt;not enabled in this configuration&gt;
+
+ [ ] Module: nosql
+     Depend: webapp
+        LIB: lib/jetty-nosql-${jetty.version}.jar
+        LIB: lib/nosql/*.jar
+        XML: etc/jetty-nosql.xml
+    Enabled: &lt;not enabled in this configuration&gt;
+
+ [ ] Module: plus
+     Depend: server
+     Depend: security
+     Depend: jndi
+     Depend: webapp
+        LIB: lib/jetty-plus-${jetty.version}.jar
+        XML: etc/jetty-plus.xml
+    Enabled: &lt;not enabled in this configuration&gt;
+
+ [ ] Module: proxy
+     Depend: servlet
+     Depend: client
+        LIB: lib/jetty-proxy-${jetty.version}.jar
+        XML: etc/jetty-proxy.xml
+    Enabled: &lt;not enabled in this configuration&gt;
+
+ [ ] Module: quickstart
+     Depend: server
+     Depend: plus
+     Depend: annotations
+        LIB: lib/jetty-quickstart-${jetty.version}.jar
+    Enabled: &lt;not enabled in this configuration&gt;
+
+ [ ] Module: requestlog
+     Depend: server
+        XML: etc/jetty-requestlog.xml
+    Enabled: &lt;not enabled in this configuration&gt;
+
+ [ ] Module: resources
+        LIB: resources/
+    Enabled: &lt;not enabled in this configuration&gt;
+
+ [ ] Module: rewrite
+     Depend: server
+        LIB: lib/jetty-rewrite-${jetty.version}.jar
+        XML: etc/jetty-rewrite.xml
+    Enabled: &lt;not enabled in this configuration&gt;
+
+ [x] Module: security
+     Depend: server
+        LIB: lib/jetty-security-${jetty.version}.jar
+    Enabled: &lt;via&gt; &lt;transitive from&gt; ${jetty.base}/start.ini
+    Enabled: &lt;via&gt; ${jetty.base}/start.ini
+
+ [x] Module: server
+        LIB: lib/servlet-api-3.1.jar
+        LIB: lib/jetty-schemas-3.1.jar
+        LIB: lib/jetty-http-${jetty.version}.jar
+        LIB: lib/jetty-server-${jetty.version}.jar
+        LIB: lib/jetty-xml-${jetty.version}.jar
+        LIB: lib/jetty-util-${jetty.version}.jar
+        LIB: lib/jetty-io-${jetty.version}.jar
+        XML: etc/jetty.xml
+    Enabled: &lt;via&gt; &lt;transitive from&gt; ${jetty.base}/start.ini
+    Enabled: &lt;via&gt; ${jetty.base}/start.ini
+
+ [x] Module: servlet
+     Depend: server
+        LIB: lib/jetty-servlet-${jetty.version}.jar
+    Enabled: &lt;via&gt; &lt;transitive from&gt; ${jetty.base}/start.ini
+    Enabled: &lt;via&gt; ${jetty.base}/start.ini
+
+ [ ] Module: servlets
+     Depend: servlet
+        LIB: lib/jetty-servlets-${jetty.version}.jar
+    Enabled: &lt;not enabled in this configuration&gt;
+
+ [ ] Module: setuid
+     Depend: server
+        LIB: lib/setuid/jetty-setuid-java-1.0.3.jar
+        XML: etc/jetty-setuid.xml
+    Enabled: &lt;not enabled in this configuration&gt;
+
+ [ ] Module: spring
+     Depend: server
+        LIB: lib/spring/*.jar
+    Enabled: &lt;not enabled in this configuration&gt;
+
+ [ ] Module: ssl
+     Depend: server
+        XML: etc/jetty-ssl.xml
+        XML: etc/jetty-ssl-context.xml
+    Enabled: &lt;not enabled in this configuration&gt;
+
+ [ ] Module: stats
+     Depend: server
+        XML: etc/jetty-stats.xml
+    Enabled: &lt;not enabled in this configuration&gt;
+
+ [x] Module: webapp
+     Depend: servlet
+     Depend: security
+        LIB: lib/jetty-webapp-${jetty.version}.jar
+    Enabled: &lt;via&gt; ${jetty.base}/start.ini
+    Enabled: &lt;via&gt; &lt;transitive from&gt; ${jetty.base}/start.ini
+
+ [ ] Module: websocket
+     Depend: annotations
+        LIB: lib/websocket/*.jar
+    Enabled: &lt;not enabled in this configuration&gt;
+
+Jetty Selected Module Ordering:
+-------------------------------
+    1) server          ${jetty.base}/start.ini
+    2) http            ${jetty.base}/start.ini
+    2) security        ${jetty.base}/start.ini
+    2) servlet         ${jetty.base}/start.ini
+    3) webapp          ${jetty.base}/start.ini
+    4) deploy          ${jetty.base}/start.ini
+</screen>

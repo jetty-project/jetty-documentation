@@ -78,6 +78,8 @@
                 <exclude>**/js/*</exclude>
                 <exclude>**/images/*</exclude>
                 <exclude>**/*.swp</exclude>
+                <exclude>**/*.txt</exclude>
+                <exclude>**/*.dot</exclude>
                 <exclude>**/*.orig</exclude>
                 <exclude>*.sh</exclude>
                 <exclude>*.sed</exclude>

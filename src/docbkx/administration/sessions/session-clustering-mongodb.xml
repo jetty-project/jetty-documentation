@@ -238,6 +238,18 @@ jetty.nosqlSession.scavenge=1800
         </varlistentry>
 
         <varlistentry>
+          <term>scavengeBlockSize</term>
+
+          <listitem>
+            <para>Number of session ids to which to limit each scavenge query.
+            If you have a very large number of sessions in memory then setting
+            this to a non 0 value may help speed up scavenging by breaking the
+            scavenge into multiple, queries. The default is 0, which means
+            that all session ids are considered in a single query.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
           <term>purge (Boolean)</term>
 
           <listitem>

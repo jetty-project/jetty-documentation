@@ -274,6 +274,17 @@ jetty.nosqlSession.scavenge=1800
         </varlistentry>
 
         <varlistentry>
+          <term>purgeLimit</term>
+
+          <listitem>
+            <para>Integer value that represents how many items to return from
+            a purge query. The default is 0, which is unlimited. If you have a
+            lot of old expired orphaned sessions then setting this value may
+            speed up the purge process.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
           <term>preserveOnStop</term>
 
           <listitem>

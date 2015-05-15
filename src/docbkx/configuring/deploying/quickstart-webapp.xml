@@ -105,9 +105,9 @@
     <para>It is also possible to preconfigure a war file manually by running
     the class <link
     xl:href="@JDURL@/org/eclipse/jetty/quickstart/PreconfigureQuickStartWar.html">org.eclipse.jetty.quickstart.PreconfigureQuickStartWar</link>
-    as a main, down simply with the jetty-all aggregate jar:</para>
+    simply with the jetty-all-uber (aggregate) jar:</para>
 
-    <screen><![CDATA[$ java -cp jetty-all-@project.version@.jar:servlet.jar org.eclipse.jetty.quickstart.PreconfigureQuickStartWar myapp.war]]></screen>
+    <screen><![CDATA[$ java -cp jetty-all-@project.version@-uber.jar org.eclipse.jetty.quickstart.PreconfigureQuickStartWar myapp.war]]></screen>
 
     <para>This will create the <filename>quickstart-web.xml</filename> file
     before the first deployment. Note that this can also be a good debugging

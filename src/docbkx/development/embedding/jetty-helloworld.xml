@@ -37,9 +37,7 @@
     best to use something like Maven to manage jars, however this tutorial
     uses an aggregate Jar that contains all of the Jetty classes in one Jar.
     You can manually download the aggregate <link
-    xl:href="http://central.maven.org/maven2/org/eclipse/jetty/aggregate/jetty-all/@project.version@/jetty-all-@project.version@.jar"><filename>jetty-all.jar</filename></link>
-    and the <link
-    xl:href="http://central.maven.org/maven2/javax/servlet/javax.servlet-api/3.1.0/javax.servlet-api-3.1.0.jar"><filename>servlet-api.jar</filename></link>
+    xl:href="http://central.maven.org/maven2/org/eclipse/jetty/aggregate/jetty-all/@project.version@/jetty-all-@project.version@-uber.jar"><filename>jetty-all.jar</filename></link>
     using <command><link xl:href="http://curl.haxx.se/">curl</link></command>)
     or a browser.</para>
 
@@ -55,8 +53,8 @@
 
     <screen><![CDATA[> mkdir Demo
 > cd Demo
-> curl -o jetty-all.jar http://central.maven.org/maven2/org/eclipse/jetty/aggregate/jetty-all/@project.version@/jetty-all-@project.version@.jar
-> curl -o servlet-api.jar http://central.maven.org/maven2/javax/servlet/javax.servlet-api/3.1.0/javax.servlet-api-3.1.0.jar ]]></screen>
+> curl -o jetty-all-uber.jar http://central.maven.org/maven2/org/eclipse/jetty/aggregate/jetty-all/@project.version@/jetty-all-@project.version@-uber.jar]]>
+</screen>
   </section>
 
   <section xml:id="writing-helloworld-example">
@@ -81,7 +79,7 @@
     <para>The following command compiles the HelloWorld class:</para>
 
     <screen><![CDATA[> mkdir classes
-> javac -d classes -cp servlet-api.jar:jetty-all.jar HelloWorld.java]]></screen>
+> javac -d classes -cp jetty-all-uber.jar HelloWorld.java]]></screen>
   </section>
 
   <section xml:id="running-handler-and-server">
@@ -89,7 +87,7 @@
 
     <para>The following command runs the HelloWorld example:</para>
 
-    <screen><![CDATA[> java -cp classes:servlet-api.jar:jetty-all.jar org.eclipse.jetty.embedded.HelloWorld]]></screen>
+    <screen><![CDATA[> java -cp classes:jetty-all-uber.jar org.eclipse.jetty.embedded.HelloWorld]]></screen>
     
 
     <para>You can now point your browser at <link

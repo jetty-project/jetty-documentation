@@ -88,6 +88,17 @@
     automatically download the mongodb-java-driver and install it to your
     base's lib/nosql directory.</para>
 
+    <para>As part of the module installation, the necessary mongo java driver
+    jars will be dynamically downloaded and installed to your
+    <code>${jetty.base}/lib/nosql</code> directory. If you need to up or
+    downgrade the version of these jars, then you can delete the jars that
+    were automatically installed and replace them. Once you've done that, you
+    will need to prevent jetty's startup checks from detecting the missing
+    jars. To do that, you can use <code>--skip-file-validation=nosql</code>
+    argument to start.jar on the command line, or place that line inside
+    <code>${jetty.base}/start.ini</code> to ensure it is used for every
+    start.</para>
+
     <para>You will also find the following properties, either in your base's
     start.d/nosql.ini file or appended to your start.ini, depending on how you
     enabled the module:</para>

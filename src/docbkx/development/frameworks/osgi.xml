@@ -2073,12 +2073,9 @@ org.osgi.framework.system.packages=org.osgi.framework; version=1.7.0, \
 
       <section>
         <para>The jetty OSGi integration has been successfully tested against
-        <link xl:href="https://www.eclipse.org/equinox/">Equinox</link> Kepler
-        standalone. The jetty-osgi unit tests executed for all jetty builds
-        also runs against an older version 3.10.0 of the Eclipse osgi
-        jar.</para>
+        <link xl:href="https://www.eclipse.org/equinox/">Equinox</link> Mars RC1.</para>
 
-        <para>You will need these services:</para>
+        <para>Ensure that these services are present:</para>
 
         <itemizedlist>
           <listitem>

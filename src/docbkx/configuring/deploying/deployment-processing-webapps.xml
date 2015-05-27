@@ -428,7 +428,7 @@
       org.eclipse.jetty.webapp.WebAppContext</link> to control which parts of
       the <emphasis>container's</emphasis> classpath should be processed for
       things like annotations, META-INF/resources, META-INF/web-fragment.xml
-      etc.</para>
+      and tlds inside META-INF.</para>
 
       <para>Normally, nothing from the container classpath will be included
       for processing. However, sometimes you will need to include some. For
@@ -467,8 +467,9 @@
 
       <para>Similarly to the previous <link
       linkend="context_attributes">context attribute</link>, this attribute
-      controls which jars are processed for things like annotations and
-      META-INF resources. However, this attribute controls which jars from the
+      controls which jars are processed for things like annotations,
+      META-INF/resources, META-INF/web-fragment.xml and tlds in META-INF.
+      However, this attribute controls which jars from the
       <emphasis>webapp's</emphasis> classpath (usually WEB-INF/lib) are
       processed. This can be particularly useful when you have dozens of jars
       in WEB-INF/lib, but you know that only a few need to be scanned.</para>

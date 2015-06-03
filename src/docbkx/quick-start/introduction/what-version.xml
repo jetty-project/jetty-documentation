@@ -83,7 +83,7 @@
 
           <entry>1.8</entry>
 
-          <entry>HTTP/1.1, HTTP/2 RFC2616,javax.websocket</entry>
+          <entry>HTTP/1.1 (RFC 7230), HTTP/2 (RFC 7540), WebSocket (RFC 6455, JSR 356), FastCGI</entry>
 
           <entry>3.1</entry>
 

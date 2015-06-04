@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+//  ========================================================================
+//  Copyright (c) 1995-2015 Mort Bay Consulting Pty. Ltd.
+//  ========================================================================
+//  All rights reserved. This program and the accompanying materials
+//  are made available under the terms of the Eclipse Public License v1.0
+//  and Apache License v2.0 which accompanies this distribution.
+//
+//      The Eclipse Public License is available at
+//      http://www.eclipse.org/legal/epl-v10.html
+//
+//      The Apache License v2.0 is available at
+//      http://www.opensource.org/licenses/apache2.0.php
+//
+//  You may elect to redistribute this code under either of these licenses.
+//  ========================================================================
+-->
+<section xml:id="http2-introduction" version="5.0"
+         xmlns="http://docbook.org/ns/docbook"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:xl="http://www.w3.org/1999/xlink"
+         xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd">
+
+    <title>Introducing HTTP/2</title>
+    <para>Jetty supports both a client and a server implementation for the HTTP/2 protocol
+        as defined by <link xl:href="http://tools.ietf.org/html/rfc7540">RFC 7540</link>.
+    </para>
+    <para>
+        The requirements for running HTTP/2 are JDK 8 or greater, and typically also ALPN support
+        (see <xref linkend="alpn-chapter" />).
+    </para>
+    <para>A server deployed over TLS (SSL) normally advertises the HTTP/2 protocol via
+        the TLS extension Application Layer Protocol Negotiation <link
+                linkend="alpn">(ALPN)</link>.</para>
+    <important>
+        <para> To use HTTP/2 in Jetty via a TLS connector you need to add the <link linkend="alpn-starting">ALPN boot Jar in the boot classpath.</link></para>
+    </important>
+
+    <section xml:id="http2-modules">
+        <title>Jetty's HTTP/2 modules</title>
+
+        <para>Jetty's HTTP/2 implementation consists of these modules:</para>
+
+        <orderedlist>
+            <listitem>
+                <para><filename>http2-common</filename>: contains the HTTP/2 API and a
+                    partial implementation shared across other modules.</para>
+            </listitem>
+
+            <listitem>
+                <para><filename>http2-hpack</filename>: contains the HTTP/2 HPACK
+                implementation for HTTP header compression.</para>
+            </listitem>
+
+            <listitem>
+                <para><filename>http2-server</filename>: provides the
+                    server-side implementation of HTTP/2.</para>
+            </listitem>
+
+            <listitem>
+                <para><filename>http2-client</filename>: provides the
+                    implementation of HTTP/2 client with a low level HTTP/2
+                    API, dealing with HTTP/2 streams, frames, etc.</para>
+            </listitem>
+
+            <listitem>
+                <para><filename>http2-http-client-transport</filename>: provides the
+                    implementation of the HTTP/2 transport for <code>HttpClient</code>
+                    (see <xref linkend="http-client"/>). Applications can use the higher
+                level API provided by <code>HttpClient</code> to send HTTP requests and
+                receive HTTP responses, and the HTTP/2 transport will take care of converting
+                them in HTTP/2 format (see also
+                    <link xl:href="https://webtide.com/http2-support-for-httpclient/">this blog entry</link>).</para>
+            </listitem>
+
+        </orderedlist>
+    </section>
+
+</section>

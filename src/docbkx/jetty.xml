@@ -272,6 +272,10 @@
 
     <xi:include href="administration/alpn/chapter.xml"/>
 
+    <!-- HTTP/2 -->
+
+    <xi:include href="administration/http2/chapter.xml"/>
+
     <!-- FastCGI -->
 
     <xi:include href="administration/fastcgi/chapter.xml"/>

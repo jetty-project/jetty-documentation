@@ -35,17 +35,21 @@
         on a TCP socket; typically it is configured to listen to <code>localhost:9000</code>.
     </para>
     <para>
-        The third step is to install Jetty, for example under <code>/opt/jetty</code>.
+        The third step is to install Jetty, for example under <code>/opt/jetty</code>, called in the
+        following <code>$JETTY_HOME</code>.
         Refer to <xref linkend="jetty-downloading" /> for more information about how to install Jetty.
     </para>
     <para>
         The fourth step is to create a Jetty base directory (see <xref linkend="startup-base-and-home" />),
         called in the following <code>$JETTY_BASE</code>, where you setup the configuration needed to support
-        FastCGI in Jetty:
+        FastCGI in Jetty, and configure the <code>fcgi</code>, <code>http</code> and <code>deploy</code> modules,
+        so that Jetty will be able to accept HTTP requests from browsers, convert them in FastCGI, and proxy
+        them to <code>php-fpm</code>:
     </para>
     <screen>
 $ mkdir -p /usr/jetty/wordpress
 $ cd /usr/jetty/wordpress
+$ java -jar $JETTY_HOME/start.jar --add-to-module=fcgi,http,deploy
     </screen>
     <para>
         Therefore <code>$JETTY_BASE=/usr/jetty/wordpress</code>.
@@ -62,7 +66,7 @@ $ cd /usr/jetty/wordpress
     <informalexample>
         <programlisting language="xml"><![CDATA[
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE Configure PUBLIC "-//Mort Bay Consulting//DTD Configure//EN" "http://www.eclipse.org/jetty/configure_9_0.dtd">
+<!DOCTYPE Configure PUBLIC "-//Mort Bay Consulting//DTD Configure//EN" "http://www.eclipse.org/jetty/configure_9_3.dtd">
 <Configure class="org.eclipse.jetty.servlet.ServletContextHandler">
 
     <New id="root" class="java.lang.String">
@@ -209,57 +213,48 @@ $ cd /usr/jetty/wordpress
         </listitem>
     </itemizedlist>
 
-    <section xml:id="configuring-fastcgi-http">
-        <info>
-            <title>Configuring Jetty to Proxy HTTP to FastCGI</title>
-        </info>
-        <para>
-            In order to configure Jetty to listen for HTTP requests from clients and forward them to
-            the FastCGI server as FastCGI requests, you need to specify a <code>start.ini</code> file
-            that configures the Jetty modules that are needed for Jetty to proxy HTTP to FastCGI.
-            The minimal <code>start.ini</code> file is the following:
-        </para>
-        <informalexample>
-            <programlisting><![CDATA[
-# The 'deploy' module enables Jetty to look up in the 'webapps' directory for files to deploy.
---module=deploy
-
-# The 'fcgi' module enables FastCGI support.
---module=fcgi
-
-# The 'http' module enables a HTTP connector that listens for client requests on port 8080.
---module=http
-jetty.http.port=8080
-            ]]></programlisting>
-        </informalexample>
-        <para>
-            At this point, you can start Jetty (see <xref linkend="startup" />), hit <code>http://localhost:8080</code>
-            with your browser and enjoy WordPress:
-        </para>
-        <screen>
+    <para>
+        The last step is to start Jetty (see <xref linkend="startup" />) and hit <code>http://localhost:8080</code>
+        with your browser and enjoy WordPress:
+    </para>
+    <screen>
 $ cd $JETTY_BASE
 $ java -jar /opt/jetty/start.jar
-        </screen>
-    </section>
+    </screen>
 
-    <section xml:id="configuring-fastcgi-spdy">
+    <section xml:id="configuring-fastcgi-http2">
         <info>
-            <title>Configuring Jetty to Proxy SPDY to FastCGI</title>
+            <title>Configuring Jetty to Proxy HTTP/2 to FastCGI</title>
         </info>
         <para>
-            In order to configure Jetty to listen for SPDY requests from clients that are SPDY enabled
-            and forward them to the FastCGI server as FastCGI requests, you need to specify a
-            <code>start.ini</code> file that configures the Jetty modules that are needed for Jetty to
-            proxy SPDY to FastCGI.
+            In order to configure Jetty to listen for HTTP/2 requests from clients that are HTTP/2 enabled
+            and forward them to the FastCGI server as FastCGI requests, you need to enable the <code>http2</code>
+            module, which in turn will require a TLS connector and consequently a keystore to read
+            the key material required by TLS.
+        </para>
+        <para> Enabling the <code>http2</code> is really simple; in additions to the modules you have enabled
+            above, add the <code>http2</code> module:
+        </para>
+
+        <screen>
+$ cd $JETTY_BASE
+$ java -jar $JETTY_HOME/start.jar --add-to-start=http2
+        </screen>
+
+        <para>The command above adds the <code>http2</code> module (and its dependencies) to the existing modules
+            and uses the default Jetty keystore to provide the key material required by TLS. You will want to use
+            your own keystore with your own private key and certificate for your own domain.
+        </para>
+
+        <para>
+            Remember that by adding the <code>http2</code> module, you will start two JVMs: one that reads the
+            configuration, and one that has the ALPN boot boot jar
+            in the boot classpath, as explained in <xref linkend="http2-configuring" />.
         </para>
         <para>
-            Remember that for SPDY to work you will need to run over SSL, and you will need the NPN boot jar
-            in the boot classpath, as explained in <xref linkend="spdy-configuring" />.
-        </para>
-        <para>
-            Since now your site will run over SSL, you need to make sure that the WordPress URL is also
+            Since now your site will run over TLS, you need to make sure that the WordPress URL is also
             configured so.
-            If you have followed the steps of the <xref linkend="configuring-fastcgi-http">previous section</xref>,
+            If you have followed the steps of the <link linkend="configuring-fastcgi">previous section</link>,
             your WordPress site is served at <code>http://localhost:8080</code>.
             You will need to change that to be <code>https://localhost:8443</code> from the WordPress
             administration web interface, or follow the
@@ -267,47 +262,21 @@ $ java -jar /opt/jetty/start.jar
             to do so without using the administration web interface.
         </para>
         <para>
-            The minimal <code>start.ini</code> file is the following:
+            The minimal modules required to run WordPress with Jetty on HTTP/2 are therefore:
+            <code>http2</code>, <code>http</code>, <code>fcgi</code> and <code>deploy</code>.
+            These will setup a clear text connector on port 8080 for HTTP/1.1 and a TLS connector on
+            port 8443 for HTTP/2 and HTTP/1.1.
         </para>
-        <informalexample>
-            <programlisting><![CDATA[
-# The 'deploy' module enables Jetty to look up in the 'webapps' directory for files to deploy.
---module=deploy
-
-# The 'fcgi' module enables FastCGI support.
---module=fcgi
-
-# The 'spdy' module enables a SPDY connector that listens for client requests on port 8443.
---module=spdy
-spdy.port=8443
-            ]]></programlisting>
-        </informalexample>
-        <para>
-            Note that we specified the <code>spdy.port</code> to be <code>8443</code>.
-        </para>
-        <para>
-            At this point, you will need the NPN boot jar and the SSL certificate.
-            In this example, you can obtain them very easily using the built-in feature of the Jetty start
-            mechanism that downloads required dependencies, see <xref linkend="startup" />.
-            However, remember that the example SSL certificate that is downloaded will not be valid for your
-            website and that it must not be used in production. It is provided only for testing and example
-            purposes.
-            To leverage the automatic download of required dependencies, issue this command:
-        </para>
-        <screen>
-$ cd $JETTY_BASE
-$ java -jar /opt/jetty/start.jar --create-files
-        </screen>
         <para>
             At this point, you can start Jetty (see <xref linkend="startup" />), hit <code>http://localhost:8080</code>
-            with your browser and enjoy WordPress via SPDY using a SPDY enabled browser:
+            with your browser and enjoy WordPress via HTTP/2 using a HTTP/2 enabled browser:
         </para>
         <screen>
 $ cd $JETTY_BASE
-$ java -Xbootclasspath/p:lib/npn/npn-boot-&lt;version&gt;.jar -jar /opt/jetty/start.jar
+$ java -jar $JETTY_HOME/start.jar
         </screen>
         <para>
-            If you don't have a SPDY enabled browser, WordPress will still be available over plain HTTPS.
+            If you don't have a HTTP/2 enabled browser, WordPress will still be available over plain HTTP/1.1.
         </para>
     </section>
 </section>

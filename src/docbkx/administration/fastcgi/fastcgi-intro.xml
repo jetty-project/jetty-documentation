@@ -45,8 +45,8 @@
     <para>
         Jetty can be configured to act as a web server that supports FastCGI, replacing the functionality that
         is normally provided by Apache or Nginx.
-        This allows users to leverage Jetty features such as SPDY, the unique support that Jetty provides for
-        SPDY Push, Jetty's scalability, and of course Jetty's native support for Java Web Standards such as
+        This allows users to leverage Jetty features such as HTTP/2, the unique support that Jetty provides for
+        HTTP/2 Push, Jetty's scalability, and of course Jetty's native support for Java Web Standards such as
         Servlets, JSPs, etc.
     </para>
     <para>

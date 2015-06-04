@@ -16,15 +16,14 @@
 //  You may elect to redistribute this code under either of these licenses.
 //  ========================================================================
 -->
-<chapter xml:id="http2" version="5.0"
+<section xml:id="http2-configuring-cleartext" version="5.0"
          xmlns="http://docbook.org/ns/docbook"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:xl="http://www.w3.org/1999/xlink"
          xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd">
-    <title>HTTP/2</title>
-    <xi:include href="introduction.xml" />
-    <xi:include href="enablingHTTP2.xml" />
-    <xi:include href="configuringHTTP2.xml" />
-    <xi:include href="configuring-push.xml" />
-    <xi:include href="configuring-cleartext.xml" />
-</chapter>
+
+    <title>Configuring HTTP/2 in Clear Text</title>
+
+    <para>TODO</para>
+
+</section>

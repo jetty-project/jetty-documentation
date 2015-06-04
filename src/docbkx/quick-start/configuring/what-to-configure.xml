@@ -151,7 +151,7 @@
         <listitem>
           <para>The TCP/IP port on which the connector listens for connections
           is set using the the XML Property element which looks up the
-          <code>jetty.port</code> (or <code>jetty.tls.port</code>) property,
+          <code>jetty.http.port</code> (or <code>jetty.ssl.port</code>) property,
           and if not found defaults to 8080 (or 8443 for TLS).</para>
         </listitem>
       </varlistentry>

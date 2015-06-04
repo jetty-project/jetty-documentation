@@ -229,7 +229,7 @@ $ cd /usr/jetty/wordpress
 
 # The 'http' module enables a HTTP connector that listens for client requests on port 8080.
 --module=http
-jetty.port=8080
+jetty.http.port=8080
             ]]></programlisting>
         </informalexample>
         <para>

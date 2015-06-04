@@ -418,7 +418,7 @@ value text, <Get>, <Call>, <New>, <Ref>, <Array>, <Map>, <SystemProperty>, <Prop
 
         <informalexample>
           <programlisting language="xml">&lt;Configure id="server" class="org.eclipse.jetty.server.Server"&gt;
-  &lt;Set name="port"&gt;&lt;SystemProperty name="jetty.port" /&gt;&lt;/Set&gt;
+  &lt;Set name="port"&gt;&lt;SystemProperty name="jetty.http.port" /&gt;&lt;/Set&gt;
 &lt;/Configure&gt;          </programlisting>
         </informalexample>
       </section>
@@ -1439,16 +1439,16 @@ m.put("keyName", new String("value1"));                </programlisting>
       <title>Example</title>
 
       <informalexample>
-        <programlisting language="xml">&lt;SystemProperty name="jetty.port" default="8080"/&gt;                </programlisting>
+        <programlisting language="xml">&lt;SystemProperty name="jetty.http.port" default="8080"/&gt;                </programlisting>
       </informalexample>
 
       <para>That is equivalent to:</para>
 
       <informalexample>
-        <programlisting language="java">System.getProperty("jetty.port", "8080");                </programlisting>
+        <programlisting language="java">System.getProperty("jetty.http.port", "8080");                </programlisting>
       </informalexample>
 
-      <para>Both try to retrieve the value of jetty.port. If jetty.port is not
+      <para>Both try to retrieve the value of jetty.http.port. If jetty.http.port is not
       set, then 8080 is used.</para>
     </section>
   </section>

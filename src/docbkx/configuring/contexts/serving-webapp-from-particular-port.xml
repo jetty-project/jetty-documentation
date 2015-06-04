@@ -65,7 +65,7 @@
       </listitem>
 
       <listitem>
-        <para>Make sure that any references to properties like jetty.port are
+        <para>Make sure that any references to properties like jetty.http.port are
         either renamed or replaced with absolute values </para>
       </listitem>
 

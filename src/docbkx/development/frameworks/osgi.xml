@@ -170,7 +170,7 @@
 
       <variablelist>
         <varlistentry>
-          <term>jetty.port</term>
+          <term>jetty.http.port</term>
 
           <listitem>
             <para>If not specified, this defaults to the usual jetty port of
@@ -356,7 +356,7 @@ org.osgi.framework.ServiceReference ref = bc.getServiceReference("org.eclipse.je
         Dictionary serverProps = new Hashtable();
         //define the unique name of the server instance
         serverProps.put("managedServerName", serverName);
-        serverProps.put("jetty.port", "9999");
+        serverProps.put("jetty.http.port", "9999");
         //let Jetty apply some configuration files to the Server instance
         serverProps.put("jetty.etc.config.urls", "file:/opt/jetty/etc/jetty.xml,file:/opt/jetty/etc/jetty-selector.xml,file:/opt/jetty/etc/jetty-deployer.xml");
         //register as an OSGi Service for Jetty to find 

@@ -162,7 +162,7 @@ INFO: deploy          initialised in ${jetty.base}/start.d/deploy.ini
 MKDIR: ${jetty.base}/webapps
 INFO: Base directory was modified
 ]]><emphasis role="bold">&gt; cp $JETTY_HOME/demo-base/webapps/async-rest.war webapps/ROOT.war
-</emphasis><emphasis role="bold">&gt; java -jar $JETTY+HOME/start.jar</emphasis><![CDATA[
+</emphasis><emphasis role="bold">&gt; java -jar $JETTY_HOME/start.jar</emphasis><![CDATA[
 2015-06-04 11:10:16.286:INFO::main: Logging initialized @274ms
 2015-06-04 11:10:16.440:INFO:oejs.Server:main: jetty-9.3.0.v20150601
 2015-06-04 11:10:16.460:INFO:oejdp.ScanningAppProvider:main: Deployment monitor [file:///tmp/mybase/webapps/] at interval 1
@@ -177,7 +177,7 @@ INFO: Base directory was modified
     <title>Changing the Jetty Port</title>
 
     <para>You can configure Jetty to run on a different port by setting the
-    <code>jetty.port</code> Property on the command line:</para>
+    <code>jetty.http.port</code> Property on the command line:</para>
 
     <para><screen><emphasis role="bold">&gt; cd $JETTY_BASE
 &gt; java -jar $JETTY_HOME/start.jar jetty.http.port=8081</emphasis><![CDATA[
@@ -209,7 +209,7 @@ INFO: Base directory was modified
         </listitem>
 
         <listitem>
-          <para>The jetty.port property is used by the Property XML element in
+          <para>The jetty.http.port property is used by the Property XML element in
           etc/jetty.http.xml to inject the ServerConnector instance with the
           port</para>
         </listitem>
@@ -223,37 +223,50 @@ INFO: Base directory was modified
   </section>
 
   <section xml:id="quickstart-starting-https">
-    <title>Starting HTTPS</title>
+    <title>Adding SSL for HTTPS &amp; HTTP2</title>
 
     <para>To add the HTTPS connector to a jetty configuration, the https
     module can be activated by the following command:</para>
 
-    <screen><emphasis role="bold">&gt; java -jar $JETTY_HOME/start.jar --add-to-startd=https</emphasis><![CDATA[
-INFO: ssl             initialised (transitively) in ${jetty.base}/start.d/ssl.ini
-INFO: https           initialised in ${jetty.base}/start.d/https.ini
-DOWNLOAD: http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/plain/jetty-server/src/test/config/etc/keystore?id=master to ${jetty.base}/etc/keystore
-INFO: Base directory was modified
-
+    <screen><emphasis role="bold">&gt; java -jar $JETTY_HOME/start.jar --add-to-startd=https,http2</emphasis><![CDATA[
+[...]
 ]]><emphasis role="bold">&gt; java -jar $JETTY_HOME/start.jar</emphasis><![CDATA[
-2013-09-06 13:52:43.326:INFO:oejs.Server:main: jetty-9...
-[...]]]></screen>
+[...]
+2015-06-04 13:52:01.933:INFO:oejs.ServerConnector:main: Started ServerConnector@6f1fba17{SSL,[ssl, alpn, h2, http/1.1]}{0.0.0.0:8443}
+[...]
+]]></screen>
 
     <para>The --add-to-startd command sets up the effective command line in
-    the ini files to run a https connection as follows:</para>
+    the ini files to run an ssl connection that supports the HTTPS and HTTP2
+    protocols as follows:</para>
 
     <itemizedlist>
       <listitem>
-        <para>creates the start.d/https.ini file that activates and configures
-        the https connector module. The https module adds the
-        <filename>etc/jetty-https.xml</filename> file to the effective command
+        <para>creates <filename>start.d/ssl.ini</filename> that configures an
+        SSL connector (eg port, keystore etc.) by adding
+        <filename>etc/jetty-ssl.xml</filename> and
+        <filename>etc/jetty-ssl-context.xml</filename> to the effective
+        command line.</para>
+      </listitem>
+
+      <listitem>
+        <para>creates <filename>start.d/alpn.ini</filename> that configures
+        protocol negotiation on the SSL connector by adding
+        <filename>etc/jetty-alpn.xml</filename> to the effective command
         line.</para>
       </listitem>
 
       <listitem>
-        <para>creates the <filename>start.d/ssl.ini</filename> file that
-        activates and configures the SSL keystore using demonstration
-        passwords. The ssl module adds the
-        <filename>etc/jetty-ssl.xml</filename> file to the effective command
+        <para>creates <filename>start.d/https.ini</filename> that configures
+        the HTTPS protocol on the SSL connector by adding
+        <filename>etc/jetty-https.xml</filename> to the effective command
+        line.</para>
+      </listitem>
+
+      <listitem>
+        <para>creates <filename>start.d/http2.ini</filename> that configures
+        the HTTP/2 protocol on the SSL connector by adding
+        <filename>etc/jetty-http2.xml</filename> to the effective command
         line.</para>
       </listitem>
 
@@ -275,7 +288,8 @@ INFO: Base directory was modified
       <title>Changing the Jetty HTTPS Port</title>
 
       <para>You can configure the SSL connector to run on a different port by
-      setting the <code>https.port</code> property on the command line:</para>
+      setting the <code>jetty.ssl.port</code> property on the command
+      line:</para>
 
       <para><screen><emphasis role="bold">&gt; cd $JETTY_BASE
 &gt; java -jar $JETTY_HOME/start.jar jetty.ssl.port=8444</emphasis></screen>Alternatively,

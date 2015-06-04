@@ -286,9 +286,9 @@ start.ini  webapps/]]></screen>
       <literal>8080</literal> to <literal>80</literal>.</para>
 
       <para>Edit the <filename>/opt/web/mybase/start.ini</filename> and change
-      the <literal>jetty.port</literal> value.</para>
+      the <literal>jetty.http.port</literal> value.</para>
 
-      <screen><![CDATA[# grep jetty.port /opt/web/mybase/start.ini
+      <screen><![CDATA[# grep jetty.http.port /opt/web/mybase/start.ini
 jetty.port=80]]></screen>
     </simplesect>
 

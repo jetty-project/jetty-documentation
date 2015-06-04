@@ -685,7 +685,7 @@ $ openssl pkcs12 -export -inkey example.key -in cert-chain.txt -out example.pkcs
           &lt;/Array&gt;
         &lt;/Arg&gt;
         &lt;Set name="host"&gt;&lt;Property name="jetty.host" /&gt;&lt;/Set&gt;
-        &lt;Set name="port"&gt;&lt;Property name="jetty.tls.port" default="8443" /&gt;&lt;/Set&gt;
+        &lt;Set name="port"&gt;&lt;Property name="jetty.ssl.port" default="8443" /&gt;&lt;/Set&gt;
         &lt;Set name="idleTimeout"&gt;30000&lt;/Set&gt;
       &lt;/New&gt;
   &lt;/Arg&gt;

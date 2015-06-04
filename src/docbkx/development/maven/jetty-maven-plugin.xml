@@ -113,8 +113,8 @@
           <para>Optional. If not specified, Jetty will create a <link
           xl:href="@JDURL@/org/eclipse/jetty/server/ServerConnector.html">ServerConnector</link>
           instance listening on port 8080. You can change this default port
-          number by using the system property <code>jetty.port</code> on the
-          command line, for example, <code>mvn -Djetty.port=9999
+          number by using the system property <code>jetty.http.port</code> on the
+          command line, for example, <code>mvn -Djetty.http.port=9999
           jetty:run</code>. Alternatively, you can use this configuration
           element to set up the information for the ServerConnector. The
           following are the valid configuration sub-elements:</para>

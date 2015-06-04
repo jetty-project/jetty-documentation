@@ -120,7 +120,7 @@
     <para>(Demonstrated with the <link linkend="demo-base">demo-base from the
     Jetty Distribution</link>)</para>
 
-    <screen><![CDATA[[demo-base]$ java -jar ../start.jar --list-classpath
+    <screen><![CDATA[[demo-base]$ java -jar $JETTY_HOME/start.jar --list-classpath
 
 Jetty Server Classpath:
 -----------------------

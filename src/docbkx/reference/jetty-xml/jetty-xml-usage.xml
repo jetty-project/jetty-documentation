@@ -75,21 +75,21 @@
     the port is not specified:</para>
 
     <informalexample>
-      <programlisting language="xml"><![CDATA[  <Set name="port"><SystemProperty name="jetty.port" default="8080"/></Set>      ]]></programlisting>
+      <programlisting language="xml"><![CDATA[  <Set name="port"><SystemProperty name="jetty.http.port" default="8080"/></Set>      ]]></programlisting>
     </informalexample>
 
     <para>Then you modify the port while running Jetty by using this
     command:</para>
 
     <informalexample>
-      <programlisting language="java"><![CDATA[ java -Djetty.port=8888 -jar start.jar etc/jetty.xml      ]]></programlisting>
+      <programlisting language="java"><![CDATA[ java -Djetty.http.port=8888 -jar start.jar etc/jetty.xml      ]]></programlisting>
     </informalexample>
 
     <para>An example of defining both system properties and properties files
     from the command line:</para>
 
     <informalexample>
-      <programlisting language="java"><![CDATA[ java -Djetty.port=8888 -jar start.jar myjetty.properties etc/jetty.xml etc/other.xml      ]]></programlisting>
+      <programlisting language="java"><![CDATA[ java -Djetty.http.port=8888 -jar start.jar myjetty.properties etc/jetty.xml etc/other.xml      ]]></programlisting>
     </informalexample>
   </section>
 </section>

@@ -152,7 +152,7 @@
     line:</para>
 
     <screen><![CDATA[[user]$ cd jetty-distribution-@project.version@
-[jetty-distribution-@project.version@]$ java -jar start.jar --module=http jetty.port=8080]]></screen>
+[jetty-distribution-@project.version@]$ java -jar start.jar --module=http jetty.http.port=8080]]></screen>
 
     <para>This command uses the <filename>start.jar</filename> mechanism to
     bootstrap the classpath, properties, and XML files with the metadata
@@ -169,15 +169,15 @@ server
 etc/jetty-http.xml
 
 [ini-template]
-jetty.port=8080
+jetty.http.port=8080
 http.timeout=30000]]></screen>
 
     <para>The <literal>http</literal> module declares that
     <literal>http</literal> depends on the server module, uses the
     <filename>jetty-http.xml</filename> file, and can be parameterized with
-    <literal>jetty.port</literal> and <literal>http.timeout</literal>
+    <literal>jetty.http.port</literal> and <literal>http.timeout</literal>
     parameters. The INI-template section is not actually used by the command
-    above, so the <literal>jetty.port</literal> must still be defined on the
+    above, so the <literal>jetty.http.port</literal> must still be defined on the
     command line.</para>
 
     <para>Following the server dependency, the
@@ -211,7 +211,7 @@ threads.max=200
     <para>Another way to see this is by asking Jetty what its configuration looks
     like:</para>
 
-    <screen><![CDATA[[jetty-distribution-@project.version@]$ java -jar start.jar --module=http jetty.port=9099 --list-config
+    <screen><![CDATA[[jetty-distribution-@project.version@]$ java -jar start.jar --module=http jetty.http.port=9099 --list-config
 
 Java Environment:
 -----------------
@@ -241,7 +241,7 @@ System Properties:
 
 Properties:
 -----------
- jetty.port = 9099
+ jetty.http.port = 9099
 
 Jetty Server Classpath:
 -----------------------
@@ -274,7 +274,7 @@ Jetty Active XMLs:
     performs.</para>
 
     <screen><![CDATA[[user]$ cd jetty-distribution-@project.version@
-[jetty-distribution-@project.version@]$ echo jetty.port=8080 > /tmp/jetty.properties
+[jetty-distribution-@project.version@]$ echo jetty.http.port=8080 > /tmp/jetty.properties
 [jetty-distribution-@project.version@]$ export JETTY_HOME=`pwd`
 [jetty-distribution-@project.version@]$ export JETTY_BASE=`pwd`
 [jetty-distribution-@project.version@]$ export JETTY_VERSION="${project.version}"
@@ -310,7 +310,7 @@ $JETTY_HOME/etc/jetty-http.xml
 total 8
 drwxrwxr-x  2 user webgroup 4096 Oct  4 11:49 ./
 drwxrwxr-x 12 user webgroup 4096 Oct  4 11:49 ../
-[example-base]$ java -jar ../start.jar --add-to-start=http
+[example-base]$ java -jar $JETTY_HOME/start.jar --add-to-start=http
 WARNING: http            initialised in ${jetty.base}/start.ini (appended)
 WARNING: http            enabled in     ${jetty.base}/start.ini
 WARNING: server          initialised in ${jetty.base}/start.ini (appended)
@@ -325,6 +325,6 @@ drwxrwxr-x 12 user webgroup 4096 Oct  4 11:49 ../
     <para>Once complete, you can edit the <filename>start.ini</filename> file to modify any
     parameters and you can run the server with the simple command:</para>
 
-    <screen><![CDATA[[example-base]$ java -jar ../start.jar]]></screen>
+    <screen><![CDATA[[example-base]$ java -jar $JETTY_HOME/start.jar]]></screen>
   </section>
 </section>

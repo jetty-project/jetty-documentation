@@ -130,7 +130,7 @@ drwxrwxr-x  2 user group   4096 Oct  8 06:54 start.d/
 -rw-rw-r--  1 user group 336468 Sep 30 19:55 VERSION.txt
 drwxrwxr-x  2 user group   4096 Oct  8 06:54 webapps/
 [jetty-distribution-@project.version@]$ cd demo-base
-[demo-base]$ java -jar ../start.jar
+[demo-base]$ java -jar $JETTY_HOME/start.jar
 2013-10-16 09:08:47.800:WARN::main: demo test-realm is deployed. DO NOT USE IN PRODUCTION!
 2013-10-16 09:08:47.802:INFO:oejs.Server:main: jetty-@project.version@
 2013-10-16 09:08:47.817:INFO:oejdp.ScanningAppProvider:main: Deployment monitor [file:/home/user/jetty-distribution-@project.version@/demo-base/webapps/] at interval 1
@@ -144,7 +144,7 @@ drwxrwxr-x  2 user group   4096 Oct  8 06:54 webapps/
     <para>If you want to see what the Jetty Base looks like without executing
     Jetty, you can simply list the configuration</para>
 
-    <screen><![CDATA[[my-base]$ java -jar ../start.jar --list-config
+    <screen><![CDATA[[my-base]$ java -jar $JETTY_HOME/start.jar --list-config
 
 Java Environment:
 -----------------
@@ -183,7 +183,7 @@ Properties:
  jetty.keymanager.password = OBF:1u2u1wml1z7s1z7a1wnl1u2g
  jetty.keystore = etc/keystore
  jetty.keystore.password = OBF:1vny1zlo1x8e1vnw1vn61x8g1zlu1vn4
- jetty.port = 8080
+ jetty.http.port = 8080
  jetty.secure.port = 8443
  jetty.truststore = etc/keystore
  jetty.truststore.password = OBF:1vny1zlo1x8e1vnw1vn61x8g1zlu1vn4

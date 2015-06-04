@@ -164,7 +164,7 @@ jetty.umask=002
         <para>Start jetty as the root user in your base directory, providing
         the location of the native library to java. Here's an example of how
         to do it on the command line, assuming were are in the <link
-        linkend="demo-webapps-base">demo-base</link> directory:<screen># sudo java -Djava.library.path=libsetuid-linux -jar ../start.jar</screen></para>
+        linkend="demo-webapps-base">demo-base</link> directory:<screen># sudo java -Djava.library.path=libsetuid-linux -jar $JETTY_HOME/start.jar</screen></para>
       </listitem>
     </orderedlist>
   </section>

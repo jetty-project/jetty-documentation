@@ -37,7 +37,7 @@
   <informalexample>
     <screen language="bash"><![CDATA[cd /opt/jetty
 cd my-base
-java -jar ../start.jar --add-to-startd=jndi
+java -jar $JETTY_HOME/start.jar --add-to-startd=jndi
     ]]></screen>
   </informalexample>
 

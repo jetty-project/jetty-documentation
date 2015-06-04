@@ -235,7 +235,7 @@
   <Arg name="server"><Ref refid="Server" /></Arg>
   <Arg name="factories"><!-- insert one or more factories here --></Arg>
 
-  <Set name="port"><Property name="jetty.port" default="8080"/></Set>
+  <Set name="port"><Property name="jetty.http.port" default="8080"/></Set>
 </New>  ]]></programlisting>
     </informalexample>
 
@@ -364,7 +364,7 @@
     <informalexample>
       <programlisting language="xml"><![CDATA[<New id="httpConfig" class="org.eclipse.jetty.server.HttpConfiguration">
   <Set name="secureScheme">https</Set>
-  <Set name="securePort"><Property name="jetty.tls.port" default="8443" /></Set>
+  <Set name="securePort"><Property name="jetty.ssl.port" default="8443" /></Set>
   <Set name="outputBufferSize">32768</Set>
   <Set name="requestHeaderSize">8192</Set>
   <Set name="responseHeaderSize">8192</Set> 
@@ -530,7 +530,7 @@
         </Array>
       </Arg>
       <Set name="host"><Property name="jetty.host" /></Set>
-      <Set name="port"><Property name="jetty.port" default="80" /></Set>
+      <Set name="port"><Property name="jetty.http.port" default="80" /></Set>
     </New>
   </Arg>
 </Call>

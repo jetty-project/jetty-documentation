@@ -77,19 +77,19 @@
         <row>
           <entry>9.3</entry>
 
-          <entry>2014</entry>
+          <entry>2015</entry>
 
           <entry>Eclipse</entry>
 
-          <entry>1.7</entry>
+          <entry>1.8</entry>
 
-          <entry>HTTP/1.1, HTTP/2 RFC2616,javax.websocket, SPDY v3</entry>
+          <entry>HTTP/1.1, HTTP/2 RFC2616,javax.websocket</entry>
 
           <entry>3.1</entry>
 
           <entry>2.3</entry>
 
-          <entry>Experimental</entry>
+          <entry>Stable</entry>
         </row>
 
         <row>
@@ -256,6 +256,4 @@
       </tbody>
     </tgroup>
   </table>
-
-  <para/>
 </section>

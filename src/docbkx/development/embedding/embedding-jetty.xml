@@ -333,16 +333,6 @@
       xl:href="@JXURL@/org/eclipse/jetty/server/SecureRequestCustomizer.html">SecureRequestCustomizer</link>
       can be added.</para>
     </section>
-
-    <section>
-      <title>SPDY Connectors</title>
-
-      <para>The <link
-      xl:href="@JXURL@/org/eclipse/jetty/embedded/SpdyConnector.html">SPDYConnector
-      example</link> is a similar to the HTTPS connector except that the
-      SslConnectionFactory is chained to the NPNConnectionFactory that negotiates whether
-      the next protocol is to be SPDY/2, SPDY/3 or HTTPS. </para>
-    </section>
   </section>
 
   <section>
@@ -354,7 +344,7 @@
     Servlets are similar to a Jetty Handler except that the request object is
     not mutable and thus cannot be modified. Servlets are handled in Jetty by
     A <link
-    xl:href="@JXURL@/org/eclipse/jetty/embedded/MinimalServlets.html">ServletHandler</link>. 
+    xl:href="@JXURL@/org/eclipse/jetty/embedded/MinimalServlets.html">ServletHandler</link>.
     It uses standard path mappings to match a Servlet to a request; sets
     the requests servletPath and pathInfo; passes the request to the servlet,
     possibly via Filters to produce a response.</para>

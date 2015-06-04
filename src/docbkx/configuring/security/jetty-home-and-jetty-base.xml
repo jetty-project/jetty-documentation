@@ -341,6 +341,16 @@ Module: http
   depends: [server]
   enabled: ${jetty.base}/start.ini
 
+Module: http2
+      LIB: lib/http2/*.jar
+      XML: etc/jetty-http2.xml
+  depends: [ssl, alpn]
+
+Module: http2c
+     LIB: lib/http2/*.jar
+     XML: etc/jetty-http2c.xml
+ depends: [http]
+
 Module: https
       XML: etc/jetty-https.xml
   depends: [ssl]
@@ -444,12 +454,6 @@ Module: setuid
       LIB: lib/setuid/jetty-setuid-java-1.0.1.jar
       XML: etc/jetty-setuid.xml
   depends: [server]
-
-Module: spdy
-      LIB: lib/spdy/*.jar
-      XML: etc/jetty-ssl.xml
-      XML: etc/jetty-spdy.xml
-  depends: [ssl, npn]
 
 Module: ssl
       XML: etc/jetty-ssl.xml

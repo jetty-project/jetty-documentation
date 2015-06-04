@@ -22,7 +22,7 @@
   <section xml:id="alpn-introduction">
     <title>Introducing ALPN</title>
 
-    <para>The development of new web protocols such as SPDY and HTTP 2.0
+    <para>The development of new web protocols such as SPDY and HTTP/2
     raised the need of protocol negotiation within a Transport Layer
     Security (TLS) handshake.
     Two protocol negotiation solutions have been proposed: an older one,
@@ -39,9 +39,9 @@
     to use over the secure connection.</para>
 
     <para>Any protocol can be negotiated by ALPN within a TLS connection.
-    The protocols that are most commonly negotiated are SPDY (for browsers
-    that support it) and, currently in an experimental way, HTTP 2.0.
-    The ALPN implementation is therefore not SPDY-specific in any way.
+    The protocols that are most commonly negotiated are HTTP/2 (for browsers
+    that support it) and, historically, SPDY.
+    The ALPN implementation is therefore not HTTP/2 or SPDY specific in any way.
     Jetty's ALPN implementation, although hosted
     under the umbrella of the Jetty project, is independent of Jetty (the
     Servlet Container); you can use the ALPN implementation in any other Java
@@ -119,7 +119,7 @@ ALPN.put(sslSocket, new ALPN.ClientProvider()
     @Override
     public List<String> protocols()
     {
-        return Arrays.asList("spdy/3", "http/1.1");
+        return Arrays.asList("h2", "http/1.1");
     }
 
     @Override

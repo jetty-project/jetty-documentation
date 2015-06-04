@@ -125,24 +125,7 @@
 
     <varlistentry>
       <term><link
-      xl:href="@GITURL@/jetty-spdy/spdy-http-server/src/main/config/etc/jetty-spdy.xml"><filename>jetty-spdy.xml</filename></link></term>
-
-      <listitem>
-        <para>Adds a <link
-        xl:href="@JDURL@/org/eclipse/jetty/spdy/server/SPDYServerConnectionFactory.html"><code>SPDYServerConnectionFactory</code></link>
-        to the <link
-        xl:href="@JDURL@/org/eclipse/jetty/server/ServerConnector.html"><code>ServerConnector</code></link>
-        configured by <code>jetty-ssl.xml to support the SPDY protocol.</code>
-        Also prepends either <code>protonego-alpn.xml</code> or
-        <code>protonego-npn.xml</code> so that the next protocol can be
-        negotiated, which allows the same SSL port to handle multiple
-        protocols.</para>
-      </listitem>
-    </varlistentry>
-
-    <varlistentry>
-      <term><link
-      xl:href="@GITURL@/jetty-alpn/jetty-alpn-server/src/main/config/etc/protonego-alpn.xml"><filename>protonego-alpn.xml</filename></link></term>
+      xl:href="@GITURL@/jetty-alpn/jetty-alpn-server/src/main/config/etc/jetty-alpn.xml"><filename>jetty-alpn.xml</filename></link></term>
 
       <listitem>
         <para>Adds an <link
@@ -155,20 +138,6 @@
       </listitem>
     </varlistentry>
 
-    <varlistentry>
-      <term><link
-      xl:href="@GITURL@/jetty-npn/jetty-npn-server/src/main/config/etc/protonego-npn.xml"><filename>protonego-npn.xml</filename></link></term>
-
-      <listitem>
-        <para>Adds a <link
-        xl:href="@JDURL@/org/eclipse/jetty/npn/server/NPNServerConnectionFactory.html"><code>NPNServerConnectionFactory</code></link>
-        to the <link
-        xl:href="@JDURL@/org/eclipse/jetty/server/ServerConnector.html"><code>ServerConnector</code></link>
-        configured by <code>jetty-ssl.xml</code> which allows the one SSL
-        connector to support multiple protocols with the NPN extension used to
-        select the protocol to be used for each connection.</para>
-      </listitem>
-    </varlistentry>
   </variablelist>
 
   <para>Typically you need to configure very little on connectors other than
@@ -343,9 +312,9 @@
     class holds the configuration for <link
     xl:href="@JDURL@/org/eclipse/jetty/server/HttpChannel.html">
     <code>HTTPChannel</code> </link>s, which you can create 1:1 with each HTTP
-    connection or 1:n on a multiplexed SPDY connection. Thus a
+    connection or 1:n on a multiplexed HTTP/2 connection. Thus a
     <code>HTTPConfiguration</code> object is injected into both the HTTP and
-    SPDY connection factories. To avoid duplicate configuration, the standard
+    HTTP/2 connection factories. To avoid duplicate configuration, the standard
     Jetty distribution creates the common <code>HttpConfiguration</code>
     instance in <link
     xl:href="@GITURL@/jetty-server/src/main/config/etc/jetty.xml">
@@ -367,7 +336,7 @@
   <Set name="securePort"><Property name="jetty.ssl.port" default="8443" /></Set>
   <Set name="outputBufferSize">32768</Set>
   <Set name="requestHeaderSize">8192</Set>
-  <Set name="responseHeaderSize">8192</Set> 
+  <Set name="responseHeaderSize">8192</Set>
 </New>]]></programlisting>
     </informalexample>
 
@@ -395,12 +364,12 @@
     </informalexample>
 
     <para>For SSL based connectors (in <filename>jetty-https.xml</filename>
-    and <filename> jetty-spdy.xml</filename>), the common "httpConfig"
+    and <filename>jetty-http2.xml</filename>), the common "httpConfig"
     instance is used as the basis to create an SSL specific configuration with
-    ID "tlsHttpConfig":</para>
+    ID "sslHttpConfig":</para>
 
     <informalexample>
-      <programlisting language="xml"><![CDATA[<New id="tlsHttpConfig" class="org.eclipse.jetty.server.HttpConfiguration">
+      <programlisting language="xml"><![CDATA[<New id="sslHttpConfig" class="org.eclipse.jetty.server.HttpConfiguration">
   <Arg><Ref refid="httpConfig"/></Arg>
   <Call name="addCustomizer">
     <Arg><New class="org.eclipse.jetty.server.SecureRequestCustomizer"/></Arg>
@@ -417,7 +386,7 @@
   <section>
     <title>SSL Context Configuration</title>
 
-    <para>The SSL/TLS connectors for HTTPS and SPDY require a certificate to
+    <para>The SSL/TLS connectors for HTTPS and HTTP/2 require a certificate to
     establish a secure connection. Jetty holds certificates in standard JVM
     keystores and are configured as keystore and truststores on a <link
     xl:href="@JDURL@/org/eclipse/jetty/util/ssl/SslContextFactory.html">
@@ -428,9 +397,7 @@
     keystore distributed with Jetty (containing a self signed test
     certificate) is in <link
     xl:href="@GITURL@/jetty-server/src/main/config/etc/jetty-https.xml">
-    <filename>jetty-https.xml</filename> </link> and <link
-    xl:href="@GITURL@/jetty-spdy/spdy-example-webapp/src/main/config/example-jetty-spdy.xml">
-    <filename>example-jetty-spdy.xml</filename> </link>. Read more about SSL
+    <filename>jetty-https.xml</filename></link>. Read more about SSL
     keystores in <link linkend="configuring-ssl">Configuring
     SSL</link>.</para>
   </section>
@@ -496,9 +463,9 @@
 
       <para>The <link
       xl:href="http://www.haproxy.org/download/1.5/doc/proxy-protocol.txt">Proxy
-      Protocol</link> is a defacto standard created by haproxy and used by
+      Protocol</link> is a defacto standard created by HAProxy and used by
       environments such as Amazon Elastic Cloud. This mechanism is independent
-      of any protocol, so it can be used for SPDY, HTTP2, TLS etc. The
+      of any protocol, so it can be used for HTTP2, TLS etc. The
       information about the client connection is sent as a small data frame on
       each newly established connection. In Jetty, this protocol can be
       handled by the <link

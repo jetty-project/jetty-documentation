@@ -265,8 +265,7 @@ public class TestListener implements ServletContextListener
         scf.setMaxAge(maxAge);
         scf.setPath(path);
         scf.setSecure(isSecure);
-        scf.setName(coookieName);
-        }
+        scf.setName(cookieName);
     }
 
     public void contextDestroyed(ServletContextEvent sce) 

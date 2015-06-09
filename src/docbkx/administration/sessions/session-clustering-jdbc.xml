@@ -345,7 +345,8 @@ WebAppContext wac = new WebAppContext();
  ... //configure your webapp context
 JDBCSessionManager jdbcMgr = new JDBCSessionManager();
 jdbcMgr.setSessionIdManager(server.getSessionIdManager());
-wac.setSessionHandler(jdbcMgr);
+SessionHandler sessionHandler = new SessionHandler(jdbcMgr);
+wac.setSessionHandler(sessionHandler);
 
 ]]></programlisting>
       </informalexample>

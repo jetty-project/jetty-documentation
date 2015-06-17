@@ -113,8 +113,8 @@
           <para>Optional. If not specified, Jetty will create a <link
           xl:href="@JDURL@/org/eclipse/jetty/server/ServerConnector.html">ServerConnector</link>
           instance listening on port 8080. You can change this default port
-          number by using the system property <code>jetty.http.port</code> on the
-          command line, for example, <code>mvn -Djetty.http.port=9999
+          number by using the system property <code>jetty.http.port</code> on
+          the command line, for example, <code>mvn -Djetty.http.port=9999
           jetty:run</code>. Alternatively, you can use this configuration
           element to set up the information for the ServerConnector. The
           following are the valid configuration sub-elements:</para>
@@ -748,6 +748,44 @@
             parameters to specify the file matching patterns.</para>
           </listitem>
         </varlistentry>
+
+        <varlistentry>
+          <term>scanClassesPattern</term>
+
+          <listitem>
+            <para>Since 9.3.0. Optional. Include and exclude patterns that can
+            be applied to the classesDirectory for the purposes of scanning,
+            it does <emphasis role="bold">not</emphasis> affect the classpath.
+            If a file or directory is excluded by the patterns then a change
+            in that file (or subtree in the case of a directory) is ignored
+            and will not cause the webapp to redeploy. Patterns are specified
+            as a relative path using a glob-like syntax as described in the
+            <link
+            xl:href="http://docs.oracle.com/javase/8/docs/api/java/nio/file/FileSystem.html#getPathMatcher-java.lang.String-">javadoc</link>
+            for <link
+            xl:href="http://docs.oracle.com/javase/8/docs/api/java/nio/file/FileSystem.html#getPathMatcher-java.lang.String-">FileSystem.getPathMatcher</link>.
+            </para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>scanTestClassesPattern</term>
+
+          <listitem>
+            <para>Since 9.3.0. Optional. Include and exclude patterns that can
+            be applied to the testClassesDirectory for the purposes of
+            scanning, it does <emphasis role="bold">not</emphasis> affect the
+            classpath. If a file or directory is excluded by the patterns then
+            a change in that file (or subtree in the case of a directory) is
+            ignored and will not cause the webapp to redeploy. Patterns are
+            specified as a relative path using a glob-like syntax as described
+            in the <link
+            xl:href="http://docs.oracle.com/javase/8/docs/api/java/nio/file/FileSystem.html#getPathMatcher-java.lang.String-">javadoc</link>
+            for <link
+            xl:href="http://docs.oracle.com/javase/8/docs/api/java/nio/file/FileSystem.html#getPathMatcher-java.lang.String-">FileSystem.getPathMatcher</link>.
+            </para>
+          </listitem>
+        </varlistentry>
       </variablelist>
 
       <para>Here's an example:</para>
@@ -771,6 +809,11 @@
           <jettyEnvXml>${project.basedir}/src/over/here/jetty-env.xml</jettyEnvXml>
         </webApp>
         <classesDirectory>${project.basedir}/somewhere/else</classesDirectory>
+        <scanClassesPattern>
+          <excludes>
+             <exclude>**/Foo.class</exclude>
+          </excludes>
+        </scanClassesPattern>
         <scanTargets>
           <scanTarget>src/mydir</scanTarget>
           <scanTarget>src/myfile.txt</scanTarget>

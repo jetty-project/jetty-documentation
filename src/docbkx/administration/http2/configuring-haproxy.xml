@@ -203,16 +203,17 @@ server domain 127.0.0.1:8282
             module to be able to deploy a sample web application:</para>
         <informalexample>
             <programlisting language="shell">
-$ mkdir haproxy-jetty-http2        # Creates the JETTY_BASE directory.
-$ cd haproxy-jetty-http2
+$ JETTY_BASE=haproxy-jetty-http2
+$ mkdir $JETTY_BASE
+$ cd $JETTY_BASE
 $ java -jar $JETTY_HOME/start.jar --add-to-start=http2c,deploy
             </programlisting>
         </informalexample>
         <para>Now let's deploy a demo web application and start Jetty:</para>
         <informalexample>
             <programlisting language="shell">
-# From within the JETTY_BASE directory, in this example haproxy-jetty-http2/
-$ cp $JETTY_HOME/demo-base/webapps/async-rest.war webapps/
+$ cd $JETTY_BASE
+$ cp $JETTY_HOME/demo-base/webapps/async-rest.war $JETTY_BASE/webapps/
 $ java -jar $JETTY_HOME/start.jar jetty.http.host=127.0.0.1 jetty.http.port=8282
             </programlisting>
         </informalexample>

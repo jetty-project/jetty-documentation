@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+//  ========================================================================
+//  Copyright (c) 1995-2015 Mort Bay Consulting Pty. Ltd.
+//  ========================================================================
+//  All rights reserved. This program and the accompanying materials
+//  are made available under the terms of the Eclipse Public License v1.0
+//  and Apache License v2.0 which accompanies this distribution.
+//
+//      The Eclipse Public License is available at
+//      http://www.eclipse.org/legal/epl-v10.html
+//
+//      The Apache License v2.0 is available at
+//      http://www.opensource.org/licenses/apache2.0.php
+//
+//  You may elect to redistribute this code under either of these licenses.
+//  ========================================================================
+-->
+<section version="5.0"
+         xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd"
+         xml:id="http2-configuring" xmlns="http://docbook.org/ns/docbook"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:xs="http://www.w3.org/2001/XMLSchema"
+         xmlns:xl="http://www.w3.org/1999/xlink"
+         xmlns:ns="http://docbook.org/ns/docbook">
+  <title>Configuring HTTP/2</title>
+
+  <para>Enabling the HTTP/2 module in the jetty server does not create a
+  HTTP/2 specific connector, but rather it adds a HTTP/2 Connection factory to
+  an existing connector. Thus configuring HTTP/2 is a combination of
+  configuring common properties on the connector and HTTP/2 specific
+  properties on the connection factory. The modules and XML files involved can
+  be seen with the following commands: </para>
+
+  <informalexample>
+    <programlisting language="shell"><![CDATA[$ java -jar $JETTY_HOME/start.jar --list-modules
+    ...
+    1) protonego-boot  <transitive> 
+    ...
+    2) http            ${jetty.base}/start.d/http.ini
+    2) ssl             ${jetty.base}/start.d/ssl.ini
+    3) alpn            ${jetty.base}/start.d/alpn.ini
+    3) http2c          ${jetty.base}/start.d/http2c.ini
+    ...
+    4) http2           ${jetty.base}/start.d/http2.ini
+    5) https           ${jetty.base}/start.d/https.ini
+
+$ java -jar $JETTY_HOME/start.jar --list-config
+ ...
+ ${jetty.home}/etc/jetty-ssl.xml
+ ${jetty.home}/etc/jetty-ssl-context.xml
+ ${jetty.home}/etc/jetty-alpn.xml
+ ${jetty.home}/etc/jetty-http2c.xml
+ ${jetty.home}/etc/jetty-http.xml
+ ...
+ ${jetty.home}/etc/jetty-http2.xml
+ ${jetty.home}/etc/jetty-https.xml
+        ]]></programlisting>
+  </informalexample>
+
+  <para>The common properties associated with connectors (host,port, timeouts,
+  etc.) can be set in the module ini files (or start.ini if --add-to-start was
+  used): <code>${jetty.base}/start.d/http.ini</code>
+  <code>${jetty.base}/start.d/ssl.ini</code>. These properties are
+  instantiated in the associated XML files:
+  <code>${jetty.home}/etc/jetty-http.xml</code>;
+  <code>${jetty.home}/etc/jetty-ssl.xml</code>, plus the SSL keystore is
+  instantiated in <code>${jetty.home}/etc/jetty-ssl-context.xml</code>.</para>
+
+  <para>HTTP/2 specific properties can be set in the module ini files:
+  <code>${jetty.base}/start.d/http2.ini</code>;
+  <code>${jetty.base}/start.d/http2c.ini</code>, which are instantiated in the
+  associated XML files: <code>${jetty.home}/etc/jetty-http2.xml</code>;
+  <code>${jetty.home}/etc/jetty-http2c.xml</code>. Currently there are very
+  few HTTP/2 configuration properties and the default values are
+  reasonable:</para>
+
+  <table frame="box" rules="all">
+    <caption>HTTP/2 Configuration Properties</caption>
+
+    <thead>
+      <tr align="center">
+        <th>Property</th>
+
+        <th>Description</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr>
+        <td>jetty.http2.maxConcurrentStreams</td>
+
+        <td>The maximum number of concurrently open streams allowed on a
+        single HTTP/2 connection (default 1024). Larger values increase
+        parallism but cost a memory commitment.</td>
+      </tr>
+
+      <tr>
+        <td>jetty.http2.initialStreamSendWindow</td>
+
+        <td>The initial flow control window size for a new stream (default
+        65535). Larger values may allow greater throughput but also risk head
+        of line blocking if TCP/IP flow control is triggered.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <para/>
+</section>

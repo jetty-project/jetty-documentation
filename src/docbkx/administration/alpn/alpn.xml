@@ -18,34 +18,40 @@
 -->
 <section version="5.0" xml:id="alpn" xmlns="http://docbook.org/ns/docbook"
          xmlns:xl="http://www.w3.org/1999/xlink"
-        >
+         xmlns:ns5="http://www.w3.org/1998/Math/MathML"
+         xmlns:ns4="http://www.w3.org/1999/xhtml"
+         xmlns:ns3="http://www.w3.org/2000/svg"
+         xmlns:ns="http://docbook.org/ns/docbook">
   <section xml:id="alpn-introduction">
     <title>Introducing ALPN</title>
 
-    <para>The development of new web protocols such as SPDY and HTTP/2
-    raised the need of protocol negotiation within a Transport Layer
-    Security (TLS) handshake.
-    Two protocol negotiation solutions have been proposed: an older one,
-    called NPN (see <xref linkend="npn-chapter" />) and a newer one, called
-    <link xl:href="http://tools.ietf.org/html/draft-ietf-tls-applayerprotoneg">ALPN</link>
+    <para>The development of new web protocols such as SPDY and HTTP/2 raised
+    the need of protocol negotiation within a Transport Layer Security (TLS)
+    handshake. Two protocol negotiation solutions have been proposed: an older
+    one, called NPN (see <xref linkend="npn-chapter"/>) and a newer one,
+    called <link
+    xl:href="http://tools.ietf.org/html/draft-ietf-tls-applayerprotoneg">ALPN</link>
     (Application Layer Protocol Negotiation).</para>
 
-    <para>ALPN is going to replace NPN very soon, and major browsers already
-    support ALPN, as well as major servers such as Jetty.</para>
+    <para>ALPN has now replaced NPN and major browsers support ALPN. Since
+    Jetty 9.3.0, only ALPN is supported by Jetty.</para>
 
-    <para>The Jetty project provides an implementation of the TLS
-    extension for ALPN for OpenJDK 7 and OpenJDK 8.
-    ALPN allows the application layer to negotiate which protocol
-    to use over the secure connection.</para>
+    <para>The Jetty project provides an implementation of the TLS extension
+    for ALPN for OpenJDK 7 and OpenJDK 8. ALPN allows the application layer to
+    negotiate which protocol to use over the secure connection.</para>
 
-    <para>Any protocol can be negotiated by ALPN within a TLS connection.
-    The protocols that are most commonly negotiated are HTTP/2 (for browsers
-    that support it) and, historically, SPDY.
-    The ALPN implementation is therefore not HTTP/2 or SPDY specific in any way.
-    Jetty's ALPN implementation, although hosted
-    under the umbrella of the Jetty project, is independent of Jetty (the
-    Servlet Container); you can use the ALPN implementation in any other Java
-    network server.</para>
+    <para>Any protocol can be negotiated by ALPN within a TLS connection. The
+    protocols that are most commonly negotiated are HTTP/2 (for browsers that
+    support it) and, historically, SPDY. The ALPN implementation is therefore
+    not HTTP/2 or SPDY specific in any way. Jetty's ALPN implementation,
+    although hosted under the umbrella of the Jetty project, is independent of
+    Jetty (the Servlet Container); you can use the ALPN implementation in any
+    other Java network server.</para>
+
+    <para>The Jetty distribution will automatically enable ALPN when it is
+    needed to by a HTTP/2 connector, so for the most part ALPN is transparent
+    to the average deployer. This section provides the detail required for
+    unusual deployments or developing to the ALPN API.</para>
   </section>
 
   <section xml:id="alpn-starting">
@@ -64,16 +70,15 @@
     <section xml:id="alpn-osgi">
       <title>Starting in OSGi</title>
 
-      <para>To use ALPN in an OSGi environment, in addition to putting the ALPN
-      jar on the boot classpath for the container, you will also need to
+      <para>To use ALPN in an OSGi environment, in addition to putting the
+      ALPN jar on the boot classpath for the container, you will also need to
       deploy the jetty-osgi-alpn jar. This jar contains a Fragment-Host
-      directive that ensures the ALPN classes will be available from the system
-      bundle.</para>
+      directive that ensures the ALPN classes will be available from the
+      system bundle.</para>
 
-      <para>You can download the
-      <link xl:href="http://central.maven.org/maven2/org/eclipse/jetty/osgi/jetty-osgi-alpn/">jetty-osgi-alpn jar</link>
-      from Maven Central.
-      </para>
+      <para>You can download the <link
+      xl:href="http://central.maven.org/maven2/org/eclipse/jetty/osgi/jetty-osgi-alpn/">jetty-osgi-alpn
+      jar</link> from Maven Central.</para>
     </section>
   </section>
 
@@ -87,17 +92,18 @@
 
     <para>To implement this interaction, Jetty's ALPN implementation provides
     an API to applications, hosted at Maven coordinates
-    <code>org.eclipse.jetty.alpn:alpn-api</code>. You need to declare this dependency as
-    provided, because the <code>alpn-boot</code> Jar already includes it (see the previous
-    section), and it is therefore available from the boot classpath.</para>
+    <code>org.eclipse.jetty.alpn:alpn-api</code>. You need to declare this
+    dependency as provided, because the <code>alpn-boot</code> Jar already
+    includes it (see the previous section), and it is therefore available from
+    the boot classpath.</para>
 
     <para>The API consists of a single class,
     <code>org.eclipse.jetty.alpn.ALPN</code>, and applications need to
     register instances of <code>SSLSocket</code> or <code>SSLEngine</code>
     with a <code>ClientProvider</code> or <code>ServerProvider</code>
     (depending on whether the application is a client application or server
-    application). Refer to <code>ALPN</code> Javadocs and to the examples below
-    for further details about client and server provider methods.</para>
+    application). Refer to <code>ALPN</code> Javadocs and to the examples
+    below for further details about client and server provider methods.</para>
   </section>
 
   <section xml:id="alpn-client-example">
@@ -138,11 +144,10 @@ ALPN.put(sslSocket, new ALPN.ClientProvider()
 ]]></programlisting>
     </example>
 
-    <para>The ALPN implementation calls
-    <code>ALPN.ClientProvider</code> methods <code>supports()</code>,
-    <code>protocols()</code>, <code>unsupported()</code> and
-    <code>selected(String)</code>,
-    so that the client application can:</para>
+    <para>The ALPN implementation calls <code>ALPN.ClientProvider</code>
+    methods <code>supports()</code>, <code>protocols()</code>,
+    <code>unsupported()</code> and <code>selected(String)</code>, so that the
+    client application can:</para>
 
     <itemizedlist>
       <listitem>
@@ -190,10 +195,10 @@ ALPN.put(sslSocket, new ALPN.ServerProvider()
 ]]></programlisting>
     </example>
 
-    <para>The ALPN implementation calls
-    <code>ALPN.ServerProvider</code> methods <code>unsupported()</code>,
-    and <code>select(List&lt;String&gt;),</code> so that the
-    server application can:</para>
+    <para>The ALPN implementation calls <code>ALPN.ServerProvider</code>
+    methods <code>unsupported()</code>, and
+    <code>select(List&lt;String&gt;),</code> so that the server application
+    can:</para>
 
     <itemizedlist>
       <listitem>
@@ -209,10 +214,10 @@ ALPN.put(sslSocket, new ALPN.ServerProvider()
   <section xml:id="alpn-implementation">
     <title>Implementation Details</title>
 
-    <para>It is important that implementations of <code>ALPN.ServerProvider</code>
-    and <code>ALPN.ClientProvider</code> remove the <code>sslSocket</code>
-    or <code>sslEngine</code> when the negotiation is complete, like shown in
-    the examples above.</para>
+    <para>It is important that implementations of
+    <code>ALPN.ServerProvider</code> and <code>ALPN.ClientProvider</code>
+    remove the <code>sslSocket</code> or <code>sslEngine</code> when the
+    negotiation is complete, like shown in the examples above.</para>
 
     <para>Failing to do so will cause a memory leak.</para>
   </section>
@@ -263,9 +268,9 @@ ALPN.put(sslSocket, new ALPN.ServerProvider()
 
     <screen><![CDATA[ALPN.debug = true;]]></screen>
 
-    <para>Since the ALPN class is in the boot classpath, we chose not
-    to use logging libraries because we do not want to override application
-    logging library choices; therefore the logging is performed directly on
+    <para>Since the ALPN class is in the boot classpath, we chose not to use
+    logging libraries because we do not want to override application logging
+    library choices; therefore the logging is performed directly on
     <code>System.err.</code></para>
   </section>
 
@@ -277,15 +282,15 @@ ALPN.put(sslSocket, new ALPN.ServerProvider()
     <filename>sun.security.ssl</filename> package. These classes are released
     under the same GPLv2+exception license of OpenJDK.</para>
 
-    <para>The ALPN class and its nested classes are released under same license as the
-    classes of the Jetty project.</para>
+    <para>The ALPN class and its nested classes are released under same
+    license as the classes of the Jetty project.</para>
   </section>
 
   <section xml:id="alpn-versions">
     <title>Versions</title>
 
-    <para>The ALPN implementation, relying on modifications of OpenJDK classes,
-    updates every time there are updates to the modified OpenJDK
+    <para>The ALPN implementation, relying on modifications of OpenJDK
+    classes, updates every time there are updates to the modified OpenJDK
     classes.</para>
 
     <table frame="all" xml:id="alpn-openjdk-versions">
@@ -299,98 +304,142 @@ ALPN.put(sslSocket, new ALPN.ServerProvider()
         <thead>
           <row>
             <entry>OpenJDK version</entry>
+
             <entry>ALPN version</entry>
           </row>
         </thead>
 
         <tbody>
           <row>
-              <entry>1.7.0u40</entry>
-              <entry>7.1.0.v20141016</entry>
+            <entry>1.7.0u40</entry>
+
+            <entry>7.1.0.v20141016</entry>
           </row>
+
           <row>
-              <entry>1.7.0u45</entry>
-              <entry>7.1.0.v20141016</entry>
+            <entry>1.7.0u45</entry>
+
+            <entry>7.1.0.v20141016</entry>
           </row>
+
           <row>
-              <entry>1.7.0u51</entry>
-              <entry>7.1.0.v20141016</entry>
+            <entry>1.7.0u51</entry>
+
+            <entry>7.1.0.v20141016</entry>
           </row>
+
           <row>
-              <entry>1.7.0u55</entry>
-              <entry>7.1.0.v20141016</entry>
+            <entry>1.7.0u55</entry>
+
+            <entry>7.1.0.v20141016</entry>
           </row>
+
           <row>
-              <entry>1.7.0u60</entry>
-              <entry>7.1.0.v20141016</entry>
+            <entry>1.7.0u60</entry>
+
+            <entry>7.1.0.v20141016</entry>
           </row>
+
           <row>
-              <entry>1.7.0u65</entry>
-              <entry>7.1.0.v20141016</entry>
+            <entry>1.7.0u65</entry>
+
+            <entry>7.1.0.v20141016</entry>
           </row>
+
           <row>
-              <entry>1.7.0u67</entry>
-              <entry>7.1.0.v20141016</entry>
+            <entry>1.7.0u67</entry>
+
+            <entry>7.1.0.v20141016</entry>
           </row>
+
           <row>
-              <entry>1.7.0u71</entry>
-              <entry>7.1.2.v20141202</entry>
+            <entry>1.7.0u71</entry>
+
+            <entry>7.1.2.v20141202</entry>
           </row>
+
           <row>
-              <entry>1.7.0u72</entry>
-              <entry>7.1.2.v20141202</entry>
+            <entry>1.7.0u72</entry>
+
+            <entry>7.1.2.v20141202</entry>
           </row>
+
           <row>
-              <entry>1.7.0u75</entry>
-              <entry>7.1.3.v20150130</entry>
+            <entry>1.7.0u75</entry>
+
+            <entry>7.1.3.v20150130</entry>
           </row>
+
           <row>
-              <entry>1.7.0u76</entry>
-              <entry>7.1.3.v20150130</entry>
+            <entry>1.7.0u76</entry>
+
+            <entry>7.1.3.v20150130</entry>
           </row>
+
           <row>
-              <entry>1.7.0u79</entry>
-              <entry>7.1.3.v20150130</entry>
+            <entry>1.7.0u79</entry>
+
+            <entry>7.1.3.v20150130</entry>
           </row>
+
           <row>
-              <entry>1.7.0u80</entry>
-              <entry>7.1.3.v20150130</entry>
+            <entry>1.7.0u80</entry>
+
+            <entry>7.1.3.v20150130</entry>
           </row>
+
           <row>
-              <entry>1.8.0</entry>
-              <entry>8.1.0.v20141016</entry>
+            <entry>1.8.0</entry>
+
+            <entry>8.1.0.v20141016</entry>
           </row>
+
           <row>
-              <entry>1.8.0u05</entry>
-              <entry>8.1.0.v20141016</entry>
+            <entry>1.8.0u05</entry>
+
+            <entry>8.1.0.v20141016</entry>
           </row>
+
           <row>
-              <entry>1.8.0u11</entry>
-              <entry>8.1.0.v20141016</entry>
+            <entry>1.8.0u11</entry>
+
+            <entry>8.1.0.v20141016</entry>
           </row>
+
           <row>
-              <entry>1.8.0u20</entry>
-              <entry>8.1.0.v20141016</entry>
+            <entry>1.8.0u20</entry>
+
+            <entry>8.1.0.v20141016</entry>
           </row>
+
           <row>
-              <entry>1.8.0u20</entry>
-              <entry>8.1.0.v20141016</entry>
+            <entry>1.8.0u20</entry>
+
+            <entry>8.1.0.v20141016</entry>
           </row>
+
           <row>
-              <entry>1.8.0u25</entry>
-              <entry>8.1.2.v20141202</entry>
+            <entry>1.8.0u25</entry>
+
+            <entry>8.1.2.v20141202</entry>
           </row>
+
           <row>
-              <entry>1.8.0u31</entry>
-              <entry>8.1.3.v20150130</entry>
+            <entry>1.8.0u31</entry>
+
+            <entry>8.1.3.v20150130</entry>
           </row>
+
           <row>
-              <entry>1.8.0u40</entry>
-              <entry>8.1.3.v20150130</entry>
+            <entry>1.8.0u40</entry>
+
+            <entry>8.1.3.v20150130</entry>
           </row>
+
           <row>
-              <entry>1.8.0u45</entry>
-              <entry>8.1.3.v20150130</entry>
+            <entry>1.8.0u45</entry>
+
+            <entry>8.1.3.v20150130</entry>
           </row>
         </tbody>
       </tgroup>
@@ -421,14 +470,15 @@ $ ./get_source.sh
 $ ./make/scripts/hgforest.sh update <tag-name>
   ]]></screen>
 
-    <para>The list of OpenJDK tags can be obtained from these pages:
-    <link xl:href="http://hg.openjdk.java.net/jdk7u/jdk7u/tags">OpenJDK 7</link> /
-    <link xl:href="http://hg.openjdk.java.net/jdk8u/jdk8u/tags">OpenJDK 8</link>.</para>
+    <para>The list of OpenJDK tags can be obtained from these pages: <link
+    xl:href="http://hg.openjdk.java.net/jdk7u/jdk7u/tags">OpenJDK 7</link> /
+    <link xl:href="http://hg.openjdk.java.net/jdk8u/jdk8u/tags">OpenJDK
+    8</link>.</para>
 
     <para>Then you need to compare and incorporate the OpenJDK source changes
     into the modified OpenJDK classes at the <link
     xl:href="https://github.com/jetty-project/jetty-alpn">ALPN GitHub
-    Repository</link>, branch <code>openjdk7</code> for OpenJDK 7 and
-    branch <code>master</code> for OpenJDK 8.</para>
+    Repository</link>, branch <code>openjdk7</code> for OpenJDK 7 and branch
+    <code>master</code> for OpenJDK 8.</para>
   </section>
 </section>

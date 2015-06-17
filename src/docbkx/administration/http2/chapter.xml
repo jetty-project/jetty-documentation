@@ -23,6 +23,7 @@
          xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd">
     <title>HTTP/2</title>
     <xi:include href="introduction.xml" />
-    <xi:include href="configuring.xml" />
+    <xi:include href="enablingHTTP2.xml" />
+    <xi:include href="configuringHTTP2.xml" />
     <xi:include href="configuring-push.xml" />
 </chapter>

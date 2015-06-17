@@ -27,4 +27,5 @@
     <xi:include href="configuringHTTP2.xml" />
     <xi:include href="configuring-push.xml" />
     <xi:include href="configuring-cleartext.xml" />
+    <xi:include href="configuring-haproxy.xml" />
 </chapter>

@@ -37,7 +37,7 @@
   away.</para>
 
   <important>
-    <para>You need to use Maven 3 and Java 1.7 for this plugin.</para>
+    <para>You need to use Maven 3 and Java 1.8 for this plugin.</para>
   </important>
 
   <section xml:id="get-up-and-running">
@@ -763,8 +763,7 @@
             <link
             xl:href="http://docs.oracle.com/javase/8/docs/api/java/nio/file/FileSystem.html#getPathMatcher-java.lang.String-">javadoc</link>
             for <link
-            xl:href="http://docs.oracle.com/javase/8/docs/api/java/nio/file/FileSystem.html#getPathMatcher-java.lang.String-">FileSystem.getPathMatcher</link>.
-            </para>
+            xl:href="http://docs.oracle.com/javase/8/docs/api/java/nio/file/FileSystem.html#getPathMatcher-java.lang.String-">FileSystem.getPathMatcher</link>.</para>
           </listitem>
         </varlistentry>
 
@@ -782,8 +781,7 @@
             in the <link
             xl:href="http://docs.oracle.com/javase/8/docs/api/java/nio/file/FileSystem.html#getPathMatcher-java.lang.String-">javadoc</link>
             for <link
-            xl:href="http://docs.oracle.com/javase/8/docs/api/java/nio/file/FileSystem.html#getPathMatcher-java.lang.String-">FileSystem.getPathMatcher</link>.
-            </para>
+            xl:href="http://docs.oracle.com/javase/8/docs/api/java/nio/file/FileSystem.html#getPathMatcher-java.lang.String-">FileSystem.getPathMatcher</link>.</para>
           </listitem>
         </varlistentry>
       </variablelist>

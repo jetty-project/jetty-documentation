@@ -148,8 +148,8 @@ jetty.infinispanSession.workerName=node1
           <term>idleExpiryMultiple</term>
 
           <listitem>
-            <para> Sessions that are not immortal, ie they have an expiry
-            time, have their ids stored into Infinispan with an <link
+            <para>Sessions that are not immortal, ie they have an expiry time,
+            have their ids stored into Infinispan with an <link
             xl:href="http://infinispan.org/docs/7.1.x/user_guide/user_guide.html#_expiration">idle
             expiry timeout</link> equivalent to double the session's timeout.
             This should be sufficient to ensure that a session id that is
@@ -157,7 +157,7 @@ jetty.infinispanSession.workerName=node1
             you wish to, you can configure this to any integral value to
             effectively increase the <link
             xl:href="http://infinispan.org/docs/7.1.x/user_guide/user_guide.html#_expiration">idle
-            expiry</link> timeout. </para>
+            expiry</link> timeout.</para>
           </listitem>
         </varlistentry>
       </variablelist>
@@ -181,7 +181,12 @@ jetty.infinispanSession.workerName=node1
       Ref:</para>
 
       <informalexample>
-        <programlisting language="xml"><![CDATA[
+        <programlisting language="xml"><![CDATA[  <!-- Expose the jetty infinispan classes for session serialization -->
+  <Call name="prependServerClass">
+    <Arg>-org.eclipse.jetty.session.infinispan.</Arg>
+  </Call>
+
+  
   <!-- Get a reference to the InfinispanSessionIdManager -->
   <Ref id="Server">
     <Call id="idMgr" name="getSessionIdManager"/>
@@ -217,7 +222,11 @@ jetty.infinispanSession.workerName=node1
       reference the Server instance directly:</para>
 
       <informalexample>
-        <programlisting language="xml"><![CDATA[
+        <programlisting language="xml"><![CDATA[  <!-- Expose the jetty infinispan classes for session serialization -->
+  <Call name="prependServerClass">
+    <Arg>-org.eclipse.jetty.session.infinispan.</Arg>
+  </Call>
+
 <!-- Reference the server directly -->
 <Get name="server">
   <Get id="idMgr" name="sessionIdManager"/>
@@ -270,10 +279,28 @@ jetty.infinispanSession.workerName=node1
             <para>The length of time a session can be in memory without being
             checked against the cluster. A value of 0 indicates that the
             session is never checked against the cluster - the current node is
-            considered to be the master for the session. </para>
+            considered to be the master for the session.</para>
           </listitem>
         </varlistentry>
       </variablelist>
+    </section>
+
+    <section>
+      <title>Using HotRod</title>
+
+      <para>If you're using the hotrod client - where serialization will be
+      required - you will need to ensure that the hotrod marshalling software
+      works with jetty classloading. To do this, firstly ensure that you have
+      included the lines containing the <code>prependServerClass</code> to
+      your context xml file as shown above.</para>
+
+      <para>Then, create the file
+      <filename>${jetty.base}/resources/hotrod-client.properties</filename>.
+      Add the following line to this file:</para>
+
+      <informalexample>
+        <programlisting><![CDATA[infinispan.client.hotrod.marshaller=org.eclipse.jetty.session.infinispan.WebAppMarshaller]]></programlisting>
+      </informalexample>
     </section>
   </section>
 </section>

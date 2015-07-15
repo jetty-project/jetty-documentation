@@ -28,8 +28,36 @@
   <title>Quick Setup</title>
 
   <para>If you are using the standard distribution of Jetty, you must enable
-  the jndi <link linkend="startup-modules">module</link>, if it is not already
-  enabled via a transitive dependency from another module. Assuming you have
+  the <emphasis role="bold">jndi</emphasis> <link
+  linkend="startup-modules">module</link> to obtain jetty's jndi
+  implementation, and the <emphasis role="bold">plus</emphasis> <link
+  linkend="startup-modules">module</link> which provides classes for
+  interacting with jndi. As the <emphasis role="bold">plus</emphasis> module
+  depends on the <emphasis role="bold">jndi</emphasis> module, you only need
+  to enable the <emphasis role="bold">plus</emphasis> module to enable both.
+  Assuming you have jetty <link
+  linkend="startup-base-and-home">installed</link> in /opt/jetty, and you have
+  made a <link linkend="startup-base-and-home">jetty base</link> in
+  /opt/jetty/my-base, do:</para>
+
+  <informalexample>
+    <screen language="bash"><![CDATA[cd /opt/jetty
+cd my-base
+java -jar $JETTY_HOME/start.jar --add-to-startd=plus
+    ]]></screen>
+  </informalexample>
+
+  <para>You can now start Jetty and use JNDI within your webapps. See <link
+  linkend="using-jndi">Using JNDI</link> for information on how to add entries
+  to the JNDI environment that Jetty can look up within webapps.</para>
+
+  <para>If you have extra jars associated with your jndi resources, for
+  example a database driver jar, and you haven't made a custom <link
+  linkend="startup-modules">module</link> for it, you can put the jars into
+  your <link linkend="startup-base-and-home">jetty base</link>
+  <filename>ext/</filename> directory. You will then need to enable the
+  <emphasis role="bold">ext</emphasis> module to ensure the jars in the
+  <filename>ext/</filename> directory are on the classpath. Assuming you have
   jetty <link linkend="startup-base-and-home">installed</link> in /opt/jetty,
   and you have made a <link linkend="startup-base-and-home">jetty base</link>
   in /opt/jetty/my-base, do:</para>
@@ -37,11 +65,7 @@
   <informalexample>
     <screen language="bash"><![CDATA[cd /opt/jetty
 cd my-base
-java -jar $JETTY_HOME/start.jar --add-to-startd=jndi
+java -jar $JETTY_HOME/start.jar --add-to-startd=ext
     ]]></screen>
   </informalexample>
-
-  <para>You can now start Jetty and use JNDI within your webapps. See <link
-  linkend="using-jndi">Using JNDI</link> for information on how to add entries
-  to the JNDI environment that Jetty can look up within webapps.</para>
 </section>

@@ -632,6 +632,9 @@ $ openssl pkcs12 -export -inkey example.key -in cert-chain.txt -out example.pkcs
         <programlisting language="xml">
               &lt;Set name="ExcludeProtocols"&gt;
                    &lt;Array type="java.lang.String"&gt;
+                       &lt;Item&gt;SSL&lt;/Item&gt;
+                       &lt;Item&gt;SSLv2&lt;/Item&gt;
+                       &lt;Item&gt;SSLv2Hello&lt;/Item&gt;
                        &lt;Item&gt;SSLv3&lt;/Item&gt;
                    &lt;/Array&gt;
               &lt;/Set&gt;

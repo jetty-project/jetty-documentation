@@ -449,7 +449,7 @@
 
 <Configure class="org.eclipse.jetty.webapp.WebAppContext">
 
-    <Call name="setContextAttribute">
+    <Call name="setAttribute">
       <Arg>org.eclipse.jetty.server.webapp.ContainerIncludeJarPattern</Arg>
       <Arg>.*/foo-[^/]*\.jar$|.*/bar-[^/]*\.jar$|.*/classes/.*</Arg>
     </Call>
@@ -481,7 +481,7 @@
 
 <Configure class="org.eclipse.jetty.webapp.WebAppContext">
 
-    <Call name="setContextAttribute">
+    <Call name="setAttribute">
       <Arg>org.eclipse.jetty.server.webapp.WebInfIncludeJarPattern</Arg>
       <Arg>.*/spring-[^/]*\.jar$</Arg>
     </Call>

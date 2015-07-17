@@ -35,7 +35,7 @@
   <section xml:id="contributing-cla">
     <title>Sign a CLA</title>
 
-    <para>The Eclipse Foundation has a strong Intelectual Property policy
+    <para>The Eclipse Foundation has a strong Intellectual Property policy
     which tracks contributions in detail to ensure that:</para>
 
     <orderedlist>
@@ -172,9 +172,9 @@ $ git format-patch -M -B 70e29326fe904675f772b88a67128c0b3529565e
 
     <para>When a developer goes to apply this sort of patch then we must
     assume responsibility for applying it to our codebase from the IP
-    perspective. So we much be comfortable with the providence of the patch
+    perspective. So we must be comfortable with the providence of the patch
     and that it is clear of potential issues. This is not like a diff where
-    you get to edit it and clean up issues before it get applied. The commit
+    you get to edit it and clean up issues before it gets applied. The commit
     is recorded locally and the developer will then have a chance to make
     additional commits to address any lingering issues. It is critically
     important that developers applying these sorts of patches are fully aware
@@ -301,8 +301,7 @@ $ git push ssh://git.eclipse.org:29418/jetty/org.eclipse.jetty.project HEAD:refs
       <para>Now that you are watching the appropriate projects you should get
       email notifications of commits into gerrit. It is critical that you
       follow strict committer IP process when reviewing commits. Egregious
-      violations of this process can result into committer status
-      issues.</para>
+      violations of this process can result in committer status issues.</para>
 
       <para>On the top of the screen click My -&gt; Watched Changes for a list
       of the commits available for review. These represent people waiting to

@@ -447,6 +447,12 @@ ALPN.put(sslSocket, new ALPN.ServerProvider()
 
             <entry>8.1.4.v20150727</entry>
           </row>
+
+          <row>
+            <entry>1.8.0u60</entry>
+
+            <entry>8.1.5.v20150921</entry>
+          </row>
         </tbody>
       </tgroup>
     </table>

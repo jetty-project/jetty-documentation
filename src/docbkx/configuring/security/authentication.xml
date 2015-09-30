@@ -84,28 +84,28 @@
     xl:href="http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/tree/tests/test-webapps/test-jetty-webapp/src/main/webapp/WEB-INF/web.xml?h=release-9">jetty-test-webapp
     web.xml</link> that configures BASIC authentication:</para>
 
-    <programlisting language="xml">
-  &lt;login-config&gt;
-    &lt;auth-method&gt;BASIC&lt;/auth-method&gt;
-    &lt;realm-name&gt;Test Realm&lt;/realm-name&gt;
-  &lt;/login-config&gt;
-    </programlisting>
+    <programlisting language="xml"><![CDATA[
+  <login-config>
+    <auth-method>BASIC</auth-method>
+    <realm-name>Test Realm</realm-name>
+  </login-config>
+    ]]></programlisting>
 
     <para>The <link
     xl:href="http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/tree/tests/test-webapps/test-jetty-webapp/src/main/webapp/WEB-INF/web.xml?h=release-9">jetty-test-webapp
     web.xml</link> also includes commented out examples of other DIGEST and
     FORM configuration:</para>
 
-    <programlisting language="xml">
-  &lt;login-config&gt;
-    &lt;auth-method&gt;FORM&lt;/auth-method&gt;
-    &lt;realm-name&gt;Test Realm&lt;/realm-name&gt;
-    &lt;form-login-config&gt;
-       &lt;form-login-page&gt;/logon.html?param=test&lt;/form-login-page&gt;
-       &lt;form-error-page&gt;/logonError.html?param=test&lt;/form-error-page&gt;
-    &lt;/form-login-config&gt;
-  &lt;/login-config&gt;
-    </programlisting>
+    <programlisting language="xml"><![CDATA[
+  <login-config>
+    <auth-method>FORM</auth-method>
+    <realm-name>Test Realm</realm-name>
+    <form-login-config>
+       <form-login-page>/logon.html?param=test</form-login-page>
+       <form-error-page>/logonError.html?param=test</form-error-page>
+    </form-login-config>
+  </login-config>
+    ]]></programlisting>
 
     <para>With FORM Authentication, you must also configure URLs of pages to
     generate a login form and handle errors. Below is a simple HTML form from
@@ -113,28 +113,28 @@
     xl:href="http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/tree/tests/test-webapps/test-jetty-webapp/src/main/webapp/logon.html?h=release-9">test
     webapp logon.html</link>:</para>
 
-    <programlisting language="xml">
-&lt;HTML&gt;
-&lt;H1&gt;FORM Authentication demo&lt;/H1&gt;
-&lt;form method="POST" action="j_security_check"&gt;
-&lt;table border="0" cellspacing="2" cellpadding="1"&gt;
-&lt;tr&gt;
-  &lt;td&gt;Username:&lt;/td&gt;
-  &lt;td&gt;&lt;input size="12" value="" name="j_username" maxlength="25" type="text"&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-  &lt;td&gt;Password:&lt;/td&gt;
-  &lt;td&gt;&lt;input size="12" value="" name="j_password" maxlength="25" type="password"&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-  &lt;td colspan="2" align="center"&gt;
-    &lt;input name="submit" type="submit" value="Login"&gt;
-  &lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
-&lt;/form&gt;
-&lt;/HTML&gt;
-    </programlisting>
+    <programlisting language="xml"><![CDATA[
+<HTML>
+<H1>FORM Authentication demo</H1>
+<form method="POST" action="j_security_check">
+<table border="0" cellspacing="2" cellpadding="1">
+<tr>
+  <td>Username:</td>
+  <td><input size="12" value="" name="j_username" maxlength="25" type="text"></td>
+</tr>
+<tr>
+  <td>Password:</td>
+  <td><input size="12" value="" name="j_password" maxlength="25" type="password"></td>
+</tr>
+<tr>
+  <td colspan="2" align="center">
+    <input name="submit" type="submit" value="Login">
+  </td>
+</tr>
+</table>
+</form>
+</HTML>
+    ]]></programlisting>
 
     <para>The Authentication mechanism declared for a context / web
     application defines how the server obtain authentication credentials from
@@ -207,27 +207,31 @@
       <title>Globally Scoped</title>
 
       <para>A LoginService is available to all web applications on a Server
-      instance if you define it in a Jetty configuration file, for example
-      ${jetty.home}/etc/jetty.xml. Here's an example of defining an in-memory
-      type of LoginService called the <link
+      instance if you add it as a bean to the Server. Such a definition would
+      go into an xml file in your ${jetty.base}/etc directory, eg
+      ${jetty.base}/etc/my-realm.xml and you would add this xml file to the
+      execution path via start.ini or start.d (you may want to review the
+      material in the <link linkend="startup">Starting Jetty</link> chapter).
+      Here's an example of an xml file that defines an in-memory type of
+      LoginService called the <link
       xl:href="@JDURL@/org/eclipse/jetty/security/HashLoginService.html">HashLoginService</link>:</para>
 
       <informalexample>
-        <programlisting language="xml">
+        <programlisting language="xml"><![CDATA[
 
-&lt;Configure id="Server" class="org.eclipse.jetty.server.Server"&gt;
-  &lt;Call name="addBean"&gt;
-    &lt;Arg&gt;
-      &lt;New class="org.eclipse.jetty.security.HashLoginService"&gt;
-        &lt;Set name="name"&gt;Test Realm&lt;/Set&gt;
-        &lt;Set name="config"&gt;&lt;SystemProperty name="jetty.home" default="."/&gt;/etc/realm.properties&lt;/Set&gt;
-        &lt;Set name="refreshInterval"&gt;0&lt;/Set&gt;
-      &lt;/New&gt;
-    &lt;/Arg&gt;
-  &lt;/Call&gt;
-&lt;/Configure&gt;
+<Configure id="Server" class="org.eclipse.jetty.server.Server">
+  <Call name="addBean">
+    <Arg>
+      <New class="org.eclipse.jetty.security.HashLoginService">
+        <Set name="name">Test Realm</Set>
+        <Set name="config"><SystemProperty name="jetty.home" default="."/>/etc/realm.properties</Set>
+        <Set name="refreshInterval">0</Set>
+      </New>
+    </Arg>
+  </Call>
+</Configure>
 
-        </programlisting>
+        ]]></programlisting>
       </informalexample>
 
       <para>If you define more than one LoginService on a Server, you will
@@ -238,23 +242,23 @@
       file</link>:</para>
 
       <informalexample>
-        <programlisting language="xml">
+        <programlisting language="xml"><![CDATA[
 
-&lt;Configure class="org.eclipse.jetty.webapp.WebAppContext"&gt;
- &lt;Get name="securityHandler"&gt;
-   &lt;!-- Either: --&gt;
-   &lt;Set name="loginService"&gt;
-     &lt;New class="org.eclipse.jetty.security.HashLoginService"&gt;
-           &lt;Set name="name"&gt;Test Realm&lt;/Set&gt;
-     &lt;/New&gt;
-   &lt;/Set&gt;
+<Configure class="org.eclipse.jetty.webapp.WebAppContext">
+ <Get name="securityHandler">
+   <!-- Either: -->
+   <Set name="loginService">
+     <New class="org.eclipse.jetty.security.HashLoginService">
+           <Set name="name">Test Realm</Set>
+     </New>
+   </Set>
  
-   &lt;!-- or if you defined a LoginService called "Test Realm" in jetty.xml : --&gt;
-   &lt;Set name="realmName"&gt;Test Realm&lt;/Set&gt;
+   <!-- or if you defined a LoginService called "Test Realm" in jetty.xml : -->
+   <Set name="realmName">Test Realm</Set>
  
- &lt;/Get&gt;
+ </Get>
  
-        </programlisting>
+        ]]></programlisting>
       </informalexample>
     </section>
 
@@ -267,22 +271,22 @@
       file</link>:</para>
 
       <informalexample>
-        <programlisting language="xml">
+        <programlisting language="xml"><![CDATA[
 
-&lt;Configure class="org.eclipse.jetty.webapp.WebAppContext"&gt;
-  &lt;Set name="contextPath"&gt;/test&lt;/Set&gt;
-  &lt;Set name="war"&gt;&lt;SystemProperty name="jetty.home" default="."/&gt;/webapps/test&lt;/Set&gt;
-  &lt;Get name="securityHandler"&gt;
-    &lt;Set name="loginService"&gt;
-      &lt;New class="org.eclipse.jetty.security.HashLoginService"&gt;
-            &lt;Set name="name"&gt;Test Realm&lt;/Set&gt;
-            &lt;Set name="config"&gt;&lt;SystemProperty name="jetty.home" default="."/&gt;/etc/realm.properties&lt;/Set&gt;
-      &lt;/New&gt;
-    &lt;/Set&gt;
-  &lt;/Get&gt;
-&lt;/Configure&gt;
+<Configure class="org.eclipse.jetty.webapp.WebAppContext">
+  <Set name="contextPath">/test</Set>
+  <Set name="war"><SystemProperty name="jetty.home" default="."/>/webapps/test</Set>
+  <Get name="securityHandler">
+    <Set name="loginService">
+      <New class="org.eclipse.jetty.security.HashLoginService">
+            <Set name="name">Test Realm</Set>
+            <Set name="config"><SystemProperty name="jetty.home" default="."/>/etc/realm.properties</Set>
+      </New>
+    </Set>
+  </Get>
+</Configure>
 
-        </programlisting>
+        ]]></programlisting>
       </informalexample>
 
       <para>Jetty provides a number of different LoginService types which can
@@ -389,11 +393,11 @@
       the format:</para>
 
       <informalexample>
-        <programlisting language="properties">
+        <programlisting language="properties"><![CDATA[
 
 username: password[,rolename ...]
 
-        </programlisting>
+        ]]></programlisting>
       </informalexample>
 
       <para>where:</para>
@@ -428,29 +432,29 @@ username: password[,rolename ...]
       <para>For example:</para>
 
       <informalexample>
-        <programlisting language="properties">
+        <programlisting language="properties"><![CDATA[
 
 admin: CRYPT:ad1ks..kc.1Ug,server-administrator,content-administrator,admin
 other: OBF:1xmk1w261u9r1w1c1xmq
 guest: guest,read-only
 
-        </programlisting>
+        ]]></programlisting>
       </informalexample>
 
       <para>You configure the HashLoginService with a name and a reference to
       the location of the properties file:</para>
 
       <informalexample>
-        <programlisting language="xml">
+        <programlisting language="xml"><![CDATA[
 
-&lt;Item&gt;
-&lt;New class="org.eclipse.jetty.security.HashLoginService"&gt;
-  &lt;Set name="name"&gt;Test Realm&lt;/Set&gt;
-  &lt;Set name="config"&gt;&lt;SystemProperty name="jetty.home" default="."/&gt;/etc/realm.properties&lt;/Set&gt;
-&lt;/New&gt;
-&lt;/Item&gt;
+<Item>
+<New class="org.eclipse.jetty.security.HashLoginService">
+  <Set name="name">Test Realm</Set>
+  <Set name="config"><SystemProperty name="jetty.home" default="."/>/etc/realm.properties</Set>
+</New>
+</Item>
 
-        </programlisting>
+        ]]></programlisting>
       </informalexample>
 
       <para>You can also configure it to check the properties file regularly
@@ -458,16 +462,16 @@ guest: guest,read-only
       in seconds:</para>
 
       <informalexample>
-        <programlisting language="xml">
+        <programlisting language="xml"><![CDATA[
 
-&lt;New class="org.eclipse.jetty.security.HashLoginService"&gt;
-    &lt;Set name="name"&gt;Test Realm&lt;/Set&gt;
-    &lt;Set name="config"&gt;&lt;SystemProperty name="jetty.home" default="."/&gt;/etc/realm.properties&lt;/Set&gt;
-    &lt;Set name="reloadInterval"&gt;5&lt;/Set&gt;
-    &lt;Call name="start"&gt;&lt;/Call&gt;
-  &lt;/New&gt;
+<New class="org.eclipse.jetty.security.HashLoginService">
+    <Set name="name">Test Realm</Set>
+    <Set name="config"><SystemProperty name="jetty.home" default="."/>/etc/realm.properties</Set>
+    <Set name="reloadInterval">5</Set>
+    <Call name="start"></Call>
+  </New>
   
-        </programlisting>
+        ]]></programlisting>
       </informalexample>
     </section>
 
@@ -480,7 +484,7 @@ guest: guest,read-only
       properties file for this realm implementation:</para>
 
       <informalexample>
-        <programlisting language="properties">
+        <programlisting language="properties"><![CDATA[
 
 jdbcdriver = org.gjt.mm.mysql.Driver
 url = jdbc:mysql://localhost/jetty
@@ -498,13 +502,13 @@ userroletableuserkey = user_id
 userroletablerolekey = role_id
 cachetime = 300
 
-        </programlisting>
+        ]]></programlisting>
       </informalexample>
 
       <para>The format of the database tables is (pseudo-sql):</para>
 
       <informalexample>
-        <programlisting language="sql">
+        <programlisting language="sql"><![CDATA[
 
 users
 (
@@ -525,7 +529,7 @@ roles
   role varchar(100) NOT NULL UNIQUE KEY
 );
 
-        </programlisting>
+        ]]></programlisting>
       </informalexample>
 
       <para>Where:</para>
@@ -619,14 +623,14 @@ roles
       location of the properties file describing the database:</para>
 
       <informalexample>
-        <programlisting language="xml">
+        <programlisting language="xml"><![CDATA[
 
-&lt;New class="org.eclipse.jetty.security.JDBCLoginService"&gt;
-  &lt;Set name="name"&gt;Test JDBC Realm&lt;/Set&gt;
-  &lt;Set name="config"&gt;etc/jdbcRealm.properties&lt;/Set&gt;
-&lt;/New&gt;
+<New class="org.eclipse.jetty.security.JDBCLoginService">
+  <Set name="name">Test JDBC Realm</Set>
+  <Set name="config">etc/jdbcRealm.properties</Set>
+</New>
 
-        </programlisting>
+        ]]></programlisting>
       </informalexample>
     </section>
   </section>

@@ -499,7 +499,9 @@
         <term>webApp</term>
 
         <listitem>
-          <para>Represents an extension to the class <link
+          <para>This is an instance of <link
+          xl:href="@JDURL@/org/eclipse/jetty/maven/plugin/JettyWebAppContext.html">org.eclipse.jetty.maven.plugin.JettyWebAppContext</link>,
+          which is an extension to the class <link
           xl:href="@JDURL@/org/eclipse/jetty/webapp/WebAppContext.hml"><classname>org.eclipse.jetty.webapp.WebAppContext</classname></link>.
           You can use any of the setter methods on this object to configure
           your webapp. Here are a few of the most useful ones:</para>
@@ -585,6 +587,40 @@
                 webapp. See the section on <link
                 linkend="using-overlaid-wars">overlaid wars</link> for more
                 information.</para>
+              </listitem>
+            </varlistentry>
+
+            <varlistentry>
+              <term>containerIncludeJarPattern</term>
+
+              <listitem>
+                <para>Defaults to
+                ".*/javax.servlet-[^/]*\.jar$|.*/servlet-api-[^/]*\.jar$|.*javax.servlet.jsp.jstl-[^/]*\.jar|.*taglibs-standard-impl-.*\.jar".
+                This is a pattern that is applied to the names of the jars on
+                the container's classpath (ie the classpath of the plugin, not
+                that of the webapp) that should be scanned for fragments,
+                tlds, annotations etc. This is analogous to the context
+                attribute <link
+                linkend="container-include-jar-pattern">org.eclipse.jetty.server.webapp.ContainerIncludeJarPattern</link>
+                that is documented <link
+                linkend="container-include-jar-pattern">here</link>. You can
+                define extra patterns of jars that will be included in the
+                scan.</para>
+              </listitem>
+            </varlistentry>
+
+            <varlistentry>
+              <term>webInfIncludeJarPattern</term>
+
+              <listitem>
+                <para>Defaults to matching <emphasis>all</emphasis> of the
+                dependency jars for the webapp (ie the equivalent of
+                WEB-INF/lib). You can make this pattern more restrictive to
+                only match certain jars by using this setter. This is
+                analogous to the context attribute <link
+                linkend="web-inf-include-jar-pattern">org.eclipse.jetty.server.webapp.WebInfIncludeJarPattern</link>
+                that is documented <link
+                linkend="web-inf-include-jar-pattern">here</link>.</para>
               </listitem>
             </varlistentry>
           </variablelist>

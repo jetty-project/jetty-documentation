@@ -39,25 +39,25 @@
     build:</para>
 
     <informalexample>
-      <programlisting language="xml">
+      <programlisting language="xml"><![CDATA[
 
-&lt;plugin&gt;
-  &lt;groupId&gt;org.eclipse.jetty&lt;/groupId&gt;
-   &lt;artifactId&gt;jetty-jspc-maven-plugin&lt;/artifactId&gt;
-   &lt;version&gt;@project.version@&lt;/version&gt;
-   &lt;executions&gt;
-     &lt;execution&gt;
-       &lt;id&gt;jspc&lt;/id&gt;
-       &lt;goals&gt;
-         &lt;goal&gt;jspc&lt;/goal&gt;
-       &lt;/goals&gt;
-       &lt;configuration&gt;
-       &lt;/configuration&gt;
-     &lt;/execution&gt;
-   &lt;/executions&gt;
- &lt;/plugin&gt;
+<plugin>
+  <groupId>org.eclipse.jetty</groupId>
+   <artifactId>jetty-jspc-maven-plugin</artifactId>
+   <version>@project.version@</version>
+   <executions>
+     <execution>
+       <id>jspc</id>
+       <goals>
+         <goal>jspc</goal>
+       </goals>
+       <configuration>
+       </configuration>
+     </execution>
+   </executions>
+ </plugin>
  
-      </programlisting>
+      ]]></programlisting>
     </informalexample>
 
     <para>The configurable parameters are as follows:</para>
@@ -189,6 +189,24 @@
       </varlistentry>
 
       <varlistentry>
+        <term>sourceVersion</term>
+
+        <listitem>
+          <para>Since jetty-9.3.6. Java version of jsp source files. Defaults
+          to 1.7.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>targetVersion</term>
+
+        <listitem>
+          <para>Since jetty-9.3.6. Java version of class files generated from
+          jsps. Defaults to 1.7.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
         <term>tldJarNamePatterns</term>
 
         <listitem>
@@ -221,17 +239,17 @@
     declarations:</para>
 
     <informalexample>
-      <programlisting language="xml">
+      <programlisting language="xml"><![CDATA[
 
-&lt;plugin&gt;
-  &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
-  &lt;artifactId&gt;maven-war-plugin&lt;/artifactId&gt;
-  &lt;configuration&gt;
-    &lt;webXml&gt;${project.basedir}/target/web.xml&lt;/webXml&gt;
-  &lt;/configuration&gt;
-&lt;/plugin&gt;
+<plugin>
+  <groupId>org.apache.maven.plugins</groupId>
+  <artifactId>maven-war-plugin</artifactId>
+  <configuration>
+    <webXml>${project.basedir}/target/web.xml</webXml>
+  </configuration>
+</plugin>
 
-      </programlisting>
+      ]]></programlisting>
     </informalexample>
   </section>
 
@@ -247,44 +265,44 @@
     -Dprod is present on the run line:</para>
 
     <informalexample>
-      <programlisting language="xml">
+      <programlisting language="xml"><![CDATA[
 
-&lt;profiles&gt;
-    &lt;profile&gt;
-      &lt;id&gt;prod&lt;/id&gt;
-      &lt;activation&gt;
-        &lt;property&gt;&lt;name&gt;prod&lt;/name&gt;&lt;/property&gt;
-      &lt;/activation&gt;
-      &lt;build&gt;
-      &lt;plugins&gt;
-        &lt;plugin&gt;
-          &lt;groupId&gt;org.eclipse.jetty&lt;/groupId&gt;
-          &lt;artifactId&gt;jetty-jspc-maven-plugin&lt;/artifactId&gt;
-          &lt;version&gt;@project.version@&lt;/version&gt;
-          &lt;!-- put your configuration in here --&gt;
-        &lt;/plugin&gt;
-        &lt;plugin&gt;
-          &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
-          &lt;artifactId&gt;maven-war-plugin&lt;/artifactId&gt;
-          &lt;!-- put your configuration in here --&gt;
-        &lt;/plugin&gt;
-      &lt;/plugins&gt;
-      &lt;/build&gt;
-    &lt;/profile&gt;
-  &lt;/profiles&gt;
+<profiles>
+    <profile>
+      <id>prod</id>
+      <activation>
+        <property><name>prod</name></property>
+      </activation>
+      <build>
+      <plugins>
+        <plugin>
+          <groupId>org.eclipse.jetty</groupId>
+          <artifactId>jetty-jspc-maven-plugin</artifactId>
+          <version>@project.version@</version>
+          <!-- put your configuration in here -->
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-war-plugin</artifactId>
+          <!-- put your configuration in here -->
+        </plugin>
+      </plugins>
+      </build>
+    </profile>
+  </profiles>
   
-      </programlisting>
+      ]]></programlisting>
     </informalexample>
 
     <para>So, the following invocation would cause your code to be compiled,
     the jsps to be compiled, the &lt;servlet&gt; and &lt;servlet-mapping&gt;s
     inserted in the web.xml and your webapp assembled into a war:</para>
 
-    <screen>
+    <screen><![CDATA[
 
 $ mvn -Dprod package
 
-    </screen>
+    ]]></screen>
   </section>
 
   <section xml:id="jspc-overlay-precompile">
@@ -306,39 +324,39 @@ $ mvn -Dprod package
     those phases into an unpack phase, and then a packing phase:</para>
 
     <informalexample>
-      <programlisting language="xml">
+      <programlisting language="xml"><![CDATA[
 
-&lt;plugin&gt;
-    &lt;artifactId&gt;maven-war-plugin&lt;/artifactId&gt;
-    &lt;executions&gt;
-      &lt;execution&gt;
-        &lt;id&gt;unpack&lt;/id&gt;
-        &lt;goals&gt;&lt;goal&gt;exploded&lt;/goal&gt;&lt;/goals&gt;
-        &lt;phase&gt;generate-resources&lt;/phase&gt;
-        &lt;configuration&gt;
-          &lt;webappDirectory&gt;target/foo&lt;/webappDirectory&gt;
-          &lt;overlays&gt;
-            &lt;overlay /&gt;
-            &lt;overlay&gt;
-              &lt;groupId&gt;org.eclipse.jetty&lt;/groupId&gt;
-              &lt;artifactId&gt;test-jetty-webapp&lt;/artifactId&gt;
-            &lt;/overlay&gt;
-          &lt;/overlays&gt;
-        &lt;/configuration&gt;
-      &lt;/execution&gt;
-      &lt;execution&gt;
-        &lt;id&gt;pack&lt;/id&gt;
-        &lt;goals&gt;&lt;goal&gt;war&lt;/goal&gt;&lt;/goals&gt;
-        &lt;phase&gt;package&lt;/phase&gt;
-        &lt;configuration&gt;
-          &lt;warSourceDirectory&gt;target/foo&lt;/warSourceDirectory&gt;
-          &lt;webXml&gt;target/web.xml&lt;/webXml&gt;
-        &lt;/configuration&gt;
-      &lt;/execution&gt;
-    &lt;/executions&gt;
-&lt;/plugin&gt;
+<plugin>
+    <artifactId>maven-war-plugin</artifactId>
+    <executions>
+      <execution>
+        <id>unpack</id>
+        <goals><goal>exploded</goal></goals>
+        <phase>generate-resources</phase>
+        <configuration>
+          <webappDirectory>target/foo</webappDirectory>
+          <overlays>
+            <overlay />
+            <overlay>
+              <groupId>org.eclipse.jetty</groupId>
+              <artifactId>test-jetty-webapp</artifactId>
+            </overlay>
+          </overlays>
+        </configuration>
+      </execution>
+      <execution>
+        <id>pack</id>
+        <goals><goal>war</goal></goals>
+        <phase>package</phase>
+        <configuration>
+          <warSourceDirectory>target/foo</warSourceDirectory>
+          <webXml>target/web.xml</webXml>
+        </configuration>
+      </execution>
+    </executions>
+</plugin>
 
-      </programlisting>
+      ]]></programlisting>
     </informalexample>
 
     <para>Now you also need to configure the jetty-jspc-maven-plugin so that
@@ -348,28 +366,28 @@ $ mvn -Dprod package
     with the jsp servlet definitions will be put into target/web.xml.</para>
 
     <informalexample>
-      <programlisting language="xml">
+      <programlisting language="xml"><![CDATA[
 
-&lt;plugin&gt;
-    &lt;groupId&gt;org.eclipse.jetty&lt;/groupId&gt;
-     &lt;artifactId&gt;jetty-jspc-maven-plugin&lt;/artifactId&gt;
-     &lt;version&gt;@project.version@&lt;/version&gt;
-     &lt;executions&gt;
-       &lt;execution&gt;
-         &lt;id&gt;jspc&lt;/id&gt;
-         &lt;goals&gt;
-           &lt;goal&gt;jspc&lt;/goal&gt;
-         &lt;/goals&gt;
-         &lt;configuration&gt;
-            &lt;webXml&gt;target/foo/WEB-INF/web.xml&lt;/webXml&gt;
-            &lt;includes&gt;**/*.foo&lt;/includes&gt;
-            &lt;excludes&gt;**/*.fff&lt;/excludes&gt;
-        &lt;/configuration&gt;
-      &lt;/execution&gt;
-    &lt;/executions&gt;
-&lt;/plugin&gt;
+<plugin>
+    <groupId>org.eclipse.jetty</groupId>
+     <artifactId>jetty-jspc-maven-plugin</artifactId>
+     <version>@project.version@</version>
+     <executions>
+       <execution>
+         <id>jspc</id>
+         <goals>
+           <goal>jspc</goal>
+         </goals>
+         <configuration>
+            <webXml>target/foo/WEB-INF/web.xml</webXml>
+            <includes>**/*.foo</includes>
+            <excludes>**/*.fff</excludes>
+        </configuration>
+      </execution>
+    </executions>
+</plugin>
 
-      </programlisting>
+      ]]></programlisting>
     </informalexample>
   </section>
 </section>

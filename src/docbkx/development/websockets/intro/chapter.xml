@@ -114,7 +114,7 @@
 
           <important>
             <para>The early drafts of WebSocket were supported in Jetty 7 and
-            Jetty 8, but this support has been removed in Jetty 9. </para>
+            Jetty 8, but this support has been removed in Jetty 9.</para>
 
             <para>This means that Jetty 9 will not support the old browsers
             that implemented the early drafts of WebSocket. (such as Safari
@@ -233,6 +233,61 @@
         <listitem>
           <para>The new standard Java WebSocket Server API
           (<classname>javax.websocket.server</classname>) [JSR-356]</para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+  </section>
+
+  <section>
+    <title>Enabling WebSocket</title>
+
+    <para>To enable websocket, you need to <link
+    linkend="enabling-modules">enable</link> the <code>websocket</code> <link
+    linkend="enabling-modules">module</link>.</para>
+
+    <para>Once this module is enabled for your jetty base, it will apply to
+    all webapps deployed to that base. If you want to be more selective about
+    which webapps use websocket, then you can:</para>
+
+    <variablelist>
+      <varlistentry>
+        <term>Disable jsr-356 for a particular webapp:</term>
+
+        <listitem>
+          <para>You can disable jsr-356 for a particular webapp by setting the
+          <link linkend="context_attributes">context attribute</link>
+          <code>org.eclipse.jetty.websocket.jsr356</code> to
+          <code>false</code>. This will mean that websockets are not available
+          to your webapp, however deployment time scanning for
+          websocket-related classes such as endpoints will still occur. This
+          can be a significant impost if your webapp contains a lot of classes
+          and/or jar files. To completely disable websockets and avoid all
+          setup costs associated with it for a particular webapp, use instead
+          the context attribute
+          <code>org.eclipse.jetty.containerInitializerExclusionPattern</code>,
+          described next, which allows you to exclude the websocket
+          ServletContainerInitializer that causes the scanning.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>Completely disable jsr-356 for a particular webapp:</term>
+
+        <listitem>
+          <para>Set the
+          <code>org.eclipse.jetty.containerInitializerExclusionPattern</code>
+          <link linkend="context_attributes">context attribute</link> to
+          include
+          <code>org.eclipse.jetty.websocket.jsr356.server.deploy.WebSocketServerContainerInitializer</code>.
+          Here's an example of doing this in code, although you can do the
+          <link linkend="intro-jetty-configuration-webapps">same in
+          xml</link>:</para>
+
+          <programlisting language="java"><![CDATA[WebAppContext context = new WebAppContext();
+context.setAttribute("org.eclipse.jetty.containerInitializerExclusionPattern", 
+                     "org.eclipse.jetty.websocket.jsr356.server.deploy.WebSocketServerContainerInitializer|com.acme.*");]]></programlisting>
+
+          <para/>
         </listitem>
       </varlistentry>
     </variablelist>

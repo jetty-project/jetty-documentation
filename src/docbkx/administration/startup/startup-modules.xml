@@ -191,7 +191,7 @@
     </varlistentry>
   </variablelist>
 
-  <section>
+  <section xml:id="enabling-modules">
     <title>Enabling Modules</title>
 
     <para>Jetty ships with many modules defined, and a small subset predefined

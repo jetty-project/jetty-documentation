@@ -192,10 +192,10 @@
   <section>
     <title>Multi-threaded Annotation Scanning</title>
 
-    <para>Since jetty-9.1,<link linkend="jars-scanned-for-annotations">
-    if annotation scanning is to be performed</link>, by default Jetty will do
-    it in a multi-threaded manner in order to complete it in the minimum
-    amount of time.</para>
+    <para>Since jetty-9.1,<link linkend="jars-scanned-for-annotations"> if
+    annotation scanning is to be performed</link>, by default Jetty will do it
+    in a multi-threaded manner in order to complete it in the minimum amount
+    of time.</para>
 
     <para>If for some reason you don't want to do it multi-threaded, you can
     configure Jetty to revert to single-threaded scanning. You have several
@@ -269,8 +269,7 @@
     xl:href="http://jcp.org/aboutJava/communityprocess/final/jsr340/">Servlet
     Specification</link> does not define any order in which these
     ServletContainerInitializers must be called when the webapp starts. Since
-    jetty-9.1, by default Jetty will call them in the following
-    order:</para>
+    jetty-9.1, by default Jetty will call them in the following order:</para>
 
     <orderedlist>
       <listitem>
@@ -328,7 +327,7 @@ context.setAttribute("org.eclipse.jetty.containerInitializerOrder",
       </section>
     </section>
 
-    <section>
+    <section xml:id="excluding-scis">
       <title>Excluding ServletContainerInitializers</title>
 
       <para>By default, as according to the Servlet Specification, all

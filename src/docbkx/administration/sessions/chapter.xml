@@ -26,4 +26,5 @@ xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0
   <xi:include href="session-clustering-jdbc.xml" />
   <xi:include href="session-clustering-mongodb.xml" />
   <xi:include href="session-clustering-infinispan.xml" />
+  <xi:include href="session-clustering-gcloud-datastore.xml" />
 </chapter>

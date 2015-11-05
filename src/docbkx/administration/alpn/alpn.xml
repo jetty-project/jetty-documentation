@@ -413,12 +413,6 @@ ALPN.put(sslSocket, new ALPN.ServerProvider()
           </row>
 
           <row>
-            <entry>1.8.0u20</entry>
-
-            <entry>8.1.0.v20141016</entry>
-          </row>
-
-          <row>
             <entry>1.8.0u25</entry>
 
             <entry>8.1.2.v20141202</entry>
@@ -452,6 +446,18 @@ ALPN.put(sslSocket, new ALPN.ServerProvider()
             <entry>1.8.0u60</entry>
 
             <entry>8.1.5.v20150921</entry>
+          </row>
+
+          <row>
+            <entry>1.8.0u65</entry>
+
+            <entry>8.1.6.v20151105</entry>
+          </row>
+
+          <row>
+            <entry>1.8.0u66</entry>
+
+            <entry>8.1.6.v20151105</entry>
           </row>
         </tbody>
       </tgroup>

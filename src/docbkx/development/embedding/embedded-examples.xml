@@ -95,7 +95,7 @@
 
 <dependency>
   <groupId>org.eclipse.jetty</groupId>
-  <artifactId>jetty-annotation</artifactId>
+  <artifactId>jetty-annotations</artifactId>
   <version>${project.version}</version>
 </dependency>
 <dependency>

@@ -71,7 +71,7 @@
 
         <para>If you want to modify the Jetty distribution, base and
         home can be the same directory. Separating the base and home
-        directories allows the distribution to remain unmodified, with all customizations in the the home directory, and thus
+        directories allows the distribution to remain unmodified, with all customizations in the base directory, and thus
         simplifies subsequent server version upgrades.</para>
       </listitem>
     </varlistentry>

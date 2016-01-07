@@ -16,43 +16,49 @@
 //  You may elect to redistribute this code under either of these licenses.
 //  ========================================================================
 -->
-<section version="5.0" xml:id="alpn" xmlns="http://docbook.org/ns/docbook"
+<section version="5.0"
+         xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd"
+         xml:id="alpn" xmlns="http://docbook.org/ns/docbook"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:xs="http://www.w3.org/2001/XMLSchema"
          xmlns:xl="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude"
          xmlns:ns5="http://www.w3.org/1998/Math/MathML"
          xmlns:ns4="http://www.w3.org/1999/xhtml"
          xmlns:ns3="http://www.w3.org/2000/svg"
          xmlns:ns="http://docbook.org/ns/docbook">
-  <section xml:id="alpn-introduction">
-    <title>Introducing ALPN</title>
+  <title xml:id="alpn-introduction">Introducing ALPN</title>
 
-    <para>The development of new web protocols such as SPDY and HTTP/2 raised
-    the need of protocol negotiation within a Transport Layer Security (TLS)
-    handshake. Two protocol negotiation solutions have been proposed: an older
-    one, called NPN (see <xref linkend="npn-chapter"/>) and a newer one,
-    called <link
-    xl:href="http://tools.ietf.org/html/draft-ietf-tls-applayerprotoneg">ALPN</link>
-    (Application Layer Protocol Negotiation).</para>
+  <para>The development of new web protocols such as HTTP/2 raised the need of
+  protocol negotiation within a Transport Layer Security (TLS) handshake. A
+  protocol negotiation called <link
+  xl:href="https://tools.ietf.org/html/rfc7301">ALPN</link> (Application Layer
+  Protocol Negotiation) RFC7301 has been defined to accomplish this.</para>
 
-    <para>ALPN has now replaced NPN and major browsers support ALPN. Since
-    Jetty 9.3.0, only ALPN is supported by Jetty.</para>
+  <para>ALPN has now replaced the older (and now fully deprecated) NPN in the
+  general Web of 2016.</para>
 
-    <para>The Jetty project provides an implementation of the TLS extension
-    for ALPN for OpenJDK 7 and OpenJDK 8. ALPN allows the application layer to
-    negotiate which protocol to use over the secure connection.</para>
+  <para>For those browsers that support HTTP/2, they all now support the ALPN
+  negotiation layers for TLS.</para>
 
-    <para>Any protocol can be negotiated by ALPN within a TLS connection. The
-    protocols that are most commonly negotiated are HTTP/2 (for browsers that
-    support it) and, historically, SPDY. The ALPN implementation is therefore
-    not HTTP/2 or SPDY specific in any way. Jetty's ALPN implementation,
-    although hosted under the umbrella of the Jetty project, is independent of
-    Jetty (the Servlet Container); you can use the ALPN implementation in any
-    other Java network server.</para>
+  <para>Starting with Jetty 9.3.0, only ALPN is supported by Jetty.</para>
 
-    <para>The Jetty distribution will automatically enable ALPN when it is
-    needed to by a HTTP/2 connector, so for the most part ALPN is transparent
-    to the average deployer. This section provides the detail required for
-    unusual deployments or developing to the ALPN API.</para>
-  </section>
+  <para>The Jetty project provides an implementation of the TLS extension for
+  ALPN for OpenJDK 7 and OpenJDK 8. ALPN allows the application layer to
+  negotiate which protocol to use over the secure connection.</para>
+
+  <para>Any protocol can be negotiated by ALPN within a TLS connection. The
+  protocols that are most commonly negotiated are HTTP/2 (for browsers that
+  support it) and, historically, SPDY. The ALPN implementation is therefore
+  not HTTP/2 or SPDY specific in any way. Jetty's ALPN implementation,
+  although hosted under the umbrella of the Jetty project, is independent of
+  Jetty (the Servlet Container); you can use the ALPN implementation in any
+  other Java network server.</para>
+
+  <para>The Jetty distribution will automatically enable ALPN when it is
+  needed to by a HTTP/2 connector, so for the most part ALPN is transparent to
+  the average deployer. This section provides the detail required for unusual
+  deployments or developing to the ALPN API.</para>
 
   <section xml:id="alpn-starting">
     <title>Starting the JVM</title>
@@ -65,8 +71,10 @@
 
     <para>where <filename>path_to_alpn_boot_jar</filename> is the path on the
     file system for the ALPN Boot Jar file, for example, one at the Maven
-    coordinates <code>org.mortbay.jetty.alpn:alpn-boot</code>. Be certain to 
-    get the ALPN Boot Jar version which matches the version of your JRE.</para>
+    coordinates <code>org.mortbay.jetty.alpn:alpn-boot</code>.</para>
+
+    <para>Be certain <link linkend="alpn-versions">to get the ALPN Boot Jar
+    version which matches the version of your JRE</link>.</para>
 
     <section xml:id="alpn-osgi">
       <title>Starting in OSGi</title>

@@ -65,7 +65,8 @@
 
     <para>where <filename>path_to_alpn_boot_jar</filename> is the path on the
     file system for the ALPN Boot Jar file, for example, one at the Maven
-    coordinates <code>org.mortbay.jetty.alpn:alpn-boot</code>.</para>
+    coordinates <code>org.mortbay.jetty.alpn:alpn-boot</code>. Be certain to 
+    get the ALPN Boot Jar version which matches the version of your JRE.</para>
 
     <section xml:id="alpn-osgi">
       <title>Starting in OSGi</title>

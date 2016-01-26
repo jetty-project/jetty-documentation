@@ -41,7 +41,7 @@
       </listitem>
 
       <listitem>
-         TLS v1.0: still ok but affected by the POODLE attack too. To support oder browsers this protocol version is still needed. 
+         TLS v1.0: still OK but affected by the POODLE attack too. To support older browsers this protocol version is still needed. 
       </listitem>
 
       <listitem>
@@ -64,7 +64,7 @@
         <itemizedlist>
           <listitem>
             <para><link
-            xl:href="http://en.tldp.org/HOWTO/SSL Certificates HOWTO">SSL
+            xl:href="http://en.tldp.org/HOWTO/SSL-Certificates-HOWTO/index.html">SSL
             Certificates HOWTO</link></para>
           </listitem>
 
@@ -110,11 +110,6 @@
         <para>OpenSSL:</para>
 
         <itemizedlist>
-          <listitem>
-            <para><link xl:href="http://www.openssl.org/docs/HOWTO/">OpenSSL
-            HOWTO</link></para>
-          </listitem>
-
           <listitem>
             <para><link
             xl:href="http://www.openssl.org/support/faq.html">OpenSSL
@@ -661,42 +656,26 @@ $ openssl pkcs12 -export -inkey example.key -in cert-chain.txt -out example.pkcs
     <section>
       <title>Configuring SSL Connector and Port</title>
 
-      <para>This <code>SslContextFactory</code> instance created above is
+      <para>Once you have a valid certificate, you'll want to use it with a
+      Jetty connector that needs it. With Jetty 9.3, the common
+      <code>ServerConnector</code> configuration can be configured for SSL/TLS
+      with support for HTTP/1.1 or HTTP/2. In each configuration, the
+      configured <code>SslContextFactory</code> instance created above is
       injected into a <code>SslConnectionFactory</code> instance to be used
       when accepting network connections, which in turn is injected into an
-      instance of <code>ServerConnector</code>. For example from <link
-      xl:href="@GITURL@/jetty-server/src/main/config/etc/jetty-https.xml">jetty-https.xml</link>:</para>
+      instance of <code>ServerConnector</code>. </para>
+
+      <para>To enable a <code>https</code> in your Jetty Distribution you can
+      utilize the <filename>start.jar</filename> to add the relevant
+      configuration into your <filename>start.ini</filename></para>
 
       <informalexample>
-        <programlisting language="xml"><![CDATA[<Call id="sslConnector" name="addConnector">
-  <Arg>
-    <New class="org.eclipse.jetty.server.ServerConnector">
-      <Arg name="server"><Ref refid="Server" /></Arg>
-        <Arg name="factories">
-          <Array type="org.eclipse.jetty.server.ConnectionFactory">
-            <Item>
-              <New class="org.eclipse.jetty.server.SslConnectionFactory">
-                <Arg name="next">http/1.1</Arg>
-                <Arg name="sslContextFactory"><Ref refid="sslContextFactory"/></Arg>
-              </New>
-            </Item>
-            <Item>
-              <New class="org.eclipse.jetty.server.HttpConnectionFactory">
-                <Arg name="config"><Ref refid="tlsHttpConfig"/></Arg>
-              </New>
-            </Item>
-          </Array>
-        </Arg>
-        <Set name="host"><Property name="jetty.host" /></Set>
-        <Set name="port"><Property name="jetty.ssl.port" default="8443" /></Set>
-        <Set name="idleTimeout">30000</Set>
-      </New>
-  </Arg>
-</Call>]]></programlisting>
+        <programlisting language="xml"><![CDATA[$ cd /path/to/myjetty-base
+$ java -jar /path/to/jetty-dist/start.jar --add-to-start=https]]></programlisting>
       </informalexample>
 
-      <para>Note also that the SSL connector port is set directly on the
-      ServerConnector instance.</para>
+      <para>Note: Check the start.ini for the various properties you can use
+      to configure the SslContextFactory your connector is using. </para>
     </section>
 
     <section xml:id="renewing-certificates">

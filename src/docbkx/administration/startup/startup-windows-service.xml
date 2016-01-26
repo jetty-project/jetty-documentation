@@ -112,7 +112,7 @@ C:\opt> dir
         <listitem>
           <para>This is the temporary directory assigned to Java by the
           Service Layer (this is what Java sees as the
-          <code>java.io.tmpdir</code> System Property) </para>
+          <code>java.io.tmpdir</code> System Property)</para>
 
           <para>This is intentionally kept separate from the standard temp
           directories of Windows, as this location doubles as the Servlet Spec
@@ -190,9 +190,9 @@ Java HotSpot(TM) 64-Bit Server VM (build 24.45-b08, mixed mode)]]></screen>
     <filename>prunmgr.exe</filename> and <filename>prunsrv.exe</filename>
     files into the <filename>C:\opt</filename> directory.</para>
 
-	<para>Make sure to get the right version of <filename>prunsrv.exe</filename>
-	for your environment. The ZIP file has both 32 bit and 64 bit versions of this 
-	file.</para>
+    <para>Make sure to get the right version of
+    <filename>prunsrv.exe</filename> for your environment. The ZIP file has
+    both 32 bit and 64 bit versions of this file.</para>
 
     <para>Once you are complete, the contents of <filename>C:\opt</filename>
     directory should look like this:</para>
@@ -359,7 +359,7 @@ set PR_STOPMODE=java
 set PR_STOPCLASS=%JETTY_START_CLASS%
 set PR_STOPPARAMS=--stop;STOP.KEY="%STOPKEY%";STOP.PORT=%STOPPORT%;STOP.WAIT=10
 
-%PR_INSTALL% //IS/%SERVICE_NAME% ^
+"%PR_INSTALL%" //IS/%SERVICE_NAME% ^
   --DisplayName="%SERVICE_NAME%" ^
   --Install="%PR_INSTALL%" ^
   --Startup="%PR_STARTUP%" ^

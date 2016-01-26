@@ -8,7 +8,8 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.eclipse.jetty</groupId>
   <artifactId>jetty-documentation</artifactId>
-  <version>9.3.1-SNAPSHOT</version>
+  <!-- Note: The version should NEVER BE A SNAPSHOT -->
+  <version>9.3.7.v20160115</version>
   <name>Jetty :: Documentation</name>
   <packaging>pom</packaging>
   <properties>

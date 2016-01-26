@@ -99,7 +99,7 @@
       configures an instance of the GCloudSessionIdManager that will be shared
       across all webapps deployed on that server. It looks like this:</para>
 
-      <programlisting language="rxml"><filename>@GITURL@/jetty-gcloud/gcloud-session-manager/src/main/config/etc/jetty-gcloud-sessions.xml</filename></programlisting>
+      <programlisting language="rxml"><filename>@GITURL@/jetty-gcloud/jetty-gcloud-session-manager/src/main/config/etc/jetty-gcloud-sessions.xml</filename></programlisting>
 
       <para>You configure it by setting values for properties. The properties
       will either be inserted as commented out in your <code>start.ini</code>,

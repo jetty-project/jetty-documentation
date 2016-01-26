@@ -205,7 +205,7 @@
         <para>The following command generates a key pair and certificate
         directly into file <filename>keystore</filename>:</para>
 
-        <screen>$ keytool -keystore keystore -alias jetty -genkey -keyalg RSA</screen>
+        <screen><![CDATA[$ keytool -keystore keystore -alias jetty -genkey -keyalg RSA]]></screen>
 
         <note>
           <para>The DSA key algorithm certificate produces an error after
@@ -220,7 +220,7 @@
         only mandatory response is to provide the fully qualified host name of
         the server at the "first and last name" prompt. For example:</para>
 
-        <screen>$ keytool -keystore keystore -alias jetty -genkey -keyalg RSA -sigalg SHA256withRSA
+        <screen><![CDATA[$ keytool -keystore keystore -alias jetty -genkey -keyalg RSA -sigalg SHA256withRSA
  Enter keystore password:  password
  What is your first and last name?
    [Unknown]:  jetty.eclipse.org
@@ -238,9 +238,9 @@
  L=Unknown, ST=Unknown, C=Unknown correct?
    [no]:  yes
 
- Enter key password for &lt;jetty&gt;
+ Enter key password for <jetty>
          (RETURN if same as keystore password):
- $</screen>
+ $]]></screen>
 
         <para>You now have the minimal requirements to run an SSL connection
         and could proceed directly to <link
@@ -260,9 +260,9 @@
         extension to set one or more names that the certificate applies
         to:</para>
 
-        <screen>$ keytool -keystore keystore -alias jetty -genkey -keyalg RSA -sigalg SHA256withRSA -ext 'SAN=dns:jetty.eclipse.org,dns:*.jetty.org'
+        <screen><![CDATA[$ keytool -keystore keystore -alias jetty -genkey -keyalg RSA -sigalg SHA256withRSA -ext 'SAN=dns:jetty.eclipse.org,dns:*.jetty.org'
  ...
-</screen>
+]]></screen>
       </section>
 
       <section xml:id="generating-keys-and-certificates-openssl">
@@ -271,7 +271,7 @@
         <para>The following command generates a key pair in the file
         <filename>jetty.key</filename>:</para>
 
-        <screen>$ openssl genrsa -aes128 -out jetty.key</screen>
+        <screen><![CDATA[$ openssl genrsa -aes128 -out jetty.key]]></screen>
 
         <para>You might also want to use the <filename>-rand</filename> file
         argument to provide an arbitrary file that helps seed the random
@@ -280,7 +280,7 @@
         <para>The following command generates a certificate for the key into
         the file <filename> jetty.crt</filename>:</para>
 
-        <screen>$ openssl req -new -x509 -b2048 -sha256 -key jetty.key -out jetty.crt</screen>
+        <screen><![CDATA[$ openssl req -new -x509 -newkey rsa:2048 -sha256 -key jetty.key -out jetty.crt]]></screen>
 
         <para>Adding -sha256 ensures to get a certificate with the now
         recommended SHA-256 signature algorithm. For the paranoid ones add
@@ -291,7 +291,7 @@
         The only mandatory response is to provide the fully qualified host
         name of the server at the "Common Name" prompt. For example:</para>
 
-        <screen>$ openssl genrsa -aes128 -out jetty.key
+        <screen><![CDATA[$ openssl genrsa -aes128 -out jetty.key
 Generating RSA private key, 2048 bit long modulus
 ..............+++
 ......................................................................+++
@@ -316,7 +316,7 @@ Organizational Unit Name (eg, section) []:Jetty
 Common Name (e.g. server FQDN or YOUR name) []:jetty.eclipse.org
 Email Address []:
 
-$</screen>
+$]]></screen>
 
         <para>You now have the minimal requirements to run an SSL connection
         and could proceed directly to <xref
@@ -361,7 +361,7 @@ $</screen>
         <filename>jetty.csr</filename> using <code>keytool</code> for a
         key/cert already in the keystore:</para>
 
-        <screen>$ keytool -certreq -alias jetty -keystore keystore -file jetty.csr</screen>
+        <screen><![CDATA[$ keytool -certreq -alias jetty -keystore keystore -file jetty.csr]]></screen>
       </section>
 
       <section xml:id="generating-csr-from-openssl">
@@ -371,7 +371,7 @@ $</screen>
         <filename>jetty.csr</filename> using OpenSSL for a key in the file
         <filename>jetty.key</filename>:</para>
 
-        <screen>$ openssl req -new -key jetty.key -out jetty.csr</screen>
+        <screen><![CDATA[$ openssl req -new -key jetty.key -out jetty.csr]]></screen>
 
         <para>Notice that this command uses only the existing key from
         <filename>jetty.key</filename> file, and not a certificate in
@@ -406,7 +406,7 @@ $</screen>
         certificates; it is produced by OpenSSL, and is returned by some CAs.
         An example PEM file is:</para>
 
-        <screen>jetty.crt
+        <screen><![CDATA[jetty.crt
 -----BEGIN CERTIFICATE-----
 MIICSDCCAfKgAwIBAgIBADANBgkqhkiG9w0BAQQFADBUMSYwJAYDVQQKEx1Nb3J0
 IEJheSBDb25zdWx0aW5nIFB0eS4gTHRkLjEOMAwGA1UECxMFSmV0dHkxGjAYBgNV
@@ -421,18 +421,18 @@ aW5nIFB0eS4gTHRkLjEOMAwGA1UECxMFSmV0dHkxGjAYBgNVBAMTEWpldHR5Lm1v
 cnRiYXkub3JnggEAMAwGA1UdEwQFMAMBAf8wDQYJKoZIhvcNAQEEBQADQQA6NkaV
 OtXzP4ayzBcgK/qSCmF44jdcARmrXhiXUcXzjxsLjSJeYPJojhUdC2LQKy+p4ki8
 Rcz6oCRvCGCe5kDB
------END CERTIFICATE-----</screen>
+-----END CERTIFICATE-----]]></screen>
 
         <para>The following command loads a PEM encoded certificate in the
         <filename>jetty.crt</filename> file into a JSSE keystore:</para>
 
-        <screen>$ keytool -keystore keystore -import -alias jetty -file jetty.crt -trustcacerts</screen>
+        <screen><![CDATA[$ keytool -keystore keystore -import -alias jetty -file jetty.crt -trustcacerts]]></screen>
 
         <para>If the certificate you receive from the CA is not in a format
         that <code>keytool</code> understands, you can use the
         <code>openssl</code> command to convert formats:</para>
 
-        <screen>$ openssl x509 -in jetty.der -inform DER -outform PEM -out jetty.crt</screen>
+        <screen><![CDATA[$ openssl x509 -in jetty.der -inform DER -outform PEM -out jetty.crt]]></screen>
       </section>
 
       <section xml:id="loading-keys-and-certificates-via-pkcks12">
@@ -448,13 +448,13 @@ Rcz6oCRvCGCe5kDB
         <filename>jetty.crt</filename> file into the
         <filename>jetty.pkcs12</filename> file:</para>
 
-        <screen>$ openssl pkcs12 -inkey jetty.key -in jetty.crt -export -out jetty.pkcs12</screen>
+        <screen><![CDATA[$ openssl pkcs12 -inkey jetty.key -in jetty.crt -export -out jetty.pkcs12]]></screen>
 
         <para>If you have a chain of certificates, because your CA is an
         intermediary, build the PKCS12 file as follows:</para>
 
-        <screen>$ cat example.crt intermediate.crt [intermediate2.crt] ... rootCA.crt &gt; cert-chain.txt
-$ openssl pkcs12 -export -inkey example.key -in cert-chain.txt -out example.pkcs12</screen>
+        <screen><![CDATA[$ cat example.crt intermediate.crt [intermediate2.crt] ... rootCA.crt > cert-chain.txt
+$ openssl pkcs12 -export -inkey example.key -in cert-chain.txt -out example.pkcs12]]></screen>
 
         <para>The order of certificates must be from server to rootCA, as per
         RFC2246 section 7.4.2.</para>
@@ -464,7 +464,7 @@ $ openssl pkcs12 -export -inkey example.key -in cert-chain.txt -out example.pkcs
         the resulting PKCS12 file into a JSSE keystore with
         <code>keytool</code>:</para>
 
-        <screen>$ keytool -importkeystore -srckeystore jetty.pkcs12 -srcstoretype PKCS12 -destkeystore keystore</screen>
+        <screen><![CDATA[$ keytool -importkeystore -srckeystore jetty.pkcs12 -srcstoretype PKCS12 -destkeystore keystore]]></screen>
       </section>
     </section>
 
@@ -482,13 +482,13 @@ $ openssl pkcs12 -export -inkey example.key -in cert-chain.txt -out example.pkcs
       "sslContextFactory":</para>
 
       <informalexample>
-        <programlisting language="xml">&lt;New id="sslContextFactory" class="org.eclipse.jetty.util.ssl.SslContextFactory"&gt;
-  &lt;Set name="KeyStorePath"&gt;&lt;Property name="jetty.home" default="." /&gt;/etc/keystore&lt;/Set&gt;
-  &lt;Set name="KeyStorePassword"&gt;OBF:1vny1zlo1x8e1vnw1vn61x8g1zlu1vn4&lt;/Set&gt;
-  &lt;Set name="KeyManagerPassword"&gt;OBF:1u2u1wml1z7s1z7a1wnl1u2g&lt;/Set&gt;
-  &lt;Set name="TrustStorePath"&gt;&lt;Property name="jetty.home" default="." /&gt;/etc/keystore&lt;/Set&gt;
-  &lt;Set name="TrustStorePassword"&gt;OBF:1vny1zlo1x8e1vnw1vn61x8g1zlu1vn4&lt;/Set&gt;
-&lt;/New&gt;</programlisting>
+        <programlisting language="xml"><![CDATA[<New id="sslContextFactory" class="org.eclipse.jetty.util.ssl.SslContextFactory">
+  <Set name="KeyStorePath"><Property name="jetty.home" default="." />/etc/keystore</Set>
+  <Set name="KeyStorePassword">OBF:1vny1zlo1x8e1vnw1vn61x8g1zlu1vn4</Set>
+  <Set name="KeyManagerPassword">OBF:1u2u1wml1z7s1z7a1wnl1u2g</Set>
+  <Set name="TrustStorePath"><Property name="jetty.home" default="." />/etc/keystore</Set>
+  <Set name="TrustStorePassword">OBF:1vny1zlo1x8e1vnw1vn61x8g1zlu1vn4</Set>
+</New>]]></programlisting>
       </informalexample>
 
       <para>This example uses the keystore distributed with jetty. To use your
@@ -592,30 +592,30 @@ $ openssl pkcs12 -export -inkey example.key -in cert-chain.txt -out example.pkcs
       Secrecy</link> using regex:</para>
 
       <informalexample>
-        <programlisting language="xml">
-              &lt;Set name="IncludeCipherSuites"&gt;
-                &lt;Array type="String"&gt;
-                    &lt;Item&gt;TLS_DHE_RSA.*&lt;/Item&gt;
-                    &lt;Item&gt;TLS_ECDHE.*&lt;/Item&gt;
-                &lt;/Array&gt;
-              &lt;/Set&gt;
-              </programlisting>
+        <programlisting language="xml"><![CDATA[
+              <Set name="IncludeCipherSuites">
+                <Array type="String">
+                    <Item>TLS_DHE_RSA.*</Item>
+                    <Item>TLS_ECDHE.*</Item>
+                </Array>
+              </Set>
+              ]]></programlisting>
       </informalexample>
 
       <para>Exclude all old, insecure or anonymous cipher suites:</para>
 
       <informalexample>
-        <programlisting language="xml">
-            &lt;Set name="ExcludeCipherSuites"&gt;
-              &lt;Array type="String"&gt;
-                &lt;Item&gt;.*NULL.*&lt;/Item&gt;
-                &lt;Item&gt;.*RC4.*&lt;/Item&gt;
-                &lt;Item&gt;.*MD5.*&lt;/Item&gt;
-                &lt;Item&gt;.*DES.*&lt;/Item&gt;
-                &lt;Item&gt;.*DSS.*&lt;/Item&gt;
-              &lt;/Array&gt;
-            &lt;/Set&gt;
-            </programlisting>
+        <programlisting language="xml"><![CDATA[
+            <Set name="ExcludeCipherSuites">
+              <Array type="String">
+                <Item>.*NULL.*</Item>
+                <Item>.*RC4.*</Item>
+                <Item>.*MD5.*</Item>
+                <Item>.*DES.*</Item>
+                <Item>.*DSS.*</Item>
+              </Array>
+            </Set>
+            ]]></programlisting>
       </informalexample>
 
       <note>
@@ -629,17 +629,17 @@ $ openssl pkcs12 -export -inkey example.key -in cert-chain.txt -out example.pkcs
       disabled.</para>
 
       <informalexample>
-        <programlisting language="xml">
-              &lt;Set name="ExcludeProtocols"&gt;
-                   &lt;Array type="java.lang.String"&gt;
-                       &lt;Item&gt;SSL&lt;/Item&gt;
-                       &lt;Item&gt;SSLv2&lt;/Item&gt;
-                       &lt;Item&gt;SSLv2Hello&lt;/Item&gt;
-                       &lt;Item&gt;SSLv3&lt;/Item&gt;
-                   &lt;/Array&gt;
-              &lt;/Set&gt;
+        <programlisting language="xml"><![CDATA[
+              <Set name="ExcludeProtocols">
+                   <Array type="java.lang.String">
+                       <Item>SSL</Item>
+                       <Item>SSLv2</Item>
+                       <Item>SSLv2Hello</Item>
+                       <Item>SSLv3</Item>
+                   </Array>
+              </Set>
               
-            </programlisting>
+            ]]></programlisting>
       </informalexample>
 
       <note>
@@ -651,10 +651,10 @@ $ openssl pkcs12 -export -inkey example.key -in cert-chain.txt -out example.pkcs
       based on this feature.</para>
 
       <informalexample>
-        <programlisting language="xml">
-              &lt;Set name="renegotiationAllowed"&gt;FALSE&lt;/Set&gt;
+        <programlisting language="xml"><![CDATA[
+              <Set name="renegotiationAllowed">FALSE</Set>
               
-            </programlisting>
+            ]]></programlisting>
       </informalexample>
     </section>
 
@@ -668,31 +668,31 @@ $ openssl pkcs12 -export -inkey example.key -in cert-chain.txt -out example.pkcs
       xl:href="@GITURL@/jetty-server/src/main/config/etc/jetty-https.xml">jetty-https.xml</link>:</para>
 
       <informalexample>
-        <programlisting language="xml">&lt;Call id="sslConnector" name="addConnector"&gt;
-  &lt;Arg&gt;
-    &lt;New class="org.eclipse.jetty.server.ServerConnector"&gt;
-      &lt;Arg name="server"&gt;&lt;Ref refid="Server" /&gt;&lt;/Arg&gt;
-        &lt;Arg name="factories"&gt;
-          &lt;Array type="org.eclipse.jetty.server.ConnectionFactory"&gt;
-            &lt;Item&gt;
-              &lt;New class="org.eclipse.jetty.server.SslConnectionFactory"&gt;
-                &lt;Arg name="next"&gt;http/1.1&lt;/Arg&gt;
-                &lt;Arg name="sslContextFactory"&gt;&lt;Ref refid="sslContextFactory"/&gt;&lt;/Arg&gt;
-              &lt;/New&gt;
-            &lt;/Item&gt;
-            &lt;Item&gt;
-              &lt;New class="org.eclipse.jetty.server.HttpConnectionFactory"&gt;
-                &lt;Arg name="config"&gt;&lt;Ref refid="tlsHttpConfig"/&gt;&lt;/Arg&gt;
-              &lt;/New&gt;
-            &lt;/Item&gt;
-          &lt;/Array&gt;
-        &lt;/Arg&gt;
-        &lt;Set name="host"&gt;&lt;Property name="jetty.host" /&gt;&lt;/Set&gt;
-        &lt;Set name="port"&gt;&lt;Property name="jetty.ssl.port" default="8443" /&gt;&lt;/Set&gt;
-        &lt;Set name="idleTimeout"&gt;30000&lt;/Set&gt;
-      &lt;/New&gt;
-  &lt;/Arg&gt;
-&lt;/Call&gt;</programlisting>
+        <programlisting language="xml"><![CDATA[<Call id="sslConnector" name="addConnector">
+  <Arg>
+    <New class="org.eclipse.jetty.server.ServerConnector">
+      <Arg name="server"><Ref refid="Server" /></Arg>
+        <Arg name="factories">
+          <Array type="org.eclipse.jetty.server.ConnectionFactory">
+            <Item>
+              <New class="org.eclipse.jetty.server.SslConnectionFactory">
+                <Arg name="next">http/1.1</Arg>
+                <Arg name="sslContextFactory"><Ref refid="sslContextFactory"/></Arg>
+              </New>
+            </Item>
+            <Item>
+              <New class="org.eclipse.jetty.server.HttpConnectionFactory">
+                <Arg name="config"><Ref refid="tlsHttpConfig"/></Arg>
+              </New>
+            </Item>
+          </Array>
+        </Arg>
+        <Set name="host"><Property name="jetty.host" /></Set>
+        <Set name="port"><Property name="jetty.ssl.port" default="8443" /></Set>
+        <Set name="idleTimeout">30000</Set>
+      </New>
+  </Arg>
+</Call>]]></programlisting>
       </informalexample>
 
       <para>Note also that the SSL connector port is set directly on the

@@ -73,6 +73,13 @@
 
     <para>You can terminate the plugin with a <code>ctrl-c</code> in the
     terminal window where it is running.</para>
+
+    <note>
+      <para>The classpath of the running Jetty and its deployed webapp are
+      managed by Maven, and may not be exactly what you expect. For example:
+      webapp's dependant jars might be referenced via the local repository,
+      not the <filename>WEB-INF/lib</filename> directory.</para>
+    </note>
   </section>
 
   <section xml:id="running-and-deploying">

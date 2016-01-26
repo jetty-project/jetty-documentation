@@ -16,57 +16,78 @@
 //  You may elect to redistribute this code under either of these licenses.
 //  ========================================================================
 -->
-<section xml:id="garbage-collection" version="5.0" xmlns="http://docbook.org/ns/docbook"
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xl="http://www.w3.org/1999/xlink"
-xmlns:xi="http://www.w3.org/2001/XInclude"
-xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd">
+<section version="5.0"
+         xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd"
+         xml:id="garbage-collection" xmlns="http://docbook.org/ns/docbook"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:xs="http://www.w3.org/2001/XMLSchema"
+         xmlns:xl="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:ns2="http://www.w3.org/1998/Math/MathML"
+         xmlns:ns="http://docbook.org/ns/docbook">
   <title>Garbage Collection</title>
-  <para>Tuning the JVM garbage collection (GC) can greatly improve Jetty performance. Specifically, you can avoid
-  pauses while the system performs full garbage collections. Optimal tuning of the GC depends on the behaviour of the
-  application and requires detailed analysis, however there are general recommendations.</para>
+
+  <para>Tuning the JVM garbage collection (GC) can greatly improve Jetty
+  performance. Specifically, you can avoid pauses while the system performs
+  full garbage collections. Optimal tuning of the GC depends on the behaviour
+  of the application and requires detailed analysis, however there are general
+  recommendations.</para>
+
+  <para>See official <link
+  xl:href="https://docs.oracle.com/javase/8/docs/technotes/guides/vm/gctuning/">Java
+  8 Garbage Collection documentation</link> for further assistance.</para>
+
   <section xml:id="tuning-examples">
     <title>Tuning Examples</title>
-    <para>These options are general to the Sun JVM, and work in a JDK 6 installation. They provide good information
-    about how your JVM is running; based on that initial information, you can then tune more finely.</para>
-    <para>To print the implicit flags with which the JVM is configured:</para>
-    <screen>
-<![CDATA[
--XX:+PrintCommandLineFlags
-]]>
-    </screen>
-    <para>To disable explicit GC performed regularly by RMI:</para>
-    <screen>
-<![CDATA[
--XX:+DisableExplicitGC
-]]>
-    </screen>
-    <para>To print the date and time stamps of GC activity with details:</para>
-    <screen>
-<![CDATA[
--XX:+PrintGCDateStamps \
--XX:+PrintGCTimeStamps \
--XX:+PrintGCDetails \
--XX:+PrintTenuringDistribution
-]]>
-    </screen>
-    <para>To log GC details to a file:</para>
-    <screen>
-<![CDATA[
--Xloggc:[path/to/gc.log]
-]]>
-    </screen>
-    <para>To print GC activity with less detail:</para>
-    <screen>
-<![CDATA[
--verbose:gc
-]]>
-    </screen>
-    <para>To use the concurrent marksweep GC with full GC at 80% old generation full:</para>
-    <screen>
-<![CDATA[
--XX:+UseConcMarkSweepGC \
+
+    <para>These options are general to the Oracle JVM, and work in a Java 8
+    installation. They provide good information about how your JVM is running;
+    based on that initial information, you can then tune more finely.</para>
+
+    <para>The most important thing you can do for yourself when worrying about
+    GC is to capture the GC activity so that you can analyze what is happening
+    and how often it happens.</para>
+
+    <screen><![CDATA[-verbose:gc 
+-Xloggc:/path/to/myjettybase/logs/gc.log 
+-XX:+PrintGCDateStamps 
+-XX:+PrintGCTimeStamps 
+-XX:+PrintGCDetails 
+-XX:+PrintTenuringDistribution 
+-XX:+PrintCommandLineFlags 
+-XX:+PrintReferenceGC 
+-XX:+PrintAdaptiveSizePolicy ]]></screen>
+
+    <para>There are not many recommended options for GC that can apply to
+    nearly all users.</para>
+
+    <para>However, the most obvious one is to disable explicit GC (this is
+    performed regularly by RMI and can introduce an abnormal amount of GC
+    pauses)</para>
+
+    <screen><![CDATA[-XX:+DisableExplicitGC    ]]></screen>
+
+    <para>Before you apply any other GC tuning options, monitor your GC logs
+    to see if <link
+    xl:href="https://docs.oracle.com/javase/8/docs/technotes/guides/vm/gctuning/cms.html">tuning
+    the CMS</link> makes sense for your environment.</para>
+
+    <para>A common setup for those just starting out with GC tuning is
+    included below for reference reasons.</para>
+
+    <caution>
+      <para>This example configuration below could have a negative effect on
+      your application performance, so continued monitoring of your GC log
+      before and after is highly recommended to know if the configuration was
+      beneficial or not.</para>
+    </caution>
+
+    <screen><![CDATA[-XX:MaxGCPauseMillis=250 
+-XX:+UseConcMarkSweepGC
+-XX:ParallelCMSThreads=2
+-XX:+CMSClassUnloadingEnabled
+-XX:+UseCMSCompactAtFullCollection
 -XX:CMSInitiatingOccupancyFraction=80
-]]>
-    </screen>
+]]></screen>
   </section>
 </section>

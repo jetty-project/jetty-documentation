@@ -233,7 +233,7 @@ xmlns:date="http://exslt.org/dates-and-times"
               </a>
             </span>
             <span style="float: right">
-              <i>(Generated: <xsl:value-of  select="date:date-time()"/>)</i>
+              <i>(Generated: <xsl:value-of  select="date:date()"/>)</i>
             </span>
           </div>
       </p>

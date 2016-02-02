@@ -463,182 +463,193 @@ $ openssl pkcs12 -export -inkey example.key -in cert-chain.txt -out example.pkcs
       </section>
     </section>
 
-    <section xml:id="configuring-sslcontextfactory">
-      <title>Configuring the Jetty SslContextFactory</title>
+    <section xml:id="renewing-certificates">
+      <title>Renewing Certificates</title>
 
-      <para>The generated SSL certificates from above are held in the key
-      store are configured in an instance of <link
-      xl:href="@JDURL@/org/eclipse/jetty/util/ssl/SslContextFactory.html">
-      SslContextFactory</link> object.</para>
-
-      <para>The SslContextFactory is responsible for:</para>
-
-      <itemizedlist>
-        <listitem>
-          <para>Creating the Java <code><link
-          xl:href="http://docs.oracle.com/javase/8/docs/api/javax/net/ssl/SSLEngine.html">SslEngine</link></code>
-          used by Jetty's Connectors and Jetty's Clients (HTTP/1, HTTP/2, and
-          WebSocket).</para>
-        </listitem>
-
-        <listitem>
-          <para>Managing Keystore Access</para>
-        </listitem>
-
-        <listitem>
-          <para>Managing Truststore Access</para>
-        </listitem>
-
-        <listitem>
-          <para>Managing Protocol selection via Excludes / Includes
-          list</para>
-        </listitem>
-
-        <listitem>
-          <para>Managing Cipher Suite selection via Excludes / Includes
-          list</para>
-        </listitem>
-
-        <listitem>
-          <para>Managing order of Ciphers offered (important for TLS/1.2 and
-          HTTP/2 support)</para>
-        </listitem>
-
-        <listitem>
-          <para>SSL Session Caching options</para>
-        </listitem>
-
-        <listitem>
-          <para>Certificate <link
-          xl:href="https://en.wikipedia.org/wiki/Revocation_list">Revocation
-          Lists</link> and Distribution Points (CRLDP)</para>
-        </listitem>
-
-        <listitem>
-          <para><link
-          xl:href="https://en.wikipedia.org/wiki/Online_Certificate_Status_Protocol">OCSP</link>
-          Support</para>
-        </listitem>
-
-        <listitem>
-          <para>Client Authentication Support</para>
-        </listitem>
-      </itemizedlist>
-
-      <para>For Jetty Connectors, the configured
-      <code>SslContextFactory</code> is injected into a specific
-      <code>ServerConnector</code> <code><link
-      xl:href="http://download.eclipse.org/jetty/stable-9/apidocs/org/eclipse/jetty/server/SslConnectionFactory.html">SslConnectionFactory</link></code>.</para>
-
-      <para>For Jetty Clients, the various constructors support using a
-      configured <code>SslContextFactory</code>.</para>
-
-      <para>While the SslContextFactory can operate without a keystore (this
-      mode is most suitable for the various Jetty Clients) it is best if you
-      at least configure the Keystore you are using.</para>
-
-      <variablelist>
-        <varlistentry>
-          <term>setKeyStorePath</term>
-
-          <listitem>
-            <para>The configured keystore to use for all SSL/TLS in configured
-            Jetty Connector (or Client). </para>
-
-            <note>
-              <para>as a keystore is vital security information, it can be
-              desirable to locate the file in a directory with very restricted
-              access.</para>
-            </note>
-          </listitem>
-        </varlistentry>
-
-        <varlistentry>
-          <term>setKeyStorePassword</term>
-
-          <listitem>
-            <para>The keystore password may be set here in plain text, or as
-            some protection from casual observation, it may be obfuscated
-            using the <link
-            xl:href="@JDURL@/org/eclipse/jetty/util/security/Password.html">Password</link>
-            class.</para>
-          </listitem>
-        </varlistentry>
-
-        <varlistentry>
-          <term>setTrustStorePath</term>
-
-          <listitem>
-            <para>This is used if validating client certificates and is
-            typically set to the same path as the keystore.</para>
-          </listitem>
-        </varlistentry>
-
-        <varlistentry>
-          <term>setKeyManagerPassword</term>
-
-          <listitem>
-            <para>is a password that is passed to the <code><link
-            xl:href="http://docs.oracle.com/javase/8/docs/api/javax/net/ssl/KeyManagerFactory.html#init-java.security.KeyStore-char:A-">KeyManagerFactory.init(...)</link></code>.
-            If there is no keymanagerpassword, then the keystorepassword is
-            used instead. If there is no trustmanager set, then the keystore
-            is used as the trust store and the keystorepassword is used as the
-            truststore password</para>
-          </listitem>
-        </varlistentry>
-
-        <varlistentry>
-          <term>setExcludeCipherSuites / setIncludeCipherSuites</term>
-
-          <listitem>
-            <para>This allows for the customization of the selected Cipher
-            Suites that will be used by SSL/TLS</para>
-          </listitem>
-        </varlistentry>
-
-        <varlistentry>
-          <term>setExcludeProtocols / setIncludeProtocols</term>
-
-          <listitem>
-            <para>This allows for the customization of the selected Protocols
-            that will be used by SSL/TLS</para>
-          </listitem>
-        </varlistentry>
-      </variablelist>
-
-      <note>
-        <para>When working with Includes / Excludes, it is important to know
-        that Excludes will always win.</para>
-
-        <para>The selection process is to process the JVM list of available
-        Cipher Suites or Protocols against the include list, then remove the
-        excluded ones.</para>
-
-        <para>Be aware that each Include / Exclude list has a Set method
-        (replace the list) or Add method (append the list)</para>
-      </note>
-
-      <caution>
-        <para>The key and truststore passwords may also be set using the
-        system properties: <code>org.eclipse.jetty.ssl.keypassword</code>
-        <code>org.eclipse.jetty.ssl.password</code>. </para>
-
-        <para>This is <emphasis>not</emphasis> a recommended usage.</para>
-      </caution>
+      <para>If you are updating your configuration to use a newer certificate,
+      as when the old one is expiring, just load the newer certificate as
+      described in the section, <xref
+      linkend="loading-keys-and-certificates"/>. If you imported the key and
+      certificate originally using the PKCS12 method, use an alias of "1"
+      rather than "jetty", because that is the alias the PKCS12 process enters
+      into the keystore.</para>
     </section>
+  </section>
 
-    <section>
-      <title>Configuring SSL in Jetty Distribution</title>
+  <section xml:id="configuring-sslcontextfactory">
+    <title>Configuring the Jetty SslContextFactory</title>
 
-      <para>For those of you using the Jetty Distribution, the provided
-      modules for https and http2 will automatically setup the
-      SslContextFactory, the appropriate SslConnectionFactory, and associated
-      ServerConnectors for you, in the correct order.</para>
+    <para>The generated SSL certificates from above are held in the key store
+    are configured in an instance of <link
+    xl:href="@JDURL@/org/eclipse/jetty/util/ssl/SslContextFactory.html">
+    SslContextFactory</link> object.</para>
 
-      <para>An example of this setup:</para>
+    <para>The SslContextFactory is responsible for:</para>
 
-      <informalexample>
-        <programlisting language="plain"><![CDATA[$ cd /path/to/mybase
+    <itemizedlist>
+      <listitem>
+        <para>Creating the Java <code><link
+        xl:href="http://docs.oracle.com/javase/8/docs/api/javax/net/ssl/SSLEngine.html">SslEngine</link></code>
+        used by Jetty's Connectors and Jetty's Clients (HTTP/1, HTTP/2, and
+        WebSocket).</para>
+      </listitem>
+
+      <listitem>
+        <para>Managing Keystore Access</para>
+      </listitem>
+
+      <listitem>
+        <para>Managing Truststore Access</para>
+      </listitem>
+
+      <listitem>
+        <para>Managing Protocol selection via Excludes / Includes list</para>
+      </listitem>
+
+      <listitem>
+        <para>Managing Cipher Suite selection via Excludes / Includes
+        list</para>
+      </listitem>
+
+      <listitem>
+        <para>Managing order of Ciphers offered (important for TLS/1.2 and
+        HTTP/2 support)</para>
+      </listitem>
+
+      <listitem>
+        <para>SSL Session Caching options</para>
+      </listitem>
+
+      <listitem>
+        <para>Certificate <link
+        xl:href="https://en.wikipedia.org/wiki/Revocation_list">Revocation
+        Lists</link> and Distribution Points (CRLDP)</para>
+      </listitem>
+
+      <listitem>
+        <para><link
+        xl:href="https://en.wikipedia.org/wiki/Online_Certificate_Status_Protocol">OCSP</link>
+        Support</para>
+      </listitem>
+
+      <listitem>
+        <para>Client Authentication Support</para>
+      </listitem>
+    </itemizedlist>
+
+    <para>For Jetty Connectors, the configured <code>SslContextFactory</code>
+    is injected into a specific <code>ServerConnector</code> <code><link
+    xl:href="http://download.eclipse.org/jetty/stable-9/apidocs/org/eclipse/jetty/server/SslConnectionFactory.html">SslConnectionFactory</link></code>.</para>
+
+    <para>For Jetty Clients, the various constructors support using a
+    configured <code>SslContextFactory</code>.</para>
+
+    <para>While the SslContextFactory can operate without a keystore (this
+    mode is most suitable for the various Jetty Clients) it is best if you at
+    least configure the Keystore you are using.</para>
+
+    <variablelist>
+      <varlistentry>
+        <term>setKeyStorePath</term>
+
+        <listitem>
+          <para>The configured keystore to use for all SSL/TLS in configured
+          Jetty Connector (or Client).</para>
+
+          <note>
+            <para>as a keystore is vital security information, it can be
+            desirable to locate the file in a directory with very restricted
+            access.</para>
+          </note>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>setKeyStorePassword</term>
+
+        <listitem>
+          <para>The keystore password may be set here in plain text, or as
+          some protection from casual observation, it may be obfuscated using
+          the <link
+          xl:href="@JDURL@/org/eclipse/jetty/util/security/Password.html">Password</link>
+          class.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>setTrustStorePath</term>
+
+        <listitem>
+          <para>This is used if validating client certificates and is
+          typically set to the same path as the keystore.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>setKeyManagerPassword</term>
+
+        <listitem>
+          <para>is a password that is passed to the <code><link
+          xl:href="http://docs.oracle.com/javase/8/docs/api/javax/net/ssl/KeyManagerFactory.html#init-java.security.KeyStore-char:A-">KeyManagerFactory.init(...)</link></code>.
+          If there is no keymanagerpassword, then the keystorepassword is used
+          instead. If there is no trustmanager set, then the keystore is used
+          as the trust store and the keystorepassword is used as the
+          truststore password</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>setExcludeCipherSuites / setIncludeCipherSuites</term>
+
+        <listitem>
+          <para>This allows for the customization of the selected Cipher
+          Suites that will be used by SSL/TLS</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>setExcludeProtocols / setIncludeProtocols</term>
+
+        <listitem>
+          <para>This allows for the customization of the selected Protocols
+          that will be used by SSL/TLS</para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+
+    <note>
+      <para>When working with Includes / Excludes, it is important to know
+      that Excludes will always win.</para>
+
+      <para>The selection process is to process the JVM list of available
+      Cipher Suites or Protocols against the include list, then remove the
+      excluded ones.</para>
+
+      <para>Be aware that each Include / Exclude list has a Set method
+      (replace the list) or Add method (append the list)</para>
+    </note>
+
+    <caution>
+      <para>The key and truststore passwords may also be set using the system
+      properties: <code>org.eclipse.jetty.ssl.keypassword</code>
+      <code>org.eclipse.jetty.ssl.password</code>.</para>
+
+      <para>This is <emphasis>not</emphasis> a recommended usage.</para>
+    </caution>
+  </section>
+
+  <section>
+    <title>Configuring SSL in Jetty Distribution</title>
+
+    <para>For those of you using the Jetty Distribution, the provided modules
+    for https and http2 will automatically setup the SslContextFactory, the
+    appropriate SslConnectionFactory, and associated ServerConnectors for you,
+    in the correct order.</para>
+
+    <para>An example of this setup:</para>
+
+    <informalexample>
+      <programlisting language="plain"><![CDATA[$ cd /path/to/mybase
 $ java -jar /path/to/jetty-dist/start.jar --add-to-start=https
 INFO: ssl             initialised (transitively) in ${jetty.base}/start.ini
 INFO: https           initialised in ${jetty.base}/start.ini
@@ -649,122 +660,119 @@ drwxrwxr-x.  2 user group  4096 Feb  2 11:47 etc/
 $ ls -l etc
 -rw-rw-r--.  1 user group  3697 Feb  2 11:47 keystore
 ]]></programlisting>
-      </informalexample>
+    </informalexample>
 
-      <para>When you check your start.ini, you'll see many commented
-      properties ready for you to configure the SslContextFactory
-      basics.</para>
+    <para>When you check your start.ini, you'll see many commented properties
+    ready for you to configure the SslContextFactory basics.</para>
 
-      <para>To highlight some of the more commonly used properties:</para>
+    <para>To highlight some of the more commonly used properties:</para>
 
-      <variablelist>
-        <varlistentry>
-          <term>jetty.ssl.host</term>
+    <variablelist>
+      <varlistentry>
+        <term>jetty.ssl.host</term>
 
-          <listitem>
-            <para>Configures which interfaces the SSL/TLS Connector should
-            listen on</para>
-          </listitem>
-        </varlistentry>
+        <listitem>
+          <para>Configures which interfaces the SSL/TLS Connector should
+          listen on</para>
+        </listitem>
+      </varlistentry>
 
-        <varlistentry>
-          <term>jetty.ssl.port</term>
+      <varlistentry>
+        <term>jetty.ssl.port</term>
 
-          <listitem>
-            <para>Configures which port the SSL/TLS Connector should listen
-            on</para>
-          </listitem>
-        </varlistentry>
+        <listitem>
+          <para>Configures which port the SSL/TLS Connector should listen
+          on</para>
+        </listitem>
+      </varlistentry>
 
-        <varlistentry>
-          <term>jetty.httpConfig.securePort</term>
+      <varlistentry>
+        <term>jetty.httpConfig.securePort</term>
 
-          <listitem>
-            <para>If a webapp needs to redirect to a secure version of the
-            same resource, then this is the port reported back on the Response
-            <code>Location</code> line (Having this be separate is useful if
-            you have something sitting in front of Jetty, such as a Load
-            Balancer or proxy)</para>
-          </listitem>
-        </varlistentry>
+        <listitem>
+          <para>If a webapp needs to redirect to a secure version of the same
+          resource, then this is the port reported back on the Response
+          <code>Location</code> line (Having this be separate is useful if you
+          have something sitting in front of Jetty, such as a Load Balancer or
+          proxy)</para>
+        </listitem>
+      </varlistentry>
 
-        <varlistentry>
-          <term>jetty.sslContext.keyStorePath</term>
+      <varlistentry>
+        <term>jetty.sslContext.keyStorePath</term>
 
-          <listitem>
-            <para>Sets the location of the <filename>keystore</filename> that
-            you configured with your certificates</para>
-          </listitem>
-        </varlistentry>
+        <listitem>
+          <para>Sets the location of the <filename>keystore</filename> that
+          you configured with your certificates</para>
+        </listitem>
+      </varlistentry>
 
-        <varlistentry>
-          <term>jetty.sslContext.keyStorePassword</term>
+      <varlistentry>
+        <term>jetty.sslContext.keyStorePassword</term>
 
-          <listitem>
-            <para>Sets the Password for the <filename>keystore</filename>
-            </para>
-          </listitem>
-        </varlistentry>
-      </variablelist>
-    </section>
+        <listitem>
+          <para>Sets the Password for the <filename>keystore</filename></para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+  </section>
 
-    <section>
-      <title>Configuring SNI</title>
+  <section>
+    <title>Configuring SNI</title>
 
-      <para>From java8, the JVM contains support for the <link
-      xl:href="http://en.wikipedia.org/wiki/Server_Name_Indication"> Server
-      Name Indicator (SNI)</link> extension, which allows a SSL connection
-      handshake to indicate one or more DNS names that it applies to. To
-      support this, the ExtendedSslContextFactory is used that will look for
-      multiple X509 certificates within the keystore, each of which may have
-      multiple DNS names (including wildcards) associated with the <link
-      xl:href="http://en.wikipedia.org/wiki/SubjectAltName">Subject Alternate
-      Name</link> extension. When using the ExtendedSSlContextFactory, the
-      correct certificate is automatically selected if the SNI extension is
-      present in the handshake.</para>
-    </section>
+    <para>From java8, the JVM contains support for the <link
+    xl:href="http://en.wikipedia.org/wiki/Server_Name_Indication"> Server Name
+    Indicator (SNI)</link> extension, which allows a SSL connection handshake
+    to indicate one or more DNS names that it applies to. To support this, the
+    ExtendedSslContextFactory is used that will look for multiple X509
+    certificates within the keystore, each of which may have multiple DNS
+    names (including wildcards) associated with the <link
+    xl:href="http://en.wikipedia.org/wiki/SubjectAltName">Subject Alternate
+    Name</link> extension. When using the ExtendedSSlContextFactory, the
+    correct certificate is automatically selected if the SNI extension is
+    present in the handshake.</para>
+  </section>
 
-    <section xml:id="configuring-sslcontextfactory-cipherSuites">
-      <title>Disabling/Enabling specific cipher suites</title>
+  <section xml:id="configuring-sslcontextfactory-cipherSuites">
+    <title>Disabling/Enabling Specific Cipher Suites</title>
 
-      <para>For example to avoid the BEAST attack it is necessary to configure
-      a specific set of cipher suites. This can either be done via <link
-      xl:href="@JDURL@/org/eclipse/jetty/util/ssl/SslContextFactory.html#setIncludeCipherSuites(java.lang.String...)">
-      SslContext.setIncludeCipherSuites(java.lang.String...) </link> or
-      via<link
-      xl:href="@JDURL@/org/eclipse/jetty/util/ssl/SslContextFactory.html#setExcludeCipherSuites(java.lang.String...)">
-      SslContext.setExcludeCipherSuites(java.lang.String...)</link>.</para>
+    <para>For example to avoid the BEAST attack it is necessary to configure a
+    specific set of cipher suites. This can either be done via <link
+    xl:href="@JDURL@/org/eclipse/jetty/util/ssl/SslContextFactory.html#setIncludeCipherSuites(java.lang.String...)">
+    SslContext.setIncludeCipherSuites(java.lang.String...) </link> or via<link
+    xl:href="@JDURL@/org/eclipse/jetty/util/ssl/SslContextFactory.html#setExcludeCipherSuites(java.lang.String...)">
+    SslContext.setExcludeCipherSuites(java.lang.String...)</link>.</para>
 
-      <note>
-        <para>It's crucial that you use the exact names of the cipher suites
-        as used/known by the JDK. You can get them by obtaining an instance of
-        SSLEngine and call getSupportedCipherSuites(). Tools like ssllabs.com
-        might report slightly different names which will be ignored.</para>
-      </note>
+    <note>
+      <para>It's crucial that you use the exact names of the cipher suites as
+      used/known by the JDK. You can get them by obtaining an instance of
+      SSLEngine and call getSupportedCipherSuites(). Tools like ssllabs.com
+      might report slightly different names which will be ignored.</para>
+    </note>
 
-      <note>
-        <para>It's recommended to install the Java Cryptography Extension
-        (JCE) Unlimited Strength policy files in your JRE to get full strength
-        ciphers like AES-256. They can be found on the <link
-        xl:href="http://www.oracle.com/technetwork/java/javase/downloads/index.html">Java
-        download page</link>. Just overwrite the two present JAR files in
-        <code>&lt;JRE_HOME&gt;/lib/security/</code></para>
-      </note>
+    <note>
+      <para>It's recommended to install the Java Cryptography Extension (JCE)
+      Unlimited Strength policy files in your JRE to get full strength ciphers
+      like AES-256. They can be found on the <link
+      xl:href="http://www.oracle.com/technetwork/java/javase/downloads/index.html">Java
+      download page</link>. Just overwrite the two present JAR files in
+      <code>&lt;JRE_HOME&gt;/lib/security/</code></para>
+    </note>
 
-      <para>Both setIncludeCipherSuites and setExcludeCipherSuites can be feed
-      by the exact cipher suite name used in the JDK or by using regular
-      expressions.</para>
+    <para>Both setIncludeCipherSuites and setExcludeCipherSuites can be feed
+    by the exact cipher suite name used in the JDK or by using regular
+    expressions.</para>
 
-      <para>If you have a need to adjust the Includes or Excludes, then this
-      is best done with a custom blow-in XML that configures the
-      SslContextFactory to suit your needs.</para>
+    <para>If you have a need to adjust the Includes or Excludes, then this is
+    best done with a custom blow-in XML that configures the SslContextFactory
+    to suit your needs.</para>
 
-      <para>To do this, first create a new
-      <code>${jetty.base}/etc/tweak-ssl.xml</code> (this can be any name, just
-      avoid prefixing it with "jetty-")</para>
+    <para>To do this, first create a new
+    <code>${jetty.base}/etc/tweak-ssl.xml</code> (this can be any name, just
+    avoid prefixing it with "jetty-")</para>
 
-      <informalexample>
-        <programlisting language="xml"><![CDATA[<!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" 
+    <informalexample>
+      <programlisting language="xml"><![CDATA[<!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" 
           "http://www.eclipse.org/jetty/configure_9_3.dtd">
 <!-- Tweak SsslContextFactory Includes / Excludes -->
 <Configure id="sslContextFactory" class="org.eclipse.jetty.util.ssl.SslContextFactory">
@@ -779,21 +787,21 @@ $ ls -l etc
     </Arg>
   </Call>
 </Configure>]]></programlisting>
-      </informalexample>
+    </informalexample>
 
-      <para>This new XML will configure the id
-      <literal>sslContextFactory</literal> some more (this id is first created
-      by the <literal>ssl</literal> module and its associated
-      <code>${jetty.home}/etc/jetty-ssl-context.xml</code>). You can do
-      anything you want with the <code>SslContextFactory</code> in use by the
-      Jetty Distribution from this tweak XML.</para>
+    <para>This new XML will configure the id
+    <literal>sslContextFactory</literal> some more (this id is first created
+    by the <literal>ssl</literal> module and its associated
+    <code>${jetty.home}/etc/jetty-ssl-context.xml</code>). You can do anything
+    you want with the <code>SslContextFactory</code> in use by the Jetty
+    Distribution from this tweak XML.</para>
 
-      <para>To make sure that your <filename>${jetty.base}</filename> uses
-      this new XML, add it to the end of your
-      <filename>${jetty.base}/start.ini</filename></para>
+    <para>To make sure that your <filename>${jetty.base}</filename> uses this
+    new XML, add it to the end of your
+    <filename>${jetty.base}/start.ini</filename></para>
 
-      <informalexample>
-        <programlisting language="plain"><![CDATA[$ cd /path/to/mybase
+    <informalexample>
+      <programlisting language="plain"><![CDATA[$ cd /path/to/mybase
 $ ls -l
 drwxrwxr-x.  2 user group  4096 Feb  2 11:47 etc/
 -rw-rw-r--.  1 user group  4259 Feb  2 11:47 start.ini
@@ -803,39 +811,38 @@ $ tail start.ini
 etc/tweak-ssl.xml
 $ 
 ]]></programlisting>
-      </informalexample>
+    </informalexample>
 
-      <note>
-        <para>The default SslContextFactory implementation applies the latest
-        SSL/TLS recommendations surrounding vulnerabilities in SSL/TLS. Check
-        the release notes (The <filename>VERSION.txt</filename> found in the
-        root of the Jetty Distribution, or the <link
-        xl:href="http://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22org.eclipse.jetty%22%20AND%20a%3A%22jetty-project%22">alternate
-        (classified 'version') artifacts for the
-        <literal>jetty-project</literal> component </link>on Maven Central)
-        for updates.</para>
+    <note>
+      <para>The default SslContextFactory implementation applies the latest
+      SSL/TLS recommendations surrounding vulnerabilities in SSL/TLS. Check
+      the release notes (The <filename>VERSION.txt</filename> found in the
+      root of the Jetty Distribution, or the <link
+      xl:href="http://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22org.eclipse.jetty%22%20AND%20a%3A%22jetty-project%22">alternate
+      (classified 'version') artifacts for the
+      <literal>jetty-project</literal> component </link>on Maven Central) for
+      updates.</para>
 
-        <para>The Java JVM is also applying exclusions at the JVM level, and
-        as such, if you have a need to enable something that is generally
-        accepted by the industry as being insecure or vulnerable you will
-        likely have to enable it in BOTH the Java JVM and the Jetty
-        configuration.</para>
-      </note>
+      <para>The Java JVM is also applying exclusions at the JVM level, and as
+      such, if you have a need to enable something that is generally accepted
+      by the industry as being insecure or vulnerable you will likely have to
+      enable it in BOTH the Java JVM and the Jetty configuration.</para>
+    </note>
 
-      <tip>
-        <para>You can enable the <literal>org.eclipse.jetty.util.ssl</literal>
-        named logger at DEBUG level to see what the list of selected Protocols
-        and Cipher suites are at startup of Jetty.</para>
-      </tip>
+    <tip>
+      <para>You can enable the <literal>org.eclipse.jetty.util.ssl</literal>
+      named logger at DEBUG level to see what the list of selected Protocols
+      and Cipher suites are at startup of Jetty.</para>
+    </tip>
 
-      <para>Some other Include / Exclude examples:</para>
+    <para>Some other Include / Exclude examples:</para>
 
-      <para>Example: Include all ciphers which support <link
-      xl:href="https://en.wikipedia.org/wiki/Forward_secrecy">Forward
-      Secrecy</link> using regex:</para>
+    <para>Example: Include all ciphers which support <link
+    xl:href="https://en.wikipedia.org/wiki/Forward_secrecy">Forward
+    Secrecy</link> using regex:</para>
 
-      <informalexample>
-        <programlisting language="xml"><![CDATA[  <!-- Enable Forward Secrecy Ciphers.
+    <informalexample>
+      <programlisting language="xml"><![CDATA[  <!-- Enable Forward Secrecy Ciphers.
        Note: this replaces the default Include Cipher list -->
   <Set name="IncludeCipherSuites">
     <Array type="String">
@@ -843,13 +850,13 @@ $
       <Item>TLS_ECDHE.*</Item>
     </Array>
   </Set>              ]]></programlisting>
-      </informalexample>
+    </informalexample>
 
-      <para>Example: Exclude all old, insecure or anonymous cipher
-      suites:</para>
+    <para>Example: Exclude all old, insecure or anonymous cipher
+    suites:</para>
 
-      <informalexample>
-        <programlisting language="xml"><![CDATA[  <!-- Eliminate Old / Insecure / Anonymous Ciphers -->
+    <informalexample>
+      <programlisting language="xml"><![CDATA[  <!-- Eliminate Old / Insecure / Anonymous Ciphers -->
   <Call name="addExcludeCipherSuites">
     <Arg>
       <Array type="String">
@@ -861,13 +868,13 @@ $
       </Array>
     </Arg>
   </Call>            ]]></programlisting>
-      </informalexample>
+    </informalexample>
 
-      <para>Example: Since 2014 SSLv3 is considered insecure and should be
-      disabled.</para>
+    <para>Example: Since 2014 SSLv3 is considered insecure and should be
+    disabled.</para>
 
-      <informalexample>
-        <programlisting language="xml"><![CDATA[  <!-- Eliminate Insecure Protocols -->
+    <informalexample>
+      <programlisting language="xml"><![CDATA[  <!-- Eliminate Insecure Protocols -->
   <Call name="addExcludeProtocols">
     <Arg>
      <Array type="java.lang.String">
@@ -878,31 +885,18 @@ $
      </Array>
     </Arg>
   </Call>            ]]></programlisting>
-      </informalexample>
+    </informalexample>
 
-      <note>
-        <para>Note that disabling SSLv3 prevents very old browsers like
-        Internet Explorer 6 on Windows XP from connecting.</para>
-      </note>
+    <note>
+      <para>Note that disabling SSLv3 prevents very old browsers like Internet
+      Explorer 6 on Windows XP from connecting.</para>
+    </note>
 
-      <para>Example: TLS renegotiation could be disabled too to prevent an
-      attack based on this feature.</para>
+    <para>Example: TLS renegotiation could be disabled too to prevent an
+    attack based on this feature.</para>
 
-      <informalexample>
-        <programlisting language="xml"><![CDATA[  <Set name="renegotiationAllowed">FALSE</Set>          ]]></programlisting>
-      </informalexample>
-    </section>
-
-    <section xml:id="renewing-certificates">
-      <title>Renewing Certificates</title>
-
-      <para>If you are updating your configuration to use a newer certificate,
-      as when the old one is expiring, just load the newer certificate as
-      described in the section, <xref
-      linkend="loading-keys-and-certificates"/>. If you imported the key and
-      certificate originally using the PKCS12 method, use an alias of "1"
-      rather than "jetty", because that is the alias the PKCS12 process enters
-      into the keystore.</para>
-    </section>
+    <informalexample>
+      <programlisting language="xml"><![CDATA[  <Set name="renegotiationAllowed">FALSE</Set>          ]]></programlisting>
+    </informalexample>
   </section>
 </section>

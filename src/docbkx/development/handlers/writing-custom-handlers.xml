@@ -125,8 +125,8 @@
       under any wrappers:</para>
 
       <informalexample>
-        <programlisting language="java"><![CDATA[Request base_request = request instanceof Request ? (Request)request : HttpConnection.getCurrentConnection().getRequest();
-Response base_response = response instanceof Response ? (Response)response : HttpConnection.getCurrentConnection().getResponse();]]></programlisting>
+        <programlisting language="java"><![CDATA[Request base_request = request instanceof Request ? (Request)request : HttpConnection.getCurrentConnection().getHttpChannel().getRequest();
+Response base_response = response instanceof Response ? (Response)response : HttpConnection.getCurrentConnection().getHttpChannel().getResponse();]]></programlisting>
       </informalexample>
 
       <para>Notice that if the handler passes the request on to another
@@ -210,7 +210,7 @@ Response base_response = response instanceof Response ? (Response)response : Htt
       to other handlers:</para>
 
       <informalexample>
-        <programlisting language="java"><![CDATA[ Request base_request = (request instanceof Request) ? (Request)request:HttpConnection.getCurrentConnection().getRequest();
+        <programlisting language="java"><![CDATA[ Request base_request = (request instanceof Request) ? (Request)request:HttpConnection.getCurrentConnection().getHttpChannel().getRequest();
  base_request.setHandled(true);              
 ]]></programlisting>
       </informalexample>

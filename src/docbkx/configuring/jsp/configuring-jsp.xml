@@ -970,7 +970,7 @@
       <informalexample>
         <programlisting language="xml"><![CDATA[
 
- <servlet id=>"jsp">
+ <servlet id="jsp">
      <servlet-name>jsp</servlet-name>
      <servlet-class>org.apache.jasper.servlet.JspServlet</servlet-class>
      <init-param>
@@ -1002,7 +1002,7 @@
      <url-pattern>*.XSP</url-pattern>
    </servlet-mapping>
    
-   <servlet id=>"my-servlet">
+   <servlet id="my-servlet">
      <servlet-name>myServlet</servlet-name>
      <servlet-class>com.acme.servlet.MyServlet</servlet-class>
       ...

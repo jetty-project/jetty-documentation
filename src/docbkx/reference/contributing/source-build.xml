@@ -52,7 +52,7 @@
 
           <listitem>
             <para><link
-            xl:href="http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git">http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git</link></para>
+            xl:href="https://github.com/eclipse/jetty.project">https://github.com/eclipse/jetty.project</link></para>
           </listitem>
         </varlistentry>
       </variablelist>
@@ -72,7 +72,7 @@
 
           <listitem>
             <para><link
-            xl:href="http://git.eclipse.org/c/jetty/org.eclipse.jetty.parent.git">http://git.eclipse.org/c/jetty/org.eclipse.jetty.parent.git</link></para>
+            xl:href="https://github.com/eclipse/jetty.parent">https://github.com/eclipse/jetty.parent</link></para>
           </listitem>
         </varlistentry>
 
@@ -82,17 +82,7 @@
 
           <listitem>
             <para><link
-            xl:href="http://git.eclipse.org/c/jetty/org.eclipse.jetty.toolchain.git">http://git.eclipse.org/c/jetty/org.eclipse.jetty.toolchain.git</link></para>
-          </listitem>
-        </varlistentry>
-
-        <varlistentry>
-          <term>Project definition for generating an eclipse p2 update
-          site</term>
-
-          <listitem>
-            <para><link
-            xl:href="http://git.eclipse.org/c/jetty/org.eclipse.jetty.bundles.git">http://git.eclipse.org/c/jetty/org.eclipse.jetty.bundles.git</link></para>
+            xl:href="https://github.com/eclipse/jetty.toolchain">https://github.com/eclipse/jetty.toolchain</link></para>
           </listitem>
         </varlistentry>
 
@@ -123,8 +113,8 @@
 
     <screen><![CDATA[
 
-$ git clone http://git.eclipse.org/gitroot/jetty/org.eclipse.jetty.project.git
-$ cd org.eclipse.jetty.project
+$ git clone https://github.com/eclipse/jetty.project.git
+$ cd jetty.project
 $ mvn install
 
     ]]></screen>

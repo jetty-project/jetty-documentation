@@ -100,7 +100,7 @@
 
 ssl             initialised in ${jetty.base}/start.ini (appended)
 ssl             enabled in     ${jetty.base}/start.ini
-DOWNLOAD: http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/plain/jetty-server/src/main/config/etc/keystore to etc/keystore
+DOWNLOAD: https://github.com/eclipse/jetty.project/raw/master/jetty-server/src/main/config/etc/keystore to etc/keystore
 server          initialised in ${jetty.base}/start.ini (appended)
 server          enabled in     ${jetty.base}/start.ini
 http            initialised in ${jetty.base}/start.ini (appended)

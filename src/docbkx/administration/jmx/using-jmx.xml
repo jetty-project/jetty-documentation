@@ -304,7 +304,7 @@ server.addBean(Log.getLog());
       application in order to create an <code> MBeanServerConnection.</code>
       You can use the same URL to connect to your Jetty instance from a remote
       machine using JConsole. See the <link
-      xl:href="http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/tree/jetty-jmx/src/main/config/etc/jetty-jmx.xml">configuration
+      xl:href="@GITBROWSEURL@/jetty-jmx/src/main/config/etc/jetty-jmx.xml">configuration
       file</link> for more details.</para>
     </section>
   </section>

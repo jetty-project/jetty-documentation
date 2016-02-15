@@ -68,7 +68,7 @@
 
     <para>Configure the Jetty logging layer via the
     <code>org.eclipse.jetty.util.log.Log</code> class, following <link
-    xl:href="http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/tree/jetty-util/src/main/java/org/eclipse/jetty/util/log/Log.java">these
+    xl:href="@GITBROWSEURL@/jetty-util/src/main/java/org/eclipse/jetty/util/log/Log.java">these
     rules</link>.</para>
 
     <orderedlist>
@@ -117,7 +117,7 @@
       implementation of the <link
       xl:href="@JDURL@org/eclipse/jetty/util/log/Logger.html">Jetty
       Logger API</link>. For an example of a custom logger, see <link
-      xl:href="http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/tree/jetty-util/src/main/java/org/eclipse/jetty/util/log/JavaUtilLog.java">JavaUtilLog.java</link>.</para>
+      xl:href="@GITBROWSEURL@/jetty-util/src/main/java/org/eclipse/jetty/util/log/JavaUtilLog.java">JavaUtilLog.java</link>.</para>
     </note>
   </section>
 

@@ -97,7 +97,7 @@ $ vi VERSION.txt
 
       <listitem>
         <para>Make sure everything is commit'd and pushed to
-        git.eclipse.org</para>
+        github.com/eclipse/jetty.project</para>
 
         <screen><![CDATA[
 
@@ -147,7 +147,7 @@ $ mvn release:perform
         Version' at the top. Do not date this line.</para>
 
         <para>Make sure everything is commit'd and pushed to
-        git.eclipse.org</para>
+        github.com/eclipse/jetty.project</para>
 
         <screen><![CDATA[
 

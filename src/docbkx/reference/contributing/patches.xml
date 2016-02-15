@@ -253,7 +253,7 @@ $ git push
       <para>Then clone the jetty-project:</para>
 
       <screen><![CDATA[    
-$ git clone ssh://git.eclipse.org:29418/jetty/org.eclipse.jetty.project
+$ git clone https://github.com/eclipse/jetty.project.git
      ]]></screen>
 
       <para><emphasis>Stop.</emphasis> Make sure you have a bugzilla issue
@@ -274,7 +274,7 @@ $ git commit -m "[Bug 343532] fixed issue" <files>
       do:</para>
 
       <screen><![CDATA[    
-$ git push ssh://git.eclipse.org:29418/jetty/org.eclipse.jetty.project HEAD:refs/for/master
+$ git push https://github.com/eclipse/jetty.project.git master
 
 ]]></screen>
 

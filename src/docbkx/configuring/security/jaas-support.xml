@@ -654,7 +654,7 @@ public class FooLoginModule extends AbstractLoginModule
       <itemizedlist>
         <listitem>
           <para><link
-          xl:href="http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/tree/tests/test-webapps/test-jaas-webapp">http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/tree/tests/test-webapps/test-jaas-webapp</link></para>
+          xl:href="@GITBROWSEURL@/tests/test-webapps/test-jaas-webapp">https://github.com/eclipse/jetty.project/tree/master/tests/test-webapps/test-jaas-webapp</link></para>
         </listitem>
       </itemizedlist>
     </section>

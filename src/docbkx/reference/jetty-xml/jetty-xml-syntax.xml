@@ -81,7 +81,7 @@ bar.getParent().setName("demo2");      </programlisting>
       <title>Understanding DTD and Parsing</title>
 
       <para>The document type descriptor (<link
-      xl:href="http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/tree/jetty-xml/src/main/resources/org/eclipse/jetty/xml/configure_9_0.dtd?h=release-9">configure.dtd</link>)
+      xl:href="@GITBROWSEURL@/jetty-xml/src/main/resources/org/eclipse/jetty/xml/configure_9_0.dtd?h=release-9">configure.dtd</link>)
       describes all valid elements in a Jetty XML configuration file using the
       Jetty IoC format. The first two lines of an XML must reference the DTD
       to be used to validate the XML like:</para>

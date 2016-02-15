@@ -81,7 +81,7 @@
     or via annotations.</para>
 
     <para>Below is an example taken from the <link
-    xl:href="http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/tree/tests/test-webapps/test-jetty-webapp/src/main/webapp/WEB-INF/web.xml?h=release-9">jetty-test-webapp
+    xl:href="@GITBROWSEURL@/tests/test-webapps/test-jetty-webapp/src/main/webapp/WEB-INF/web.xml?h=release-9">jetty-test-webapp
     web.xml</link> that configures BASIC authentication:</para>
 
     <programlisting language="xml"><![CDATA[
@@ -92,7 +92,7 @@
     ]]></programlisting>
 
     <para>The <link
-    xl:href="http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/tree/tests/test-webapps/test-jetty-webapp/src/main/webapp/WEB-INF/web.xml?h=release-9">jetty-test-webapp
+    xl:href="@GITBROWSEURL@/tests/test-webapps/test-jetty-webapp/src/main/webapp/WEB-INF/web.xml?h=release-9">jetty-test-webapp
     web.xml</link> also includes commented out examples of other DIGEST and
     FORM configuration:</para>
 
@@ -110,7 +110,7 @@
     <para>With FORM Authentication, you must also configure URLs of pages to
     generate a login form and handle errors. Below is a simple HTML form from
     the <link
-    xl:href="http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/tree/tests/test-webapps/test-jetty-webapp/src/main/webapp/logon.html?h=release-9">test
+    xl:href="@GITBROWSEURL@/tests/test-webapps/test-jetty-webapp/src/main/webapp/logon.html?h=release-9">test
     webapp logon.html</link>:</para>
 
     <programlisting language="xml"><![CDATA[

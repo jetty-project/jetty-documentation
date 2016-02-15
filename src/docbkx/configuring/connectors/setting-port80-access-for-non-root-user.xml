@@ -145,9 +145,9 @@ jetty.umask=002
         This code is hosted as part of the Jetty ToolChain project and it is
         released independently from Jetty itself. You can find the source code
         <link
-        xl:href="https://git.eclipse.org/c/jetty/org.eclipse.jetty.toolchain.git">here</link>
+        xl:href="https://github.com/eclipsejetty.toolchain">here</link>
         in the <link
-        xl:href="https://git.eclipse.org/c/jetty/org.eclipse.jetty.toolchain.git/tree/jetty-setuid">jetty-setuid</link>
+        xl:href="https://github.com/eclipse/jetty.toolchain/jetty-setuid">jetty-setuid</link>
         project. Build it locally, which will produce a native library
         appropriate for the operating system:</para>
 

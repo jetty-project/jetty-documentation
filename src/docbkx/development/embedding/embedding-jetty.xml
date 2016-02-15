@@ -461,47 +461,47 @@
     <itemizedlist>
       <listitem>
         <para><link
-        xl:href="http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/tree/jetty-server/src/main/config/etc/jetty.xml">jetty.xml</link></para>
+        xl:href="@GITBROWSEURL@/jetty-server/src/main/config/etc/jetty.xml">jetty.xml</link></para>
       </listitem>
 
       <listitem>
         <para><link
-        xl:href="http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/tree/jetty-jmx/src/main/config/etc/jetty-jmx.xml">jetty-jmx.xml</link></para>
+        xl:href="@GITBROWSEURL@/jetty-jmx/src/main/config/etc/jetty-jmx.xml">jetty-jmx.xml</link></para>
       </listitem>
 
       <listitem>
         <para><link
-        xl:href="http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/tree/jetty-server/src/main/config/etc/jetty-http.xml">jetty-http.xml</link></para>
+        xl:href="@GITBROWSEURL@/jetty-server/src/main/config/etc/jetty-http.xml">jetty-http.xml</link></para>
       </listitem>
 
       <listitem>
         <para><link
-        xl:href="http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/tree/jetty-server/src/main/config/etc/jetty-https.xml">jetty-https.xml</link></para>
+        xl:href="@GITBROWSEURL@/jetty-server/src/main/config/etc/jetty-https.xml">jetty-https.xml</link></para>
       </listitem>
 
       <listitem>
         <para><link
-        xl:href="http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/tree/jetty-deploy/src/main/config/etc/jetty-deploy.xml">jetty-deploy.xml</link></para>
+        xl:href="@GITBROWSEURL@/jetty-deploy/src/main/config/etc/jetty-deploy.xml">jetty-deploy.xml</link></para>
       </listitem>
 
       <listitem>
         <para><link
-        xl:href="http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/tree/jetty-server/src/main/config/etc/jetty-stats.xml">jetty-stats.xml</link></para>
+        xl:href="@GITBROWSEURL@/jetty-server/src/main/config/etc/jetty-stats.xml">jetty-stats.xml</link></para>
       </listitem>
 
       <listitem>
         <para><link
-        xl:href="http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/tree/jetty-server/src/main/config/etc/jetty-requestlog.xml">jetty-requestlog.xml</link></para>
+        xl:href="@GITBROWSEURL@/jetty-server/src/main/config/etc/jetty-requestlog.xml">jetty-requestlog.xml</link></para>
       </listitem>
 
       <listitem>
         <para><link
-        xl:href="http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/tree/jetty-server/src/main/config/etc/jetty-lowresources.xml">jetty-lowresources.xml</link></para>
+        xl:href="@GITBROWSEURL@/jetty-server/src/main/config/etc/jetty-lowresources.xml">jetty-lowresources.xml</link></para>
       </listitem>
 
       <listitem>
         <para><link
-        xl:href="http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/tree/tests/test-webapps/test-jetty-webapp/src/main/config/etc/test-realm.xml">test-realm.xml</link></para>
+        xl:href="@GITBROWSEURL@/tests/test-webapps/test-jetty-webapp/src/main/config/etc/test-realm.xml">test-realm.xml</link></para>
       </listitem>
     </itemizedlist>
 

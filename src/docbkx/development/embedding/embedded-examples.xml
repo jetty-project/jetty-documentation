@@ -47,8 +47,6 @@
 
   <xi:include href="examples/embedded-many-connectors.xml"/>
 
-  <xi:include href="examples/embedded-spdy-server.xml"/>
-
   <xi:include href="examples/embedded-secured-hello-handler.xml"/>
 
   <xi:include href="examples/embedded-minimal-servlet.xml"/>

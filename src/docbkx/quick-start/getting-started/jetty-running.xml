@@ -42,9 +42,12 @@
 ]]></screen></para>
 
   <para>You can point a browser at this server at <link
-  linkend="???">http://localhost:8080</link>. Note the HomeBase warning, as it
-  is not recommended to run Jetty from the $JETTY_HOME directory, see how to
-  create a Jetty Base below.</para>
+  linkend="???">http://localhost:8080</link>. However, as there are no webapps
+  deployed in the $JETTY_HOME directory, you will see a 404 error page served
+  by Jetty. <emphasis role="bold">Note</emphasis> the HomeBase warning - it is
+  <emphasis>not</emphasis> recommended to run Jetty from the $JETTY_HOME
+  directory. Instead, see how to <link linkend="creating-jetty-base">create a
+  Jetty Base</link> below. </para>
 
   <section xml:id="demo-webapps-base">
     <title>Demo Base</title>
@@ -209,9 +212,9 @@ INFO: Base directory was modified
         </listitem>
 
         <listitem>
-          <para>The jetty.http.port property is used by the Property XML element in
-          etc/jetty.http.xml to inject the ServerConnector instance with the
-          port</para>
+          <para>The jetty.http.port property is used by the Property XML
+          element in etc/jetty.http.xml to inject the ServerConnector instance
+          with the port</para>
         </listitem>
       </itemizedlist>
 

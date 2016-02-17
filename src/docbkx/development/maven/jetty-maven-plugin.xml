@@ -519,7 +519,7 @@
 
               <listitem>
                 <para>The context path for your webapp. By default, this is
-                set to <code>/</code>.</para>
+                set to <code>/</code>. If using a custom value for this parameter, you probably want to include the leading <code>/</code>, example <code>/mycontext</code>.</para>
               </listitem>
             </varlistentry>
 

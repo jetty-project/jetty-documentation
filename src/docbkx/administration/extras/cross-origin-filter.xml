@@ -128,15 +128,6 @@
       </varlistentry>
 
       <varlistentry>
-        <term>preflightMaxAge</term>
-
-        <listitem>
-          <para>the number of seconds that preflight requests can be cached by
-          the client. Default value is 1800 seconds (30 minutes)</para>
-        </listitem>
-      </varlistentry>
-
-      <varlistentry>
         <term>allowCredentials</term>
 
         <listitem>

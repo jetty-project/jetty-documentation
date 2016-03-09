@@ -345,6 +345,10 @@
     <!-- JSR-356 Support (FUTURE) -->
 
     <xi:include href="development/websockets/java/chapter.xml"/>
+
+    <!-- Continuations Guide -->
+
+    <xi:include href="development/continuations/chapter.xml"/>
   </part>
 
   <part xml:id="reference">

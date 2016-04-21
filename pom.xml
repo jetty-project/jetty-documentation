@@ -1,119 +1,69 @@
-<?xml version="1.0" encoding="utf-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <parent>
-    <artifactId>jetty-parent</artifactId>
-    <groupId>org.eclipse.jetty</groupId>
-    <version>20</version>
-  </parent>
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.eclipse.jetty</groupId>
   <artifactId>jetty-documentation</artifactId>
-  <!-- Note: The version should NEVER BE A SNAPSHOT -->
-  <version>9.3.7.v20160115</version>
+  <version>9.3.10-SNAPSHOT</version>
   <name>Jetty :: Documentation</name>
   <packaging>pom</packaging>
   <properties>
-    <jetty.xref.url>http://download.eclipse.org/jetty/xref"</jetty.xref.url>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <build.support.version>1.2</build.support.version>
+    <asciidoctor.version>1.5.3</asciidoctor.version>
+    <html.directory>${project.build.directory}/current</html.directory>
   </properties>
-  <scm>
-    <connection>scm:git:git@github.com:jetty-project/jetty-documentation.git</connection>
-    <developerConnection>scm:git:git@github.com:jetty-project/jetty-documentation.git</developerConnection>
-    <url>git@github.com:jetty-project/jetty-documentation.git</url>
-  </scm>
   <build>
+    <defaultGoal>install</defaultGoal>
     <plugins>
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-enforcer-plugin</artifactId>
-        <version>1.1.1</version>
-        <executions>
-          <execution>
-            <id>enforce</id>
-            <goals>
-              <goal>enforce</goal>
-            </goals>
-            <configuration>
-              <rules>
-                <requireMavenVersion>
-                  <version>[2.0.6,)</version>
-                </requireMavenVersion>
-                <requireJavaVersion>
-                  <version>[1.5,)</version>
-                </requireJavaVersion>
-                <versionTxtRule implementation="org.eclipse.jetty.toolchain.enforcer.rules.UniqueXmlIdDocbookRule" />
-              </rules>
-            </configuration>
-          </execution>
-        </executions>
-        <dependencies>
-          <dependency>
-            <groupId>org.eclipse.jetty.toolchain</groupId>
-            <artifactId>jetty-build-support</artifactId>
-            <version>${build.support.version}</version>
-          </dependency>
-        </dependencies>
-      </plugin>
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>xml-maven-plugin</artifactId>
-        <version>1.0</version>
-        <executions>
-          <execution>
-            <phase>validate</phase>
-            <goals>
-              <goal>validate</goal>
-            </goals>
-          </execution>
-        </executions>
-        <configuration>
-          <validationSets>
-            <validationSet>
-              <!-- false for now -->
-              <validating>false</validating>
-              <dir>src/docbkx</dir>
-              <excludes>
-                <exclude>**/*.css</exclude>
-                <exclude>**/font/*</exclude>
-                <exclude>**/js/*</exclude>
-                <exclude>**/images/*</exclude>
-                <exclude>**/*.swp</exclude>
-                <exclude>**/*.txt</exclude>
-                <exclude>**/*.dot</exclude>
-                <exclude>**/*.orig</exclude>
-                <exclude>*.sh</exclude>
-                <exclude>*.sed</exclude>
-              </excludes>
-            </validationSet>
-          </validationSets>
-        </configuration>
-      </plugin>
-      <plugin>
         <artifactId>maven-resources-plugin</artifactId>
-        <version>2.5</version>
+        <version>2.6</version>
         <executions>
           <execution>
-            <id>filter-docbook-sources</id>
-            <phase>process-sources</phase>
+            <id>copy-assets</id>
+            <phase>generate-resources</phase>
             <goals>
               <goal>copy-resources</goal>
             </goals>
             <configuration>
-              <outputDirectory>${basedir}/target/filtered-docbkx</outputDirectory>
               <resources>
                 <resource>
-                  <directory>src/docbkx</directory>
-                  <filtering>true</filtering>
+                  <directory>src/main/resources</directory>
+                  <includes>
+                    <include>**</include>
+                  </includes>
                 </resource>
               </resources>
-              <filters>
-                <filter>${basedir}/src/main/filters/jetty.properties</filter>
-              </filters>
-              <delimiters>
-                <delimiter>@*@</delimiter>
-              </delimiters>
-              <useDefaultDelimiters>false</useDefaultDelimiters>
+              <outputDirectory>${html.directory}</outputDirectory>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.asciidoctor</groupId>
+        <artifactId>asciidoctor-maven-plugin</artifactId>
+        <version>${asciidoctor.version}</version>
+        <executions>
+          <execution>
+            <id>output-html</id>
+            <phase>generate-sources</phase>
+            <goals>
+              <goal>process-asciidoc</goal>
+            </goals>
+            <configuration>
+              <backend>docbook</backend>
+              <doctype>book</doctype>
+              <sourceDocumentName>index.adoc</sourceDocumentName>
+              <attributes>
+                <version>${project.version}</version>
+                <linkcss>true</linkcss>
+                <allow-uri-read>true</allow-uri-read>
+                <toc>true</toc>
+                <revnumber>${project.version}</revnumber>
+                <JDURL>http://download.eclipse.org/jetty/stable-9/apidocs</JDURL>
+                <JXURL>http://download.eclipse.org/jetty/stable-9/xref</JXURL>
+                <SRCDIR>${basedir}/../jetty.project/</SRCDIR>
+                <GITBROWSEURL>https://github.com/eclipse/jetty.project/master</GITBROWSEURL>
+              </attributes>
             </configuration>
           </execution>
         </executions>
@@ -131,47 +81,31 @@
             </goals>
             <configuration>
               <htmlStylesheet>css/docbook.css</htmlStylesheet>
-              <htmlCustomization>src/docbkx-stylesheet/html/docbook.xsl</htmlCustomization>
+              <htmlCustomization>src/main/docbkx-stylesheet/html/docbook.xsl</htmlCustomization>
               <preProcess>
-                <copy todir="target/docbkx/html/jetty/images">
-                  <fileset dir="src/docbkx/images" />
+                <copy todir="target/docbkx/html/index/images">
+                  <fileset dir="src/main/docbkx-resources/images" />
                 </copy>
-                <copy todir="target/docbkx/html/jetty/css">
-                  <fileset dir="src/docbkx/css" />
+                <copy todir="target/docbkx/html/index/css">
+                  <fileset dir="src/main/docbkx-resources/css" />
                 </copy>
-                <copy todir="target/docbkx/html/jetty/font">
-                  <fileset dir="src/docbkx/font" />
+                <copy todir="target/docbkx/html/index/fonts">
+                  <fileset dir="src/main/docbkx-resources/fonts" />
                 </copy>
-                <copy todir="target/docbkx/html/jetty/js">
-                  <fileset dir="src/docbkx/js" />
+                <copy todir="target/docbkx/html/index/js">
+                  <fileset dir="src/main/docbkx-resources/js" />
                 </copy>
               </preProcess>
             </configuration>
           </execution>
-<!--execution>
-            <id>pdf</id>
-            <phase>compile</phase>
-            <goals>
-              <goal>generate-pdf</goal>
-            </goals>
-            <configuration>
-              <includes>jetty.xml</includes>
-            </configuration>
-          </execution-->
         </executions>
         <configuration>
-<!-- shared configuration -->
-          <sourceDirectory>${basedir}/target/filtered-docbkx</sourceDirectory>
-          <includes>jetty.xml</includes>
+          <!-- shared configuration -->
+          <sourceDirectory>${project.build.directory}/generated-docs</sourceDirectory>
+          <includes>index.xml</includes>
           <generatedSourceDirectory>${project.build.directory}/docbkx/generated</generatedSourceDirectory>
-          <xincludeSupported>true</xincludeSupported>
-          <paperType>A4</paperType>
           <chunkedOutput>true</chunkedOutput>
-          <fop1Extensions>1</fop1Extensions>
-          <foCustomization>src/docbkx-stylesheet/fo/docbook.xsl</foCustomization>
           <highlightSource>true</highlightSource>
-<!--generateToc>
-          book,section,toc,title,figure,table,example,equation</generateToc-->
         </configuration>
         <dependencies>
           <dependency>
@@ -189,211 +123,49 @@
             <scope>runtime</scope>
           </dependency>
           <dependency>
-            <groupId>net.sf.offo</groupId>
-            <artifactId>fop-hyph</artifactId>
-            <version>1.2</version>
-            <scope>runtime</scope>
-          </dependency>
-          <dependency>
             <groupId>org.eclipse.jetty.toolchain</groupId>
             <artifactId>jetty-xslt-tools</artifactId>
             <version>1.3</version>
             <scope>runtime</scope>
           </dependency>
         </dependencies>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-assembly-plugin</artifactId>
-        <configuration>
-          <descriptors>
-            <descriptor>src/main/assembly/html.xml</descriptor>
-          </descriptors>
-          <tarLongFileMode>gnu</tarLongFileMode>
-          <appendAssemblyId>false</appendAssemblyId>
-        </configuration>
-        <executions>
-          <execution>
-            <phase>package</phase>
-            <goals>
-              <goal>single</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-release-plugin</artifactId>
-        <version>2.1</version>
-        <configuration>
-          <autoVersionSubmodules>true</autoVersionSubmodules>
-          <mavenExecutorId>forked-path</mavenExecutorId>
-          <useReleaseProfile>true</useReleaseProfile>
-          <goals>deploy</goals>
-          <preparationGoals>clean install</preparationGoals>
-        </configuration>
       </plugin>
     </plugins>
   </build>
   <profiles>
     <profile>
-      <id>pdf</id>
+      <id>generate-pdf</id>
       <build>
-      <plugins>
-        <plugin>
-          <groupId>com.agilejava.docbkx</groupId>
-          <artifactId>docbkx-maven-plugin</artifactId>
-          <version>2.0.14</version>
-           <executions>
-            <execution>
-              <id>pdf</id>
-              <phase>compile</phase>
-              <goals>
-                <goal>generate-pdf</goal>
-              </goals>
-              <configuration>
-                <includes>jetty.xml</includes>
-                <admonGraphics>true</admonGraphics>
-                <admonGraphicsPath>target/docbkx/pdf/jetty/images/</admonGraphicsPath>
-                <preProcess>
-                <copy todir="target/docbkx/pdf/jetty/images">
-                  <fileset dir="src/docbkx/images" />
-                </copy>
-              </preProcess>
-              <highlightSource>true</highlightSource>
-              </configuration>
-            </execution>
-          </executions>
-          <dependencies>
-          <dependency>
-            <groupId>net.sf.docbook</groupId>
-            <artifactId>docbook-xml</artifactId>
-            <version>5.0-all</version>
-            <classifier>resources</classifier>
-            <type>zip</type>
-            <scope>runtime</scope>
-          </dependency>
-          <dependency>
-            <groupId>net.sf.xslthl</groupId>
-            <artifactId>xslthl</artifactId>
-            <version>2.0.1</version>
-            <scope>runtime</scope>
-          </dependency>
-          <dependency>
-            <groupId>net.sf.offo</groupId>
-            <artifactId>fop-hyph</artifactId>
-            <version>1.2</version>
-            <scope>runtime</scope>
-          </dependency>
-          <dependency>
-            <groupId>org.eclipse.jetty.toolchain</groupId>
-            <artifactId>jetty-xslt-tools</artifactId>
-            <version>1.3</version>
-            <scope>runtime</scope>
-          </dependency>
-        </dependencies>
-        </plugin>
-      </plugins>
-    </build>
-    </profile>
-    <profile>
-      <id>epub</id>
-      <build>
-      <plugins>
-        <plugin>
-          <groupId>com.agilejava.docbkx</groupId>
-          <artifactId>docbkx-maven-plugin</artifactId>
-          <version>2.0.14</version>
-           <executions>
-            <execution>
-              <id>pdf</id>
-              <phase>compile</phase>
-              <goals>
-                <goal>generate-epub</goal>
-              </goals>
-              <configuration>
-                <includes>jetty.xml</includes>
-                <admonGraphics>true</admonGraphics>
-                <admonGraphicsPath>target/docbkx/epub/jetty/images/</admonGraphicsPath>
-                <preProcess>
-                <copy todir="target/docbkx/epub/jetty/images">
-                  <fileset dir="src/docbkx/images" />
-                </copy>
-              </preProcess>
-              <highlightSource>true</highlightSource>
-              </configuration>
-            </execution>
-          </executions>
-          <dependencies>
-          <dependency>
-            <groupId>net.sf.docbook</groupId>
-            <artifactId>docbook-xml</artifactId>
-            <version>5.0-all</version>
-            <classifier>resources</classifier>
-            <type>zip</type>
-            <scope>runtime</scope>
-          </dependency>
-          <dependency>
-            <groupId>net.sf.xslthl</groupId>
-            <artifactId>xslthl</artifactId>
-            <version>2.0.1</version>
-            <scope>runtime</scope>
-          </dependency>
-          <dependency>
-            <groupId>net.sf.offo</groupId>
-            <artifactId>fop-hyph</artifactId>
-            <version>1.2</version>
-            <scope>runtime</scope>
-          </dependency>
-          <dependency>
-            <groupId>org.eclipse.jetty.toolchain</groupId>
-            <artifactId>jetty-xslt-tools</artifactId>
-            <version>1.3</version>
-            <scope>runtime</scope>
-          </dependency>
-        </dependencies>
-        </plugin>
-      </plugins>
-    </build>
+        <plugins>
+          <plugin>
+            <groupId>com.agilejava.docbkx</groupId>
+            <artifactId>docbkx-maven-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>generate-pdf</id>
+                <phase>compile</phase>
+                <goals>
+                  <goal>generate-pdf</goal>
+                </goals>
+                <configuration>
+                  <includes>index.xml</includes>
+                  <fop1Extensions>1</fop1Extensions>
+                  <paperType>A4</paperType>
+                  <foCustomization>src/main/docbkx-stylesheet/fo/docbook.xsl</foCustomization>
+                </configuration>
+              </execution>
+            </executions>
+            <dependencies>
+              <dependency>
+                <groupId>net.sf.offo</groupId>
+                <artifactId>fop-hyph</artifactId>
+                <version>1.2</version>
+                <scope>runtime</scope>
+              </dependency>
+            </dependencies>
+          </plugin>
+        </plugins>
+      </build>
     </profile>
   </profiles>
-  <repositories>
-    <repository>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-      <id>sonatype-snapshots</id>
-      <name>Sonatype Jetty Snapshots</name>
-      <url>http://oss.sonatype.org/content/groups/jetty</url>
-    </repository>
-  </repositories>
-  <pluginRepositories>
-    <pluginRepository>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-      <id>sonatype-jetty-snapshots</id>
-      <name>Sonatype Jetty Snapshots</name>
-      <url>http://oss.sonatype.org/content/groups/jetty</url>
-    </pluginRepository>
-    <pluginRepository>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-      <id>sonatype-snapshots</id>
-      <name>Sonatype Snapshots</name>
-      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-    </pluginRepository>
-    <pluginRepository>
-      <id>docbook-utils</id>
-      <name>DocBook Utils</name>
-      <url>http://docbook-utils.sourceforge.net/maven2</url>
-      <layout>default</layout>
-      <releases>
-        <enabled>true</enabled>
-        <updatePolicy>daily</updatePolicy>
-        <checksumPolicy>warn</checksumPolicy>
-      </releases>
-    </pluginRepository>
-  </pluginRepositories>
 </project>

@@ -1,8 +1,0 @@
-[/home/user]$ mkdir mybase
-[/home/user]$ cd mybase
-[my-base]$ java -jar /path/to/jetty-distribution/start.jar
-
-WARNING: Nothing to start, exiting ...
-
-Usage: java -jar start.jar [options] [properties] [configs]
-       java -jar start.jar --help  # for more information

@@ -1,0 +1,69 @@
+//  ========================================================================
+//  Copyright (c) 1995-2012 Mort Bay Consulting Pty. Ltd.
+//  ========================================================================
+//  All rights reserved. This program and the accompanying materials
+//  are made available under the terms of the Eclipse Public License v1.0
+//  and Apache License v2.0 which accompanies this distribution.
+//
+//      The Eclipse Public License is available at
+//      http://www.eclipse.org/legal/epl-v10.html
+//
+//      The Apache License v2.0 is available at
+//      http://www.opensource.org/licenses/apache2.0.php
+//
+//  You may elect to redistribute this code under either of these licenses.
+//  ========================================================================
+
+[[spdy-implementing-push]]
+= Implement a custom SPDY PushStrategy
+
+The ReferrerPushStrategy that is distributed with Jetty
+(link:#spdy-configuring-push[???]) does a great job to automatically
+detect subresources to push for a given main resource. However there
+might be reasons to implement your own push strategy.
+
+== PushStrategy API
+
+The interface that needs to be implemented
+islink:{JDURL}/org/eclipse/jetty/spdy/server/http/PushStrategy.html[PushStrategy].
+For each request Jetty will call the
+link:{JDURL}/org/eclipse/jetty/spdy/server/http/PushStrategy.html#apply(org.eclipse.jetty.spdy.api.Stream, org.eclipse.jetty.util.Fields, org.eclipse.jetty.util.Fields)[apply]
+method, which will return a Set with the resources to push. This is the
+apply method's signature:
+
+[source,java]
+----
+                  /**
+                       * <p>Applies the SPDY push logic for the primary resource.</p>
+                       *
+                       * @param stream the primary resource stream
+                       * @param requestHeaders the primary resource request headers
+                       * @param responseHeaders the primary resource response headers
+                       * @return a list of secondary resource URIs to push
+                       */
+                      public Set<String> apply(Stream stream, Fields requestHeaders, Fields responseHeaders);
+                  
+----
+
+The parameters are the
+link:{JDURL}/org/eclipse/jetty/spdy/api/Stream.html[Stream] for the
+primary resource request, the request and the response header fields.
+Based on this information the implementation has to decide which
+resources to push and return a Set<String> containing the URLs for the
+resources to push. Jetty will then open a push stream for each URL
+returned in that list and push the contents of that file. This is the
+only method that you need to implement.
+
+== ReferrerPushStrategy
+
+For reference and as a working example use the
+link:{JDURL}/org/eclipse/jetty/spdy/server/http/ReferrerPushStrategy.html[ReferrerPushStrategy]
+source code:
+
+[source,rjava-no-parse]
+----
+                    
+                        {SRCDIR}/jetty-spdy/spdy-http-server/src/main/java/org/eclipse/jetty/spdy/server/http/ReferrerPushStrategy.java?h=jetty-9.2.x
+                    
+                
+----

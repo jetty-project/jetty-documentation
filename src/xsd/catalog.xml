@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
-  <public publicId="http://docbook.org/ns/docbook" uri="./docbook.xsd" />
-  <system systemId="http://www.docbook.org/xml/5.0/xsd/docbook.xsd" uri="./docbook.xsd" />
-</catalog>

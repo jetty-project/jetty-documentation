@@ -187,9 +187,7 @@ Now you can browse https://domain.com/async-rest (replace `domain.com` with your
 ____
 [NOTE]
 You want the Jetty connector that listens on port 8282 to be available only to HAProxy, and not to remote clients.
-
 For this reason, you want to specify the `jetty.http.host` property on the command line (or in `start.ini` to make this setting persistent) to bind the Jetty connector only on the loopback interface (127.0.0.1), making it available to HAProxy but not to remote clients.
-
 If your Jetty instance runs on a different machine and/or on a different (sub)network, you may want to adjust both the back-end section of the HAProxy configuration file and the `jetty.http.host` property to match accordingly.
 ____
 

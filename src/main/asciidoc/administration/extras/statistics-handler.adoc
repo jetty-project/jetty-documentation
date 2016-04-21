@@ -15,10 +15,10 @@
 //  ========================================================================
 
 [[statistics-handler]]
-= Statistics Handler
+=== Statistics Handler
 
 [[statistics-handler-metadata]]
-== Info
+==== Info
 
 * Classname: `org.eclipse.jetty.server.handler.StatisticsHandler`
 * Maven Artifact: org.eclipse.jetty:jetty-server
@@ -27,42 +27,33 @@
 * Xref: {JXURL}/org/eclipse/jetty/server/handler/StatisticsHandler.html
 
 [[statistics-handler-usage]]
-== Usage
+==== Usage
 
 Jetty currently has two levels of request statistic collection:
 
-* Subclasses of AbstractConnector class optionally can collect
-statistics about connections as well as number of requests.
+* Subclasses of AbstractConnector class optionally can collect statistics about connections as well as number of requests.
 * The StatisticsHandler class may be used to collect request statistics.
 
-In addition to that, subclasses of AbstractSessionHandler class
-optionally can collect session statistics.
+In addition to that, subclasses of AbstractSessionHandler class optionally can collect session statistics.
 
-AbstractConnector and AbstractSessionHandler statistics are turned off
-by default and must either be configured manually for each instance or
-turned on via JMX interface. The Statistics Handler is not included in
-default Jetty configuration, and needs to be configured manually.
+AbstractConnector and AbstractSessionHandler statistics are turned off by default and must either be configured manually for each instance or
+turned on via JMX interface. 
+The Statistics Handler is not included in default Jetty configuration, and needs to be configured manually.
 
-_________________________________________________________________________________________________________________________________________________________
-*Note*
-
-To view statistics, you have to be able to connect to Jetty using either
-JConsole or some other JMX agent. See link:#using-jmx[???] for more
-information.
-_________________________________________________________________________________________________________________________________________________________
+_____
+[NOTE]
+To view statistics, you have to be able to connect to Jetty using either JConsole or some other JMX agent. See xref:using-jmx[] for more information.
+_____
 
 [[connector-statistics]]
-== Connector statistics
+==== Connector statistics
 
-Detailed statistics on connection duration and number of requests are
-only collated when a connection is closed. The current and maximum
-number of connections are the only "live" statistics. To learn how to
-turn on connector statistics please see Jetty Statistics tutorial,
-although this is not recommended and it is best to use a JMX agent to
-select statistics only when needed.
+Detailed statistics on connection duration and number of requests are only collated when a connection is closed. 
+The current and maximum number of connections are the only "live" statistics. 
+To learn how to turn on connector statistics please see Jetty Statistics tutorial, although this is not recommended and it is best to use a JMX agent to select statistics only when needed.
 
-The following example shows how to turn on connector statistics in jetty
-xml. This example comes from within `jetty-http.xml`.
+The following example shows how to turn on connector statistics in jetty xml. 
+This example comes from within `jetty-http.xml`.
 
 [source,xml]
 ----
@@ -97,27 +88,20 @@ xml. This example comes from within `jetty-http.xml`.
 ----
 
 [[request-statistics]]
-== Request Statistics
+==== Request Statistics
 
-To collect request statistics a StatisticsHandler must be configured as
-one of the handlers of the server. Typically this can be done as the top
-level handler, but you may choose to configure a statistics handler for
-just one context by creating a context configuration file. Please note
-that `jetty-stats.xml` has to appear in the command line after the main
-Jetty configuration file as shown below. It should be able to be
-uncommented in the start.ini file.
+To collect request statistics a StatisticsHandler must be configured as one of the handlers of the server. 
+Typically this can be done as the top level handler, but you may choose to configure a statistics handler for just one context by creating a context configuration file. 
+Please note that `jetty-stats.xml` has to appear in the command line after the main Jetty configuration file as shown below. 
+It should be able to be uncommented in the start.ini file.
 
 ....
-
 $ java -jar start.jar OPTIONS=default etc/jetty.xml etc/jetty-stats.xml
-
-        
+    
 ....
 
-Alternately, if you are making multiple changes to the Jetty
-configuration, you could include statistics handler configuration into
-your own jetty xml configuration. The following fragment shows how to
-configure a top level statistics handler:
+Alternately, if you are making multiple changes to the Jetty configuration, you could include statistics handler configuration into your own jetty xml configuration. 
+The following fragment shows how to configure a top level statistics handler:
 
 [source,xml]
 ----
@@ -133,10 +117,9 @@ configure a top level statistics handler:
 ----
 
 [[session-statistics]]
-== Session Statistics
+==== Session Statistics
 
 Session handling is built into Jetty for any servlet or webapp context.
-Detailed statistics on session duration are only collated when a session
-is closed. The current, minimum, and maximum number of sessions are the
-only "live" statistics. The session statistics are enabled by default
-and do not need to be configured.
+Detailed statistics on session duration are only collated when a session is closed. 
+The current, minimum, and maximum number of sessions are the only "live" statistics. 
+The session statistics are enabled by default and do not need to be configured.

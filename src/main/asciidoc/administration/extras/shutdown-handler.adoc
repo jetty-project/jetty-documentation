@@ -15,10 +15,10 @@
 //  ========================================================================
 
 [[shutdown-handler]]
-= Shutdown Handler
+=== Shutdown Handler
 
 [[shutdown-handler-metadata]]
-== Info
+==== Info
 
 * Classname: `org.eclipse.jetty.server.handler.ShutdownHandler`
 * Maven Artifact: org.eclipse.jetty:jetty-server
@@ -26,15 +26,13 @@
 * Xref: {JXURL}/org/eclipse/jetty/server/handler/ShutdownHandler.html
 
 [[shutdown-handler-usage]]
-== Usage
+==== Usage
 
-A handler that shuts the server down on a valid request. Used to do
-"soft" restarts from Java. If _exitJvm is set to true a hard
-System.exit() call is being made.
+A handler that shuts the server down on a valid request. 
+Used to do "soft" restarts from Java. 
+If _exitJvm is set to true a hard System.exit() call is being made.
 
-This is an example of how you can setup this handler directly with the
-Server, it can be added as a part of handler chain or collection as
-well.
+This is an example of how you can setup this handler directly with the Server, it can be added as a part of handler chain or collection as well.
 
 [source,java]
 ----
@@ -49,8 +47,7 @@ well.
     
 ----
 
-And this is an example that you can use to call the shutdown handler
-from within java.
+And this is an example that you can use to call the shutdown handler from within java.
 
 [source,java]
 ----

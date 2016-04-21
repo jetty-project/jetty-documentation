@@ -16,3 +16,6 @@
 
 [[fastcgi]]
 == FastCGI Support
+
+include::fastcgi-intro.adoc[]
+include::configuring-fastcgi.adoc[]

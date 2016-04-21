@@ -15,10 +15,10 @@
 //  ========================================================================
 
 [[debug-handler]]
-= Debug Handler
+=== Debug Handler
 
 [[debug-handler-metadata]]
-== Info
+==== Info
 
 * Classname: `org.eclipse.jetty.server.handler.DebugHandler`
 * Maven Artifact: org.eclipse.jetty:jetty-server
@@ -26,17 +26,17 @@
 * Xref: {JXURL}/org/eclipse/jetty/server/handler/DebugHandler.html
 
 [[debug-handler-usage]]
-== Usage
+==== Usage
 
-A simple handler that is useful to debug incoming traffic. It will log
-entry and exit points of http requests as well as the response code.
+A simple handler that is useful to debug incoming traffic. 
+It will log entry and exit points of http requests as well as the response code.
 
-== Usage in standard distribution
+==== Usage in standard distribution
 
-Simply include jetty-debug.xml in your *.ini configs. For example in
-start.ini.
+Simply include jetty-debug.xml in your *.ini configs. 
+For example in start.ini.
 
-== Embedded usage
+==== Embedded usage
 
 [source,java]
 ----
@@ -49,11 +49,10 @@ debugHandler.setHandler(server.getHandler());
 
 server.setHandler(debugHandler);
 server.start();
-
-            
+          
 ----
 
-== Some example output
+==== Some example output
 
 [source,bash]
 ----

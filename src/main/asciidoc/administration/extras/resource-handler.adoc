@@ -15,10 +15,10 @@
 //  ========================================================================
 
 [[resource-handler]]
-= Resource Handler
+=== Resource Handler
 
 [[resource-handler-metadata]]
-== Info
+==== Info
 
 * Classname: `org.eclipse.jetty.server.handler.ResourceHandler`
 * Maven Artifact: org.eclipse.jetty:jetty-server
@@ -26,43 +26,31 @@
 * Xref: {JXURL}/org/eclipse/jetty/server/handler/ResourceHandler.html
 
 [[resource-handler-usage]]
-== Usage
+==== Usage
 
-This handler will serve static content and handle If-Modified-Since
-headers and is suitable for simple serving of static content.
+This handler will serve static content and handle If-Modified-Since headers and is suitable for simple serving of static content.
 
-____________________________________________________________________________________________________________________________________________________________
-*Important*
+____
+[IMPORTANT]
+There is no caching done with this handler so if you are looking for a more featureful way of serving static content look to the xred:default-servlet[].
+____
 
-There is no caching done with this handler so if you are looking for a
-more featureful way of serving static content look to the
-link:#default-servlet[???].
-____________________________________________________________________________________________________________________________________________________________
-
-____________________________________________________________________
-*Note*
-
+____
+[NOTE]
 Requests for resources that do not exist are let pass (Eg no 404's).
-____________________________________________________________________
+____
 
-== Improving the Look and Feel
+==== Improving the Look and Feel
 
-The resource handler has a default stylesheet which you can change by
-calling `setStyleSheet(String location)` with the location of a file on
-the system that it can locate through the resource loading system. The
-default css is called jetty-dir.css and is located in the jetty-util
-package, pulled as a classpath resource from the jetty-util jar when
-requested through the ResourceHandler.
+The resource handler has a default stylesheet which you can change by calling `setStyleSheet(String location)` with the location of a file on the system that it can locate through the resource loading system. 
+The default css is called jetty-dir.css and is located in the jetty-util package, pulled as a classpath resource from the jetty-util jar when requested through the ResourceHandler.
 
-== Embedded Example
+==== Embedded Example
 
-The following is an example of a split fileserver, able to serve static
-content from multiple directory locations. Since this handler does not
-return 404's on content you are able to iteratively try multiple
-resource handlers to resolve content.
+The following is an example of a split fileserver, able to serve static content from multiple directory locations. 
+Since this handler does not return 404's on content you are able to iteratively try multiple resource handlers to resolve content.
 
-[source,rjava]
+[source,java]
 ----
-        {SRCDIR}/examples/embedded/src/main/java/org/eclipse/jetty/embedded/SplitFileServer.java
-      
+include::{SRCDIR}/examples/embedded/src/main/java/org/eclipse/jetty/embedded/SplitFileServer.java[]
 ----

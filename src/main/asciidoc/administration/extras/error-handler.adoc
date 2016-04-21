@@ -15,10 +15,10 @@
 //  ========================================================================
 
 [[error-handler]]
-= Error Handler
+=== Error Handler
 
 [[error-handler-metadata]]
-== Info
+==== Info
 
 * Classname: `org.eclipse.jetty.server.handler.ErrorHandler`
 * Maven Artifact: org.eclipse.jetty:jetty-server
@@ -26,10 +26,8 @@
 * Xref: {JXURL}/org/eclipse/jetty/server/handler/ErrorHandler.html
 
 [[error-handler-usage]]
-== Usage
+==== Usage
 
-A handler that is used to report errors from servlet contexts and webapp
-contexts to report error conditions. Primarily handles setting the
-various servlet spec specific response headers for error conditions. Can
-be customized by extending, for more information on this see
-link:#custom-error-pages[???].
+A handler that is used to report errors from servlet contexts and webapp contexts to report error conditions. 
+Primarily handles setting the various servlet spec specific response headers for error conditions. 
+Can be customized by extending, for more information on this see xref:custom-error-pages[].

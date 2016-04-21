@@ -15,10 +15,10 @@
 //  ========================================================================
 
 [[balancer-servlet]]
-= Balancer Servlet
+=== Balancer Servlet
 
 [[balancer-servlet-metadata]]
-== Info
+==== Info
 
 * Classname: `org.eclipse.jetty.proxy.BalancerServlet`
 * Maven Artifact: org.eclipse.jetty:jetty-proxy
@@ -26,16 +26,13 @@
 * Xref: {JXURL}/org/eclipse/jetty/proxy/BalancerServlet.html
 
 [[balancer-servlet-usage]]
-== Usage
+==== Usage
 
-The Balancer servlet allows for simple, sticky round robin load
-balancing leveraging the ProxyServlet that is distributed with Jetty.
+The Balancer servlet allows for simple, sticky round robin load balancing leveraging the ProxyServlet that is distributed with Jetty.
 
-In addition to the parameters for ProxyServlet, the following are
-available for the balancer servlet:
+In addition to the parameters for ProxyServlet, the following are available for the balancer servlet:
 
 stickySessions::
   true if sessions should be sticky for subsequent requests
 balancerMember.<name>.proxyTo::
-  One of more of these are required and will be the locations that are
-  used to proxy traffic to.
+  One of more of these are required and will be the locations that are used to proxy traffic to.

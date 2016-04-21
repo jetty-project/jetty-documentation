@@ -53,14 +53,13 @@ HTTP/2 Push can be automated in your application by simply configuring a link:{J
 ----
 
 `PushCacheFilter` analyzes the HTTP requests for resources that arrive to your web application. 
-Some of these requests contain the HTTP `Referer` header that points to a resource that has been requested previously. 
-This allows the `PushCacheFilter` to organize resources in _primary_ resources (those referenced by the `Referer` header) and _secondary_ resources (those that have the `Referer` header).
+Some of these requests contain the HTTP `Referrer` header that points to a resource that has been requested previously. 
+This allows the `PushCacheFilter` to organize resources in _primary_ resources (those referenced by the `Referrer` header) and _secondary_ resources (those that have the `Referer` header).
 
 `PushCacheFilter` associates secondary resources to primary resources.
 Only secondary resources that have been requested within a time window from the request of the primary resource are associated with the primary resource.
 
-`PushCacheFilter` can be configured with the following `init-params`:
-
+`PushCacheFilter` can be configured with the following `init-params`::
 * `associatePeriod`: the time window, in milliseconds, within which a request for a secondary resource will be associated to a primary resource.
 * `maxAssociations`: the max number of secondary resources that may be associated to a primary resource.
 

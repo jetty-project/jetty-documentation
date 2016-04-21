@@ -191,7 +191,8 @@ For this reason, you want to specify the `jetty.http.host` property on the comma
 If your Jetty instance runs on a different machine and/or on a different (sub)network, you may want to adjust both the back-end section of the HAProxy configuration file and the `jetty.http.host` property to match accordingly.
 ____
 
-Browsers supporting HTTP/2 will connect to HAProxy, which will decrypt the traffic and send it to Jetty. Likewise, HTTP/1.1 clients will connect to HAProxy, which will decrypt the traffic and send it to Jetty.
+Browsers supporting HTTP/2 will connect to HAProxy, which will decrypt the traffic and send it to Jetty. 
+Likewise, HTTP/1.1 clients will connect to HAProxy, which will decrypt the traffic and send it to Jetty.
 
 The Jetty connector, configured with the `http2c` module (and therefore transitively with the `http` module) is able to distinguish whether the incoming bytes are HTTP/2 or HTTP/1.1 and will handle the request accordingly.
 

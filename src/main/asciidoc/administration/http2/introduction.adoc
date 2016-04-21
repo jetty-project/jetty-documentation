@@ -30,13 +30,13 @@ This is done automatically when using the jetty distributions start.jar module s
 ____
 
 [[http2-modules]]
-==== Jetty's HTTP/2 sub projects
+==== Jetty HTTP/2 Sub Projects
 
-Jetty's HTTP/2 implementation consists of the following sub-projects (each producing a jar):
+The Jetty HTTP/2 implementation consists of the following sub-projects (each producing a jar):
 
 1.  `http2-common`: contains the HTTP/2 API and a partial implementation shared across other modules.
 2.  `http2-hpack`: contains the HTTP/2 HPACK implementation for HTTP header compression.
 3.  `http2-server`: provides the server-side implementation of HTTP/2.
 4.  `http2-client`: provides the implementation of HTTP/2 client with a low level HTTP/2 API, dealing with HTTP/2 streams, frames, etc.
 5.  `http2-http-client-transport`: provides the implementation of the HTTP/2 transport for `HttpClient` (see xref:http-client[]). 
-Applications can use the higher level API provided by `HttpClient` to send HTTP requests and receive HTTP responses, and the HTTP/2 transport will take care of converting them in HTTP/2 format (see also link:https://webtide.com/http2-support-for-httpclient/[this blog entry]).
+Applications can use the higher level API provided by `HttpClient` to send HTTP requests and receive HTTP responses, and the HTTP/2 transport will take care of converting them in HTTP/2 format (see also https://webtide.com/http2-support-for-httpclient/[this blog entry]).

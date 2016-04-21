@@ -16,3 +16,5 @@
 
 [[alpn-chapter]]
 == ALPN
+
+include::alpn.adoc[]

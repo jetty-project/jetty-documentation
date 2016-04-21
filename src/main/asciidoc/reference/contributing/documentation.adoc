@@ -227,3 +227,8 @@ ________________________________________________________________________________
 Where extreme care has to be taken. Data corruption or other nasty
 things may occur if these warnings are ignored.
 __________________________________________________________________________________________________________________
+
+==== Oddities
+
+* If an included file ends with a list entry, it needs to have two empty lines at the end of the file in order for the section rendering to work correctly. 
+

@@ -16,3 +16,7 @@
 
 [[jmx-chapter]]
 == JMX
+
+include::using-jmx.adoc[]
+include::jetty-jconsole.adoc[]
+include::jetty-jmx-annotations.adoc[]

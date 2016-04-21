@@ -15,43 +15,28 @@
 //  ========================================================================
 
 [[http2-introduction]]
-= Introducing HTTP/2
+=== Introducing HTTP/2
 
-Jetty supports both a client and a server implementation for the HTTP/2
-protocol as defined by http://tools.ietf.org/html/rfc7540[RFC 7540].
+Jetty supports both a client and a server implementation for the HTTP/2 protocol as defined by http://tools.ietf.org/html/rfc7540[RFC 7540].
 
-The requirements for running HTTP/2 are JDK 8 or greater, and typically
-also ALPN support (see link:#alpn-chapter[???]).
+The requirements for running HTTP/2 are JDK 8 or greater, and typically also ALPN support (see xref:alpn-chapter[]).
 
-A server deployed over TLS (SSL) normally advertises the HTTP/2 protocol
-via the TLS extension Application Layer Protocol Negotiation
-link:#alpn[(ALPN)].
+A server deployed over TLS (SSL) normally advertises the HTTP/2 protocol via the TLS extension Application Layer Protocol Negotiation link:#alpn[(ALPN)].
 
-__________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
-*Important*
-
-To use HTTP/2 in Jetty via a TLS connector you need to add the
-link:#alpn-starting[ALPN boot Jar in the boot classpath.] This is done
-automatically when using the jetty distributions start.jar module
-system, but must be configured directly otherwise.
-__________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+____
+[IMPORTANT]
+To use HTTP/2 in Jetty via a TLS connector you need to add the link:#alpn-starting[ALPN boot Jar in the boot classpath.] 
+This is done automatically when using the jetty distributions start.jar module system, but must be configured directly otherwise.
+____
 
 [[http2-modules]]
-== Jetty's HTTP/2 sub projects
+==== Jetty's HTTP/2 sub projects
 
-Jetty's HTTP/2 implementation consists of the following sub-projects
-(each producing a jar):
+Jetty's HTTP/2 implementation consists of the following sub-projects (each producing a jar):
 
-1.  `http2-common`: contains the HTTP/2 API and a partial implementation
-shared across other modules.
-2.  `http2-hpack`: contains the HTTP/2 HPACK implementation for HTTP
-header compression.
+1.  `http2-common`: contains the HTTP/2 API and a partial implementation shared across other modules.
+2.  `http2-hpack`: contains the HTTP/2 HPACK implementation for HTTP header compression.
 3.  `http2-server`: provides the server-side implementation of HTTP/2.
-4.  `http2-client`: provides the implementation of HTTP/2 client with a
-low level HTTP/2 API, dealing with HTTP/2 streams, frames, etc.
-5.  `http2-http-client-transport`: provides the implementation of the
-HTTP/2 transport for `HttpClient` (see link:#http-client[???]).
-Applications can use the higher level API provided by `HttpClient` to
-send HTTP requests and receive HTTP responses, and the HTTP/2 transport
-will take care of converting them in HTTP/2 format (see also
-https://webtide.com/http2-support-for-httpclient/[this blog entry]).
+4.  `http2-client`: provides the implementation of HTTP/2 client with a low level HTTP/2 API, dealing with HTTP/2 streams, frames, etc.
+5.  `http2-http-client-transport`: provides the implementation of the HTTP/2 transport for `HttpClient` (see xref:http-client[]). 
+Applications can use the higher level API provided by `HttpClient` to send HTTP requests and receive HTTP responses, and the HTTP/2 transport will take care of converting them in HTTP/2 format (see also link:https://webtide.com/http2-support-for-httpclient/[this blog entry]).

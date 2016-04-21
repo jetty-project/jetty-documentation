@@ -15,29 +15,21 @@
 //  ========================================================================
 
 [[garbage-collection]]
-= Garbage Collection
+=== Garbage Collection
 
-Tuning the JVM garbage collection (GC) can greatly improve Jetty
-performance. Specifically, you can avoid pauses while the system
-performs full garbage collections. Optimal tuning of the GC depends on
-the behaviour of the application and requires detailed analysis, however
-there are general recommendations.
+Tuning the JVM garbage collection (GC) can greatly improve Jetty performance. 
+Specifically, you can avoid pauses while the system performs full garbage collections. 
+Optimal tuning of the GC depends on the behaviour of the application and requires detailed analysis, however there are general recommendations.
 
-See official
-https://docs.oracle.com/javase/8/docs/technotes/guides/vm/gctuning/[Java
-8 Garbage Collection documentation] for further assistance.
+See official https://docs.oracle.com/javase/8/docs/technotes/guides/vm/gctuning/[Java 8 Garbage Collection documentation] for further assistance.
 
 [[tuning-examples]]
-== Tuning Examples
+==== Tuning Examples
 
-These options are general to the Oracle JVM, and work in a Java 8
-installation. They provide good information about how your JVM is
-running; based on that initial information, you can then tune more
-finely.
+These options are general to the Oracle JVM, and work in a Java 8 installation. 
+They provide good information about how your JVM is running; based on that initial information, you can then tune more finely.
 
-The most important thing you can do for yourself when worrying about GC
-is to capture the GC activity so that you can analyze what is happening
-and how often it happens.
+The most important thing you can do for yourself when worrying about GC is to capture the GC activity so that you can analyze what is happening and how often it happens.
 
 ....
 -verbose:gc 
@@ -51,33 +43,22 @@ and how often it happens.
 -XX:+PrintAdaptiveSizePolicy 
 ....
 
-There are not many recommended options for GC that can apply to nearly
-all users.
+There are not many recommended options for GC that can apply to nearly all users.
 
-However, the most obvious one is to disable explicit GC (this is
-performed regularly by RMI and can introduce an abnormal amount of GC
-pauses)
+However, the most obvious one is to disable explicit GC (this is performed regularly by RMI and can introduce an abnormal amount of GC pauses)
 
 ....
 -XX:+DisableExplicitGC    
 ....
 
-Before you apply any other GC tuning options, monitor your GC logs to
-see if
-https://docs.oracle.com/javase/8/docs/technotes/guides/vm/gctuning/cms.html[tuning
-the CMS] makes sense for your environment.
+Before you apply any other GC tuning options, monitor your GC logs to see if https://docs.oracle.com/javase/8/docs/technotes/guides/vm/gctuning/cms.html[tuning the CMS] makes sense for your environment.
 
-A common setup for those just starting out with GC tuning is included
-below for reference reasons.
+A common setup for those just starting out with GC tuning is included below for reference reasons.
 
-________________________________________________________________________________________________________________________________________________________________________________________________________________________________
-*Caution*
-
-This example configuration below could have a negative effect on your
-application performance, so continued monitoring of your GC log before
-and after is highly recommended to know if the configuration was
-beneficial or not.
-________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+____
+[CAUTION]
+This example configuration below could have a negative effect on your application performance, so continued monitoring of your GC log before and after is highly recommended to know if the configuration was beneficial or not.
+____
 
 ....
 -XX:MaxGCPauseMillis=250 

@@ -18,7 +18,7 @@
 === Deploying Web Applications
 
 Jetty server instances that configure the deploy module will have a web application deployer that hot deploys files found in the `webapps` directory. 
-Standard WAR files and jetty configuration files that you place in the ` webapps` directory are hot deployed to the server with the following conventions:
+Standard WAR files and jetty configuration files that you place in the `webapps` directory are hot deployed to the server with the following conventions:
 
 * A directory called `example/` is deployed as a standard web application if it contains a `WEB-INF/` subdirectory, otherwise it is deployed as context of static content. 
 The context path is `/example` (that is, `http://localhost:8080/example/`) unless the base name is ROOT (case insensitive), in which case the context path is /. 

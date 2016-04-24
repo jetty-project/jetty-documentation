@@ -85,7 +85,7 @@
 
     <para>By default, the WebSocketServletFactory is a simple WebSocketCreator
     capable of creating a single WebSocket object. Use <link
-    xl:href="@JDURL@/org/eclipse/jetty/websocket/servlet/WebSocketServletFactory.html#register(java.lang.Class)"><code>WebSocketCreator.register(Class&lt;?&gt;
+    xl:href="@JDURL@/org/eclipse/jetty/websocket/servlet/WebSocketServletFactory.html#register(java.lang.Class)"><code>WebSocketServletFactory.register(Class&lt;?&gt;
     websocket)</code></link> to tell the WebSocketServletFactory which class
     it should instantiate (make sure it has a default constructor).</para>
 

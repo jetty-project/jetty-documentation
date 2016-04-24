@@ -244,7 +244,7 @@ $ java -jar $JETTY_HOME/start.jar jetty.http.host=127.0.0.1 jetty.http.port=8282
             send it back to the remote client.</para>
         <para>This configuration offers you efficient TLS offloading, HTTP/2 support
             and transparent fallback to HTTP/1.1 for clients that don't support
-            HTTP/1.1.</para>
+            HTTP/2.</para>
     </section>
 
 </section>

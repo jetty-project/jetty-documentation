@@ -188,7 +188,7 @@ INFO: Base directory was modified
 ]]></screen></para>
 
     <para>Alternatively, property values can be added to the effective command
-    line built from eithr the <filename>start.ini</filename> file or
+    line built from either the <filename>start.ini</filename> file or
     <filename>start.d/http.ini</filename> files. By default, the jetty
     distribution defines the jetty.http.port property in the
     <filename>start.d/http.ini</filename> file, which may be edited to set

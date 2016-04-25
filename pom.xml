@@ -83,6 +83,15 @@
               <htmlStylesheet>css/docbook.css</htmlStylesheet>
               <htmlCustomization>src/main/docbkx-stylesheet/html/docbook.xsl</htmlCustomization>
               <preProcess>
+                <!-- pull over the images from the source material -->
+                <copy todir="target/docbkx/html/index/images" flatten="true">
+                  <fileset dir="src/main/asciidoc">
+                    <include name="**/*.png"/>
+                    <include name="**/*.jpg"/>
+                    <include name="**/*.svg"/>
+                    <include name="**/*.dot"/>
+                  </fileset>
+                </copy>
                 <copy todir="target/docbkx/html/index/images">
                   <fileset dir="src/main/docbkx-resources/images" />
                 </copy>

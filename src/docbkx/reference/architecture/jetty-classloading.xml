@@ -339,8 +339,7 @@
       <informalexample>
         <programlisting language="xml"><![CDATA[<Configure class="org.eclipse.jetty.webapp.WebAppContext">
  ...
- <Set name="extraClasspath>../my/classes,../my/jars/special.jar,../my/jars/other.jar>
- </Set>
+ <Set name="extraClasspath">../my/classes,../my/jars/special.jar,../my/jars/other.jar</Set>
  ...]]></programlisting>
       </informalexample>
     </section>

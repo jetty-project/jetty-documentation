@@ -15,17 +15,15 @@
 //  ========================================================================
 
 [[framework-weld]]
-= Weld
+=== Weld
 
-http://seamframework.org/Weld[Weld] can be used to add support for CDI
-(Contexts and Dependency Injection) to Servlets, Listeners and Filters.
+http://seamframework.org/Weld[Weld] can be used to add support for CDI (Contexts and Dependency Injection) to Servlets, Listeners and Filters.
 It is easily configured with Jetty 9.
 
 [[weld-setup-distro]]
-== Weld Setup
+==== Weld Setup
 
-The easiest way to configure weld is within the jetty distribution
-itself:
+The easiest way to configure weld is within the jetty distribution itself:
 
 1.  Enable the startup link:#startup-modules[module] called "cdi".
 2.  Ensure your `WEB-INF/web.xml` contains the following:
@@ -43,9 +41,7 @@ itself:
   </resource-env-ref>
 ----
 
-That should be it so when you start up your jetty distribution with the
-webapp you should see output similar to the following (providing your
-logging is the default configuration):
+That should be it so when you start up your jetty distribution with the webapp you should see output similar to the following (providing your logging is the default configuration):
 
 ....
 2015-06-18 12:13:54.924:INFO::main: Logging initialized @485ms
@@ -81,6 +77,4 @@ INFO: WELD-ENV-001009: org.jboss.weld.environment.servlet.Listener used for Serv
 
 ....
 
-For use with the jetty-maven-plugin, the best idea is to make the
-org.jboss.weld.servlet:weld-servlet artifact a _plugin_ dependency
-(__not__ a webapp dependency), then follow step 2 above.
+For use with the jetty-maven-plugin, the best idea is to make the org.jboss.weld.servlet:weld-servlet artifact a _plugin_ dependency (__not__ a webapp dependency), then follow step 2 above.

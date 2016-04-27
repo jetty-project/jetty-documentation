@@ -15,37 +15,29 @@
 //  ========================================================================
 
 [[framework-jetty-spring]]
-= Spring Setup
+=== Spring Setup
 
-You can assemble and configure Jetty in code or with almost any IoC
-style framework including Spring. If all you want to do is setup a Jetty
-server in your stock Spring usage, simply look at the xml snippet below
-as an example. If you want to replace the jetty-xml being used to start
-the normal Jetty distribution with spring, you may do so however
-currently it will not leverage the rest of the module system.
+You can assemble and configure Jetty in code or with almost any IoC style framework including Spring.
+If all you want to do is setup a Jetty server in your stock Spring usage, simply look at the xml snippet below as an example.
+If you want to replace the jetty-xml being used to start the normal Jetty distribution with spring, you may do so however currently it will not leverage the rest of the module system.
 
-== Jetty-Spring Module
+==== Jetty-Spring Module
 
-The skeleton of a jetty spring module can be enabled from the
-jetty-distribution via the link:#startup-modules[module mechanism]. For
-example:
+The skeleton of a jetty spring module can be enabled from the jetty-distribution via the link:#startup-modules[module mechanism].
+For example:
 
 ....
 $ java -jar start.jar --add-to-startd=spring
 ....
 
-This (or the alternative link:#start-jar[--add-to-start]=spring command)
-creates a `${jetty.home}/lib/spring` directory and populates it with the
-jetty-spring integration jar. It does NOT supply the spring jars and
-their dependencies. You will need to download these and place them into
-jetty's classpath - you can use the `${jetty.home}/lib/spring` directory
-created by spring.mod for this purpose.
+This (or the alternative link:#start-jar[--add-to-start]=spring command) creates a `${jetty.home}/lib/spring` directory and populates it with the jetty-spring integration jar.
+It does NOT supply the spring jars and their dependencies.
+You will need to download these and place them into jetty's classpath - you can use the `${jetty.home}/lib/spring` directory created by spring.mod for this purpose.
 
-== Using Spring to Configure Jetty
+==== Using Spring to Configure Jetty
 
-Configuring Jetty via Spring is simply a matter of calling the API as
-Spring beans. The following is an example mimicking the default jetty
-startup configuration.
+Configuring Jetty via Spring is simply a matter of calling the API as Spring beans.
+The following is an example mimicking the default jetty startup configuration.
 
 [source,xml]
 ----

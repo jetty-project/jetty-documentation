@@ -15,16 +15,16 @@
 //  ========================================================================
 
 [[framework-jetty-osgi]]
-= OSGI
+=== OSGI
 
-== Introduction
+==== Introduction
 
 The Jetty OSGi infrastructure provides a Jetty container inside an OSGi
 container. Traditional JavaEE webapps can be deployed, in addition to
 Jetty ContextHandlers, along with OSGi web bundles. In addition, the
 infrastructure also supports the OSGi HttpService interface.
 
-== General Setup
+==== General Setup
 
 All of the Jetty jars contain manifest entries appropriate to ensure
 that they can be deployed into an OSGi container as bundles. You will
@@ -49,22 +49,22 @@ jetty jars:
 |jetty-osgi-servlet-api |org.eclipse.jetty.toolchain
 |===================================================
 
-______________________________________________________________________________________________________________________________________________________________________________
-*Note*
+____
+[NOTE]
 
 We recommend that you also deploy the
 link:#osgi-annotations[annotation-related] jars also, as increasingly
 the Servlet Specification relies on annotations for functionality.
-______________________________________________________________________________________________________________________________________________________________________________
+____
 
 You will also need the**OSGi Event Management service** and the **OSGi
 Configuration Management service**. If your OSGi container does not
 automatically make these available, you will need to add them in a way
 appropriate to your container.
 
-== The Jetty OSGi Container
+==== The Jetty OSGi Container
 
-=== The jetty-osgi-boot jar
+===== The jetty-osgi-boot jar
 
 Now that you have the basic set of Jetty jars installed, you can install
 the
@@ -78,7 +78,7 @@ into your OSGi container, you should start it manually using a command
 appropriate for your container.
 
 [[customize-jetty-container]]
-=== Customizing the Jetty Container
+===== Customizing the Jetty Container
 
 Before going ahead with the install, you may want to customize the Jetty
 container. In general this is done by a combination of System properties
@@ -170,7 +170,7 @@ etc/jetty.xml, etc/jetty-http.xml, /opt/jetty/etc/jetty-ssl.xml, /opt/jetty/etc/
   configuration file paths: the value of *jetty.home* is determined from
   the resolved location of the _relative_ files only.
 
-=== The Jetty Container as an OSGi Service
+===== The Jetty Container as an OSGi Service
 
 You can now go ahead and deploy the jetty-osgi-boot.jar into your OSGi
 container. A Jetty Server instance will be created, the xml config files
@@ -198,7 +198,7 @@ jetty.etc.config.urls::
   The list of xml files resolved from either *jetty.home*
   or**jetty.home.bundle**/jettyhome
 
-=== Adding More Jetty Servers
+===== Adding More Jetty Servers
 
 As we have seen in the previous section, the jetty-osgi-boot code will
 create an org.eclipse.jetty.server.Server instance, apply the xml
@@ -265,7 +265,7 @@ public class Activator implements BundleActivator
 }
 ----
 
-== Deploying Bundles as Webapps
+==== Deploying Bundles as Webapps
 
 The Jetty OSGi container listens for the installation of bundles, and
 will automatically attempt to deploy any that appear to be webapps.
@@ -378,7 +378,7 @@ Jetty-ContextFilePath::
   "jetty-webapp-context.xml" in the webapp bundle's META-INF directory
   and it will be automatically applied to the webapp.
 
-=== Determining the Context Path for a Webapp Bundle
+===== Determining the Context Path for a Webapp Bundle
 
 As we have seen in the previous section, if the bundle `MANIFEST`
 contains the RFC-66 header **Web-ContextPath**, Jetty will use that as
@@ -401,7 +401,7 @@ The corresponding synthesized context path would be:
 /oz
 ----
 
-=== Extra Properties Available for Webapp Bundles
+===== Extra Properties Available for Webapp Bundles
 
 You can further customize your webapp by including a jetty context xml
 file that is applied to the webapp. This xml file must be placed in
@@ -451,7 +451,7 @@ bundle.root::
   automatically unpacks bundles, or it may be a jar:file: url if the
   bundle remains packed.
 
-== Deploying Bundles as Jetty ContextHandlers
+==== Deploying Bundles as Jetty ContextHandlers
 
 In addition to deploying webapps, the Jetty OSGi container listens for
 the installation of bundles that are not heavyweight webapps, but rather
@@ -503,13 +503,13 @@ managedServerName::
   If not specified, defaults to the default Server instance called
   "defaultJettyServer".
 
-=== Determining the Context Path for a ContextHandler Bundle
+===== Determining the Context Path for a ContextHandler Bundle
 
 Usually, the context path for the ContextHandler will be set by the
 context xml file. However, you can override any path set in the context
 xml file by using the *Web-ContextPath* header in the `MANIFEST`.
 
-=== Extra Properties Available for Context Xml Files
+===== Extra Properties Available for Context Xml Files
 
 Before the Jetty OSGi container applies a context xml file found in a
 Jetty-ContextFilePath MANIFEST header, it sets a few useful properties
@@ -529,13 +529,13 @@ bundle.root::
 Here's an example of a context xml file that makes use of these
 properties:
 
-[source,rxml]
+[source,xml]
 ----
-{SRCDIR}/jetty-osgi/test-jetty-osgi-context/src/main/context/acme.xml
+include::{SRCDIR}/jetty-osgi/test-jetty-osgi-context/src/main/context/acme.xml[]
 ----
 
 [[services-as-webapps]]
-== Deploying Services as Webapps
+==== Deploying Services as Webapps
 
 In addition to listening for bundles whose format or `MANIFEST` entries
 define a webapp or ContextHandler for to be deployed, the Jetty OSGi
@@ -640,7 +640,7 @@ Jetty-WarPrependFragmentResourcePath::
   static resources for the webapp.The path is prepended to the base
   resource for the webapp (see Jetty-WarResourcePath).
 
-== Deploying Services as ContextHandlers
+==== Deploying Services as ContextHandlers
 
 Similarly to WebAppContexts, the Jetty OSGi container can detect the
 registration of an OSGi Service that represents a ContextHandler and
@@ -729,9 +729,9 @@ public void start(final BundleContext context) throws Exception
 
 The contents of the `acme.xml` context file:
 
-[source,rxml]
+[source,xml]
 ----
-{SRCDIR}/jetty-osgi/test-jetty-osgi-context/src/main/context/acme.xml
+include::{SRCDIR}/jetty-osgi/test-jetty-osgi-context/src/main/context/acme.xml[]
 ----
 
 You may also use the following OSGi Service properties:
@@ -741,7 +741,7 @@ managedServerName::
   specified, defaults to the default Server instance called
   "defaultJettyServer".
 
-=== Extra Properties Available for Context Xml Files
+===== Extra Properties Available for Context Xml Files
 
 Before the Jetty OSGi container applies a context xml file found in a
 Jetty-ContextFilePath property, it sets a few useful properties that can
@@ -762,14 +762,14 @@ bundle.root::
 In the example above, you can see both of these properties being used in
 the context xml file.
 
-== Support for the OSGi Service Platform Enterprise Specification
+==== Support for the OSGi Service Platform Enterprise Specification
 
 The Jetty OSGi container implements several aspects of the Enterprise
 Specification v4.2 for the WebAppContexts and ContextHandlers that it
 deploys from either bundles or OSGi services as outlined in foregoing
 sections.
 
-=== Context Attributes
+===== Context Attributes
 
 For each WebAppContext or ContextHandler, the following context
 attribute is set, as required by section__128.6.1 Bundle Context__ pg
@@ -779,7 +779,7 @@ osgi-bundleContext::
   The value of this attribute is the BundleContext representing the
   Bundle associated with the WebAppContext or ContextHandler.
 
-=== Service Attributes
+===== Service Attributes
 
 As required by the specification section _128.3.4 Publishing the Servlet
 Context_ pg 421, each WebAppContext and ContextHandler deployed by the
@@ -796,7 +796,7 @@ osgi.web.version::
 osgi.web.contextpath::
   The context path of the WebAppContext or ContextHandler
 
-=== OSGi Events
+===== OSGi Events
 
 As required by the specification section _128.5 Events_ pg 426, the
 following OSGi Event Admin events will be posted:
@@ -817,9 +817,9 @@ org/osgi/service/web/FAILED::
   The Jetty OSGi container failed to deploy a WebAppContext or
   ContextHandler
 
-== Using JSPs
+==== Using JSPs
 
-=== Setup
+===== Setup
 
 In order to use JSPs with your webapps and bundles you will need to
 install the JSP and JSTL jars and their dependencies into your OSGi
@@ -853,9 +853,8 @@ change in future):
 central]
 |=======================================================================
 
-_________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
-*Note*
-
+____
+[NOTE]
 1.  As of jetty-9.2.3 the jetty-osgi-boot-jsp bundle changed to using
 Apache Jasper as the JSP implementation. Prior to this the Glassfish
 Jasper implementation was used, which had a different set of
@@ -868,7 +867,7 @@ jsps. This can be hard to diagnose but is almost always caused by the
 ServletContainerInitializer in the org.eclipse.jetty.apache-jsp bundle
 for the jsp container not being invoked due to incorrect startup of the
 annotation jars.
-_________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+____
 
 For the JSTL library, we recommend the use of the implementation from
 Glassfish, as it has fewer dependencies:
@@ -911,7 +910,7 @@ http://download.eclipse.org/tools/orbit/downloads/drops/R20140525021250/reposito
 Orbit]
 |=======================================================================
 
-=== The jetty-osgi-boot-jsp jar
+===== The jetty-osgi-boot-jsp jar
 
 To be able to use JSPs you will need to also install the
 http://central.maven.org/maven2/org/eclipse/jetty/osgi/jetty-osgi-boot-jsp/[jetty-osgi-boot-jsp.jar]
@@ -921,7 +920,7 @@ http://central.maven.org/maven2/org/eclipse/jetty/osgi/jetty-osgi-boot-jsp/[here
 This bundle acts as a fragment extension to the jetty-osgi-boot.jar and
 adds in support for using JSP.
 
-==== Using TagLibs
+====== Using TagLibs
 
 The Jetty JSP OSGi container will make available the JSTL tag library to
 all webapps. If you only use this tag library, then your webapp will
@@ -968,7 +967,7 @@ the OSGi classpath.
 The format of the *Require-TldBundle* header is a comma separated list
 of one or more symbolic names of bundles containing TLDs.
 
-==== Container Path Taglibs
+====== Container Path Taglibs
 
 Some TLD jars are required to be found on the Jetty OSGi container's
 classpath, rather than considered part of the web bundle's classpath.
@@ -1042,7 +1041,7 @@ org.eclipse.jetty.server.webapp.containerIncludeBundlePattern::
   pattern are available on the OSGi class path.
 
 [[osgi-annotations]]
-== Using Annotations/ServletContainerInitializers
+==== Using Annotations/ServletContainerInitializers
 
 Annotations are very much part of the Servlet 3.0 and 3.1
 specifications. In order to use them with Jetty in OSGi, you will need
@@ -1089,30 +1088,28 @@ org.eclipse.jetty.orbit:javax.mail.glassfish-1.4.1.v201005082020.jar)^*^
 |jetty-annotations |org.eclipse.jetty.annotations |Distribution lib/
 |=======================================================================
 
-______________________________________________________________________________
-*Important*
-
+____
+[IMPORTANT]
 If you wish to use JSPs you will need to deploy these annotation-related
 jars.
-______________________________________________________________________________
+____
 
-_____________________________________________________________________________________________________________________________________________________________________________________________________________
-*Note*
-
-* You may be able to deploy later versions or other providers of these
+____
+[NOTE]
+You may be able to deploy later versions or other providers of these
 specifications, however these particular versions are known to have
 correct manifests and have been tested and known to work with OSGi
-_____________________________________________________________________________________________________________________________________________________________________________________________________________
+____
 
 Even if your webapp itself does not not use annotations, you may need to
 deploy these jars because your webapp depends on a Jetty module or a 3rd
 party library that uses a
-jhttp://docs.oracle.com/javaee/6/api/javax/servlet/ServletContainerInitializer.html[avax.servlet.ServletContainerInitializer].
+http://docs.oracle.com/javaee/6/api/javax/servlet/ServletContainerInitializer.html[javax.servlet.ServletContainerInitializer].
 This interface requires annotation support. It is implemented by
 providers of code that extend the capabilities of the container. An
 example of this is the Jetty JSR356 Websocket implementation, although
 it is being used increasingly commonly in popular libraries like
-http://projects.spring.io/spring-framework/[Spring],https://jersey.java.net/[Jersey]
+link:http://projects.spring.io/spring-framework/[Spring], link:https://jersey.java.net/[Jersey]
 and JSP containers.
 
 To find ServletContainerInitializers on the classpath, Jetty uses the
@@ -1126,9 +1123,9 @@ thehttp://aries.apache.org/modules/spi-fly.html[Aries SpiFly]module,
 which is the reference implementation of the Service Loader Mediator,
 and is listed in the jars above.
 
-== OSGi Containers
+==== OSGi Containers
 
-=== Felix
+===== Felix
 
 The Jetty OSGi integration has been successfully tested against
 http://felix.apache.org/[Felix] 5.0.0.
@@ -1142,10 +1139,8 @@ Configuration Admin Service]
 Event Admin Service]
 
 Unfortunately, as of Felix 4.x there is a difficultly with the
-resolution of the javax.transaction package. A
-http://mail-archives.apache.org/mod_mbox/felix-users/201211.mbox/%3CCAPr=90M+5vYjPqAvyTU+gYHr64y_FosBYELeUYcU_rFEJF3Cxw@mail.gmail.com%3E[description
-of the problem] and hint to solving it is described
-http://mail-archives.apache.org/mod_mbox/felix-users/201211.mbox/%3CCAPr=90M+5vYjPqAvyTU+gYHr64y_FosBYELeUYcU_rFEJF3Cxw@mail.gmail.com%3E[here].
+resolution of the javax.transaction package.
+A link:http://mail-archives.apache.org/mod_mbox/felix-users/201211.mbox/%3CCAPr=90M+5vYjPqAvyTU+gYHr64y_FosBYELeUYcU_rFEJF3Cxw&#64;mail.gmail.com%3E[description of the problem] and hint to solving it is described [http://mail-archives.apache.org/mod_mbox/felix-users/201211.mbox/%3CCAPr=90M+5vYjPqAvyTU+gYHr64y_FosBYELeUYcU_rFEJF3Cxw&#64;mail.gmail.com%3E[here]].
 
 The simplest solution for this is to extract the `default.properties`
 file from the `felix.jar, change the declaration of the javax.sql and
@@ -1400,9 +1395,7 @@ the `felix:lb` command:
    37|Active     |    1|Mortbay Jasper (8.0.9)
 ....
 
-=== Eclipse
-
-====
+===== Eclipse
 
 The jetty OSGi integration has been successfully tested against
 https://www.eclipse.org/equinox/[Equinox] Mars RC1.
@@ -1412,7 +1405,7 @@ Ensure that these services are present:
 * https://www.eclipse.org/equinox/bundles/[Configuration Admin]
 * https://www.eclipse.org/equinox/bundles/[Event Admin]
 
-==== Eclipse Update Site
+====== Eclipse Update Site
 
 There is a list of Eclipse P2 sites for the jetty releases maintained at
 http://download.eclipse.org/jetty/updates/jetty-bundles-9.x/

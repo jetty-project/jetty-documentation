@@ -15,22 +15,19 @@
 //  ========================================================================
 
 [[framework-metro]]
-= Metro
+=== Metro
 
-https://metro.java.net/[Metro] is the reference implementation for
-http://jcp.org/en/jsr/detail?id=109[web services]. You can easily use
-Metro with Jetty to integrate web services with your web applications.
+https://metro.java.net/[Metro] is the reference implementation for http://jcp.org/en/jsr/detail?id=109[web services].
+You can easily use Metro with Jetty to integrate web services with your web applications.
 
 [[metro-setup-distro]]
-== Metro Setup
+==== Metro Setup
 
-1.  https://metro.java.net/latest/download.html[Download] the Metro
-distribution and unpack it to your disk. We'll refer to the unpacked
-location as `$metro.home`.
+1.  https://metro.java.net/latest/download.html[Download] the Metro distribution and unpack it to your disk.
+We'll refer to the unpacked location as `$metro.home`.
 2.  Create the directory `$jetty.home/lib/metro`
 3.  Copy the jars from $metro.home/lib to `$jetty.home/lib/metro`
-4.  Edit the start.ini file and add an OPTION line for metro near the
-end.
+4.  Edit the start.ini file and add an OPTION line for metro near the end.
 +
 [source,plain]
 ----
@@ -39,15 +36,10 @@ OPTIONS=metro
 
 That's all the setup you need to do to integrate Jetty and Metro.
 
-Now read the https://metro.java.net/discover/[Metro documentation] on
-https://metro.java.net/getting-started/[how to create web services]. The
-Metro distribution you downloaded should also contain several example
-web applications in the $metro.home/samples directory that you can build
-and deploy to Jetty (simply by copying the war file produced by the
-build).
+Now read the https://metro.java.net/discover/[Metro documentation] on https://metro.java.net/getting-started/[how to create web services].
+The Metro distribution you downloaded should also contain several example web applications in the $metro.home/samples directory that you can build and deploy to Jetty (simply by copying the war file produced by the build).
 
-Here's an example of the log output from Jetty when one of the sample
-Metro wars (from `$metro.home/samples/async`) is deployed to Jetty:
+Here's an example of the log output from Jetty when one of the sample Metro wars (from `$metro.home/samples/async`) is deployed to Jetty:
 
 ....
 [2093] java -jar start.jar

@@ -18,20 +18,16 @@ Proxy Support
 =============
 
 [[http-client-other]]
-= Other Features
+=== Other Features
 
 [[http-client-cookie]]
-== Cookies Support
+==== Cookies Support
 
-Jetty HTTP client supports cookies out of the box. The `HttpClient`
-instance receives cookies from HTTP responses and stores them in a
-`java.net.CookieStore`, a class that is part of the JDK. When new
-requests are made, the cookie store is consulted and if there are
-matching cookies (that is, cookies that are not expired and that match
-domain and path of the request) then they are added to the requests.
+Jetty HTTP client supports cookies out of the box.
+The `HttpClient` instance receives cookies from HTTP responses and stores them in a `java.net.CookieStore`, a class that is part of the JDK.
+When new requests are made, the cookie store is consulted and if there are matching cookies (that is, cookies that are not expired and that match domain and path of the request) then they are added to the requests.
 
-Applications can programmatically access the cookie store to find the
-cookies that have been set:
+Applications can programmatically access the cookie store to find the cookies that have been set:
 
 [source,java]
 ----
@@ -42,8 +38,7 @@ List<HttpCookie> cookies = cookieStore.get(URI.create("http://domain.com/path"))
       
 ----
 
-Applications can also programmatically set cookies as if they were
-returned from a HTTP response:
+Applications can also programmatically set cookies as if they were returned from a HTTP response:
 
 [source,java]
 ----
@@ -58,8 +53,7 @@ cookieStore.add(URI.create("http://domain.com"), cookie);
       
 ----
 
-You can remove cookies that you do not want to be sent in future HTTP
-requests:
+You can remove cookies that you do not want to be sent in future HTTP requests:
 
 [source,java]
 ----
@@ -73,8 +67,7 @@ for (HttpCookie cookie : cookies)
       
 ----
 
-If you want to totally disable cookie handling, you can install a
-`HttpCookieStore.Empty` instance in this way:
+If you want to totally disable cookie handling, you can install a `HttpCookieStore.Empty` instance in this way:
 
 [source,java]
 ----
@@ -84,8 +77,7 @@ httpClient.setCookieStore(new HttpCookieStore.Empty());
       
 ----
 
-You can enable cookie filtering by installing a cookie store that
-performs the filtering logic in this way:
+You can enable cookie filtering by installing a cookie store that performs the filtering logic in this way:
 
 [source,java]
 ----
@@ -105,17 +97,14 @@ public class GoogleOnlyCookieStore extends HttpCookieStore
       
 ----
 
-The example above will retain only cookies that come from the
-`google.com` domain or sub-domains.
+The example above will retain only cookies that come from the `google.com` domain or sub-domains.
 
 [[http-client-authentication]]
-== Authentication Support
+==== Authentication Support
 
-Jetty HTTP client supports the "Basic" and "Digest" authentication
-mechanisms defined by http://www.ietf.org/rfc/rfc2617.txt[RFC 2617].
+Jetty HTTP client supports the "Basic" and "Digest" authentication mechanisms defined by http://www.ietf.org/rfc/rfc2617.txt[RFC 2617].
 
-You can configure authentication credentials in the HTTP client instance
-as follows:
+You can configure authentication credentials in the HTTP client instance as follows:
 
 [source,java]
 ----
@@ -137,14 +126,10 @@ ContentResponse response = httpClient
       
 ----
 
-Jetty HTTP client tests authentication credentials against the
-challenge(s) the server issues, and if they match it automatically sends
-the right authentication headers to the server for authentication. If
-the authentication is successful, it caches the result and reuses it for
-subsequent requests for the same domain and matching URIs.
+Jetty HTTP client tests authentication credentials against the challenge(s) the server issues, and if they match it automatically sends the right authentication headers to the server for authentication.
+If the authentication is successful, it caches the result and reuses it for subsequent requests for the same domain and matching URIs.
 
-Successful authentications are cached, but it is possible to clear them
-in order to force authentication again:
+Successful authentications are cached, but it is possible to clear them in order to force authentication again:
 
 [source,java]
 ----
@@ -155,16 +140,12 @@ httpClient.getAuthenticationStore().clearAuthenticationResults();
 ----
 
 [[http-client-proxy]]
-== Proxy Support
+==== Proxy Support
 
-Jetty's HTTP client can be configured to use proxies to connect to
-destinations.
+Jetty's HTTP client can be configured to use proxies to connect to destinations.
 
-Two types of proxies are available out of the box: a HTTP proxy
-(provided by class `org.eclipse.jetty.client.HttpProxy`) and a SOCKS 4
-proxy (provided by class `org.eclipse.jetty.client.Socks4Proxy`). Other
-implementations may be written by subclassing
-`ProxyConfiguration.Proxy`.
+Two types of proxies are available out of the box: a HTTP proxy (provided by class `org.eclipse.jetty.client.HttpProxy`) and a SOCKS 4 proxy (provided by class `org.eclipse.jetty.client.Socks4Proxy`).
+Other implementations may be written by subclassing `ProxyConfiguration.Proxy`.
 
 A typical configuration is the following:
 
@@ -184,10 +165,6 @@ ContentResponse response = httpClient.GET(uri);
       
 ----
 
-You specify the proxy host and port, and optionally also the addresses
-that you do not want to be proxied, and then add the proxy configuration
-on the `ProxyConfiguration` instance.
+You specify the proxy host and port, and optionally also the addresses that you do not want to be proxied, and then add the proxy configuration on the `ProxyConfiguration` instance.
 
-Configured in this way, `HttpClient` makes requests to the HTTP proxy
-(for plain-text HTTP requests) or establishes a tunnel via HTTP CONNECT
-(for encrypted HTTPS requests).
+Configured in this way, `HttpClient` makes requests to the HTTP proxy (for plain-text HTTP requests) or establishes a tunnel via HTTP CONNECT (for encrypted HTTPS requests).

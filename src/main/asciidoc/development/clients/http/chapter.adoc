@@ -16,3 +16,7 @@
 
 [[http-client]]
 == HTTP Client
+
+include::http-client-intro.adoc[]
+include::http-client-api.adoc[]
+include::http-client-other.adoc[]

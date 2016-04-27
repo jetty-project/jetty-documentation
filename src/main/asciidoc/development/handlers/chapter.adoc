@@ -16,3 +16,5 @@
 
 [[jetty-handlers]]
 == Handlers
+
+include::writing-custom-handlers.adoc[]

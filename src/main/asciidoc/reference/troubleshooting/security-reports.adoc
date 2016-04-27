@@ -15,7 +15,7 @@
 //  ========================================================================
 
 [[security-reports]]
-= Jetty Security Reports
+=== Jetty Security Reports
 
 The following sections provide information about Jetty security issues.
 
@@ -24,13 +24,11 @@ The following sections provide information about Jetty security issues.
 |=======================================================================
 |yyyy/mm/dd |ID |Exploitable |Severity |Affects |Fixed Version |Comment
 |2015/02/24 |CVE-2015-2080 |high |high |>=9.2.3 <9.2.9 |9.2.9
-|http://blog.gdssecurity.com/labs/2015/2/25/jetleak-vulnerability-remote-leakage-of-shared-buffers-in-je.html[JetLeak
-exposure of past buffers during HttpParser error]
+|http://blog.gdssecurity.com/labs/2015/2/25/jetleak-vulnerability-remote-leakage-of-shared-buffers-in-je.html[JetLeak exposure of past buffers during HttpParser error]
 
 |2013/11/27 |http://en.securitylab.ru/lab/PT-2013-65[PT-2013-65] |medium
 |high |>=9.0.0 <9.0.5 |9.0.6
-https://bugs.eclipse.org/bugs/show_bug.cgi?id=418014[418014] |Alias
-checking disabled by NTFS errors on Windows.
+https://bugs.eclipse.org/bugs/show_bug.cgi?id=418014[418014] |Alias checking disabled by NTFS errors on Windows.
 
 |2013/07/24
 |https://bugs.eclipse.org/bugs/show_bug.cgi?id=413684[413684] |low
@@ -39,14 +37,13 @@ https://bugs.eclipse.org/bugs/show_bug.cgi?id=413684[413684]
 |Constraints bypassed if unix symlink alias checker used on windows
 
 |2011/12/29
-|http://www.ocert.org/advisories/ocert-2011-003.html[CERT2011-003]http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2011-4461[CVE-2011-4461]
+|http://www.ocert.org/advisories/ocert-2011-003.html[CERT2011-003] http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2011-4461[CVE-2011-4461]
 |high |medium |All versions |7.6.0.RCO
 https://bugs.eclipse.org/bugs/show_bug.cgi?id=367638[Jetty-367638]
-|Added ContextHandler.setMaxFormKeys (intkeys) to limit the number of
-parameters (default 1000).
+|Added ContextHandler.setMaxFormKeys (intkeys) to limit the number of parameters (default 1000).
 
 |2009/11/05
-|http://www.kb.cert.org/vuls/id/120541[CERT2011-003]http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2009-3555[CERT2011-003]
+|http://www.kb.cert.org/vuls/id/120541[CERT2011-003] http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2009-3555[CERT2011-003]
 |medium |high |JVM<1.6u19 |jetty-7.01.v20091125, jetty-6.1.22 |Work
 around by turning off SSL renegotiation in Jetty. If using JVM > 1.6u19
 setAllowRenegotiate(true) may be called on connectors.
@@ -64,7 +61,7 @@ http://jira.codehaus.org/browse/JETTY-1004[Jetty-1004]
  |View arbitrary disk content in some specific configurations.
 
 |2007/12/22
-|http://www.kb.cert.org/vuls/id/553235[CERT553235]http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2007-6672[CVE-2007-6672]
+|http://www.kb.cert.org/vuls/id/553235[CERT553235] http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2007-6672[CVE-2007-6672]
 |high |medium |6.1.rrc0-6.1.6 a|
 6.1.7
 
@@ -73,17 +70,17 @@ http://jira.codehaus.org/browse/JETTY-386[CERT553235]
  |Static content visible in WEB-INF and past security constraints.
 
 |2007/11/05
-|http://www.kb.cert.org/vuls/id/438616[CERT438616]http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2007-5614[CVE-2007-5614]
+|http://www.kb.cert.org/vuls/id/438616[CERT438616] http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2007-5614[CVE-2007-5614]
 |low |low |<6.1.6 |6.1.6rc1 (patch in CVS for jetty5) |Single quote in
 cookie name.
 
 |2007/11/05
-|http://www.kb.cert.org/vuls/id/237888[CERT237888>]http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2007-5613[CVE-2007-5613]
+|http://www.kb.cert.org/vuls/id/237888[CERT237888>] http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2007-5613[CVE-2007-5613]
 |low |low |<6.1.6 |6.1.6rc0 (patch in CVS for jetty5) |XSS in demo dup
 servlet.
 
 |2007/11/03 |http://www.kb.cert.org/vuls/id/212984[CERT212984
->]http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2007-5615[CVE-2007-5615]
+>] http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2007-5615[CVE-2007-5615]
 |medium |medium |<6.1.6 |6.1.6rc0 (patch in CVS for jetty5) |CRLF
 Response splitting.
 

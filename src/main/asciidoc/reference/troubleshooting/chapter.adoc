@@ -17,5 +17,10 @@
 [[troubleshooting]]
 == Troubleshooting
 
-This is a collection of helpful tricks and tips that we have come across
-to address odd issues that might arise.
+This is a collection of helpful tricks and tips that we have come across to address odd issues that might arise.
+
+include::troubleshooting-zip-exceptions.adoc[]
+include::troubleshooting-locked-files.adoc[]
+include::preventing-memory-leaks.adoc[]
+include::slow-deployment.adoc[]
+include::security-reports.adoc[]

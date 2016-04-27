@@ -15,28 +15,21 @@
 //  ========================================================================
 
 [[troubleshooting-locked-files-on-windows]]
-= Troubleshooting Locked Files on Windows
+=== Troubleshooting Locked Files on Windows
 
-Jetty buffers static content for webapps such as HTML files, CSS files,
-images, etc. If you are using NIO connectors, Jetty uses memory-mapped
-files to do this. The problem is that on Windows, memory mapping a file
-causes the file to lock, so that you cannot update or replace the file.
+Jetty buffers static content for webapps such as HTML files, CSS files, images, etc.
+If you are using NIO connectors, Jetty uses memory-mapped files to do this.
+The problem is that on Windows, memory mapping a file causes the file to lock, so that you cannot update or replace the file.
 Effectively this means that you have to stop Jetty to update a file.
 
-== Remedy
+==== Remedy
 
-Jetty provides a configuration switch in the `webdefault.xml` file for
-the DefaultServlet that enables or disables the use of memory-mapped
-files. If you are running on Windows and are having file-locking
-problems, you should set this switch to disable memory-mapped file
-buffers.
+Jetty provides a configuration switch in the `webdefault.xml` file for the DefaultServlet that enables or disables the use of memory-mapped files.
+If you are running on Windows and are having file-locking problems, you should set this switch to disable memory-mapped file buffers.
 
-The default `webdefault.xml` file is found in the jetty distribution
-under the `etc/` directory or in the `jetty-webapp-${version}.jar`
-artifact at `org/eclipse/jetty/webapp/webdefault.xml`. Edit the file in
-the distribution or extract it to a convenient disk location and edit it
-to change `useFileMappedBuffer` to false. The easiest option is to
-simply edit the default file contained in the jetty distribution itself.
+The default `webdefault.xml` file is found in the jetty distribution under the `etc/` directory or in the `jetty-webapp-${version}.jar` artifact at `org/eclipse/jetty/webapp/webdefault.xml`.
+Edit the file in the distribution or extract it to a convenient disk location and edit it to change `useFileMappedBuffer` to false.
+The easiest option is to simply edit the default file contained in the jetty distribution itself.
 
 [source,xml]
 ----
@@ -48,9 +41,8 @@ simply edit the default file contained in the jetty distribution itself.
     
 ----
 
-Make sure to apply your custom `webdefault.xml` file to all of your
-webapps. You can do that by changing the configuration of the Deployment
-Manager in `etc/jetty-deploy.xml`.
+Make sure to apply your custom `webdefault.xml` file to all of your webapps.
+You can do that by changing the configuration of the Deployment Manager in `etc/jetty-deploy.xml`.
 
 [source,xml]
 ----
@@ -72,9 +64,7 @@ Manager in `etc/jetty-deploy.xml`.
     
 ----
 
-Alternatively, if you have individually configured your webapps with
-context xml files, you need to call the
-`WebAppContext.setDefaultsDescriptor(String path)` method:
+Alternatively, if you have individually configured your webapps with context xml files, you need to call the `WebAppContext.setDefaultsDescriptor(String path)` method:
 
 [source,xml]
 ----
@@ -89,8 +79,7 @@ context xml files, you need to call the
     
 ----
 
-Instead, you could redefine the DefaultServlet in your web.xml file,
-making sure to set useFileMappedBuffer to false:
+Instead, you could redefine the DefaultServlet in your web.xml file, making sure to set useFileMappedBuffer to false:
 
 [source,xml]
 ----
@@ -111,13 +100,11 @@ making sure to set useFileMappedBuffer to false:
     
 ----
 
-== Alternate Remedy
+==== Alternate Remedy
 
-You can force a `WebAppContext` to always copy a web app directory on
-deployment. The base directory of your web app (ie the root directory
-where your static content exists) will be copied to the
-link:#ref-temporary-directories[temp directory]. Configure this in an
-xml file like so:
+You can force a `WebAppContext` to always copy a web app directory on deployment.
+The base directory of your web app (ie the root directory where your static content exists) will be copied to the link:#ref-temporary-directories[temp directory].
+Configure this in an xml file like so:
 
 [source,xml]
 ----
@@ -131,12 +118,7 @@ xml file like so:
     
 ----
 
-______________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
-*Note*
-
-Be careful with this option when using an explicitly
-setlink:#ref-temp-directories[temp directory] name - as the name of the
-temp directory will not unique across redeployments, copying the static
-content into the same directory name each time may not avoid the locking
-problem.
-______________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+____
+[NOTE]
+Be careful with this option when using an explicitly setlink:#ref-temp-directories[temp directory] name - as the name of the temp directory will not unique across redeployments, copying the static content into the same directory name each time may not avoid the locking problem.
+____

@@ -124,8 +124,7 @@ You can do so directly to the API via a context XML file such as the following:
 ----
 <Configure class="org.eclipse.jetty.webapp.WebAppContext">
  ...
- <Set name="extraClasspath>../my/classes,../my/jars/special.jar,../my/jars/other.jar>
- </Set>
+ <Set name="extraClasspath>../my/classes,../my/jars/special.jar,../my/jars/other.jar</Set>
  ...
 ----
 

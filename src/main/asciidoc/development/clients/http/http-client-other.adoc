@@ -14,9 +14,6 @@
 //  You may elect to redistribute this code under either of these licenses.
 //  ========================================================================
 
-Proxy Support
-=============
-
 [[http-client-other]]
 === Other Features
 

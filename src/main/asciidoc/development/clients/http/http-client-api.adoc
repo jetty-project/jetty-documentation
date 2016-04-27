@@ -14,9 +14,6 @@
 //  You may elect to redistribute this code under either of these licenses.
 //  ========================================================================
 
-Response Content Handling
-=========================
-
 [[http-client-api]]
 === API Usage
 

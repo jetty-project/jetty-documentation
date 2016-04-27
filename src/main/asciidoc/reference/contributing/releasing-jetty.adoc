@@ -121,8 +121,9 @@ $ git push origin release-9
 9.  Close the staging repository on oss.sonatype.org
 10. Announce stage to the mailing list for testing.
 11. Once the staged repository has been approved by the rest of the committers.
-1.  Release the staging repository to maven central on oss.sonatype.org
-2.  Merge back the changes in release-9 to master
++
+* Release the staging repository to maven central on oss.sonatype.org
+* Merge back the changes in release-9 to master
 +
 ....
 

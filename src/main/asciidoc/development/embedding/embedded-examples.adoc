@@ -27,6 +27,11 @@ If the line numbers do not line up feel free to fix this documentation in github
 ____
 
 include::examples/embedded-file-server.adoc[]
+include::examples/embedded-split-file-server.adoc[]
+include::examples/embedded-many-connectors.adoc[]
+include::examples/embedded-secured-hello-handler.adoc[]
+include::examples/embedded-minimal-servlet.adoc[]
+include::examples/embedded-one-webapp.adoc[]
 
 [[embedded-webapp-jsp]]
 ==== Web Application with JSP

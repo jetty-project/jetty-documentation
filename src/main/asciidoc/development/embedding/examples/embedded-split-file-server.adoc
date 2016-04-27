@@ -15,34 +15,26 @@
 //  ========================================================================
 
 [[embedded-split-file-server]]
-= Split File Server
+==== Split File Server
 
-This example builds on the link:#emebedded-file-server[Simple File
-Server] to show how chaining multiple ResourceHandlers together can let
-you aggregate mulitple directories to serve content on a single path and
-how you can link these together with ContextHandlers.
+This example builds on the link:#emebedded-file-server[Simple File Server] to show how chaining multiple ResourceHandlers together can let you aggregate mulitple directories to serve content on a single path and how you can link these together with ContextHandlers.
 
-[source,rjava-no-parse]
+[source,java]
 ----
-      
-        {SRCDIR}/examples/embedded/src/main/java/org/eclipse/jetty/embedded/SplitFileServer.java
+include::{SRCDIR}/examples/embedded/src/main/java/org/eclipse/jetty/embedded/SplitFileServer.java[]
       
     
 ----
 
-== Run it!
+===== Run it!
 
-After you have started things up you should be able to navigate to
-http://localhost:8090/index.html (assuming one is in the resource base
-directory) and you are good to go. Any requests for files will be looked
-for in the first resource handler, then the second, and so on and so
-forth.
+After you have started things up you should be able to navigate to http://localhost:8090/index.html (assuming one is in the resource base directory) and you are good to go.
+Any requests for files will be looked for in the first resource handler, then the second, and so on and so forth.
 
-== Maven Coordinates
+===== Maven Coordinates
 
-To use this example as is in your project you will need the following
-maven dependencies declared. We would recommend not using the toolchain
-dependency in your actual application.
+To use this example as is in your project you will need the following maven dependencies declared.
+We would recommend not using the toolchain dependency in your actual application.
 
 [source,xml]
 ----

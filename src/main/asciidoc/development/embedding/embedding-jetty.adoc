@@ -80,7 +80,7 @@ The following code from OneHandler.java shows how a Jetty server can use the Hel
 
 [source,java]
 ----
-include::{SRCDIR}/examples/embedded/src/main/java/org/eclipse/jetty/embedded/OneHandler.javamain[]
+include::{SRCDIR}/examples/embedded/src/main/java/org/eclipse/jetty/embedded/OneHandler.java[]
 ----
 
 One or more handlers do all request handling in Jetty.

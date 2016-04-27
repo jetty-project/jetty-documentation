@@ -15,7 +15,7 @@
 //  ========================================================================
 
 [[embedded-file-server]]
-=== Simple File Server
+==== Simple File Server
 
 This example shows how to create a simple file server in Jetty.
 It is perfectly suitable for test cases where you need an actual web server to obtain a file from, it could easily be configured to serve files from a directory under src/test/resources.
@@ -28,11 +28,11 @@ include::{SRCDIR}/examples/embedded/src/main/java/org/eclipse/jetty/embedded/Fil
 
 ----
 
-==== Run it!
+===== Run it!
 
 After you have started things up you should be able to navigate to http://localhost:8080/index.html (assuming one is in the resource base directory) and you are good to go.
 
-==== Maven Coordinates
+===== Maven Coordinates
 
 To use this example in your project you will need the following maven dependencies declared.
 

@@ -19,14 +19,16 @@
 
 === Many many options...
 
-In addition to using Jetty in its distribution form and its multiple
-embedded forms, there are a number of alterative ways to use Jetty. Many
-products and open source projects out there distribute Jetty themselves,
-in both distribution and embedded forms, not to mention different
-operativing systems bundling Jetty in other installable forms.
+In addition to using Jetty in its distribution form and its multiple embedded forms, there are a number of alternative ways to use Jetty.
+Many products and open source projects out there distribute Jetty themselves, in both distribution and embedded forms, not to mention different operating systems bundling Jetty in other installable forms.
 
-If your platform supports Jetty from a distributon or deployment
-perspective and want to be included on this list just fork the
-documentation and submit a pull request, or contact us. Check out our
-list of http://www.eclipse.org/jetty/powered[Powered By] page for
-software that makes use of Jetty, often in novel and exciting ways.
+If your platform supports Jetty from a distribution or deployment perspective and want to be included on this list just fork the documentation and submit a pull request, or contact us.
+Check out our list of http://www.eclipse.org/jetty/powered[Powered By] page for software that makes use of Jetty, often in novel and exciting ways.
+
+include::jelastic.adoc[]
+include::cloudfoundry.adoc[]
+include::elastic-beanstalk.adoc[]
+include::fedora.adoc[]
+include::ubuntu.adoc[]
+
+

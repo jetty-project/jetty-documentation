@@ -15,12 +15,10 @@
 //  ========================================================================
 
 [[jelastic]]
-= Jelastic
+=== Jelastic
 
-Jelastic is a wonderful place to host your applications with solid
-support for Jetty. As a cloud hosting platfrom they take the majority of
-configuration and installation details out of the picture and focus on
-letting you focus on your web application.
+Jelastic is a wonderful place to host your applications with solid support for Jetty.
+As a cloud hosting platform they take the majority of configuration and installation details out of the picture and focus on letting you focus on your web application.
 
 * http://jelastic.com/why[Why Jelastic?]
 * http://jelastic.com/jetty-hosting[Jetty Hosting]

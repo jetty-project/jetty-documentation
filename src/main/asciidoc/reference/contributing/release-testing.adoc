@@ -15,10 +15,9 @@
 //  ========================================================================
 
 [[release-testing]]
-= Testing a Jetty Release
+=== Testing a Jetty Release
 
-To test a Jetty release, complete the following steps for each release
-you want to test:
+To test a Jetty release, complete the following steps for each release you want to test:
 
 1.  Download the staged release:
 +
@@ -38,16 +37,11 @@ you want to test:
       
 ....
 4.  If there are no exceptions, proceed. Otherwise, investigate.
-5.  Open http://localhost:8080/ in a browser. In the examples section
-click "Test Jetty Webapp". You should see the `test.war` webapp.
-6.  Go through ALL the tests and verify that everything works as
-expected.
-7.  In the examples section click "JAAS Test" and verify that everything
-works as expected.
-8.  In the examples section click "JNDI Test" and verify that everything
-works as expected.
-9.  In the examples section click "Servlet 3.1 Test" and verify that
-everything works as expected.
+5.  Open http://localhost:8080/ in a browser. In the examples section click "Test Jetty Webapp". You should see the `test.war` webapp.
+6.  Go through ALL the tests and verify that everything works as expected.
+7.  In the examples section click "JAAS Test" and verify that everything works as expected.
+8.  In the examples section click "JNDI Test" and verify that everything works as expected.
+9.  In the examples section click "Servlet 3.1 Test" and verify that everything works as expected.
 10. Verify that hot deployment works.
 +
 ....
@@ -76,11 +70,10 @@ everything works as expected.
  
       
 ....
-15. Browse to http://localhost:8080 and https://localhost:8443 and
-verify that all looks ok
+15. Browse to http://localhost:8080 and https://localhost:8443 and verify that all looks ok
 
 [[testing-cometd]]
-== Testing CometD
+==== Testing CometD
 
 1.  Clone CometD.
 +
@@ -120,13 +113,11 @@ verify that all looks ok
         
 ....
 4.  Be patient.
-5.  Run the loadtest as it is described here:
-http://cometd.org/documentation/2.x/howtos/loadtesting. Keep the default
-values, but make sure that you raise the clients setting to 1000. Run
-the loadtest until ''JIT compilation time'' is close to a value of zero
-(about 10k calls).
-6.  Make sure that the performance results are reasonably fast. On a
-MacBook Pro i7 2.6ghz dualcore produces the following:
+5.  Run the loadtest as it is described here: http://cometd.org/documentation/2.x/howtos/loadtesting.
+Keep the default values, but make sure that you raise the clients setting to 1000.
+Run the loadtest until ''JIT compilation time'' is close to a value of zero (about 10k calls).
+6.  Make sure that the performance results are reasonably fast.
+On a MacBook Pro i7 2.6ghz dualcore produces the following:
 +
 ....
 
@@ -199,8 +190,7 @@ Thread Pool - Concurrent Threads max = 239 | Queue Size max = 1002 | Queue Laten
 
         
 ....
-7.  Deploy `cometd.war` to the `webapps` directory of the
-jetty-distribution tested above.
+7.  Deploy `cometd.war` to the `webapps` directory of the jetty-distribution tested above.
 +
 ....
 

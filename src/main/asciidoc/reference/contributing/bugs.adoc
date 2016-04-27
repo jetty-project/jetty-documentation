@@ -15,15 +15,10 @@
 //  ========================================================================
 
 [[bugs]]
-= Issues, Features, and Bugs
+=== Issues, Features, and Bugs
 
-As with any constantly evolving software project, there will be issues,
-features, and bugs. We want to know whats bugging you!
+As with any constantly evolving software project, there will be issues, features, and bugs.
+We want to know whats bugging you!
 
-File bugs under the
-https://bugs.eclipse.org/bugs/enter_bug.cgi?product=Jetty[RT/Jetty]
-section of https://bugs.eclipse.org/[Bugzilla at Eclipse.org]
+File bugs as Issues in our Github repository http://github.com/eclipse/jetty.project[Issues at Github]
 
-Use the
-https://bugs.eclipse.org/bugs/enter_bug.cgi?product=Jetty&format=guided[Guided
-Bug Reporting Link].

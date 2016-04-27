@@ -15,23 +15,23 @@
 //  ========================================================================
 
 [[coding-standards]]
-= Coding Standards
+=== Coding Standards
 
 Jetty uses number of conventions for its source code.
 
-== Code Formatting
+==== Code Formatting
 
 Jetty uses the code formatting the following project specifies.
 
 http://git.eclipse.org/c/jetty/org.eclipse.jetty.admin.git/tree/jetty-eclipse-java-format.xml[Eclipse Java Formatting]
 
-== Code Templates
+==== Code Templates
 
 Jetty specifies the following code templates for use by the project developers.
 
 http://git.eclipse.org/c/jetty/org.eclipse.jetty.admin.git/tree/jetty-eclipse-codetemplates.xml[Eclipse Code Templates]
 
-== Code Conventions
+==== Code Conventions
 
 The following is an example of the Java formatting and naming styles to apply to Jetty:
 

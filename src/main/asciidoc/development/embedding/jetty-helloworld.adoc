@@ -15,31 +15,22 @@
 //  ========================================================================
 
 [[jetty-helloworld]]
-= Jetty Embedded HelloWorld
+=== Jetty Embedded HelloWorld
 
-This section provides a tutorial that shows how you can quickly develop
-embedded code against the Jetty API.
+This section provides a tutorial that shows how you can quickly develop embedded code against the Jetty API.
 
 [[downloading-jars]]
-== Downloading the Jars
+==== Downloading the Jars
 
-Jetty is decomposed into many jars and dependencies to achieve a minimal
-footprint by selecting the minimal set of jars. Typically it is best to
-use something like Maven to manage jars, however this tutorial uses an
-aggregate Jar that contains all of the Jetty classes in one Jar. You can
-manually download the aggregate
-http://central.maven.org/maven2/org/eclipse/jetty/aggregate/jetty-all/@project.version@/jetty-all-@project.version@-uber.jar[`jetty-all.jar`]
-using `curl`) or a browser.
+Jetty is decomposed into many jars and dependencies to achieve a minimal footprint by selecting the minimal set of jars.
+Typically it is best to use something like Maven to manage jars, however this tutorial uses an aggregate Jar that contains all of the Jetty classes in one Jar.
+You can manually download the aggregate http://central.maven.org/maven2/org/eclipse/jetty/aggregate/jetty-all/@project.version@/jetty-all-@project.version@-uber.jar[`jetty-all.jar`] using `curl`) or a browser.
 
-____________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
-*Note*
-
-The central maven repository has started to aggressively reject/deny
-access to the repository from the `wget` command line tool (due to
-abusive use of the tool by some groups). The administrators of the
-central maven repository have stated that the recommended command line
-download tool is now curl.
-____________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+____
+[NOTE]
+The central maven repository has started to aggressively reject/deny access to the repository from the `wget` command line tool (due to abusive use of the tool by some groups).
+The administrators of the central maven repository have stated that the recommended command line download tool is now curl.
+____
 
 Use curl as follows:
 
@@ -50,22 +41,19 @@ Use curl as follows:
 ....
 
 [[writing-helloworld-example]]
-== Writing a HelloWorld Example
+==== Writing a HelloWorld Example
 
-The link:#embedding[Embedding Jetty] section contains many examples of
-writing against the Jetty API. This tutorial uses a simple HelloWorld
-handler with a main method to run the server. You can either
-link:{SRCDIR}/examples/embedded/src/main/java/org/eclipse/jetty/embedded/HelloWorld.java[download]
-or create in an editor the file `HelloWorld.java` with the following
-content:
+The link:#embedding[Embedding Jetty] section contains many examples of writing against the Jetty API.
+This tutorial uses a simple HelloWorld handler with a main method to run the server.
+You can either link:{SRCDIR}/examples/embedded/src/main/java/org/eclipse/jetty/embedded/HelloWorld.java[download] or create in an editor the file `HelloWorld.java` with the following content:
 
-[source,rjava]
+[source,java]
 ----
-{SRCDIR}/examples/embedded/src/main/java/org/eclipse/jetty/embedded/HelloWorld.java
+include::{SRCDIR}/examples/embedded/src/main/java/org/eclipse/jetty/embedded/HelloWorld.java[]
 ----
 
 [[compiling-helloworld-example]]
-== Compiling the HelloWord example
+==== Compiling the HelloWord example
 
 The following command compiles the HelloWorld class:
 
@@ -75,7 +63,7 @@ The following command compiles the HelloWorld class:
 ....
 
 [[running-handler-and-server]]
-== Running the Handler and Server
+==== Running the Handler and Server
 
 The following command runs the HelloWorld example:
 
@@ -83,17 +71,13 @@ The following command runs the HelloWorld example:
 > java -cp classes:jetty-all-uber.jar org.eclipse.jetty.embedded.HelloWorld
 ....
 
-You can now point your browser at
-http://localhost:8080/[http://localhost:8080] to see your hello world
-page.
+You can now point your browser at http://localhost:8080/[http://localhost:8080] to see your hello world page.
 
 [[next-steps]]
-== Next Steps
+==== Next Steps
 
 To learn more about Jetty, take these next steps:
 
-* Follow the examples in link:#embedding-jetty[Embedding Jetty] to
-better understand the jetty APIs.
+* Follow the examples in link:#embedding-jetty[Embedding Jetty] to better understand the jetty APIs.
 * Explore the complete link:{JDURL}/[jetty javadoc]
-* Consider usinglink:#maven-and-jetty[Jetty and Maven] to manage your
-Jars and dependencies.
+* Consider using link:#maven-and-jetty[Jetty and Maven] to manage your Jars and dependencies.

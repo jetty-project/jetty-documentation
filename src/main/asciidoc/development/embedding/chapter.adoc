@@ -16,3 +16,7 @@
 
 [[advanced-embedding]]
 == Embedding
+
+include::jetty-helloworld.adoc[]
+include::embedding-jetty.adoc[]
+include::embedded-examples.adoc[]

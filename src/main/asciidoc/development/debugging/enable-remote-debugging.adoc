@@ -15,52 +15,42 @@
 //  ========================================================================
 
 [[enable-remote-debugging]]
-= Enable remote debugging
+=== Enable remote debugging
 
 [[remote-debugging]]
-== Remote Debugging
+==== Remote Debugging
 
-If you have a web application deployed into Jetty you can interact with
-it remotely from a debugging perspective easily. The basics are that you
-must start up the remote JVM with additional parameters and then start
-up a remote debugging session in Eclipse for the webapp in question.
+If you have a web application deployed into Jetty you can interact with it remotely from a debugging perspective easily.
+The basics are that you must start up the remote JVM with additional parameters and then start up a remote debugging session in Eclipse for the webapp in question.
 This is easily accomplished.
 
-________________________________________________________________________________________
-*Note*
+____
+[NOTE]
+This example assumes you are deploying your web application into the jetty-distribution.
+____
 
-This example assumes you are deploying your web application into the
-jetty-distribution.
-________________________________________________________________________________________
+===== Starting Jetty
 
-=== Starting Jetty
-
-Assuming you have your webapp deployed into jetty, there are two
-different ways to approach this:
+Assuming you have your webapp deployed into jetty, there are two different ways to approach this:
 
 Via command line::
   Add the required parameters on the commandline like so.
-  +
++
 ....
                             
 $ java -Xdebug -agentlib:jdwp=transport=dt_socket,address=9999,server=y,suspend=n -jar start.jar
 
                         
 ....
+
 Via `start.ini`::
-  This approach is best used if you want to debug a particular
-  jetty-distribution and not have to remember the commandline
-  incantations.
-  +
-  1.  Edit the `start.ini` and uncomment the --exec line, this is
-  required if you are adding jvm options to the start.ini file as
-  jetty-start must generate the classpath required and fork a new jvm.
-  2.  Add the parameters mentioned above in the Command Line option so
-  your start.ini looks like this:
-  +
+  This approach is best used if you want to debug a particular jetty-distribution and not have to remember the commandline incantations.
++
+1.  Edit the `start.ini` and uncomment the --exec line, this is required if you are adding jvm options to the start.ini file as jetty-start must generate the classpath required and fork a new jvm.
+2.  Add the parameters mentioned above in the Command Line option so your start.ini looks like this:
++
 [source,plain]
 ----
-                                        
 #===========================================================
 # Configure JVM arguments.
 # If JVM args are include in an ini file then --exec is needed
@@ -88,23 +78,20 @@ Via `start.ini`::
 
                                     
 ----
-  +
-  Uncomment any other jvm environmental options you so desire for your
-  debugging session.
-  3.  Regardless of the option chosen, you should see the following
-  lines at the top of your jetty-distribution startup.
-  +
++
+Uncomment any other jvm environmental options you so desire for your debugging session.
+
+3.  Regardless of the option chosen, you should see the following lines at the top of your jetty-distribution startup.
++
 [source,plain]
 ----
-                                        
 Listening for transport dt_socket at address: 9999
 
-                                    
 ----
 
-=== Linking with your IDE
+===== Linking with your IDE
 
 Refer to the documentation for your ide:
 
-* 
-*
+* xref:debugging-with-intellij[]
+* xref:debugging-with-eclipse[]

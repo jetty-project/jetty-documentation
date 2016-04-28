@@ -75,52 +75,21 @@ xmlns:date="http://exslt.org/dates-and-times"
     <!--
       - syntax highlighting bits and pieces
     -->
-    <xsl:element name="script">
-      <xsl:attribute name="type">text/javascript</xsl:attribute>
-      <xsl:attribute name="src">js/shCore.js</xsl:attribute>
+    <xsl:element name="link">
+      <xsl:attribute name="rel">stylesheet</xsl:attribute>
+      <xsl:attribute name="href">css/highlighter/github.css</xsl:attribute>
     </xsl:element>
     <xsl:element name="script">
-      <xsl:attribute name="type">text/javascript</xsl:attribute>
-      <xsl:attribute name="src">js/shBrushJava.js</xsl:attribute>
+      <xsl:attribute name="src">js/highlight.pack.js</xsl:attribute>
     </xsl:element>
     <xsl:element name="script">
-      <xsl:attribute name="type">text/javascript</xsl:attribute>
-      <xsl:attribute name="src">js/shBrushXml.js</xsl:attribute>
+      hljs.initHighlightingOnLoad();
     </xsl:element>
-    <xsl:element name="script">
-      <xsl:attribute name="type">text/javascript</xsl:attribute>
-      <xsl:attribute name="src">js/shBrushBash.js</xsl:attribute>
-    </xsl:element>
-    <xsl:element name="script">
-      <xsl:attribute name="type">text/javascript</xsl:attribute>
-      <xsl:attribute name="src">js/shBrushJScript.js</xsl:attribute>
-    </xsl:element>
-    <xsl:element name="script">
-      <xsl:attribute name="type">text/javascript</xsl:attribute>
-      <xsl:attribute name="src">js/shBrushSql.js</xsl:attribute>
-    </xsl:element>
-    <xsl:element name="script">
-      <xsl:attribute name="type">text/javascript</xsl:attribute>
-      <xsl:attribute name="src">js/shBrushProperties.js</xsl:attribute>
-    </xsl:element>
-    <xsl:element name="script">
-      <xsl:attribute name="type">text/javascript</xsl:attribute>
-      <xsl:attribute name="src">js/shBrushPlain.js</xsl:attribute>
-    </xsl:element>
+
     <xsl:element name="link">
       <xsl:attribute name="type">text/css</xsl:attribute>
       <xsl:attribute name="rel">stylesheet</xsl:attribute>
-      <xsl:attribute name="href">css/shCore.css</xsl:attribute>
-    </xsl:element>
-    <xsl:element name="link">
-      <xsl:attribute name="type">text/css</xsl:attribute>
-      <xsl:attribute name="rel">stylesheet</xsl:attribute>
-      <xsl:attribute name="href">css/shThemeEclipse.css</xsl:attribute>
-    </xsl:element>
-    <xsl:element name="link">
-      <xsl:attribute name="type">text/css</xsl:attribute>
-      <xsl:attribute name="rel">stylesheet</xsl:attribute>
-      <xsl:attribute name="href">css/font-awesome.min.css</xsl:attribute>
+      <xsl:attribute name="href">css/font-awesome/font-awesome.min.css</xsl:attribute>
     </xsl:element>
 
     <xsl:if test="ancestor-or-self::*[@status][1]/@status = 'draft'">
@@ -267,15 +236,12 @@ xmlns:date="http://exslt.org/dates-and-times"
    - synxtax highlighting 
    -->
   <xsl:template match="d:programlisting">
-    <xsl:element name="script">
-      <xsl:attribute name="type">syntaxhighlighter</xsl:attribute>
-      
-      <xsl:variable name="highlight">
-        <xsl:choose>
-          <xsl:when test="@condition">; highlight: <xsl:value-of select="@condition"/></xsl:when>
-          <xsl:otherwise></xsl:otherwise>
-        </xsl:choose>
-      </xsl:variable>
+    <pre>
+      <code>
+        <xsl:value-of select="text()"/>
+      </code>
+    </pre>
+    <!--
 
       <xsl:variable name="startinglinenumber">
         <xsl:choose>
@@ -292,38 +258,7 @@ xmlns:date="http://exslt.org/dates-and-times"
       </xsl:variable>
 
       <xsl:variable name="brushstyle">;toolbar: false<xsl:copy-of select="$highlight"/><xsl:copy-of select="$startinglinenumber"/><xsl:copy-of select="$linenumbering"/></xsl:variable>
-
-      <xsl:choose>
-        <xsl:when test="@language='bash'">
-          <xsl:attribute name="class">brush: bash<xsl:copy-of select="$brushstyle"/></xsl:attribute>
-          &lt;![CDATA[<xsl:value-of select="text()"/>]]&gt;
-        </xsl:when>
-        <xsl:when test="@language='properties'">
-          <xsl:attribute name="class">brush: properties<xsl:copy-of select="$brushstyle"/></xsl:attribute>
-          &lt;![CDATA[<xsl:value-of select="text()"/>]]&gt;
-        </xsl:when>
-        <xsl:when test="@language='sql'">
-          <xsl:attribute name="class">brush: sql<xsl:copy-of select="$brushstyle"/></xsl:attribute>
-          &lt;![CDATA[<xsl:value-of select="text()"/>]]&gt;
-        </xsl:when>
-        <xsl:when test="@language='java'">
-          <xsl:attribute name="class">brush: java<xsl:copy-of select="$brushstyle"/></xsl:attribute>
-          &lt;![CDATA[<xsl:value-of select="text()"/>]]&gt;
-        </xsl:when>
-        <xsl:when test="@language='xml'">
-          <xsl:attribute name="class">brush: xml<xsl:copy-of select="$brushstyle"/></xsl:attribute>
-          &lt;![CDATA[<xsl:value-of select="text()"/>]]&gt;
-        </xsl:when>
-        <xsl:when test="@language='plain'">
-          <xsl:attribute name="class">brush: plain<xsl:copy-of select="$brushstyle"/></xsl:attribute>
-          &lt;![CDATA[<xsl:value-of select="text()"/>]]&gt;
-        </xsl:when>
-        <xsl:otherwise>
-          <xsl:attribute name="class">brush: plain<xsl:copy-of select="$brushstyle"/></xsl:attribute>
-          &lt;![CDATA[<xsl:value-of select="text()"/>]]&gt;
-        </xsl:otherwise>
-      </xsl:choose>
-    </xsl:element>
+    -->
   </xsl:template>
   
 

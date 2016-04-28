@@ -36,7 +36,7 @@ After you have started things up you should be able to navigate to http://localh
 
 [source,properties]
 ----
-{SRCDIR}/examples/embedded/src/test/resources/realm.properties
+include::{SRCDIR}/examples/embedded/src/test/resources/realm.properties[]
       
 ----
 

@@ -69,13 +69,14 @@ For more on comet see the http://cometd.org/[cometd] project that works asynchro
 
 ===== Asynchronous RESTful Web Service
 
-Consider a web application that accesses a remote web service (e.g., SOAP service or RESTful service). Typically a remote web service can take hundreds of milliseconds to produce a response -- eBay's RESTful web service frequently takes 350ms to respond with a list of auctions matching a given keyword -- while only a few 10s of milliseconds of CPU time are needed to locally process a request and generate a response.
+Consider a web application that accesses a remote web service (e.g., SOAP service or RESTful service).
+Typically a remote web service can take hundreds of milliseconds to produce a response -- eBay's RESTful web service frequently takes 350ms to respond with a list of auctions matching a given keyword -- while only a few 10s of milliseconds of CPU time are needed to locally process a request and generate a response.
 
 To handle 1000 requests per second, which each perform a 200ms web service call, a webapp would needs 1000*(200+20)/1000 = 220 threads and 110MB of stack memory.
 It would also be vulnerable to thread starvation if bursts occurred or the web service became slower. If handled asynchronously, the web application would not need to hold a thread while waiting for web service response.
 Even if the asynchronous mechanism cost 10ms (which it doesn't), then this webapp would need 1000*(20+10)/1000 = 30 threads and 15MB of stack memory.
 This is a 86% reduction in the resources required and 95MB more memory would be available for the application.
-Furthermore, if multiple web services request are required, the asynchronous approach allows these to be madein parallel rather than serially, without allocating additional threads.
+Furthermore, if multiple web services request are required, the asynchronous approach allows these to be made in parallel rather than serially, without allocating additional threads.
 
 For an example of Jetty's solution, see the https://webtide.com/async-rest-jetty-9/[Asynchronous REST example]
 

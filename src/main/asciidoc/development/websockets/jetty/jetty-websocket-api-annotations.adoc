@@ -69,15 +69,15 @@ Method signature must be public, not abstract, and return void.
 +
 The method parameters for Text messages:
 +
-1. link:{JDURL}/org/eclipse/jetty/websocket/api/Session.html[`Session`] (optional)
-2. `String text` (required)
+* link:{JDURL}/org/eclipse/jetty/websocket/api/Session.html[`Session`] (optional)
+* `String text` (required)
 +
 The method parameters for Binary messages:
 +
-1. link:{JDURL}/org/eclipse/jetty/websocket/api/Session.html[`Session`] (optional)
-2. `byte buf[]` (required)
-3. `int offset` (required)
-4. `int length` (required)
+* link:{JDURL}/org/eclipse/jetty/websocket/api/Session.html[`Session`] (optional)
+* `byte buf[]` (required)
+* `int offset` (required)
+* `int length` (required)
 
 link:{JDURL}/org/eclipse/jetty/websocket/api/annotations/OnWebSocketError.html[@OnWebSocketError]::
   An optional method level annotation.

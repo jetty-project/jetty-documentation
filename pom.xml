@@ -188,6 +188,7 @@
                 <version>1.5.0-alpha.11</version>
               </dependency>
             </dependencies>
+            <executions>
               <execution>
                 <id>output-pdf</id>
                 <phase>generate-sources</phase>

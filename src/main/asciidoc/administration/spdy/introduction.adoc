@@ -29,12 +29,10 @@ NPN implementations require OpenJDK 1.7 or greater.
 A server deployed over TLS normally advertises the SPDY protocol via the
 TLS Extension Next Protocol Negotiation link:#npn[(NPN)].
 
-________________________________________________________________________________________________
-*Important*
-
-To use SPDY in Jetty you need to add the link:#npn-starting[NPN boot Jar
-in the boot classpath.]
-________________________________________________________________________________________________
+____
+[IMPORTANT]
+To use SPDY in Jetty you need to add the link:#npn-starting[NPN boot Jar in the boot classpath.
+____
 
 See a
 http://webtide.intalio.com/2012/10/spdy-push-demo-from-javaone-2012/[SPDY

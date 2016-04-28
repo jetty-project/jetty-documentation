@@ -117,14 +117,12 @@ file `keystore`:
 $ keytool -keystore keystore -alias jetty -genkey -keyalg RSA
 ....
 
-_________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
-*Note*
-
-The DSA key algorithm certificate produces an error after loading
-several pages. In a browser, it displays a message "Could not establish
-an encrypted connection because certificate presented by localhost has
-an invalid signature." The solution is to use RSA for the key algorithm.
-_________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+____
+[NOTE]
+The DSA key algorithm certificate produces an error after loading several pages.
+In a browser, it displays a message "Could not establish an encrypted connection because certificate presented by localhost as an invalid signature."
+The solution is to use RSA for the key algorithm.
+____
 
 This command prompts for information about the certificate and for
 passwords to protect both the keystore and the keys within it. The only
@@ -293,9 +291,8 @@ You need to enter the details for the certificate again.
 Once a CA has sent you a certificate, or if you generated your own
 certificate without `keytool`, you need to load it into a JSSE keystore.
 
-__________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
-*Note*
-
+____
+[NOTE]
 You need both the private key and the certificate in the JSSE keystore.
 You should load the certificate into the keystore used to generate the
 CSR with `keytool`. If your key pair is not already in a keystore (for
@@ -303,7 +300,7 @@ example, because it has been generated with OpenSSL), you need to use
 the PKCS12 format to load both key and certificate (see
 link:#loading-keys-and-certificates-via-pkcks12[PKCKS12 Keys &
 Certificates]).
-__________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+____
 
 [[loading-certificates-with-keytool]]
 ====== Loading Certificates with keytool
@@ -430,13 +427,12 @@ configure the Keystore you are using.
 setKeyStorePath::
   The configured keystore to use for all SSL/TLS in configured Jetty
   Connector (or Client).
-  +
-  _______________________________________________________________________________________________________________________________
-  *Note*
++
+____
+[NOTE]
+as a keystore is vital security information, it can be desirable to   locate the file in a directory with very restricted access.
+____
 
-  as a keystore is vital security information, it can be desirable to
-  locate the file in a directory with very restricted access.
-  _______________________________________________________________________________________________________________________________
 setKeyStorePassword::
   The keystore password may be set here in plain text, or as some
   protection from casual observation, it may be obfuscated using the
@@ -458,29 +454,22 @@ setExcludeProtocols / setIncludeProtocols::
   This allows for the customization of the selected Protocols that will
   be used by SSL/TLS
 
-_________________________________________________________________________________________________________________________________________________
-*Note*
-
-When working with Includes / Excludes, it is important to know that
-Excludes will always win.
-
-The selection process is to process the JVM list of available Cipher
-Suites or Protocols against the include list, then remove the excluded
-ones.
-
+____
+[NOTE]
+When working with Includes / Excludes, it is important to know that Excludes will always win.
++
+The selection process is to process the JVM list of available Cipher Suites or Protocols against the include list, then remove the excluded ones.
++
 Be aware that each Include / Exclude list has a Set method (replace the
 list) or Add method (append the list)
-_________________________________________________________________________________________________________________________________________________
+____
 
-___________________________________________________________________________________________________________________________________________________
-*Caution*
-
-The key and truststore passwords may also be set using the system
-properties: `org.eclipse.jetty.ssl.keypassword`
-`org.eclipse.jetty.ssl.password`.
-
+____
+[CAUTION]
+The key and truststore passwords may also be set using the system properties: `org.eclipse.jetty.ssl.keypassword` `org.eclipse.jetty.ssl.password`.
++
 This is _not_ a recommended usage.
-___________________________________________________________________________________________________________________________________________________
+____
 
 ==== Configuring SSL in Jetty Distribution
 
@@ -548,25 +537,19 @@ link:{JDURL}/org/eclipse/jetty/util/ssl/SslContextFactory.html#setIncludeCipherS
 or
 vialink:{JDURL}/org/eclipse/jetty/util/ssl/SslContextFactory.html#setExcludeCipherSuites(java.lang.String...)[SslContext.setExcludeCipherSuites(java.lang.String...)].
 
-________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
-*Note*
+____
+[NOTE]
+It's crucial that you use the exact names of the cipher suites as used/known by the JDK.
+You can get them by obtaining an instance of SSLEngine and call getSupportedCipherSuites().
+Tools like ssllabs.com might report slightly different names which will be ignored.
+____
 
-It's crucial that you use the exact names of the cipher suites as
-used/known by the JDK. You can get them by obtaining an instance of
-SSLEngine and call getSupportedCipherSuites(). Tools like ssllabs.com
-might report slightly different names which will be ignored.
-________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
-
-________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
-*Note*
-
-It's recommended to install the Java Cryptography Extension (JCE)
-Unlimited Strength policy files in your JRE to get full strength ciphers
-like AES-256. They can be found on the
-http://www.oracle.com/technetwork/java/javase/downloads/index.html[Java
-download page]. Just overwrite the two present JAR files in
-`<JRE_HOME>/lib/security/`
-________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+____
+[NOTE]
+It's recommended to install the Java Cryptography Extension (JCE) Unlimited Strength policy files in your JRE to get full strength ciphers like AES-256.
+They can be found on the http://www.oracle.com/technetwork/java/javase/downloads/index.html[Java download page].
+Just overwrite the two present JAR files in `<JRE_HOME>/lib/security/`
+____
 
 Both setIncludeCipherSuites and setExcludeCipherSuites can be feed by
 the exact cipher suite name used in the JDK or by using regular
@@ -620,30 +603,20 @@ etc/tweak-ssl.xml
 $ 
 ----
 
-__________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
-*Note*
+____
+[NOTE]
+The default SslContextFactory implementation applies the latest SSL/TLS recommendations surrounding vulnerabilities in SSL/TLS.
+Check the release notes (The `VERSION.txt` found in the root of the Jetty Distribution, or the http://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22org.eclipse.jetty%22%20AND%20a%3A%22jetty-project%22[alternate (classified 'version') artifacts for the `jetty-project` component]on Maven Central) for updates.
++
+The Java JVM is also applying exclusions at the JVM level, and as such, if you have a need to enable something that is generally accepted by the industry as being insecure or vulnerable you will likely have to enable it in BOTH the Java JVM and the Jetty configuration.
+____
 
-The default SslContextFactory implementation applies the latest SSL/TLS
-recommendations surrounding vulnerabilities in SSL/TLS. Check the
-release notes (The `VERSION.txt` found in the root of the Jetty
-Distribution, or the
-http://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22org.eclipse.jetty%22%20AND%20a%3A%22jetty-project%22[alternate
-(classified 'version') artifacts for the `jetty-project` component]on
-Maven Central) for updates.
-
-The Java JVM is also applying exclusions at the JVM level, and as such,
-if you have a need to enable something that is generally accepted by the
-industry as being insecure or vulnerable you will likely have to enable
-it in BOTH the Java JVM and the Jetty configuration.
-__________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
-
-_________________________________________________________________________________________________________________________________________________________________
-*Tip*
-
+____
+[TIP]
 You can enable the `org.eclipse.jetty.util.ssl` named logger at DEBUG
 level to see what the list of selected Protocols and Cipher suites are
 at startup of Jetty.
-_________________________________________________________________________________________________________________________________________________________________
+____
 
 Some other Include / Exclude examples:
 
@@ -698,15 +671,12 @@ Example: Since 2014 SSLv3 is considered insecure and should be disabled.
   </Call>            
 ----
 
-____________________________________________________________________________________________________________
-*Note*
+____
+[NOTE]
+Note that disabling SSLv3 prevents very old browsers like Internet Explorer 6 on Windows XP from connecting.
+____
 
-Note that disabling SSLv3 prevents very old browsers like Internet
-Explorer 6 on Windows XP from connecting.
-____________________________________________________________________________________________________________
-
-Example: TLS renegotiation could be disabled too to prevent an attack
-based on this feature.
+Example: TLS renegotiation could be disabled too to prevent an attack based on this feature.
 
 [source,xml]
 ----

@@ -17,11 +17,10 @@
 [[overlay-deployer]]
 === Overlay WebApp Deployer
 
-___________________________________________
-*Note*
-
+____
+[NOTE]
 This feature is reintroduced in Jetty 9.0.4
-___________________________________________
+____
 
 The Jetty Overlay Deployer allows you to overlay multiple WAR files so
 that you can customise, configure, and deploy a web application without
@@ -132,12 +131,10 @@ $ java -jar start.jar
 
 Jetty is now listening on port 8080, but with no webapp deployed.
 
-______________________________________________________________________________________________________________________________________
-*Important*
-
-You should conduct the rest of the tutorial in another window with the
-JETTY_HOME environment set to the jetty distribution directory.
-______________________________________________________________________________________________________________________________________
+____
+[IMPORTANT]
+You should conduct the rest of the tutorial in another window with the JETTY_HOME environment set to the jetty distribution directory.
+____
 
 [[overlay-install]]
 ==== Installing the WebApp

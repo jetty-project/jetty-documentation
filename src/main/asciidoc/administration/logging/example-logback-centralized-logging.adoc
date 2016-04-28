@@ -25,17 +25,12 @@ single configuration on the Server side.
 The example below shows how to accomplish this with Jetty and Slf4j,
 using Logback to manage the final writing of logs to disk.
 
-________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
-*Important*
-
-This mechanism forces all webapps to use the server's configuration for
-logging, something that isn't 100% appropriate for all webapps.
-
-An example would be having Jenkins-CI deployed as an webapp, if you
-force its logging configuration to the server side, you lose the ability
-on http://jenkins-ci.org/[Jenkins-CI] to see the logs from the various
-builds (as now those logs are actually going to the main server log)
-________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+____
+[IMPORTANT]
+This mechanism forces all webapps to use the server's configuration for logging, something that isn't 100% appropriate for all webapps.
++
+An example would be having Jenkins-CI deployed as an webapp, if you force its logging configuration to the server side, you lose the ability on http://jenkins-ci.org/[Jenkins-CI] to see the logs from the various builds (as now those logs are actually going to the main server log).
+____
 
 This configuration is essentially the multiple logger configuration with
 added configuration to the deployers to force a WebAppClassLoader change

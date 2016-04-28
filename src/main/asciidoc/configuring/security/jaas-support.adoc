@@ -94,12 +94,10 @@ Then you need to create a JAASLoginService with the matching name of
 </New>
 ----
 
-______________________________________________________________________________________________________________
-*Caution*
-
-The name of the realm-name that you declare in `web.xml` must match
-exactly the name of your JAASLoginService.
-______________________________________________________________________________________________________________
+____
+[CAUTION]
+The name of the realm-name that you declare in `web.xml` must match exactly the name of your JAASLoginService.
+____
 
 You can declare your JAASLoginService in a couple of different ways:
 
@@ -159,12 +157,10 @@ xyz {
     };
 ----
 
-___________________________________________________________________________________________________________________________________
-*Caution*
-
-It is imperative that the application name on the first line is exactly
-the same as the `LoginModuleName` of your JAASLoginService.
-___________________________________________________________________________________________________________________________________
+____
+[CAUTION]
+It is imperative that the application name on the first line is exactly the same as the `LoginModuleName` of your JAASLoginService.
+____
 
 You may find it convenient to name this configuration file as
 `etc/login.conf` because, as we will see below, some of the wiring up
@@ -187,14 +183,13 @@ link:#startup-modules[module]:
 java -jar start.jar --add-to-startd=jaas
 ----
 
-__________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
-*Note*
-
+____
+[NOTE]
 The top level of the distribution does not have the jaas module enabled
 by default. However, there are several link:#demo-webapps-base[demo
 webapps] - including a jaas webapp - available in the `demo-base`
 directory of the distribution which has pre-enabled the jaas module.
-__________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+____
 
 Now you will have a file named `start.d/jaas.ini`, which contains:
 
@@ -298,19 +293,13 @@ configure the classnames of their role Principal implementations.
 * link:{JXURL}/org/eclipse/jetty/jaas/spi/DataSourceLoginModule.html[`org.eclipse.jetty.jaas.spi.DataSourceLoginModule`]
 * link:{JXURL}/org/eclipse/jetty/jaas/spi/LdapLoginModule.html[`org.eclipse.jetty.jaas.ldap.LdapLoginModule`]
 
-_________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
-*Note*
-
-Passwords can be stored in clear text, obfuscated or checksummed. The
-class
-link:{JDURL}/org/eclipse/jetty/util/security/Password.html[`org.eclipse.jetty.util.security.Password`]
-should be used to generate all varieties of passwords,the output from
-which can be cut and pasted into property files or entered into database
-tables.
-
-See more on this under the Configuration section on
-link:#configuring-security-secure-passwords[securing passwords].
-_________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+____
+[NOTE]
+Passwords can be stored in clear text, obfuscated or checksummed.
+The class link:{JDURL}/org/eclipse/jetty/util/security/Password.html[`org.eclipse.jetty.util.security.Password`] should be used to generate all varieties of passwords,the output from which can be cut and pasted into property files or entered into database tables.
++
+See more on this under the Configuration section on link:#configuring-security-secure-passwords[securing passwords].
+____
 
 ===== JDBCLoginModule
 

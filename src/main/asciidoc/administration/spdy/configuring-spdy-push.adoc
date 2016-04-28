@@ -55,14 +55,13 @@ This will also work for nested subresources. E.g. a pushed style.css
 might initiate further resource pushes for subresources referred to by
 the style.css stylesheet.
 
-___________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
-*Note*
-
+____
+[NOTE]
 *The referrerPushPeriod setting will define the time that
 link:{JDURL}/org/eclipse/jetty/spdy/server/http/ReferrerPushStrategy.html[ReferrerPushStrategy]
 will record subresources after the initial request. If this period has
 elapsed no further subresources will be recorded.*
-___________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+____
 
 == Configuring ReferrerPushStrategy
 
@@ -133,12 +132,11 @@ Then you have to add the configured
 link:{JDURL}/org/eclipse/jetty/spdy/server/http/ReferrerPushStrategy.html[ReferrerPushStrategy]
 to the connection factory as follows.
 
-_______________________________________________________________________________________
-*Note*
-
+____
+[NOTE]
 *In the default config provided with Jetty the pushStrategy argument is
 commented out!*
-_______________________________________________________________________________________
+____
 
 [source,xml]
 ----

@@ -90,27 +90,19 @@ Underlying Logging Framework::
   framework supports (like Socket, SMTP, Database, or even SysLog in the
   case of Logback).
   +
-  ___________________________________________________________________________________________________________________________
-  *Caution*
-
-  There MUST NOT be multiple underlying logging frameworks on the
-  classpath. If there are, the Slf4j framework fails to load.
-  ___________________________________________________________________________________________________________________________
-  +
-  ______________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
-  *Note*
-
-  Some third party libraries provide their own implementations of common
-  logging APIs; be careful not to accidentally include an underlying
-  logging framework.
-
-  For example, if you are using SpringSource you likely have a
-  `com.springsource.org.apache.log4j.jar` along with a `log4j.jar`,
-  which have the same classes in them. In this example, use the
-  `com.springsource.org.apache.log4j.jar` version and exclude the
-  `log4j.jar`, as the SpringSource version includes extra metadata
-  suitable for using SpringSource.
-  ______________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+  ____
+  [CAUTION]
+  There MUST NOT be multiple underlying logging frameworks on the classpath.
+  If there are, the Slf4j framework fails to load.
+  ____
++
+  ____
+  [NOTE]
+  Some third party libraries provide their own implementations of common   logging APIs; be careful not to accidentally include an underlying   logging framework.
++
+  For example, if you are using SpringSource you likely have a `com.springsource.org.apache.log4j.jar` along with a `log4j.jar`, which have the same classes in them.
+  In this example, use the `com.springsource.org.apache.log4j.jar` version and exclude the `log4j.jar`, as the SpringSource version includes extra metadata suitable for using SpringSource.
+  ____
 
 The following sections use Logback as the underlying Logging framework.
 This requires using `logback-classic.jar` and `logback-core.jar`, and

@@ -148,14 +148,11 @@ Once a temporary directory has been created by either of these methods,
 a File instance for it is set as the value of the
 `javax.servlet.context.tempdir` attribute of the web application.
 
-__________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
-*Note*
-
-Be wary of setting an explicit temp directory if you are likely to
-change the jars in WEB-INF/lib between redeployments. There is a JVM bug
-concerning caching of jar contents:
-http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=4774421
-__________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+____
+[NOTE]
+Be wary of setting an explicit temp directory if you are likely to change the jars in WEB-INF/lib between redeployments.
+There is a JVM bug concerning caching of jar contents: http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=4774421
+____
 
 ==== The "work" directory
 

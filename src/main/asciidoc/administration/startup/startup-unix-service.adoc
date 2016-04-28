@@ -160,14 +160,10 @@ directory at `/opt/jetty/temp` solves for that behavior.
 The directory at `/opt/web/mybase` is going to be a `${jetty.base}`, so
 lets configure it to hold your webapp and its configuration.
 
-______________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
-*Tip*
-
-In past versions of Jetty, you would configure / modify / add to the
-jetty-distribution directory directly. While this is still supported, we
-encourage you to setup a proper `${jetty.base}` directory, as it will
-benefit you with easier jetty-distribution upgrades in the future.
-______________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+____
+[TIP]
+In past versions of Jetty, you would configure / modify / add to the jetty-distribution directory directly. While this is still supported, we encourage you to setup a proper `${jetty.base}` directory, as it will benefit you with easier jetty-distribution upgrades in the future.
+____
 
 ....
 # cd /opt/web/mybase/

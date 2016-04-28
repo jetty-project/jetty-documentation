@@ -64,13 +64,11 @@ For example, here is a descriptor file that deploys the file
 </Configure>
 ----
 
-_______________________________________________________________________________________________________________________________________________________________________________________________
-*Note*
-
-You can use the `SystemProperty` and `Property` elements in your
-descriptor file. For example, if you set the system property
-`myapp.home=/opt/myapp`, you can rewrite the previous example as:
-_______________________________________________________________________________________________________________________________________________________________________________________________
+____
+[NOTE]
+You can use the `SystemProperty` and `Property` elements in your descriptor file.
+For example, if you set the system property `myapp.home=/opt/myapp`, you can rewrite the previous example as:
+____
 
 [source,xml]
 ----

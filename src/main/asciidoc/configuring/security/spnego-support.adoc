@@ -190,18 +190,14 @@ should be checked here)
 7.  Tools -> Options -> Advanced -> Security -> Ok
 8.  close IE then reopen and browse to your spengo protected resource
 
-_______________________________________________________________________________________________________________________________________________________________________________________
-*Note*
-
-Note: You must go to the hostname and not the IP, if you go to the IP it
-will default to NTLM authentication...the following conditions must be
-true for Spnego authentication to work.
-
+____
+[NOTE]
+You must go to the hostname and not the IP, if you go to the IP it will default to NTLM authentication...the following conditions must be
+ true for Spnego authentication to work.
++
 * You must be within the Intranet Zone of the network
 * Accessing the server using a Hostname rather then IP
-* Integrated Windows Authentication in IE is enabled and the host is
-trusted in Firefox
-* The server is not local to the browser, it can't be running on
-localhost.
+* Integrated Windows Authentication in IE is enabled and the host is trusted in Firefox
+* The server is not local to the browser, it can't be running on localhost.
 * The client's Kerberos system is authenticated to a domain controller
-_______________________________________________________________________________________________________________________________________________________________________________________
+____

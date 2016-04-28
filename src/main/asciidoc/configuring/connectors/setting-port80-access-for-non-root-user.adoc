@@ -96,21 +96,16 @@ the https port] to 443 if you are using SSL).
 # java -jar start.jar --add-to-start=setuid
 ....
 +
-__________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
-*Note*
-
-The --add-to-start command will enable the setuid module for this and
-all subsequent executions of jetty. There are other ways to enable the
-module, such as just for this execution. For more information on the
-alternatives see the section on link:#startup-modules[Managing Startup
-Modules].
-__________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
-4.  Edit the configuration for the setuid module to substitute the
-userid and groupid of the user to switch to after starting. If you used
-the `--add-to-start` command, this configuration is in the `start.ini`
-file. If you used the `--add-to-startd` command instead, this
-configuration is in the `start.d/setuid.ini `file instead. Here are the
-lines to configure:
+____
+[NOTE]
+The --add-to-start command will enable the setuid module for this and all subsequent executions of jetty.
+There are other ways to enable the module, such as just for this execution.
+For more information on the alternatives see the section on link:#startup-modules[Managing Startup Modules].
+____
+4.  Edit the configuration for the setuid module to substitute the userid and groupid of the user to switch to after starting.
+If you used the `--add-to-start` command, this configuration is in the `start.ini` file.
+If you used the `--add-to-startd` command instead, this configuration is in the `start.d/setuid.ini `file instead.
+Here are the lines to configure:
 +
 [source,text]
 ----
@@ -120,12 +115,10 @@ jetty.groupname=bar
 jetty.umask=002
 ----
 +
-_________________________________________________________________________________________________________________________________
-*Note*
-
-As well as opening the connectors as root, you can also have jetty start
-the Server as root before changing to the non-root user.
-_________________________________________________________________________________________________________________________________
+____
+[NOTE]
+As well as opening the connectors as root, you can also have jetty start the Server as root before changing to the non-root user.
+____
 5.  You now need a native code library to do the user switching. This
 code is hosted as part of the Jetty ToolChain project and it is released
 independently from Jetty itself. You can find the source code

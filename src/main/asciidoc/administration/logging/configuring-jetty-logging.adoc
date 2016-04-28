@@ -38,11 +38,10 @@ IGNORE::
   framework configurations, where it retains the _ignore_ phrase
   somewhere in the logging.
 
-_________________________________________________
-*Note*
-
+____
+[NOTE]
 Jetty logging produces no FATAL or SEVERE events.
-_________________________________________________
+____
 
 [[selecting-log-framework]]
 == Selecting the Log Framework
@@ -64,14 +63,13 @@ implementation becomes `org.eclipse.jetty.util.log.Slf4jLog`.
 * If no logger implementation is specified, default to
 `org.eclipse.jetty.util.log.StdErrLog`.
 
-_____________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
-*Note*
-
+____
+[NOTE]
 You can create your own custom logging by providing an implementation of
 the link:{JDURL}org/eclipse/jetty/util/log/Logger.html[Jetty Logger
 API]. For an example of a custom logger, see
 link:{GITBROWSEURL}/jetty-util/src/main/java/org/eclipse/jetty/util/log/JavaUtilLog.java[JavaUtilLog.java].
-_____________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+____
 
 [[configuring-jetty-stderrlog]]
 == The jetty-logging.properties file

@@ -323,14 +323,9 @@ System Property for `${jetty.base}`.
 ...
 ....
 
-________________________________________________________________________________________________________________________________________________________________________________________
-*Important*
-
-Be aware of the `user.dir` system property, it can only be safely set
-when the JVM starts, and many 3rd party libraries (especially logging)
-use this system property.
-
-It is strongly recommended that you sit in the directory that is your
-desired `${jetty.base}` when starting Jetty to have consistent behavior
-and use of the `user.dir` system property.
-________________________________________________________________________________________________________________________________________________________________________________________
+____
+[IMPORTANT]
+Be aware of the `user.dir` system property, it can only be safely set when the JVM starts, and many 3rd party libraries (especially logging) use this system property.
++
+It is strongly recommended that you sit in the directory that is your desired `${jetty.base}` when starting Jetty to have consistent behavior and use of the `user.dir` system property.
+____

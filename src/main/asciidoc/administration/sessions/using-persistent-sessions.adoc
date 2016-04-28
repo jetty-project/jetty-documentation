@@ -57,14 +57,12 @@ a webapp and telling it where on disk to store the sessions:
       
 ----
 
-__________________________________________________________
-*Tip*
-
+____
+[TIP]
 If you want to persist the sessions from multiple webapps:
-
 1.  Configure a separate HashSessionManager for each.
 2.  Assign to each a different value for 'storeDirectory'.
-__________________________________________________________
+____
 
 The above example uses a configuration file suitable for the
 link:{JDURL}/org/eclipse/jetty/deploy/providers/ContextProvider.html[ContextProvider],

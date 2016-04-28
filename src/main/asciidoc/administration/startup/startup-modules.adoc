@@ -125,17 +125,12 @@ Required Files and Directories::
 Jetty ships with many modules defined, and a small subset predefined in
 the `start.ini` found in the jetty distribution.
 
-________________________________________________________________________________________________________________________________________________________________________
-*Tip*
-
-The default distribution has a co-mingled `${jetty.home}` and
-`${jetty.base}`. Where the directories for `${jetty.home}` and
-`${jetty.base}` point to the same location.
-
-It is highly encouraged that you learn about the differences in
-link:#startup-base-and-home[Jetty Base vs Jetty Home] and take full
-advantage of this setup.
-________________________________________________________________________________________________________________________________________________________________________
+____
+[TIP]
+The default distribution has a co-mingled `${jetty.home}` and `${jetty.base}`. Where the directories for `${jetty.home}` and `${jetty.base}` point to the same location.
++
+It is highly encouraged that you learn about the differences in link:#startup-base-and-home[Jetty Base vs Jetty Home] and take full advantage of this setup.
+____
 
 When you want enable a module, you can use the `--module=<modulename>`
 syntax on the command line (or start.ini) to enable that module and all

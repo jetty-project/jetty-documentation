@@ -68,11 +68,10 @@ Within the standard jetty distribution there is the `demo-base` directory, which
 
 You can see this demo server by pointing a browser at link:http://localhost:8080[], will now show a welcome page and several demo/test web applications.
 
-___________________________________________________________________________________________________________________
-*Warning*
-
+____
+[WARNING]
 The demonstration web applications are not necessarily secure and should not be deployed in production web servers.
-___________________________________________________________________________________________________________________
+____
 
 You can see the configuration of the demo-base by using the following commands:
 
@@ -150,17 +149,16 @@ You can configure Jetty to run on a different port by setting the `jetty.http.po
 Alternatively, property values can be added to the effective command line built from either the `start.ini` file or `start.d/http.ini` files. 
 By default, the jetty distribution defines the jetty.http.port property in the `start.d/http.ini` file, which may be edited to set another value.
 
-______________________________________________________________________________________________________________________________________________________
-*Note*
-
+____
+[NOTE]
 The configuration by properties works via the following chain:
-
++
 * The start.d/http.ini file is part of the effective command line and contains the --module=http argument which activates the http module.
 * The modules/http.mod file defines the http module which specifies the etc/jetty-http.xml configuration file and the template ini properties it uses.
 * The jetty.http.port property is used by the Property XML element in etc/jetty.http.xml to inject the ServerConnector instance with the port.
-
++
 For more information see the link:#quickstart-config[Quickstart Configuration Guide] and link:#configuring-connectors[Configuring Connectors].
-______________________________________________________________________________________________________________________________________________________
+____
 
 [[quickstart-starting-https]]
 ==== Adding SSL for HTTPS & HTTP2
@@ -184,11 +182,10 @@ The --add-to-startd command sets up the effective command line in the ini files 
 * creates `start.d/http2.ini` that configures the HTTP/2 protocol on the SSL connector by adding `etc/jetty-http2.xml` to the effective command line.
 * checks for the existence of a `etc/keystore` file and if not present, downloads a demonstration keystore file.
 
-___________________________________________________________________________________________________________________________________________________________________________________________________________________________
-*Note*
-
+____
+[NOTE]
 If a single start.ini file is preferred over individual `start.d/*.ini` files, then the option --add-to-start=module may be used to append the module activation to the start.ini file rather than create a file in start.d
-___________________________________________________________________________________________________________________________________________________________________________________________________________________________
+____
 
 [[quickstart-changing-https-port]]
 ===== Changing the Jetty HTTPS Port

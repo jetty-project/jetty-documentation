@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.eclipse.jetty</groupId>
   <artifactId>jetty-documentation</artifactId>
@@ -143,6 +143,9 @@
     </plugins>
   </build>
   <profiles>
+    <!--
+      Couple of different approaches to generating pdf's
+    -->
     <profile>
       <id>generate-pdf</id>
       <build>
@@ -173,6 +176,48 @@
                 <scope>runtime</scope>
               </dependency>
             </dependencies>
+          </plugin>
+          <plugin>
+            <groupId>org.asciidoctor</groupId>
+            <artifactId>asciidoctor-maven-plugin</artifactId>
+            <version>${asciidoctor.version}</version>
+            <dependencies>
+              <dependency>
+                <groupId>org.asciidoctor</groupId>
+                <artifactId>asciidoctorj-pdf</artifactId>
+                <version>1.5.0-alpha.11</version>
+              </dependency>
+            </dependencies>
+              <execution>
+                <id>output-pdf</id>
+                <phase>generate-sources</phase>
+                <goals>
+                  <goal>process-asciidoc</goal>
+                </goals>
+                <configuration>
+                  <backend>pdf</backend>
+                  <sourceHighlighter>rouge</sourceHighlighter>
+                  <sourceDocumentName>index.adoc</sourceDocumentName>
+                  <attributes>
+                    <imagesdir></imagesdir>
+                    <version>${project.version}</version>
+                    <linkcss>true</linkcss>
+                    <allow-uri-read>true</allow-uri-read>
+                    <toc>true</toc>
+                    <revnumber>${project.version}</revnumber>
+                    <JDURL>http://download.eclipse.org/jetty/stable-9/apidocs</JDURL>
+                    <JXURL>http://download.eclipse.org/jetty/stable-9/xref</JXURL>
+                    <SRCDIR>${basedir}/../jetty.project/</SRCDIR>
+                    <GITBROWSEURL>https://github.com/eclipse/jetty.project/master</GITBROWSEURL>
+                    <icons>font</icons>
+                    <pagenums/>
+                    <toc/>
+                    <idprefix/>
+                    <idseparator>-</idseparator>
+                  </attributes>
+                </configuration>
+              </execution>
+            </executions>
           </plugin>
         </plugins>
       </build>

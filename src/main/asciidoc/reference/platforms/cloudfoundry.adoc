@@ -45,10 +45,8 @@ To show how incredibly easy it is to use the Jetty buildpack with cloudfoundry, 
 Refer to the CloudFoundry http://docs.cloudfoundry.com/[documentation] to get started, get the `cf` utilities installed and an environment configured.
 
 ....
-
 $ cf push snifftest --buildpack=git://github.com/jmcc0nn3ll/jetty-buildpack.git
 
-    
 ....
 
 ____
@@ -101,7 +99,7 @@ Once answered you will see the installation process of your application.
 
 Uploading snifftest... OK
 Starting snifftest... OK
------> Downloaded app package (4.0K)
+-> Downloaded app package (4.0K)
 Initialized empty Git repository in /tmp/buildpacks/jetty-buildpack.git/.git/
 Installing jetty-buildpack.git.
 Downloading JDK...
@@ -110,8 +108,8 @@ Unpacking JDK to .jdk
 Downloading Jetty: jetty-distribution-@project.version@.tar.gz
 Downloading jetty-distribution-@project.version@.tar.gz from http://repo2.maven.org/maven2/org/eclipse/jetty/jetty-distribution/9.0.3.v20130506/ ...
 Unpacking Jetty to .jetty
------> Uploading staged droplet (36M)
------> Uploaded droplet
+-> Uploading staged droplet (36M)
+-> Uploaded droplet
 Checking snifftest...
 Staging in progress...
 Staging in progress...
@@ -126,13 +124,12 @@ Staging in progress...
   1/1 instances: 1 running
 OK
 
-      
 ----
 
 The application is now available at the configured location! Under the url `http://snifftest.a1-app.cf-app.com/` in this particular example.
 
 [[cloudfoundry-acknowledgements]]
-== Acknowledgements
+==== Acknowledgements
 
 The Jetty buildpack was forked from the CloudFoundry Java buildpack. The Virgo Buildpack that Glyn worked on was used as a sanity check.
 
@@ -140,3 +137,4 @@ The Jetty buildpack was forked from the CloudFoundry Java buildpack. The Virgo B
 * http://github.com/glyn/virgo-buildpack
 
 CloudFoundry buildpacks were modelled on Heroku buildpacks.
+

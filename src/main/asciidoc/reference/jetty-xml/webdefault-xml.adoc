@@ -15,35 +15,26 @@
 //  ========================================================================
 
 [[webdefault-xml]]
-= `webdefault.xml`
+=== `webdefault.xml`
 
-The `webdefault.xml` file saves web applications from having to define a
-lot of house-keeping and container-specific elements in their own
-`web.xml` files. For example, you can use it to set up mime-type
-mappings and JSP servlet-mappings. Jetty applies `webdefault.xml` to a
-web application _before_ the application's own `WEB-INF/web.xml`, which
-means that it cannot override values inside the webapp's `web.xml`. It
-uses the link:#jetty-xml-config[???] syntax. Generally, it is convenient
-for all webapps in a Jetty instance to share the same `webdefault.xml`
-file. However, it is certainly possible to provide differentiated
-` webdefault.xml` files for individual web applications.
+The `webdefault.xml` file saves web applications from having to define a lot of house-keeping and container-specific elements in their own `web.xml` files.
+For example, you can use it to set up mime-type mappings and JSP servlet-mappings.
+Jetty applies `webdefault.xml` to a web application _before_ the application's own `WEB-INF/web.xml`, which means that it cannot override values inside the webapp's `web.xml`.
+It uses the xref:jetty-xml-config[] syntax.
+Generally, it is convenient for all webapps in a Jetty instance to share the same `webdefault.xml` file.
+However, it is certainly possible to provide differentiated ` webdefault.xml` files for individual web applications.
 
-The `webdefault.xml` file is located in `
-  $(jetty.home)/etc/webdefault.xml`.
+The `webdefault.xml` file is located in `$(jetty.home)/etc/webdefault.xml`.
 
 [[using-webdefault-xml]]
-== Using `webdefault.xml`
+==== Using `webdefault.xml`
 
-You can specify a custom configuration file to use for specific webapps,
-or for all webapps. If you do not specify an alternate defaults
-descriptor, the $JETTY-HOME/etc/jetty-deploy.xml file will configure
-jetty to automatically use $JETTY_HOME/etc/`webdefault.xml`.
+You can specify a custom configuration file to use for specific webapps, or for all webapps. If you do not specify an alternate defaults descriptor, the $JETTY-HOME/etc/jetty-deploy.xml file will configure jetty to automatically use $JETTY_HOME/etc/`webdefault.xml`.
 
 [[creating-custom-webdefault-xml-one-webapp]]
-=== Creating a Custom `webdefault.xml` for One WebApp
+===== Creating a Custom `webdefault.xml` for One WebApp
 
-You can specify a custom `webdefault.xml` for an individual web
-application in that webapp's link:#jetty-xml-config[???] as follows:
+You can specify a custom `webdefault.xml` for an individual web application in that webapp's xref:jetty-xml-config[] as follows:
 
 [source,xml]
 ----
@@ -76,15 +67,12 @@ import org.eclipse.jetty.webapp.WebAppContext;
         
 ----
 
-Alternatively, you can use a link:#jetty-classloading[???] to find the
-resource representing your custom `webdefault.xml`.
+Alternatively, you can use a xref:jetty-classloading[] to find the resource representing your custom `webdefault.xml`.
 
 [[creating-custom-webdefault-xml-multiple-webapps]]
-=== Creating a Custom `webdefault.xml` for Multiple WebApps
+===== Creating a Custom `webdefault.xml` for Multiple WebApps
 
-If you want to apply the same custom `webdefault.xml` to a number of
-webapps, provide the path to the file in link:#jetty-xml-config[???] in
-the $JETTY_HOME/etc/jetty-deploy.xml file:
+If you want to apply the same custom `webdefault.xml` to a number of webapps, provide the path to the file in xref:jetty-xml-config[] in the $JETTY_HOME/etc/jetty-deploy.xml file:
 
 [source,xml]
 ----
@@ -92,11 +80,9 @@ the $JETTY_HOME/etc/jetty-deploy.xml file:
 ----
 
 [[webdefault-xml-using-jetty-maven-plugin]]
-=== Using the Jetty Maven Plugin
+===== Using the Jetty Maven Plugin
 
-Similarly, when using the link:#jetty-maven-plugin[Jetty Maven Plugin]
-you provide a customized `webdefault.xml` file for your webapp as
-follows:
+Similarly, when using the link:#jetty-maven-plugin[Jetty Maven Plugin] you provide a customized `webdefault.xml` file for your webapp as follows:
 
 [source,xml]
 ----
@@ -123,9 +109,8 @@ follows:
 ----
 
 [[webdefault-xml-additional-resources]]
-=== Additional Resources
+===== Additional Resources
 
-* link:#jetty-web-xml-config[???] –Reference for `web.xml` files
-* link:#override-web-xml[???] –Information for this `web.xml` -formatted
-file, applied after the webapp's `web.xml` webapp.
-* link:#jetty-xml-config[???] –Reference for `jetty.xml` files
+* xref:jetty-web-xml-config[] –Reference for `web.xml` files
+* xref:override-web-xml[] –Information for this `web.xml` -formatted file, applied after the webapp's `web.xml` webapp.
+* xref:jetty-xml-config[] –Reference for `jetty.xml` files

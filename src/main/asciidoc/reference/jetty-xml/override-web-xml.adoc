@@ -15,31 +15,20 @@
 //  ========================================================================
 
 [[override-web-xml]]
-= Jetty `override-web.xml`
+=== Jetty `override-web.xml`
 
-To deploy a web application or WAR into different environments, most
-likely you will need to customize the webapp for compatibility with each
-environment. The challenge is to do so without changing the webapp
-itself. You can use a `jetty.xml` file for some of this work since it is
-not part of the webapp. But there are some changes that `jetty.xml`
-cannot accomplish, for example, modifications to servlet init-params and
-context init-params. Using `webdefault.xml` is not an option because
-Jetty applies ` webdefault.xml` to a web application _before_ the
-application's own `
-  WEB-INF/web.xml`, which means that it cannot override values inside
-the webapp's ` web.xml`.
+To deploy a web application or WAR into different environments, most likely you will need to customize the webapp for compatibility with each environment.
+The challenge is to do so without changing the webapp itself. You can use a `jetty.xml` file for some of this work since it is not part of the webapp.
+But there are some changes that `jetty.xml` cannot accomplish, for example, modifications to servlet init-params and context init-params.
+Using `webdefault.xml` is not an option because Jetty applies `webdefault.xml` to a web application _before_ the application's own `WEB-INF/web.xml`, which means that it cannot override values inside the webapp's ` web.xml`.
 
-The solution is `override-web.xml`. It is a `web.xml` file that Jetty
-applies to a web application _after_ the application's own
-`WEB-INF/web.xml`, which means that it can override values or add new
-elements. You define it per-webapp, using the
-link:#jetty-xml-syntax[???].
+The solution is `override-web.xml`. It is a `web.xml` file that Jetty applies to a web application _after_ the application's own `WEB-INF/web.xml`, which means that it can override values or add new elements.
+You define it per-webapp, using the xref:jetty-xml-syntax[].
 
 [[using-override-web-xml]]
-== Using `override-web.xml`
+==== Using `override-web.xml`
 
-You can specify the `override-web.xml` to use for an individual web
-application, in that webapp's link:#jetty-web-xml-config[???].
+You can specify the `override-web.xml` to use for an individual web application, in that webapp's xref:jetty-web-xml-config[].
 
 [source,xml]
 ----
@@ -73,11 +62,10 @@ import org.eclipse.jetty.webapp.WebAppContext;
       
 ----
 
-Alternatively, use the classloader (link:#jetty-classloading[???]) to
-get the path to the override descriptor as a resource.
+Alternatively, use the classloader (xref:jetty-classloading[]) to get the path to the override descriptor as a resource.
 
 [[override-using-jetty-maven-plugin]]
-== Using the Jetty Maven Plugin
+==== Using the Jetty Maven Plugin
 
 Use the `<overrideDescriptor>` tag as follows:
 
@@ -106,8 +94,7 @@ Use the `<overrideDescriptor>` tag as follows:
 ----
 
 [[override-web-xml-additional-resources]]
-== Additional Resources
+==== Additional Resources
 
-* link:#webdefault-xml[???] –Information for this `web.xml` -formatted
-file, applied before the webapp's `web.xml` webapp.
-* link:#jetty-xml-config[???] –Reference for `jetty.xml` files
+* xref:webdefault-xml[] –Information for this `web.xml` -formatted file, applied before the webapp's `web.xml` webapp.
+* xref:jetty-xml-config[] –Reference for `jetty.xml` files

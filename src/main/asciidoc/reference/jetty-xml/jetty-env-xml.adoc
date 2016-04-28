@@ -15,25 +15,18 @@
 //  ========================================================================
 
 [[jetty-env-xml]]
-= `jetty-env.xml`
+=== `jetty-env.xml`
 
-`jetty-env.xml` is an optional Jetty file that configures JNDI resources
-for an individual webapp. The format of `jetty-env.xml` is the same as
-link:#jetty-xml-config[???] –it is an XML mapping of the Jetty API.
+`jetty-env.xml` is an optional Jetty file that configures JNDI resources for an individual webapp.
+The format of `jetty-env.xml` is the same as xref:jetty-xml-config[] –it is an XML mapping of the Jetty API.
 
-When Jetty deploys a web application, it automatically looks for a file
-called ` WEB-INF/jetty-env.xml` within the web application (or WAR), and
-sets up the webapp naming environment so that naming references in the
-`WEB-INF/web.xml` file can be resolved from the information provided in
-the `WEB-INF/jetty-env.xml` and link:#jetty-xml-config[???] files. You
-define global naming resources on the server via `jetty.xml`.
+When Jetty deploys a web application, it automatically looks for a file called ` WEB-INF/jetty-env.xml` within the web application (or WAR), and sets up the webapp naming environment so that naming references in the `WEB-INF/web.xml` file can be resolved from the information provided in the `WEB-INF/jetty-env.xml` and xref:jetty-xml-config[] files.
+You define global naming resources on the server via `jetty.xml`.
 
 [[jetty-env-root-element]]
-== `jetty-env.xml` Root Element
+==== `jetty-env.xml` Root Element
 
-Jetty applies `jetty-env.xml` on a per-webapp basis, and configures an
-instance of `
-    org.eclipse.jetty.webapp.WebAppContext.`
+Jetty applies `jetty-env.xml` on a per-webapp basis, and configures an instance of `org.eclipse.jetty.webapp.WebAppContext.`
 
 [source,xml]
 ----
@@ -48,16 +41,13 @@ instance of `
       
 ----
 
-________________________________________________________________________________________________________________________________________________________________________
-*Caution*
-
-Make sure you are applying the configuration to an instance of the
-proper class. `jetty-env.xml` configures an instance of WebAppContext,
-and not an instance of Server.
-________________________________________________________________________________________________________________________________________________________________________
+____
+[CAUTION]
+Make sure you are applying the configuration to an instance of the proper class. `jetty-env.xml` configures an instance of WebAppContext, and not an instance of Server.
+____
 
 [[using-jetty-env-xml]]
-== Using `jetty-env.xml`
+==== Using `jetty-env.xml`
 
 Place the `jetty-env.xml` file in your web application's WEB-INF folder.
 
@@ -101,9 +91,7 @@ Place the `jetty-env.xml` file in your web application's WEB-INF folder.
 ----
 
 [[additional-jetty-env-xml-resources]]
-== Additional `jetty-env.xml` Resources
+==== Additional `jetty-env.xml` Resources
 
-* link:#jetty-xml-syntax[???] –In-depth reference for Jetty-specific
-configuration XML syntax.
-* link:#jetty-xml-config[???] –Configuration file for configuring the
-entire server.
+* xref:jetty-xml-syntax[] –In-depth reference for Jetty-specific configuration XML syntax.
+* xref:jetty-xml-config[] –Configuration file for configuring the entire server.

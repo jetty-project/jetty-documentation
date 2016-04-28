@@ -16,3 +16,11 @@
 
 [[reference-section]]
 == Reference Section
+
+include::jetty-xml-syntax.adoc[]
+include::jetty-xml-usage.adoc[]
+include::jetty-xml-config.adoc[]
+include::jetty-web-xml-config.adoc[]
+include::jetty-env-xml.adoc[]
+include::webdefault-xml.adoc[]
+include::override-web-xml.adoc[]

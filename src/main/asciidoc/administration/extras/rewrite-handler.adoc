@@ -24,8 +24,7 @@ The RewriteHandler matches a request against a set of rules, and modifies the re
 
 * Classname: org.eclipse.jetty.rewrite.handler.RewriteHandler
 * Maven artifact: org.eclipse.jetty:jetty-rewrite
-* Javadoc:
-link:???[{JDURL}/org/eclipse/jetty/rewrite/handler/RewriteHandler.html]
+* Javadoc: {JDURL}/org/eclipse/jetty/rewrite/handler/RewriteHandler.html
 * Xref: {JXURL}/org/eclipse/jetty/rewrite/handler/RewriteHandler.html
 
 The standard Jetty distribution bundle contains the `jetty-rewrite` link:#startup-modules[module], so all you need to do is to enable it using one of the link:#start-jar[module commands], eg:

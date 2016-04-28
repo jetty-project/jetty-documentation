@@ -560,8 +560,7 @@ com.acme.Environment.setPort( server.getPort() );
 ==== <Arg>
 
 An Arg element can be an argument of either a method or a constructor.
-Use it within link:#jetty-syntax-call[???] and
-link:#jetty-syntax-new[???].
+Use it within xref:jetty-syntax-call[] and xref:jetty-syntax-new[].
 
 It can contain text and/or elements, such as Call, New, SystemProperty,
 etc., as values. The optional type attribute can force the type of the

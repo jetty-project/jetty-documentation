@@ -203,7 +203,7 @@ logging::
   enabled. This module will enable the basic STDOUT and STDERR capture
   logging to the `/opt/web/mybase/logs/` directory.
 
-See link:#???[Using start.jar] for more details and options on setting
+See xref:start-jar[] for more details and options on setting
 up and configuring a `${jetty.base}` directory.
 
 Copy your war file into place.

@@ -25,7 +25,7 @@ How to build NPN
 
 The Jetty project provides an implementation of the Transport Layer
 Security (TLS) extension for Next Protocol Negotiation (NPN) for OpenJDK
-7 (but not for OpenJDK 8 or greater - see link:#alpn-chapter[???] for
+7 (but not for OpenJDK 8 or greater - see xref:alpn-chapter[] for
 using a TLS protocol negotiation extension with OpenJDK 8 or greater).
 NPN allows the application layer to negotiate which protocol to use over
 the secure connection.

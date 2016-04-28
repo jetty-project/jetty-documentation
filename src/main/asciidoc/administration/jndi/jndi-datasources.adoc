@@ -20,12 +20,10 @@
 Here are examples of configuring a JNDI datasource for various
 databases.
 
-____________________________________________________________________________________________________________________________
-*Note*
-
-Read link:#configuring-datasources[???] in link:#jndi-configuration[???]
-for more information about configuring datasources.
-____________________________________________________________________________________________________________________________
+____
+[NOTE]
+Read xref:configuring-datasources[] in xref:jndi-configuration[] for more information about configuring datasources.
+____
 
 All of these examples correspond to a `resource-ref` in `web.xml`.
 
@@ -48,13 +46,10 @@ all JNDI resources in a `jetty.xml` file or in a `
   WEB-INF/jetty-env.xml` file, or a context XML file. See the section
 xref:jndi-where-to-declare[] for more information.
 
-_______________________________________________________________________________________________________________________________________________________________
-*Important*
-
-You must provide Jetty with the libraries necessary to instantiate the
-datasource you have configured by putting the corresponding Jar in
-`JETTY_HOME/lib/ext`.
-_______________________________________________________________________________________________________________________________________________________________
+____
+[IMPORTANT]
+You must provide Jetty with the libraries necessary to instantiate the datasource you have configured by putting the corresponding Jar in `JETTY_HOME/lib/ext`.
+____
 
 [[pooling-datasources]]
 ==== Pooling DataSources
@@ -190,6 +185,7 @@ Jar].
             <Set name="url">jdbc.url</Set>
             <Set name="username">jdbc.user</Set>
             <Set name="password">jdbc.pass</Set>
+         </New>
          </New>
      </Arg>
     </New>

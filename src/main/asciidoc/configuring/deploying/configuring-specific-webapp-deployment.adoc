@@ -157,7 +157,7 @@ open a packed WAR file.
 ----
 
 The next example configures not only the web application context, but
-also a database connection pool (see link:#jndi-datasource-examples[???]
+also a database connection pool (see xref:jndi-datasource-examples[]
 that our application can then use. If the ` web.xml` does not include a
 reference to this data source, you can use the override descriptor
 mechanism (the previous example), to include it.

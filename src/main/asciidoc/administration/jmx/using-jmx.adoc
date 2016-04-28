@@ -53,7 +53,7 @@ To monitor an application using JMX, perform the following steps:
 ===== Using JConsole to Access Jetty MBeans
 
 The simplest way to access the MBeans that Jetty publishes is to use the http://java.sun.com/developer/technicalArticles/J2SE/jconsole.html[JConsole utility] the Java Virtual Machine supplies. 
-See link:#jetty-jconsole[???] for instructions on how to configure JVM for use with JConsole.
+See xref:jetty-jconsole[] for instructions on how to configure JVM for use with JConsole.
 
 To access Jetty MBeans via JConsole, you must:
 

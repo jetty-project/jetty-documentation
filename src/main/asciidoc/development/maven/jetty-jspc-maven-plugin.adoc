@@ -114,7 +114,7 @@ jspc::
   +
   The JspC class actually performs the pre-compilation.
   All setters on the JspC class are available.
-  You can http://central.maven.org/maven2/org/glassfish/web/javax.servlet.jsp/2.3.2/javax.servlet.jsp-2.3.2-javadoc.jar[download] the link:#???[javadoc] http://central.maven.org/maven2/org/glassfish/web/javax.servlet.jsp/2.3.2/javax.servlet.jsp-2.3.2-javadoc.jar[here].
+  You can http://central.maven.org/maven2/org/glassfish/web/javax.servlet.jsp/2.3.2/javax.servlet.jsp-2.3.2-javadoc.jar[download] the javadoc from http://central.maven.org/maven2/org/glassfish/web/javax.servlet.jsp/2.3.2/javax.servlet.jsp-2.3.2-javadoc.jar[here].
 
 Taking all the default settings, here's how to configure the war plugin to use the generated web.xml that includes all of the jsp servlet declarations:
 

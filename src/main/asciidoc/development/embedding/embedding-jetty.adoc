@@ -205,7 +205,7 @@ include::{SRCDIR}/examples/embedded/src/main/java/org/eclipse/jetty/embedded/Man
 ==== Embedding ServletContexts
 
 A link:{JXURL}/org/eclipse/jetty/servlet/ServletContextHandler.html[ServletContextHandler] is a specialization of ContextHandler with support for standard sessions and Servlets.
-The following link:{JXURL}/org/eclipse/jetty/embedded/OneServletContext.html[OneServletContext example] instantiates a link:{JXURL}/org/eclipse/jetty/servlet/DefaultServlet.html[DefaultServlet] to server static content from /tmp/ and a link:???[DumpServlet] that creates a session and dumps basic details about the request:
+The following link:{JXURL}/org/eclipse/jetty/embedded/OneServletContext.html[OneServletContext example] instantiates a link:{JXURL}/org/eclipse/jetty/servlet/DefaultServlet.html[DefaultServlet] to server static content from /tmp/ and a `DumpServlet` that creates a session and dumps basic details about the request:
 
 [source,java]
 ----

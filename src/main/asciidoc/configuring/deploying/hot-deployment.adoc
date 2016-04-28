@@ -72,7 +72,7 @@ The default location for this configuration is in the
 </Configure>
 ----
 
-See link:#default-web-app-provider[???] for more configuration details.
+See xref:default-web-app-provider[] for more configuration details.
 
-See also link:#deployment-architecture[???] for detailed conceptual
+See also xref:deployment-architecture[] for detailed conceptual
 information.

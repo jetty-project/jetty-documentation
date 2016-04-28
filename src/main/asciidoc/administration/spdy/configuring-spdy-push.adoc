@@ -155,16 +155,12 @@ ________________________________________________________________________________
             
 ----
 
-See the javadocs for
-link:{JDURL}/org/eclipse/jetty/spdy/server/http/ReferrerPushStrategy.html[ReferrerPushStrategy]
-and sources for further details if needed.
+See the javadocs for link:{JDURL}/org/eclipse/jetty/spdy/server/http/ReferrerPushStrategy.html[ReferrerPushStrategy] and sources for further details if needed.
 
-_____________________________________________________________________________________________________________________
-*Note*
-
-*Visit https://www.webtide.com with a browser that supports push (e.g. a
-recent chrome browser) to see it in action.*
-_____________________________________________________________________________________________________________________
+____
+[NOTE]
+*Visit https://www.webtide.com with a browser that supports push (e.g. a recent chrome browser) to see it in action.*
+____
 
 == Try it!
 
@@ -182,4 +178,4 @@ image:images/chrome_net_internals.png[image]
 
 Another option is to enable debug logging for ReferrerPushStrategy or
 org.eclipse.jetty.spdy. Have a look at the
-link:#configuring-logging[???] for details.
+xref:configuring-logging[] for details.

@@ -68,7 +68,7 @@ __________________________________________________________
 
 The above example uses a configuration file suitable for the
 link:{JDURL}/org/eclipse/jetty/deploy/providers/ContextProvider.html[ContextProvider],
-thus you might want to check out link:#using-context-provider[???].
+thus you might want to check out xref:using-context-provider[].
 
 [[delaying-session-load]]
 ==== Delaying Session Load

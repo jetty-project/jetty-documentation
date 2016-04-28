@@ -111,7 +111,7 @@ The
 link:{JDURL}/org/eclipse/jetty/deploy/providers/WebAppProvider.html[WebAppProvider]
 is for the deployment of Web Applications packaged as WAR files,
 expanded as a directory, or declared in a
-link:#deployable-descriptor-file[???]. It supports hot (re)deployment.
+xref:deployable-descriptor-file[]. It supports hot (re)deployment.
 
 The basic operation of the WebAppProvider is to periodically scan a
 directory for deployables. In the standard Jetty Distribution, this is
@@ -169,7 +169,7 @@ monitoredDirName::
   link:#deployable-descriptor-file[context descriptor deployables]
   7.  In the special case where both a WAR file and XML file exists for
   same base name the XML file is assumed to configure and reference the
-  WAR file (see link:#configuring-specific-webapp-deployment[???]).
+  WAR file (see xref:configuring-specific-webapp-deployment[]).
   Since jetty-9.2.7, if either the WAR file or its corresponding XML
   file changes, the webapp will be redeployed.
   8.  A directory is considered to be deployable

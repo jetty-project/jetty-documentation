@@ -18,7 +18,7 @@
 = Implement a custom SPDY PushStrategy
 
 The ReferrerPushStrategy that is distributed with Jetty
-(link:#spdy-configuring-push[???]) does a great job to automatically
+(xref:spdy-configuring-push[]) does a great job to automatically
 detect subresources to push for a given main resource. However there
 might be reasons to implement your own push strategy.
 

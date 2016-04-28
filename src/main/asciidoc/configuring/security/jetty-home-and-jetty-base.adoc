@@ -31,7 +31,7 @@ This separation:
 * Makes it simple to retain your current configuration when you upgrade
 your Jetty distribution.
 
-For more information, see link:#startup-base-and-home[???].
+For more information, see xref:startup-base-and-home[].
 
 Further, Jetty 9.1 parameterizes all of the standard configuration XMLs.
 For SSL, parameters are now just properties in the `start.ini`, reducing
@@ -46,7 +46,7 @@ feature. Thus you can use a single `--module=name` command line option
 as the equivalent of specifying many `--lib=location, feature.xml,
   name=value` arguments for a feature and all its dependencies. Modules
 use their dependencies to control the ordering of libraries and XML
-files. For more information, see link:#startup-modules[???].
+files. For more information, see xref:startup-modules[].
 
 [[configuring-security-jetty91]]
 ==== Configuring SSL in with modules
@@ -481,8 +481,7 @@ example all of the SSL parameters are now just properties in the
 Finally, you can override anything you see in `${jetty.home}` in
 `${jetty.base}`, even XML configurations and libraries.
 
-For more information on the `start.jar` in 9.1, see
-link:#start-jar[???].
+For more information on the `start.jar` in 9.1, see xref:start-jar[].
 
 [[summary-configuring-SSL-Jetty-91]]
 ==== Summary of Configuring SSL in Jetty 9.1

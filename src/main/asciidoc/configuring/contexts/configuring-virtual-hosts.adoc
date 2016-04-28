@@ -82,7 +82,7 @@ www.√integral.com::
 ==== Example Virtual Host Configuration
 
 Virtual hosts can be used with any context that is a subclass of
-link:#???[link:{JDURL}/org/eclipse/jetty/server/handler/ContextHandler.html[ContextHandler]].
+link:{JDURL}/org/eclipse/jetty/server/handler/ContextHandler.html[ContextHandler].
 Lets look at an example where we configure a web application -
 represented by the
 link:{JDURL}/org/eclipse/jetty/webapp/WebAppContext.html[WebAppContext]

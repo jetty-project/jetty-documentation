@@ -269,7 +269,7 @@ A Context can be any of the following:
 * A standard WAR file. (must in "`.war`").
 * A directory containing an expanded WAR file. (must contain `{dir}/WEB-INF/web.xml` file).
 * A directory containing static content.
-* A XML descriptor in link:#jetty-xml-syntax[???] that configures a link:{JDURL}/org/eclipse/jetty/server/handler/ContextHandler.html[ContextHandler] instance (Such as a
+* A XML descriptor in xref:jetty-xml-syntax[] that configures a link:{JDURL}/org/eclipse/jetty/server/handler/ContextHandler.html[ContextHandler] instance (Such as a
 link:{JDURL}/org/eclipse/jetty/webapp/WebAppContext.html[WebAppContext]).
 
 The new WebAppProvider will attempt to avoid double deployments during the directory scan with the following heuristics:

@@ -15,13 +15,11 @@
 //  ========================================================================
 
 [[jetty-websocket-client-api]]
-= Jetty WebSocket Client API
+=== Jetty WebSocket Client API
 
-Jetty also provides a Jetty WebSocket Client Library to write make
-talking to WebSocket servers easier.
+Jetty also provides a Jetty WebSocket Client Library to write make talking to WebSocket servers easier.
 
-To use the Jetty WebSocket Client on your own Java project you will need
-the following maven artifacts.
+To use the Jetty WebSocket Client on your own Java project you will need the following maven artifacts.
 
 [source,xml]
 ----
@@ -32,27 +30,22 @@ the following maven artifacts.
 </dependency>
 ----
 
-== The WebSocketClient
+==== The WebSocketClient
 
-To use the WebSocketClient you will need to hook up a WebSocket object
-instance to a specific destination WebSocket URI.
+To use the WebSocketClient you will need to hook up a WebSocket object instance to a specific destination WebSocket URI.
 
-[source,rjava]
+[source,java]
 ----
-{SRCDIR}/jetty-websocket/websocket-client/src/test/java/examples/SimpleEchoClient.java
-----
-
-The above example connects to a remote WebSocket server and hands off a
-SimpleEchoSocket to perform the logic on the websocket once connected,
-waiting for the socket to register that it has closed.
-
-[source,rjava]
-----
-{SRCDIR}/jetty-websocket/websocket-client/src/test/java/examples/SimpleEchoSocket.java
+include::{SRCDIR}/jetty-websocket/websocket-client/src/test/java/examples/SimpleEchoClient.java[]
 ----
 
-When the SimpleEchoSocket connects, it sends 2 Text messages and then
-closes the socket.
+The above example connects to a remote WebSocket server and hands off a SimpleEchoSocket to perform the logic on the websocket once connected, waiting for the socket to register that it has closed.
 
-The onMessage(String msg) receives the responses from the remote server
-WebSocket and outputs them to the console.
+[source,java]
+----
+include::{SRCDIR}/jetty-websocket/websocket-client/src/test/java/examples/SimpleEchoSocket.java[]
+----
+
+When the SimpleEchoSocket connects, it sends 2 Text messages and then closes the socket.
+
+The onMessage(String msg) receives the responses from the remote server WebSocket and outputs them to the console.

@@ -15,17 +15,14 @@
 //  ========================================================================
 
 [[jetty-websocket-api-listener]]
-= Using WebSocketListener
+=== Using WebSocketListener
 
-The basic form of a WebSocket using the
-link:{JDURL}/org/eclipse/jetty/websocket/api/WebSocketListener.html[`org.eclipse.jetty.websocket.api.WebSocketListener`]
-for incoming events.
+The basic form of a WebSocket using the link:{JDURL}/org/eclipse/jetty/websocket/api/WebSocketListener.html[`org.eclipse.jetty.websocket.api.WebSocketListener`] for incoming events.
 
-[source,rjava]
+[source,java]
 ----
-{SRCDIR}/jetty-websocket/websocket-common/src/test/java/examples/echo/ListenerEchoSocket.java
+include::{SRCDIR}/jetty-websocket/websocket-common/src/test/java/examples/echo/ListenerEchoSocket.java[]
 ----
 
-This is by far the most basic and best performing (speed and memory
-wise) WebSocket implementation you can create. If the listener is too
-much work for you, you can instead opt for the WebSocketAdapter
+This is by far the most basic and best performing (speed and memory wise) WebSocket implementation you can create.
+If the listener is too much work for you, you can instead opt for the WebSocketAdapter

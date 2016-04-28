@@ -15,15 +15,13 @@
 //  ========================================================================
 
 [[jetty-websocket-api-adapter]]
-= Using the WebSocketAdapter
+=== Using the WebSocketAdapter
 
-A basic adapter for managing the Session object on the
-WebSocketListener.
+A basic adapter for managing the Session object on the WebSocketListener.
 
-[source,rjava]
+[source,java]
 ----
-{SRCDIR}/jetty-websocket/websocket-common/src/test/java/examples/echo/AdapterEchoSocket.java
+include::{SRCDIR}/jetty-websocket/websocket-common/src/test/java/examples/echo/AdapterEchoSocket.java[]
 ----
 
-This is a convenience class to make using the WebSocketListener easier,
-and provides some useful methods to check the state of the Session.
+This is a convenience class to make using the WebSocketListener easier, and provides some useful methods to check the state of the Session.

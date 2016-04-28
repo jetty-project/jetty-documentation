@@ -17,5 +17,14 @@
 [[websocket-jetty]]
 == Jetty Websocket API
 
-These pages are works in progress that have not been moved to their
-respective sections yet.
+These pages are works in progress that have not been moved to their respective sections yet.
+
+include::jetty-websocket-api.adoc[]
+include::jetty-websocket-api-events.adoc[]
+include::jetty-websocket-api-session.adoc[]
+include::jetty-websocket-api-send-message.adoc[]
+include::jetty-websocket-api-annotations.adoc[]
+include::jetty-websocket-api-listener.adoc[]
+include::jetty-websocket-api-adapter.adoc[]
+include::jetty-websocket-server-api.adoc[]
+include::jetty-websocket-client-api.adoc[]

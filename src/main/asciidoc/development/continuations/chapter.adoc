@@ -16,3 +16,7 @@
 
 [[continuations]]
 == Continuations
+
+include::continuations-intro.adoc[]
+include::continuations-using.adoc[]
+include::continuations-patterns.adoc[]

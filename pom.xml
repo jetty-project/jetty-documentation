@@ -54,6 +54,7 @@
               <doctype>book</doctype>
               <sourceDocumentName>index.adoc</sourceDocumentName>
               <attributes>
+                <imagesdir></imagesdir>
                 <version>${project.version}</version>
                 <linkcss>true</linkcss>
                 <allow-uri-read>true</allow-uri-read>

@@ -1,6 +1,7 @@
-Jetty Documentation Hub
+*********************
+* WARNING
+*********************
 
-This github repository contains the source for the jetty 9 documentation hub.  Feel free to fork it and contribute to the corpus of documentation surrounding the jetty project.
+The content in this repository has been moved to eclipse/jetty.project
 
-All documentation contained herein is licensed EPLv1.0 and contributions will be assumed to be accepted under the same licensing constraints.  See TERMS for more information.
-
+If you would like to contribute please do so as a pull request to that repository!

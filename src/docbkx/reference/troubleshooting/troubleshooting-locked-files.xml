@@ -59,7 +59,7 @@
    &lt;param-name&gt;useFileMappedBuffer&lt;/param-name&gt;
    &lt;param-value&gt;true&lt;/param-value&gt; &lt;!-- change to false --&gt;
  &lt;/init-param&gt;
- 
+
     </programlisting>
     </informalexample>
 
@@ -123,7 +123,38 @@
    &lt;/servlet&gt;
  ...
  &lt;/web-app&gt;
- 
+
+    </programlisting>
+  </section>
+
+  <section>
+    <title>Remedy when using ResourceHandler</title>
+
+    <para>When using a <classname>ResourceHandler</classname> to serve static
+    content, the use of memory mapped buffers can be disabled using the
+    method <link
+    xl:href="@JDURL@/org/eclipse/jetty/server/handler/ResourceHandler.html#setMinMemoryMappedContentLength(int)">
+    <code>setMinMemoryMappedContentLength(-1)</code></link>.
+
+    As per the Javadoc, passing a value of <code>-1</code> to this method
+    indicates that no memory mapped buffers shall be used by this
+    <classname>ResourceHandler</classname> instance.</para>
+
+    <para>This solution may be preferable when using Jetty in embedded mode, where
+    editing the <filename>webdefault.xml</filename> for a
+    <classname>WebAppContext</classname> is not appropriate or using a
+    <classname>DefaultServlet</classname> is undesirable.</para>
+
+    <programlisting language="java">
+  Server server = new Server(8080);
+
+  ResourceHandler handler = new ResourceHandler();
+  handler.setMinMemoryMappedContentLength(-1);
+  handler.setResourceBase(&quot;/path/to/static/content&quot;);
+
+  server.setHandler(handler);
+  server.start();
+  server.join();
     </programlisting>
   </section>
 

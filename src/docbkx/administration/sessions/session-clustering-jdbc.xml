@@ -230,9 +230,9 @@ server.setSessionIdManager(idMgr);
               lastSavedTime, expiryTime, maxInterval, map</td>
             </tr>
           </table>To change these values, use the <link
-        xl:href="@JDURL@/org/eclipse/jetty/server/session/SessionIdTableSchema.html">org.eclipse.jetty.server.session.SessionIdTableSchema</link>
+        xl:href="@JDURL@/org/eclipse/jetty/server/session/JDBCSessionIdManager.SessionIdTableSchema.html">org.eclipse.jetty.server.session.JDBCSessionIdManager.SessionIdTableSchema</link>
         and <link
-        xl:href="@JDURL@/org/eclipse/jetty/server/session/SessionTableSchema.html">org.eclipse.jetty.server.session.SessionTableSchema</link>
+        xl:href="@JDURL@/org/eclipse/jetty/server/session/JDBCSessionIdManager.SessionTableSchema.html">org.eclipse.jetty.server.session.JDBCSessionIdManager.SessionTableSchema</link>
         classes. These classes have getter/setter methods for the table name
         and all columns.</para>
 
